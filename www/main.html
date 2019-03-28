@@ -1,0 +1,530 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, viewport-fit=cover">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="default">
+		<meta name="theme-color" content="#e91e63">
+		<meta http-equiv="Content-Security-Policy" content="default-src * 'self' 'unsafe-inline' 'unsafe-eval' data: gap:">
+		<title>BistroUX</title>
+		<link href="https://fonts.googleapis.com/css?family=Libre+Baskerville:400,700%7CMontserrat:400,500,600,700" rel="stylesheet">
+		<link rel="stylesheet" href="css/framework7.md.min.css">
+		<link rel="stylesheet" href="css/icons.css">
+		<link rel="stylesheet" href="css/app.css">
+		<link rel="apple-touch-icon" href="img/f7-icon-square.png">
+		<link rel="icon" href="img/f7-icon.png">
+	</head>
+	<body class="color-theme-pink">
+		<div id="app">
+			<div class="statusbar"></div>
+			
+			
+			
+			
+			<div class="panel panel-right panel-cover panel-menu">
+				<div class="page">
+					<div class="page-content">
+						<div class="page-title padding-left padding-right margin-top display-flex justify-content-space-between">
+							<h2>Filter</h2>
+							<a class="panel-close navbar-site-action" href="#" data-panel="right">
+								<img src="./img/icons/close.png" alt="close" class="close-icon">
+							</a>
+						</div>
+						<div class="block">
+							<div class="from-wrapper">
+								<div class="form-item">
+									<div class="form-item-title">
+										Search by name
+									</div>
+									<div class="form-item-content">
+										<input type="text" placeholder="Search by name">
+										<span class="input-clear-button"></span>
+									</div>
+								</div>
+								
+								<div class="form-item">
+									<div class="form-item-title">
+										Restaurant Category
+									</div>
+									<div class="form-item-content">
+										<input type="text" placeholder="Restaurant Category">
+										<span class="input-clear-button"></span>
+									</div>
+								</div>
+								
+								<div class="form-item">
+									<div class="form-item-title">
+										Restaurant Location
+									</div>
+									<div class="form-item-content">
+										<input type="text" placeholder="Location">
+										<span class="input-clear-button"></span>
+									</div>
+								</div>
+							</div>
+							
+							<a href="#" class="link popup-open custom-btn bg1 mt" data-popup=".popup-booking">Filter</a>
+							
+						</div>
+					</div>
+				</div>
+			</div>
+			
+
+			<div class="view view-main view-init ios-edges" data-url="/">
+				<div class="page no-navbar page-with-toolbar">
+				
+					<div class="toolbar tabbar tabbar-labels toolbar-bottom-md custom-toolbar">
+						<div class="toolbar-inner">
+							<a href="/" class="tab-link tab-link-active">
+								<i class="material-icons">home</i>
+								<span class="tabbar-label">Home</span>
+							</a>
+							<a href="/restaurants/" class="tab-link">
+								<i class="material-icons">restaurant</i>
+								<span class="tabbar-label">Restaurants</span>
+							</a>
+							<a href="/recipes/" class="tab-link">
+								<i class="material-icons">local_dining</i>
+								<span class="tabbar-label">Recipes</span>
+							</a>
+							<a href="/order_food/" class="tab-link">
+								<i class="material-icons">local_pizza</i>
+								<span class="tabbar-label">Foods</span>
+							</a>
+							<a href="/pages/" class="tab-link">
+								<i class="material-icons">pages</i>
+								<span class="tabbar-label">Pages</span>
+							</a>
+						</div>
+					</div>
+				
+				
+				
+					<div class="page-content">
+			
+						<div class="navbrar-site display-flex justify-content-flex-end align-items-center padding-left padding-right mt margin-bottom">
+							<a class="navbar-site-action" href="/checkout/">
+								<img src="./img/icons/basket.png" alt="basket" class="icon-size-20">
+							</a>
+						</div>
+						
+						<div class="page-title padding-left padding-right">
+							<h2>Welcome People</h2>
+						</div>
+						
+						<div class="section intro-section">
+							<div class="section-content">
+								Psst!  What are you eating today ? Find nearby restaurants or order Food or simply cook  something delicious!
+							</div>
+						</div>
+						
+						<div class="section search-section mt">
+							<div class="section-content">
+								<form class="searchbar">
+									<div class="searchbar-input-wrap">
+										<input placeholder="Search" class="" type="search">
+										<i class="searchbar-icon"></i>
+										<span class="input-clear-button"></span>
+									</div>
+								</form>
+							</div>
+						</div>
+						
+						<div class="section list-restaurants mt">
+							<div class="section-title display-flex justify-content-space-between align-items-center">
+								<h3>Nearby Restaurants</h3>
+								<a href="/restaurants/" class="see-all">View all</a>
+							</div>
+							<div class="section-content">
+								<div data-pagination="{&quot;el&quot;: &quot;.swiper-pagination&quot;}" data-space-between="5" data-slides-per-view="1.1" class="swiper-container swiper-init swiper-container-horizontal">
+									<div class="swiper-wrapper">
+										<div class="swiper-slide">
+											
+											<div class="custom-card restaurant-card">
+												<div class="restaurant-card-img">
+													<img src="./img/8.jpg" alt="r1">
+												</div>
+												<div class="restaurant-card-content">
+													<h4>
+														<a href="/restaurant_single/">Lord of the Fries - Melbourne, Australia</a>
+													</h4>
+													<p>
+														pudiandae his ne, per ei etiam mune Ad malis persius pri, ius no labitur no voluptu ersius pri.
+													</p>
+													<div class="user display-flex align-items-center">
+														<img src="./img/user2.jpg" alt="user">
+														<div class="user-infos">
+															<div class="user-name">Zoe Queen</div>
+															<div class="user-info">Chef and Restaurant Director</div>
+														</div>
+													</div>
+												</div>
+												<div class="restaurant-card-footer display-flex justify-content-center">
+													<a href="#" class="like">
+														<img src="./img/icons/heart.png" alt="heart" class="icon-size-20">
+													</a>
+													<a href="#" class="book">
+														<img src="./img/icons/1.png" alt="book" class="icon-size-20">
+													</a>
+													<a href="#" class="favorite">
+														<img src="./img/icons/star.png" alt="star" class="icon-size-20">
+													</a>
+												</div>
+											</div>
+											
+										</div>
+										<!-- -->
+										
+										<div class="swiper-slide">
+											
+											<div class="custom-card restaurant-card">
+												<div class="restaurant-card-img">
+													<img src="./img/10.jpg" alt="r2">
+												</div>
+												<div class="restaurant-card-content">
+													<h4>
+														<a href="/restaurant_single/">Jekyll & Hyde Club - New York, NY</a>
+													</h4>
+													<p>
+														pudiandae his ne, per ei etiam mune Ad malis persius pri, ius no labitur no voluptu ersius pri.
+													</p>
+													<div class="user display-flex align-items-center">
+														<img src="./img/user1.jpg" alt="user2">
+														<div class="user-infos">
+															<div class="user-name">Patrick Blue</div>
+															<div class="user-info">Chef and Restaurant Director</div>
+														</div>
+													</div>
+												</div>
+												<div class="restaurant-card-footer display-flex justify-content-center">
+													<a href="#" class="like">
+														<img src="./img/icons/heart.png" alt="heart" class="icon-size-20">
+													</a>
+													<a href="#" class="book">
+														<img src="./img/icons/1.png" alt="book" class="icon-size-20">
+													</a>
+													<a href="#" class="favorite">
+														<img src="./img/icons/star.png" alt="star" class="icon-size-20">
+													</a>
+												</div>
+											</div>
+											
+										</div>
+										<!-- -->
+										
+										<!-- -->
+										
+										<div class="swiper-slide">
+											
+											<div class="custom-card restaurant-card">
+												<div class="restaurant-card-img">
+													<img src="./img/13.jpg" alt="r3">
+												</div>
+												<div class="restaurant-card-content">
+													<h4>
+														<a href="/restaurant_single/">Thai Tanic - Washington, D.C. District of Columbia</a>
+													</h4>
+													<p>
+														pudiandae his ne, per ei etiam mune Ad malis persius pri, ius no labitur no voluptu ersius pri.
+													</p>
+													<div class="user display-flex align-items-center">
+														<img src="./img/user3.jpg" alt="user3">
+														<div class="user-infos">
+															<div class="user-name">John Green</div>
+															<div class="user-info">Chef and Restaurant Director</div>
+														</div>
+													</div>
+												</div>
+												<div class="restaurant-card-footer display-flex justify-content-center">
+													<a href="#" class="like">
+														<img src="./img/icons/heart.png" alt="heart" class="icon-size-20">
+													</a>
+													<a href="#" class="book">
+														<img src="./img/icons/1.png" alt="book" class="icon-size-20">
+													</a>
+													<a href="#" class="favorite">
+														<img src="./img/icons/star.png" alt="star" class="icon-size-20">
+													</a>
+												</div>
+											</div>
+											
+										</div>
+										<!-- -->
+										
+									</div>
+								</div>
+							</div>
+						</div>
+						
+						<div class="section list-chefs mt">
+							<div class="section-title display-flex justify-content-space-between align-items-center">
+								<h3>Popular Chefs</h3>
+								<a href="/chefs/" class="see-all">View all</a>
+							</div>
+							<div class="section-content">
+							
+								<div data-pagination="{&quot;el&quot;: &quot;.swiper-pagination&quot;}" data-space-between="10" data-slides-per-view="2.15" class="swiper-container swiper-init swiper-container-horizontal">
+									<div class="swiper-wrapper">
+										<div class="swiper-slide">	
+											<div class="chef">
+												<img src="./img/user1.jpg" alt="chef1">
+												<div class="chef-name">Patrick Blue</div>
+												<div class="chef-desc">Chef at Big Taste</div>
+											</div>
+										</div>
+										<div class="swiper-slide">	
+											<div class="chef">
+												<img src="./img/user4.jpg" alt="chef2">
+												<div class="chef-name">Sakura Pink</div>
+												<div class="chef-desc">Chef at Miami</div>
+											</div>
+										</div>
+										<div class="swiper-slide">	
+											<div class="chef">
+												<img src="./img/user3.jpg" alt="chef3">
+												<div class="chef-name">John Green</div>
+												<div class="chef-desc">Chef at Hola Food</div>
+											</div>
+										</div>
+										<div class="swiper-slide">	
+											<div class="chef">
+												<img src="./img/user2.jpg" alt="chef4">
+												<div class="chef-name">Zoe Queen</div>
+												<div class="chef-desc">Chef at welcome</div>
+											</div>
+										</div>
+									</div>
+								</div>
+
+							</div>
+						</div>
+						
+						<div class="section list-categories mt">
+							<div class="section-title display-flex justify-content-space-between align-items-center">
+								<h3>Food Categories</h3>
+								<a href="/foods/" class="see-all">View all</a>
+							</div>
+							<div class="section-content">
+							
+								<div class="row no-gap">
+									<div class="col">
+										<a href="/order_food/">
+										<div class="category bg1">
+											<img src="./img/icons/chicken.png" alt="cat1">
+										</div>
+										</a>
+									</div>
+									<div class="col">
+										<a href="/order_food/">
+										<div class="category bg2">
+											<img src="./img/icons/pizza.png" alt="cat2">
+										</div>
+										</a>
+									</div>
+								</div>
+								
+								<div class="row no-gap">
+									<div class="col">
+										<a href="/order_food/">
+										<div class="category bg3">
+											<img src="./img/icons/humberger.png" alt="cat3">
+										</div>
+										</a>
+									</div>
+									<div class="col">
+										<a href="/order_food/">
+										<div class="category bg4">
+											<img src="./img/icons/fish.png" alt="cat4">
+										</div>
+										</a>
+									</div>
+								</div>
+
+							</div>
+						</div>
+						
+						
+						<div class="section list-trending mt">
+							<div class="section-title display-flex justify-content-space-between align-items-center">
+								<h3>Trending Recipes</h3>
+								<a href="/recipes/" class="see-all">View all</a>
+							</div>
+							<div class="section-content">
+							
+								
+								
+								<div class="trends">
+									<div data-pagination="{&quot;el&quot;: &quot;.swiper-pagination&quot;}" data-space-between="15" data-slides-per-view="1.07" class="swiper-container swiper-init swiper-container-horizontal">
+										<div class="swiper-wrapper">
+											<div class="swiper-slide">
+												<div class="trend">
+												
+													<div class="trend-user display-flex justify-content-space-between align-items-center">
+														<div class="user display-flex align-items-center">
+															<img src="./img/user2.jpg" alt="user">
+															<div class="user-infos">
+																<div class="user-name">Zoe Queen</div>
+																<div class="user-info">Chef and Restaurant Director</div>
+															</div>
+														</div>
+														<div class="rate-badge bg1 display-inline-flex align-items-center">
+															<img src="./img/icons/star2.png" alt="rate">
+															<span>4.6</span>
+														</div>
+													</div>
+												
+													<div class="trend-img">
+														<img src="./img/3.jpg" alt="tr1">
+													</div>
+													<div class="trend-content padding">
+														<h4>
+															<a href="/recipe_single/">Waffles beside bowls of  banana, and black berries</a>
+														</h4>
+														<a href="/recipe_single/" class="read-more">Read more</a>
+													</div>
+													
+												</div>
+											</div>
+											<!-- -->
+											<div class="swiper-slide">
+												<div class="trend">
+												
+													<div class="trend-user display-flex justify-content-space-between align-items-center">
+														<div class="user display-flex align-items-center">
+															<img src="./img/user1.jpg" alt="user2">
+															<div class="user-infos">
+																<div class="user-name">Patrick Blue</div>
+																<div class="user-info">Chef and Restaurant Director</div>
+															</div>
+														</div>
+														<div class="rate-badge bg1 display-inline-flex align-items-center">
+															<img src="./img/icons/star2.png" alt="rate">
+															<span>4.6</span>
+														</div>
+													</div>
+												
+													<div class="trend-img">
+														<img src="./img/7.jpg" alt="tr2">
+													</div>
+													<div class="trend-content padding">
+														<h4>
+															<a href="/recipe_single/">Buttered muscles served on black plate</a>
+														</h4>
+														<a href="/recipe_single/" class="read-more">Read more</a>
+													</div>
+												</div>
+											</div>
+											<!-- -->
+											
+											<!-- -->
+											<div class="swiper-slide">
+												<div class="trend">
+												
+													<div class="trend-user display-flex justify-content-space-between align-items-center">
+														<div class="user display-flex align-items-center">
+															<img src="./img/user3.jpg" alt="user3">
+															<div class="user-infos">
+																<div class="user-name">John Green</div>
+																<div class="user-info">Chef and Restaurant Director</div>
+															</div>
+														</div>
+														<div class="rate-badge bg1 display-inline-flex align-items-center">
+															<img src="./img/icons/star2.png" alt="rate">
+															<span>4.6</span>
+														</div>
+													</div>
+												
+													<div class="trend-img">
+														<img src="./img/11.jpg" alt="tr2">
+													</div>
+													<div class="trend-content padding">
+														<h4>
+															<a href="/recipe_single/">Buttered muscles served on black plate</a>
+														</h4>
+														<a href="/recipe_single/" class="read-more">Read more</a>
+													</div>
+												</div>
+											</div>
+											<!-- -->
+											
+										</div>
+									</div>
+								</div>
+
+							</div>
+						</div>
+						
+						<div class="section mt">
+							<div class="section-title display-flex justify-content-space-between align-items-center">
+								<h3>Order Food</h3>
+								<a href="/order_food/" class="see-all">View all</a>
+							</div>
+							<div class="section-content">
+								<div class="food-list display-flex">
+									<div class="food-img">
+										<img src="./img/1.jpg" alt="f1">
+									</div>
+									<div class="food-list-content">
+										<div class="food-name"><a href="/food_single/">Smoothie Citrus Juis</a></div>
+										<div class="food-price">$5 USD</div>
+										<div class="order-now bg1"><a href="/food_single/">order now</a></div>
+									</div>
+								</div>
+								
+								<div class="food-list display-flex">
+									<div class="food-img">
+										<img src="./img/4.jpg" alt="f2">
+									</div>
+									<div class="food-list-content">
+										<div class="food-name"><a href="/food_single/">Green fruits</a></div>
+										<div class="food-price">$10 USD</div>
+										<div class="order-now bg1"><a href="/food_single/">order now</a></div>
+									</div>
+								</div>
+								
+								<div class="food-list display-flex">
+									<div class="food-img">
+										<img src="./img/12.jpg" alt="f3">
+									</div>
+									<div class="food-list-content">
+										<div class="food-name"><a href="/food_single/">Sauces topped</a></div>
+										<div class="food-price">$8 USD</div>
+										<div class="order-now bg1"><a href="/food_single/">order now</a></div>
+									</div>
+								</div>
+								
+								<div class="food-list display-flex">
+									<div class="food-img">
+										<img src="./img/7.jpg" alt="f4">
+									</div>
+									<div class="food-list-content">
+										<div class="food-name"><a href="/food_single/">Sauces topped</a></div>
+										<div class="food-price">$15 USD</div>
+										<div class="order-now bg1"><a href="/food_single/">order now</a></div>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+						<div class="mt pd"></div>
+						
+						
+						
+					</div>
+
+					
+				</div>
+			</div>
+		</div>
+        <script type="text/javascript" src="cordova.js"></script>
+
+        <script src="js/jquery.min.js"></script>
+		<script src="js/framework7.min.js"></script>
+		<script src="js/routes.js"></script>
+		<script src="js/app.js"></script>
+        <script src="js/global.js"></script>
+
+	</body>
+</html>
