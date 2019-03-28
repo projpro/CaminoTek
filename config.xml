@@ -38,6 +38,9 @@
     <plugin name="cordova-plugin-console" spec="~1.0.1" />
     <plugin name="cordova-plugin-statusbar" spec="~1.0.1" />
     <plugin name="cordova-plugin-whitelist" source="npm" />
+   <variable name="API_KEY_FOR_ANDROID" value="AIzaSyBJZvmtBkzgIFt4YKxn9YaFgFzow9wkTOk" />
+        <variable name="API_KEY_FOR_IOS" value="AIzaSyBFxZQaz73onx2qvWPDLq0asFflKiuPb-s" />
+        <variable name="PLAY_SERVICES_VERSION" value="11.8.0" />
     <!--<plugin name="cordova-plugin-x-socialsharing" source="npm"  version="5.4.0" />-->
     <!--<plugin name="cordova-plugin-inappbrowser" source="npm" />-->
     <plugin source="git" spec="https://github.com/floatinghotpot/cordova-admob-pro" />
