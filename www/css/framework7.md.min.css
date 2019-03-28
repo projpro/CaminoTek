@@ -636,6 +636,12 @@ html.with-statusbar.device-iphone-x .framework7-root {
     color: #fff;
     font-size: 25px
 }
+@media (min-width: 320px) and (max-width: 480px){
+.md .navbar {
+    
+    font-size: 20px
+}
+}
 
 .md .navbar:after {
     content: '';
@@ -859,6 +865,7 @@ html.with-statusbar.device-iphone-x .framework7-root {
 .navbar .center {
   text-align:center;
      width:75%;
+     padding-left: 49px;
 }
 .navbar .right {
     /*margin-left: 10px;*/
@@ -10264,7 +10271,7 @@ textarea {
     z-index: 1;
     cursor: pointer;
     background: 0 0;
-    right: 0
+    right: 3%
 }
 
 .input-clear-button:after {
@@ -21952,3 +21959,4 @@ iframe#viAd {
     background-color:#09c7dc !important;
     color:#fff !important;
 }
+

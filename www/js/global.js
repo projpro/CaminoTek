@@ -9,8 +9,7 @@ var bottomBorder = '1px solid #ddd';
 var noErrorClassBorder = 'none';
 var src = mediaURL + "notification.mp3";
 var myMedia = null;
-//var browser = true;
-//var logenabled = false;
+
 
 function InitLogin() {
    // console.log('Init Login');
@@ -22,44 +21,8 @@ function InitLogin() {
     $(".login-footer #footerYear").html(year);
 }
 
-////Check whether logged in or not
-//function CheckLoggedIn() {
-//    //console.log("Prev Page: " + document.referrer);
-//    //console.log("StoreId: " + window.localStorage.getItem("StoreId"));
-//    $('#lblErr').html("");
-//    var storeId = 0;
-//    var appRefreshInterval = 120;
-//    if (localStorage.getItem("StoreId") != null)
-//        storeId = localStorage.getItem("StoreId").trim();
-//    if (storeId === null || storeId === "" || storeId === "0") {
-//        //console.log("StoreId: 111")
-//        return true;
-
-//    }
-//    else {
-//       // console.log("StoreId: 222")
-//        if (localStorage.getItem("AppRefreshTimeInterval") != null) {
-//            appRefreshInterval = localStorage.getItem("AppRefreshTimeInterval").trim();
-//        }
-//        if (appRefreshInterval === null || appRefreshInterval === "" || appRefreshInterval === "0") {
-//        }
-//        else {
-//            localStorage.setItem("AppRefreshTimeInterval", appRefreshInterval);
-//        }
-//        //console.log("StoreId: 333")
-//        if (Number(storeId) > 0)
-//        {
-//           //console.log("StoreId: 444");
-//            //window.location.href = "carryout.html?StoreId=" + storeId;
-//            self.app.router.navigate('/carryout/', { reloadCurrent: false });
-//        }
-           
 
 
-
-
-//    }
-//}
 //Login
 function Login() {
     //console.log("Login");
@@ -199,26 +162,26 @@ function ValidateLogIn() {
         var Result = isValidEmailAddress(email);
         //console.log('isValidEmailAddress: ' + Result)
         if (Result.toString().toLowerCase() == "true") {
-            $("#email").css('border', noErrorClassBorder);
+            $("#email").css('border-bottom', bottomBorder);
             if (!result) {
                 result = false;
             }
         }
         else {
-            $("#email").css('border', errorClassBorder);
+            $("#email").css('border-bottom', errorClassBorder);
             result = true;
         }
     }
     else {
-        $("#email").css('border', errorClassBorder);
+        $("#email").css('border-bottom', errorClassBorder);
         result = true;
     }
 
     if (password != "") {
-        $("#password").css('border-color', noErrorClassBorder);
+        $("#password").css('border-bottom', bottomBorder);
     }
     else {
-        $("#password").css('border', errorClassBorder);
+        $("#password").css('border-bottom', errorClassBorder);
         result = true;
     }
 
@@ -1780,10 +1743,10 @@ function GetCarryOutStatus() {
                 //if (carryoutEnabled==true)
                 $("#dvCarryoutStatus").html("CARRYOUT " + carryoutcurrentstatus);
                 if (carryoutcurrentstatus.toLowerCase().trim() == "running") {
-                    $("#dvCarryOutStatusChange").html("<a style=\"color:#e80000;border-color:#e80000;width: 100%;\" class=\"start-btn-one\" onclick=\"ChangeCarryoutStatus(" + storeId + ",'STOPPED')\"><img src=\"/img/Stop.png\" style=\"display:block;margin-left:auto;margin-right:auto;height:100px;width:100px\"></a>");
+                    $("#dvCarryOutStatusChange").html("<a style=\"color:#e80000;border-color:#e80000;width: 100%;\" class=\"start-btn-one\" onclick=\"ChangeCarryoutStatus(" + storeId + ",'STOPPED')\"><img src=\"./img/Stop.png\" style=\"display:block;margin-left:auto;margin-right:auto;height:100px;width:100px\"></a>");
                 }
                 else {
-                    $("#dvCarryOutStatusChange").html("<a style=\"color:#3d9970;border-color:#3d9970;width: 100%;\" class=\"start-btn-one\" onclick=\"ChangeCarryoutStatus(" + storeId + ",'RUNNING')\"><img src=\"/img/Start.png\" style=\"display:block;margin-left:auto;margin-right:auto;height:100px;width:100px\"></a>");
+                    $("#dvCarryOutStatusChange").html("<a style=\"color:#3d9970;border-color:#3d9970;width: 100%;\" class=\"start-btn-one\" onclick=\"ChangeCarryoutStatus(" + storeId + ",'RUNNING')\"><img src=\"./img/Start.png\" style=\"display:block;margin-left:auto;margin-right:auto;height:100px;width:100px\"></a>");
                 }
                 //alert(carryoutEnabled)
                 //alert(carryoutcurrentstatus)
@@ -1809,13 +1772,13 @@ function ChangeCarryoutStatus(storeid, status) {
             if (status == "STOPPED") {
                 $("#dvCarryoutStatus").html("CARRYOUT STOPPED");
                 $("#dvCarryOutStatusChange").html("");
-                $("#dvCarryOutStatusChange").html("<a style=\"color:#3d9970;border-color:#3d9970;width: 100%;\" class=\"start-btn-one\" onclick=\"ChangeCarryoutStatus(" + storeid + ",'RUNNING')\"><img src=\"/img/Start.png\" style=\"display:block;margin-left:auto;margin-right:auto;height:100px;width:100px\"></a>");
+                $("#dvCarryOutStatusChange").html("<a style=\"color:#3d9970;border-color:#3d9970;width: 100%;\" class=\"start-btn-one\" onclick=\"ChangeCarryoutStatus(" + storeid + ",'RUNNING')\"><img src=\"./img/Start.png\" style=\"display:block;margin-left:auto;margin-right:auto;height:100px;width:100px\"></a>");
 
             }
             else {
                 $("#dvCarryoutStatus").html("CARRYOUT RUNNING");
                 $("#dvCarryOutStatusChange").html("");
-                $("#dvCarryOutStatusChange").html("<a style=\"color:#e80000;border-color:#e80000;width: 100%;\" class=\"start-btn-one\" onclick=\"ChangeCarryoutStatus(" + storeid + ",'STOPPED')\"><img src=\"/img/Stop.png\" style=\"display:block;margin-left:auto;margin-right:auto;height:100px;width:100px\"></a>");
+                $("#dvCarryOutStatusChange").html("<a style=\"color:#e80000;border-color:#e80000;width: 100%;\" class=\"start-btn-one\" onclick=\"ChangeCarryoutStatus(" + storeid + ",'STOPPED')\"><img src=\"./img/Stop.png\" style=\"display:block;margin-left:auto;margin-right:auto;height:100px;width:100px\"></a>");
 
             }
 
@@ -5128,10 +5091,10 @@ function SetManageService() {
                 //if (carryoutEnabled==true)
                 $("#dvCarryoutStatus").html("CARRYOUT " + carryoutcurrentstatus);
                 if (carryoutcurrentstatus.toLowerCase().trim() == "running") {
-                    $("#dvCarryOutStatusChange").html("<a style=\"color:#e80000;border-color:#e80000;width: 100%;\" class=\"start-btn-one\" onclick=\"ChangeCarryoutStatus(" + storeId + ",'STOPPED')\"><img src=\"/img/Stop.png\" style=\"display:block;margin-left:auto;margin-right:auto;height:100px;width:100px\"></a>");
+                    $("#dvCarryOutStatusChange").html("<a style=\"color:#e80000;border-color:#e80000;width: 100%;\" class=\"start-btn-one\" onclick=\"ChangeCarryoutStatus(" + storeId + ",'STOPPED')\"><img src=\"./img/Stop.png\" style=\"display:block;margin-left:auto;margin-right:auto;height:100px;width:100px\"></a>");
                 }
                 else {
-                    $("#dvCarryOutStatusChange").html("<a style=\"color:#3d9970;border-color:#3d9970;width: 100%;\" class=\"start-btn-one\" onclick=\"ChangeCarryoutStatus(" + storeId + ",'RUNNING')\"><img src=\"/img/Start.png\" style=\"display:block;margin-left:auto;margin-right:auto;height:100px;width:100px\"></a>");
+                    $("#dvCarryOutStatusChange").html("<a style=\"color:#3d9970;border-color:#3d9970;width: 100%;\" class=\"start-btn-one\" onclick=\"ChangeCarryoutStatus(" + storeId + ",'RUNNING')\"><img src=\"./img/Start.png\" style=\"display:block;margin-left:auto;margin-right:auto;height:100px;width:100px\"></a>");
                 }
                 //alert(carryoutEnabled)
                 //alert(carryoutcurrentstatus)

@@ -127,6 +127,35 @@ img {
 .md .form-item-content .input-clear-button:after {
 	background-image: none;
 }
+.md .form-item .item-content .input-clear-button {
+    width: 30px;
+    height: 30px;
+    margin-top: -15px;
+    right: 3px;
+    background-image: url(data:image/svg+xml;charset=utf-8,%3Csvg%20fill%3D'%23737373'%20height%3D'24…2z'%2F%3E%3Cpath%20d%3D'M0%200h24v24H0z'%20fill%3D'none'%2F%3E%3C%2Fsvg%3E);
+    border-radius: 0;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 24px 24px;
+    background-color: transparent;
+}
+
+/*.md .form-item-content .input-clear-button {
+	width: 30px;
+	height: 30px;
+	margin-top: -15px;
+	right: 3px;
+	background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg%20fill%3D'%23737373'%20height%3D'24'%20viewBox%3D'0%200%2024%2024'%20width%3D'24'%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%3E%3Cpath%20d%3D'M19%206.41L17.59%205%2012%2010.59%206.41%205%205%206.41%2010.59%2012%205%2017.59%206.41%2019%2012%2013.41%2017.59%2019%2019%2017.59%2013.41%2012z'%2F%3E%3Cpath%20d%3D'M0%200h24v24H0z'%20fill%3D'none'%2F%3E%3C%2Fsvg%3E");
+	border-radius: 0;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: 24px 24px;
+	background-color: transparent;
+}
+
+.md .form-item-content .input-clear-button:after {
+	background-image: none;
+}*/
 
 .form-item-content .item-checkbox-group:first-child {
 	margin-top: 0px;
@@ -1451,7 +1480,37 @@ select:-moz-focusring {
    top:3px  !important;
    position:absolute;
 }
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: #8c8c8c !important ;
+}
+::-moz-placeholder { /* Firefox 19+ */
+  color: #8c8c8c !important ;;
+}
+:-ms-input-placeholder { /* IE 10+ */
+  color: #8c8c8c !important ;;
+}
+:-moz-placeholder { /* Firefox 18- */
+  color: #8c8c8c !important ;;
+}
 
+.mandatory::-webkit-input-placeholder {
+    /* WebKit, Blink, Edge */
+    color: #ff8080 !important ;
+}
+.mandatory:-moz-placeholder {
+    /* Mozilla Firefox 4 to 18 */
+    color: #ff8080 !important ;
+    opacity: 1;
+}
+.mandatory::-moz-placeholder {
+    /* Mozilla Firefox 19+ */
+    color: #ff8080 !important ;
+    opacity: 1;
+}
+.mandatory:-ms-input-placeholder {
+    /* Internet Explorer 10-11 */
+    color: #ff8080 !important ;
+}
 /*===============================================*/
 /* 11/A. Sudip Start					    	 */
 /*===============================================*/
@@ -1543,7 +1602,7 @@ select:-moz-focusring {
 .div-left{width:100%;}
 .div-right{width:100%;}
 .giftcard-column-one { width:100%; }
-.giftcard-column-two { width:100%; }
+.giftcard-column-two { width:100%;margin:0 0 0 7px; }
 .giftcard-code{font-size:17px;}
 .giftcard-customer{ font-size: 13px; font-weight: 400; color: #111111;}
 .giftcard-price{font-size:14px;}
