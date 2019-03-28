@@ -858,11 +858,11 @@ html.with-statusbar.device-iphone-x .framework7-root {
 }
 .navbar .center {
   text-align:center;
-     width:80%;
+     width:75%;
 }
 .navbar .right {
     /*margin-left: 10px;*/
-    width:10%;
+    width:15%;
 }
 .navbar .left {
     /*margin-right: 10px;*/

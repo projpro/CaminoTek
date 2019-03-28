@@ -1435,6 +1435,23 @@ select:-moz-focusring {
     color:#111111;
     font-weight:400;
 }
+.navbar-inner img {
+    margin: 0 2px 0 16px;
+    /*max-width: 37%;*/
+    /*margin: 0 2px 0 4px;
+    max-width: 136%;*/
+}
+.navbar-right-single-icon{
+         right: 12px;
+    padding-top: 9px;
+    position: absolute;
+}
+.navbar-right-icon-2{
+         right: 70px !important;
+   top:3px  !important;
+   position:absolute;
+}
+
 /*===============================================*/
 /* 11/A. Sudip Start					    	 */
 /*===============================================*/
