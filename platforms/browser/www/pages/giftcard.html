@@ -1,0 +1,493 @@
+<div class="page page-with-toolbar">
+    <div class="toolbar tabbar tabbar-labels toolbar-bottom-md custom-toolbar">
+        <div class="toolbar-inner">
+            <a href="/carryout/" class="tab-link menuCarryout">
+                <i class="material-icons menu-icon">shopping_basket</i>
+                <span class="tabbar-label">Carry Out</span>
+            </a>
+            <a href="/giftcard/" class="tab-link tab-link-active footer-menu-active menuGiftcard">
+                <i class="material-icons menu-icon-active ">card_giftcard</i>
+                <span class="tabbar-label">Gift Card</span>
+            </a>
+            <a href="/new_rewards/" class="tab-link menuReward">
+                <i class="material-icons menu-icon">card_membership</i>
+                <span class="tabbar-label">Reward</span>
+            </a>
+            <a href="/manageservice/" class="tab-link menuStartStop">
+                <i class="material-icons menu-icon">power_settings_new</i>
+                <span class="tabbar-label">Start/Stop</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="navbar">
+        <div class="navbar-inner">
+            <div class="left"> 
+                <a class="tab-link back-new" onclick="Back();">
+                    <i class="material-icons material-icons-one">arrow_back</i>
+                </a>                  
+                <!--<a href="#" class="tab-link">
+                    <i class="icon icon-back"></i>
+                </a>-->
+            </div>
+            <div class="center">Gift Card</div>
+            <a class="fab fab-right-top panel-open navbar-site-action icon-only searchbar-enable" id="linkSearchIcon" data-panel="right" style="display:none;top:0;right:38px;"><i class="material-icons large-icon">search</i></a>
+            <div class="right">
+                
+                <a class="icon-only" style="padding-left: 10px;" onclick="Logout();"><i class="material-icons large-icon">exit_to_app</i></a>
+            </div>
+        </div>
+    </div> 
+
+    <div class="page-content">
+        
+        <!--<div class="navbrar-site display-flex justify-content-flex-end align-items-center  padding-left padding-right mt margin-bottom">
+            <a class="navbar-site-action" href="/checkout/">
+                <img src="./img/icons/basket.png" alt="basket" class="icon-size-20">
+            </a>
+        </div>
+
+        <div class="page-title padding-left padding-right">
+            <h2>Gift Card</h2>
+        </div>-->
+        
+        <div class="section list-restaurants">
+            <div class="section-content">
+                
+                <div id="giftCardTabs" class="custom-tabs display-flex justify-content-space-between align-items-center tab-margin-top fixed-tab-header">
+
+                    <div class="custom-tab custom-tab-carryout">
+                        <!--tab-link-active-->
+                        <a href="#tab-giftcard-new" class="tab-link tab-link-active" id="linkGiftCardNew" onclick="HideSearch();">
+                            <div class="tab-right-text">New</div>
+                            <div class="border-tab"></div>
+                        </a>
+                    </div>
+
+                    <div class="custom-tab custom-tab-carryout">
+                        <a href="#tab-giftcard-loadRedeem" class="tab-link" id="linkGiftCardRedeem" onclick="HideSearch();">
+                            <div class="tab-right-text">Load/Redeem</div>
+                            <div class="border-tab"></div>
+                        </a>
+                    </div>
+
+                    <div class="custom-tab custom-tab-carryout">
+                        <a href="#tab-giftcard-order" class="tab-link" id="linkGiftCardOrder" onclick="ShowSearch();">
+                            <div class="tab-right-text">Orders</div>
+                            <div class="border-tab"></div>
+                        </a>
+                    </div>
+
+
+
+                </div>
+                <div class="tabs-animated-wrap">
+                    <div class="tabs">
+                        <!--tab-active-->
+                        <div id="tab-giftcard-new" class="page-content tab tab-active">
+                            <div class="section mt md">
+                                <div class="section-content">
+                                    <div class="from-wrapper">
+                                        <div class="form-item">
+                                            <div class="list media-list">
+                                                <ul>
+                                                    <li class="item-content">
+                                                        <div class="item-media" style="width:96%">
+                                                            <i class="material-icons">credit_card</i>
+                                                            <input type="text" placeholder="Card Code" id="txtCardCode">
+                                                            <span class="input-clear-button"></span>
+                                                        </div>
+                                                    </li>
+                                                    <li class="item-content">
+                                                        <div class="item-media" style="width:96%">
+                                                            <i class="material-icons">phone</i>
+                                                            <input type="number" placeholder="Phone" id="txtPhone">
+                                                            <span class="input-clear-button"></span>
+                                                        </div>
+                                                    </li>
+                                                    <li class="item-content">
+                                                        <div class="item-media" style="width:96%">
+                                                            <i class="material-icons">account_circle</i>
+                                                            <input type="text" placeholder="Name" id="txtName">
+                                                            <span class="input-clear-button"></span>
+                                                        </div>
+                                                    </li>
+                                                    <li class="item-content">
+                                                        <div class="item-media" style="width:96%">
+                                                            <i class="material-icons">email</i>
+                                                            <input type="text" placeholder="Email" id="txtEmail">
+                                                            <span class="input-clear-button"></span>
+                                                        </div>
+                                                    </li>
+                                                    <li class="item-content">
+                                                        <div class="item-media" style="width:96%">
+                                                            <i class="material-icons">attach_money</i>
+                                                            <input type="number" placeholder="Amount($)" id="txtAmount">
+                                                            <span class="input-clear-button"></span>
+                                                        </div>
+                                                    </li>
+                                                    <li class="item-content">
+                                                        <a class="custom-btn custom-bg custom-link" id="btnAddCard" style="width: 97%;">Add Card</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                           
+                                        </div>
+                                        
+                                    </div>                         
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="tab-giftcard-loadRedeem" class="page-content tab">
+                            <div class="section mt md">
+                                <div class="flex">
+                                    <div class="div-left">
+                                        <div class="section-content">
+                                            <div class="from-wrapper">
+                                                <div class="form-item">
+                                                    <div class="list media-list" style="margin:auto">
+                                                        <ul>
+                                                            <li class="item-content">
+                                                                <div class="item-media" style="width:96%">
+                                                                    <i class="material-icons">credit_card</i>
+                                                                    <input type="text" placeholder="Card Code" id="txtCardCodeSearch">
+                                                                    <span class="input-clear-button"></span>
+                                                                </div>
+                                                            </li>
+                                                            <li class="item-content">
+                                                                <div class="item-media" style="width:96%">
+                                                                    <i class="material-icons">phone</i>
+                                                                    <input type="number" placeholder="Phone" id="txtPhoneSearch">
+                                                                    <span class="input-clear-button"></span>
+                                                                </div>
+                                                            </li>
+                                                            <li class="item-content">
+                                                                <a href="#" id="btnGiftCardSearch" class="custom-btn custom-bg bg1 mt custom-link" style="width:185%">Search</a>
+                                                            </li>
+                                                            <li class="item-content">
+                                                                <div class="item-media" style="width:96%">
+                                                                    <i class="material-icons">attach_money</i>
+                                                                    <input type="number" placeholder="Load" id="txtLoad">
+                                                                    <span class="input-clear-button"></span>
+                                                                </div>
+                                                            </li>
+                                                            <li class="item-content">
+                                                                <a href="#" id="btnLoadGiftCard" class="custom-btn custom-bg bg1 mt custom-link disabled" style="width:240%">Load</a>
+                                                            </li>
+                                                            <li class="item-content">
+                                                                <div class="item-media" style="width:96%">
+                                                                    <i class="material-icons">attach_money</i>
+                                                                    <input type="number" placeholder="Redeem" id="txtRedeem">
+                                                                    <span class="input-clear-button"></span>
+                                                                </div>
+                                                            </li>
+                                                            <li class="item-content">
+                                                                <a href="#" id="btnRedeemGiftCard" class="custom-btn custom-bg bg1 mt custom-link disabled" style="width:180%">Redeem</a>
+                                                            </li>
+                                                            <li class="item-content">
+                                                                <div class="form-item" style="margin-top: 20px;">
+                                                                    <div class="form-item-content">
+                                                                        <select id="ddlRegister">
+                                                                            <option value="0">--Select Register--</option>
+                                                                            <option value="1">1</option>
+                                                                            <option value="2">2</option>
+                                                                            <option value="3">3</option>
+                                                                            <option value="4">4</option>
+                                                                            <option value="5">5</option>
+                                                                            <option value="6">6</option>
+                                                                            <option value="7">7</option>
+                                                                            <option value="8">8</option>
+                                                                            <option value="9">9</option>
+                                                                            <option value="10">10</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="div-right">
+                                        <div class="section-content">
+                                            <div class="error-message-section" id="dvOuter" style="display:none;">
+                                                    <p id="dvOuterText"></p>
+                                            </div>
+                                            <div id="dvInner" style="display:none;">
+                                                <div class="inner-page-body-right">
+                                                    <div class="row">
+                                                        <ul id="dvList" class="div-list">
+                                                            <li class="active">
+                                                                <label class="label-current">Current Balance:<span id="lblCurrentBalance" style="font-size:22px;">$0.00</span></label>
+                                                                <label class="label-original">Original Value:<span id="lblOriginalValue" style="font-size:22px;">$0.00</span></label>
+                                                            </li>
+                                                        </ul>
+                                                    </div>                                                     
+                                                    <div class="row">                                                               
+                                                            <div class="inner-page-body-header">
+                                                                <div id="dvItem">
+                                                                    <input type="hidden" id="hdnSelectedOrderId" value="">
+                                                                    <div class="row"><label id="lblCutomerName" class="label-style-one">Sam Smiht</label></div>
+                                                                    <div class="row">
+                                                                        <!--<i class="material-icons" id="iconEmail">email</i>-->
+                                                                        <label id="lblEmail" class="label-style-one">test@mail.com</label>
+                                                                    </div>                                                                      
+                                                                    
+                                                                    <h6>History</h6>
+                                                                        <table id="tblRedeemHistory" class="table-history">
+                                                                            <thead>
+                                                                                <tr>
+                                                                                    <th style="text-align:left; width:55%;">Date</th>
+                                                                                    <th style="text-align:right; width:20%;">Amount</th>
+                                                                                    <th style="text-align:center; width:25%;">Register</th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody></tbody>
+                                                                        </table>
+                                                                </div>
+                                                            </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>                                 
+                            </div>
+                        </div>
+
+                        <div id="tab-giftcard-order" class="page-content tab">
+
+                            <div class="section md">
+                                <div class="section-content">
+                                    <!--<div class="from-wrapper" id="divGifrCardOrderSerarch" style="display:none;">
+                                               <a class="custom-btn bg1 mt" id="btnCloseGifrCardSearchArea" style="text-align:right;background:none;font-size:32px;padding-top:0;">&times;</a>
+                                        
+                                        <div class="form-item">
+                                            <div class="form-item-content">
+                                                <input type="number" placeholder="Order #" id="txtOrderId" tabindex="1">
+                                                <span class="input-clear-button"></span>
+                                            </div>
+                                        </div>
+                                        <div class="form-item">
+                                            <div class="form-item-content">
+                                                <input type="text" placeholder="Card Code" id="txtGiftCardCode" tabindex="2">
+                                                <span class="input-clear-button"></span>
+                                            </div>
+                                        </div>
+                                        <div class="form-item">
+                                            <div class="form-item-content">
+                                                <input type="text" placeholder="Name" id="txtName" tabindex="3">
+                                                <span class="input-clear-button"></span>
+                                            </div>
+                                        </div>
+                                        <div class="form-item">
+                                            <div class="form-item-content">
+                                                <a id="btnGiftCardOrderSearch" class="custom-btn custom-bg bg1 mt custom-link">Search</a>
+                                            </div>
+                                        </div>
+                                    </div>-->
+
+                                    <div class="form-item">
+                                        <div class="form-item-content">                                                                                             
+                                            <!--<a class="panel-open navbar-site-action custom-btn custom-bg bg1 mt custom-link" data-panel="right">Search</a>-->
+                                            <!--<a id="btnShowGiftCardSearch" class="custom-btn custom-bg bg1 mt custom-link">Search</a>-->
+                                        </div>
+                                    </div>
+
+                                    <div class="error-message-section" id="dvOuterOrder" style="display:none;">
+                                            <p id="dvOuterOrderText"></p>
+                                    </div>
+
+                                    <div class="order-flex-container infinite-scroll" id="dvOrderList">                                         
+                                        <!--<div class="giftcard-list">
+                                            <div class="row">
+                                                <div class="giftcard-column-one">
+                                                    <div class="order-pickup">59586590006</div>
+                                                </div>
+                                                <div class="giftcard-column-two">
+                                                    <div class="order-row-container">
+                                                        <div class="order-number">#10889 <span style="font-size:17px;">on</span> <span style="font-size:17px;">3/20/19 @ 9:40 PM</span></div>
+                                                    </div>
+
+                                                    <div class="order-row-container">
+                                                        <div class="giftcard-customer">
+                                                            <div class="customer-detail-container">
+
+                                                                <div class="customer-name">asasasasa </div>
+                                                                <div> (614)805-5665 </div>
+                                                                <div>server@bistrouxrestaurant.com</div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="giftcard-item-count">
+                                                            <div class="customer-detail-container">
+                                                                <div class="giftcard-price">$50060.00</div>
+                                                                <div>Physical</div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div> 
+                                            </div> 
+                                            <div class="row">
+                                                <div class="giftcard-column-three flex">
+                                                    <button onclick="ChangeGiftCardOrderStatusNew('New')" id="btnNew" class="btn-status-small" style="display:none;">New</button>
+                                                    <button onclick="ChangeGiftCardOrderStatusNew('Processing')" id="btnProcessing" class="btn-status-small" style="display:none;">Processing</button>
+                                                    <button onclick="ChangeGiftCardOrderStatusNew('PickedUp')" id="btnPickedUp" class="btn-status-small" style="display:none;">Picked Up</button>
+                                                    <button onclick="ChangeGiftCardOrderStatusNew('Shipped')" id="btnShipped" class="btn-status-small" style="display:none;">Shipped</button>
+                                                    <button onclick="ChangeGiftCardOrderStatusNew('Complete')" id="btnComplete" class="btn-status-small" style="display:none;">Complete</button>
+                                                </div>
+                                            </div>
+                                        </div>-->                                                                                   
+                                    </div>    
+                                </div>
+                            </div>                         
+                        </div>                       
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+
+        <div class="panel panel-one panel-left panel-cover panel-menu" style="display:none;" id="dvGiftCardDetails">
+            
+        </div>
+        <div id="dvGiftCardDetailsInner" style="display:none;">
+            <div class="page">
+                <div class="page-content">
+                    <div class="page-title padding-left padding-right margin-top display-flex justify-content-space-between">
+                        <h2>Giftcard Details</h2>
+                        <a class="panel-close navbar-site-action" href="#" data-panel="right" onclick="ClearGiftCardDetails();">
+                            <img src="./img/icons/close.png" alt="close" class="close-icon">
+                        </a>
+                    </div>
+                    <div class="block">
+                        <div class="order-list">
+                            <div class="order-column-two">
+                                <input type="hidden" id="hdnSelectedOrderId" value="0" />
+                                <input type="hidden" id="hdnGiftCardId" value="0" />
+                                <input type="hidden" id="hdnSelectedOrderDateTime" value="" />
+                                <input type="hidden" id="hdnSelectedOrderOrderPrice" value="0.00" />
+
+                                <div class="giftcard-code-one">
+                                    <label id="lblEditGiftCardCode"></label>
+                                    <a id="aEditCode" onclick="EditCardCode();"><i class="material-icons" style="color:#ca1300;">mode_edit</i></a>
+                                </div>
+                                <div class="giftcard-code-one">
+                                    <a id="aSaveCode" onclick="SaveCardCode();" style="display:none;width:30%;float:right;padding-top:15px;"><i class="material-icons" style="font-size:35px;color:#3b9847;">done</i></a>
+                                    <input type="text" id="txtEditGiftCardCode" value="" style="display:none;" />
+                                </div>
+                                <div class="order-row-container" style="display:none;">
+                                    <div class="giftcard-customer">
+                                        <div class="customer-detail-container">
+                                            <div class="customer-name"><label id="lblCutomerName"></label></div>
+                                            <div><label id="lblCutomerEmail"></label></div>
+                                            <div><label id="lblCutomerPhone"></label></div>
+                                        </div>
+                                    </div>
+                                    <div class="giftcard-item-count">
+                                        <div class="customer-detail-container">
+                                            <div class="giftcard-price"><label id="lblGiftCardValue"></label></div>
+                                            <div><label id="lblGiftCardType"></label></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="order-column-one" style="display:none;">
+                                <div class="order-pickup">
+                                    <button onclick="ChangeGiftCardOrderStatusNew('New')" id="btnNew" class="btn-status" style="display:none;">New</button>
+                                    <button onclick="ChangeGiftCardOrderStatusNew('Processing')" id="btnProcessing" class="btn-status" style="display:none;">Processing</button>
+                                    <button onclick="ChangeGiftCardOrderStatusNew('PickedUp')" id="btnPickedUp" class="btn-status" style="display:none;">Picked Up</button>
+                                    <button onclick="ChangeGiftCardOrderStatusNew('Shipped')" id="btnShipped" class="btn-status" style="display:none;">Shipped</button>
+                                    <button onclick="ChangeGiftCardOrderStatusNew('Complete')" id="btnComplete" class="btn-status" style="display:none;">Complete</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="inner-page-body-header">
+                                <h3 id="titleRedemptionHistory" style="display:none;border-bottom: 1px solid #111111;">History</h3>
+                                <div id="dvOrderItem"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="panel panel-right panel-cover panel-menu" style="display: none;">
+            <div class="page">
+                <div class="page-content">
+                    <div class="page-title padding-left padding-right margin-top display-flex justify-content-space-between">
+                        <h2 style="border:none;">Search</h2>
+                        <a class="panel-close navbar-site-action" href="#" data-panel="right">
+                            <img src="./img/icons/close.png" alt="close" class="close-icon">
+                        </a>
+                    </div>
+                    <div class="block">
+                        <!--<a class="popup-close custom-btn bg1 mt btn-close">&times;</a>-->
+                        <div class="form-item">
+                            <div class="list media-list">
+                                <ul>
+                                    <li class="item-content">
+                                        <div class="item-media" style="width:96%">
+                                            <i class="material-icons">add_shopping_cart</i>
+                                            <input type="number" placeholder="Order #" id="txtOrderId" tabindex="1">
+                                            <span class="input-clear-button"></span>
+                                        </div>
+                                    </li>
+                                    <li class="item-content">
+                                        <div class="item-media" style="width:96%">
+                                            <i class="material-icons">credit_card</i>
+                                            <input type="text" placeholder="Card Code" id="txtGiftCardCode" tabindex="2">
+                                            <span class="input-clear-button"></span>
+                                        </div>
+                                    </li>
+                                    <li class="item-content">
+                                        <div class="item-media" style="width:96%">
+                                            <i class="material-icons">account_circle</i>
+                                            <input type="text" placeholder="Name" id="txtName" tabindex="3">
+                                            <span class="input-clear-button"></span>
+                                        </div>
+                                    </li>
+                                    <li class="item-content">
+                                        <a id="btnGiftCardOrderSearch" class="custom-btn custom-bg bg1 mt custom-link" style="width:185%">Search</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!--<div class="form-item-content">
+                                <input type="number" placeholder="Order #" id="txtOrderId" tabindex="1">
+                                <span class="input-clear-button"></span>
+                            </div>-->
+                        </div>
+                        <!--<div class="form-item">
+                            <div class="form-item-content">
+                                <input type="text" placeholder="Card Code" id="txtGiftCardCode" tabindex="2">
+                                <span class="input-clear-button"></span>
+                            </div>
+                        </div>-->
+                        <!--<div class="form-item">
+                            <div class="form-item-content">
+                                <input type="text" placeholder="Name" id="txtName" tabindex="3">
+                                <span class="input-clear-button"></span>
+                            </div>
+                        </div>-->
+                        <!--<div class="form-item">
+                            <div class="form-item-content">
+                                <a id="btnGiftCardOrderSearch" class="custom-btn custom-bg bg1 mt custom-link">Search</a>
+                            </div>
+                        </div>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+        <div class="mt pd"></div>
+
+    </div>
+</div>
+
