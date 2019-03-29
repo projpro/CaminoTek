@@ -301,7 +301,27 @@ $$(document).on('page:init', function (e) {
 
     else if (pageURL.indexOf('manageservice') > -1) {
         SetManageService();
+        var carryOutEnabled= localStorage.getItem("CarryOutEnabled");
+        var giftCardsEnabled = localStorage.getItem("GiftCardsEnabled");
+        var giftCardProgramEnabled = localStorage.getItem("GiftCardProgramEnabled");
+        var rewardEnabled = localStorage.getItem("RewardsEnabled");
+        console.log("carryOutEnabled: " + carryOutEnabled)
+        if (carryOutEnabled != "True") {
 
+            //$(".menuCarryout").addClass("disabled");
+            $('# manageservice.menuCarryout').each(function () {
+                $(this).addClass('disabled');
+            });
+            $('#manageservice .menuStartStop').each(function () {
+                $(this).addClass('disabled');
+            });
+        }
+        else if (rewardEnabled != "True") {
+            $("#manageservice .menuReward").addClass("disabled");
+        }
+        else if (giftCardsEnabled != "True" && giftCardProgramEnabled != "True") {
+            $("#manageservice .menuGiftCard").addClass("disabled");
+        }
     }
 
     else if (pageURL.indexOf('new_rewards') > -1)// Add Rewards
