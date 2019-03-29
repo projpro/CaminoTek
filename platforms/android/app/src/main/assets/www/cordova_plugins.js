@@ -268,6 +268,14 @@ module.exports = [
     "clobbers": [
       "cordova.plugins.barcodeScanner"
     ]
+  },
+  {
+    "id": "cordova-plugin-qrscanner.QRScanner",
+    "file": "plugins/cordova-plugin-qrscanner/www/www.min.js",
+    "pluginId": "cordova-plugin-qrscanner",
+    "clobbers": [
+      "QRScanner"
+    ]
   }
 ];
 module.exports.metadata = 
@@ -285,7 +293,8 @@ module.exports.metadata =
   "cordova-plugin-x-socialsharing": "5.4.4",
   "cordova-plugin-x-toast": "2.7.2",
   "cordova-universal-clipboard": "0.1.0",
-  "phonegap-plugin-barcodescanner": "7.0.4"
+  "phonegap-plugin-barcodescanner": "7.0.4",
+  "cordova-plugin-qrscanner": "2.6.1"
 };
 // BOTTOM OF METADATA
 });

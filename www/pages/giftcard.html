@@ -1,4 +1,4 @@
-<div class="page page-with-toolbar">
+<div class="page page-with-toolbar" id="giftcard">
     <div class="toolbar tabbar tabbar-labels toolbar-bottom-md custom-toolbar">
         <div class="toolbar-inner">
             <a href="/carryout/" class="tab-link menuCarryout">
@@ -41,16 +41,7 @@
     </div> 
 
     <div class="page-content">
-        
-        <!--<div class="navbrar-site display-flex justify-content-flex-end align-items-center  padding-left padding-right mt margin-bottom">
-            <a class="navbar-site-action" href="/checkout/">
-                <img src="./img/icons/basket.png" alt="basket" class="icon-size-20">
-            </a>
-        </div>
-
-        <div class="page-title padding-left padding-right">
-            <h2>Gift Card</h2>
-        </div>-->
+     
         
         <div class="section list-restaurants">
             <div class="section-content">
@@ -90,13 +81,22 @@
                                 <div class="section-content">
                                     <div class="from-wrapper">
                                         <div class="form-item">
+                                            <div class="small-button-right">
+                                               
+                                                <button class="small-button" id="scan" name="scan" >Barcode Scan</button>
+                                            </div>
                                             <div class="list media-list">
+                                                   
+                                                
                                                 <ul>
+                                                    
                                                     <li class="item-content">
                                                         <div class="item-media" style="width:96%">
                                                             <i class="material-icons">credit_card</i>
                                                             <input type="text" placeholder="Card Code" id="txtCardCode" class="mandatory">
                                                             <span class="input-clear-button"></span>
+                                                          
+                                                          
                                                         </div>
                                                     </li>
                                                     <li class="item-content">
@@ -123,7 +123,7 @@
                                                     <li class="item-content">
                                                         <div class="item-media" style="width:96%">
                                                             <i class="material-icons">attach_money</i>
-                                                            <input type="number" placeholder="Amount($)" id="txtAmount" class="mandatory">
+                                                            <input type="number" min="1" step="any"  placeholder="Amount($)" id="txtAmount" class="mandatory">
                                                             <span class="input-clear-button"></span>
                                                         </div>
                                                     </li>
@@ -169,7 +169,7 @@
                                                             <li class="item-content">
                                                                 <div class="item-media" style="width:96%">
                                                                     <i class="material-icons">attach_money</i>
-                                                                    <input type="number" placeholder="Load" id="txtLoad">
+                                                                    <input type="number" placeholder="Load" id="txtLoad" min="1" step="any">
                                                                     <span class="input-clear-button"></span>
                                                                 </div>
                                                             </li>
@@ -179,7 +179,7 @@
                                                             <li class="item-content">
                                                                 <div class="item-media" style="width:96%">
                                                                     <i class="material-icons">attach_money</i>
-                                                                    <input type="number" placeholder="Redeem" id="txtRedeem">
+                                                                    <input type="number" placeholder="Redeem" id="txtRedeem" min="1" step="any">
                                                                     <span class="input-clear-button"></span>
                                                                 </div>
                                                             </li>

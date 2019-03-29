@@ -92,6 +92,7 @@ ext {
 
 // PLUGIN GRADLE EXTENSIONS START
 apply from: "../phonegap-plugin-barcodescanner/bistroux-barcodescanner.gradle"
+apply from: "../cordova-plugin-qrscanner/bistroux-qrscanner.gradle"
 // PLUGIN GRADLE EXTENSIONS END
 
 def hasBuildExtras1 = file('build-extras.gradle').exists()

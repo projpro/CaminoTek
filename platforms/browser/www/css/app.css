@@ -698,6 +698,44 @@ h4{
 	margin-top: 8px;
 }
 
+.small-button {
+	/*font-weight: 400;
+	padding: 10px 10px;
+	border-radius:2px;
+	font-size: 19px;
+	text-transform: uppercase;
+	margin-top: 8px;
+	text-align: center;
+	display: block;*/
+    /*margin:8px 15px 0 15px;*/
+
+        border: #333 1px solid;
+    color: #000;
+    font-weight: 400;
+    font-size: 18px;
+    text-transform: uppercase;
+    padding: 10px 20px;
+    /* padding: 8px 5px; */
+    text-align: center;
+    background: #fff;
+    /* float: none; */
+    width: auto;
+    /* border-radius: 6px; */
+    margin: 5px 10px;
+    display: inline-block;
+}
+.small-button-right {
+	font-weight: 400;
+	padding: 10px 10px;
+	border-radius:2px;
+	font-size: 19px;
+	text-transform: uppercase;
+	margin-top: 8px;
+	text-align: center;
+	display: block;
+    /*float:right;*/
+    /*margin:8px 15px 0 15px;*/
+}
 .custom-btn {
 	font-weight: 400;
 	padding: 10px 0px;
@@ -709,7 +747,6 @@ h4{
 	display: block;
     /*margin:8px 15px 0 15px;*/
 }
-
 .food-list-content {
 	padding-top: 5px;
 	padding-left: 10px;
@@ -719,7 +756,9 @@ h4{
 	margin-top: 5px;
 	width: 125px;
 }
-
+#tab-giftcard-new .md .list{
+    margin-top:0px !important;
+}
 
 
 /*===============================================*/
@@ -1147,6 +1186,10 @@ h4{
 	
    border-bottom:#cecece 1px solid;
 }
+.item-content:last-child {
+	
+   margin-top:20px;
+}
 .order-list-content {
 	width:100%;
 }
@@ -1304,11 +1347,11 @@ h4{
     max-width: 20%;
 }
 .list-empty-label-text{
-        font-size: 16px;
+            font-size: 36px;
     color: #111;
-
     justify-content: center;
-    align-items:center;
+    align-items: center;
+    margin-top: 43px;
 }
 .fixed-tab-header {
    position: fixed;

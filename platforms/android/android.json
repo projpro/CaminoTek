@@ -55,6 +55,10 @@
                         {
                             "xml": "<feature name=\"BarcodeScanner\"><param name=\"android-package\" value=\"com.phonegap.plugins.barcodescanner.BarcodeScanner\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"QRScanner\"><param name=\"android-package\" value=\"com.bitpay.cordova.qrscanner.QRScanner\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -80,6 +84,18 @@
                         },
                         {
                             "xml": "<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.CAMERA\" android:required=\"false\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<uses-feature android:name=\"android.hardware.camera\" android:required=\"false\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<uses-feature android:name=\"android.hardware.camera.front\" android:required=\"false\" />",
                             "count": 1
                         }
                     ],
@@ -161,6 +177,9 @@
         },
         "phonegap-plugin-barcodescanner": {
             "ANDROID_SUPPORT_V4_VERSION": "27.+",
+            "PACKAGE_NAME": "com.notification.bistroux"
+        },
+        "cordova-plugin-qrscanner": {
             "PACKAGE_NAME": "com.notification.bistroux"
         }
     },
@@ -434,6 +453,14 @@
             "clobbers": [
                 "cordova.plugins.barcodeScanner"
             ]
+        },
+        {
+            "id": "cordova-plugin-qrscanner.QRScanner",
+            "file": "plugins/cordova-plugin-qrscanner/www/www.min.js",
+            "pluginId": "cordova-plugin-qrscanner",
+            "clobbers": [
+                "QRScanner"
+            ]
         }
     ],
     "plugin_metadata": {
@@ -449,6 +476,7 @@
         "cordova-plugin-x-socialsharing": "5.4.4",
         "cordova-plugin-x-toast": "2.7.2",
         "cordova-universal-clipboard": "0.1.0",
-        "phonegap-plugin-barcodescanner": "7.0.4"
+        "phonegap-plugin-barcodescanner": "7.0.4",
+        "cordova-plugin-qrscanner": "2.6.1"
     }
 }
