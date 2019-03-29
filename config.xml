@@ -50,8 +50,11 @@
     <plugin name="cordova-universal-clipboard" source="npm" />
     <plugin name="cordova-plugin-x-toast" />
     <engine name="android" spec="~7.1.4" />
-    <plugin name="phonegap-plugin-barcodescanner" spec="git+https://github.com/phonegap/phonegap-plugin-barcodescanner.git">
+    <!--<plugin name="phonegap-plugin-barcodescanner" spec="git+https://github.com/phonegap/phonegap-plugin-barcodescanner.git">
         <variable name="ANDROID_SUPPORT_V4_VERSION" value="27.1.1" />
-    </plugin>
+    </plugin>-->
+  <plugin name="phonegap-plugin-barcodescanner" spec="https://github.com/phonegap/phonegap-plugin-barcodescanner.git">
+    <variable name="ANDROID_SUPPORT_V4_VERSION" value="27.1.1" />
+  </plugin>
   <!--<plugin name="phonegap-plugin-barcodescanner" source="npm" />-->
 </widget>
