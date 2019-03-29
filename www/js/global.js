@@ -69,24 +69,7 @@ function Login() {
                     localStorage.setItem("GiftCardProgramEnabled", giftCardProgramEnabled);
                     localStorage.setItem("RewardsEnabled", rewardEnabled);
 
-                    if (carryOutEnabled != "True")
-                    {
-
-                        //$(".menuCarryout").addClass("disabled");
-                        $('.menuCarryout').each(function () {
-                            $(this).find('.menuCarryout').addClass('disabled');
-                        });
-                        $('.menuStartStop').each(function () {
-                            $(this).find('.menuStartStop').addClass('disabled');
-                        });
-                    }
-                    else if (rewardEnabled != "True") {
-                        $(".menuReward").addClass("disabled");
-                    }
-                    else if (giftCardsEnabled != "True" && giftCardProgramEnabled!="True") {
-                        $(".menuGiftCard").addClass("disabled");
-                    }
-                        
+                    //SetMenuNavigation();
                     if (apprefreshinterval === null || apprefreshinterval === "" || apprefreshinterval === "0") {
                         appRefreshInterval = 120;
                         localStorage.setItem("AppRefreshTimeInterval", apprefreshinterval);
@@ -107,7 +90,10 @@ function Login() {
                             if (giftCardsEnabled != "True" && giftCardProgramEnabled != "True" && rewardEnabled != "True") {
                                 $('#lblErr').html();
                                 // $('#lblErr').html("You do not have permission to use this app!");
-                                $('#lblErr').html("You do not have Carryout/Gift Card/Rewards enabled!");
+                                $('#lblErr').html("Carryout/Gift Card/Rewards are not enabled. Please contact system administrator!");
+                                //alert("Carryout/Gift Card/Rewards are not enabled. Please contact administrator!");
+                                // Init App
+                            
                                 $("#btnLogin").text("Log In");
                                 //LogOut Section
                                 if (localStorage.getItem("DeviceRegistrationToken") === null) {
@@ -167,6 +153,31 @@ function Login() {
 
 
 
+}
+
+function SetMenuNavigation()
+{
+    var carryOutEnabled = localStorage.getItem("CarryOutEnabled");
+    var giftCardsEnabled = localStorage.getItem("GiftCardsEnabled");
+    var giftCardProgramEnabled = localStorage.getItem("GiftCardProgramEnabled");
+    var rewardEnabled = localStorage.getItem("RewardsEnabled");
+    //console.log("carryOutEnabled: " + carryOutEnabled)
+    if (carryOutEnabled != "True") {
+
+        //$(".menuCarryout").addClass("disabled");
+        $('#manageservice .menuCarryout').each(function () {
+            $(this).addClass('disabled');
+        });
+        $('#manageservice .menuStartStop').each(function () {
+            $(this).addClass('disabled');
+        });
+    }
+    else if (rewardEnabled != "True") {
+        $("#manageservice .menuReward").addClass("disabled");
+    }
+    else if (giftCardsEnabled != "True" && giftCardProgramEnabled != "True") {
+        $("#manageservice .menuGiftCard").addClass("disabled");
+    }
 }
 //Validate Login
 function ValidateLogIn() {
@@ -1870,28 +1881,28 @@ function Logout() {
     }
 
 }
-function SetMenuNavigation(storeId) {
-    console.log(storeId);
-	var sId = window.localStorage.getItem("StoreId").trim();
-	if (storeId === null || storeId === "" || storeId === "0") {
-	}
-	else
-	{
-		storeId=Number(sId);
-	}
-    $("#aManageService").removeAttr("href");
-    $("#aManageService").attr("href", "manageservice.html?StoreId=" + storeId);
+//function SetMenuNavigation(storeId) {
+//    console.log(storeId);
+//	var sId = window.localStorage.getItem("StoreId").trim();
+//	if (storeId === null || storeId === "" || storeId === "0") {
+//	}
+//	else
+//	{
+//		storeId=Number(sId);
+//	}
+//    $("#aManageService").removeAttr("href");
+//    $("#aManageService").attr("href", "manageservice.html?StoreId=" + storeId);
 
-    $("#aCarryout").removeAttr("href");
-    $("#aCarryout").attr("href", "carryout.html?StoreId=" + storeId);
+//    $("#aCarryout").removeAttr("href");
+//    $("#aCarryout").attr("href", "carryout.html?StoreId=" + storeId);
 
-    $("#aGiftCard").removeAttr("href");
-    $("#aGiftCard").attr("href", "giftcardsredeem.html?StoreId=" + storeId);
+//    $("#aGiftCard").removeAttr("href");
+//    $("#aGiftCard").attr("href", "giftcardsredeem.html?StoreId=" + storeId);
 
-    $("#aReward").removeAttr("href");
-    $("#aReward").attr("href", "rewards.html?StoreId=" + storeId);
+//    $("#aReward").removeAttr("href");
+//    $("#aReward").attr("href", "rewards.html?StoreId=" + storeId);
 
-}
+//}
 
 function FormatDecimal(decimalValue) {
     var result = "";
@@ -2427,9 +2438,11 @@ function CheckGiftCardPermission() {
 
     if (carryOutEnabled != "" && carryOutEnabled == "True") {
         $('.menuCarryout').removeClass('disabled');
+        $('.menuStartStop').removeClass('disabled');
     }
     else {
         $('.menuCarryout').addClass('disabled');
+        $('.menuStartStop').addClass('disabled');
     }
 
     if (giftCardsEnabled != "" && giftCardsEnabled == "True") {

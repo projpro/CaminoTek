@@ -47,7 +47,8 @@ $$(document).on('page:init', function (e) {
     }
     else if (pageURL.indexOf('carryout') > -1)//Carry Out
     {
-         console.log('carryout')
+        console.log('carryout')
+       // SetMenuNavigation();
         //app.Tab.show('#2');
         //$("#carryOutProcessing").trigger("click");
         //$("#carryOutProcessing").addClass("tab-active").trigger("tab:show");
@@ -107,6 +108,7 @@ $$(document).on('page:init', function (e) {
     }
     else if (pageURL.indexOf('giftcard') > -1)//Gift Card
     {
+       
       var  screen_width = document.documentElement.clientWidth;
       var screen_heght = document.documentElement.clientHeight;
       //console.log('screen_width: ' + screen_width)
@@ -139,7 +141,7 @@ $$(document).on('page:init', function (e) {
         }
 
         $('#linkGiftcardMenuReward').addClass('disabled');
-
+       // SetMenuNavigation();
         document.addEventListener("deviceready", onDeviceReady, false);
         function onDeviceReady() {
             $$('#scan').on('click', function () {
@@ -301,32 +303,13 @@ $$(document).on('page:init', function (e) {
 
     else if (pageURL.indexOf('manageservice') > -1) {
         SetManageService();
-        var carryOutEnabled= localStorage.getItem("CarryOutEnabled");
-        var giftCardsEnabled = localStorage.getItem("GiftCardsEnabled");
-        var giftCardProgramEnabled = localStorage.getItem("GiftCardProgramEnabled");
-        var rewardEnabled = localStorage.getItem("RewardsEnabled");
-        console.log("carryOutEnabled: " + carryOutEnabled)
-        if (carryOutEnabled != "True") {
-
-            //$(".menuCarryout").addClass("disabled");
-            $('# manageservice.menuCarryout').each(function () {
-                $(this).addClass('disabled');
-            });
-            $('#manageservice .menuStartStop').each(function () {
-                $(this).addClass('disabled');
-            });
-        }
-        else if (rewardEnabled != "True") {
-            $("#manageservice .menuReward").addClass("disabled");
-        }
-        else if (giftCardsEnabled != "True" && giftCardProgramEnabled != "True") {
-            $("#manageservice .menuGiftCard").addClass("disabled");
-        }
+        //SetMenuNavigation();
     }
 
     else if (pageURL.indexOf('new_rewards') > -1)// Add Rewards
     {
         CheckGiftCardPermission();
+        //SetMenuNavigation();
         $$('#btnCreate').click(function () {
             AddNewMemberID();
         });
