@@ -155,7 +155,14 @@ $$(document).on('page:init', function (e) {
          },
          function (error) {
              console.log("Scanning failed: " + error);
-         });
+         },
+         {
+             preferFrontCamera: true, // iOS and Android
+             showFlipCameraButton: true, // iOS and Android
+             formats: "CODE_128"
+         }
+
+         );
                 //$('#txtCardCode').codeScanner();
        //         cordova.plugins.barcodeScanner.scan(
        //   function (result) {
