@@ -15,8 +15,8 @@ var app = new Framework7({
     root: '#app',
     theme: 'md',
     routes: routes,
-    view : {
-      pushState: false
+    view: {
+        pushState: false
     }
     //pushState: true,
 });
@@ -48,7 +48,7 @@ $$(document).on('page:init', function (e) {
     else if (pageURL.indexOf('carryout') > -1)//Carry Out
     {
         console.log('carryout')
-       // SetMenuNavigation();
+        // SetMenuNavigation();
         //app.Tab.show('#2');
         //$("#carryOutProcessing").trigger("click");
         //$("#carryOutProcessing").addClass("tab-active").trigger("tab:show");
@@ -104,15 +104,15 @@ $$(document).on('page:init', function (e) {
             }
 
         });
-     
+
     }
     else if (pageURL.indexOf('giftcard') > -1)//Gift Card
     {
-       
-      var  screen_width = document.documentElement.clientWidth;
-      var screen_heght = document.documentElement.clientHeight;
-      //console.log('screen_width: ' + screen_width)
-     // console.log('screen_heght: ' + screen_heght)
+
+        var screen_width = document.documentElement.clientWidth;
+        var screen_heght = document.documentElement.clientHeight;
+        //console.log('screen_width: ' + screen_width)
+        // console.log('screen_heght: ' + screen_heght)
         //Check GiftCard and GiftCard Program Enable
         CheckGiftCardPermission();
         var giftCardsEnabled = localStorage.getItem("GiftCardsEnabled").trim();
@@ -141,35 +141,47 @@ $$(document).on('page:init', function (e) {
         }
 
         $('#linkGiftcardMenuReward').addClass('disabled');
-       // SetMenuNavigation();
+        // SetMenuNavigation();
         document.addEventListener("deviceready", onDeviceReady, false);
         function onDeviceReady() {
             $$('#scan').on('click', function () {
                 cordova.plugins.barcodeScanner.scan(
-          function (result) {
-              $("#txtCardCode").val(result.text);
-              console.log("We got a barcode\n" +
-                    "Result: " + result.text + "\n" +
-                    "Format: " + result.format + "\n" +
-                    "Cancelled: " + result.cancelled);
-          },
-          function (error) {
-              console.log("Scanning failed: " + error);
-          },
-          {
-              preferFrontCamera: true, // iOS and Android
-              showFlipCameraButton: true, // iOS and Android
-              showTorchButton: false, // iOS and Android
-              torchOn: false, // Android, launch with the torch switched on (if available)
-              saveHistory: true, // Android, save scan history (default false)
-              prompt: "Place a barcode inside the scan area", // Android
-              resultDisplayDuration: 500, // Android, display scanned text for X ms. 0 suppresses it entirely, default 1500
-              //formats: "QR_CODE,PDF_417,CODABAR,CODE_128,CODE_93,CODE_39", // default: all but PDF_417 and RSS_EXPANDED
-              orientation: "portrait", // Android only (portrait|landscape), default unset so it rotates with the device
-              disableAnimations: true, // iOS
-              disableSuccessBeep: false // iOS and Android
-          }
-       );
+         function (result) {
+             $("#txtCardCode").val(result.text);
+             console.log("We got a barcode\n" +
+                   "Result: " + result.text + "\n" +
+                   "Format: " + result.format + "\n" +
+                   "Cancelled: " + result.cancelled);
+         },
+         function (error) {
+             console.log("Scanning failed: " + error);
+         });
+                //$('#txtCardCode').codeScanner();
+       //         cordova.plugins.barcodeScanner.scan(
+       //   function (result) {
+       //       $("#txtCardCode").val(result.text);
+       //       console.log("We got a barcode\n" +
+       //             "Result: " + result.text + "\n" +
+       //             "Format: " + result.format + "\n" +
+       //             "Cancelled: " + result.cancelled);
+       //   },
+       //   function (error) {
+       //       console.log("Scanning failed: " + error);
+       //   },
+       //   {
+       //       preferFrontCamera: true, // iOS and Android
+       //       showFlipCameraButton: true, // iOS and Android
+       //       showTorchButton: false, // iOS and Android
+       //       torchOn: false, // Android, launch with the torch switched on (if available)
+       //       saveHistory: true, // Android, save scan history (default false)
+       //       prompt: "Place a barcode inside the scan area", // Android
+       //       resultDisplayDuration: 500, // Android, display scanned text for X ms. 0 suppresses it entirely, default 1500
+       //       //formats: "QR_CODE,PDF_417,CODABAR,CODE_128,CODE_93,CODE_39", // default: all but PDF_417 and RSS_EXPANDED
+       //       orientation: "portrait", // Android only (portrait|landscape), default unset so it rotates with the device
+       //       disableAnimations: true, // iOS
+       //       disableSuccessBeep: false // iOS and Android
+       //   }
+       //);
             });
             $$('#loadredeemscan').on('click', function () {
                 cordova.plugins.barcodeScanner.scan(
@@ -199,7 +211,7 @@ $$(document).on('page:init', function (e) {
        );
             });
         }
-        
+
         //Check GiftCard and GiftCard Program Enable
 
         var pageSize = 10;
@@ -335,31 +347,33 @@ $$(document).on('page:init', function (e) {
         document.addEventListener("deviceready", onDeviceReady, false);
         function onDeviceReady() {
             $$('#scan').on('click', function () {
-                cordova.plugins.barcodeScanner.scan(
-          function (result) {
-              $("#txtMemberId_Reward").val(result.text);
-              console.log("We got a barcode\n" +
-                    "Result: " + result.text + "\n" +
-                    "Format: " + result.format + "\n" +
-                    "Cancelled: " + result.cancelled);
-          },
-          function (error) {
-              console.log("Scanning failed: " + error);
-          },
-          {
-              preferFrontCamera: true, // iOS and Android
-              showFlipCameraButton: true, // iOS and Android
-              showTorchButton: false, // iOS and Android
-              torchOn: false, // Android, launch with the torch switched on (if available)
-              saveHistory: true, // Android, save scan history (default false)
-              prompt: "Place a barcode inside the scan area", // Android
-              resultDisplayDuration: 500, // Android, display scanned text for X ms. 0 suppresses it entirely, default 1500
-              //formats: "QR_CODE,PDF_417,CODABAR,CODE_128,CODE_93,CODE_39", // default: all but PDF_417 and RSS_EXPANDED
-              orientation: "portrait", // Android only (portrait|landscape), default unset so it rotates with the device
-              disableAnimations: true, // iOS
-              disableSuccessBeep: false // iOS and Android
-          }
-       );
+
+
+                //         cordova.plugins.barcodeScanner.scan(
+                //   function (result) {
+                //       $("#txtMemberId_Reward").val(result.text);
+                //       console.log("We got a barcode\n" +
+                //             "Result: " + result.text + "\n" +
+                //             "Format: " + result.format + "\n" +
+                //             "Cancelled: " + result.cancelled);
+                //   },
+                //   function (error) {
+                //       console.log("Scanning failed: " + error);
+                //   },
+                //   {
+                //       preferFrontCamera: true, // iOS and Android
+                //       showFlipCameraButton: true, // iOS and Android
+                //       showTorchButton: false, // iOS and Android
+                //       torchOn: false, // Android, launch with the torch switched on (if available)
+                //       saveHistory: true, // Android, save scan history (default false)
+                //       prompt: "Place a barcode inside the scan area", // Android
+                //       resultDisplayDuration: 500, // Android, display scanned text for X ms. 0 suppresses it entirely, default 1500
+                //       //formats: "QR_CODE,PDF_417,CODABAR,CODE_128,CODE_93,CODE_39", // default: all but PDF_417 and RSS_EXPANDED
+                //       orientation: "portrait", // Android only (portrait|landscape), default unset so it rotates with the device
+                //       disableAnimations: true, // iOS
+                //       disableSuccessBeep: false // iOS and Android
+                //   }
+                //);
             });
             $$('#loadredeemscan').on('click', function () {
                 cordova.plugins.barcodeScanner.scan(
@@ -395,7 +409,7 @@ $$(document).on('page:init', function (e) {
 
 //Check whether logged in or not
 function CheckLoggedIn() {
-  
+
     $('#lblErr').html("");
     var storeId = 0;
     var appRefreshInterval = 120;
@@ -806,19 +820,17 @@ function Back() {
     //console.log(app.views.main.router);
     console.log(app.views.main.router.url);
     console.log(app.views.main.router.history);
-    if (app.views.main.router.history.length > 0)
-    {
+    if (app.views.main.router.history.length > 0) {
         var secondLastPage = "";
         var thirdLastPage = "";
         var length = app.views.main.router.history.length;
-        if(length>2)
-        {
-            secondLastPage = app.views.main.router.history[length-2];
-            thirdLastPage= app.views.main.router.history[length-3];
+        if (length > 2) {
+            secondLastPage = app.views.main.router.history[length - 2];
+            thirdLastPage = app.views.main.router.history[length - 3];
         }
         console.log('secondLastPage: ' + secondLastPage);
         console.log('thirdLastPage: ' + thirdLastPage);
-        if (secondLastPage!= "/login_new/" && secondLastPage != "/") {
+        if (secondLastPage != "/login_new/" && secondLastPage != "/") {
             console.log(1);
             app.views.main.router.back();
         }
@@ -828,7 +840,7 @@ function Back() {
             //CheckLoggedIn();
         }
     }
-  
+
     //history.go(-1);
     //navigator.app.backHistory();
 }
