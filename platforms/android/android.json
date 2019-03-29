@@ -117,12 +117,20 @@
                         {
                             "xml": "<activity android:label=\"Share\" android:name=\"com.google.zxing.client.android.encode.EncodeActivity\" />",
                             "count": 1
+                        },
+                        {
+                            "xml": "<meta-data android:name=\"com.eclipsesource.tabris.android.HANDLER.com.eclipsesource.tabris.barcodescanner\" android:value=\"com.eclipsesource.tabris.barcodescanner.BarcodeScannerViewHandler\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<meta-data android:name=\"com.google.android.gms.vision.DEPENDENCIES\" android:value=\"barcode\" />",
+                            "count": 1
                         }
                     ],
                     "/manifest": [
                         {
                             "xml": "<uses-permission android:name=\"android.permission.CAMERA\" />",
-                            "count": 1
+                            "count": 2
                         },
                         {
                             "xml": "<uses-permission android:name=\"android.permission.FLASHLIGHT\" />",
@@ -180,6 +188,9 @@
             "PACKAGE_NAME": "com.notification.bistroux"
         },
         "cordova-plugin-qrscanner": {
+            "PACKAGE_NAME": "com.notification.bistroux"
+        },
+        "tabris-plugin-barcode-scanner": {
             "PACKAGE_NAME": "com.notification.bistroux"
         }
     },
@@ -461,6 +472,14 @@
             "clobbers": [
                 "QRScanner"
             ]
+        },
+        {
+            "id": "tabris-plugin-barcode-scanner.barcodeScannerView",
+            "file": "plugins/tabris-plugin-barcode-scanner/www/BarcodeScannerView.js",
+            "pluginId": "tabris-plugin-barcode-scanner",
+            "clobbers": [
+                "esbarcodescanner.BarcodeScannerView"
+            ]
         }
     ],
     "plugin_metadata": {
@@ -477,6 +496,7 @@
         "cordova-plugin-x-toast": "2.7.2",
         "cordova-universal-clipboard": "0.1.0",
         "phonegap-plugin-barcodescanner": "7.0.4",
-        "cordova-plugin-qrscanner": "2.6.1"
+        "cordova-plugin-qrscanner": "2.6.1",
+        "tabris-plugin-barcode-scanner": "2.0.0"
     }
 }

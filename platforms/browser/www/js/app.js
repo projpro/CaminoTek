@@ -31,14 +31,30 @@ $$(document).on('page:init', function (e) {
     //console.log(e.detail.app.form.convertToData('#login'));
     var pageURL = e.detail.route.url;
     var page = e.detail.page;
-    //console.log('pageURL: ' + pageURL)
+   // console.log('pageURL: ' + pageURL)
     if (pageURL == "/") {
-        setTimeout(function () { self.app.router.navigate('/login_new/', { reloadCurrent: false }); }, 1000);
+        var storeId = 0;
+        var appRefreshInterval = 120;
+        if (localStorage.getItem("StoreId") != null)
+            storeId = localStorage.getItem("StoreId").trim();
+        if (localStorage.getItem("AppRefreshTimeInterval") != null) {
+            appRefreshInterval = localStorage.getItem("AppRefreshTimeInterval").trim();
+        }
+        if (appRefreshInterval === null || appRefreshInterval === "" || appRefreshInterval === "0") {
+        }
+        else {
+            localStorage.setItem("AppRefreshTimeInterval", appRefreshInterval);
+        }
+        if (storeId>0)
+            setTimeout(function () { self.app.router.navigate('/carryout/', { reloadCurrent: false }); }, 1000);
+        else
+            setTimeout(function () { self.app.router.navigate('/login_new/', { reloadCurrent: false }); }, 1000);
+
     }
     else if (pageURL.indexOf('login_new') > -1)//Login
     {
         InitLogin();
-        CheckLoggedIn();
+        //CheckLoggedIn();
         //console.log('login_new')
         $$('#loginnew #btnLogin').click(function () {
             Login();
@@ -47,7 +63,7 @@ $$(document).on('page:init', function (e) {
     }
     else if (pageURL.indexOf('carryout') > -1)//Carry Out
     {
-        console.log('carryout')
+       // console.log('carryout')
         // SetMenuNavigation();
         //app.Tab.show('#2');
         //$("#carryOutProcessing").trigger("click");
@@ -145,24 +161,27 @@ $$(document).on('page:init', function (e) {
         document.addEventListener("deviceready", onDeviceReady, false);
         function onDeviceReady() {
             $$('#scan').on('click', function () {
-                cordova.plugins.barcodeScanner.scan(
-         function (result) {
-             $("#txtCardCode").val(result.text);
-             console.log("We got a barcode\n" +
-                   "Result: " + result.text + "\n" +
-                   "Format: " + result.format + "\n" +
-                   "Cancelled: " + result.cancelled);
-         },
-         function (error) {
-             console.log("Scanning failed: " + error);
-         },
-         {
-             preferFrontCamera: true, // iOS and Android
-             showFlipCameraButton: true, // iOS and Android
-             formats: "CODE_128"
-         }
 
-         );
+
+             
+         //       cordova.plugins.barcodeScanner.scan(
+         //function (result) {
+         //    $("#txtCardCode").val(result.text);
+         //    console.log("We got a barcode\n" +
+         //          "Result: " + result.text + "\n" +
+         //          "Format: " + result.format + "\n" +
+         //          "Cancelled: " + result.cancelled);
+         //},
+         //function (error) {
+         //    console.log("Scanning failed: " + error);
+         //},
+         //{
+         //    preferFrontCamera: true, // iOS and Android
+         //    showFlipCameraButton: true, // iOS and Android
+         //    formats: "CODE_128"
+         //}
+
+         //);
                 //$('#txtCardCode').codeScanner();
        //         cordova.plugins.barcodeScanner.scan(
        //   function (result) {

@@ -26,8 +26,8 @@ function InitLogin() {
 //Login
 function Login() {
     //console.log("Login");
-    var email = $("#email").val();
-    var password = $("#password").val();
+    var email = $("#email").val().trim();
+    var password = $("#password").val().trim();
     //console.log("ValidateLogIn: " + ValidateLogIn());
     if (ValidateLogIn() == false) {
 
