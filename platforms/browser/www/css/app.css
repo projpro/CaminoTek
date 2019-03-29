@@ -1248,18 +1248,18 @@ h4{
 .order-price {
         width:33.33%;
 
-	font-size:20px;
+	font-size:24px;
 	font-weight: 500;
 	color: #3b9847;
 }
 .order-date {
-    width:75%;
+    width:70%;
 	font-size: 14px;
 	font-weight: 400;
 	color: #111111;
 }
 .order-items-count {
-    width:25%;
+    width:30%;
 	font-size: 14px;
 	font-weight: 400;
 	color: #111111;
@@ -1553,6 +1553,30 @@ select:-moz-focusring {
 .mandatory:-ms-input-placeholder {
     /* Internet Explorer 10-11 */
     color: #ff8080 !important ;
+}
+.start-btn-one
+{
+    color:#e80000;
+    border-color:#e80000;
+    width: 100%;
+}
+.stop-btn-one
+{
+    color:#e80000;
+    border-color:#e80000;
+    width: 100%;
+}
+.start-btn-one, .stop-btn-one img{
+    margin-left:auto;
+    margin-right:auto;
+    /*height:100px;*/
+    width:22%;
+}
+.disabled {
+  color: currentColor;
+  cursor: not-allowed;
+  opacity: 0.5;
+  text-decoration: none;
 }
 /*===============================================*/
 /* 11/A. Sudip Start					    	 */

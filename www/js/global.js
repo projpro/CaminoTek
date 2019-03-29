@@ -45,7 +45,7 @@ function Login() {
                 //console.log("Login 2" + data);
                 //alert(data)
                 if (data.indexOf("No Data Found") > -1) {
-                    $('#lblErr').html("Incorrect Email/Password");
+                    $('#lblErr').html("Invalid Email/Password");
                     $("#btnLogin").text("Log In");
                 }
                 else {
@@ -68,6 +68,25 @@ function Login() {
                     localStorage.setItem("GiftCardsEnabled", giftCardsEnabled);
                     localStorage.setItem("GiftCardProgramEnabled", giftCardProgramEnabled);
                     localStorage.setItem("RewardsEnabled", rewardEnabled);
+
+                    if (carryOutEnabled != "True")
+                    {
+
+                        //$(".menuCarryout").addClass("disabled");
+                        $('.menuCarryout').each(function () {
+                            $(this).find('.menuCarryout').addClass('disabled');
+                        });
+                        $('.menuStartStop').each(function () {
+                            $(this).find('.menuStartStop').addClass('disabled');
+                        });
+                    }
+                    else if (rewardEnabled != "True") {
+                        $(".menuReward").addClass("disabled");
+                    }
+                    else if (giftCardsEnabled != "True" && giftCardProgramEnabled!="True") {
+                        $(".menuGiftCard").addClass("disabled");
+                    }
+                        
                     if (apprefreshinterval === null || apprefreshinterval === "" || apprefreshinterval === "0") {
                         appRefreshInterval = 120;
                         localStorage.setItem("AppRefreshTimeInterval", apprefreshinterval);
@@ -76,18 +95,19 @@ function Login() {
                     if (Number(storeId) > 0) {
                         //window.location.href = "carryout.html?StoreId=" + storeId;
                         if (carryOutEnabled == "True") {
-                            $("#aManageService").removeAttr("href");
-                            $("#aManageService").attr("href", "manageservice.html?StoreId=" + storeId);
+                            //$("#aManageService").removeAttr("href");
+                            //$("#aManageService").attr("href", "manageservice.html?StoreId=" + storeId);
                            // self.app.router.navigate('/carryout/', { reloadCurrent: false });
-                            $('#aManageService img').attr("src", "images/start.png");
+                            //$('#aManageService img').attr("src", "images/start.png");
                             GetStoreCarryOutTimings(storeId);
                         }
                         else {
-                            $("#aManageService").removeAttr("href");
-                            $('#aManageService img').attr("src", "images/start-gray.png");
+                           // $("#aManageService").removeAttr("href");
+                           // $('#aManageService img').attr("src", "images/start-gray.png");
                             if (giftCardsEnabled != "True" && giftCardProgramEnabled != "True" && rewardEnabled != "True") {
                                 $('#lblErr').html();
-                                $('#lblErr').html("You do not have permission to use this app!");
+                                // $('#lblErr').html("You do not have permission to use this app!");
+                                $('#lblErr').html("You do not have Carryout/Gift Card/Rewards enabled!");
                                 $("#btnLogin").text("Log In");
                                 //LogOut Section
                                 if (localStorage.getItem("DeviceRegistrationToken") === null) {
@@ -1743,10 +1763,10 @@ function GetCarryOutStatus() {
                 //if (carryoutEnabled==true)
                 $("#dvCarryoutStatus").html("CARRYOUT " + carryoutcurrentstatus);
                 if (carryoutcurrentstatus.toLowerCase().trim() == "running") {
-                    $("#dvCarryOutStatusChange").html("<a style=\"color:#e80000;border-color:#e80000;width: 100%;\" class=\"start-btn-one\" onclick=\"ChangeCarryoutStatus(" + storeId + ",'STOPPED')\"><img src=\"./img/Stop.png\" style=\"display:block;margin-left:auto;margin-right:auto;height:100px;width:100px\"></a>");
+                    $("#dvCarryOutStatusChange").html("<a  class=\"start-btn-one\" onclick=\"ChangeCarryoutStatus(" + storeId + ",'STOPPED')\"><img src=\"./img/Stop.png\" style=\"display:block;\"></a>");
                 }
                 else {
-                    $("#dvCarryOutStatusChange").html("<a style=\"color:#3d9970;border-color:#3d9970;width: 100%;\" class=\"start-btn-one\" onclick=\"ChangeCarryoutStatus(" + storeId + ",'RUNNING')\"><img src=\"./img/Start.png\" style=\"display:block;margin-left:auto;margin-right:auto;height:100px;width:100px\"></a>");
+                    $("#dvCarryOutStatusChange").html("<a class=\"stop-btn-one\" onclick=\"ChangeCarryoutStatus(" + storeId + ",'RUNNING')\"><img src=\"./img/Start.png\" style=\"display:block;\"></a>");
                 }
                 //alert(carryoutEnabled)
                 //alert(carryoutcurrentstatus)
@@ -1772,13 +1792,13 @@ function ChangeCarryoutStatus(storeid, status) {
             if (status == "STOPPED") {
                 $("#dvCarryoutStatus").html("CARRYOUT STOPPED");
                 $("#dvCarryOutStatusChange").html("");
-                $("#dvCarryOutStatusChange").html("<a style=\"color:#3d9970;border-color:#3d9970;width: 100%;\" class=\"start-btn-one\" onclick=\"ChangeCarryoutStatus(" + storeid + ",'RUNNING')\"><img src=\"./img/Start.png\" style=\"display:block;margin-left:auto;margin-right:auto;height:100px;width:100px\"></a>");
+                $("#dvCarryOutStatusChange").html("<a  class=\"stop-btn-one\" onclick=\"ChangeCarryoutStatus(" + storeid + ",'RUNNING')\"><img src=\"./img/Start.png\" style=\"display:block;\"></a>");
 
             }
             else {
                 $("#dvCarryoutStatus").html("CARRYOUT RUNNING");
                 $("#dvCarryOutStatusChange").html("");
-                $("#dvCarryOutStatusChange").html("<a style=\"color:#e80000;border-color:#e80000;width: 100%;\" class=\"start-btn-one\" onclick=\"ChangeCarryoutStatus(" + storeid + ",'STOPPED')\"><img src=\"./img/Stop.png\" style=\"display:block;margin-left:auto;margin-right:auto;height:100px;width:100px\"></a>");
+                $("#dvCarryOutStatusChange").html("<a class=\"start-btn-one\" onclick=\"ChangeCarryoutStatus(" + storeid + ",'STOPPED')\"><img src=\"./img/Stop.png\" style=\"display:block;\"></a>");
 
             }
 
@@ -5091,10 +5111,10 @@ function SetManageService() {
                 //if (carryoutEnabled==true)
                 $("#dvCarryoutStatus").html("CARRYOUT " + carryoutcurrentstatus);
                 if (carryoutcurrentstatus.toLowerCase().trim() == "running") {
-                    $("#dvCarryOutStatusChange").html("<a style=\"color:#e80000;border-color:#e80000;width: 100%;\" class=\"start-btn-one\" onclick=\"ChangeCarryoutStatus(" + storeId + ",'STOPPED')\"><img src=\"./img/Stop.png\" style=\"display:block;margin-left:auto;margin-right:auto;height:100px;width:100px\"></a>");
+                    $("#dvCarryOutStatusChange").html("<a class=\"start-btn-one\" onclick=\"ChangeCarryoutStatus(" + storeId + ",'STOPPED')\"><img src=\"./img/Stop.png\" style=\"display:block;\"></a>");
                 }
                 else {
-                    $("#dvCarryOutStatusChange").html("<a style=\"color:#3d9970;border-color:#3d9970;width: 100%;\" class=\"start-btn-one\" onclick=\"ChangeCarryoutStatus(" + storeId + ",'RUNNING')\"><img src=\"./img/Start.png\" style=\"display:block;margin-left:auto;margin-right:auto;height:100px;width:100px\"></a>");
+                    $("#dvCarryOutStatusChange").html("<a class=\"stop-btn-one\" onclick=\"ChangeCarryoutStatus(" + storeId + ",'RUNNING')\"><img src=\"./img/Start.png\" style=\"display:block;\"></a>");
                 }
                 //alert(carryoutEnabled)
                 //alert(carryoutcurrentstatus)

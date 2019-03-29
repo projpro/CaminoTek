@@ -642,7 +642,18 @@ html.with-statusbar.device-iphone-x .framework7-root {
     font-size: 20px
 }
 }
-
+@media (min-width: 600px) and (max-width: 1023px){
+.navbar-inner img {
+    margin: 0 2px 0 16px;
+    max-width: 74%;
+}
+}
+@media (min-width:1024px) and (max-width: 1366px){
+.navbar-inner img {
+        margin: 0 2px 0 16px;
+    max-width: 44%;
+}
+}
 .md .navbar:after {
     content: '';
     position: absolute;
