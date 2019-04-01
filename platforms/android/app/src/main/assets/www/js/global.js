@@ -286,7 +286,8 @@ function CarryoutOrdersList(status, carryoutpagesize, carryoutcurrentPage, divId
                     localStorage.setItem("OrderAvailable", "1");
                     var count = 0;
                     $.each(JSON.parse(data), function (index, value) {
-                     
+                        //console.log(value.FIRSTNAME)
+                        //console.log(value.BILLINGFIRSTNAME)
                         var orderDate = "";
                         var orderTime = "";
                         var firstName = "";
@@ -356,7 +357,7 @@ function CarryoutOrdersList(status, carryoutpagesize, carryoutcurrentPage, divId
 
                         /*------------------Column 1-----------------------*/
 
-                        html += "<div class=\"order-column-one\">";
+                        html += "<div class=\"order-column-one\" onclick=\"OpenCarryoutDetails(" + value.ID + ");\" >";
                         /*------------------Status Icon--------------------*/
                         if (status == '' || status == "All")
                         {
@@ -379,27 +380,27 @@ function CarryoutOrdersList(status, carryoutpagesize, carryoutcurrentPage, divId
                         if (status == '' || status == "All")
                             html += "<div class=\"order-pickup\">" + value.PICKUPTIME + "</div>";
                         else
-                            html += "<div class=\"order-pickup  order-pickup-margin-top\">" + value.PICKUPTIME + "</div>";
+                            html += "<div class=\"order-pickup  order-pickup-margin-top\" style=\"margin-top:22px;\">" + value.PICKUPTIME + "</div>";
                            
                         }
-                      else {
-                        if (status == '' || status == "All")
-                            html += "<div class=\"order-pickup\"></div>";
-                        else
+                      //else {
+                      //  if (status == '' || status == "All")
+                      //      html += "<div class=\"order-pickup\"></div>";
+                      //  else
 
-                            html += "<div class=\"order-pickup order-pickup-margin-top\"></div>";
-                        }
+                      //      html += "<div class=\"order-pickup order-pickup-margin-top\"></div>";
+                      //  }
                         html += "</div>";
                         /*------------------Column 1-----------------------*/
                         /*------------------Column 2-----------------------*/
                         html += "<div class=\"order-column-two\">";
                         /*------------------1st Row-----------------------*/
                         html += "<div class=\"order-row-container\">";
-                        html += "<div class=\"order-number\">#" + value.ID + "<span> on </span><span>" + orderDate + " @ " + orderTime + "</span></div>";
+                        html += "<div class=\"order-number\" onclick=\"OpenCarryoutDetails(" + value.ID + ");\" >#" + value.ID + "<span> on </span><span>" + orderDate + " @ " + orderTime + "</span></div>";
                         /*------------------Button Row-----------------------*/
                         if (value.ORDERSTATUSID == "New") {
 
-                            buttonHTML += "<a onclick=\"ChangeOrderStatusNew('Processing'," + value.ID + "," + storeId + ")\"  id=\"btnAccept\"><img src=\"./img/icons/accept_button.png\"  /></a>";
+                            buttonHTML += "<a onclick=\"ChangeOrderStatusNew('Processing'," + value.ID + "," + storeId + ")\"  id=\"btnAccept\"><img src=\"./img/icons/accept_button.png\" style=\"width:21%;margin: 0 61px;\" /></a>";
                             buttonHTML += "<a onclick=\"ChangeOrderStatusNew('New'," + value.ID + "," + storeId + ")\"  id=\"btnNew\" style=\"display:none;\"><img src=\"./img/icons/new_button.png\" /></button>";
                             buttonHTML += "<a onclick=\"ChangeOrderStatusNew('Complete'," + value.ID + "," + storeId + ")\" id=\"btnComplete\" style=\"display:none;\"><img src=\"./img/icons/complete_button.png\"  /></button>";
                             buttonHTML += "<a onclick=\"ChangeOrderStatusNew('Processing'," + value.ID + "," + storeId + ")\"  id=\"btnProcessing\" style=\"display:none;\"><img src=\"./img/icons/pending_button.png\"  /></button>";
@@ -444,7 +445,7 @@ function CarryoutOrdersList(status, carryoutpagesize, carryoutcurrentPage, divId
                         /*------------------1st Row-----------------------*/
 
                         /*------------------2nd Row-----------------------*/
-                        html += "<div class=\"order-row-container\">";
+                        html += "<div class=\"order-row-container\" onclick=\"OpenCarryoutDetails(" + value.ID + ");\" >";
 
                         /*------------------Customer Info-----------------------*/
                         html += "<div class=\"order-date\">";
@@ -498,7 +499,7 @@ function CarryoutOrdersList(status, carryoutpagesize, carryoutcurrentPage, divId
                         /*------------------Order Area-----------------------*/
 
                         count++;
-
+                        //console.log(html)
                         $("#" + divId).append(html);
 
 
@@ -646,11 +647,11 @@ function CarryoutOrdersListPagination(status, carryoutpagesize, carryoutcurrentP
 
                         /*------------------Order Row-----------------------*/
 
-                        html += "<div class=\"order-list panel-open\" data-panel=\"left\"  data-popup=\".popup-details\" onclick=\"OpenCarryoutDetails(" + value.ID + ");\" >";
+                        html += "<div class=\"order-list panel-open\" data-panel=\"left\"  data-popup=\".popup-details\" >";
 
                         /*------------------Column 1-----------------------*/
 
-                        html += "<div class=\"order-column-one\">";
+                        html += "<div class=\"order-column-one\" onclick=\"OpenCarryoutDetails(" + value.ID + ");\" >";
                         /*------------------Status Icon--------------------*/
                         if (status == '' || status == "All") {
                             if (value.ORDERSTATUSID.toLowerCase() == "new") {
@@ -672,7 +673,7 @@ function CarryoutOrdersListPagination(status, carryoutpagesize, carryoutcurrentP
                             if (status == '' || status == "All")
                                 html += "<div class=\"order-pickup\">" + value.PICKUPTIME + "</div>";
                             else
-                                html += "<div class=\"order-pickup  order-pickup-margin-top\">" + value.PICKUPTIME + "</div>";
+                                html += "<div class=\"order-pickup  order-pickup-margin-top\" style=\"margin-top:22px;\">" + value.PICKUPTIME + "</div>";
 
                         }
                         else {
@@ -688,11 +689,11 @@ function CarryoutOrdersListPagination(status, carryoutpagesize, carryoutcurrentP
                         html += "<div class=\"order-column-two\">";
                         /*------------------1st Row-----------------------*/
                         html += "<div class=\"order-row-container\">";
-                        html += "<div class=\"order-number\">#" + value.ID + "<span> on </span><span>" + orderDate + " @ " + orderTime + "</span></div>";
+                        html += "<div class=\"order-number\" onclick=\"OpenCarryoutDetails(" + value.ID + ");\" >#" + value.ID + "<span> on </span><span>" + orderDate + " @ " + orderTime + "</span></div>";
                         /*------------------Button Row-----------------------*/
                         if (value.ORDERSTATUSID == "New") {
 
-                            buttonHTML += "<a onclick=\"ChangeOrderStatusNew('Processing'," + value.ID + "," + storeId + ")\"  id=\"btnAccept\"><img src=\"./img/icons/accept_button.png\"  /></a>";
+                            buttonHTML += "<a onclick=\"ChangeOrderStatusNew('Processing'," + value.ID + "," + storeId + ")\"  id=\"btnAccept\"><img src=\"./img/icons/accept_button.png\" style=\"width:21%;margin: 0 61px;\" /></a>";
                             buttonHTML += "<a onclick=\"ChangeOrderStatusNew('New'," + value.ID + "," + storeId + ")\"  id=\"btnNew\" style=\"display:none;\"><img src=\"./img/icons/new_button.png\" /></button>";
                             buttonHTML += "<a onclick=\"ChangeOrderStatusNew('Complete'," + value.ID + "," + storeId + ")\" id=\"btnComplete\" style=\"display:none;\"><img src=\"./img/icons/complete_button.png\"  /></button>";
                             buttonHTML += "<a onclick=\"ChangeOrderStatusNew('Processing'," + value.ID + "," + storeId + ")\"  id=\"btnProcessing\" style=\"display:none;\"><img src=\"./img/icons/pending_button.png\"  /></button>";
@@ -738,7 +739,7 @@ function CarryoutOrdersListPagination(status, carryoutpagesize, carryoutcurrentP
                         /*------------------1st Row-----------------------*/
 
                         /*------------------2nd Row-----------------------*/
-                        html += "<div class=\"order-row-container\">";
+                        html += "<div class=\"order-row-container\" onclick=\"OpenCarryoutDetails(" + value.ID + ");\" >";
 
                         /*------------------Customer Info-----------------------*/
                         html += "<div class=\"order-date\">";
