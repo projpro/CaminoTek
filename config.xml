@@ -24,6 +24,12 @@
         <allow-intent href="itms-apps:*" />
         <preference name="BackupWebStorage" value="none" />
     </platform>
+  <preference name="phonegap-version" value="cli-6.5.0" />
+  <plugin name="cordova-plugin-googlemaps" spec="^2.2.2">
+    <variable name="API_KEY_FOR_ANDROID" value="API-ANDROID" />
+    <variable name="API_KEY_FOR_IOS" value="API-IOS" />
+    <variable name="PLAY_SERVICES_VERSION" value="11.8.0" />
+  </plugin>
     <preference name="DisallowOverscroll" value="false" />
     <preference name="orientation" value="portrait" />
     <preference name="fullscreen" value="false" />
