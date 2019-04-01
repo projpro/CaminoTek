@@ -1161,6 +1161,11 @@ h4{
    display:flex;
    /*flex-direction:column;*/
 }
+#dvCarryOutPanel .order-list {
+    display:flex;
+       flex-direction:column;
+
+}
 .order-container
 {
    display:flex;
@@ -1171,8 +1176,15 @@ h4{
 {
     /*width:100%;*/
    display:flex;
+    /*flex-direction:column;*/
     align-items:center;
     margin:auto;
+    width:40%;
+}
+
+.order-buttons img{
+    width:41%;
+    margin:0 25px;
 }
 .order-column-one
 {
@@ -1181,6 +1193,10 @@ h4{
 .order-column-two
 {
     width:75%;
+}
+.order-column-three
+{
+    width:25%;
 }
 .order-container:not(:last-child) {
 	
@@ -1203,7 +1219,7 @@ h4{
     word-wrap:break-word;
 }
 .customer-name{
-	font-weight: 400;
+	font-weight: 600;
 	font-size: 14px;
 	color: #111111;
 }
@@ -1228,15 +1244,22 @@ h4{
 	color: #111111;
 }
 .order-number {
-    width:100%;
-    text-align:center;
+    width:60%;
+    /*text-align:center;*/
     /*width:33.33%;*/
-	font-weight: 500;
+	font-weight: 600;
 	font-size: 18px;
 	color: #111111;
 }
+.order-status-icon {
+    margin-top:5px;
+	font-weight: 400;
+	font-size:26px;
+	color: #08b3c7;
+        text-align: center;
+}
 .order-pickup {
-    margin-top:19px;
+    margin-top:0px;
 	font-weight: 400;
 	font-size:26px;
 	color: #08b3c7;
@@ -1246,22 +1269,23 @@ h4{
   margin-top:62px;
 }
 .order-price {
-        width:33.33%;
-
-	font-size:24px;
+        /*width:33.33%;*/
+        width:25%;
+	font-size:19px;
 	font-weight: 500;
 	color: #3b9847;
+    display:inline-block;
 }
 .order-date {
-    width:70%;
+    width:52%;
 	font-size: 14px;
 	font-weight: 400;
 	color: #111111;
 }
 .order-items-count {
-    width:30%;
+    width:48%;
 	font-size: 14px;
-	font-weight: 400;
+	font-weight: 600;
 	color: #111111;
 }
 .cc-number
@@ -1313,6 +1337,7 @@ h4{
 }
 .order-number span{
     font-size:13px;
+    font-weight:400;
 }
 ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
   color: #212121;
@@ -1388,6 +1413,7 @@ td {
     padding: 10px 0 0 0px;
     border-top: none;
     color: #111;
+    text-align: left;
 }
 
 .add-button-one{
@@ -1396,13 +1422,10 @@ td {
     font-weight: 400;
     font-size: 14px;
     text-transform: uppercase;
-      padding:10px 20px; 
-    /*padding: 8px 5px;*/
+    padding:6px 20px; 
     text-align: center;
     background: #fff;
-    /*float: none;*/
     width: auto;
-    /*border-radius: 6px;*/
     margin: 5px 10px;
     display: inline-block;
 }
@@ -1577,6 +1600,19 @@ select:-moz-focusring {
   cursor: not-allowed;
   opacity: 0.5;
   text-decoration: none;
+}
+
+.button-color-1{
+    border-color:#00aeef !important;/*Blue*/
+}
+.button-color-2{
+    border-color:#5aac00!important;/*Green*/
+}
+.button-color-3{
+     border-color:#ff0000 !important;/*Red*/
+}
+.button-color-4{
+     border-color:#92278f !important;/*Magenta*/
 }
 /*===============================================*/
 /* 11/A. Sudip Start					    	 */

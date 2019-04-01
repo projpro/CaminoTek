@@ -13,9 +13,6 @@
     }
   },
   "dependencies": {
-    "cordova-android": "~7.1.4",
-    "cordova-plugin-qrscanner": "2.6.1",
-    "phonegap-plugin-barcodescanner": "git+https://github.com/phonegap/phonegap-plugin-barcodescanner.git",
-    "phonegap-plugin-barcodescanner-quick": "^3.1.2-mod"
+    "cordova-android": "~7.1.4"
   }
 }

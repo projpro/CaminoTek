@@ -129,7 +129,7 @@ p {
 }
 
 .md a {
-    color: #2196f3
+    /*color: #2196f3*/
 }
 
 .md .theme-dark {
@@ -149,11 +149,11 @@ p {
 }
 
 .md .color-theme-pink a {
-    color: #e91e63
+    /*color: #e91e63*/
 }
 
 .md .color-theme-yellow a {
-    color: #ffeb3b
+    /*color: #ffeb3b*/
 }
 
 .md .color-theme-orange a {

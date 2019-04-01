@@ -92,7 +92,6 @@ ext {
 
 // PLUGIN GRADLE EXTENSIONS START
 apply from: "../phonegap-plugin-barcodescanner/bistroux-barcodescanner.gradle"
-apply from: "../cordova-plugin-qrscanner/bistroux-qrscanner.gradle"
 // PLUGIN GRADLE EXTENSIONS END
 
 def hasBuildExtras1 = file('build-extras.gradle').exists()
@@ -269,7 +268,6 @@ dependencies {
     implementation(project(path: ":CordovaLib"))
     compile "com.android.support:support-v4:24.1.1+"
     compile "com.android.support:support-v4:27.+"
-    compile "com.google.android.gms:play-services-vision:17.0.2"
     // SUB-PROJECT DEPENDENCIES END
 }
 

@@ -55,10 +55,6 @@
                         {
                             "xml": "<feature name=\"BarcodeScanner\"><param name=\"android-package\" value=\"com.phonegap.plugins.barcodescanner.BarcodeScanner\" /></feature>",
                             "count": 1
-                        },
-                        {
-                            "xml": "<feature name=\"QRScanner\"><param name=\"android-package\" value=\"com.bitpay.cordova.qrscanner.QRScanner\" /></feature>",
-                            "count": 1
                         }
                     ]
                 }
@@ -85,18 +81,6 @@
                         {
                             "xml": "<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\" />",
                             "count": 1
-                        },
-                        {
-                            "xml": "<uses-permission android:name=\"android.permission.CAMERA\" android:required=\"false\" />",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<uses-feature android:name=\"android.hardware.camera\" android:required=\"false\" />",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<uses-feature android:name=\"android.hardware.camera.front\" android:required=\"false\" />",
-                            "count": 1
                         }
                     ],
                     "/*/application": [
@@ -117,20 +101,12 @@
                         {
                             "xml": "<activity android:label=\"Share\" android:name=\"com.google.zxing.client.android.encode.EncodeActivity\" />",
                             "count": 1
-                        },
-                        {
-                            "xml": "<meta-data android:name=\"com.eclipsesource.tabris.android.HANDLER.com.eclipsesource.tabris.barcodescanner\" android:value=\"com.eclipsesource.tabris.barcodescanner.BarcodeScannerViewHandler\" />",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<meta-data android:name=\"com.google.android.gms.vision.DEPENDENCIES\" android:value=\"barcode\" />",
-                            "count": 1
                         }
                     ],
                     "/manifest": [
                         {
                             "xml": "<uses-permission android:name=\"android.permission.CAMERA\" />",
-                            "count": 2
+                            "count": 1
                         },
                         {
                             "xml": "<uses-permission android:name=\"android.permission.FLASHLIGHT\" />",
@@ -185,12 +161,6 @@
         },
         "phonegap-plugin-barcodescanner": {
             "ANDROID_SUPPORT_V4_VERSION": "27.+",
-            "PACKAGE_NAME": "com.notification.bistroux"
-        },
-        "cordova-plugin-qrscanner": {
-            "PACKAGE_NAME": "com.notification.bistroux"
-        },
-        "tabris-plugin-barcode-scanner": {
             "PACKAGE_NAME": "com.notification.bistroux"
         }
     },
@@ -464,22 +434,6 @@
             "clobbers": [
                 "cordova.plugins.barcodeScanner"
             ]
-        },
-        {
-            "id": "cordova-plugin-qrscanner.QRScanner",
-            "file": "plugins/cordova-plugin-qrscanner/www/www.min.js",
-            "pluginId": "cordova-plugin-qrscanner",
-            "clobbers": [
-                "QRScanner"
-            ]
-        },
-        {
-            "id": "tabris-plugin-barcode-scanner.barcodeScannerView",
-            "file": "plugins/tabris-plugin-barcode-scanner/www/BarcodeScannerView.js",
-            "pluginId": "tabris-plugin-barcode-scanner",
-            "clobbers": [
-                "esbarcodescanner.BarcodeScannerView"
-            ]
         }
     ],
     "plugin_metadata": {
@@ -495,8 +449,6 @@
         "cordova-plugin-x-socialsharing": "5.4.4",
         "cordova-plugin-x-toast": "2.7.2",
         "cordova-universal-clipboard": "0.1.0",
-        "phonegap-plugin-barcodescanner": "7.0.4",
-        "cordova-plugin-qrscanner": "2.6.1",
-        "tabris-plugin-barcode-scanner": "2.0.0"
+        "phonegap-plugin-barcodescanner": "7.0.4"
     }
 }

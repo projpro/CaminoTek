@@ -66,12 +66,10 @@
     "phonegap-plugin-barcodescanner": {
         "source": {
             "type": "registry",
-            "id": "git+https://github.com/phonegap/phonegap-plugin-barcodescanner.git"
+            "id": "phonegap-plugin-barcodescanner@7.0.4"
         },
         "is_top_level": true,
-        "variables": {
-            "ANDROID_SUPPORT_V4_VERSION": "27.1.1"
-        }
+        "variables": {}
     },
     "cordova-plugin-x-toast": {
         "source": {
@@ -103,23 +101,6 @@
             "id": "cordova-plugin-file"
         },
         "is_top_level": false,
-        "variables": {}
-    },
-    "cordova-plugin-qrscanner": {
-        "source": {
-            "type": "registry",
-            "id": "cordova-plugin-qrscanner@2.6.1"
-        },
-        "is_top_level": true,
-        "variables": {}
-    },
-    "tabris-plugin-barcode-scanner": {
-        "source": {
-            "type": "git",
-            "url": "https://github.com/eclipsesource/tabris-plugin-barcode-scanner.git",
-            "subdir": "."
-        },
-        "is_top_level": true,
         "variables": {}
     }
 }

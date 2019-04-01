@@ -63,13 +63,8 @@ $$(document).on('page:init', function (e) {
     }
     else if (pageURL.indexOf('carryout') > -1)//Carry Out
     {
-       // console.log('carryout')
-        // SetMenuNavigation();
-        //app.Tab.show('#2');
-        //$("#carryOutProcessing").trigger("click");
-        //$("#carryOutProcessing").addClass("tab-active").trigger("tab:show");
+      
         CheckGiftCardPermission();
-        //app.popup('<div class="popup">Hello, <a href="#" class="close-popup">close me</a></div>', true);
         $$("#hdnCurrentState").val('New');
 
         var pageSize = 10;

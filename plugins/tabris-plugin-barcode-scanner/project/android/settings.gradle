@@ -1,3 +1,0 @@
-include 'barcode-scanner'
-
-rootProject.name = 'tabris-plugin-barcode-scanner'

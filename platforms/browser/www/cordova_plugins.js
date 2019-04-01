@@ -306,14 +306,6 @@ module.exports = [
         "clobbers": [
             "window.Media"
         ]
-    },
-    {
-        "file": "plugins/tabris-plugin-barcode-scanner/www/BarcodeScannerView.js",
-        "id": "tabris-plugin-barcode-scanner.barcodeScannerView",
-        "pluginId": "tabris-plugin-barcode-scanner",
-        "clobbers": [
-            "esbarcodescanner.BarcodeScannerView"
-        ]
     }
 ];
 module.exports.metadata = 
@@ -331,8 +323,7 @@ module.exports.metadata =
     "cordova-plugin-x-toast": "2.7.2",
     "cordova-plugin-device": "1.0.1",
     "cordova-plugin-file": "6.0.1",
-    "cordova-plugin-media": "1.0.1",
-    "tabris-plugin-barcode-scanner": "2.0.0"
+    "cordova-plugin-media": "1.0.1"
 }
 // BOTTOM OF METADATA
 });
