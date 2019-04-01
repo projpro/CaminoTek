@@ -43,7 +43,9 @@
     <plugin source="git" spec="https://github.com/floatinghotpot/cordova-admob-pro" />
     <plugin name="cordova-plugin-network-information" source="npm" />
     <plugin name="cordova-universal-clipboard" source="npm" />
-    <plugin name="phonegap-plugin-barcodescanner" source="npm" />
+  <plugin name="phonegap-plugin-barcodescanner" spec="https://github.com/phonegap/phonegap-plugin-barcodescanner.git">
+    <variable name="ANDROID_SUPPORT_V4_VERSION" value="27.1.1" />
+  </plugin>
     <plugin name="cordova-plugin-x-toast" />
     <engine name="android" spec="~7.1.4" />
 </widget>
