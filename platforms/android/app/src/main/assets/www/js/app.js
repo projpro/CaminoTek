@@ -103,38 +103,38 @@ $$(document).on('deviceready', function () {
   //});
   //console.log('after init');
 
-  push.on('registration', function (data) {
-      alert('registration event: ' + data.registrationId);
+  //push.on('registration', function (data) {
+  //    alert('registration event: ' + data.registrationId);
 
-      var oldRegId = localStorage.getItem('registrationId');
-      if (oldRegId !== data.registrationId) {
-          // Save new registration ID
-          localStorage.setItem('registrationId', data.registrationId);
-          // Post registrationId to your app server as the value has changed
-      }
+  //    var oldRegId = localStorage.getItem('registrationId');
+  //    if (oldRegId !== data.registrationId) {
+  //        // Save new registration ID
+  //        localStorage.setItem('registrationId', data.registrationId);
+  //        // Post registrationId to your app server as the value has changed
+  //    }
 
-     // var parentElement = document.getElementById('registration');
-     // var listeningElement = parentElement.querySelector('.waiting');
-      //var receivedElement = parentElement.querySelector('.received');
+  //   // var parentElement = document.getElementById('registration');
+  //   // var listeningElement = parentElement.querySelector('.waiting');
+  //    //var receivedElement = parentElement.querySelector('.received');
 
-      //listeningElement.setAttribute('style', 'display:none;');
-      //receivedElement.setAttribute('style', 'display:block;');
-  });
+  //    //listeningElement.setAttribute('style', 'display:none;');
+  //    //receivedElement.setAttribute('style', 'display:block;');
+  //});
 
-  push.on('error', function (e) {
-      console.log("push error = " + e.message);
-  });
+  //push.on('error', function (e) {
+  //    console.log("push error = " + e.message);
+  //});
 
-  push.on('notification', function (data) {
-      alert('notification event');
-      console.log("Title:" + data.title + " Message:" + data.message);
-      navigator.notification.alert(
-          data.message,         // message
-          null,                 // callback
-          data.title,           // title
-          'Ok'                  // buttonName
-      );
-  });
+  //push.on('notification', function (data) {
+  //    alert('notification event');
+  //    console.log("Title:" + data.title + " Message:" + data.message);
+  //    navigator.notification.alert(
+  //        data.message,         // message
+  //        null,                 // callback
+  //        data.title,           // title
+  //        'Ok'                  // buttonName
+  //    );
+  //});
 });
 // Init App
 var app = new Framework7({
