@@ -8,6 +8,76 @@ var acceptOrderPopup;
 // Handle Cordova Device Ready Event
 $$(document).on('deviceready', function () {
     console.log("Device is ready!");
+    console.log('Device Model: ' + device.model + '\n' +
+                        'Device Cordova: ' + device.cordova + '\n' +
+                        'Device Platform: ' + device.platform + '\n' +
+                        'Device UUID: ' + device.uuid + '\n' +
+                        'Device Version: ' + device.version + '\n');
+
+
+
+    //FCMPlugin.getToken(function (token) {
+    //    //this is the FCM token which can be used
+    //    //to send notification to specific device 
+    //    console.log(token);
+    //    console.log("DeviceRegistrationToken: " + token)
+    //    //FCMPlugin.onNotification( onNotificationCallback(data), successCallback(msg), errorCallback(err) )
+    //    //Here you define your application behaviour based on the notification data.
+    //    FCMPlugin.onNotification(function (data) {
+    //        console.log(data);
+    //        //data.wasTapped == true means in Background :  Notification was received on device tray and tapped by the user.
+    //        //data.wasTapped == false means in foreground :  Notification was received in foreground. Maybe the user needs to be notified.
+    //        // if (data.wasTapped) {
+    //        //     //Notification was received on device tray and tapped by the user.
+    //        //     alert(JSON.stringify(data));
+    //        // } else {
+    //        //     //Notification was received in foreground. Maybe the user needs to be notified.
+    //        //     alert(JSON.stringify(data));
+    //        // }
+    //    });
+    //});
+
+    console.log('calling push init');
+    var push = PushNotification.init({
+        "android": {
+            "senderID": "322267952759"
+        },
+        "browser": {},
+        "ios": {
+            "sound": true,
+            "vibration": true,
+            "badge": true
+        },
+        "windows": {}
+    });
+    console.log('after init');
+
+    push.on('registration', function (data) {
+        console.log('registration event: ' + data.registrationId);
+
+        var oldRegId = localStorage.getItem('registrationId');
+        if (oldRegId !== data.registrationId) {
+            // Save new registration ID
+            localStorage.setItem('registrationId', data.registrationId);
+            // Post registrationId to your app server as the value has changed
+        }
+
+    
+    });
+
+    push.on('error', function (e) {
+        console.log("push error = " + e.message);
+    });
+
+    push.on('notification', function (data) {
+        console.log('notification event');
+        navigator.notification.alert(
+            data.message,         // message
+            null,                 // callback
+            data.title,           // title
+            'Ok'                  // buttonName
+        );
+    });
 });
 // Init App
 var app = new Framework7({
