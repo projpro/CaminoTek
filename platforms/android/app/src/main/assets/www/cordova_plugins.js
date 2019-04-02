@@ -278,14 +278,6 @@ module.exports = [
     ]
   },
   {
-    "id": "phonegap-plugin-push.PushNotification",
-    "file": "plugins/phonegap-plugin-push/www/push.js",
-    "pluginId": "phonegap-plugin-push",
-    "clobbers": [
-      "PushNotification"
-    ]
-  },
-  {
     "id": "cordova-plugin-firebase.FirebasePlugin",
     "file": "plugins/cordova-plugin-firebase/www/firebase.js",
     "pluginId": "cordova-plugin-firebase",
@@ -311,9 +303,6 @@ module.exports.metadata =
   "cordova-universal-clipboard": "0.1.0",
   "phonegap-plugin-barcodescanner": "7.0.4",
   "cordova-plugin-fcm": "2.1.2",
-  "cordova-support-google-services": "1.1.0",
-  "phonegap-plugin-multidex": "1.0.0",
-  "phonegap-plugin-push": "2.2.3",
   "cordova-support-android-plugin": "1.0.1",
   "cordova-plugin-firebase": "2.0.5"
 };
