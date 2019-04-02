@@ -13,6 +13,14 @@
     }
   },
   "dependencies": {
-    "cordova-android": "~7.1.4"
+    "cordova-android": "~7.1.4",
+    "cordova-plugin-fcm": "^2.1.2",
+    "cordova-plugin-fcm-push": "0.0.4",
+    "cordova-plugin-firebase": "2.0.5",
+    "cordova-plugin-firebase-messaging": "1.3.2",
+    "cordova-support-android-plugin": "1.0.1",
+    "cordova-support-google-services": "1.1.0",
+    "phonegap-plugin-multidex": "1.0.0",
+    "phonegap-plugin-push": "git+https://github.com/phonegap/phonegap-plugin-push.git"
   }
 }

@@ -8,6 +8,133 @@ var acceptOrderPopup;
 // Handle Cordova Device Ready Event
 $$(document).on('deviceready', function () {
     console.log("Device is ready!");
+
+  console.log('Device Model: ' + device.model + '\n' +
+                        'Device Cordova: ' + device.cordova + '\n' +
+                        'Device Platform: ' + device.platform + '\n' +
+                        'Device UUID: ' + device.uuid + '\n' +
+                        'Device Version: ' + device.version + '\n');
+ 
+  //FCMPlugin.getToken(function (token) {
+  //    //this is the FCM token which can be used
+  //    //to send notification to specific device 
+  //    console.log(token);
+  //    console.log("DeviceRegistrationToken: " + token)
+  //    //FCMPlugin.onNotification( onNotificationCallback(data), successCallback(msg), errorCallback(err) )
+  //    //Here you define your application behaviour based on the notification data.
+  //    FCMPlugin.onNotification(function (data) {
+  //        console.log(data);
+  //        //data.wasTapped == true means in Background :  Notification was received on device tray and tapped by the user.
+  //        //data.wasTapped == false means in foreground :  Notification was received in foreground. Maybe the user needs to be notified.
+  //        // if (data.wasTapped) {
+  //        //     //Notification was received on device tray and tapped by the user.
+  //        //     alert(JSON.stringify(data));
+  //        // } else {
+  //        //     //Notification was received in foreground. Maybe the user needs to be notified.
+  //        //     alert(JSON.stringify(data));
+  //        // }
+  //    });
+  //});
+
+  if (window.FirebasePlugin) {
+    alert("window.FirebasePlugin Enabled: ")
+      window.FirebasePlugin.getToken(function (token) {
+          alert("DeviceRegistrationToken: " + token)
+          localStorage.setItem("DeviceRegistrationToken", token);
+
+        
+          //if (token != "") {
+          //    $.ajax({
+          //        url: global + 'StoreDeviceRegistrationTokenUpdate?storeid=' + storeId + '&registrationToken=' + token,
+          //        type: 'GET',
+          //        datatype: 'jsonp',
+          //        contenttype: "application/json",
+          //        crossDomain: true,
+          //        async: false,
+          //        success: function (data) {
+          //            console.log()
+
+          //            // window.location.href = "carryout.html?StoreId=" + storeId;
+          //        },
+          //        error: function (xhr, textStatus, errorThrown) {
+
+          //            //window.location.href = "carryout.html?StoreId=" + storeId;
+          //        }
+          //    });
+          //}
+          //else {
+          //}
+
+      }, function (error) {
+          //window.location.href = "carryout.html?StoreId=" + storeId;
+          // alert(error);
+      });
+      // Get notified when a token is refreshed
+      window.FirebasePlugin.onTokenRefresh(function (token) {
+          // save this server-side and use it to push notifications to this device
+          alert("Refresh to get new token: " + token);
+      }, function (error) {
+          console.log(error);
+      });
+
+      // Get notified when the user opens a notification
+      window.FirebasePlugin.onNotificationOpen(function (notification) {
+          alert(JSON.stringify(notification));
+          alert("The notification is open!");
+      }, function (error) {
+          console.error(error);
+      });
+
+
+  }
+
+  //console.log('calling push init');
+  //var push = PushNotification.init({
+  //    "android": {
+  //        "senderID": "322267952759"
+  //    },
+  //    "browser": {},
+  //    "ios": {
+  //        "sound": true,
+  //        "vibration": true,
+  //        "badge": true
+  //    },
+  //    "wns": {}
+  //});
+  //console.log('after init');
+
+  push.on('registration', function (data) {
+      alert('registration event: ' + data.registrationId);
+
+      var oldRegId = localStorage.getItem('registrationId');
+      if (oldRegId !== data.registrationId) {
+          // Save new registration ID
+          localStorage.setItem('registrationId', data.registrationId);
+          // Post registrationId to your app server as the value has changed
+      }
+
+     // var parentElement = document.getElementById('registration');
+     // var listeningElement = parentElement.querySelector('.waiting');
+      //var receivedElement = parentElement.querySelector('.received');
+
+      //listeningElement.setAttribute('style', 'display:none;');
+      //receivedElement.setAttribute('style', 'display:block;');
+  });
+
+  push.on('error', function (e) {
+      console.log("push error = " + e.message);
+  });
+
+  push.on('notification', function (data) {
+      alert('notification event');
+      console.log("Title:" + data.title + " Message:" + data.message);
+      navigator.notification.alert(
+          data.message,         // message
+          null,                 // callback
+          data.title,           // title
+          'Ok'                  // buttonName
+      );
+  });
 });
 // Init App
 var app = new Framework7({
@@ -445,7 +572,7 @@ function CheckLoggedIn() {
 
     }
     else {
-        // console.log("StoreId: 222")
+       
         if (localStorage.getItem("AppRefreshTimeInterval") != null) {
             appRefreshInterval = localStorage.getItem("AppRefreshTimeInterval").trim();
         }
@@ -732,6 +859,7 @@ function pauseAudio() {
     myMedia.pause();
 }
 function stopAudio() {
+    console.log("Stopping")
     myMedia = new Media(src, onSuccess, onError, onStatus);
     // alert("Stopping");
     myMedia.stop();
@@ -839,10 +967,10 @@ function AcceptOrders() {
     });
 }
 function Back() {
-    console.log('Back')
+   // console.log('Back')
     //console.log(app.views.main.router);
-    console.log(app.views.main.router.url);
-    console.log(app.views.main.router.history);
+    //console.log(app.views.main.router.url);
+    //console.log(app.views.main.router.history);
     if (app.views.main.router.history.length > 0) {
         var secondLastPage = "";
         var thirdLastPage = "";
@@ -851,10 +979,10 @@ function Back() {
             secondLastPage = app.views.main.router.history[length - 2];
             thirdLastPage = app.views.main.router.history[length - 3];
         }
-        console.log('secondLastPage: ' + secondLastPage);
-        console.log('thirdLastPage: ' + thirdLastPage);
+        //console.log('secondLastPage: ' + secondLastPage);
+        //console.log('thirdLastPage: ' + thirdLastPage);
         if (secondLastPage != "/login_new/" && secondLastPage != "/") {
-            console.log(1);
+           // console.log(1);
             app.views.main.router.back();
         }
         else {

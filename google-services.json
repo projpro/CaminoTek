@@ -1,0 +1,35 @@
+{
+  "project_info": {
+    "project_number": "322267952759",
+    "firebase_url": "https://bistroux-915bf.firebaseio.com",
+    "project_id": "bistroux-915bf",
+    "storage_bucket": "bistroux-915bf.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:322267952759:android:8e19f936c6fce71e",
+        "android_client_info": {
+          "package_name": "com.notification.bistroux"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBok6poGVLYsxkkMt9Rv_hleoFULmVNNUU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "322267952759-etpsusmn6esllbs146kck4s4ltt324u2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

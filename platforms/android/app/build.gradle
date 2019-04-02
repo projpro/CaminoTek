@@ -92,6 +92,10 @@ ext {
 
 // PLUGIN GRADLE EXTENSIONS START
 apply from: "../phonegap-plugin-barcodescanner/bistroux-barcodescanner.gradle"
+apply from: "../cordova-plugin-fcm/bistroux-FCMPlugin.gradle"
+apply from: "../cordova-support-google-services/bistroux-build.gradle"
+apply from: "../phonegap-plugin-multidex/bistroux-multidex.gradle"
+apply from: "../cordova-plugin-firebase/bistroux-build.gradle"
 // PLUGIN GRADLE EXTENSIONS END
 
 def hasBuildExtras1 = file('build-extras.gradle').exists()
@@ -268,6 +272,14 @@ dependencies {
     implementation(project(path: ":CordovaLib"))
     compile "com.android.support:support-v4:24.1.1+"
     compile "com.android.support:support-v4:27.+"
+    compile "com.google.firebase:firebase-core:+"
+    compile "com.google.firebase:firebase-messaging:+"
+    compile "com.android.support:support-v13:27.+"
+    compile "me.leolin:ShortcutBadger:1.1.17@aar"
+    compile "com.google.firebase:firebase-messaging:11.6.2"
+    compile "com.google.android.gms:play-services-tagmanager:+"
+    compile "com.google.firebase:firebase-config:+"
+    compile "com.google.firebase:firebase-perf:+"
     // SUB-PROJECT DEPENDENCIES END
 }
 
