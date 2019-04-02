@@ -1,5 +1,5 @@
-//var global = "http://www.appnotification.bistroux.com/Api/App/";
-var global = "http://localhost//Api/App/";
+var global = "http://www.appnotification.bistroux.com/Api/App/";
+//var global = "http://localhost:62256//Api/App/";
 var mediaURL = "http://appnotification.bistroux.com/Media/";
 
 var browser = true;

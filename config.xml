@@ -42,12 +42,6 @@
   <plugin name="cordova-plugin-console" spec="~1.0.1" />
   <plugin name="cordova-plugin-statusbar" spec="~1.0.1" />
   <plugin name="cordova-plugin-whitelist" source="npm" />
-  <!--<plugin name="phonegap-plugin-push" source="npm" spec="~1.8.0">
-    <variable name="SENDER_ID" value="322267952759" />
-  </plugin>-->
-  <!--<plugin name="phonegap-plugin-push" version="1.7.1" src="https://github.com/phonegap/phonegap-plugin-push.git">
-    <variable name="SENDER_ID" value="322267952759" />
-  </plugin>-->
   <variable name="API_KEY_FOR_ANDROID" value="AIzaSyBJZvmtBkzgIFt4YKxn9YaFgFzow9wkTOk" />
   <variable name="API_KEY_FOR_IOS" value="AIzaSyBFxZQaz73onx2qvWPDLq0asFflKiuPb-s" />
   <variable name="PLAY_SERVICES_VERSION" value="11.8.0" />
