@@ -41,13 +41,15 @@ $$(document).on('deviceready', function () {
     });
 
     push.on('notification', function (data) {
-        alert('notification event: ' + data.message + ", " + data.title);
-        navigator.notification.alert(
-            data.message,         // message
-            null,                 // callback
-            data.title,           // title
-            'Ok'                  // buttonName
-        );
+        alert('notification event: ');
+        CheckNewOrder();
+       // alert('notification event: ' + data.message + ", " + data.title);
+        //navigator.notification.alert(
+        //    data.message,         // message
+        //    null,                 // callback
+        //    data.title,           // title
+        //    'Ok'                  // buttonName
+        //);
     });
 });
 // Init App
@@ -542,7 +544,7 @@ function CheckStoreTimings() {
 
         });
         if (isAvailable === true) {
-            CheckNewOrder();
+            //CheckNewOrder();
 
         }
         else {
@@ -551,14 +553,15 @@ function CheckStoreTimings() {
         }
     }
     else {
-        //alert("2:")
-        CheckNewOrder();
-        setInterval(CheckNewOrder, Number(apprefreshinterval) * 1000);
+       
+      //  CheckNewOrder();
+        //setInterval(CheckNewOrder, Number(apprefreshinterval) * 1000);
     }
 
     console.log(GetCurrentDateTime() + " - " + "CheckStoreTimings END")
 }
 function CheckNewOrder() {
+    alert("CheckNewOrder START")
     console.log(GetCurrentDateTime() + " - " + "CheckNewOrder START", browser);
     var params = getParams();
     var storeId = 0;
