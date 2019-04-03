@@ -41,11 +41,6 @@
     "phonegap-plugin-barcodescanner": {
       "ANDROID_SUPPORT_V4_VERSION": "27.+",
       "PACKAGE_NAME": "com.notification.bistroux"
-    },
-    "phonegap-plugin-push": {
-      "ANDROID_SUPPORT_V13_VERSION": "27.+",
-      "FCM_VERSION": "11.6.2",
-      "PACKAGE_NAME": "com.notification.bistroux"
     }
   },
   "dependent_plugins": {
@@ -53,12 +48,6 @@
       "PACKAGE_NAME": "com.notification.bistroux"
     },
     "es6-promise-plugin": {
-      "PACKAGE_NAME": "com.notification.bistroux"
-    },
-    "cordova-support-google-services": {
-      "PACKAGE_NAME": "com.notification.bistroux"
-    },
-    "phonegap-plugin-multidex": {
       "PACKAGE_NAME": "com.notification.bistroux"
     }
   }

@@ -13,9 +13,6 @@
     }
   },
   "dependencies": {
-    "cordova-android": "~7.1.4",
-    "cordova-support-google-services": "1.1.0",
-    "phonegap-plugin-multidex": "1.0.0",
-    "phonegap-plugin-push": "2.2.3"
+    "cordova-android": "~7.1.4"
   }
 }
