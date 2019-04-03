@@ -30,6 +30,8 @@ buildscript {
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
         classpath 'com.android.tools.build:gradle:3.0.1'
+		 // Add the following line:
+        classpath 'com.google.gms:google-services:4.0.1'  // Google Services plugin
     }
 }
 
@@ -39,6 +41,9 @@ allprojects {
             url "https://maven.google.com"
         }
         jcenter()
+		// Check that you have the following line (if not, add it):
+    google()  // Google's Maven repository
+    // ...
     }
     //This replaces project.properties w.r.t. build settings
     project.ext {

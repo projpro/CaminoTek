@@ -8,6 +8,47 @@ var acceptOrderPopup;
 // Handle Cordova Device Ready Event
 $$(document).on('deviceready', function () {
     console.log("Device is ready!");
+    
+    var push = PushNotification.init({
+        "android": {
+            "senderID": "771458932582"
+        },
+        "browser": {},
+        "ios": {
+            "sound": true,
+            "vibration": true,
+            "badge": true
+        },
+        "windows": {}
+    });
+    console.log('after init');
+
+    push.on('registration', function (data) {
+        console.log('registration event: ' + data.registrationId);
+
+        var oldRegId = localStorage.getItem('registrationId');
+        if (oldRegId !== data.registrationId) {
+            // Save new registration ID
+            localStorage.setItem('registrationId', data.registrationId);
+            // Post registrationId to your app server as the value has changed
+        }
+
+     
+    });
+
+    push.on('error', function (e) {
+        console.log("push error = " + e.message);
+    });
+
+    push.on('notification', function (data) {
+        console.log('notification event');
+        navigator.notification.alert(
+            data.message,         // message
+            null,                 // callback
+            data.title,           // title
+            'Ok'                  // buttonName
+        );
+    });
 });
 // Init App
 var app = new Framework7({
