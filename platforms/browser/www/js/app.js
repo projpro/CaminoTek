@@ -42,7 +42,7 @@ $$(document).on('deviceready', function () {
 
     push.on('notification', function (data) {
         alert('notification event: ');
-        CheckNewOrder();
+       // CheckNewOrder();
        // alert('notification event: ' + data.message + ", " + data.title);
         //navigator.notification.alert(
         //    data.message,         // message
