@@ -41,7 +41,7 @@ $$(document).on('deviceready', function () {
     });
 
     push.on('notification', function (data) {
-        console.log('notification event');
+        alert('notification event: ' + data.message + ", " + data.title);
         navigator.notification.alert(
             data.message,         // message
             null,                 // callback
