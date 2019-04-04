@@ -21,17 +21,17 @@ $$(document).on('deviceready', function () {
         },
         "windows": {}
     });
-    console.log('after init');
+   // console.log('after init');
 
     push.on('registration', function (data) {
         //SetUpLog();
         //WriteLog("registrationId: " + data.registrationId)
         console.log('registration event: ' + data.registrationId);
-        console.log('StoreId: ' + localStorage.getItem("StoreId"))
+        //console.log('StoreId: ' + localStorage.getItem("StoreId"))
         var storeId = 0;
-        //alert(data.registrationId)
+        alert(data.registrationId)
         var oldRegId = localStorage.getItem('registrationId');
-        console.log("oldRegId: " + oldRegId);
+       // console.log("oldRegId: " + oldRegId);
         //if (oldRegId !== data.registrationId) {
             console.log("Save new registration ID")
             // Save new registration ID
@@ -40,7 +40,7 @@ $$(document).on('deviceready', function () {
             if (localStorage.getItem("StoreId") != null)
                 storeId = Number(localStorage.getItem("StoreId"));
 
-            console.log('StoreId 1: ' + storeId)
+            //console.log('StoreId 1: ' + storeId)
             if (storeId > 0)
             {
                 RegisterToken(storeId,data.registrationId);
