@@ -1,5 +1,6 @@
 //var global = "http://www.appnotification.bistroux.com/Api/App/";
-var global = "http://192.168.1.6/Api/App/";
+var global = "http://www.consumerapp.bistroux.com/Api/App/";
+//var global = "http://192.168.1.6/Api/App/";
 var mediaURL = "http://appnotification.bistroux.com/Media/";
 
 var browser = true;
@@ -21,7 +22,26 @@ function InitLogin() {
     $(".login-footer #footerYear").html(year);
 }
 
-
+function RegisterToken(storeId, token)
+{
+    $.ajax({
+        url: global + 'StoreDeviceRegistrationTokenUpdate?storeid=' + storeId + '&registrationToken=' + token,
+        type: 'GET',
+        datatype: 'jsonp',
+        contenttype: "application/json",
+        crossDomain: true,
+        async: false,
+        success: function (data) {
+            console.log("Saved to DB successfully")
+            //window.location.href = "index.html";
+            //window.localStorage.clear();
+        },
+        error: function (xhr, textStatus, errorThrown) {
+            //window.location.href = "index.html";
+            console.log("Saved to DB failed")
+        }
+    });
+}
 
 //Login
 function Login() {
@@ -6674,3 +6694,4 @@ function DeleteTimingSection(idCount, timingId) {
 }
 
 //Coupon Section End
+

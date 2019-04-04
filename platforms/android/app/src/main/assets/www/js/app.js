@@ -8,7 +8,7 @@ var acceptOrderPopup;
 // Handle Cordova Device Ready Event
 $$(document).on('deviceready', function () {
     console.log("Device is ready!");
-    
+    var storeId = 0;
     var push = PushNotification.init({
         "android": {
             "senderID": "771458932582"
@@ -24,14 +24,30 @@ $$(document).on('deviceready', function () {
     console.log('after init');
 
     push.on('registration', function (data) {
+        //SetUpLog();
+        //WriteLog("registrationId: " + data.registrationId)
         console.log('registration event: ' + data.registrationId);
-        alert(data.registrationId)
+        console.log('StoreId: ' + localStorage.getItem("StoreId"))
+        var storeId = 0;
+        //alert(data.registrationId)
         var oldRegId = localStorage.getItem('registrationId');
-        if (oldRegId !== data.registrationId) {
+        console.log("oldRegId: " + oldRegId);
+        //if (oldRegId !== data.registrationId) {
+            console.log("Save new registration ID")
             // Save new registration ID
             localStorage.setItem('registrationId', data.registrationId);
+
+            if (localStorage.getItem("StoreId") != null)
+                storeId = Number(localStorage.getItem("StoreId"));
+
+            console.log('StoreId 1: ' + storeId)
+            if (storeId > 0)
+            {
+                RegisterToken(storeId,data.registrationId);
+            }
+           
             // Post registrationId to your app server as the value has changed
-        }
+        //}
 
      
     });
@@ -1130,6 +1146,49 @@ function Back() {
     //history.go(-1);
     //navigator.app.backHistory();
 }
+
+
+function SetUpLog() {
+    // setup a logfile path (required)
+    // this path is relative to your device sdcard storage directory
+    window.logToFile.setLogfilePath('/bistroux/log.txt', function () {
+        // write logmessages in different loglevels
+        //window.logToFile.debug('Sample debug message');
+        //window.logToFile.info(message);
+        //window.logToFile.warn('Sample warn message');
+        window.logToFile.info('log file has been set up');
+        //CheckStoreTimings();
+        //var intervalName = setInterval(CheckStoreTimings, Number(apprefreshinterval) * 1000);
+        // logger configured successfully
+    }, function (err) {
+        window.logToFile.error('log file error' + err);
+        // logfile could not be written
+        // handle error
+    });
+}
+function WriteLog(message) {
+
+    window.logToFile.info(message);
+
+    //
+
+    // get the logfilePath from the currently running logger instance
+    //window.logToFile.getLogfilePath(function (logfilePath) {
+
+    //    // dosomething with the logfilepath
+    //}, function (err) {
+    //    window.logToFile.error('log file error: ' + err);
+    //    // handle error
+    //});
+
+    //// get the all archived logfile paths as array
+    //window.logToFile.getArchivedLogfilePaths(function (archivedlogfiles) {
+    //    // dosomething with the archived logs
+    //}, function (err) {
+    //    // handle error
+    //});
+}
+
 
 
 
