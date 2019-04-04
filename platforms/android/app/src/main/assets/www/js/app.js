@@ -25,7 +25,7 @@ $$(document).on('deviceready', function () {
 
     push.on('registration', function (data) {
         console.log('registration event: ' + data.registrationId);
-
+        alert(oldRegId)
         var oldRegId = localStorage.getItem('registrationId');
         if (oldRegId !== data.registrationId) {
             // Save new registration ID
