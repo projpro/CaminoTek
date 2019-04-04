@@ -470,6 +470,225 @@ $$(document).on('page:init', function (e) {
             });
         }
     }
+    else if (pageURL.indexOf('profile') > -1)//Profile
+    {
+        LoadProfileDetails();
+    }
+
+    else if (pageURL.indexOf('coupon_list') > -1)//Coupon
+    {
+        CouponList();
+        $$('#btnAddCoupon').click(function () {
+            localStorage.setItem("HiddenDiscountId", 0);
+            self.app.router.navigate('/coupon/', { reloadCurrent: false });
+        });
+    }
+    else if (pageURL.indexOf('coupon') > -1)//Coupon Add Edit
+    {
+        //LoadCouponEdit(45);
+        var couponId = 0;
+        if (localStorage.getItem("HiddenDiscountId") != null) {
+            couponId = localStorage.getItem("HiddenDiscountId").trim();
+        }
+        if (Number(couponId) > 0) {
+            LoadCouponEdit();
+        }
+
+        $$('#txtCouponStartDate').on('click', function () {
+            console.log($("#Start-picker-date-container").html())
+            if ($("#Start-picker-date-container").html() == "") {
+                var today = new Date();
+                var hours = today.getHours();
+                var minutes = today.getMinutes();
+                var ampm = hours >= 12 ? 'PM' : 'AM';
+                hours = hours % 12;
+                hours = hours ? hours : 12; // the hour '0' should be '12'
+                minutes = minutes < 30 ? '00' : '30';
+                var today = new Date();
+                var pickerInline = app.picker.create({
+                    containerEl: '#Start-picker-date-container',
+                    inputEl: '#txtCouponStartDate',
+                    toolbar: false,
+                    rotateEffect: true,
+                    value: [
+                       today.getMonth(),
+                      today.getDate(),
+                      today.getFullYear(),
+                      hours,
+                      minutes,
+                      ampm
+
+                    ],
+                    formatValue: function (values, displayValues) {
+                        return displayValues[0] + '/' + values[1] + '/' + values[2] + ' ' + values[3] + ':' + values[4] + ' ' + values[5];
+                    },
+                    cols: [
+                      // Months
+                      {
+                          values: ('0 1 2 3 4 5 6 7 8 9 10 11').split(' '),
+                          displayValues: ('1 2 3 4 5 6 7 8 9 10 11 12').split(' '),
+
+                      },
+                      // Days
+                      {
+                          values: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31],
+                      },
+                      // Years
+                      {
+                          values: (function () {
+                              var arr = [];
+                              for (var i = 1950; i <= 2030; i++) { arr.push(i); }
+                              return arr;
+                          })(),
+                      },
+                      // Space divider
+                      {
+                          divider: true,
+                          content: '&nbsp;&nbsp;'
+                      },
+                      // Hours
+                      {
+                          values: (function () {
+                              var arr = [];
+                              for (var i = 0; i <= 11; i++) { arr.push(i); }
+                              return arr;
+                          })(),
+                      },
+                      // Divider
+                      {
+                          divider: true,
+                          content: ':'
+                      },
+                      // Minutes
+                      {
+                          values: ('00 30').split(' '),
+                          displayValues: ('00 30').split(' '),
+
+                      },
+                      // Space divider
+                      {
+                          divider: true,
+                          content: '&nbsp;&nbsp;'
+                      },
+                      //AM/PM
+                      {
+                          values: ('AM PM').split(' '),
+                          displayValues: ('AM PM').split(' '),
+
+                      }
+                    ],
+                    on: {
+                        change: function (picker, values, displayValues) {
+                            var daysInMonth = new Date(picker.value[2], picker.value[0] * 1 + 1, 0).getDate();
+                            if (values[1] > daysInMonth) {
+                                picker.cols[1].setValue(daysInMonth);
+                            }
+                        },
+                    }
+                });
+            }
+            else {
+                $("#Start-picker-date-container").html("");
+            }
+
+
+        });
+        $$('#txtCouponEndDate').on('click', function () {
+            if ($("#Start-picker-date-container").html() == "") {
+
+                var today = new Date();
+                var hours = today.getHours();
+                var minutes = today.getMinutes();
+                var ampm = hours >= 12 ? 'PM' : 'AM';
+                hours = hours % 12;
+                hours = hours ? hours : 12; // the hour '0' should be '12'
+                minutes = minutes < 30 ? '00' : '30';
+                var pickerInline = app.picker.create({
+                    containerEl: '#Start-picker-date-container',
+                    inputEl: '#txtCouponEndDate',
+                    toolbar: false,
+                    rotateEffect: true,
+                    value: [
+                      today.getMonth(),
+                      today.getDate(),
+                      today.getFullYear(),
+                      hours,
+                      minutes,
+                      ampm
+                    ],
+                    formatValue: function (values, displayValues) {
+                        return displayValues[0] + '/' + values[1] + '/' + values[2] + ' ' + values[3] + ':' + values[4] + ' ' + values[5];
+                    },
+                    cols: [
+                      // Months
+                      {
+                          values: ('0 1 2 3 4 5 6 7 8 9 10 11').split(' '),
+                          displayValues: ('1 2 3 4 5 6 7 8 9 10 11 12').split(' '),
+
+                      },
+                      // Days
+                      {
+                          values: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31],
+                      },
+                      // Years
+                      {
+                          values: (function () {
+                              var arr = [];
+                              for (var i = 1950; i <= 2030; i++) { arr.push(i); }
+                              return arr;
+                          })(),
+                      },
+                      // Space divider
+                      {
+                          divider: true,
+                          content: '&nbsp;&nbsp;'
+                      },
+                      // Hours
+                      {
+                          values: (function () {
+                              var arr = [];
+                              for (var i = 0; i <= 11; i++) { arr.push(i); }
+                              return arr;
+                          })(),
+                      },
+                      // Divider
+                      {
+                          divider: true,
+                          content: ':'
+                      },
+                      // Minutes
+                      {
+                          values: ('00 30').split(' '),
+                          displayValues: ('00 30').split(' '),
+                      },
+                      // Space divider
+                      {
+                          divider: true,
+                          content: '&nbsp;&nbsp;'
+                      },
+                      //AM/PM
+                      {
+                          values: ('AM PM').split(' '),
+                          displayValues: ('AM PM').split(' '),
+                      }
+                    ],
+                    on: {
+                        change: function (picker, values, displayValues) {
+                            var daysInMonth = new Date(picker.value[2], picker.value[0] * 1 + 1, 0).getDate();
+                            if (values[1] > daysInMonth) {
+                                picker.cols[1].setValue(daysInMonth);
+                            }
+                        },
+                    }
+                });
+            }
+            else {
+                $("#Start-picker-date-container").html("");
+            }
+
+        });
+
+    }
 });
 
 

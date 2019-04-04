@@ -11096,10 +11096,10 @@ label.item-checkbox.disabled {
 
 .md .checkbox i:after,
 .md .icon-checkbox:after {
-    width: 18px;
-    height: 18px;
-    left: -2px;
-    top: -2px;
+    width: 22px;
+    height: 20px;
+    left: 0;
+    top: 0;
     -webkit-transition-duration: .2s;
     transition-duration: .2s;
     opacity: 0;
@@ -11128,7 +11128,7 @@ label.item-checkbox.disabled {
 }
 
 .md label.item-checkbox>.icon-checkbox {
-    margin-right: 38px
+    margin-right: 5px
 }
 
 .md label.item-checkbox .item-content .item-media,
@@ -11187,8 +11187,8 @@ label.item-checkbox.disabled {
 .md .color-theme-pink .checkbox input[type=checkbox]:checked~i,
 .md .color-theme-pink label.item-checkbox input[type=checkbox]:checked~* .icon-checkbox,
 .md .color-theme-pink label.item-checkbox input[type=checkbox]:checked~.icon-checkbox {
-    background-color: #e91e63;
-    border-color: #e91e63
+    background-color: #08b3c7;
+    border-color: #08b3c7
 }
 
 .md .color-theme-pink .checkbox .ripple-wave {

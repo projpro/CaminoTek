@@ -1,5 +1,5 @@
-var global = "http://www.appnotification.bistroux.com/Api/App/";
-//var global = "http://localhost:62256//Api/App/";
+//var global = "http://www.appnotification.bistroux.com/Api/App/";
+var global = "http://192.168.1.6/Api/App/";
 var mediaURL = "http://appnotification.bistroux.com/Media/";
 
 var browser = true;
@@ -4968,3 +4968,1709 @@ function SetManageService() {
     catch (e) {
     }
 }
+
+/*04.04.2019*/
+
+
+//Profile Section Start//
+function GotoProfile() {
+    self.app.router.navigate('/profile/', { reloadCurrent: true });
+}
+
+function LoadProfileDetails() {
+    var storeId = 0;
+    storeId = SetStoreId();
+
+    if (Number(storeId) > 0) {
+
+        var url = global + "/GetStoreByStoreId?storeid=" + storeId;
+
+        try {
+            $.getJSON(url, function (data) {
+                console.log(data);
+                var obj = JSON.parse(data);
+                var length = Object.keys(obj).length;
+                console.log("Length: " + length);
+
+                if (JSON.parse(data).indexOf("No record(s) found") < 0) {
+                    var count = 0;
+                    $.each(JSON.parse(data), function (index, value) {
+                        var name = "";
+                        var description = "";
+                        var address1 = "";
+                        var address2 = "";
+                        var city = "";
+                        var state = "";
+                        var zip = "";
+                        var phone = "";
+                        var fax = "";
+                        var sendFax = false;
+                        var refundPolicy = "";
+                        var restaurantUrl = "";
+                        var adminEmail = "";
+                        var pickupLeadTime = 0;
+                        var carryoutLeadTime = 0;
+
+                        if (value.RestaurantDisplayName != "") {
+                            name = value.RestaurantDisplayName;
+                            $("#txtProfileName").val(name);
+                        }
+                        if (value.Description != "") {
+                            description = value.Description;
+                            $("#txtProfileDescription").val(description);
+                        }
+                        if (value.Address1 != "") {
+                            address1 = value.Address1
+                            $("#txtProfileAddress1").val(address1);
+                        }
+                        if (value.Address2 != "") {
+                            address2 = value.Address2;
+                            $("#txtProfileAddress2").val(address2);
+                        }
+                        if (value.City != "") {
+                            city = value.City;
+                            $("#txtProfileCity").val(city);
+                        }
+                        if (value.State != "") {
+                            state = value.State;
+                            if (state.length == 2) {
+                                $("#ddlProfileState").val(state);
+                            }
+                            else {
+                                $('#ddlProfileState option').map(function () {
+                                    if ($(this).text() == state) return this;
+                                }).attr('selected', 'selected');
+                            }
+                        }
+                        if (value.Zip != "") {
+                            zip = value.Zip;
+                            $("#txtProfileZip").val(zip);
+                        }
+                        if (value.CompanyPhoneNumber != "") {
+                            phone = value.CompanyPhoneNumber;
+                            $("#txtProfilePhone").val(phone);
+                        }
+                        if (value.Fax != "") {
+                            fax = value.Fax;
+                            $("#txtProfileFax").val(fax);
+                        }
+                        if (value.SendFax == true) {
+                            sendFax = true;
+                            $("#checkSendFax").prop('checked', true)
+                        }
+                        else {
+                            sendFax = false;
+                            $("#checkSendFax").prop('checked', false)
+                        }
+                        if (value.RefundPolicy != "") {
+                            refundPolicy = value.RefundPolicy;
+                            $("#txtProfileRefundPolicy").val(refundPolicy);
+                        }
+                        if (value.Url != "") {
+                            restaurantUrl = value.Url;
+                            $("#txtProfileRestaurantURL").val(restaurantUrl);
+                        }
+                        if (value.FullAdminEmail != "") {
+                            $("#hdnFullAdminEmail").val(value.FullAdminEmail);
+                        }
+                        if (value.AdminEmail != "") {
+                            adminEmail = value.AdminEmail;
+                            $("#txtProfileAdminEmail").val(adminEmail);
+                        }
+                        if (value.PickupLeadTimeInMinutes > 0) {
+                            pickupLeadTime = value.PickupLeadTimeInMinutes;
+                            if (pickupLeadTime > 0) {
+                                $("#ddlProfilePickupLeadTime").val(pickupLeadTime);
+                            }
+                        }
+                        if (value.CarryOutLeadTimeInMinutes > 0) {
+                            carryoutLeadTime = value.CarryOutLeadTimeInMinutes;
+                            if (carryoutLeadTime > 0) {
+                                $("#ddlProfileCarryOutLeadTime").val(carryoutLeadTime);
+                            }
+                        }
+
+                        console.log("Name: " + name + " Description: " + description + " Address1: " + address1 + " Address2: " + address2 + " City: " + city + " State: " + state + " Zip: " + zip + " Phone: " + phone + " Fax: " + fax +
+                                " SendFax: " + sendFax + " Refund Policy: " + refundPolicy + " Restaurnat Url: " + restaurantUrl + " Admin Eamil: " + adminEmail + " P Lead Time: " + pickupLeadTime + " C Lead Time: " + carryoutLeadTime);
+
+                    });
+
+                }
+                else {
+
+                }
+            });
+
+
+        }
+        catch (e) {
+        }
+    }
+    else {
+        self.app.router.navigate('/login_new/', { reloadCurrent: true });
+    }
+}
+
+function SaveStoreInfo() {
+    var storeId = 0;
+    storeId = SetStoreId();
+    var restaurantDisplayName = $("#txtProfileName").val();
+    var description = $("#txtProfileDescription").val();
+    var address1 = $("#txtProfileAddress1").val();
+    var address2 = $("#txtProfileAddress2").val();
+    var city = $("#txtProfileCity").val();
+    var state = $("#ddlProfileState").val();
+    var zip = $("#txtProfileZip").val();
+    var phone = $("#txtProfilePhone").val();
+    var fax = $("#txtProfileFax").val();
+    var sendFax = false;
+    if ($("#checkSendFax").prop("checked") == true) {
+        sendFax = true;
+    }
+    var refundPolicy = $("#txtProfileRefundPolicy").val();
+    var restaurantUrl = $("#txtProfileRestaurantURL").val();
+    var fullAdminEmail = $("#hdnFullAdminEmail").val();
+    var adminEmail = $("#txtProfileAdminEmail").val();
+    var pickupLeadTime = $("#ddlProfilePickupLeadTime").val();
+    var carryoutLeadTime = $("#ddlProfileCarryOutLeadTime").val();
+    var isValid = false;
+    isValid = ValidateStoreInfo(restaurantDisplayName, address1, city, state, zip, phone, fax, restaurantUrl, adminEmail, pickupLeadTime, carryoutLeadTime);
+    //alert(isValid);
+    if ((Number(storeId) > 0)) {
+        if (isValid) {
+            $('#txtProfileName').css('border-bottom', bottomBorder);
+            $('#txtProfileAddress1').css('border-bottom', bottomBorder);
+            $('#txtProfileCity').css('border-bottom', bottomBorder);
+            $('#ddlProfileState').css('border-bottom', bottomBorder);
+            $('#txtProfileZip').css('border-bottom', bottomBorder);
+            $('#txtProfilePhone').css('border-bottom', bottomBorder);
+            $("#txtProfileFax").css('border-bottom', bottomBorder);
+            $('#txtProfileRestaurantURL').css('border-bottom', bottomBorder);
+            $('#txtProfileAdminEmail').css('border-bottom', bottomBorder);
+            $('#ddlProfilePickupLeadTime').css('border-bottom', bottomBorder);
+            $('#ddlProfileCarryOutLeadTime').css('border-bottom', bottomBorder);
+
+            var model = new Object();
+            model.StoreId = storeId;
+            model.RestaurantDisplayName = restaurantDisplayName;
+            model.Description = description;
+            model.Address1 = address1;
+            model.Address2 = address2;
+            model.City = city;
+            model.State = state;
+            model.Zip = zip;
+            model.Phone = phone;
+            model.Fax = fax;
+            if (sendFax == true) {
+                model.SendFax = true;
+            }
+            else {
+                model.SendFax = false;
+            }
+            model.RefundPolicy = refundPolicy;
+            model.RestaurantUrl = restaurantUrl;
+            model.FullAdminEmail = fullAdminEmail;
+            model.AdminEmail = adminEmail;
+            if (pickupLeadTime > 0) {
+                model.PickupLeadTimeInMinutes = pickupLeadTime;
+            }
+            else {
+                model.PickupLeadTimeInMinutes = 0;
+            }
+            if (carryoutLeadTime > 0) {
+                model.CarryoutLeadTimeInMinutes = carryoutLeadTime;
+            }
+            else {
+                model.CarryoutLeadTimeInMinutes = 0;
+            }
+
+
+            try {
+                $.post(global + "/SaveStoreInfo", model, function (data) {
+                    console.log(data.indexOf("Successful"));
+                    LoadProfileDetails();
+                    if (data.indexOf("Successful") > -1) {
+                        swal({
+                            title: "Store Info saved successfully!",
+                            confirmButtonText: "OK",
+                            type: "success",
+                            confirmButtonClass: 'btn btn-success',
+                            buttonsStyling: false,
+                            customClass: 'swal-wide',
+                        });
+                    }
+                });
+            }
+            catch (e) {
+            }
+        }
+    }
+    else {
+        self.app.router.navigate('/login_new/', { reloadCurrent: true });
+    }
+}
+
+function ValidateStoreInfo(restaurantDisplayName, address1, city, state, zip, phone, fax, restaurantUrl, adminEmail, pickupLeadTime, carryoutLeadTime) {
+    var isValid = true;
+    if (restaurantDisplayName == "") {
+        $('#txtProfileName').css('border-bottom', errorClassBorder);
+        isValid = false;
+    }
+    if (address1 == "") {
+        $('#txtProfileAddress1').css('border-bottom', errorClassBorder);
+        isValid = false;
+    }
+    if (city == "") {
+        $('#txtProfileCity').css('border-bottom', errorClassBorder);
+        isValid = false;
+    }
+    if (state == "") {
+        $('#ddlProfileState').css('border-bottom', errorClassBorder);
+        isValid = false;
+    }
+    if (zip == "") {
+        $('#txtProfileZip').css('border-bottom', errorClassBorder);
+        isValid = false;
+    }
+    if (phone == "") {
+        $('#txtProfilePhone').css('border-bottom', errorClassBorder);
+        isValid = false;
+    }
+    else {
+        if (phone.length < 10) {
+            $('#txtProfilePhone').css('border-bottom', errorClassBorder);
+            isValid = false;
+        }
+    }
+    if (fax != "" && fax.length < 10) {
+        $("#txtProfileFax").css('border-bottom', errorClassBorder);
+        isValid = false;
+    }
+    if (restaurantUrl == "") {
+        $('#txtProfileRestaurantURL').css('border-bottom', errorClassBorder);
+        isValid = false;
+    }
+    if (adminEmail == "") {
+        $('#txtProfileAdminEmail').css('border-bottom', errorClassBorder);
+        isValid = false;
+    }
+    else {
+        if (isEmail("#txtProfileAdminEmail") != true) {
+            $('#txtProfileAdminEmail').css('border-bottom', errorClassBorder);
+            isValid = false;
+        }
+    }
+    if (pickupLeadTime <= 0) {
+        $('#ddlProfilePickupLeadTime').css('border-bottom', errorClassBorder);
+        isValid = false;
+    }
+    if (carryoutLeadTime <= 0) {
+        $('#ddlProfileCarryOutLeadTime').css('border-bottom', errorClassBorder);
+        isValid = false;
+    }
+
+    return isValid;
+}
+
+function AddNewSection(dayName, dayKey, e) {
+    var hdnCount = $('#hdnCount').val();
+    var idCount = parseInt(hdnCount) + 1;
+    var removeParameter = idCount + "," + e;
+
+    var html = "";
+    //Html Start Section//
+    html += "<div id=\"div_content_" + idCount + "\" class=\"div-content\">";
+    //First Column Start//
+    html += "<div class=\"timing-flex-column-container\">";
+    //Label Section Start//
+    html += "<div style=\"flex-basis: 120px;\">";
+    html += "<label>Opening Time</label>";
+    html += "<input id=\"Businesday_" + idCount + "_StoreTimingId\" name=\"Businesday[" + idCount + "].StoreTimingId\" type=\"hidden\" value=\"0\">";
+    html += "<input id=\"Businesday_" + idCount + "_DayKey\" name=\"Businesday[" + idCount + "].DayKey\" type=\"hidden\" value=\"" + dayKey + "\">";
+    html += "</div>";
+    //Label Section End//
+
+    //Hour Section Start//
+    html += "<div style=\"flex-basis: 80px;\">";
+    html += CreateHourHtml(idCount, "Opening");
+    html += "</div>";
+    //Hour Section End//
+
+    //Minute Section Start//
+    html += "<div style=\"flex-basis: 80px;\">";
+    html += CreateMinuteHtml(idCount, "Opening");
+    html += "</div>";
+    //Minute Section End//
+
+    //Period Section Start//
+    html += "<div style=\"flex-basis: 80px;\">";
+    html += CreatePeriodHtml(idCount, "Opening");
+    html += "</div>";
+    //Period Section End//
+
+    //Remove Icon Section Start//
+    html += "<div style=\"flex-basis: 40px;\">";
+    html += "<i id=\"remove_" + idCount + "\" class=\"material-icons\" onclick=\"RemoveSection(" + removeParameter + ");\" style=\"color: #e80000;\">delete</i>";
+    html += "</div>";
+    //Remove Icon Section End//
+
+    html += "</div>";
+    //First Column End//
+
+    //***********************//
+
+    //Second Column Start//
+    html += "<div class=\"timing-flex-column-container\">";
+    //Label Section Start//
+    html += "<div style=\"flex-basis: 120px;\">";
+    html += "<label>Closing Time</label>";
+    html += "</div>";
+    //Label Section End//
+
+    //Hour Section Start//
+    html += "<div style=\"flex-basis: 80px;\">";
+    html += CreateHourHtml(idCount, "Closing");
+    html += "</div>";
+    //Hour Section End//
+
+    //Minute Section Start//
+    html += "<div style=\"flex-basis: 80px;\">";
+    html += CreateMinuteHtml(idCount, "Closing");
+    html += "</div>";
+    //Minute Section End//
+
+    //Period Section Start//
+    html += "<div style=\"flex-basis: 80px;\">";
+    html += CreatePeriodHtml(idCount, "Closing");
+    html += "</div>";
+    //Period Section End//
+
+    //Remove Icon Section Start//
+    html += "<div style=\"flex-basis: 40px;\">";
+    html += "</div>";
+    //Remove Icon Section End//
+
+    html += "</div>";
+    //Second Column Start//
+
+    html += "</div>";
+    //Html End Section//
+
+    $("#div_" + dayName).append(html);
+    $('#hdnCount').val(idCount);
+}
+
+function RemoveSection(idCount, e) {
+    $("#div_content_" + idCount + "").remove();
+    var hdnCount = $('#hdnCount').val();
+    var idCount = parseInt(hdnCount) - 1;
+    $('#hdnCount').val(idCount);
+}
+
+function AppendEditSection(timingId, dayName, dayKey, openingHour, openingMinute, openingPeriod, closingHour, closingMinute, closingPeriod) {
+    var hdnCount = $('#hdnCount').val();
+    var idCount = parseInt(hdnCount) + 1;
+    var removeParameter = idCount + "," + timingId;
+
+    var html = "";
+    //Html Start Section//
+    html += "<div id=\"div_content_" + idCount + "\" class=\"div-content\">";
+    //First Column Start//
+    html += "<div class=\"timing-flex-column-container\">";
+    //Label Section Start//
+    html += "<div style=\"flex-basis: 120px;\">";
+    html += "<label>Opening Time</label>";
+    html += "<input id=\"Businesday_" + idCount + "_StoreTimingId\" name=\"Businesday[" + idCount + "].StoreTimingId\" type=\"hidden\" value=\"" + timingId + "\">";
+    html += "<input id=\"Businesday_" + idCount + "_DayKey\" name=\"Businesday[" + idCount + "].DayKey\" type=\"hidden\" value=\"" + dayKey + "\">";
+    html += "</div>";
+    //Label Section End//
+
+    //Hour Section Start//
+    html += "<div style=\"flex-basis: 80px;\">";
+    html += CreateHourEditHtml(idCount, "Opening", openingHour);
+    html += "</div>";
+    //Hour Section End//
+
+    //Minute Section Start//
+    html += "<div style=\"flex-basis: 80px;\">";
+    html += CreateMinuteEditHtml(idCount, "Opening", openingMinute);
+    html += "</div>";
+    //Minute Section End//
+
+    //Period Section Start//
+    html += "<div style=\"flex-basis: 80px;\">";
+    html += CreatePeriodEditHtml(idCount, "Opening", openingPeriod);
+    html += "</div>";
+    //Period Section End//
+
+    //Remove Icon Section Start//
+    html += "<div style=\"flex-basis: 40px;\">";
+    html += "<i id=\"remove_" + idCount + "\" class=\"material-icons\" onclick=\"DeleteSection(" + removeParameter + ");\" style=\"color: #e80000;\">delete</i>";
+    html += "</div>";
+    //Remove Icon Section End//
+
+    html += "</div>";
+    //First Column End//
+
+    //***********************//
+
+    //Second Column Start//
+    html += "<div class=\"timing-flex-column-container\">";
+    //Label Section Start//
+    html += "<div style=\"flex-basis: 120px;\">";
+    html += "<label>Closing Time</label>";
+    html += "</div>";
+    //Label Section End//
+
+    //Hour Section Start//
+    html += "<div style=\"flex-basis: 80px;\">";
+    html += CreateHourEditHtml(idCount, "Closing", closingHour);
+    html += "</div>";
+    //Hour Section End//
+
+    //Minute Section Start//
+    html += "<div style=\"flex-basis: 80px;\">";
+    html += CreateMinuteEditHtml(idCount, "Closing", closingMinute);
+    html += "</div>";
+    //Minute Section End//
+
+    //Period Section Start//
+    html += "<div style=\"flex-basis: 80px;\">";
+    html += CreatePeriodEditHtml(idCount, "Closing", closingPeriod);
+    html += "</div>";
+    //Period Section End//
+
+    //Remove Icon Section Start//
+    html += "<div style=\"flex-basis: 40px;\">";
+    html += "</div>";
+    //Remove Icon Section End//
+
+    html += "</div>";
+    //Second Column Start//
+
+    html += "</div>";
+    //Html End Section//
+
+    $("#div_" + dayName).append(html);
+    $('#hdnCount').val(idCount);
+    //return html;
+}
+
+function CreateHourHtml(iCount, type) {
+    var hourHtml = "";
+    hourHtml += "<select id=\"Businesday_" + iCount + "_" + type + "Hour\" name=\"Businesday[" + iCount + "]." + type + "Hour\">";
+    for (var i = 0; i < 12; i++) {
+        if (i <= 9) {
+            hourHtml += "<option value=\"0" + i + "\">0" + i + "</option>";
+        }
+        else {
+            hourHtml += "<option value=\"" + i + "\">" + i + "</option>";
+        }
+    }
+    hourHtml += "</select>";
+    return hourHtml;
+}
+function CreateMinuteHtml(iCount, type) {
+    var minuteHtml = "";
+    minuteHtml += "<select id=\"Businesday_" + iCount + "_" + type + "Minute\" name=\"Businesday[" + iCount + "]." + type + "Minute\">";
+    for (var i = 0; i < 60; i++) {
+        if (i <= 9) {
+            minuteHtml += "<option value=\"0" + i + "\">0" + i + "</option>";
+        }
+        else {
+            minuteHtml += "<option value=\"" + i + "\">" + i + "</option>";
+        }
+    }
+    minuteHtml += "</select>";
+    return minuteHtml;
+}
+function CreatePeriodHtml(iCount, type) {
+    var periodHtml = "";
+    periodHtml += "<select id=\"Businesday_" + iCount + "_" + type + "Period\" name=\"Businesday[" + iCount + "]." + type + "Period\">";
+    periodHtml += "<option value=\"AM\">AM</option>";
+    periodHtml += "<option value=\"PM\">PM</option>";
+    periodHtml += "</select>";
+    return periodHtml;
+}
+
+
+function CreateHourEditHtml(iCount, type, selectedHour) {
+    var hourHtml = "";
+    hourHtml += "<select id=\"Businesday_" + iCount + "_" + type + "Hour\" name=\"Businesday[" + iCount + "]." + type + "Hour\">";
+    for (var i = 0; i < 12; i++) {
+        var hour = "0";
+        if (i <= 9) {
+            hour = "0" + i;
+        }
+        else {
+            hour = i;
+        }
+        if (hour == selectedHour) {
+            hourHtml += "<option value=\"" + hour + "\" selected>" + hour + "</option>";
+        }
+        else {
+            hourHtml += "<option value=\"" + hour + "\">" + hour + "</option>";
+        }
+    }
+    hourHtml += "</select>";
+    return hourHtml;
+}
+function CreateMinuteEditHtml(iCount, type, selectedMinute) {
+    var minuteHtml = "";
+    minuteHtml += "<select id=\"Businesday_" + iCount + "_" + type + "Minute\" name=\"Businesday[" + iCount + "]." + type + "Minute\">";
+    for (var i = 0; i < 60; i++) {
+        var minute = "0";
+        if (i <= 9) {
+            minute = "0" + i;
+        }
+        else {
+            minute = i;
+        }
+        if (minute == selectedMinute) {
+            minuteHtml += "<option value=\"" + i + "\" selected>" + i + "</option>";
+        }
+        else {
+            minuteHtml += "<option value=\"" + i + "\">" + i + "</option>";
+        }
+    }
+    minuteHtml += "</select>";
+    return minuteHtml;
+}
+function CreatePeriodEditHtml(iCount, type, period) {
+    var periodHtml = "";
+    periodHtml += "<select id=\"Businesday_" + iCount + "_" + type + "Period\" name=\"Businesday[" + iCount + "]." + type + "Period\">";
+    if (period == "AM") {
+        periodHtml += "<option value=\"AM\" selected>AM</option>";
+    }
+    else if (period == "PM") {
+        periodHtml += "<option value=\"PM\" selected>PM</option>";
+    }
+    else {
+        periodHtml += "<option value=\"AM\">AM</option>";
+        periodHtml += "<option value=\"PM\">PM</option>";
+    }
+    periodHtml += "</select>";
+    return periodHtml;
+}
+
+function ShowStoreTiming() {
+    $('.div-content').remove();
+    $('#hdnCount').val(8);
+    var storeId = 0;
+    storeId = SetStoreId();
+    var moCount = 1; var tuCount = 1; var weCount = 1; var thCount = 1; var frCount = 1; var saCount = 1; var suCount = 1;
+    if (Number(storeId) > 0) {
+
+        var url = global + "/GetStoreTimingsByStoreId?storeid=" + storeId;
+
+        try {
+            $.getJSON(url, function (data) {
+                console.log(data);
+                var obj = JSON.parse(data);
+                var length = Object.keys(obj).length;
+                console.log("Length: " + length);
+
+                if (JSON.parse(data).indexOf("No record(s) found") < 0) {
+                    //console.log(data);
+                    var count = 0;
+                    $.each(JSON.parse(data), function (index, value) {
+                        var dayName = "";
+                        var timingId = 0;
+                        var day = "";
+                        var openingTime = "";
+                        var openingHour = "";
+                        var openingMinute = "";
+                        var openingPeriod = "";
+                        var closingTime = "";
+                        var closingHour = "";
+                        var closingMinute = "";
+                        var closingPeriod = "";
+                        if (value.ID > 0) {
+                            timingId = value.ID;
+                        }
+                        if (value.DAY != "") {
+                            day = value.DAY;
+                        }
+                        if (value.OPENINGTIME != "") {
+                            openingTime = value.OPENINGTIME;
+                            if (value.OPENINGHOUR != "") {
+                                openingHour = value.OPENINGHOUR;
+                            }
+                            if (value.OPENINGMINUTE != "") {
+                                openingMinute = value.OPENINGMINUTE;
+                            }
+                            if (value.OPENINGPERIOD != "") {
+                                openingPeriod = value.OPENINGPERIOD;
+                            }
+                        }
+                        if (value.CLOSINGTIME != "") {
+                            closingTime = value.CLOSINGTIME;
+                            if (value.CLOSINGHOUR != "") {
+                                closingHour = value.CLOSINGHOUR;
+                            }
+                            if (value.CLOSINGMINUTE != "") {
+                                closingMinute = value.CLOSINGMINUTE;
+                            }
+                            if (value.CLOSINGPERIOD != "") {
+                                closingPeriod = value.CLOSINGPERIOD;
+                            }
+                        }
+                        console.log("TimingId: " + timingId + " Day: " + day + " OpeningTime: " + openingTime + " ClosingTime: " + closingTime);
+                        console.log("Opening: Hour: " + openingHour + " Minute: " + openingMinute + " Period: " + openingPeriod + " Closing: Hour: " + closingHour + " Minute: " + closingMinute + " Period: " + closingPeriod);
+                        //dayName = GetDayNameByDayKey(day);
+
+                        //Generate Edit Section Start//
+                        var hdnCount = $('#hdnCount').val();
+
+                        if (day == "Mo") {
+                            $('#Businesday_0_IsCheck').prop('checked', true);
+                            dayName = "Monday";
+                            if (moCount > 1) {
+                                AppendEditSection(timingId, dayName, day, openingHour, openingMinute, openingPeriod, closingHour, closingMinute, closingPeriod);
+                                moCount++;
+                            }
+                            else {
+                                $("#Businesday_0_StoreTimingId").val(timingId)
+                                $("#Businesday_0_OpeningHour").val(openingHour);
+                                $("#Businesday_0_OpeningMinute").val(openingMinute);
+                                $("#Businesday_0_OpeningPeriod").val(openingPeriod);
+
+                                $("#Businesday_0_ClosingHour").val(closingHour);
+                                $("#Businesday_0_ClosingMinute").val(closingMinute);
+                                $("#Businesday_0_ClosingPeriod").val(closingPeriod);
+                                moCount++;
+                            }
+                        }
+                        else if (day == "Tu") {
+                            $('#Businesday_1_IsCheck').prop('checked', true);
+                            dayName = "Tuesday";
+                            if (tuCount > 1) {
+                                AppendEditSection(timingId, dayName, day, openingHour, openingMinute, openingPeriod, closingHour, closingMinute, closingPeriod);
+                                tuCount++;
+                            }
+                            else {
+                                $("#Businesday_1_StoreTimingId").val(timingId)
+                                $("#Businesday_1_OpeningHour").val(openingHour);
+                                $("#Businesday_1_OpeningMinute").val(openingMinute);
+                                $("#Businesday_1_OpeningPeriod").val(openingPeriod);
+
+                                $("#Businesday_1_ClosingHour").val(closingHour);
+                                $("#Businesday_1_ClosingMinute").val(closingMinute);
+                                $("#Businesday_1_ClosingPeriod").val(closingPeriod);
+                                tuCount++;
+                            }
+                        }
+                        else if (day == "We") {
+                            $('#Businesday_2_IsCheck').prop('checked', true);
+                            dayName = "Wednesday";
+                            if (weCount > 1) {
+                                AppendEditSection(timingId, dayName, day, openingHour, openingMinute, openingPeriod, closingHour, closingMinute, closingPeriod);
+                                weCount++;
+                            }
+                            else {
+                                $("#Businesday_2_StoreTimingId").val(timingId)
+                                $("#Businesday_2_OpeningHour").val(openingHour);
+                                $("#Businesday_2_OpeningMinute").val(openingMinute);
+                                $("#Businesday_2_OpeningPeriod").val(openingPeriod);
+
+                                $("#Businesday_2_ClosingHour").val(closingHour);
+                                $("#Businesday_2_ClosingMinute").val(closingMinute);
+                                $("#Businesday_2_ClosingPeriod").val(closingPeriod);
+                                weCount++;
+                            }
+                        }
+                        else if (day == "Th") {
+                            $('#Businesday_3_IsCheck').prop('checked', true);
+                            dayName = "Thursday";
+                            if (thCount > 1) {
+                                AppendEditSection(timingId, dayName, day, openingHour, openingMinute, openingPeriod, closingHour, closingMinute, closingPeriod);
+                                thCount++;
+                            }
+                            else {
+                                $("#Businesday_3_StoreTimingId").val(timingId)
+                                $("#Businesday_3_OpeningHour").val(openingHour);
+                                $("#Businesday_3_OpeningMinute").val(openingMinute);
+                                $("#Businesday_3_OpeningPeriod").val(openingPeriod);
+
+                                $("#Businesday_3_ClosingHour").val(closingHour);
+                                $("#Businesday_3_ClosingMinute").val(closingMinute);
+                                $("#Businesday_3_ClosingPeriod").val(closingPeriod);
+                                thCount++;
+                            }
+                        }
+                        else if (day == "Fr") {
+                            $('#Businesday_4_IsCheck').prop('checked', true);
+                            dayName = "Friday";
+                            if (frCount > 1) {
+                                AppendEditSection(timingId, dayName, day, openingHour, openingMinute, openingPeriod, closingHour, closingMinute, closingPeriod);
+                                frCount++;
+                            }
+                            else {
+                                $("#Businesday_4_StoreTimingId").val(timingId)
+                                $("#Businesday_4_OpeningHour").val(openingHour);
+                                $("#Businesday_4_OpeningMinute").val(openingMinute);
+                                $("#Businesday_4_OpeningPeriod").val(openingPeriod);
+
+                                $("#Businesday_4_ClosingHour").val(closingHour);
+                                $("#Businesday_4_ClosingMinute").val(closingMinute);
+                                $("#Businesday_4_ClosingPeriod").val(closingPeriod);
+                                frCount++;
+                            }
+                        }
+                        else if (day == "Sa") {
+                            $('#Businesday_5_IsCheck').prop('checked', true);
+                            dayName = "Saturday";
+                            if (saCount > 1) {
+                                AppendEditSection(timingId, dayName, day, openingHour, openingMinute, openingPeriod, closingHour, closingMinute, closingPeriod);
+                                saCount++;
+                            }
+                            else {
+                                $("#Businesday_5_StoreTimingId").val(timingId)
+                                $("#Businesday_5_OpeningHour").val(openingHour);
+                                $("#Businesday_5_OpeningMinute").val(openingMinute);
+                                $("#Businesday_5_OpeningPeriod").val(openingPeriod);
+
+                                $("#Businesday_5_ClosingHour").val(closingHour);
+                                $("#Businesday_5_ClosingMinute").val(closingMinute);
+                                $("#Businesday_5_ClosingPeriod").val(closingPeriod);
+                                saCount++;
+                            }
+                        }
+                        else if (day == "Su") {
+                            $('#Businesday_6_IsCheck').prop('checked', true);
+                            dayName = "Sunday";
+                            if (suCount > 1) {
+                                AppendEditSection(timingId, dayName, day, openingHour, openingMinute, openingPeriod, closingHour, closingMinute, closingPeriod);
+                                suCount++;
+                            }
+                            else {
+                                $("#Businesday_6_StoreTimingId").val(timingId)
+                                $("#Businesday_6_OpeningHour").val(openingHour);
+                                $("#Businesday_6_OpeningMinute").val(openingMinute);
+                                $("#Businesday_6_OpeningPeriod").val(openingPeriod);
+
+                                $("#Businesday_6_ClosingHour").val(closingHour);
+                                $("#Businesday_6_ClosingMinute").val(closingMinute);
+                                $("#Businesday_6_ClosingPeriod").val(closingPeriod);
+                                suCount++;
+                            }
+                        }
+                        //Generate Edit Section End//
+
+                        count++;
+
+                    });
+
+                }
+                else {
+
+                }
+            });
+
+        }
+        catch (e) {
+        }
+    }
+    else {
+        self.app.router.navigate('/login_new/', { reloadCurrent: true });
+    }
+}
+
+function SaveStoreTiming() {
+    var customerId = 0;
+    customerId = localStorage.getItem("CustomerId");
+    var storeId = 0;
+    storeId = SetStoreId();
+    var hdnCount = $("#hdnCount").val();
+    var arrTimings = [];
+    var businessDays = [];
+    for (var i = 0; i < 8; i++) {
+        var dayKey = $("#Businesday_" + i + "_DayKey").val();
+        if ($("#Businesday_" + i + "_IsCheck").prop("checked") == true) {
+            businessDays.push(dayKey);
+        }
+    }
+
+    for (var j = 0; j <= hdnCount; j++) {
+        var valueTimingId = 0;
+        var valueDayKey = "";
+        if ($("#Businesday_" + j + "_DayKey").length) {
+            valueDayKey = $("#Businesday_" + j + "_DayKey").val();
+            var openingHour = "";
+            var openingMinute = "";
+            var openingPeriod = "";
+            var closingHour = "";
+            var closingMinute = "";
+            var closingPeriod = "";
+            var openingTime = "";
+            var closingTime = "";
+            if ($("#Businesday_" + j + "_StoreTimingId").length) {
+                valueTimingId = $("#Businesday_" + j + "_StoreTimingId").val();
+            }
+
+            openingHour = $("#Businesday_" + j + "_OpeningHour").val();
+            openingMinute = $("#Businesday_" + j + "_OpeningMinute").val();
+            openingPeriod = $("#Businesday_" + j + "_OpeningPeriod").val();
+            openingTime = openingHour + ":" + openingMinute + " " + openingPeriod;
+
+            closingHour = $("#Businesday_" + j + "_ClosingHour").val();
+            closingMinute = $("#Businesday_" + j + "_ClosingMinute").val();
+            closingPeriod = $("#Businesday_" + j + "_ClosingPeriod").val();
+            closingTime = closingHour + ":" + closingMinute + " " + closingPeriod;
+
+            var currentValue = { TimingId: valueTimingId, Daykey: valueDayKey, StartTime: openingTime, EndTime: closingTime }
+            arrTimings.push(currentValue);
+        }
+    }
+
+    console.log(businessDays);
+    console.log(arrTimings);
+
+    if (Number(storeId) > 0) {
+        var model = new Object();
+        model.CustomerId = customerId;
+        model.StoreId = storeId;
+        model.BusinessDays = businessDays;
+        model.ListTiming = arrTimings;
+        console.log(model);
+        //var url = global + "/SaveStoreTiming";
+        //alert(url);
+
+        $.post(global + "/SaveStoreTiming", model, function (data) {
+            console.log(data.indexOf("Successful"));
+            if (data.indexOf("Successful") > -1) {
+                swal({
+                    title: "Store Timing saved successfully!",
+                    confirmButtonText: "OK",
+                    type: "success",
+                    confirmButtonClass: 'btn btn-success',
+                    buttonsStyling: false,
+                    customClass: 'swal-wide',
+                });
+            }
+        });
+
+    }
+    else {
+
+    }
+}
+
+function DeleteSection(idCount, timingId) {
+
+    if (timingId > 0) {
+        if (confirm("Are you sure want to delete this record?")) {
+            $.ajax({
+                url: global + '/DeleteStoreTimingById?timingId=' + timingId,
+                type: 'POST',
+                cache: false,
+                success: function (response) {
+                    if (response.indexOf("Successful") > -1) {
+                        $("#div_content_" + idCount).remove();
+                        callSweetAlertSuccess("Timing deleted successfully.");
+                    }
+                    else {
+                        callSweetAlertWarning("Timing delete failed!");
+                    }
+                }
+            });
+        }
+        return false;
+    }
+}
+
+//Profile Section End//
+
+//Coupon Section Start//
+
+function CouponList() {
+
+    var storeId = 0;
+    currentPage = 0;
+    $("#CouponDiv").html("");
+    storeId = SetStoreId();
+    customerId = SetCustomerId();
+
+    if (Number(storeId) > 0) {
+
+
+        url = global + "/GetAllCoupons?storeid=" + storeId;
+
+        try {
+            $.getJSON(url, function (data) {
+                var obj = JSON.parse(data);
+                var length = Object.keys(obj).length;
+                if (JSON.parse(data).indexOf("No Coupon(s) found.") < 0) {
+                    var count = 0;
+                    $.each(JSON.parse(data), function (index, value) {
+
+                        var name = "";
+                        var code = "";
+                        var MinAmt = "";
+                        var DiscAmt = "";
+                        var StartDate = "";
+                        var EndDate = "";
+
+                        if (value.NAME != "") {
+                            name = value.NAME;
+                        }
+                        if (value.CouponCode != "") {
+                            code = value.CouponCode;
+                        }
+                        if (value.MinimumOrderAmount != "") {
+                            MinAmt = FormatDecimal(value.MinimumOrderAmount);
+                        }
+                        else {
+                            MinAmt = "$0.00";
+                        }
+                        if (value.DiscountAmount != "") {
+                            DiscAmt = FormatDecimal(value.DiscountAmount);
+                        }
+                        else {
+                            DiscAmt = "$0.00";
+                        }
+                        if (value.StartDateUtc != "") {
+                            StartDate = value.StartDateUtc;
+                        }
+                        if (value.EndDateUtc != "") {
+                            EndDate = value.EndDateUtc;
+                        }
+
+                        var html = "<div class=\"order-container\"  id='li_" + value.Id + "' style=\"width:100%;padding-left: 20px;\" >";
+                        html += "<div class=\"order-list\" data-panel=\"left\" >";
+                        html += "<div class=\"order-column-two\" style=\"width:100%\">";
+                        html += "<div class=\"order-row-container\">";
+
+                        /*------------------Name-----------------------*/
+                        html += "<div class=\"order-pickup\" style=\"text-align:left;font-size:20px;width:60%\">" + code + "</div>";
+
+                        /*------------------Button-----------------------*/
+                        html += "<div class=\"order-buttons\" style=\"width:28%\">";
+                        if (value.IsActive == 1) {
+                            html += "<a><img src=\"./img/icons/active.png\"></a>";
+                        }
+                        else {
+                            html += "<a><img src=\"./img/icons/inactive.png\"></a>";
+                        }
+                        html += "<a onclick=\"GoToCouponEdit(" + value.Id + ");\"><img src=\"./img/icons/edit-icon.png\"></a>";
+                        html += "</div>";
+
+                        html += "</div>";
+                        html += "<div class=\"order-row-container\">";
+                        html += "<div class=\"order-date\" style=\"width:70%\">";
+                        html += "<div class=\"customer-detail-container\">";
+
+                        /*------------------Code-----------------------*/
+                        html += "<div class=\"order-number\" style=\"font-size:16px;width:100%\">" + name + "</div>";
+
+                        if (value.StartDateUtc != "" && value.EndDateUtc != "") {
+                            /*------------------Start Date Ende Date-----------------------*/
+                            html += "<div class=\"customer-name\">Start Date <span class=\"cc-number\">" + StartDate + "</span></div>";
+                            html += "<div class=\"customer-name\">End Date <span class=\"cc-number\">" + EndDate + "</span></div>";
+                        }
+
+
+                        html += "</div>";
+                        html += "</div>";
+                        html += "<div class=\"order-items-count\" style=\"width:40%\">";
+                        html += "<div class=\"customer-detail-container\">";
+
+                        /*------------------Discount Amount-----------------------*/
+                        html += "<div class=\"order-price\" style=\"width:100%;font-size:14px\">Discount Amt. <span class=\"cc-number\" style=\"font-size:14px\">" + DiscAmt + "</span></div>"
+
+                        /*------------------Minimun Amount-----------------------*/
+                        html += "<div class=\"order-price\" style=\"width:100%;font-size:14px\">Min. Order Amt. <span class=\"cc-number\" style=\"font-size:14px\">" + MinAmt + "</span></div>";
+
+                        html += "</div></div></div></div></div></div>";
+
+                        count++;
+
+                        $("#CouponDiv").append(html);
+                    });
+                }
+                else {
+                    var html = "<div class=\"order-list list-empty-label-text\">No Coupons</div>";
+                    $("#CouponDiv").html(html);
+                }
+            });
+        }
+        catch (e) {
+
+        }
+    }
+    else {
+        self.app.router.navigate('/login_new/', { reloadCurrent: true });
+    }
+}
+
+function GoToCouponEdit(couponId) {
+    localStorage.setItem("HiddenDiscountId", couponId);
+    self.app.router.navigate('/coupon/', { reloadCurrent: false });
+}
+
+function LoadCouponEdit() {
+    var couponId = 0;
+    if (localStorage.getItem("HiddenDiscountId") != null) {
+        couponId = localStorage.getItem("HiddenDiscountId").trim();
+    }
+    $('.div-contentTiming').remove();
+    $('#hdnCouponTimingCount').val(8);
+    var storeId = 0;
+    storeId = SetStoreId();
+    var moCount = 1; var tuCount = 1; var weCount = 1; var thCount = 1; var frCount = 1; var saCount = 1; var suCount = 1;
+    if (Number(storeId > 0)) {
+        if (Number(couponId) > 0) {
+            $("#hdnDiscountId").val(couponId);
+            var url = global + "/GetCouponByDiscountId?storeId=" + storeId + "&discountId=" + couponId;
+
+            $.getJSON(url, function (data) {
+                if (data.replace(/"/g, "").indexOf("No record(s) found.") > -1) {
+
+                }
+                else {
+                    $.each(JSON.parse(data), function (index, value) {
+                        //console.log(data);
+                        //console.log(value); 
+                        var count = 0;
+                        if (value.Type == "DiscountInfo") {
+                            if (value.Name != "") {
+                                $("#txtCouponName").val(value.Name);
+                            }
+                            if (value.CouponCode != "") {
+                                $("#txtCouponCode").val(value.CouponCode);
+                            }
+                            if (value.IsActive == true) {
+                                $("#checkCouponActive").prop('checked', true)
+                            }
+                            else {
+                                $("#checkCouponActive").prop('checked', true)
+                            }
+                            if (value.MinimumOrderAmount > 0) {
+                                $("#txtCouponMinAmount").val(value.MinimumOrderAmount);
+                                console.log(value.MinimumOrderAmount);
+                            }
+                            else {
+                                $("#txtCouponMinAmount").val(0.00);
+                            }
+                            if (value.DiscountAmount > 0) {
+                                $("#txtCouponDiscAmount").val(value.DiscountAmount);
+                                console.log(value.DiscountAmount);
+                            }
+                            else {
+                                $("#txtCouponDiscAmount").val(0.00);
+                            }
+                            if (value.StartDateUtc != null) {
+                                $("#txtCouponStartDate").val(value.StartDateUtc);
+                                console.log(value.StartDateUtc);
+                            }
+                            if (value.EndDateUtc != null) {
+                                $("#txtCouponEndDate").val(value.EndDateUtc);
+                                console.log(value.EndDateUtc);
+                            }
+                        }
+                        else if (value.Type == "DiscountTiming") {
+                            var dayName = "";
+                            var timingId = 0;
+                            var day = "";
+                            var openingTime = "";
+                            var openingHour = "";
+                            var openingMinute = "";
+                            var openingPeriod = "";
+                            var closingTime = "";
+                            var closingHour = "";
+                            var closingMinute = "";
+                            var closingPeriod = "";
+                            if (value.TimingId > 0) {
+                                timingId = value.TimingId;
+                            }
+                            if (value.Day != "") {
+                                day = value.Day;
+                            }
+                            if (value.StartTime != "") {
+                                openingTime = value.StartTime;
+                                if (value.STARTHOUR != "") {
+                                    openingHour = value.STARTHOUR;
+                                }
+                                if (value.STARTMINUTE != "") {
+                                    openingMinute = value.STARTMINUTE;
+                                }
+                                if (value.STARTPERIOD != "") {
+                                    openingPeriod = value.STARTPERIOD;
+                                }
+                            }
+                            if (value.EndTime != "") {
+                                closingTime = value.EndTime;
+                                if (value.ENDHOUR != "") {
+                                    closingHour = value.ENDHOUR;
+                                }
+                                if (value.ENDMINUTE != "") {
+                                    closingMinute = value.ENDMINUTE;
+                                }
+                                if (value.ENDPERIOD != "") {
+                                    closingPeriod = value.ENDPERIOD;
+                                }
+                            }
+                            console.log("TimingId: " + timingId + " Day: " + day + " OpeningTime: " + openingTime + " ClosingTime: " + closingTime);
+                            console.log("Opening: Hour: " + openingHour + " Minute: " + openingMinute + " Period: " + openingPeriod + " Closing: Hour: " + closingHour + " Minute: " + closingMinute + " Period: " + closingPeriod);
+                            //dayName = GetDayNameByDayKey(day);
+
+                            //Generate Edit Section Start//
+                            var hdnCount = $('#hdnCount').val();
+
+                            if (day == "Mo") {
+                                $('#Offerday_0_IsCheck').prop('checked', true);
+                                dayName = "Monday";
+                                if (moCount > 1) {
+                                    AppendEditTimingSection(timingId, dayName, day, openingHour, openingMinute, openingPeriod, closingHour, closingMinute, closingPeriod);
+                                    moCount++;
+                                }
+                                else {
+                                    $("#Offerday_0_DiscountTimingId").val(timingId)
+                                    $("#Offerday_0_StartHour").val(openingHour);
+                                    $("#Offerday_0_StartMinute").val(openingMinute);
+                                    $("#Offerday_0_StartPeriod").val(openingPeriod);
+
+                                    $("#Offerday_0_EndHour").val(closingHour);
+                                    $("#Offerday_0_EndMinute").val(closingMinute);
+                                    $("#Offerday_0_EndPeriod").val(closingPeriod);
+                                    moCount++;
+                                }
+                            }
+                            else if (day == "Tu") {
+                                $('#Offerday_1_IsCheck').prop('checked', true);
+                                dayName = "Tuesday";
+                                if (tuCount > 1) {
+                                    AppendEditTimingSection(timingId, dayName, day, openingHour, openingMinute, openingPeriod, closingHour, closingMinute, closingPeriod);
+                                    tuCount++;
+                                }
+                                else {
+                                    $("#Offerday_1_DiscountTimingId").val(timingId)
+                                    $("#Offerday_1_StartHour").val(openingHour);
+                                    $("#Offerday_1_StartMinute").val(openingMinute);
+                                    $("#Offerday_1_StartPeriod").val(openingPeriod);
+
+                                    $("#Offerday_1_EndHour").val(closingHour);
+                                    $("#Offerday_1_EndMinute").val(closingMinute);
+                                    $("#Offerday_1_EndPeriod").val(closingPeriod);
+                                    tuCount++;
+                                }
+                            }
+                            else if (day == "We") {
+                                $('#Offerday_2_IsCheck').prop('checked', true);
+                                dayName = "Wednesday";
+                                if (weCount > 1) {
+                                    AppendEditTimingSection(timingId, dayName, day, openingHour, openingMinute, openingPeriod, closingHour, closingMinute, closingPeriod);
+                                    weCount++;
+                                }
+                                else {
+                                    $("#Offerday_2_DiscountTimingId").val(timingId)
+                                    $("#BOfferday_2_StartHour").val(openingHour);
+                                    $("#Offerday_2_StartMinute").val(openingMinute);
+                                    $("#Offerday_2_StartPeriod").val(openingPeriod);
+
+                                    $("#Offerday_2_EndHour").val(closingHour);
+                                    $("#Offerday_2_EndMinute").val(closingMinute);
+                                    $("#Offerday_2_EndPeriod").val(closingPeriod);
+                                    weCount++;
+                                }
+                            }
+                            else if (day == "Th") {
+                                $('#Offerday_3_IsCheck').prop('checked', true);
+                                dayName = "Thursday";
+                                if (thCount > 1) {
+                                    AppendEditTimingSection(timingId, dayName, day, openingHour, openingMinute, openingPeriod, closingHour, closingMinute, closingPeriod);
+                                    thCount++;
+                                }
+                                else {
+                                    $("#Offerday_3_DiscountTimingId").val(timingId)
+                                    $("#Offerday_3_StartHour").val(openingHour);
+                                    $("#Offerday_3_StartMinute").val(openingMinute);
+                                    $("#Offerday_3_StartPeriod").val(openingPeriod);
+
+                                    $("#Offerday_3_EndHour").val(closingHour);
+                                    $("#Offerday_3_EndMinute").val(closingMinute);
+                                    $("#Offerday_3_EndPeriod").val(closingPeriod);
+                                    thCount++;
+                                }
+                            }
+                            else if (day == "Fr") {
+                                $('#Offerday_4_IsCheck').prop('checked', true);
+                                dayName = "Friday";
+                                if (frCount > 1) {
+                                    AppendEditTimingSection(timingId, dayName, day, openingHour, openingMinute, openingPeriod, closingHour, closingMinute, closingPeriod);
+                                    frCount++;
+                                }
+                                else {
+                                    $("#Offerday_4_DiscountTimingId").val(timingId)
+                                    $("#Offerday_4_StartHour").val(openingHour);
+                                    $("#Offerday_4_StartMinute").val(openingMinute);
+                                    $("#Offerday_4_StartPeriod").val(openingPeriod);
+
+                                    $("#Offerday_4_EndHour").val(closingHour);
+                                    $("#Offerday_4_EndMinute").val(closingMinute);
+                                    $("#Offerday_4_EndPeriod").val(closingPeriod);
+                                    frCount++;
+                                }
+                            }
+                            else if (day == "Sa") {
+                                $('#Offerday_5_IsCheck').prop('checked', true);
+                                dayName = "Saturday";
+                                if (saCount > 1) {
+                                    AppendEditTimingSection(timingId, dayName, day, openingHour, openingMinute, openingPeriod, closingHour, closingMinute, closingPeriod);
+                                    saCount++;
+                                }
+                                else {
+                                    $("#Offerday_5_DiscountTimingId").val(timingId)
+                                    $("#Offerday_5_StartHour").val(openingHour);
+                                    $("#Offerday_5_StartMinute").val(openingMinute);
+                                    $("#Offerday_5_StartPeriod").val(openingPeriod);
+
+                                    $("#Offerday_5_EndHour").val(closingHour);
+                                    $("#Offerday_5_EndMinute").val(closingMinute);
+                                    $("#Offerday_5_EndPeriod").val(closingPeriod);
+                                    saCount++;
+                                }
+                            }
+                            else if (day == "Su") {
+                                $('#Offerday_6_IsCheck').prop('checked', true);
+                                dayName = "Sunday";
+                                if (suCount > 1) {
+                                    AppendEditTimingSection(timingId, dayName, day, openingHour, openingMinute, openingPeriod, closingHour, closingMinute, closingPeriod);
+                                    suCount++;
+                                }
+                                else {
+                                    $("#Offerday_6_DiscountTimingId").val(timingId)
+                                    $("#Offerday_6_StartHour").val(openingHour);
+                                    $("#Offerday_6_StartMinute").val(openingMinute);
+                                    $("#Offerday_6_StartPeriod").val(openingPeriod);
+
+                                    $("#Offerday_6_EndHour").val(closingHour);
+                                    $("#Offerday_6_EndMinute").val(closingMinute);
+                                    $("#Offerday_6_EndPeriod").val(closingPeriod);
+                                    suCount++;
+                                }
+                            }
+                            //Generate Edit Section End//
+                        }
+                    });
+                }
+            });
+        }
+        else {
+            //self.app.router.navigate('/login_new/', { reloadCurrent: true });
+        }
+    }
+    else {
+        self.app.router.navigate('/login_new/', { reloadCurrent: true });
+    }
+}
+
+
+function SaveDiscount() {
+    var discountId = 0;
+    discountId = $("#hdnDiscountId").val();
+    alert(discountId);
+    var customerId = 0;
+    customerId = localStorage.getItem("CustomerId");
+    var storeId = 0;
+    storeId = SetStoreId();
+    var name = $('#txtCouponName').val();
+    var couponCode = $("#txtCouponCode").val();
+    var isActive = false;
+    if ($("#checkCouponActive").prop("checked") == true) {
+        isActive = true;
+    }
+    var minimunOrderAmount = $("#txtCouponMinAmount").val();
+    var discountAmount = $("#txtCouponDiscAmount").val();
+    var startDate = $("#txtCouponStartDate").val();
+    var endDate = $("#txtCouponEndDate").val();
+
+    var hdnCount = $("#hdnCouponTimingCount").val();
+    var arrTimings = [];
+    var offerDays = [];
+    for (var i = 0; i < 8; i++) {
+        var dayKey = $("#Offerday_" + i + "_DayKey").val();
+        if ($("#Offerday_" + i + "_IsCheck").prop("checked") == true) {
+            offerDays.push(dayKey);
+        }
+    }
+
+    for (var j = 0; j <= hdnCount; j++) {
+        var valueTimingId = 0;
+        var valueDayKey = "";
+        if ($("#Offerday_" + j + "_DayKey").length) {
+            valueDayKey = $("#Offerday_" + j + "_DayKey").val();
+            var openingHour = "";
+            var openingMinute = "";
+            var openingPeriod = "";
+            var closingHour = "";
+            var closingMinute = "";
+            var closingPeriod = "";
+            var openingTime = "";
+            var closingTime = "";
+            if ($("#Offerday_" + j + "_DiscountTimingId").length) {
+                valueTimingId = $("#Offerday_" + j + "_DiscountTimingId").val();
+            }
+
+            openingHour = $("#Offerday_" + j + "_StartHour").val();
+            openingMinute = $("#Offerday_" + j + "_StartMinute").val();
+            openingPeriod = $("#Offerday_" + j + "_StartPeriod").val();
+            openingTime = openingHour + ":" + openingMinute + " " + openingPeriod;
+
+            closingHour = $("#Offerday_" + j + "_EndHour").val();
+            closingMinute = $("#Offerday_" + j + "_EndMinute").val();
+            closingPeriod = $("#Offerday_" + j + "_EndPeriod").val();
+            closingTime = closingHour + ":" + closingMinute + " " + closingPeriod;
+
+            var currentValue = { TimingId: valueTimingId, Daykey: valueDayKey, StartTime: openingTime, EndTime: closingTime }
+            arrTimings.push(currentValue);
+        }
+    }
+
+    console.log(offerDays);
+    console.log(arrTimings);
+
+    if (Number(storeId) > 0) {
+        var model = new Object();
+        model.CustomerId = customerId;
+        model.DiscountId = discountId;
+        model.StoreId = storeId;
+        model.Name = name;
+        model.CouponCode = couponCode;
+        model.IsActive = isActive;
+        model.MinimumOrderAmount = minimunOrderAmount;
+        model.DiscountAmount = discountAmount;
+        model.StartDateUtc = startDate;
+        model.EndDateUtc = endDate;
+
+        model.OfferDays = offerDays;
+        model.ListTiming = arrTimings;
+        console.log(model);
+
+
+        $.post(global + "/SaveDiscont", model, function (data) {
+            console.log(data.indexOf("Successful"));
+            if (data.indexOf("Successful") > -1) {
+                swal({
+                    title: "Discount saved successfully!",
+                    confirmButtonText: "OK",
+                    type: "success",
+                    confirmButtonClass: 'btn btn-success',
+                    buttonsStyling: false,
+                    customClass: 'swal-wide',
+                });
+            }
+        });
+
+    }
+    else {
+
+    }
+}
+
+function AddNewTimingSection(dayName, dayKey, e) {
+    var hdnCount = $('#hdnCouponTimingCount').val();
+    var idCount = parseInt(hdnCount) + 1;
+    var removeParameter = idCount + "," + e;
+
+    var html = "";
+    //Html Start Section//
+    html += "<div id=\"div_contentTiming_" + idCount + "\" class=\"div-contentTiming\">";
+    //First Column Start//
+    html += "<div class=\"timing-flex-column-container\">";
+    //Label Section Start//
+    html += "<div style=\"flex-basis: 120px;\">";
+    html += "<label>Start Time</label>";
+    html += "<input id=\"Offerday_" + idCount + "_CouponTimingId\" name=\"Offerday[" + idCount + "].CouponTimingId\" type=\"hidden\" value=\"0\">";
+    html += "<input id=\"Offerday_" + idCount + "_DayKey\" name=\"Offerday[" + idCount + "].DayKey\" type=\"hidden\" value=\"" + dayKey + "\">";
+    html += "</div>";
+    //Label Section End//
+
+    //Hour Section Start//
+    html += "<div style=\"flex-basis: 80px;\">";
+    html += CreateHourTimingHtml(idCount, "Start");
+    html += "</div>";
+    //Hour Section End//
+
+    //Minute Section Start//
+    html += "<div style=\"flex-basis: 80px;\">";
+    html += CreateMinuteTimingHtml(idCount, "Start");
+    html += "</div>";
+    //Minute Section End//
+
+    //Period Section Start//
+    html += "<div style=\"flex-basis: 80px;\">";
+    html += CreatePeriodTimingHtml(idCount, "Start");
+    html += "</div>";
+    //Period Section End//
+
+    //Remove Icon Section Start//
+    html += "<div style=\"flex-basis: 40px;\">";
+    html += "<i id=\"remove_" + idCount + "\" class=\"material-icons\" onclick=\"RemoveTimingSection(" + removeParameter + ");\" style=\"color: #e80000;\">delete</i>";
+    html += "</div>";
+    //Remove Icon Section End//
+
+    html += "</div>";
+    //First Column End//
+
+    //***********************//
+
+    //Second Column Start//
+    html += "<div class=\"timing-flex-column-container\">";
+    //Label Section Start//
+    html += "<div style=\"flex-basis: 120px;\">";
+    html += "<label>End Time</label>";
+    html += "</div>";
+    //Label Section End//
+
+    //Hour Section Start//
+    html += "<div style=\"flex-basis: 80px;\">";
+    html += CreateHourTimingHtml(idCount, "End");
+    html += "</div>";
+    //Hour Section End//
+
+    //Minute Section Start//
+    html += "<div style=\"flex-basis: 80px;\">";
+    html += CreateMinuteTimingHtml(idCount, "End");
+    html += "</div>";
+    //Minute Section End//
+
+    //Period Section Start//
+    html += "<div style=\"flex-basis: 80px;\">";
+    html += CreatePeriodTimingHtml(idCount, "End");
+    html += "</div>";
+    //Period Section End//
+
+    //Remove Icon Section Start//
+    html += "<div style=\"flex-basis: 40px;\">";
+    html += "</div>";
+    //Remove Icon Section End//
+
+    html += "</div>";
+    //Second Column Start//
+
+    html += "</div>";
+    //Html End Section//
+
+    $("#div_" + dayName).append(html);
+    $('#hdnCouponTimingCount').val(idCount);
+}
+
+function RemoveTimingSection(idCount, e) {
+    $("#div_contentTiming_" + idCount + "").remove();
+    var hdnCount = $('#hdnCouponTimingCount').val();
+    var idCount = parseInt(hdnCount) - 1;
+    $('#hdnCouponTimingCount').val(idCount);
+}
+
+function AppendEditTimingSection(timingId, dayName, dayKey, openingHour, openingMinute, openingPeriod, closingHour, closingMinute, closingPeriod) {
+    var hdnCount = $('#hdnCouponTimingCount').val();
+    var idCount = parseInt(hdnCount) + 1;
+    var removeParameter = idCount + "," + timingId;
+
+    var html = "";
+    //Html Start Section//
+    html += "<div id=\"div_contentTiming_" + idCount + "\" class=\"div-contentTiming\">";
+    //First Column Start//
+    html += "<div class=\"timing-flex-column-container\">";
+    //Label Section Start//
+    html += "<div style=\"flex-basis: 120px;\">";
+    html += "<label>Start Time</label>";
+    html += "<input id=\"Offerday_" + idCount + "_CouponTimingId\" name=\"Offerday[" + idCount + "].CouponTimingId\" type=\"hidden\" value=\"" + timingId + "\">";
+    html += "<input id=\"Offerday_" + idCount + "_DayKey\" name=\"Offerday[" + idCount + "].DayKey\" type=\"hidden\" value=\"" + dayKey + "\">";
+    html += "</div>";
+    //Label Section End//
+
+    //Hour Section Start//
+    html += "<div style=\"flex-basis: 80px;\">";
+    html += CreateHourEditTimingHtml(idCount, "Start", openingHour);
+    html += "</div>";
+    //Hour Section End//
+
+    //Minute Section Start//
+    html += "<div style=\"flex-basis: 80px;\">";
+    html += CreateMinuteEditTimingHtml(idCount, "Start", openingMinute);
+    html += "</div>";
+    //Minute Section End//
+
+    //Period Section Start//
+    html += "<div style=\"flex-basis: 80px;\">";
+    html += CreatePeriodEditTimingHtml(idCount, "Start", openingPeriod);
+    html += "</div>";
+    //Period Section End//
+
+    //Remove Icon Section Start//
+    html += "<div style=\"flex-basis: 40px;\">";
+    html += "<i id=\"remove_" + idCount + "\" class=\"material-icons\" onclick=\"DeleteTimingSection(" + removeParameter + ");\" style=\"color: #e80000;\">delete</i>";
+    html += "</div>";
+    //Remove Icon Section End//
+
+    html += "</div>";
+    //First Column End//
+
+    //***********************//
+
+    //Second Column Start//
+    html += "<div class=\"timing-flex-column-container\">";
+    //Label Section Start//
+    html += "<div style=\"flex-basis: 120px;\">";
+    html += "<label>End Time</label>";
+    html += "</div>";
+    //Label Section End//
+
+    //Hour Section Start//
+    html += "<div style=\"flex-basis: 80px;\">";
+    html += CreateHourEditTimingHtml(idCount, "End", closingHour);
+    html += "</div>";
+    //Hour Section End//
+
+    //Minute Section Start//
+    html += "<div style=\"flex-basis: 80px;\">";
+    html += CreateMinuteEditTimingHtml(idCount, "End", closingMinute);
+    html += "</div>";
+    //Minute Section End//
+
+    //Period Section Start//
+    html += "<div style=\"flex-basis: 80px;\">";
+    html += CreatePeriodEditTimingHtml(idCount, "End", closingPeriod);
+    html += "</div>";
+    //Period Section End//
+
+    //Remove Icon Section Start//
+    html += "<div style=\"flex-basis: 40px;\">";
+    html += "</div>";
+    //Remove Icon Section End//
+
+    html += "</div>";
+    //Second Column Start//
+
+    html += "</div>";
+    //Html End Section//
+
+    $("#div_" + dayName).append(html);
+    $('#hdnCouponTimingCount').val(idCount);
+    //return html;
+}
+
+function CreateHourTimingHtml(iCount, type) {
+    var hourHtml = "";
+    hourHtml += "<select id=\"Offerday_" + iCount + "_" + type + "Hour\" name=\"Offerday[" + iCount + "]." + type + "Hour\">";
+    for (var i = 0; i < 12; i++) {
+        if (i <= 9) {
+            hourHtml += "<option value=\"0" + i + "\">0" + i + "</option>";
+        }
+        else {
+            hourHtml += "<option value=\"" + i + "\">" + i + "</option>";
+        }
+    }
+    hourHtml += "</select>";
+    return hourHtml;
+}
+function CreateMinuteTimingHtml(iCount, type) {
+    var minuteHtml = "";
+    minuteHtml += "<select id=\"Offerday_" + iCount + "_" + type + "Minute\" name=\"Offerday[" + iCount + "]." + type + "Minute\">";
+    for (var i = 0; i < 60; i++) {
+        if (i <= 9) {
+            minuteHtml += "<option value=\"0" + i + "\">0" + i + "</option>";
+        }
+        else {
+            minuteHtml += "<option value=\"" + i + "\">" + i + "</option>";
+        }
+    }
+    minuteHtml += "</select>";
+    return minuteHtml;
+}
+function CreatePeriodTimingHtml(iCount, type) {
+    var periodHtml = "";
+    periodHtml += "<select id=\"Offerday_" + iCount + "_" + type + "Period\" name=\"Offerday[" + iCount + "]." + type + "Period\">";
+    periodHtml += "<option value=\"AM\">AM</option>";
+    periodHtml += "<option value=\"PM\">PM</option>";
+    periodHtml += "</select>";
+    return periodHtml;
+}
+
+
+function CreateHourEditTimingHtml(iCount, type, selectedHour) {
+    var hourHtml = "";
+    hourHtml += "<select id=\"Offerday_" + iCount + "_" + type + "Hour\" name=\"Offerday[" + iCount + "]." + type + "Hour\">";
+    for (var i = 0; i < 12; i++) {
+        var hour = "0";
+        if (i <= 9) {
+            hour = "0" + i;
+        }
+        else {
+            hour = i;
+        }
+        if (hour == selectedHour) {
+            hourHtml += "<option value=\"" + hour + "\" selected>" + hour + "</option>";
+        }
+        else {
+            hourHtml += "<option value=\"" + hour + "\">" + hour + "</option>";
+        }
+    }
+    hourHtml += "</select>";
+    return hourHtml;
+}
+function CreateMinuteEditTimingHtml(iCount, type, selectedMinute) {
+    var minuteHtml = "";
+    minuteHtml += "<select id=\"Offerday_" + iCount + "_" + type + "Minute\" name=\"Offerday[" + iCount + "]." + type + "Minute\">";
+    for (var i = 0; i < 60; i++) {
+        var minute = "0";
+        if (i <= 9) {
+            minute = "0" + i;
+        }
+        else {
+            minute = i;
+        }
+        if (minute == selectedMinute) {
+            minuteHtml += "<option value=\"" + i + "\" selected>" + i + "</option>";
+        }
+        else {
+            minuteHtml += "<option value=\"" + i + "\">" + i + "</option>";
+        }
+    }
+    minuteHtml += "</select>";
+    return minuteHtml;
+}
+function CreatePeriodEditTimingHtml(iCount, type, period) {
+    var periodHtml = "";
+    periodHtml += "<select id=\"Offerday_" + iCount + "_" + type + "Period\" name=\"Offerday[" + iCount + "]." + type + "Period\">";
+    if (period == "AM") {
+        periodHtml += "<option value=\"AM\" selected>AM</option>";
+    }
+    else if (period == "PM") {
+        periodHtml += "<option value=\"PM\" selected>PM</option>";
+    }
+    else {
+        periodHtml += "<option value=\"AM\">AM</option>";
+        periodHtml += "<option value=\"PM\">PM</option>";
+    }
+    periodHtml += "</select>";
+    return periodHtml;
+}
+
+
+function DeleteTimingSection(idCount, timingId) {
+
+    if (timingId > 0) {
+        if (confirm("Are you sure want to delete this record?")) {
+            $.ajax({
+                url: global + '/DeleteStoreTimingById?timingId=' + timingId,
+                type: 'POST',
+                cache: false,
+                success: function (response) {
+                    if (response.indexOf("Successful") > -1) {
+                        $("#div_contentTiming_" + idCount).remove();
+                        callSweetAlertSuccess("Timing deleted successfully.");
+                    }
+                    else {
+                        callSweetAlertWarning("Timing delete failed!");
+                    }
+                }
+            });
+        }
+        return false;
+    }
+}
+
+//Coupon Section End

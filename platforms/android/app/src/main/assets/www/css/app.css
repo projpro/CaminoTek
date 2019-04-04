@@ -1542,7 +1542,7 @@ select:-moz-focusring {
     position: absolute;
 }
 .navbar-right-icon-2{
-         right: 70px !important;
+   right: 85px !important;
    top:3px  !important;
    position:absolute;
 }
@@ -1699,6 +1699,23 @@ select:-moz-focusring {
 }
 .swal2-popup .swal2-actions{display:block !important;}
 .large-icon{font-size:35px;}
+/*---Profile Section Start-*/
+.timing-flex-row-container{
+    display:flex;
+    flex-direction:column;
+}
+.timing-flex-column-container{
+    display:flex;
+    /*flex-wrap:nowrap;*/
+    align-items: stretch;
+}
+.timing-flex-column-container > div{
+    width: 100px;
+  margin: 10px;
+  text-align: center;
+}
+/*---Profile Section End-*/
+
 /*---Media Query-*/
 @media (min-width: 320px) and (max-width: 480px){
 .flex{flex-direction:column;}

@@ -131,6 +131,17 @@ var routes = [
         url: './pages/manageservice.html',
         name: 'manageservice',
     },
+
+    {
+        path: '/coupon/',
+        url: './pages/coupon.html',
+        name: 'coupon',
+    },
+    {
+        path: '/coupon_list/',
+        url: './pages/coupon_list.html',
+        name: 'coupon_list',
+    },
   // Default route (404 page). MUST BE THE LAST
   {
     path: '(.*)',

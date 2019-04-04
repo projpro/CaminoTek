@@ -1,0 +1,57 @@
+<div class="page page-with-toolbar" id="coupon">
+    <div class="toolbar tabbar tabbar-labels toolbar-bottom-md custom-toolbar">
+        <div class="toolbar-inner">
+            <a href="/carryout/" class="tab-link menuCarryout">
+                <i class="material-icons menu-icon">shopping_basket</i>
+                <span class="tabbar-label">Carry Out</span>
+            </a>
+            <a href="/giftcard/" class="tab-link menuGiftcard">
+                <i class="material-icons menu-icon">card_giftcard</i>
+                <span class="tabbar-label">Gift Card</span>
+            </a>
+            <a href="/new_rewards/" class="tab-link menuReward tab-link-active footer-menu-active">
+                <i class="material-icons menu-icon-active">card_membership</i>
+                <span class="tabbar-label">Reward</span>
+            </a>
+            <a href="/coupon_list/" class="tab-link menuStartStop tab-link-active footer-menu-active">
+                <i class="material-icons menu-icon-active">receipt</i>
+                <span class="tabbar-label">Coupon</span>
+            </a>
+            <a href="/manageservice/" class="tab-link menuStartStop">
+                <i class="material-icons menu-icon">power_settings_new</i>
+                <span class="tabbar-label">Start/Stop</span>
+            </a>
+        </div>
+    </div>
+    <div class="navbar">
+        <div class="navbar-inner">
+            <div class="left">
+                <img src="./img/app-logo.png" />
+                <a class="tab-link back-new" onclick="Back();">
+                    <i class="material-icons material-icons-one">arrow_back</i>
+                </a>
+            </div>
+            <div class="center">Coupons</div>
+            <a class="fab fab-right-top panel-open navbar-site-action icon-only searchbar-enable navbar-right-icon-2" id="btnAddCoupon" data-panel="right" ><i class="material-icons large-icon">add_box</i></a>
+            <div class="right">
+                <a class="icon-only navbar-right-single-icon" style="right:55px;" onclick="GotoProfile();"><i class="material-icons large-icon">account_circle</i></a>
+                <a class="icon-only navbar-right-single-icon" onclick="Logout();"><i class="material-icons large-icon">exit_to_app</i></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-content">
+        
+        <div class="section list-restaurants">
+            <div class="section-content">
+                <div id="CouponDiv"></div>
+                
+            </div>
+        </div>
+        <div id="reward_LoadRedeem" class="page-content tab">
+
+        </div>
+        <div class="mt pd"></div>
+
+    </div>
+</div>
