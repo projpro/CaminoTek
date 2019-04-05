@@ -131,12 +131,12 @@ function Login() {
                                 // Init App
                                 $("#btnLogin").text("Log In");
                                 //LogOut Section
-                                if (localStorage.getItem("DeviceRegistrationToken") === null) {
+                                if (localStorage.getItem("registrationId") === null) {
                                     //window.location.href = "index.html";
                                     localStorage.clear();
                                 }
                                 else {
-                                    var token = localStorage.getItem("DeviceRegistrationToken").trim();
+                                    var token = localStorage.getItem("registrationId").trim();
                                     //  alert(global)
                                     $.ajax({
                                         url: global + 'Logout?storeid=' + storeId + '&registrationToken=' + token,
@@ -1723,14 +1723,14 @@ function Logout() {
     //console.log("2:" + window.localStorage.getItem("DeviceRegistrationToken"))
     //console.log("1:" + window.localStorage.getItem("StoreId"))
     var storeId = localStorage.getItem("StoreId").trim();
-    if (localStorage.getItem("DeviceRegistrationToken") === null) {
+    if (localStorage.getItem("registrationId") === null) {
         //window.location.href = "index.html";
         self.app.router.navigate('/login_new/', { reloadCurrent: false });
         localStorage.clear();
 
     }
     else {
-        var token = localStorage.getItem("DeviceRegistrationToken").trim();
+        var token = localStorage.getItem("registrationId").trim();
 
         //  alert(global)
         $.ajax({
