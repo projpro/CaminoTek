@@ -9,64 +9,64 @@ var acceptOrderPopup;
 $$(document).on('deviceready', function () {
     console.log("Device is ready!");
     var storeId = 0;
-    var push = PushNotification.init({
-        "android": {
-            "senderID": "771458932582"
-        },
-        "browser": {},
-        "ios": {
-            "sound": true,
-            "vibration": true,
-            "badge": true
-        },
-        "windows": {}
-    });
-   // console.log('after init');
+   // var push = PushNotification.init({
+   //     "android": {
+   //         "senderID": "771458932582"
+   //     },
+   //     "browser": {},
+   //     "ios": {
+   //         "sound": true,
+   //         "vibration": true,
+   //         "badge": true
+   //     },
+   //     "windows": {}
+   // });
+   //// console.log('after init');
 
-    push.on('registration', function (data) {
-        //SetUpLog();
-        //WriteLog("registrationId: " + data.registrationId)
-        console.log('registration event: ' + data.registrationId);
-        //console.log('StoreId: ' + localStorage.getItem("StoreId"))
-        var storeId = 0;
-        alert(data.registrationId)
-        var oldRegId = localStorage.getItem('registrationId');
-       // console.log("oldRegId: " + oldRegId);
-        //if (oldRegId !== data.registrationId) {
-            console.log("Save new registration ID")
-            // Save new registration ID
-            localStorage.setItem('registrationId', data.registrationId);
+   // push.on('registration', function (data) {
+   //     //SetUpLog();
+   //     //WriteLog("registrationId: " + data.registrationId)
+   //     console.log('registration event: ' + data.registrationId);
+   //     //console.log('StoreId: ' + localStorage.getItem("StoreId"))
+   //     var storeId = 0;
+   //     alert(data.registrationId)
+   //     var oldRegId = localStorage.getItem('registrationId');
+   //    // console.log("oldRegId: " + oldRegId);
+   //     //if (oldRegId !== data.registrationId) {
+   //         console.log("Save new registration ID")
+   //         // Save new registration ID
+   //         localStorage.setItem('registrationId', data.registrationId);
 
-            if (localStorage.getItem("StoreId") != null)
-                storeId = Number(localStorage.getItem("StoreId"));
+   //         if (localStorage.getItem("StoreId") != null)
+   //             storeId = Number(localStorage.getItem("StoreId"));
 
-            //console.log('StoreId 1: ' + storeId)
-            if (storeId > 0)
-            {
-                RegisterToken(storeId,data.registrationId);
-            }
+   //         //console.log('StoreId 1: ' + storeId)
+   //         if (storeId > 0)
+   //         {
+   //             RegisterToken(storeId,data.registrationId);
+   //         }
            
-            // Post registrationId to your app server as the value has changed
-        //}
+   //         // Post registrationId to your app server as the value has changed
+   //     //}
 
      
-    });
+   // });
 
-    push.on('error', function (e) {
-        console.log("push error = " + e.message);
-    });
+   // push.on('error', function (e) {
+   //     console.log("push error = " + e.message);
+   // });
 
-    push.on('notification', function (data) {
-        alert('notification event: ' + data.message);
-       // CheckNewOrder();
-      // alert('notification event: ' + data.message + ", " + data.title);
-        //navigator.notification.alert(
-        //    data.message,         // message
-        //    null,                 // callback
-        //    data.title,           // title
-        //    'Ok'                  // buttonName
-        //);
-    });
+   // push.on('notification', function (data) {
+   //     alert('notification event: ' + data.message);
+   //    // CheckNewOrder();
+   //   // alert('notification event: ' + data.message + ", " + data.title);
+   //     //navigator.notification.alert(
+   //     //    data.message,         // message
+   //     //    null,                 // callback
+   //     //    data.title,           // title
+   //     //    'Ok'                  // buttonName
+   //     //);
+   // });
 });
 // Init App
 var app = new Framework7({

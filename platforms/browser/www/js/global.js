@@ -1,6 +1,6 @@
 //var global = "http://www.appnotification.bistroux.com/Api/App/";
-var global = "http://www.consumerapp.bistroux.com/Api/App/";
-//var global = "http://192.168.1.6/Api/App/";
+//var global = "http://www.consumerapp.bistroux.com/Api/App/";
+var global = "http://192.168.1.6/Api/App/";
 var mediaURL = "http://appnotification.bistroux.com/Media/";
 
 var browser = true;
@@ -24,32 +24,34 @@ function InitLogin() {
 
 function RegisterToken(storeId, token)
 {
+    //$.ajax({
+    //    url: global + 'Logout?storeid=' + storeId + '&registrationToken=' + token,
+    //    type: 'GET',
+    //    datatype: 'jsonp',
+    //    contenttype: "application/json",
+    //    crossDomain: true,
+    //    async: false,
+    //    success: function (data) {
+    //        console.log("DeviceRegistrationToken Deleted from DB successfully")
+           
+    //        //window.location.href = "index.html";
+    //        //window.localStorage.clear();
+    //    },
+    //    error: function (xhr, textStatus, errorThrown) {
+    //        //window.location.href = "index.html";
+    //        console.log("Saved to DB failed")
+    //    }
+    //});
+    
     $.ajax({
-        url: global + 'Logout?storeid=' + storeId + '&registrationToken=' + token,
+        url: global + 'StoreDeviceRegistrationTokenUpdate?storeid=' + storeId + '&registrationToken=' + token,
         type: 'GET',
         datatype: 'jsonp',
         contenttype: "application/json",
         crossDomain: true,
         async: false,
         success: function (data) {
-            console.log("DeviceRegistrationToken Deleted from DB successfully")
-            $.ajax({
-                url: global + 'StoreDeviceRegistrationTokenUpdate?storeid=' + storeId + '&registrationToken=' + token,
-                type: 'GET',
-                datatype: 'jsonp',
-                contenttype: "application/json",
-                crossDomain: true,
-                async: false,
-                success: function (data) {
-                    console.log("Saved to DB successfully")
-                    //window.location.href = "index.html";
-                    //window.localStorage.clear();
-                },
-                error: function (xhr, textStatus, errorThrown) {
-                    //window.location.href = "index.html";
-                    console.log("Saved to DB failed")
-                }
-            });
+            console.log("Saved to DB successfully")
             //window.location.href = "index.html";
             //window.localStorage.clear();
         },
@@ -58,8 +60,6 @@ function RegisterToken(storeId, token)
             console.log("Saved to DB failed")
         }
     });
-    
-    
 }
 
 //Login
