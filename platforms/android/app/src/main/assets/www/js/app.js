@@ -16,7 +16,7 @@ $$(document).on('deviceready', function () {
         if (localStorage.getItem("StoreId") != null)
             storeId = Number(localStorage.getItem("StoreId"));
         if (storeId > 0) {
-            InitPushNotification();
+            InitPushNotification(storeId);
         }
     }
     //console.log('Device Name: ' + device.name + '<\n>' +
@@ -100,7 +100,7 @@ $$(document).on('page:init', function (e) {
                 if (localStorage.getItem("StoreId") != null)
                     storeId = Number(localStorage.getItem("StoreId"));
                 if (storeId > 0) {
-                    InitPushNotification();
+                    InitPushNotification(storeId);
                 }
             }
         }
@@ -190,7 +190,7 @@ $$(document).on('page:init', function (e) {
                 if (localStorage.getItem("StoreId") != null)
                     storeId = Number(localStorage.getItem("StoreId"));
                 if (storeId > 0) {
-                    InitPushNotification();
+                    InitPushNotification(storeId);
                 }
             }
             $$('#scan').on('click', function () {
