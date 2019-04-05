@@ -712,8 +712,9 @@ function InitPushNotification(storeId) {
         //WriteLog("registrationId: " + data.registrationId)
         console.log('registration event: ' + data.registrationId);
         //console.log('StoreId: ' + localStorage.getItem("StoreId"))
-        alert(data.registrationId)
+        alert("current RegId: " + data.registrationId)
         var oldRegId = localStorage.getItem('registrationId');
+        alert("oldRegId: " + oldRegId)
         // console.log("oldRegId: " + oldRegId);
         if (oldRegId == null || oldRegId == undefined) {
             console.log("Save new registration ID")
