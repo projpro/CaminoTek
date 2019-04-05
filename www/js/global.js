@@ -81,6 +81,7 @@ function Login() {
             crossDomain: true,
             async: false,
             success: function (data) {
+                console.log("data: " + data);
                 //console.log("Login 2" + data);
                 //alert(data)
                 if (data.indexOf("No Data Found") > -1) {
@@ -5891,8 +5892,10 @@ function CreatePeriodEditHtml(iCount, type, period) {
     periodHtml += "<select id=\"Businesday_" + iCount + "_" + type + "Period\" name=\"Businesday[" + iCount + "]." + type + "Period\">";
     if (period == "AM") {
         periodHtml += "<option value=\"AM\" selected>AM</option>";
+        periodHtml += "<option value=\"PM\">PM</option>";
     }
     else if (period == "PM") {
+        periodHtml += "<option value=\"AM\">AM</option>";
         periodHtml += "<option value=\"PM\" selected>PM</option>";
     }
     else {
@@ -6705,8 +6708,10 @@ function CreatePeriodEditTimingHtml(iCount, type, period) {
     periodHtml += "<select id=\"Offerday_" + iCount + "_" + type + "Period\" name=\"Offerday[" + iCount + "]." + type + "Period\">";
     if (period == "AM") {
         periodHtml += "<option value=\"AM\" selected>AM</option>";
+        periodHtml += "<option value=\"PM\">PM</option>";
     }
     else if (period == "PM") {
+        periodHtml += "<option value=\"AM\">AM</option>";
         periodHtml += "<option value=\"PM\" selected>PM</option>";
     }
     else {
@@ -6742,4 +6747,3 @@ function DeleteTimingSection(idCount, timingId) {
 }
 
 //Coupon Section End
-

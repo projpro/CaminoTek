@@ -11,12 +11,20 @@ $$(document).on('deviceready', function () {
     var storeId = 0;
 
     //InitPushNotification();
-    if (localStorage.getItem("StoreId") != null)
-        storeId = Number(localStorage.getItem("StoreId"));
-    if (storeId > 0)
+    if (device.platform != "browser")
     {
-        InitPushNotification();
+        if (localStorage.getItem("StoreId") != null)
+            storeId = Number(localStorage.getItem("StoreId"));
+        if (storeId > 0) {
+            InitPushNotification();
+        }
     }
+    //console.log('Device Name: ' + device.name + '<\n>' +
+    //                        'Device PhoneGap: ' + device.phonegap + '<\n>' +
+    //                        'Device Platform: ' + device.platform + '<\n>' +
+    //                        'Device UUID: ' + device.uuid + '<\n>' +
+    //                        'Device Version: ' + device.version + '<\n>');
+  
     
 });
 // Init App
@@ -88,11 +96,13 @@ $$(document).on('page:init', function (e) {
             var src = mediaURL + "notification.mp3";
             myMedia = new Media(src, onSuccess, onError, onStatus);
 
-            var storeId = 0;
-            if (localStorage.getItem("StoreId") != null)
-                storeId = localStorage.getItem("StoreId").trim();
-            if (storeId > 0)
-                InitPushNotification(storeId);
+            if (device.platform != "browser") {
+                if (localStorage.getItem("StoreId") != null)
+                    storeId = Number(localStorage.getItem("StoreId"));
+                if (storeId > 0) {
+                    InitPushNotification();
+                }
+            }
         }
 
 
@@ -176,11 +186,13 @@ $$(document).on('page:init', function (e) {
         document.addEventListener("deviceready", onDeviceReady, false);
         function onDeviceReady() {
             console.log("deviceready")
-            var storeId = 0;
-            if (localStorage.getItem("StoreId") != null)
-                storeId = localStorage.getItem("StoreId").trim();
-            if (storeId>0)
-            InitPushNotification(storeId);
+            if (device.platform != "browser") {
+                if (localStorage.getItem("StoreId") != null)
+                    storeId = Number(localStorage.getItem("StoreId"));
+                if (storeId > 0) {
+                    InitPushNotification();
+                }
+            }
             $$('#scan').on('click', function () {
 
 
