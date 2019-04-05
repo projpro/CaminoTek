@@ -43,8 +43,9 @@ $$(document).on('page:init', function (e) {
     var page = e.detail.page;
     // console.log('pageURL: ' + pageURL)
     if (pageURL == "/") {
-        var storeId = 0;
+        
         var appRefreshInterval = 120;
+        var storeId = 0;
         if (localStorage.getItem("StoreId") != null)
             storeId = localStorage.getItem("StoreId").trim();
         if (localStorage.getItem("AppRefreshTimeInterval") != null) {
@@ -58,7 +59,7 @@ $$(document).on('page:init', function (e) {
         if (storeId > 0)
         {
             setTimeout(function () { self.app.router.navigate('/carryout/', { reloadCurrent: false }); }, 1000);
-            InitPushNotification(storeId);
+           
         }
         else
             setTimeout(function () { self.app.router.navigate('/login_new/', { reloadCurrent: false }); }, 1000);
@@ -86,6 +87,12 @@ $$(document).on('page:init', function (e) {
         function onDeviceReady() {
             var src = mediaURL + "notification.mp3";
             myMedia = new Media(src, onSuccess, onError, onStatus);
+
+            var storeId = 0;
+            if (localStorage.getItem("StoreId") != null)
+                storeId = localStorage.getItem("StoreId").trim();
+            if (storeId > 0)
+                InitPushNotification(storeId);
         }
 
 
@@ -169,6 +176,11 @@ $$(document).on('page:init', function (e) {
         document.addEventListener("deviceready", onDeviceReady, false);
         function onDeviceReady() {
             console.log("deviceready")
+            var storeId = 0;
+            if (localStorage.getItem("StoreId") != null)
+                storeId = localStorage.getItem("StoreId").trim();
+            if (storeId>0)
+            InitPushNotification(storeId);
             $$('#scan').on('click', function () {
 
 
@@ -382,6 +394,11 @@ $$(document).on('page:init', function (e) {
         document.addEventListener("deviceready", onDeviceReady, false);
         function onDeviceReady() {
             console.log("deviceready")
+            var storeId = 0;
+            if (localStorage.getItem("StoreId") != null)
+                storeId = localStorage.getItem("StoreId").trim();
+            if (storeId > 0)
+                InitPushNotification(storeId);
             $$('#scan').on('click', function () {
 
                 console.log("reward scan click")
@@ -662,6 +679,65 @@ $$(document).on('page:init', function (e) {
     }
 });
 
+function InitPushNotification(storeId) {
+
+    var push = PushNotification.init({
+        "android": {
+            "senderID": "771458932582"
+        },
+        "browser": {},
+        "ios": {
+            "sound": true,
+            "vibration": true,
+            "badge": true
+        },
+        "windows": {}
+    });
+    // console.log('after init');
+
+    push.on('registration', function (data) {
+        //SetUpLog();
+        //WriteLog("registrationId: " + data.registrationId)
+        console.log('registration event: ' + data.registrationId);
+        //console.log('StoreId: ' + localStorage.getItem("StoreId"))
+        alert(data.registrationId)
+        var oldRegId = localStorage.getItem('registrationId');
+        // console.log("oldRegId: " + oldRegId);
+        if (oldRegId == null || oldRegId == undefined) {
+            console.log("Save new registration ID")
+            // Save new registration ID
+            localStorage.setItem('registrationId', data.registrationId);
+            RegisterToken(storeId, data.registrationId);
+        }
+        else {
+            if (oldRegId !== data.registrationId) {
+                console.log("Save new registration ID")
+                // Save new registration ID
+                localStorage.setItem('registrationId', data.registrationId);
+                RegisterToken(storeId, data.registrationId);
+            }
+        }
+
+
+
+    });
+
+    push.on('error', function (e) {
+        console.log("push error = " + e.message);
+    });
+
+    push.on('notification', function (data) {
+        alert('notification event: ' + data.message);
+        CheckNewOrder();
+        // alert('notification event: ' + data.message + ", " + data.title);
+        //navigator.notification.alert(
+        //    data.message,         // message
+        //    null,                 // callback
+        //    data.title,           // title
+        //    'Ok'                  // buttonName
+        //);
+    });
+}
 
 //Check whether logged in or not
 function CheckLoggedIn() {

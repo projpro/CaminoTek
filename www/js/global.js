@@ -21,65 +21,6 @@ function InitLogin() {
     //console.log('year: ' + year);
     $(".login-footer #footerYear").html(year);
 }
-function InitPushNotification(storeId) {
-  
-    var push = PushNotification.init({
-        "android": {
-            "senderID": "771458932582"
-        },
-        "browser": {},
-        "ios": {
-            "sound": true,
-            "vibration": true,
-            "badge": true
-        },
-        "windows": {}
-    });
-    // console.log('after init');
-
-    push.on('registration', function (data) {
-        //SetUpLog();
-        //WriteLog("registrationId: " + data.registrationId)
-        console.log('registration event: ' + data.registrationId);
-        //console.log('StoreId: ' + localStorage.getItem("StoreId"))
-        alert(data.registrationId)
-        var oldRegId = localStorage.getItem('registrationId');
-        // console.log("oldRegId: " + oldRegId);
-        if (oldRegId == null || oldRegId == undefined) {
-            console.log("Save new registration ID")
-            // Save new registration ID
-            localStorage.setItem('registrationId', data.registrationId);
-                RegisterToken(storeId, data.registrationId);
-        }
-        else {
-            if (oldRegId !== data.registrationId) {
-                console.log("Save new registration ID")
-                // Save new registration ID
-                localStorage.setItem('registrationId', data.registrationId);
-                    RegisterToken(storeId, data.registrationId);
-            }
-        }
-
-
-
-    });
-
-    push.on('error', function (e) {
-        console.log("push error = " + e.message);
-    });
-
-    push.on('notification', function (data) {
-        alert('notification event: ' + data.message);
-        CheckNewOrder();
-        // alert('notification event: ' + data.message + ", " + data.title);
-        //navigator.notification.alert(
-        //    data.message,         // message
-        //    null,                 // callback
-        //    data.title,           // title
-        //    'Ok'                  // buttonName
-        //);
-    });
-}
 
 function RegisterToken(storeId, token)
 {
@@ -174,7 +115,7 @@ function Login() {
                     }
                     //console.log("Login 3" + storeId);
                     if (Number(storeId) > 0) {
-                        InitPushNotification(storeId);
+                        //InitPushNotification(storeId);
                        // InitPushNotification();
                         //window.location.href = "carryout.html?StoreId=" + storeId;
                         if (carryOutEnabled == "True") {

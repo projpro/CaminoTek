@@ -24,15 +24,16 @@
             </a>
         </div>
     </div>
+
     <div class="navbar">
         <div class="navbar-inner">
             <div class="left">
                 <img src="./img/app-logo.png" />
-                <a class="tab-link back-new" onclick="Back();">
+                <a class="tab-link back-new" href="/coupon_list/">
                     <i class="material-icons material-icons-one">arrow_back</i>
                 </a>
             </div>
-            <div class="center">Add Coupon</div>
+            <div class="center" id="dvCouponHeaderText">Add Coupon</div>
             <div class="right">
                 <a class="icon-only navbar-right-single-icon" style="right:55px;" onclick="GotoProfile();"><i class="material-icons large-icon">account_circle</i></a>
                 <a class="icon-only navbar-right-single-icon" onclick="Logout();"><i class="material-icons large-icon">exit_to_app</i></a>
@@ -52,43 +53,43 @@
                                     <div class="item-media" style="width:96%">
                                         <i class="material-icons">account_circle</i>
                                         <input type="text" placeholder="Name" id="txtCouponName">
-                                        
+                                        <span class="input-clear-button"></span>
                                     </div>
                                 </li>
                                 <li class="item-content" style="width:96%">
                                     <div class="item-media" style="width:75%">
                                         <i class="material-icons">confirmation_number</i>
                                         <input type="text" placeholder="Coupon Code" id="txtCouponCode">
-                                        
+                                        <span class="input-clear-button"></span>
                                     </div>
                                     <span>Active</span>
                                     <label class="toggle toggle-init color-blue">
-                                        <input type="checkbox" id="checkCouponActive" checked>
+                                        <input type="checkbox" id="checkCouponActive">
                                         <span class="toggle-icon"></span>
                                     </label>
                                 </li>
                                 <li class="item-content" style="width:96%">
                                     <div class="item-media" style="width:45%">
                                         <i class="material-icons">attach_money</i>
-                                        <input type="number" placeholder="Min. Order Amt." id="txtCouponMinAmount">
-                                        
+                                        <input type="number" min="1" step="any" placeholder="Min. Order Amt." id="txtCouponMinAmount">
+                                        <span class="input-clear-button"></span>
                                     </div>
                                     <div class="item-media" style="width:45%">
                                         <i class="material-icons">attach_money</i>
-                                        <input type="number" placeholder="Discount Amt." id="txtCouponDiscAmount">
-                                        
+                                        <input type="number" min="1" step="any" placeholder="Discount Amt." id="txtCouponDiscAmount">
+                                        <span class="input-clear-button"></span>
                                     </div>
                                 </li>
                                 <li class="item-content" style="width:96%">
-                                    <div class="item-media" style="width:45%">
+                                    <div class="item-media" style="width:50%">
                                         <i class="material-icons">date_range</i>
                                         <input type="text" placeholder="Start Date" readonly="readonly" id="txtCouponStartDate" />
-                                        
+                                        <span class="input-clear-button"></span>
                                     </div>
-                                    <div class="item-media" style="width:45%">
+                                    <div class="item-media" style="width:50%">
                                         <i class="material-icons">event</i>
                                         <input type="text" placeholder="End Date" readonly="readonly" id="txtCouponEndDate" />
-                                        
+                                        <span class="input-clear-button"></span>
                                     </div>
                                 </li>
                                 <li>
@@ -98,7 +99,7 @@
                                 </li>
                                 
                                 <!--Timing Section Start--> 
-                                <li>
+                                <li id="liDiscountTiming" style="display:none;">
                                     <ul style="padding-left:0px;">
                                         <input type="hidden" id="hdnCouponTimingCount" value="8">
                                         <li class="item-content" style="width:100%">
@@ -1575,16 +1576,13 @@
                                 </li>
                             </ul>
                         </div>
-
                     </div>
 
                 </div>
             </div>
 
         </div>
-        <div id="reward_LoadRedeem" class="page-content tab">
-
-        </div>
+        
         <div class="mt pd"></div>              
 
     </div>

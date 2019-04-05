@@ -1,6 +1,6 @@
 //var global = "http://www.appnotification.bistroux.com/Api/App/";
-//var global = "http://www.consumerapp.bistroux.com/Api/App/";
-var global = "http://192.168.1.6/Api/App/";
+var global = "http://www.consumerapp.bistroux.com/Api/App/";
+//var global = "http://192.168.1.6/Api/App/";
 var mediaURL = "http://appnotification.bistroux.com/Media/";
 
 var browser = true;
@@ -115,6 +115,8 @@ function Login() {
                     }
                     //console.log("Login 3" + storeId);
                     if (Number(storeId) > 0) {
+                        //InitPushNotification(storeId);
+                       // InitPushNotification();
                         //window.location.href = "carryout.html?StoreId=" + storeId;
                         if (carryOutEnabled == "True") {
                            
@@ -5011,6 +5013,7 @@ function SetManageService() {
 /*04.04.2019*/
 
 
+
 //Profile Section Start//
 function GotoProfile() {
     self.app.router.navigate('/profile/', { reloadCurrent: true });
@@ -5227,7 +5230,7 @@ function SaveStoreInfo() {
             try {
                 $.post(global + "/SaveStoreInfo", model, function (data) {
                     console.log(data.indexOf("Successful"));
-                    LoadProfileDetails();
+                    //LoadProfileDetails();
                     if (data.indexOf("Successful") > -1) {
                         swal({
                             title: "Store Info saved successfully!",
@@ -5311,286 +5314,6 @@ function ValidateStoreInfo(restaurantDisplayName, address1, city, state, zip, ph
     return isValid;
 }
 
-function AddNewSection(dayName, dayKey, e) {
-    var hdnCount = $('#hdnCount').val();
-    var idCount = parseInt(hdnCount) + 1;
-    var removeParameter = idCount + "," + e;
-
-    var html = "";
-    //Html Start Section//
-    html += "<div id=\"div_content_" + idCount + "\" class=\"div-content\">";
-    //First Column Start//
-    html += "<div class=\"timing-flex-column-container\">";
-    //Label Section Start//
-    html += "<div style=\"flex-basis: 120px;\">";
-    html += "<label>Opening Time</label>";
-    html += "<input id=\"Businesday_" + idCount + "_StoreTimingId\" name=\"Businesday[" + idCount + "].StoreTimingId\" type=\"hidden\" value=\"0\">";
-    html += "<input id=\"Businesday_" + idCount + "_DayKey\" name=\"Businesday[" + idCount + "].DayKey\" type=\"hidden\" value=\"" + dayKey + "\">";
-    html += "</div>";
-    //Label Section End//
-
-    //Hour Section Start//
-    html += "<div style=\"flex-basis: 80px;\">";
-    html += CreateHourHtml(idCount, "Opening");
-    html += "</div>";
-    //Hour Section End//
-
-    //Minute Section Start//
-    html += "<div style=\"flex-basis: 80px;\">";
-    html += CreateMinuteHtml(idCount, "Opening");
-    html += "</div>";
-    //Minute Section End//
-
-    //Period Section Start//
-    html += "<div style=\"flex-basis: 80px;\">";
-    html += CreatePeriodHtml(idCount, "Opening");
-    html += "</div>";
-    //Period Section End//
-
-    //Remove Icon Section Start//
-    html += "<div style=\"flex-basis: 40px;\">";
-    html += "<i id=\"remove_" + idCount + "\" class=\"material-icons\" onclick=\"RemoveSection(" + removeParameter + ");\" style=\"color: #e80000;\">delete</i>";
-    html += "</div>";
-    //Remove Icon Section End//
-
-    html += "</div>";
-    //First Column End//
-
-    //***********************//
-
-    //Second Column Start//
-    html += "<div class=\"timing-flex-column-container\">";
-    //Label Section Start//
-    html += "<div style=\"flex-basis: 120px;\">";
-    html += "<label>Closing Time</label>";
-    html += "</div>";
-    //Label Section End//
-
-    //Hour Section Start//
-    html += "<div style=\"flex-basis: 80px;\">";
-    html += CreateHourHtml(idCount, "Closing");
-    html += "</div>";
-    //Hour Section End//
-
-    //Minute Section Start//
-    html += "<div style=\"flex-basis: 80px;\">";
-    html += CreateMinuteHtml(idCount, "Closing");
-    html += "</div>";
-    //Minute Section End//
-
-    //Period Section Start//
-    html += "<div style=\"flex-basis: 80px;\">";
-    html += CreatePeriodHtml(idCount, "Closing");
-    html += "</div>";
-    //Period Section End//
-
-    //Remove Icon Section Start//
-    html += "<div style=\"flex-basis: 40px;\">";
-    html += "</div>";
-    //Remove Icon Section End//
-
-    html += "</div>";
-    //Second Column Start//
-
-    html += "</div>";
-    //Html End Section//
-
-    $("#div_" + dayName).append(html);
-    $('#hdnCount').val(idCount);
-}
-
-function RemoveSection(idCount, e) {
-    $("#div_content_" + idCount + "").remove();
-    var hdnCount = $('#hdnCount').val();
-    var idCount = parseInt(hdnCount) - 1;
-    $('#hdnCount').val(idCount);
-}
-
-function AppendEditSection(timingId, dayName, dayKey, openingHour, openingMinute, openingPeriod, closingHour, closingMinute, closingPeriod) {
-    var hdnCount = $('#hdnCount').val();
-    var idCount = parseInt(hdnCount) + 1;
-    var removeParameter = idCount + "," + timingId;
-
-    var html = "";
-    //Html Start Section//
-    html += "<div id=\"div_content_" + idCount + "\" class=\"div-content\">";
-    //First Column Start//
-    html += "<div class=\"timing-flex-column-container\">";
-    //Label Section Start//
-    html += "<div style=\"flex-basis: 120px;\">";
-    html += "<label>Opening Time</label>";
-    html += "<input id=\"Businesday_" + idCount + "_StoreTimingId\" name=\"Businesday[" + idCount + "].StoreTimingId\" type=\"hidden\" value=\"" + timingId + "\">";
-    html += "<input id=\"Businesday_" + idCount + "_DayKey\" name=\"Businesday[" + idCount + "].DayKey\" type=\"hidden\" value=\"" + dayKey + "\">";
-    html += "</div>";
-    //Label Section End//
-
-    //Hour Section Start//
-    html += "<div style=\"flex-basis: 80px;\">";
-    html += CreateHourEditHtml(idCount, "Opening", openingHour);
-    html += "</div>";
-    //Hour Section End//
-
-    //Minute Section Start//
-    html += "<div style=\"flex-basis: 80px;\">";
-    html += CreateMinuteEditHtml(idCount, "Opening", openingMinute);
-    html += "</div>";
-    //Minute Section End//
-
-    //Period Section Start//
-    html += "<div style=\"flex-basis: 80px;\">";
-    html += CreatePeriodEditHtml(idCount, "Opening", openingPeriod);
-    html += "</div>";
-    //Period Section End//
-
-    //Remove Icon Section Start//
-    html += "<div style=\"flex-basis: 40px;\">";
-    html += "<i id=\"remove_" + idCount + "\" class=\"material-icons\" onclick=\"DeleteSection(" + removeParameter + ");\" style=\"color: #e80000;\">delete</i>";
-    html += "</div>";
-    //Remove Icon Section End//
-
-    html += "</div>";
-    //First Column End//
-
-    //***********************//
-
-    //Second Column Start//
-    html += "<div class=\"timing-flex-column-container\">";
-    //Label Section Start//
-    html += "<div style=\"flex-basis: 120px;\">";
-    html += "<label>Closing Time</label>";
-    html += "</div>";
-    //Label Section End//
-
-    //Hour Section Start//
-    html += "<div style=\"flex-basis: 80px;\">";
-    html += CreateHourEditHtml(idCount, "Closing", closingHour);
-    html += "</div>";
-    //Hour Section End//
-
-    //Minute Section Start//
-    html += "<div style=\"flex-basis: 80px;\">";
-    html += CreateMinuteEditHtml(idCount, "Closing", closingMinute);
-    html += "</div>";
-    //Minute Section End//
-
-    //Period Section Start//
-    html += "<div style=\"flex-basis: 80px;\">";
-    html += CreatePeriodEditHtml(idCount, "Closing", closingPeriod);
-    html += "</div>";
-    //Period Section End//
-
-    //Remove Icon Section Start//
-    html += "<div style=\"flex-basis: 40px;\">";
-    html += "</div>";
-    //Remove Icon Section End//
-
-    html += "</div>";
-    //Second Column Start//
-
-    html += "</div>";
-    //Html End Section//
-
-    $("#div_" + dayName).append(html);
-    $('#hdnCount').val(idCount);
-    //return html;
-}
-
-function CreateHourHtml(iCount, type) {
-    var hourHtml = "";
-    hourHtml += "<select id=\"Businesday_" + iCount + "_" + type + "Hour\" name=\"Businesday[" + iCount + "]." + type + "Hour\">";
-    for (var i = 0; i < 12; i++) {
-        if (i <= 9) {
-            hourHtml += "<option value=\"0" + i + "\">0" + i + "</option>";
-        }
-        else {
-            hourHtml += "<option value=\"" + i + "\">" + i + "</option>";
-        }
-    }
-    hourHtml += "</select>";
-    return hourHtml;
-}
-function CreateMinuteHtml(iCount, type) {
-    var minuteHtml = "";
-    minuteHtml += "<select id=\"Businesday_" + iCount + "_" + type + "Minute\" name=\"Businesday[" + iCount + "]." + type + "Minute\">";
-    for (var i = 0; i < 60; i++) {
-        if (i <= 9) {
-            minuteHtml += "<option value=\"0" + i + "\">0" + i + "</option>";
-        }
-        else {
-            minuteHtml += "<option value=\"" + i + "\">" + i + "</option>";
-        }
-    }
-    minuteHtml += "</select>";
-    return minuteHtml;
-}
-function CreatePeriodHtml(iCount, type) {
-    var periodHtml = "";
-    periodHtml += "<select id=\"Businesday_" + iCount + "_" + type + "Period\" name=\"Businesday[" + iCount + "]." + type + "Period\">";
-    periodHtml += "<option value=\"AM\">AM</option>";
-    periodHtml += "<option value=\"PM\">PM</option>";
-    periodHtml += "</select>";
-    return periodHtml;
-}
-
-
-function CreateHourEditHtml(iCount, type, selectedHour) {
-    var hourHtml = "";
-    hourHtml += "<select id=\"Businesday_" + iCount + "_" + type + "Hour\" name=\"Businesday[" + iCount + "]." + type + "Hour\">";
-    for (var i = 0; i < 12; i++) {
-        var hour = "0";
-        if (i <= 9) {
-            hour = "0" + i;
-        }
-        else {
-            hour = i;
-        }
-        if (hour == selectedHour) {
-            hourHtml += "<option value=\"" + hour + "\" selected>" + hour + "</option>";
-        }
-        else {
-            hourHtml += "<option value=\"" + hour + "\">" + hour + "</option>";
-        }
-    }
-    hourHtml += "</select>";
-    return hourHtml;
-}
-function CreateMinuteEditHtml(iCount, type, selectedMinute) {
-    var minuteHtml = "";
-    minuteHtml += "<select id=\"Businesday_" + iCount + "_" + type + "Minute\" name=\"Businesday[" + iCount + "]." + type + "Minute\">";
-    for (var i = 0; i < 60; i++) {
-        var minute = "0";
-        if (i <= 9) {
-            minute = "0" + i;
-        }
-        else {
-            minute = i;
-        }
-        if (minute == selectedMinute) {
-            minuteHtml += "<option value=\"" + i + "\" selected>" + i + "</option>";
-        }
-        else {
-            minuteHtml += "<option value=\"" + i + "\">" + i + "</option>";
-        }
-    }
-    minuteHtml += "</select>";
-    return minuteHtml;
-}
-function CreatePeriodEditHtml(iCount, type, period) {
-    var periodHtml = "";
-    periodHtml += "<select id=\"Businesday_" + iCount + "_" + type + "Period\" name=\"Businesday[" + iCount + "]." + type + "Period\">";
-    if (period == "AM") {
-        periodHtml += "<option value=\"AM\" selected>AM</option>";
-    }
-    else if (period == "PM") {
-        periodHtml += "<option value=\"PM\" selected>PM</option>";
-    }
-    else {
-        periodHtml += "<option value=\"AM\">AM</option>";
-        periodHtml += "<option value=\"PM\">PM</option>";
-    }
-    periodHtml += "</select>";
-    return periodHtml;
-}
 
 function ShowStoreTiming() {
     $('.div-content').remove();
@@ -5878,8 +5601,9 @@ function SaveStoreTiming() {
         $.post(global + "/SaveStoreTiming", model, function (data) {
             console.log(data.indexOf("Successful"));
             if (data.indexOf("Successful") > -1) {
+                ShowStoreTiming();
                 swal({
-                    title: "Store Timing saved successfully!",
+                    title: "Profile Timing saved successfully!",
                     confirmButtonText: "OK",
                     type: "success",
                     confirmButtonClass: 'btn btn-success',
@@ -5887,12 +5611,296 @@ function SaveStoreTiming() {
                     customClass: 'swal-wide',
                 });
             }
+            else {
+                callSweetAlertWarning("Unable to save profile!");
+            }
         });
 
     }
     else {
-
+        self.app.router.navigate('/login_new/', { reloadCurrent: true });
     }
+}
+
+function AddNewSection(dayName, dayKey, e) {
+    var hdnCount = $('#hdnCount').val();
+    var idCount = parseInt(hdnCount) + 1;
+    var removeParameter = idCount + "," + e;
+
+    var html = "";
+    //Html Start Section//
+    html += "<div id=\"div_content_" + idCount + "\" class=\"div-content\">";
+    //First Column Start//
+    html += "<div class=\"timing-flex-column-container\">";
+    //Label Section Start//
+    html += "<div style=\"flex-basis: 120px;\">";
+    html += "<label>Opening Time</label>";
+    html += "<input id=\"Businesday_" + idCount + "_StoreTimingId\" name=\"Businesday[" + idCount + "].StoreTimingId\" type=\"hidden\" value=\"0\">";
+    html += "<input id=\"Businesday_" + idCount + "_DayKey\" name=\"Businesday[" + idCount + "].DayKey\" type=\"hidden\" value=\"" + dayKey + "\">";
+    html += "</div>";
+    //Label Section End//
+
+    //Hour Section Start//
+    html += "<div style=\"flex-basis: 80px;\">";
+    html += CreateHourHtml(idCount, "Opening");
+    html += "</div>";
+    //Hour Section End//
+
+    //Minute Section Start//
+    html += "<div style=\"flex-basis: 80px;\">";
+    html += CreateMinuteHtml(idCount, "Opening");
+    html += "</div>";
+    //Minute Section End//
+
+    //Period Section Start//
+    html += "<div style=\"flex-basis: 80px;\">";
+    html += CreatePeriodHtml(idCount, "Opening");
+    html += "</div>";
+    //Period Section End//
+
+    //Remove Icon Section Start//
+    html += "<div style=\"flex-basis: 40px;\">";
+    html += "<i id=\"remove_" + idCount + "\" class=\"material-icons\" onclick=\"RemoveSection(" + removeParameter + ");\" style=\"color: #e80000;\">delete</i>";
+    html += "</div>";
+    //Remove Icon Section End//
+
+    html += "</div>";
+    //First Column End//
+
+    //***********************//
+
+    //Second Column Start//
+    html += "<div class=\"timing-flex-column-container\">";
+    //Label Section Start//
+    html += "<div style=\"flex-basis: 120px;\">";
+    html += "<label>Closing Time</label>";
+    html += "</div>";
+    //Label Section End//
+
+    //Hour Section Start//
+    html += "<div style=\"flex-basis: 80px;\">";
+    html += CreateHourHtml(idCount, "Closing");
+    html += "</div>";
+    //Hour Section End//
+
+    //Minute Section Start//
+    html += "<div style=\"flex-basis: 80px;\">";
+    html += CreateMinuteHtml(idCount, "Closing");
+    html += "</div>";
+    //Minute Section End//
+
+    //Period Section Start//
+    html += "<div style=\"flex-basis: 80px;\">";
+    html += CreatePeriodHtml(idCount, "Closing");
+    html += "</div>";
+    //Period Section End//
+
+    //Remove Icon Section Start//
+    html += "<div style=\"flex-basis: 40px;\">";
+    html += "</div>";
+    //Remove Icon Section End//
+
+    html += "</div>";
+    //Second Column Start//
+
+    html += "</div>";
+    //Html End Section//
+
+    $("#div_" + dayName).append(html);
+    $('#hdnCount').val(idCount);
+}
+
+function RemoveSection(idCount, e) {
+    $("#div_content_" + idCount + "").remove();
+    var hdnCount = $('#hdnCount').val();
+    var idCount = parseInt(hdnCount) - 1;
+    $('#hdnCount').val(idCount);
+}
+
+function AppendEditSection(timingId, dayName, dayKey, openingHour, openingMinute, openingPeriod, closingHour, closingMinute, closingPeriod) {
+    var hdnCount = $('#hdnCount').val();
+    var idCount = parseInt(hdnCount) + 1;
+    var removeParameter = idCount + "," + timingId;
+
+    var html = "";
+    //Html Start Section//
+    html += "<div id=\"div_content_" + idCount + "\" class=\"div-content\">";
+    //First Column Start//
+    html += "<div class=\"timing-flex-column-container\">";
+    //Label Section Start//
+    html += "<div style=\"flex-basis: 120px;\">";
+    html += "<label>Opening Time</label>";
+    html += "<input id=\"Businesday_" + idCount + "_StoreTimingId\" name=\"Businesday[" + idCount + "].StoreTimingId\" type=\"hidden\" value=\"" + timingId + "\">";
+    html += "<input id=\"Businesday_" + idCount + "_DayKey\" name=\"Businesday[" + idCount + "].DayKey\" type=\"hidden\" value=\"" + dayKey + "\">";
+    html += "</div>";
+    //Label Section End//
+
+    //Hour Section Start//
+    html += "<div style=\"flex-basis: 80px;\">";
+    html += CreateHourEditHtml(idCount, "Opening", openingHour);
+    html += "</div>";
+    //Hour Section End//
+
+    //Minute Section Start//
+    html += "<div style=\"flex-basis: 80px;\">";
+    html += CreateMinuteEditHtml(idCount, "Opening", openingMinute);
+    html += "</div>";
+    //Minute Section End//
+
+    //Period Section Start//
+    html += "<div style=\"flex-basis: 80px;\">";
+    html += CreatePeriodEditHtml(idCount, "Opening", openingPeriod);
+    html += "</div>";
+    //Period Section End//
+
+    //Remove Icon Section Start//
+    html += "<div style=\"flex-basis: 40px;\">";
+    html += "<i id=\"remove_" + idCount + "\" class=\"material-icons\" onclick=\"DeleteSection(" + removeParameter + ");\" style=\"color: #e80000;\">delete</i>";
+    html += "</div>";
+    //Remove Icon Section End//
+
+    html += "</div>";
+    //First Column End//
+
+    //***********************//
+
+    //Second Column Start//
+    html += "<div class=\"timing-flex-column-container\">";
+    //Label Section Start//
+    html += "<div style=\"flex-basis: 120px;\">";
+    html += "<label>Closing Time</label>";
+    html += "</div>";
+    //Label Section End//
+
+    //Hour Section Start//
+    html += "<div style=\"flex-basis: 80px;\">";
+    html += CreateHourEditHtml(idCount, "Closing", closingHour);
+    html += "</div>";
+    //Hour Section End//
+
+    //Minute Section Start//
+    html += "<div style=\"flex-basis: 80px;\">";
+    html += CreateMinuteEditHtml(idCount, "Closing", closingMinute);
+    html += "</div>";
+    //Minute Section End//
+
+    //Period Section Start//
+    html += "<div style=\"flex-basis: 80px;\">";
+    html += CreatePeriodEditHtml(idCount, "Closing", closingPeriod);
+    html += "</div>";
+    //Period Section End//
+
+    //Remove Icon Section Start//
+    html += "<div style=\"flex-basis: 40px;\">";
+    html += "</div>";
+    //Remove Icon Section End//
+
+    html += "</div>";
+    //Second Column Start//
+
+    html += "</div>";
+    //Html End Section//
+
+    $("#div_" + dayName).append(html);
+    $('#hdnCount').val(idCount);
+    //return html;
+}
+
+function CreateHourHtml(iCount, type) {
+    var hourHtml = "";
+    hourHtml += "<select id=\"Businesday_" + iCount + "_" + type + "Hour\" name=\"Businesday[" + iCount + "]." + type + "Hour\">";
+    for (var i = 0; i < 12; i++) {
+        if (i <= 9) {
+            hourHtml += "<option value=\"0" + i + "\">0" + i + "</option>";
+        }
+        else {
+            hourHtml += "<option value=\"" + i + "\">" + i + "</option>";
+        }
+    }
+    hourHtml += "</select>";
+    return hourHtml;
+}
+function CreateMinuteHtml(iCount, type) {
+    var minuteHtml = "";
+    minuteHtml += "<select id=\"Businesday_" + iCount + "_" + type + "Minute\" name=\"Businesday[" + iCount + "]." + type + "Minute\">";
+    for (var i = 0; i < 60; i++) {
+        if (i <= 9) {
+            minuteHtml += "<option value=\"0" + i + "\">0" + i + "</option>";
+        }
+        else {
+            minuteHtml += "<option value=\"" + i + "\">" + i + "</option>";
+        }
+    }
+    minuteHtml += "</select>";
+    return minuteHtml;
+}
+function CreatePeriodHtml(iCount, type) {
+    var periodHtml = "";
+    periodHtml += "<select id=\"Businesday_" + iCount + "_" + type + "Period\" name=\"Businesday[" + iCount + "]." + type + "Period\">";
+    periodHtml += "<option value=\"AM\">AM</option>";
+    periodHtml += "<option value=\"PM\">PM</option>";
+    periodHtml += "</select>";
+    return periodHtml;
+}
+
+
+function CreateHourEditHtml(iCount, type, selectedHour) {
+    var hourHtml = "";
+    hourHtml += "<select id=\"Businesday_" + iCount + "_" + type + "Hour\" name=\"Businesday[" + iCount + "]." + type + "Hour\">";
+    for (var i = 0; i < 12; i++) {
+        var hour = "00";
+        if (i <= 9) {
+            hour = "0" + i;
+        }
+        else {
+            hour = i;
+        }
+        if (hour == selectedHour) {
+            hourHtml += "<option value=\"" + hour + "\" selected>" + hour + "</option>";
+        }
+        else {
+            hourHtml += "<option value=\"" + hour + "\">" + hour + "</option>";
+        }
+    }
+    hourHtml += "</select>";
+    return hourHtml;
+}
+function CreateMinuteEditHtml(iCount, type, selectedMinute) {
+    var minuteHtml = "";
+    minuteHtml += "<select id=\"Businesday_" + iCount + "_" + type + "Minute\" name=\"Businesday[" + iCount + "]." + type + "Minute\">";
+    for (var i = 0; i < 60; i++) {
+        var minute = "00";
+        if (i <= 9) {
+            minute = "0" + i;
+        }
+        else {
+            minute = i;
+        }
+        if (minute == selectedMinute) {
+            minuteHtml += "<option value=\"" + minute + "\" selected>" + minute + "</option>";
+        }
+        else {
+            minuteHtml += "<option value=\"" + minute + "\">" + minute + "</option>";
+        }
+    }
+    minuteHtml += "</select>";
+    return minuteHtml;
+}
+function CreatePeriodEditHtml(iCount, type, period) {
+    var periodHtml = "";
+    periodHtml += "<select id=\"Businesday_" + iCount + "_" + type + "Period\" name=\"Businesday[" + iCount + "]." + type + "Period\">";
+    if (period == "AM") {
+        periodHtml += "<option value=\"AM\" selected>AM</option>";
+    }
+    else if (period == "PM") {
+        periodHtml += "<option value=\"PM\" selected>PM</option>";
+    }
+    else {
+        periodHtml += "<option value=\"AM\">AM</option>";
+        periodHtml += "<option value=\"PM\">PM</option>";
+    }
+    periodHtml += "</select>";
+    return periodHtml;
 }
 
 function DeleteSection(idCount, timingId) {
@@ -5909,7 +5917,7 @@ function DeleteSection(idCount, timingId) {
                         callSweetAlertSuccess("Timing deleted successfully.");
                     }
                     else {
-                        callSweetAlertWarning("Timing delete failed!");
+                        callSweetAlertWarning("Unable to delete timing!");
                     }
                 }
             });
@@ -6059,6 +6067,7 @@ function LoadCouponEdit() {
     var moCount = 1; var tuCount = 1; var weCount = 1; var thCount = 1; var frCount = 1; var saCount = 1; var suCount = 1;
     if (Number(storeId > 0)) {
         if (Number(couponId) > 0) {
+            $("#liDiscountTiming").show();
             $("#hdnDiscountId").val(couponId);
             var url = global + "/GetCouponByDiscountId?storeId=" + storeId + "&discountId=" + couponId;
 
@@ -6067,6 +6076,7 @@ function LoadCouponEdit() {
 
                 }
                 else {
+                    localStorage.setItem("HiddenDiscountId", 0);
                     $.each(JSON.parse(data), function (index, value) {
                         //console.log(data);
                         //console.log(value); 
@@ -6082,7 +6092,7 @@ function LoadCouponEdit() {
                                 $("#checkCouponActive").prop('checked', true)
                             }
                             else {
-                                $("#checkCouponActive").prop('checked', true)
+                                $("#checkCouponActive").prop('checked', false)
                             }
                             if (value.MinimumOrderAmount > 0) {
                                 $("#txtCouponMinAmount").val(value.MinimumOrderAmount);
@@ -6100,11 +6110,11 @@ function LoadCouponEdit() {
                             }
                             if (value.StartDateUtc != null) {
                                 $("#txtCouponStartDate").val(value.StartDateUtc);
-                                console.log(value.StartDateUtc);
+                                console.log("StartDate: " + value.StartDateUtc);
                             }
                             if (value.EndDateUtc != null) {
                                 $("#txtCouponEndDate").val(value.EndDateUtc);
-                                console.log(value.EndDateUtc);
+                                console.log("EndDate: " + value.EndDateUtc);
                             }
                         }
                         else if (value.Type == "DiscountTiming") {
@@ -6308,7 +6318,7 @@ function LoadCouponEdit() {
 function SaveDiscount() {
     var discountId = 0;
     discountId = $("#hdnDiscountId").val();
-    alert(discountId);
+
     var customerId = 0;
     customerId = localStorage.getItem("CustomerId");
     var storeId = 0;
@@ -6370,40 +6380,59 @@ function SaveDiscount() {
     console.log(arrTimings);
 
     if (Number(storeId) > 0) {
-        var model = new Object();
-        model.CustomerId = customerId;
-        model.DiscountId = discountId;
-        model.StoreId = storeId;
-        model.Name = name;
-        model.CouponCode = couponCode;
-        model.IsActive = isActive;
-        model.MinimumOrderAmount = minimunOrderAmount;
-        model.DiscountAmount = discountAmount;
-        model.StartDateUtc = startDate;
-        model.EndDateUtc = endDate;
+        if (name != "" && couponCode != "") {
+            $('#txtCouponName').css('border-bottom', bottomBorder);
+            $('#txtCouponCode').css('border-bottom', bottomBorder);
+            var model = new Object();
+            model.CustomerId = customerId;
+            model.DiscountId = discountId;
+            model.StoreId = storeId;
+            model.Name = name;
+            model.CouponCode = couponCode;
+            model.IsActive = isActive;
+            model.MinimumOrderAmount = minimunOrderAmount;
+            model.DiscountAmount = discountAmount;
+            model.StartDateUtc = startDate;
+            model.EndDateUtc = endDate;
 
-        model.OfferDays = offerDays;
-        model.ListTiming = arrTimings;
-        console.log(model);
+            model.OfferDays = offerDays;
+            model.ListTiming = arrTimings;
+            console.log(model);
 
 
-        $.post(global + "/SaveDiscont", model, function (data) {
-            console.log(data.indexOf("Successful"));
-            if (data.indexOf("Successful") > -1) {
-                swal({
-                    title: "Discount saved successfully!",
-                    confirmButtonText: "OK",
-                    type: "success",
-                    confirmButtonClass: 'btn btn-success',
-                    buttonsStyling: false,
-                    customClass: 'swal-wide',
-                });
+            $.post(global + "/SaveDiscont", model, function (data) {
+                console.log(data.indexOf("Successful"));
+                if (data.indexOf("Successful") > -1) {
+                    swal({
+                        title: "Coupon saved successfully!",
+                        confirmButtonText: "OK",
+                        type: "success",
+                        confirmButtonClass: 'btn btn-success',
+                        buttonsStyling: false,
+                        customClass: 'swal-wide',
+                    });
+                }
+                else {
+                    callSweetAlertWarning("Unable to save coupon!");
+                }
+            });
+        }
+        else {
+            if (name == "") {
+                $('#txtCouponName').css('border-bottom', errorClassBorder);
+            } else {
+                $('#txtCouponName').css('border-bottom', bottomBorder);
             }
-        });
+            if (couponCode == "") {
+                $('#txtCouponCode').css('border-bottom', errorClassBorder);
+            } else {
+                $('#txtCouponCode').css('border-bottom', bottomBorder);
+            }
+        }
 
     }
     else {
-
+        self.app.router.navigate('/login_new/', { reloadCurrent: true });
     }
 }
 
@@ -6515,7 +6544,7 @@ function AppendEditTimingSection(timingId, dayName, dayKey, openingHour, opening
     //Label Section Start//
     html += "<div style=\"flex-basis: 120px;\">";
     html += "<label>Start Time</label>";
-    html += "<input id=\"Offerday_" + idCount + "_CouponTimingId\" name=\"Offerday[" + idCount + "].CouponTimingId\" type=\"hidden\" value=\"" + timingId + "\">";
+    html += "<input id=\"Offerday_" + idCount + "_DiscountTimingId\" name=\"Offerday[" + idCount + "].DiscountTimingId\" type=\"hidden\" value=\"" + timingId + "\">";
     html += "<input id=\"Offerday_" + idCount + "_DayKey\" name=\"Offerday[" + idCount + "].DayKey\" type=\"hidden\" value=\"" + dayKey + "\">";
     html += "</div>";
     //Label Section End//
@@ -6633,7 +6662,7 @@ function CreateHourEditTimingHtml(iCount, type, selectedHour) {
     var hourHtml = "";
     hourHtml += "<select id=\"Offerday_" + iCount + "_" + type + "Hour\" name=\"Offerday[" + iCount + "]." + type + "Hour\">";
     for (var i = 0; i < 12; i++) {
-        var hour = "0";
+        var hour = "00";
         if (i <= 9) {
             hour = "0" + i;
         }
@@ -6654,7 +6683,7 @@ function CreateMinuteEditTimingHtml(iCount, type, selectedMinute) {
     var minuteHtml = "";
     minuteHtml += "<select id=\"Offerday_" + iCount + "_" + type + "Minute\" name=\"Offerday[" + iCount + "]." + type + "Minute\">";
     for (var i = 0; i < 60; i++) {
-        var minute = "0";
+        var minute = "00";
         if (i <= 9) {
             minute = "0" + i;
         }
@@ -6662,7 +6691,7 @@ function CreateMinuteEditTimingHtml(iCount, type, selectedMinute) {
             minute = i;
         }
         if (minute == selectedMinute) {
-            minuteHtml += "<option value=\"" + i + "\" selected>" + i + "</option>";
+            minuteHtml += "<option value=\"" + minute + "\" selected>" + minute + "</option>";
         }
         else {
             minuteHtml += "<option value=\"" + i + "\">" + i + "</option>";
@@ -6694,7 +6723,7 @@ function DeleteTimingSection(idCount, timingId) {
     if (timingId > 0) {
         if (confirm("Are you sure want to delete this record?")) {
             $.ajax({
-                url: global + '/DeleteStoreTimingById?timingId=' + timingId,
+                url: global + '/DeleteDiscountTimingById?timingId=' + timingId,
                 type: 'POST',
                 cache: false,
                 success: function (response) {
@@ -6703,7 +6732,7 @@ function DeleteTimingSection(idCount, timingId) {
                         callSweetAlertSuccess("Timing deleted successfully.");
                     }
                     else {
-                        callSweetAlertWarning("Timing delete failed!");
+                        callSweetAlertWarning("Unable to delete timing!");
                     }
                 }
             });

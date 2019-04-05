@@ -9,64 +9,15 @@ var acceptOrderPopup;
 $$(document).on('deviceready', function () {
     console.log("Device is ready!");
     var storeId = 0;
-   // var push = PushNotification.init({
-   //     "android": {
-   //         "senderID": "771458932582"
-   //     },
-   //     "browser": {},
-   //     "ios": {
-   //         "sound": true,
-   //         "vibration": true,
-   //         "badge": true
-   //     },
-   //     "windows": {}
-   // });
-   //// console.log('after init');
 
-   // push.on('registration', function (data) {
-   //     //SetUpLog();
-   //     //WriteLog("registrationId: " + data.registrationId)
-   //     console.log('registration event: ' + data.registrationId);
-   //     //console.log('StoreId: ' + localStorage.getItem("StoreId"))
-   //     var storeId = 0;
-   //     alert(data.registrationId)
-   //     var oldRegId = localStorage.getItem('registrationId');
-   //    // console.log("oldRegId: " + oldRegId);
-   //     //if (oldRegId !== data.registrationId) {
-   //         console.log("Save new registration ID")
-   //         // Save new registration ID
-   //         localStorage.setItem('registrationId', data.registrationId);
-
-   //         if (localStorage.getItem("StoreId") != null)
-   //             storeId = Number(localStorage.getItem("StoreId"));
-
-   //         //console.log('StoreId 1: ' + storeId)
-   //         if (storeId > 0)
-   //         {
-   //             RegisterToken(storeId,data.registrationId);
-   //         }
-           
-   //         // Post registrationId to your app server as the value has changed
-   //     //}
-
-     
-   // });
-
-   // push.on('error', function (e) {
-   //     console.log("push error = " + e.message);
-   // });
-
-   // push.on('notification', function (data) {
-   //     alert('notification event: ' + data.message);
-   //    // CheckNewOrder();
-   //   // alert('notification event: ' + data.message + ", " + data.title);
-   //     //navigator.notification.alert(
-   //     //    data.message,         // message
-   //     //    null,                 // callback
-   //     //    data.title,           // title
-   //     //    'Ok'                  // buttonName
-   //     //);
-   // });
+    //InitPushNotification();
+    if (localStorage.getItem("StoreId") != null)
+        storeId = Number(localStorage.getItem("StoreId"));
+    if (storeId > 0)
+    {
+        InitPushNotification();
+    }
+    
 });
 // Init App
 var app = new Framework7({
@@ -90,10 +41,11 @@ $$(document).on('page:init', function (e) {
     //console.log(e.detail.app.form.convertToData('#login'));
     var pageURL = e.detail.route.url;
     var page = e.detail.page;
-   // console.log('pageURL: ' + pageURL)
+    // console.log('pageURL: ' + pageURL)
     if (pageURL == "/") {
-        var storeId = 0;
+        
         var appRefreshInterval = 120;
+        var storeId = 0;
         if (localStorage.getItem("StoreId") != null)
             storeId = localStorage.getItem("StoreId").trim();
         if (localStorage.getItem("AppRefreshTimeInterval") != null) {
@@ -104,8 +56,11 @@ $$(document).on('page:init', function (e) {
         else {
             localStorage.setItem("AppRefreshTimeInterval", appRefreshInterval);
         }
-        if (storeId>0)
+        if (storeId > 0)
+        {
             setTimeout(function () { self.app.router.navigate('/carryout/', { reloadCurrent: false }); }, 1000);
+           
+        }
         else
             setTimeout(function () { self.app.router.navigate('/login_new/', { reloadCurrent: false }); }, 1000);
 
@@ -122,7 +77,7 @@ $$(document).on('page:init', function (e) {
     }
     else if (pageURL.indexOf('carryout') > -1)//Carry Out
     {
-      
+
         CheckGiftCardPermission();
         $$("#hdnCurrentState").val('New');
 
@@ -132,6 +87,12 @@ $$(document).on('page:init', function (e) {
         function onDeviceReady() {
             var src = mediaURL + "notification.mp3";
             myMedia = new Media(src, onSuccess, onError, onStatus);
+
+            var storeId = 0;
+            if (localStorage.getItem("StoreId") != null)
+                storeId = localStorage.getItem("StoreId").trim();
+            if (storeId > 0)
+                InitPushNotification(storeId);
         }
 
 
@@ -215,10 +176,15 @@ $$(document).on('page:init', function (e) {
         document.addEventListener("deviceready", onDeviceReady, false);
         function onDeviceReady() {
             console.log("deviceready")
+            var storeId = 0;
+            if (localStorage.getItem("StoreId") != null)
+                storeId = localStorage.getItem("StoreId").trim();
+            if (storeId>0)
+            InitPushNotification(storeId);
             $$('#scan').on('click', function () {
 
 
-             
+
                 cordova.plugins.barcodeScanner.scan(
          function (result) {
              $("#txtCardCode").val(result.text);
@@ -424,10 +390,15 @@ $$(document).on('page:init', function (e) {
         $$('#txtRedeem').on('blur', function () {
             ClearSpecialCharacter('txtRedeem');
         });
-       
+
         document.addEventListener("deviceready", onDeviceReady, false);
         function onDeviceReady() {
             console.log("deviceready")
+            var storeId = 0;
+            if (localStorage.getItem("StoreId") != null)
+                storeId = localStorage.getItem("StoreId").trim();
+            if (storeId > 0)
+                InitPushNotification(storeId);
             $$('#scan').on('click', function () {
 
                 console.log("reward scan click")
@@ -508,6 +479,7 @@ $$(document).on('page:init', function (e) {
         }
         if (Number(couponId) > 0) {
             LoadCouponEdit();
+            $("#dvCouponHeaderText").text("Edit Coupon");
         }
 
         $$('#txtCouponStartDate').on('click', function () {
@@ -707,6 +679,65 @@ $$(document).on('page:init', function (e) {
     }
 });
 
+function InitPushNotification(storeId) {
+
+    var push = PushNotification.init({
+        "android": {
+            "senderID": "771458932582"
+        },
+        "browser": {},
+        "ios": {
+            "sound": true,
+            "vibration": true,
+            "badge": true
+        },
+        "windows": {}
+    });
+    // console.log('after init');
+
+    push.on('registration', function (data) {
+        //SetUpLog();
+        //WriteLog("registrationId: " + data.registrationId)
+        console.log('registration event: ' + data.registrationId);
+        //console.log('StoreId: ' + localStorage.getItem("StoreId"))
+        alert(data.registrationId)
+        var oldRegId = localStorage.getItem('registrationId');
+        // console.log("oldRegId: " + oldRegId);
+        if (oldRegId == null || oldRegId == undefined) {
+            console.log("Save new registration ID")
+            // Save new registration ID
+            localStorage.setItem('registrationId', data.registrationId);
+            RegisterToken(storeId, data.registrationId);
+        }
+        else {
+            if (oldRegId !== data.registrationId) {
+                console.log("Save new registration ID")
+                // Save new registration ID
+                localStorage.setItem('registrationId', data.registrationId);
+                RegisterToken(storeId, data.registrationId);
+            }
+        }
+
+
+
+    });
+
+    push.on('error', function (e) {
+        console.log("push error = " + e.message);
+    });
+
+    push.on('notification', function (data) {
+        alert('notification event: ' + data.message);
+        CheckNewOrder();
+        // alert('notification event: ' + data.message + ", " + data.title);
+        //navigator.notification.alert(
+        //    data.message,         // message
+        //    null,                 // callback
+        //    data.title,           // title
+        //    'Ok'                  // buttonName
+        //);
+    });
+}
 
 //Check whether logged in or not
 function CheckLoggedIn() {
@@ -788,8 +819,8 @@ function CheckStoreTimings() {
         }
     }
     else {
-       
-      //  CheckNewOrder();
+
+        //  CheckNewOrder();
         //setInterval(CheckNewOrder, Number(apprefreshinterval) * 1000);
     }
 
