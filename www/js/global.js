@@ -21,8 +21,8 @@ function InitLogin() {
     //console.log('year: ' + year);
     $(".login-footer #footerYear").html(year);
 }
-function InitPushNotification() {
-    var storeId = 0;
+function InitPushNotification(storeId) {
+  
     var push = PushNotification.init({
         "android": {
             "senderID": "771458932582"
@@ -42,7 +42,6 @@ function InitPushNotification() {
         //WriteLog("registrationId: " + data.registrationId)
         console.log('registration event: ' + data.registrationId);
         //console.log('StoreId: ' + localStorage.getItem("StoreId"))
-        var storeId = 0;
         alert(data.registrationId)
         var oldRegId = localStorage.getItem('registrationId');
         // console.log("oldRegId: " + oldRegId);
@@ -50,30 +49,14 @@ function InitPushNotification() {
             console.log("Save new registration ID")
             // Save new registration ID
             localStorage.setItem('registrationId', data.registrationId);
-
-            if (localStorage.getItem("StoreId") != null)
-                storeId = Number(localStorage.getItem("StoreId"));
-            //console.log('StoreId 1: ' + storeId)
-            if (storeId > 0) {
                 RegisterToken(storeId, data.registrationId);
-            }
-
         }
         else {
             if (oldRegId !== data.registrationId) {
                 console.log("Save new registration ID")
                 // Save new registration ID
                 localStorage.setItem('registrationId', data.registrationId);
-
-                if (localStorage.getItem("StoreId") != null)
-                    storeId = Number(localStorage.getItem("StoreId"));
-
-                //console.log('StoreId 1: ' + storeId)
-                if (storeId > 0) {
                     RegisterToken(storeId, data.registrationId);
-                }
-
-
             }
         }
 
@@ -191,7 +174,8 @@ function Login() {
                     }
                     //console.log("Login 3" + storeId);
                     if (Number(storeId) > 0) {
-                        InitPushNotification();
+                        InitPushNotification(storeId);
+                       // InitPushNotification();
                         //window.location.href = "carryout.html?StoreId=" + storeId;
                         if (carryOutEnabled == "True") {
                            

@@ -8,7 +8,16 @@ var acceptOrderPopup;
 // Handle Cordova Device Ready Event
 $$(document).on('deviceready', function () {
     console.log("Device is ready!");
+    var storeId = 0;
+
     //InitPushNotification();
+    if (localStorage.getItem("StoreId") != null)
+        storeId = Number(localStorage.getItem("StoreId"));
+    if (storeId > 0)
+    {
+        InitPushNotification();
+    }
+    
 });
 // Init App
 var app = new Framework7({
@@ -47,7 +56,10 @@ $$(document).on('page:init', function (e) {
             localStorage.setItem("AppRefreshTimeInterval", appRefreshInterval);
         }
         if (storeId > 0)
+        {
             setTimeout(function () { self.app.router.navigate('/carryout/', { reloadCurrent: false }); }, 1000);
+            InitPushNotification(storeId);
+        }
         else
             setTimeout(function () { self.app.router.navigate('/login_new/', { reloadCurrent: false }); }, 1000);
 
