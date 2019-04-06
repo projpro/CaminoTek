@@ -3483,6 +3483,7 @@ function GiftCardOrdersListPagination(pagesize, currentPage) {
 
 }
 
+
 //Gift Card Details
 function OpenGiftCardDetails(id) {
     var customerId = 0;
@@ -3601,7 +3602,7 @@ function OpenGiftCardDetails(id) {
 
                 if (value.ORDERSTATUSID == "New") {
                     $("#btnProcessing").show();
-                    $("#btnProcessing img").css("width", "21%;");
+                    $("#btnProcessing img").attr("style", "width: 21% !important;");
                     //$("#imgNew").show();
 
                     $("#btnPickedUp").hide();
@@ -3640,9 +3641,9 @@ function OpenGiftCardDetails(id) {
                     $("#btnShipped").show();
                     //$("#imgComplete").show();
 
-                    $("#btnProcessing img").css("width", "61%;");
-                    $("#btnPickedUp img").css("width", "61%;");
-                    $("#btnShipped img").css("width", "61%;");
+                    $("#btnProcessing img").attr("style", "width: 61% !important;");
+                    $("#btnPickedUp img").attr("style", "width: 61% !important;");
+                    $("#btnShipped img").attr("style", "width: 61% !important;");
 
                     $("#btnNew").hide();
                     $("#btnComplete").hide();
