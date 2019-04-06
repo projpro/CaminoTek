@@ -4,6 +4,7 @@ var $$ = Dom7;
 var mediaURL = "http://appnotification.bistroux.com/Media/";
 var src = mediaURL + "notification.mp3";
 var myMedia = null;
+myMedia = new Media(src, onSuccess, onError, onStatus);
 var acceptOrderPopup;
 // Handle Cordova Device Ready Event
 $$(document).on('deviceready', function () {
@@ -1214,7 +1215,7 @@ function Back() {
 function playAudio() {
     console.log("Playing")
 
-    myMedia = new Media(src, onSuccess, onError, onStatus);
+  
     //console.log("Playing")
     myMedia.play();
 }
@@ -1233,6 +1234,7 @@ function pauseAudio() {
     myMedia.pause();
 }
 function stopAudio() {
+    alert("Stopping")
     // myMedia = new Media(src, onSuccess, onError, onStatus);
     // alert("Stopping");
     myMedia.stop();
