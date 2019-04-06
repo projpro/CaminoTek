@@ -1081,7 +1081,7 @@ function CheckNewOrder() {
 
 function AcceptOrders() {
     //if (isDevice()) {
-        stopAudio();
+    myMedia.stop();
     //}
     var orderIds = $("#hdnOrderIds").val().trim();
     var orders = [];
