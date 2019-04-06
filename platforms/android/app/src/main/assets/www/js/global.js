@@ -2956,6 +2956,7 @@ function LoadNewGiftCard() {
 }
 //Gift Card Orders START
 //Gift Card Orders
+//Gift Card Orders
 function GiftCardOrdersList(pagesize, currentPage) {
 
 
@@ -3022,6 +3023,7 @@ function GiftCardOrdersList(pagesize, currentPage) {
                         //$("#titleRedemptionHistory").show();
 
                         //   storeId = 8;
+                        var buttonHTML = "";
                         var orderDate = "";
                         var orderTime = "";
                         var firstName = "";
@@ -3042,7 +3044,8 @@ function GiftCardOrdersList(pagesize, currentPage) {
                             var arrDateTime = value.CREATEDONUTC.split('~');
                             var orderDate = arrDateTime[0];
                             var orderTime = arrDateTime[1];
-                        } if (value.RECIPIENTNAME != "") {
+                        }
+                        if (value.RECIPIENTNAME != "") {
                             name = value.RECIPIENTNAME;
 
                         }
@@ -3055,69 +3058,120 @@ function GiftCardOrdersList(pagesize, currentPage) {
                             email = value.EMAIL;
 
                         }
+
+                        /*------------------Order Area-----------------------*/
+
+                        var html = "<div class=\"order-container\"  id='li_" + value.ID + "' >";
+
+
                         /*------------------Order Row-----------------------*/
-                        var html = "<div class=\"giftcard-list\" id='li_" + value.ID + "'>";
+
+                        html += "<div class=\"order-list\"  data-popup=\".popup-details\">";
+
                         /*------------------Column 1-----------------------*/
+
+                        html += "<div class=\"order-column-one panel-open\" data-panel=\"left\" onclick=\"OpenGiftCardDetails(" + value.ID + ");\">";
                         /*------------------Status Icon--------------------*/
-                        var iconHtml = "<div class=\"giftcard-code\">";
+
                         if (value.ORDERSTATUSID.toLowerCase() == "new") {
-                            iconHtml += "<img class=\"giftcard-icon\" src=\"img/icons/new.png\" alt=\"\"/>";
+                            html += "<div class=\"order-status-icon\"><img class=\"list-icon\" src=\"img/icons/new.png\" alt=\"\"/></div>";
                         }
                         else if (value.ORDERSTATUSID.toLowerCase() == "processing") {
-                            iconHtml += "<img class=\"giftcard-icon\" src=\"img/icons/pending.png\" alt=\"\"/>";
+                            html += "<div class=\"order-status-icon\"><img class=\"list-icon\" src=\"img/icons/pending.png\" alt=\"\"/></div>";
                         }
                         else if (value.ORDERSTATUSID.toLowerCase() == "shipped") {
-                            iconHtml += "<img class=\"giftcard-icon\" src=\"img/icons/shipped.png\" alt=\"\"/>";
-                        }
-                        else if (value.ORDERSTATUSID.toLowerCase() == "pickedup") {
-                            iconHtml += "<img class=\"giftcard-icon\" src=\"img/icons/Picked-Up-Icon.png\" alt=\"\"/>";
+                            html += "<div class=\"order-status-icon\"><img class=\"list-icon\" src=\"img/icons/shipped.png\" alt=\"\"/></div>";
                         }
                         else if (value.ORDERSTATUSID.toLowerCase() == "complete") {
-                            iconHtml += "<img class=\"giftcard-icon\" src=\"img/icons/Complete-Icon.png\" alt=\"\"/>";
+                            html += "<div class=\"order-status-icon\"><img class=\"list-icon\" src=\"img/icons/Complete-Icon.png\" alt=\"\"/></div>";
                         }
-                        iconHtml += "</div>";
+                        else if (value.ORDERSTATUSID.toLowerCase() == "pickedup") {
+                            html += "<div class=\"order-status-icon\"><img class=\"list-icon\" src=\"img/icons/Picked-Up-Icon.png\" alt=\"\"/></div>";
+                        }
+
                         /*-----------------Status Icon End----------------*/
-
-
-                        /*-----------------Row Card Info Start----------------*/
-                        html += "<div class=\"row panel-open\" data-panel=\"left\" data-popup=\".popup-details\" onclick=\"OpenGiftCardDetails(" + value.ID + ");\">";
-
-                        html += "<div class=\"giftcard-column-one\">";
-                        html += iconHtml;
                         if (value.GIFTCARDCOUPONCODE != undefined) {
-                            html += "<div class=\"giftcard-code\" id=\'lbl_giftCardCode_" + value.ID + "'>" + value.GIFTCARDCOUPONCODE + "</div>";
+                            html += "<div class=\"order-pickup\" id=\'lbl_giftCardCode_" + value.ID + "'>" + value.GIFTCARDCOUPONCODE + "</div>";
                         }
                         else {
-                            html += "<div class=\"giftcard-code\"></div>";
+                            html += "<div class=\"order-pickup\" id=\'lbl_giftCardCode_" + value.ID + "'></div>";
                         }
-
                         html += "</div>";
                         /*------------------Column 1-----------------------*/
-
                         /*------------------Column 2-----------------------*/
-                        html += "<div class=\"giftcard-column-two\">";
+                        html += "<div class=\"order-column-two\">";
                         /*------------------1st Row-----------------------*/
                         html += "<div class=\"order-row-container\">";
-                        html += "<div class=\"order-number\">#" + value.ORDERID + "<span> on </span><span>" + orderDate + " @ " + orderTime + "</span></div>";
+                        html += "<div class=\"order-number panel-open\" data-panel=\"left\" onclick=\"OpenGiftCardDetails(" + value.ID + ");\">#" + value.ORDERID + "<span> on </span><span>" + orderDate + " @ " + orderTime + "</span></div>";
+                        /*------------------Button Row-----------------------*/
+                        if (value.ORDERSTATUSID == "New") {
+
+                            buttonHTML += "<a onclick=\"ChangeGiftCardOrderStatusById('New'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnNew_" + value.ID + "\" style=\"display:none;\"><img src=\"./img/icons/new_button.png\"  /></a>";
+                            buttonHTML += "<a onclick=\"ChangeGiftCardOrderStatusById('Processing'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnProcessing_" + value.ID + "\"><img src=\"./img/icons/pending_button.png\" style=\"width:21%;margin:0 61px;\" /></a>";
+                            buttonHTML += "<a onclick=\"ChangeGiftCardOrderStatusById('PickedUp'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnPickedUp_" + value.ID + "\" style=\"display:none;\"><img src=\"./img/icons/picked_up_button.png\"/></a>";
+                            buttonHTML += "<a onclick=\"ChangeGiftCardOrderStatusById('Shipped'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnShipped_" + value.ID + "\" style=\"display:none;\"><img src=\"./img/icons/shipped_button.png\"/></a>";
+                            buttonHTML += "<a onclick=\"ChangeGiftCardOrderStatusById('Complete'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnComplete_" + value.ID + "\" style=\"display:none;\"><img src=\"./img/icons/complete_button.png\" /></a>";
+
+                        }
+                        else if (value.ORDERSTATUSID == "Processing") {
+                            buttonHTML += "<a onclick=\"ChangeGiftCardOrderStatusById('New'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnNew_" + value.ID + "\"><img src=\"./img/icons/new_button.png\"  /></a>";
+                            buttonHTML += "<a onclick=\"ChangeGiftCardOrderStatusById('Processing'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnProcessing_" + value.ID + "\" style=\"display:none;\"><img src=\"./img/icons/pending_button.png\" /></a>";
+                            buttonHTML += "<a onclick=\"ChangeGiftCardOrderStatusById('PickedUp'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnPickedUp_" + value.ID + "\" style=\"display:none;\"><img src=\"./img/icons/picked_up_button.png\"/></a>";
+                            buttonHTML += "<a onclick=\"ChangeGiftCardOrderStatusById('Shipped'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnShipped_" + value.ID + "\" style=\"display:none;\"><img src=\"./img/icons/shipped_button.png\"/></a>";
+                            buttonHTML += "<a onclick=\"ChangeGiftCardOrderStatusById('Complete'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnComplete_" + value.ID + "\"><img src=\"./img/icons/complete_button.png\" /></a>";
+                        }
+                        else if (value.ORDERSTATUSID == "Shipped") {
+                            buttonHTML += "<a onclick=\"ChangeGiftCardOrderStatusById('New'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnNew_" + value.ID + "\" style=\"display:none;\"><img src=\"./img/icons/new_button.png\"  /></a>";
+                            buttonHTML += "<a onclick=\"ChangeGiftCardOrderStatusById('Processing'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnProcessing_" + value.ID + "\" style=\"display:none;\"><img src=\"./img/icons/pending_button.png\" /></a>";
+                            buttonHTML += "<a onclick=\"ChangeGiftCardOrderStatusById('PickedUp'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnPickedUp_" + value.ID + "\"><img src=\"./img/icons/picked_up_button.png\"/></a>";
+                            buttonHTML += "<a onclick=\"ChangeGiftCardOrderStatusById('Shipped'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnShipped_" + value.ID + "\" style=\"display:none;\"><img src=\"./img/icons/shipped_button.png\"/></a>";
+                            buttonHTML += "<a onclick=\"ChangeGiftCardOrderStatusById('Complete'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnComplete_" + value.ID + "\"><img src=\"./img/icons/complete_button.png\" /></a>";
+
+                        }
+                        else if (value.ORDERSTATUSID == "PickedUp") {
+                            buttonHTML += "<a onclick=\"ChangeGiftCardOrderStatusById('New'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnNew_" + value.ID + "\" style=\"display:none;\"><img src=\"./img/icons/new_button.png\"  /></a>";
+                            buttonHTML += "<a onclick=\"ChangeGiftCardOrderStatusById('Processing'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnProcessing_" + value.ID + "\" style=\"display:none;\"><img src=\"./img/icons/pending_button.png\" /></a>";
+                            buttonHTML += "<a onclick=\"ChangeGiftCardOrderStatusById('PickedUp'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnPickedUp_" + value.ID + "\" style=\"display:none;\"><img src=\"./img/icons/picked_up_button.png\"/></a>";
+                            buttonHTML += "<a onclick=\"ChangeGiftCardOrderStatusById('Shipped'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnShipped_" + value.ID + "\"><img src=\"./img/icons/shipped_button.png\"/></a>";
+                            buttonHTML += "<a onclick=\"ChangeGiftCardOrderStatusById('Complete'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnComplete_" + value.ID + "\"><img src=\"./img/icons/complete_button.png\" /></a>";
+                        }
+                        else if (value.ORDERSTATUSID == "Complete") {
+                            buttonHTML += "<a onclick=\"ChangeGiftCardOrderStatusById('New'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnNew_" + value.ID + "\" style=\"display:none;\"><img src=\"./img/icons/new_button.png\"  /></a>";
+                            buttonHTML += "<a onclick=\"ChangeGiftCardOrderStatusById('Processing'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnProcessing_" + value.ID + "\"><img src=\"./img/icons/pending_button.png\" style=\"width:61%;margin:0 0;\" /></a>";
+                            buttonHTML += "<a onclick=\"ChangeGiftCardOrderStatusById('PickedUp'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnPickedUp_" + value.ID + "\"><img src=\"./img/icons/picked_up_button.png\" style=\"width:61%;margin:0 0;\" /></a>";
+                            buttonHTML += "<a onclick=\"ChangeGiftCardOrderStatusById('Shipped'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnShipped_" + value.ID + "\"><img src=\"./img/icons/shipped_button.png\" style=\"width:61%;margin:0 0;\" /></a>";
+                            buttonHTML += "<a onclick=\"ChangeGiftCardOrderStatusById('Complete'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnComplete_" + value.ID + "\" style=\"display:none;\"><img src=\"./img/icons/complete_button.png\" /></a>";
+
+                        }
+                        html += "<div class=\"order-buttons\">";
+                        html += buttonHTML;
+                        html += "</div>";
+
+                        /*------------------Button Row-----------------------*/
                         //html += "<div class=\"order-price\">" + ordertotal + "</div>";
                         html += "</div>";
                         /*------------------1st Row-----------------------*/
+
                         /*------------------2nd Row-----------------------*/
                         html += "<div class=\"order-row-container\">";
+
                         /*------------------Customer Info-----------------------*/
-                        html += "<div class=\"giftcard-customer\">";
+                        html += "<div class=\"order-date panel-open\" data-panel=\"left\" onclick=\"OpenGiftCardDetails(" + value.ID + ");\">";
                         html += "<div class=\"customer-detail-container\">";
                         html += "<div class=\"customer-name\">" + name + "</div>";
                         html += "<div>" + phone + "</div>";
-                        html += "<div class=\"display-label-wrap\">" + email + "</div>";
+                        //html += "<div class=\"display-label-wrap\">" + email + "</div>";
                         html += "</div>";
                         html += "</div>";
                         /*------------------Customer Info-----------------------*/
                         /*------------------Order Info-----------------------*/
-                        html += "<div class=\"giftcard-item-count\">";
+                        html += "<div class=\"order-items-count\">";
                         html += "<div class=\"customer-detail-container\">";
-                        html += "<div class=\"giftcard-price\">" + giftcardBalance + "</div>";
+                        html += "<div class=\"order-price\">" + giftcardBalance + "</div>";
+
                         html += "<div>" + value.GIFTCARDTYPEID + "</div>";
+
+
                         html += "</div>";
                         html += "</div>";
                         /*------------------Order Info-----------------------*/
@@ -3126,237 +3180,20 @@ function GiftCardOrdersList(pagesize, currentPage) {
                         /*------------------2nd Row-----------------------*/
                         html += "</div>";
                         /*------------------Column 2-----------------------*/
-                        html += "</div>";
-                        /*-----------------Row Card Info End----------------*/
-                        /*-----------------Row Button Start----------------*/
-                        //html += "<div class=\"row\">";
-                        html += "<div class=\"order-buttons\">";
-
-                        html += "<button onclick=\"ChangeGiftCardOrderStatusById('New'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnNew_" + value.ID + "\" class=\"add-button-one\" style=\"display:none;\">New</button>";
-                        html += "<button onclick=\"ChangeGiftCardOrderStatusById('Processing'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnProcessing_" + value.ID + "\" class=\"add-button-one\" style=\"display:none;\">Processing</button>";
-                        html += "<button onclick=\"ChangeGiftCardOrderStatusById('PickedUp'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnPickedUp_" + value.ID + "\" class=\"add-button-one\" style=\"display:none;\">Picked Up</button>";
-                        html += "<button onclick=\"ChangeGiftCardOrderStatusById('Shipped'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnShipped_" + value.ID + "\" class=\"add-button-one\" style=\"display:none;\">Shipped</button>";
-                        html += "<button onclick=\"ChangeGiftCardOrderStatusById('Complete'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnComplete_" + value.ID + "\" class=\"add-button-one\" style=\"display:none;\">Complete</button>";
-
-                        //html += "</div>";
-                        html += "</div>";
-                        /*-----------------Row Button End----------------*/
-
 
                         html += "</div>";
                         /*------------------Order Row-----------------------*/
+
+
+                        html += "</div>";
+                        /*------------------Order Area-----------------------*/
 
                         count++;
 
                         $("#dvOrderList").append(html);
 
-                        if (value.ORDERSTATUSID == "New") {
-                            $("#btnProcessing_" + value.ID).show();
-                            $("#btnPickedUp_" + value.ID).hide();
-                            $("#btnShipped_" + value.ID).hide();
-                            $("#btnNew_" + value.ID).hide();
-                            $("#btnComplete_" + value.ID).hide();
-
-                        }
-                        else if (value.ORDERSTATUSID == "Processing") {
-                            $("#btnProcessing_" + value.ID).hide();
-                            $("#btnPickedUp_" + value.ID).hide();
-                            $("#btnShipped_" + value.ID).hide();
-                            $("#btnNew_" + value.ID).show();
-                            $("#btnComplete_" + value.ID).show();
-                        }
-                        else if (value.ORDERSTATUSID == "Shipped") {
-                            $("#btnProcessing_" + value.ID).hide();
-                            $("#btnPickedUp_" + value.ID).show();
-                            $("#btnShipped_" + value.ID).hide();
-                            $("#btnNew_" + value.ID).hide();
-                            $("#btnComplete_" + value.ID).show();
-                        }
-                        else if (value.ORDERSTATUSID == "PickedUp") {
-                            $("#btnProcessing_" + value.ID).hide();
-                            $("#btnPickedUp_" + value.ID).hide();
-                            $("#btnShipped_" + value.ID).show();
-                            $("#btnNew_" + value.ID).hide();
-                            $("#btnComplete_" + value.ID).show();
-                        }
-                        else if (value.ORDERSTATUSID == "Complete") {
-                            $("#btnProcessing_" + value.ID).show();
-                            $("#btnPickedUp_" + value.ID).show();
-                            $("#btnShipped_" + value.ID).show();
-                            $("#btnNew_" + value.ID).hide();
-                            $("#btnComplete_" + value.ID).hide();
-                        }
-
                     });
 
-                    $('ul.nav-list li').click(function () {
-                        $("#aCancelSaveCode").click();
-                        var id = $(this).attr("id");
-                        $("#dvItem").html("");
-                        $("#lblCutomerName").text("");
-                        $("#lblCutomerPhone").text("");
-                        $("#lblEmail").text("");
-                        $("#iconEmail").hide();
-                        $("#iconPhone").hide();
-                        $("#btnAccept").hide();
-                        $("#btnNew").hide();
-                        $("#btnComplete").hide();
-                        $("#btnProcessing").hide();
-                        $("#btnPickedUp").hide();
-                        $("#lblEditGiftCardCode").text("");
-                        $("#hdnGiftCardId").val("0");
-                        $("#hdnSelectedOrderOrderPrice").val("$0.00");
-                        $("#hdnSelectedOrderDateTime").val("");
-
-                        var prevId = $('.nav-list li.active').attr("id");
-                        $('.nav-list li.active').removeClass('active');
-                        $(this).addClass('active');
-                        var firstName = "";
-                        var lastName = "";
-                        var email = "";
-                        var phone = "";
-                        var html = "";
-                        var htmlDiscount = "";
-                        var htmlRewards = "";
-                        var htmlGiftCard = "";
-                        var htmlSubTotal = "";
-                        var htmlOrderTotal = "";
-                        var subtotalvalue = "0.00";
-                        var ordertotalvalue = "0.00";
-                        var orderDiscount = 0.00;
-                        var orderId = id.split('_')[1];
-                        url = global + "/GetGiftCardHistory?storeid=" + storeId + "&giftcardId=" + orderId;
-                        $.getJSON(url, function (data) {
-                            var filtered_history = filterGiftCards(JSON.parse(data.toString()), "GiftCardHistory");
-                            //console.log("filtered_history: " + filtered_history)
-                            $.each(JSON.parse(data), function (index, value) {
-                                var name = "";
-                                var lastName = "";
-                                var email = "";
-                                var phone = "";
-                                if (value.TABLETYPE == "GiftCardInfo") {
-                                    if (value.RECIPIENTNAME != "") {
-                                        name = value.RECIPIENTNAME;
-
-                                    }
-
-                                    if (value.PHONE != "") {
-                                        phone = value.PHONE;
-
-                                    }
-                                    if (value.EMAIL != "") {
-                                        email = value.EMAIL;
-
-                                    }
-                                    $("#lblCutomerEmail").text(email);
-                                    if (phone.length == 10)
-                                        phone = FormatPhoneNumber(phone);
-                                    orderDiscount = value.ORDERDISCOUNT;
-                                    subtotalvalue = value.SUBTOTAL;
-                                    ordertotalvalue = value.ORDERTOTAL;
-                                    orderId = value.ID;
-                                    //$("#iconEmail").show();
-                                    if (phone != "")
-                                        $("#iconPhone").show();
-                                    $("#lblCutomerName").text(name);
-
-                                    $("#lblCutomerPhone").text(phone);
-                                    if (value.GIFTCARDCOUPONCODE != "")
-                                        $("#lblEditGiftCardCode").text(value.GIFTCARDCOUPONCODE);
-                                    else
-                                        $("#lblEditGiftCardCode").text("XXXXXXXXXXXXXXX");
-                                    $("#lblGiftCardValue").text(FormatDecimal(value.REMAININGAMOUNT));
-                                    $("#lblGiftCardType").text(value.GIFTCARDTYPEID);
-                                    //$("#lblEmail").text(email);
-                                    $("#hdnSelectedOrderId").val(value.ORDERID);
-                                    $("#hdnGiftCardId").val(value.ID);
-
-                                    if (value.REMAININGAMOUNT != "") {
-                                        $("#hdnSelectedOrderOrderPrice").val(FormatDecimal(value.REMAININGAMOUNT));
-                                    }
-                                    else {
-                                        $("#hdnSelectedOrderOrderPrice").val("$0.00");
-                                    }
-                                    if (value.CREATEDONUTC != null && value.CREATEDONUTC != undefined) {
-                                        var arrDateTime = value.CREATEDONUTC.split('~');
-                                        var orderDate = arrDateTime[0];
-                                        var orderTime = arrDateTime[1];
-                                        $("#hdnSelectedOrderDateTime").val(orderDate + "#" + orderTime);
-                                    }
-
-                                    if (value.ORDERSTATUSID == "New") {
-                                        $("#btnProcessing").show();
-                                        $("#btnPickedUp").hide();
-                                        $("#btnShipped").hide();
-                                        $("#btnNew").hide();
-                                        $("#btnComplete").hide();
-
-                                    }
-                                    else if (value.ORDERSTATUSID == "Processing") {
-                                        $("#btnProcessing").hide();
-                                        $("#btnPickedUp").hide();
-                                        $("#btnShipped").hide();
-                                        $("#btnNew").show();
-                                        $("#btnComplete").show();
-                                    }
-                                    else if (value.ORDERSTATUSID == "Shipped") {
-                                        $("#btnProcessing").hide();
-                                        $("#btnPickedUp").show();
-                                        $("#btnShipped").hide();
-                                        $("#btnNew").hide();
-                                        $("#btnComplete").show();
-                                    }
-                                    else if (value.ORDERSTATUSID == "PickedUp") {
-                                        $("#btnProcessing").hide();
-                                        $("#btnPickedUp").hide();
-                                        $("#btnShipped").show();
-                                        $("#btnNew").hide();
-                                        $("#btnComplete").show();
-                                    }
-                                    else if (value.ORDERSTATUSID == "Complete") {
-                                        $("#btnProcessing").show();
-                                        $("#btnPickedUp").show();
-                                        $("#btnShipped").show();
-                                        $("#btnNew").hide();
-                                        $("#btnComplete").hide();
-                                    }
-                                }
-                            });
-
-                            html += "<table id=\"tbl_" + orderId + "\" class=\"table table-striped\"> ";
-                            html += "<tbody>";
-                            $.each(JSON.parse(JSON.stringify(filtered_history)), function (index1, value) {
-                                var orderDate = "";
-                                var orderTime = "";
-                                if (value.CreatedOnUtc != null && value.CreatedOnUtc != undefined) {
-                                    var arrDateTime = value.CreatedOnUtc.split('~');
-                                    orderDate = arrDateTime[0];
-                                    orderTime = arrDateTime[1];
-                                }
-                                html += "<tr><td  style='border-bottom:none !important;'>" + orderDate + " @ " + orderTime + "</td>";
-                                if (value.Type == "Load") {
-                                    html += "<td style=\"text-align:right;border-bottom:none !important;\">" + FormatDecimal(value.UsedValue) + "</td>";
-                                }
-                                else {
-                                    html += "<td style=\"text-align:right;border-bottom:none !important;\">-" + FormatDecimal(value.UsedValue) + "</td>";
-                                }
-
-                                html += "<td style=\"text-align:center;border-bottom:none !important;\">" + value.Register + "</td>";
-
-                                html += "</tr>";
-
-                            });
-                            $("#dvItem").html(html + "</tbody>");
-
-                        });
-
-                    });
-
-                    $('ul.nav-list li').each(function (i) {
-                        if ($(this).is('.active')) {
-                            $(this).click();
-                        }
-                    });
                 }
                 else {
                     localStorage.setItem("GiftCardAvailable", "0");
@@ -3364,11 +3201,6 @@ function GiftCardOrdersList(pagesize, currentPage) {
                     //$("#dvItem").html("");
                     $("#dvOuterOrderText").show();
                     $("#dvOuterOrderText").html("No Gift Cards");
-                    $("#btnAccept").hide();
-                    $("#btnNew").hide();
-                    $("#btnComplete").hide();
-                    $("#btnProcessing").hide();
-                    $("#btnPickedUp").hide();
                     $("#lblCutomerName").text("");
                     $("#lblCutomerPhone").text("");
                     $("#lblEmail").text("");
@@ -3424,6 +3256,7 @@ function GiftCardOrdersListPagination(pagesize, currentPage) {
                         $("#titleRedemptionHistory").show();
 
                         //   storeId = 8;
+                        var buttonHTML = "";
                         var orderDate = "";
                         var orderTime = "";
                         var firstName = "";
@@ -3457,69 +3290,120 @@ function GiftCardOrdersListPagination(pagesize, currentPage) {
                             email = value.EMAIL;
 
                         }
+
+                        /*------------------Order Area-----------------------*/
+
+                        var html = "<div class=\"order-container\"  id='li_" + value.ID + "' >";
+
+
                         /*------------------Order Row-----------------------*/
-                        var html = "<div class=\"giftcard-list\" id='li_" + value.ID + "'>";
+
+                        html += "<div class=\"order-list\" data-popup=\".popup-details\">";
+
                         /*------------------Column 1-----------------------*/
+
+                        html += "<div class=\"order-column-one panel-open\" data-panel=\"left\" onclick=\"OpenGiftCardDetails(" + value.ID + ");\">";
                         /*------------------Status Icon--------------------*/
-                        var iconHtml = "<div class=\"giftcard-code\">";
+
                         if (value.ORDERSTATUSID.toLowerCase() == "new") {
-                            iconHtml += "<img class=\"giftcard-icon\" src=\"img/icons/new.png\" alt=\"\"/>";
+                            html += "<div class=\"order-status-icon\"><img class=\"list-icon\"  src=\"img/icons/new.png\" alt=\"\"/></div>";
                         }
                         else if (value.ORDERSTATUSID.toLowerCase() == "processing") {
-                            iconHtml += "<img class=\"giftcard-icon\" src=\"img/icons/pending.png\" alt=\"\"/>";
+                            html += "<div class=\"order-status-icon\"><img class=\"list-icon\"  src=\"img/icons/pending.png\" alt=\"\"/></div>";
                         }
                         else if (value.ORDERSTATUSID.toLowerCase() == "shipped") {
-                            iconHtml += "<img class=\"giftcard-icon\" src=\"img/icons/shipped.png\" alt=\"\"/>";
-                        }
-                        else if (value.ORDERSTATUSID.toLowerCase() == "pickedup") {
-                            iconHtml += "<img class=\"giftcard-icon\" src=\"img/icons/Picked-Up-Icon.png\" alt=\"\"/>";
+                            html += "<div class=\"order-status-icon\"><img class=\"list-icon\"  src=\"img/icons/shipped.png\" alt=\"\"/></div>";
                         }
                         else if (value.ORDERSTATUSID.toLowerCase() == "complete") {
-                            iconHtml += "<img class=\"giftcard-icon\" src=\"img/icons/Complete-Icon.png\" alt=\"\"/>";
+                            html += "<div class=\"order-status-icon\"><img class=\"list-icon\"  src=\"img/icons/Complete-Icon.png\" alt=\"\"/></div>";
                         }
-                        iconHtml += "</div>";
+                        else if (value.ORDERSTATUSID.toLowerCase() == "pickedup") {
+                            html += "<div class=\"order-status-icon\"><img class=\"list-icon\"  src=\"img/icons/Picked-Up-Icon.png\" alt=\"\"/></div>";
+                        }
+
                         /*-----------------Status Icon End----------------*/
-
-
-                        /*-----------------Row Card Info Start----------------*/
-                        html += "<div class=\"row panel-open\" data-panel=\"left\" data-popup=\".popup-details\" onclick=\"OpenGiftCardDetails(" + value.ID + ");\">";
-
-                        html += "<div class=\"giftcard-column-one\">";
-                        html += iconHtml;
                         if (value.GIFTCARDCOUPONCODE != undefined) {
-                            html += "<div class=\"giftcard-code\" id=\'lbl_giftCardCode_" + value.ID + "'>" + value.GIFTCARDCOUPONCODE + "</div>";
+                            html += "<div class=\"order-pickup\" id=\'lbl_giftCardCode_" + value.ID + "'>" + value.GIFTCARDCOUPONCODE + "</div>";
                         }
                         else {
-                            html += "<div class=\"giftcard-code\"></div>";
+                            html += "<div class=\"order-pickup\" id=\'lbl_giftCardCode_" + value.ID + "'></div>";
                         }
-
                         html += "</div>";
                         /*------------------Column 1-----------------------*/
-
                         /*------------------Column 2-----------------------*/
-                        html += "<div class=\"giftcard-column-two\">";
+                        html += "<div class=\"order-column-two\">";
                         /*------------------1st Row-----------------------*/
                         html += "<div class=\"order-row-container\">";
-                        html += "<div class=\"order-number\">#" + value.ORDERID + "<span> on </span><span>" + orderDate + " @ " + orderTime + "</span></div>";
+                        html += "<div class=\"order-number panel-open\" data-panel=\"left\" onclick=\"OpenGiftCardDetails(" + value.ID + ");\">#" + value.ORDERID + "<span> on </span><span>" + orderDate + " @ " + orderTime + "</span></div>";
+                        /*------------------Button Row-----------------------*/
+                        if (value.ORDERSTATUSID == "New") {
+
+                            buttonHTML += "<a onclick=\"ChangeGiftCardOrderStatusById('New'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnNew_" + value.ID + "\" style=\"display:none;\"><img src=\"./img/icons/new_button.png\"  /></a>";
+                            buttonHTML += "<a onclick=\"ChangeGiftCardOrderStatusById('Processing'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnProcessing_" + value.ID + "\"><img src=\"./img/icons/pending_button.png\" style=\"width:21%;margin:0 61px;\" /></a>";
+                            buttonHTML += "<a onclick=\"ChangeGiftCardOrderStatusById('PickedUp'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnPickedUp_" + value.ID + "\" style=\"display:none;\"><img src=\"./img/icons/picked_up_button.png\"/></a>";
+                            buttonHTML += "<a onclick=\"ChangeGiftCardOrderStatusById('Shipped'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnShipped_" + value.ID + "\" style=\"display:none;\"><img src=\"./img/icons/shipped_button.png\"/></a>";
+                            buttonHTML += "<a onclick=\"ChangeGiftCardOrderStatusById('Complete'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnComplete_" + value.ID + "\" style=\"display:none;\"><img src=\"./img/icons/complete_button.png\" /></a>";
+
+                        }
+                        else if (value.ORDERSTATUSID == "Processing") {
+                            buttonHTML += "<a onclick=\"ChangeGiftCardOrderStatusById('New'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnNew_" + value.ID + "\"><img src=\"./img/icons/new_button.png\"  /></a>";
+                            buttonHTML += "<a onclick=\"ChangeGiftCardOrderStatusById('Processing'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnProcessing_" + value.ID + "\" style=\"display:none;\"><img src=\"./img/icons/pending_button.png\" /></a>";
+                            buttonHTML += "<a onclick=\"ChangeGiftCardOrderStatusById('PickedUp'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnPickedUp_" + value.ID + "\" style=\"display:none;\"><img src=\"./img/icons/picked_up_button.png\"/></a>";
+                            buttonHTML += "<a onclick=\"ChangeGiftCardOrderStatusById('Shipped'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnShipped_" + value.ID + "\" style=\"display:none;\"><img src=\"./img/icons/shipped_button.png\"/></a>";
+                            buttonHTML += "<a onclick=\"ChangeGiftCardOrderStatusById('Complete'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnComplete_" + value.ID + "\"><img src=\"./img/icons/complete_button.png\" /></a>";
+                        }
+                        else if (value.ORDERSTATUSID == "Shipped") {
+                            buttonHTML += "<a onclick=\"ChangeGiftCardOrderStatusById('New'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnNew_" + value.ID + "\" style=\"display:none;\"><img src=\"./img/icons/new_button.png\"  /></a>";
+                            buttonHTML += "<a onclick=\"ChangeGiftCardOrderStatusById('Processing'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnProcessing_" + value.ID + "\" style=\"display:none;\"><img src=\"./img/icons/pending_button.png\" /></a>";
+                            buttonHTML += "<a onclick=\"ChangeGiftCardOrderStatusById('PickedUp'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnPickedUp_" + value.ID + "\"><img src=\"./img/icons/picked_up_button.png\"/></a>";
+                            buttonHTML += "<a onclick=\"ChangeGiftCardOrderStatusById('Shipped'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnShipped_" + value.ID + "\" style=\"display:none;\"><img src=\"./img/icons/shipped_button.png\"/></a>";
+                            buttonHTML += "<a onclick=\"ChangeGiftCardOrderStatusById('Complete'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnComplete_" + value.ID + "\"><img src=\"./img/icons/complete_button.png\" /></a>";
+
+                        }
+                        else if (value.ORDERSTATUSID == "PickedUp") {
+                            buttonHTML += "<a onclick=\"ChangeGiftCardOrderStatusById('New'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnNew_" + value.ID + "\" style=\"display:none;\"><img src=\"./img/icons/new_button.png\"  /></a>";
+                            buttonHTML += "<a onclick=\"ChangeGiftCardOrderStatusById('Processing'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnProcessing_" + value.ID + "\" style=\"display:none;\"><img src=\"./img/icons/pending_button.png\" /></a>";
+                            buttonHTML += "<a onclick=\"ChangeGiftCardOrderStatusById('PickedUp'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnPickedUp_" + value.ID + "\" style=\"display:none;\"><img src=\"./img/icons/picked_up_button.png\"/></a>";
+                            buttonHTML += "<a onclick=\"ChangeGiftCardOrderStatusById('Shipped'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnShipped_" + value.ID + "\"><img src=\"./img/icons/shipped_button.png\"/></a>";
+                            buttonHTML += "<a onclick=\"ChangeGiftCardOrderStatusById('Complete'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnComplete_" + value.ID + "\"><img src=\"./img/icons/complete_button.png\" /></a>";
+                        }
+                        else if (value.ORDERSTATUSID == "Complete") {
+                            buttonHTML += "<a onclick=\"ChangeGiftCardOrderStatusById('New'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnNew_" + value.ID + "\" style=\"display:none;\"><img src=\"./img/icons/new_button.png\"  /></a>";
+                            buttonHTML += "<a onclick=\"ChangeGiftCardOrderStatusById('Processing'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnProcessing_" + value.ID + "\"><img src=\"./img/icons/pending_button.png\" style=\"width:61%;margin:0 0;\" /></a>";
+                            buttonHTML += "<a onclick=\"ChangeGiftCardOrderStatusById('PickedUp'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnPickedUp_" + value.ID + "\"><img src=\"./img/icons/picked_up_button.png\" style=\"width:61%;margin:0 0;\" /></a>";
+                            buttonHTML += "<a onclick=\"ChangeGiftCardOrderStatusById('Shipped'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnShipped_" + value.ID + "\"><img src=\"./img/icons/shipped_button.png\" style=\"width:61%;margin:0 0;\" /></a>";
+                            buttonHTML += "<a onclick=\"ChangeGiftCardOrderStatusById('Complete'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnComplete_" + value.ID + "\" style=\"display:none;\"><img src=\"./img/icons/complete_button.png\" /></a>";
+
+                        }
+                        html += "<div class=\"order-buttons\">";
+                        html += buttonHTML;
+                        html += "</div>";
+
+                        /*------------------Button Row-----------------------*/
                         //html += "<div class=\"order-price\">" + ordertotal + "</div>";
                         html += "</div>";
                         /*------------------1st Row-----------------------*/
+
                         /*------------------2nd Row-----------------------*/
                         html += "<div class=\"order-row-container\">";
+
                         /*------------------Customer Info-----------------------*/
-                        html += "<div class=\"giftcard-customer\">";
+                        html += "<div class=\"order-date panel-open\" data-panel=\"left\" onclick=\"OpenGiftCardDetails(" + value.ID + ");\">";
                         html += "<div class=\"customer-detail-container\">";
                         html += "<div class=\"customer-name\">" + name + "</div>";
                         html += "<div>" + phone + "</div>";
-                        html += "<div class=\"display-label-wrap\">" + email + "</div>";
+                        //html += "<div class=\"display-label-wrap\">" + email + "</div>";
                         html += "</div>";
                         html += "</div>";
                         /*------------------Customer Info-----------------------*/
                         /*------------------Order Info-----------------------*/
-                        html += "<div class=\"giftcard-item-count\">";
+                        html += "<div class=\"order-items-count\">";
                         html += "<div class=\"customer-detail-container\">";
-                        html += "<div class=\"giftcard-price\">" + giftcardBalance + "</div>";
+                        html += "<div class=\"order-price\">" + giftcardBalance + "</div>";
+
                         html += "<div>" + value.GIFTCARDTYPEID + "</div>";
+
+
                         html += "</div>";
                         html += "</div>";
                         /*------------------Order Info-----------------------*/
@@ -3528,25 +3412,13 @@ function GiftCardOrdersListPagination(pagesize, currentPage) {
                         /*------------------2nd Row-----------------------*/
                         html += "</div>";
                         /*------------------Column 2-----------------------*/
-                        html += "</div>";
-                        /*-----------------Row Card Info End----------------*/
-                        /*-----------------Row Button Start----------------*/
-                        //html += "<div class=\"row\">";
-                        html += "<div class=\"order-buttons\">";
-
-                        html += "<button onclick=\"ChangeGiftCardOrderStatusById('New'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnNew_" + value.ID + "\" class=\"add-button-one\" style=\"display:none;\">New</button>";
-                        html += "<button onclick=\"ChangeGiftCardOrderStatusById('Processing'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnProcessing_" + value.ID + "\" class=\"add-button-one\" style=\"display:none;\">Processing</button>";
-                        html += "<button onclick=\"ChangeGiftCardOrderStatusById('PickedUp'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnPickedUp_" + value.ID + "\" class=\"add-button-one\" style=\"display:none;\">Picked Up</button>";
-                        html += "<button onclick=\"ChangeGiftCardOrderStatusById('Shipped'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnShipped_" + value.ID + "\" class=\"add-button-one\" style=\"display:none;\">Shipped</button>";
-                        html += "<button onclick=\"ChangeGiftCardOrderStatusById('Complete'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnComplete_" + value.ID + "\" class=\"add-button-one\" style=\"display:none;\">Complete</button>";
-
-                        //html += "</div>";
-                        html += "</div>";
-                        /*-----------------Row Button End----------------*/
-
 
                         html += "</div>";
                         /*------------------Order Row-----------------------*/
+
+
+                        html += "</div>";
+                        /*------------------Order Area-----------------------*/
 
                         count++;
 
@@ -3588,161 +3460,6 @@ function GiftCardOrdersListPagination(pagesize, currentPage) {
                             $("#btnNew_" + value.ID).hide();
                             $("#btnComplete_" + value.ID).hide();
                         }
-                    });
-
-
-                    $('ul.nav-list li').click(function () {
-                        $("#aCancelSaveCode").click();
-                        var id = $(this).attr("id");
-                        $("#dvItem").html("");
-                        $("#lblCutomerName").text("");
-                        $("#lblCutomerPhone").text("");
-                        $("#lblEmail").text("");
-                        $("#iconEmail").hide();
-                        $("#iconPhone").hide();
-                        $("#btnAccept").hide();
-                        $("#btnNew").hide();
-                        $("#btnComplete").hide();
-                        $("#btnProcessing").hide();
-                        $("#btnPickedUp").hide();
-                        $("#lblEditGiftCardCode").text("");
-                        $("#hdnGiftCardId").val("0");
-                        $("#hdnSelectedOrderOrderPrice").val("$0.00");
-                        $("#hdnSelectedOrderDateTime").val("");
-                        var prevId = $('.nav-list li.active').attr("id");
-                        $('.nav-list li.active').removeClass('active');
-                        $(this).addClass('active');
-                        var firstName = "";
-                        var lastName = "";
-                        var email = "";
-                        var phone = "";
-                        var html = "";
-                        var htmlDiscount = "";
-                        var htmlRewards = "";
-                        var htmlGiftCard = "";
-                        var htmlSubTotal = "";
-                        var htmlOrderTotal = "";
-                        var subtotalvalue = "0.00";
-                        var ordertotalvalue = "0.00";
-                        var orderDiscount = 0.00;
-                        var orderId = id.split('_')[1];
-                        url = global + "/GetGiftCardHistory?storeid=" + storeId + "&giftcardId=" + orderId;
-                        $.getJSON(url, function (data) {
-                            var filtered_history = filterGiftCards(JSON.parse(data.toString()), "GiftCardHistory");
-                            $.each(JSON.parse(data), function (index, value) {
-                                var name = "";
-                                var lastName = "";
-                                var email = "";
-                                var phone = "";
-
-
-                                if (value.TABLETYPE == "GiftCardInfo") {
-                                    if (value.RECIPIENTNAME != "") {
-                                        name = value.RECIPIENTNAME;
-
-                                    }
-
-                                    if (value.PHONE != "") {
-                                        phone = value.PHONE;
-
-                                    }
-
-                                    if (phone.length == 10)
-                                        phone = FormatPhoneNumber(phone);
-                                    orderDiscount = value.ORDERDISCOUNT;
-                                    subtotalvalue = value.SUBTOTAL;
-                                    ordertotalvalue = value.ORDERTOTAL;
-                                    if (value.EMAIL != "") {
-                                        email = value.EMAIL;
-
-                                    }
-                                    $("#lblCutomerEmail").text(email);
-                                    orderId = value.ID;
-                                    //$("#iconEmail").show();
-                                    if (phone != "")
-                                        $("#iconPhone").show();
-                                    $("#lblCutomerName").text(name);
-                                    $("#lblCutomerPhone").text(phone);
-                                    $("#lblEditGiftCardCode").text(value.GIFTCARDCOUPONCODE);
-                                    //$("#lblEmail").text(email);
-                                    $("#hdnSelectedOrderId").val(value.ORDERID);
-                                    if (value.GIFTCARDCOUPONCODE != "")
-                                        $("#lblEditGiftCardCode").text(value.GIFTCARDCOUPONCODE);
-                                    else
-                                        $("#lblEditGiftCardCode").text("XXXXXXXXXXXXXXX");
-                                    $("#lblGiftCardValue").text(FormatDecimal(value.REMAININGAMOUNT));
-                                    $("#lblGiftCardType").text(value.GIFTCARDTYPEID);
-                                    //$("#lblEmail").text(email);
-                                    $("#hdnSelectedOrderId").val(value.ORDERID);
-                                    $("#hdnGiftCardId").val(value.ID);
-                                    if (value.REMAININGAMOUNT != "") {
-                                        $("#hdnSelectedOrderOrderPrice").val(FormatDecimal(value.REMAININGAMOUNT));
-                                    }
-                                    else {
-                                        $("#hdnSelectedOrderOrderPrice").val("$0.00");
-                                    }
-                                    if (value.CREATEDONUTC != null && value.CREATEDONUTC != undefined) {
-                                        var arrDateTime = value.CREATEDONUTC.split('~');
-                                        var orderDate = arrDateTime[0];
-                                        var orderTime = arrDateTime[1];
-                                        $("#hdnSelectedOrderDateTime").val(orderDate + "#" + orderTime);
-                                    }
-
-                                    if (value.ORDERSTATUSID == "New") {
-                                        $("#btnProcessing").show();
-                                        $("#btnPickedUp").hide();
-                                        $("#btnShipped").hide();
-                                        $("#btnNew").hide();
-
-                                    }
-                                    else if (value.ORDERSTATUSID == "Processing") {
-                                        $("#btnProcessing").hide();
-                                        $("#btnPickedUp").show();
-                                        $("#btnShipped").show();
-                                        $("#btnNew").show();
-                                    }
-                                    else if (value.ORDERSTATUSID == "Shipped") {
-                                        $("#btnProcessing").show();
-                                        $("#btnPickedUp").show();
-                                        $("#btnShipped").hide();
-                                        $("#btnNew").hide();
-                                    }
-                                    else if (value.ORDERSTATUSID == "PickedUp") {
-                                        $("#btnProcessing").show();
-                                        $("#btnPickedUp").hide();
-                                        $("#btnShipped").show();
-                                        $("#btnNew").hide();
-                                    }
-                                }
-
-                            });
-                            html += "<table id=\"tbl_" + orderId + "\" class=\"table table-striped\"> ";
-                            html += "<tbody>";
-                            $.each(JSON.parse(JSON.stringify(filtered_history)), function (index1, value) {
-                                var orderDate = "";
-                                var orderTime = "";
-                                if (value.CreatedOnUtc != null && value.CreatedOnUtc != undefined) {
-                                    var arrDateTime = value.CreatedOnUtc.split('~');
-                                    orderDate = arrDateTime[0];
-                                    orderTime = arrDateTime[1];
-                                }
-                                html += "<tr><td  style='border-bottom:none !important;'>" + orderDate + " @ " + orderTime + "</td>";
-                                if (value.Type == "Load") {
-                                    html += "<td style=\"text-align:right;border-bottom:none !important;\">" + FormatDecimal(value.UsedValue) + "</td>";
-                                }
-                                else {
-                                    html += "<td style=\"text-align:right;border-bottom:none !important;\">-" + FormatDecimal(value.UsedValue) + "</td>";
-                                }
-
-                                html += "<td style=\"text-align:center;border-bottom:none !important;\">" + value.Register + "</td>";
-
-                                html += "</tr>";
-
-                            });
-                            $("#dvItem").html(html + "</tbody>");
-
-                        });
-
                     });
 
                 }
@@ -3822,7 +3539,15 @@ function OpenGiftCardDetails(id) {
             var lastName = "";
             var email = "";
             var phone = "";
+            var orderDate = "";
+            var orderTime = "";
+            var orderDateTimeHtml = "";
             if (value.TABLETYPE == "GiftCardInfo") {
+                if (value.CREATEDONUTC != null && value.CREATEDONUTC != undefined) {
+                    var arrDateTime = value.CREATEDONUTC.split('~');
+                    var orderDate = arrDateTime[0];
+                    var orderTime = arrDateTime[1];
+                }
                 if (value.RECIPIENTNAME != "") {
                     name = value.RECIPIENTNAME;
 
@@ -3843,6 +3568,8 @@ function OpenGiftCardDetails(id) {
                 subtotalvalue = value.SUBTOTAL;
                 ordertotalvalue = value.ORDERTOTAL;
                 orderId = value.ID;
+                orderDateTimeHtml = "#" + value.ORDERID + "<span> on </span><span>" + orderDate + " @ " + orderTime + "</span>";
+                $("#orderNumberAndDateTime").html(orderDateTimeHtml);
                 //$("#iconEmail").show();
                 if (phone != "")
                     $("#iconPhone").show();
@@ -3874,6 +3601,9 @@ function OpenGiftCardDetails(id) {
 
                 if (value.ORDERSTATUSID == "New") {
                     $("#btnProcessing").show();
+                    $("#btnProcessing img").css("width", "21%;");
+                    //$("#imgNew").show();
+
                     $("#btnPickedUp").hide();
                     $("#btnShipped").hide();
                     $("#btnNew").hide();
@@ -3886,6 +3616,7 @@ function OpenGiftCardDetails(id) {
                     $("#btnShipped").hide();
                     $("#btnNew").show();
                     $("#btnComplete").show();
+                    //$("#imgProcessing").show();
                 }
                 else if (value.ORDERSTATUSID == "Shipped") {
                     $("#btnProcessing").hide();
@@ -3893,50 +3624,65 @@ function OpenGiftCardDetails(id) {
                     $("#btnShipped").hide();
                     $("#btnNew").hide();
                     $("#btnComplete").show();
+                    //$("#imgShipped").show();
                 }
                 else if (value.ORDERSTATUSID == "PickedUp") {
                     $("#btnProcessing").hide();
                     $("#btnPickedUp").hide();
-                    $("#btnShipped").show();
                     $("#btnNew").hide();
+                    $("#btnShipped").show();
                     $("#btnComplete").show();
+                    //$("#imgPickedUp").show();
                 }
                 else if (value.ORDERSTATUSID == "Complete") {
                     $("#btnProcessing").show();
                     $("#btnPickedUp").show();
                     $("#btnShipped").show();
+                    //$("#imgComplete").show();
+
+                    $("#btnProcessing img").css("width", "61%;");
+                    $("#btnPickedUp img").css("width", "61%;");
+                    $("#btnShipped img").css("width", "61%;");
+
                     $("#btnNew").hide();
                     $("#btnComplete").hide();
                 }
             }
         });
 
-        html += "<table id=\"tbl_" + orderId + "\" style=\width:100%;\"> ";
-        html += "<tbody>";
-        html += "<tr><td  style='border-bottom:none !important;width: 50%;font-size:16px;font-weight: 600;'>Date</td>"
-        html += "<td  style='text-align:right;border-bottom:none !important;width: 25%;font-size:16px;font-weight: 600;'>Amount</td>"
-        html += "<td  style='text-align:center;border-bottom:none !important;width: 25%;font-size:16px;font-weight: 600;'>Register</td></tr>"
-        $.each(JSON.parse(JSON.stringify(filtered_history)), function (index1, value) {
-            var orderDate = "";
-            var orderTime = "";
-            if (value.CreatedOnUtc != null && value.CreatedOnUtc != undefined) {
-                var arrDateTime = value.CreatedOnUtc.split('~');
-                orderDate = arrDateTime[0];
-                orderTime = arrDateTime[1];
-            }
-            html += "<tr><td  style='border-bottom:none !important;font-size:16px;'>" + orderDate + " @ " + orderTime + "</td>";
-            if (value.Type == "Load") {
-                html += "<td style=\"text-align:right;border-bottom:none !important;font-size:16px;\">" + FormatDecimal(value.UsedValue) + "</td>";
-            }
-            else {
-                html += "<td style=\"text-align:right;border-bottom:none !important;font-size:16px;\">-" + FormatDecimal(value.UsedValue) + "</td>";
-            }
 
-            html += "<td style=\"text-align:center;border-bottom:none !important;font-size:16px;\">" + value.Register + "</td>";
+        if (JSON.parse(JSON.stringify(filtered_history)).length < 0) {
+            $("#dvOrderItem").html("No record(s) found.");
 
-            html += "</tr>";
+        }
+        else {
+            html += "<table id=\"tbl_" + orderId + "\" class=\"table table-striped\" cellspacing=\"0\" cellpadding=\"0\"> ";
+            html += "<tbody>";
+            html += "<tr><th style=\"text-align:left;\">Date</th>"
+            html += "<th style=\"text-align:right;\">Amount</th>"
+            html += "<th style=\"text-align:center;\">Register</th></tr>"
+            $.each(JSON.parse(JSON.stringify(filtered_history)), function (index1, value) {
+                var orderDate = "";
+                var orderTime = "";
+                if (value.CreatedOnUtc != null && value.CreatedOnUtc != undefined) {
+                    var arrDateTime = value.CreatedOnUtc.split('~');
+                    orderDate = arrDateTime[0];
+                    orderTime = arrDateTime[1];
+                }
+                html += "<tr><td style='font-weight:bold;'>" + orderDate + " @ " + orderTime + "</td>";
+                if (value.Type == "Load") {
+                    html += "<td style=\"text-align:right;\">" + FormatDecimal(value.UsedValue) + "</td>";
+                }
+                else {
+                    html += "<td style=\"text-align:right;\">-" + FormatDecimal(value.UsedValue) + "</td>";
+                }
 
-        });
+                html += "<td style=\"text-align:center;\">" + value.Register + "</td>";
+
+                html += "</tr>";
+
+            });
+        }
         $("#dvOrderItem").html(html + "</tbody>");
         $("#titleRedemptionHistory").show();
     });
