@@ -787,7 +787,14 @@ function InitPushNotification(storeId) {
         //    // Do something after 30 second 
         //}, 30000);
         //alert('notification event: ' + data.message);
-        CheckNewOrder();
+        if (data.message == "A new order has been placed")
+        {
+            CheckNewOrder();
+        }
+        else if(data.message == "Stop Audio")
+        {
+            myMedia.stop();
+        }
         // alert('notification event: ' + data.message + ", " + data.title);
         //navigator.notification.alert(
         //    data.message,         // message
@@ -1080,9 +1087,8 @@ function CheckNewOrder() {
 }
 
 function AcceptOrders() {
-    //if (isDevice()) {
     myMedia.stop();
-    //}
+  
     var orderIds = $("#hdnOrderIds").val().trim();
     var orders = [];
     var customerphone = [];
@@ -1181,6 +1187,33 @@ function AcceptOrders() {
             //alert(errorThrown);
         }
     });
+
+    StopSoundOtherDevices();
+}
+function StopSoundOtherDevices(storeId)
+{
+    $.ajax({
+        url: global + 'StopSoundInAllDevices',
+        type: 'GET',
+        data: {
+            
+            storeId: storeId,
+            
+        },
+        datatype: 'jsonp',
+        contenttype: "application/json",
+        crossDomain: true,
+        async: false,
+        success: function (response) {
+            console.log(response)
+            
+        },
+        error: function (xhr, textStatus, errorThrown) {
+            //alert(xhr.responseText);
+            //alert(textStatus);
+            //alert(errorThrown);
+        }
+    });
 }
 function Back() {
     console.log('Back')
@@ -1234,7 +1267,7 @@ function pauseAudio() {
     myMedia.pause();
 }
 function stopAudio() {
-    alert("Stopping")
+    //alert("Stopping")
     // myMedia = new Media(src, onSuccess, onError, onStatus);
     // alert("Stopping");
     myMedia.stop();
