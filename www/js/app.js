@@ -1080,9 +1080,9 @@ function CheckNewOrder() {
 }
 
 function AcceptOrders() {
-    if (isDevice()) {
+    //if (isDevice()) {
         stopAudio();
-    }
+    //}
     var orderIds = $("#hdnOrderIds").val().trim();
     var orders = [];
     var customerphone = [];
