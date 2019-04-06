@@ -1095,11 +1095,14 @@ function pauseAudio() {
     myMedia.pause();
 }
 function stopAudio() {
-    myMedia = new Media(src, onSuccess, onError, onStatus);
+   // myMedia = new Media(src, onSuccess, onError, onStatus);
     // alert("Stopping");
     myMedia.stop();
 }
 function AcceptOrders() {
+    if (isDevice()) {
+        stopAudio();
+    }
     var orderIds = $("#hdnOrderIds").val().trim();
     var orders = [];
     var customerphone = [];
@@ -1157,9 +1160,7 @@ function AcceptOrders() {
         success: function (response) {
             acceptOrderPopup.destroy();
             //console.log("ChangeBulkOrderStatus: " + response)
-            if (isDevice()) {
-                stopAudio();
-            }
+          
 
             //CarryoutOrdersList("Processing", pageSize, currentPage);
             $("#hdnOrderIds").val("");
