@@ -19,11 +19,6 @@ $$(document).on('deviceready', function () {
             InitPushNotification(storeId);
         }
     }
-    //console.log('Device Name: ' + device.name + '<\n>' +
-    //                        'Device PhoneGap: ' + device.phonegap + '<\n>' +
-    //                        'Device Platform: ' + device.platform + '<\n>' +
-    //                        'Device UUID: ' + device.uuid + '<\n>' +
-    //                        'Device Version: ' + device.version + '<\n>');
   
     
 });
@@ -469,6 +464,7 @@ $$(document).on('page:init', function (e) {
             });
         }
     }
+
     else if (pageURL.indexOf('profile') > -1)//Profile
     {
         LoadProfileDetails();
@@ -503,6 +499,9 @@ $$(document).on('page:init', function (e) {
                 var ampm = hours >= 12 ? 'PM' : 'AM';
                 hours = hours % 12;
                 hours = hours ? hours : 12; // the hour '0' should be '12'
+                if (hours <= 9) {
+                    hours = "0" + hours;
+                }
                 minutes = minutes < 30 ? '00' : '30';
                 var today = new Date();
                 var pickerInline = app.picker.create({
@@ -550,9 +549,28 @@ $$(document).on('page:init', function (e) {
                       {
                           values: (function () {
                               var arr = [];
-                              for (var i = 0; i <= 11; i++) { arr.push(i); }
+                              for (var i = 0; i <= 11; i++) {
+                                  if (i <= 9) {
+                                      arr.push("0" + i);
+                                  }
+                                  else {
+                                      arr.push(i);
+                                  }
+                              }
                               return arr;
                           })(),
+                          displayValues: (function () {
+                              var arr = [];
+                              for (var i = 0; i <= 11; i++) {
+                                  if (i <= 9) {
+                                      arr.push("0" + i);
+                                  }
+                                  else {
+                                      arr.push(i);
+                                  }
+                              }
+                              return arr;
+                          })()
                       },
                       // Divider
                       {
@@ -602,6 +620,9 @@ $$(document).on('page:init', function (e) {
                 var ampm = hours >= 12 ? 'PM' : 'AM';
                 hours = hours % 12;
                 hours = hours ? hours : 12; // the hour '0' should be '12'
+                if (hours <= 9) {
+                    hours = "0" + hours;
+                }
                 minutes = minutes < 30 ? '00' : '30';
                 var pickerInline = app.picker.create({
                     containerEl: '#Start-picker-date-container',
@@ -647,9 +668,28 @@ $$(document).on('page:init', function (e) {
                       {
                           values: (function () {
                               var arr = [];
-                              for (var i = 0; i <= 11; i++) { arr.push(i); }
+                              for (var i = 0; i <= 11; i++) {
+                                  if (i <= 9) {
+                                      arr.push("0" + i);
+                                  }
+                                  else {
+                                      arr.push(i);
+                                  }
+                              }
                               return arr;
                           })(),
+                          displayValues: (function () {
+                              var arr = [];
+                              for (var i = 0; i <= 11; i++) {
+                                  if (i <= 9) {
+                                      arr.push("0" + i);
+                                  }
+                                  else {
+                                      arr.push(i);
+                                  }
+                              }
+                              return arr;
+                          })()
                       },
                       // Divider
                       {
@@ -712,9 +752,9 @@ function InitPushNotification(storeId) {
         //WriteLog("registrationId: " + data.registrationId)
         console.log('registration event: ' + data.registrationId);
         //console.log('StoreId: ' + localStorage.getItem("StoreId"))
-        alert("current RegId: " + data.registrationId)
+       // alert("current RegId: " + data.registrationId)
         var oldRegId = localStorage.getItem('registrationId');
-        alert("oldRegId: " + oldRegId)
+       // alert("oldRegId: " + oldRegId)
         // console.log("oldRegId: " + oldRegId);
         if (oldRegId == null || oldRegId == undefined) {
             console.log("Save new registration ID")

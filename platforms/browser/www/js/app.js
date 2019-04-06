@@ -19,11 +19,6 @@ $$(document).on('deviceready', function () {
             InitPushNotification(storeId);
         }
     }
-    //console.log('Device Name: ' + device.name + '<\n>' +
-    //                        'Device PhoneGap: ' + device.phonegap + '<\n>' +
-    //                        'Device Platform: ' + device.platform + '<\n>' +
-    //                        'Device UUID: ' + device.uuid + '<\n>' +
-    //                        'Device Version: ' + device.version + '<\n>');
   
     
 });
