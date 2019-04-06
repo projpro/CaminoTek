@@ -14,9 +14,9 @@
                 <i class="material-icons menu-icon">card_membership</i>
                 <span class="tabbar-label">Reward</span>
             </a>
-            <a href="/coupon_list/" class="tab-link menuStartStop">
-                <i class="material-icons menu-icon">receipt</i>
-                <span class="tabbar-label">Coupon</span>
+            <a href="/setup/" class="tab-link menuReward">
+                <i class="material-icons menu-icon">settings</i>
+                <span class="tabbar-label">Setup</span>
             </a>
             <a href="/manageservice/" class="tab-link menuStartStop">
                 <i class="material-icons menu-icon">power_settings_new</i>
@@ -213,10 +213,10 @@
                                                     </li>
                                                     <li class="item-content">
                                                         <div class="item-media" style="width:96%">
+                                                            <input type="hidden" id="hdnFullAdminEmail" />
                                                             <i class="material-icons">email</i>
-                                                            <input type="text" placeholder="Admin Email" id="txtProfileAdminEmail" info="Default e-mail validation" required class="mandatory">
+                                                            <input type="text" placeholder="Admin Email" id="txtProfileAdminEmail" required class="mandatory">
                                                             <span class="input-clear-button"></span>
-                                                            <input type="hidden" id="hdnFullAdminEmail"/>
                                                         </div>
                                                     </li>
                                                     <li class="item-content" style="width:96%">
@@ -281,7 +281,7 @@
                                                                 <!--<input style="width:5%" checked="checked" id="Businesday_0_IsCheck" name="Businesday[0].IsCheck" type="checkbox" value="true">-->
                                                                 <input name="Businesday[0].IsCheck" type="hidden" value="false">
                                                                 <!--<label style="width:25%;">Monday</label>-->
-                                                                <i style="width:65%;color: #08b3c7;font-weight: 600;" class="material-icons" onclick="AddNewSection('Monday', 'Mo', '0');" id="Monday">add</i>
+                                                                <i class="material-icons icon-add" onclick="AddNewSection('Monday', 'Mo', '0');" id="Monday">add</i>
                                                                 <input id="Businesday_0_DayKey" name="Businesday[0].DayKey" type="hidden" value="Mo">
                                                                 <input id="Businesday_0_DayName" name="Businesday[0].DayName" type="hidden" value="Monday">  
                                                                 <input id="Businesday_0_StoreTimingId" name="Businesday[0].StoreTimingId" type="hidden" value="0">                                                                
@@ -291,7 +291,7 @@
                                                                     <div>
                                                                         <div class="timing-flex-column-container">
                                                                             <div style="flex-basis: 120px;">
-                                                                                <label title="">Opening Time</label>
+                                                                                <label title="">Opening</label>
                                                                             </div>
                                                                             <div style="flex-basis: 80px;">
                                                                                 <select id="Businesday_0_OpeningHour" name="Businesday[0].OpeningHour">
@@ -384,7 +384,7 @@
                                                                         </div>
                                                                         <div class="timing-flex-column-container">
                                                                             <div style="flex-basis: 120px;">
-                                                                                <label title="">Closing Time</label>
+                                                                                <label title="">Closing</label>
                                                                             </div>
                                                                             <div style="flex-basis: 80px;">
                                                                                 <select id="Businesday_0_ClosingHour" name="Businesday[0].ClosingHour">
@@ -492,7 +492,7 @@
                                                                 <!--<input style="width:5%" checked="checked" id="Businesday_1_IsCheck" name="Businesday[1].IsCheck" type="checkbox" value="true">-->
                                                                 <input name="Businesday[1].IsCheck" type="hidden" value="false">
                                                                 <!--<label style="width:25%;">Tuesday</label>-->
-                                                                <i style="width:65%;color: #08b3c7;font-weight: 600;" class="material-icons" onclick="AddNewSection('Tuesday', 'Tu', '1');" id="Tuesday">add</i>
+                                                                <i class="material-icons icon-add" onclick="AddNewSection('Tuesday', 'Tu', '1');" id="Tuesday">add</i>
                                                                 <input id="Businesday_1_DayKey" name="Businesday[1].DayKey" type="hidden" value="Tu">
                                                                 <input id="Businesday_1_DayName" name="Businesday[1].DayName" type="hidden" value="Tuesday">
                                                                 <input id="Businesday_1_StoreTimingId" name="Businesday[1].StoreTimingId" type="hidden" value="0">  
@@ -502,7 +502,7 @@
                                                                     <div>
                                                                         <div class="timing-flex-column-container">
                                                                             <div style="flex-basis: 120px;">
-                                                                                <label title="">Opening Time</label>
+                                                                                <label title="">Opening</label>
                                                                             </div>
                                                                             <div style="flex-basis: 80px;">
                                                                                 <select id="Businesday_1_OpeningHour" name="Businesday[1].OpeningHour">
@@ -595,7 +595,7 @@
                                                                         </div>
                                                                         <div class="timing-flex-column-container">
                                                                             <div style="flex-basis: 120px;">
-                                                                                <label title="">Closing Time</label>
+                                                                                <label title="">Closing</label>
                                                                             </div>
                                                                             <div style="flex-basis: 80px;">
                                                                                 <select id="Businesday_1_ClosingHour" name="Businesday[1].ClosingHour">
@@ -701,7 +701,7 @@
                                                                 <!--<input style="width:5%" checked="checked" id="Businesday_2_IsCheck" name="Businesday[1].IsCheck" type="checkbox" value="true">-->
                                                                 <input name="Businesday[2].IsCheck" type="hidden" value="false">
                                                                 <!--<label style="width:25%;">Wednesday</label>-->
-                                                                <i style="width:65%;color: #08b3c7;font-weight: 600;" class="material-icons" onclick="AddNewSection('Wednesday', 'We', '2');" id="Wednesday">add</i>
+                                                                <i class="material-icons icon-add" onclick="AddNewSection('Wednesday', 'We', '2');" id="Wednesday">add</i>
                                                                 <input id="Businesday_2_DayKey" name="Businesday[2].DayKey" type="hidden" value="We">
                                                                 <input id="Businesday_2_DayName" name="Businesday[2].DayName" type="hidden" value="Wednesday">
                                                                 <input id="Businesday_2_StoreTimingId" name="Businesday[2].StoreTimingId" type="hidden" value="0">  
@@ -711,7 +711,7 @@
                                                                     <div>
                                                                         <div class="timing-flex-column-container">
                                                                             <div style="flex-basis: 120px;">
-                                                                                <label title="">Opening Time</label>
+                                                                                <label title="">Opening</label>
                                                                             </div>
                                                                             <div style="flex-basis: 80px;">
                                                                                 <select id="Businesday_2_OpeningHour" name="Businesday[2].OpeningHour">
@@ -804,7 +804,7 @@
                                                                         </div>
                                                                         <div class="timing-flex-column-container">
                                                                             <div style="flex-basis: 120px;">
-                                                                                <label title="">Closing Time</label>
+                                                                                <label title="">Closing</label>
                                                                             </div>
                                                                             <div style="flex-basis: 80px;">
                                                                                 <select id="Businesday_2_ClosingHour" name="Businesday[2].ClosingHour">
@@ -910,7 +910,7 @@
                                                                 <!--<input style="width:5%" checked="checked" id="Businesday_3_IsCheck" name="Businesday[3].IsCheck" type="checkbox" value="true">-->
                                                                 <input name="Businesday[3].IsCheck" type="hidden" value="false">
                                                                 <!--<label style="width:25%;">Thursday</label>-->
-                                                                <i style="width:65%;color: #08b3c7;font-weight: 600;" class="material-icons" onclick="AddNewSection('Thursday', 'Th', '3');" id="Thursday">add</i>
+                                                                <i class="material-icons icon-add" onclick="AddNewSection('Thursday', 'Th', '3');" id="Thursday">add</i>
                                                                 <input id="Businesday_3_DayKey" name="Businesday[3].DayKey" type="hidden" value="Th">
                                                                 <input id="Businesday_3_DayName" name="Businesday[3].DayName" type="hidden" value="Thursday">
                                                                 <input id="Businesday_3_StoreTimingId" name="Businesday[3].StoreTimingId" type="hidden" value="0">  
@@ -920,7 +920,7 @@
                                                                     <div>
                                                                         <div class="timing-flex-column-container">
                                                                             <div style="flex-basis: 120px;">
-                                                                                <label title="">Opening Time</label>
+                                                                                <label title="">Opening</label>
                                                                             </div>
                                                                             <div style="flex-basis: 80px;">
                                                                                 <select id="Businesday_3_OpeningHour" name="Businesday[3].OpeningHour">
@@ -1013,7 +1013,7 @@
                                                                         </div>
                                                                         <div class="timing-flex-column-container">
                                                                             <div style="flex-basis: 120px;">
-                                                                                <label title="">Closing Time</label>
+                                                                                <label title="">Closing</label>
                                                                             </div>
                                                                             <div style="flex-basis: 80px;">
                                                                                 <select id="Businesday_3_ClosingHour" name="Businesday[3].ClosingHour">
@@ -1119,7 +1119,7 @@
                                                                 <!--<input style="width:5%" checked="checked" id="Businesday_4_IsCheck" name="Businesday[4].IsCheck" type="checkbox" value="true">-->
                                                                 <input name="Businesday[4].IsCheck" type="hidden" value="false">
                                                                 <!--<label style="width:25%;">Friday</label>-->
-                                                                <i style="width:65%;color: #08b3c7;font-weight: 600;" class="material-icons" onclick="AddNewSection('Friday', 'Fr', '4');" id="Friday">add</i>
+                                                                <i class="material-icons icon-add" onclick="AddNewSection('Friday', 'Fr', '4');" id="Friday">add</i>
                                                                 <input id="Businesday_4_DayKey" name="Businesday[4].DayKey" type="hidden" value="Fr">
                                                                 <input id="Businesday_4_DayName" name="Businesday[4].DayName" type="hidden" value="Friday">
                                                                 <input id="Businesday_4_StoreTimingId" name="Businesday[4].StoreTimingId" type="hidden" value="0">  
@@ -1129,7 +1129,7 @@
                                                                     <div>
                                                                         <div class="timing-flex-column-container">
                                                                             <div style="flex-basis: 120px;">
-                                                                                <label title="">Opening Time</label>
+                                                                                <label title="">Opening</label>
                                                                             </div>
                                                                             <div style="flex-basis: 80px;">
                                                                                 <select id="Businesday_4_OpeningHour" name="Businesday[4].OpeningHour">
@@ -1222,7 +1222,7 @@
                                                                         </div>
                                                                         <div class="timing-flex-column-container">
                                                                             <div style="flex-basis: 120px;">
-                                                                                <label title="">Closing Time</label>
+                                                                                <label title="">Closing</label>
                                                                             </div>
                                                                             <div style="flex-basis: 80px;">
                                                                                 <select id="Businesday_4_ClosingHour" name="Businesday[4].ClosingHour">
@@ -1328,7 +1328,7 @@
                                                                 <!--<input style="width:5%" checked="checked" id="Businesday_5_IsCheck" name="Businesday[5].IsCheck" type="checkbox" value="true">-->
                                                                 <input name="Businesday[5].IsCheck" type="hidden" value="false">
                                                                 <!--<label style="width:25%;">Saturday</label>-->
-                                                                <i style="width:65%;color: #08b3c7;font-weight: 600;" class="material-icons" onclick="AddNewSection('Saturday', 'Sa', '5');" id="Saturday">add</i>
+                                                                <i class="material-icons icon-add" onclick="AddNewSection('Saturday', 'Sa', '5');" id="Saturday">add</i>
                                                                 <input id="Businesday_5_DayKey" name="Businesday[5].DayKey" type="hidden" value="Sa">
                                                                 <input id="Businesday_5_DayName" name="Businesday[5].DayName" type="hidden" value="Saturday">
                                                                 <input id="Businesday_5_StoreTimingId" name="Businesday[5].StoreTimingId" type="hidden" value="0">  
@@ -1338,7 +1338,7 @@
                                                                     <div>
                                                                         <div class="timing-flex-column-container">
                                                                             <div style="flex-basis: 120px;">
-                                                                                <label title="">Opening Time</label>
+                                                                                <label title="">Opening</label>
                                                                             </div>
                                                                             <div style="flex-basis: 80px;">
                                                                                 <select id="Businesday_5_OpeningHour" name="Businesday[5].OpeningHour">
@@ -1431,7 +1431,7 @@
                                                                         </div>
                                                                         <div class="timing-flex-column-container">
                                                                             <div style="flex-basis: 120px;">
-                                                                                <label title="">Closing Time</label>
+                                                                                <label title="">Closing</label>
                                                                             </div>
                                                                             <div style="flex-basis: 80px;">
                                                                                 <select id="Businesday_5_ClosingHour" name="Businesday[5].ClosingHour">
@@ -1537,7 +1537,7 @@
                                                                 <!--<input style="width:5%" checked="checked" id="Businesday_6_IsCheck" name="Businesday[6].IsCheck" type="checkbox" value="true">-->
                                                                 <input name="Businesday[6].IsCheck" type="hidden" value="false">
                                                                 <!--<label style="width:25%;">Sunday</label>-->
-                                                                <i style="width:65%;color: #08b3c7;font-weight: 600;" class="material-icons" onclick="AddNewSection('Sunday', 'Su', '6');" id="Sunday">add</i>
+                                                                <i class="material-icons icon-add" onclick="AddNewSection('Sunday', 'Su', '6');" id="Sunday">add</i>
                                                                 <input id="Businesday_6_DayKey" name="Businesday[6].DayKey" type="hidden" value="Su">
                                                                 <input id="Businesday_6_DayName" name="Businesday[6].DayName" type="hidden" value="Sunday">
                                                                 <input id="Businesday_6_StoreTimingId" name="Businesday[6].StoreTimingId" type="hidden" value="0">  
@@ -1547,7 +1547,7 @@
                                                                     <div>
                                                                         <div class="timing-flex-column-container">
                                                                             <div style="flex-basis: 120px;">
-                                                                                <label title="">Opening Time</label>
+                                                                                <label title="">Opening</label>
                                                                             </div>
                                                                             <div style="flex-basis: 80px;">
                                                                                 <select id="Businesday_6_OpeningHour" name="Businesday[6].OpeningHour">
@@ -1640,7 +1640,7 @@
                                                                         </div>
                                                                         <div class="timing-flex-column-container">
                                                                             <div style="flex-basis: 120px;">
-                                                                                <label title="">Closing Time</label>
+                                                                                <label title="">Closing</label>
                                                                             </div>
                                                                             <div style="flex-basis: 80px;">
                                                                                 <select id="Businesday_6_ClosingHour" name="Businesday[6].ClosingHour">

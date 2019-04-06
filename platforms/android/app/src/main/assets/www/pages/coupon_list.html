@@ -9,13 +9,13 @@
                 <i class="material-icons menu-icon">card_giftcard</i>
                 <span class="tabbar-label">Gift Card</span>
             </a>
-            <a href="/new_rewards/" class="tab-link menuReward">
+            <a href="/new_rewards/" class="tab-link menuReward ">
                 <i class="material-icons menu-icon">card_membership</i>
                 <span class="tabbar-label">Reward</span>
             </a>
-            <a href="/coupon_list/" class="tab-link menuStartStop tab-link-active footer-menu-active">
-                <i class="material-icons menu-icon-active">receipt</i>
-                <span class="tabbar-label">Coupon</span>
+            <a href="/setup/" class="tab-link menuStartStop tab-link-active footer-menu-active">
+                <i class="material-icons menu-icon-active">settings</i>
+                <span class="tabbar-label">Setup</span>
             </a>
             <a href="/manageservice/" class="tab-link menuStartStop">
                 <i class="material-icons menu-icon">power_settings_new</i>
@@ -30,10 +30,12 @@
                 <a class="tab-link back-new" onclick="Back();">
                     <i class="material-icons material-icons-one">arrow_back</i>
                 </a>
+                
             </div>
-            <div class="center">Coupons</div>
-            <a class="navbar-site-action icon-only searchbar-enable navbar-right-icon-2" id="btnAddCoupon" data-panel="right" ><i class="material-icons large-icon">add_box</i></a>
+            <div class="center" style="padding-left: 0px">Coupons</div>
+            
             <div class="right">
+                <a class="icon-only navbar-right-single-icon" id="btnAddCoupon" data-panel="right" style="right: 100px"><i class="material-icons large-icon">add_box</i></a>
                 <a class="icon-only navbar-right-single-icon" style="right:55px;" onclick="GotoProfile();"><i class="material-icons large-icon">account_circle</i></a>
                 <a class="icon-only navbar-right-single-icon" onclick="Logout();"><i class="material-icons large-icon">exit_to_app</i></a>
             </div>
@@ -44,14 +46,28 @@
         
         <div class="section list-restaurants">
             <div class="section-content">
-                <div id="CouponDiv" style="margin-top:20px;"></div>
+                <div id="CouponDiv" style="margin-top: 20px"></div>
                 
             </div>
         </div>
-        <div id="reward_LoadRedeem" class="page-content tab">
-
+        <div class="panel panel-one panel-left panel-cover panel-menu" style="display:none;" id="dvCouponDetails" >
+            
         </div>
-        <div class="mt pd"></div>
-
+        <div id="dvCouponDetailInner" style="display:none;">
+            <div class="page">
+                <div class="page-content">
+                    <div class="page-title padding-left padding-right margin-top display-flex justify-content-space-between">
+                        <h2>Coupon Timing</h2>
+                        <a class="panel-close navbar-site-action" href="#" data-panel="right" onclick="ClearCouponDetails()">
+                            <img src="./img/icons/close.png" alt="close" class="close-icon">
+                        </a>
+                    </div>
+                    <div class="block">
+                        <div class="order-list fle timing-flex-row-container" id="dvCoupon">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

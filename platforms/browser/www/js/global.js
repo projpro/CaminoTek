@@ -5635,7 +5635,7 @@ function AddNewSection(dayName, dayKey, e) {
     html += "<div class=\"timing-flex-column-container\">";
     //Label Section Start//
     html += "<div style=\"flex-basis: 120px;\">";
-    html += "<label>Opening Time</label>";
+    html += "<label>Opening</label>";
     html += "<input id=\"Businesday_" + idCount + "_StoreTimingId\" name=\"Businesday[" + idCount + "].StoreTimingId\" type=\"hidden\" value=\"0\">";
     html += "<input id=\"Businesday_" + idCount + "_DayKey\" name=\"Businesday[" + idCount + "].DayKey\" type=\"hidden\" value=\"" + dayKey + "\">";
     html += "</div>";
@@ -5674,7 +5674,7 @@ function AddNewSection(dayName, dayKey, e) {
     html += "<div class=\"timing-flex-column-container\">";
     //Label Section Start//
     html += "<div style=\"flex-basis: 120px;\">";
-    html += "<label>Closing Time</label>";
+    html += "<label>Closing</label>";
     html += "</div>";
     //Label Section End//
 
@@ -5730,7 +5730,7 @@ function AppendEditSection(timingId, dayName, dayKey, openingHour, openingMinute
     html += "<div class=\"timing-flex-column-container\">";
     //Label Section Start//
     html += "<div style=\"flex-basis: 120px;\">";
-    html += "<label>Opening Time</label>";
+    html += "<label>Opening</label>";
     html += "<input id=\"Businesday_" + idCount + "_StoreTimingId\" name=\"Businesday[" + idCount + "].StoreTimingId\" type=\"hidden\" value=\"" + timingId + "\">";
     html += "<input id=\"Businesday_" + idCount + "_DayKey\" name=\"Businesday[" + idCount + "].DayKey\" type=\"hidden\" value=\"" + dayKey + "\">";
     html += "</div>";
@@ -5769,7 +5769,7 @@ function AppendEditSection(timingId, dayName, dayKey, openingHour, openingMinute
     html += "<div class=\"timing-flex-column-container\">";
     //Label Section Start//
     html += "<div style=\"flex-basis: 120px;\">";
-    html += "<label>Closing Time</label>";
+    html += "<label>Closing</label>";
     html += "</div>";
     //Label Section End//
 
@@ -5943,7 +5943,6 @@ function CouponList() {
 
     if (Number(storeId) > 0) {
 
-
         url = global + "/GetAllCoupons?storeid=" + storeId;
 
         try {
@@ -5987,12 +5986,12 @@ function CouponList() {
                         }
 
                         var html = "<div class=\"order-container\"  id='li_" + value.Id + "' style=\"width:100%;padding-left: 20px;\" >";
-                        html += "<div class=\"order-list\" data-panel=\"left\" >";
+                        html += "<div id=\"dvCouponListInner_" + value.Id + "\" class=\"order-list \">";
                         html += "<div class=\"order-column-two\" style=\"width:100%\">";
                         html += "<div class=\"order-row-container\">";
 
                         /*------------------Name-----------------------*/
-                        html += "<div class=\"order-pickup\" style=\"text-align:left;font-size:20px;width:60%\">" + code + "</div>";
+                        html += "<div class=\"order-pickup panel-open\" style=\"text-align:left;font-size:20px;width:60%\" onclick=\"OpenCouponListDetails(" + value.Id + ")\">" + code + "</div>";
 
                         /*------------------Button-----------------------*/
                         html += "<div class=\"order-buttons\" style=\"width:28%\">";
@@ -6006,7 +6005,7 @@ function CouponList() {
                         html += "</div>";
 
                         html += "</div>";
-                        html += "<div class=\"order-row-container\">";
+                        html += "<div class=\"order-row-container panel-open\" onclick=\"OpenCouponListDetails(" + value.Id + ")\">";
                         html += "<div class=\"order-date\" style=\"width:70%\">";
                         html += "<div class=\"customer-detail-container\">";
 
@@ -6015,8 +6014,8 @@ function CouponList() {
 
                         if (value.StartDateUtc != "" && value.EndDateUtc != "") {
                             /*------------------Start Date Ende Date-----------------------*/
-                            html += "<div class=\"customer-name\">Start Date <span class=\"cc-number\">" + StartDate + "</span></div>";
-                            html += "<div class=\"customer-name\">End Date <span class=\"cc-number\">" + EndDate + "</span></div>";
+                            html += "<div class=\"customer-name\">Start Date: <span class=\"cc-number\">" + StartDate + "</span></div>";
+                            html += "<div class=\"customer-name\">End Date: <span class=\"cc-number\">" + EndDate + "</span></div>";
                         }
 
 
@@ -6026,10 +6025,10 @@ function CouponList() {
                         html += "<div class=\"customer-detail-container\">";
 
                         /*------------------Discount Amount-----------------------*/
-                        html += "<div class=\"order-price\" style=\"width:100%;font-size:14px\">Discount Amt. <span class=\"cc-number\" style=\"font-size:14px\">" + DiscAmt + "</span></div>"
+                        html += "<div class=\"cc-number\" style=\"width:100%;font-size:14px\">Discount Amt.: <span class=\"order-price\" style=\"font-size:14px\">" + DiscAmt + "</span></div>"
 
                         /*------------------Minimun Amount-----------------------*/
-                        html += "<div class=\"order-price\" style=\"width:100%;font-size:14px\">Min. Order Amt. <span class=\"cc-number\" style=\"font-size:14px\">" + MinAmt + "</span></div>";
+                        html += "<div class=\"cc-number\" style=\"width:100%;font-size:14px\">Min. Order Amt.: <span class=\"order-price\" style=\"font-size:14px\">" + MinAmt + "</span></div>";
 
                         html += "</div></div></div></div></div></div>";
 
@@ -6051,6 +6050,151 @@ function CouponList() {
     else {
         self.app.router.navigate('/login_new/', { reloadCurrent: true });
     }
+}
+
+function OpenCouponListDetails(id) {
+
+    var storeId = 0;
+    storeId = SetStoreId();
+    var moCount = 1; var tuCount = 1; var weCount = 1; var thCount = 1; var frCount = 1; var saCount = 1; var suCount = 1;
+
+
+    /*-------------HTML Start---------------------------------*/
+    var innerHtml = "";
+
+    if (id > 0) {
+        $("#dvCoupon").html("");
+        var url = global + "/GetCouponByDiscountId?storeId=" + storeId + "&discountId=" + id;
+
+        $.getJSON(url, function (data) {
+            //console.log(data)
+            if (data.replace(/"/g, "").indexOf("No record(s) found.") > -1) {
+
+            }
+            else {
+                $.each(JSON.parse(data), function (index, value) {
+                    if (value.Type == "DiscountTiming") {
+
+                        var dayName = "";
+                        var timingId = 0;
+                        var day = "";
+                        var openingTime = "";
+                        var openingHour = "";
+                        var openingMinute = "";
+                        var openingPeriod = "";
+                        var closingTime = "";
+                        var closingHour = "";
+                        var closingMinute = "";
+                        var closingPeriod = "";
+                        if (value.TimingId > 0) {
+                            timingId = value.TimingId;
+                        }
+                        if (value.Day != "") {
+                            day = value.Day;
+
+                        }
+                        if (value.StartTime != "") {
+                            openingTime = value.StartTime;
+                        }
+                        if (value.EndTime != "") {
+                            closingTime = value.EndTime;
+                        }
+                        innerHtml = "<div class=\"customer-detail-container\">";
+
+                        if (day == "Mo") {
+                            dayName = "Monday";
+                            if (moCount == 1) {
+                                innerHtml += "<div class=\"order-number\" style=\"font-size:20px;width:100%;padding-top:15px\" id=\"dvInnerMondayTiming\">" + dayName + ": <span class=\"cc-number\" style=\"font-size:16px\">" + openingTime + "</span><span> - </span><span class=\"cc-number\" style=\"font-size:16px\">" + closingTime + "</span></div>";
+                            }
+                            else {
+                                $('#dvInnerMondayTiming').append("<span class=\"cc-number\" style=\"font-size:16px\">, " + openingTime + "</span><span> - </span><span class=\"cc-number\" style=\"font-size:16px\">" + closingTime + "</span>");
+                            }
+
+                            innerHtml += "</div>";
+                            moCount++;
+                        }
+                        if (day == "Tu") {
+                            dayName = "Tuesday";
+                            if (tuCount == 1) {
+                                innerHtml += "<div class=\"order-number\" style=\"font-size:20px;width:100%;padding-top:15px\" id=\"dvInnerTuesdayTiming\">" + dayName + ": <span class=\"cc-number\" style=\"font-size:16px\">" + openingTime + "</span><span> - </span><span class=\"cc-number\" style=\"font-size:16px\">" + closingTime + "</span></div>";
+                            }
+                            else {
+                                $('#dvInnerTuesdayTiming').append("<span class=\"cc-number\" style=\"font-size:16px\">, " + openingTime + "</span><span> - </span><span class=\"cc-number\" style=\"font-size:16px\">" + closingTime + "</span>");
+                            }
+                            innerHtml += "</div>";
+                            tuCount++;
+                        }
+                        if (day == "We") {
+                            dayName = "Wednesday";
+                            if (weCount == 1) {
+                                innerHtml += "<div class=\"order-number\" style=\"font-size:20px;width:100%;padding-top:15px\" id=\"dvInnerWednessdayTiming\">" + dayName + ": <span class=\"cc-number\" style=\"font-size:16px\">" + openingTime + "</span><span> - </span><span class=\"cc-number\" style=\"font-size:16px\">" + closingTime + "</span></div>";
+                            }
+                            else {
+                                $('#dvInnerWednessdayTiming').append("<span class=\"cc-number\" style=\"font-size:16px\">, " + openingTime + "</span><span> - </span><span class=\"cc-number\" style=\"font-size:16px\">" + closingTime + "</span>");
+                            }
+                            innerHtml += "</div>";
+                            weCount++;
+                        }
+                        if (day == "Th") {
+                            dayName = "Thursday";
+                            if (thCount == 1) {
+                                innerHtml += "<div class=\"order-number\" style=\"font-size:20px;width:100%;padding-top:15px\" id=\"dvInnerThursdayTiming\">" + dayName + ": <span class=\"cc-number\" style=\"font-size:16px\">" + openingTime + "</span><span> - </span><span class=\"cc-number\" style=\"font-size:16px\">" + closingTime + "</span></div>";
+                            }
+                            else {
+                                $('#dvInnerThursdayTiming').append("<span class=\"cc-number\" style=\"font-size:16px\">, " + openingTime + "</span><span> - </span><span class=\"cc-number\" style=\"font-size:16px\">" + closingTime + "</span>");
+                            }
+                            innerHtml += "</div>";
+                            thCount++;
+                        }
+                        if (day == "Fr") {
+                            dayName = "Friday";
+                            if (frCount == 1) {
+                                innerHtml += "<div class=\"order-number\" style=\"font-size:20px;width:100%;padding-top:15px\" id=\"dvInnerFridayTiming\">" + dayName + ": <span class=\"cc-number\" style=\"font-size:16px\">" + openingTime + "</span><span> - </span><span class=\"cc-number\" style=\"font-size:16px\">" + closingTime + "</span></div>";
+                            }
+                            else {
+                                $('#dvInnerFridayTiming').append("<span class=\"cc-number\" style=\"font-size:16px\">, " + openingTime + "</span><span> - </span><span class=\"cc-number\" style=\"font-size:16px\">" + closingTime + "</span>");
+                            }
+                            innerHtml += "</div>";
+                            frCount++;
+                        }
+                        if (day == "Sa") {
+                            dayName = "Saturday";
+                            if (saCount == 1) {
+                                innerHtml += "<div class=\"order-number\" style=\"font-size:20px;width:100%;padding-top:15px\" id=\"dvInnerSaturdayTiming\">" + dayName + ": <span class=\"cc-number\" style=\"font-size:16px\">" + openingTime + "</span><span> - </span><span class=\"cc-number\" style=\"font-size:16px\">" + closingTime + "</span></div>";
+                            }
+                            else {
+                                $('#dvInnerSaturdayTiming').append("<span class=\"cc-number\" style=\"font-size:16px\">, " + openingTime + "</span><span> - </span><span class=\"cc-number\" style=\"font-size:16px\">" + closingTime + "</span>");
+                            }
+                            innerHtml += "</div>";
+                            saCount++;
+                        }
+                        if (day == "Su") {
+                            dayName = "Sunday";
+                            if (suCount == 1) {
+                                innerHtml += "<div class=\"order-number\" style=\"font-size:20px;width:100%;padding-top:15px\" id=\"dvInnerSundayTiming\">" + dayName + ": <span class=\"cc-number\" style=\"font-size:16px\">" + openingTime + "</span><span> - </span><span class=\"cc-number\" style=\"font-size:16px\">" + closingTime + "</span></div>";
+                            }
+                            else {
+                                $('#dvInnerSundayTiming').append("<span class=\"cc-number\" style=\"font-size:16px\">, " + openingTime + "</span><span> - </span><span class=\"cc-number\" style=\"font-size:16px\">" + closingTime + "</span>");
+                            }
+                            innerHtml += "</div>";
+                            suCount++;
+                        }
+                        $("#dvCoupon").append(innerHtml);
+                    }
+
+                });
+            }
+        });
+
+        $("#dvCouponDetails").html($("#dvCouponDetailInner").html());
+
+    }
+
+}
+
+function ClearCouponDetails() {
+    $('#dvCouponDetailInner').hide();
+    $('#dvCouponDetails').html("");
 }
 
 function GoToCouponEdit(couponId) {
@@ -6079,7 +6223,7 @@ function LoadCouponEdit() {
 
                 }
                 else {
-                    localStorage.setItem("HiddenDiscountId", 0);
+                    //localStorage.setItem("HiddenDiscountId", 0);
                     $.each(JSON.parse(data), function (index, value) {
                         //console.log(data);
                         //console.log(value); 
@@ -6405,7 +6549,8 @@ function SaveDiscount() {
 
             $.post(global + "/SaveDiscont", model, function (data) {
                 console.log(data.indexOf("Successful"));
-                if (data.indexOf("Successful") > -1) {
+                if (data.indexOf("Successful") > -1 || data == "") {
+                    LoadCouponEdit();
                     swal({
                         title: "Coupon saved successfully!",
                         confirmButtonText: "OK",
@@ -6451,7 +6596,7 @@ function AddNewTimingSection(dayName, dayKey, e) {
     html += "<div class=\"timing-flex-column-container\">";
     //Label Section Start//
     html += "<div style=\"flex-basis: 120px;\">";
-    html += "<label>Start Time</label>";
+    html += "<label>Start</label>";
     html += "<input id=\"Offerday_" + idCount + "_CouponTimingId\" name=\"Offerday[" + idCount + "].CouponTimingId\" type=\"hidden\" value=\"0\">";
     html += "<input id=\"Offerday_" + idCount + "_DayKey\" name=\"Offerday[" + idCount + "].DayKey\" type=\"hidden\" value=\"" + dayKey + "\">";
     html += "</div>";
@@ -6490,7 +6635,7 @@ function AddNewTimingSection(dayName, dayKey, e) {
     html += "<div class=\"timing-flex-column-container\">";
     //Label Section Start//
     html += "<div style=\"flex-basis: 120px;\">";
-    html += "<label>End Time</label>";
+    html += "<label>End</label>";
     html += "</div>";
     //Label Section End//
 
@@ -6546,7 +6691,7 @@ function AppendEditTimingSection(timingId, dayName, dayKey, openingHour, opening
     html += "<div class=\"timing-flex-column-container\">";
     //Label Section Start//
     html += "<div style=\"flex-basis: 120px;\">";
-    html += "<label>Start Time</label>";
+    html += "<label>Start</label>";
     html += "<input id=\"Offerday_" + idCount + "_DiscountTimingId\" name=\"Offerday[" + idCount + "].DiscountTimingId\" type=\"hidden\" value=\"" + timingId + "\">";
     html += "<input id=\"Offerday_" + idCount + "_DayKey\" name=\"Offerday[" + idCount + "].DayKey\" type=\"hidden\" value=\"" + dayKey + "\">";
     html += "</div>";
@@ -6585,7 +6730,7 @@ function AppendEditTimingSection(timingId, dayName, dayKey, openingHour, opening
     html += "<div class=\"timing-flex-column-container\">";
     //Label Section Start//
     html += "<div style=\"flex-basis: 120px;\">";
-    html += "<label>End Time</label>";
+    html += "<label>End</label>";
     html += "</div>";
     //Label Section End//
 

@@ -303,11 +303,11 @@ h4{
 }
 
 .bg3 {
-	background: #eaedfc;
+	background: #ddd;
 }
 
 .bg4 {
-	background: #fcead4;
+	background: #ddd;
 }
 
 .bg5 {
@@ -1703,6 +1703,7 @@ select:-moz-focusring {
 .timing-flex-row-container{
     display:flex;
     flex-direction:column;
+    width:100%;
 }
 .timing-flex-column-container{
     display:flex;
@@ -1710,10 +1711,13 @@ select:-moz-focusring {
     align-items: stretch;
 }
 .timing-flex-column-container > div{
-    width: 100px;
-  margin: 10px;
+  width: 100%;
+  margin: 5px;
   text-align: center;
 }
+.icon-add{width:65% !important;color: #08b3c7;font-weight: 600;}
+.input-with-value{padding-left:0px !important; padding-right:0px !important;}
+.item-content .item-checkbox{ width:35% !important;}
 /*---Profile Section End-*/
 
 /*---Media Query-*/
@@ -1726,6 +1730,7 @@ select:-moz-focusring {
 .giftcard-code{font-size:17px;}
 .giftcard-customer{ font-size: 13px; font-weight: 400; color: #111111;}
 .giftcard-price{font-size:14px;}
+.item-content .item-checkbox{ width:45% !important;}
 }
 
 /*===============================================*/

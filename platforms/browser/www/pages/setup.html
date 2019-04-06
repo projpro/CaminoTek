@@ -30,44 +30,36 @@
                 <a class="tab-link back-new" onclick="Back();">
                     <i class="material-icons material-icons-one">arrow_back</i>
                 </a>
-                
             </div>
-            <div class="center" style="padding-left: 0px">Coupons</div>
-            
+            <div class="center">Setup</div>
             <div class="right">
-                <a class="icon-only navbar-right-single-icon" id="btnAddCoupon" data-panel="right" style="right: 100px"><i class="material-icons large-icon">add_box</i></a>
                 <a class="icon-only navbar-right-single-icon" style="right:55px;" onclick="GotoProfile();"><i class="material-icons large-icon">account_circle</i></a>
                 <a class="icon-only navbar-right-single-icon" onclick="Logout();"><i class="material-icons large-icon">exit_to_app</i></a>
             </div>
         </div>
     </div>
-
     <div class="page-content">
-        
-        <div class="section list-restaurants">
+
+        <div class="section list-categories mt" style="padding-left:15px;padding-right:15px">
             <div class="section-content">
-                <div id="CouponDiv" style="margin-top: 20px"></div>
-                
-            </div>
-        </div>
-        <div class="panel panel-one panel-left panel-cover panel-menu" style="display:none;" id="dvCouponDetails" >
-            
-        </div>
-        <div id="dvCouponDetailInner" style="display:none;">
-            <div class="page">
-                <div class="page-content">
-                    <div class="page-title padding-left padding-right margin-top display-flex justify-content-space-between">
-                        <h2>Coupon Timing</h2>
-                        <a class="panel-close navbar-site-action" href="#" data-panel="right" onclick="ClearCouponDetails()">
-                            <img src="./img/icons/close.png" alt="close" class="close-icon">
+                <div class="row no-gap">
+                    <div class="col">
+                        <a href="/coupon_list/">
+                            <div class="category bg3">
+                                <img src="./img/icons/coupons.png" alt="cat3">
+                            </div>
                         </a>
                     </div>
-                    <div class="block">
-                        <div class="order-list fle timing-flex-row-container" id="dvCoupon">
-                        </div>
+                    <div class="col">
+                        <!--<a href="/#/">-->
+                            <div class="category bg4" >
+                                <img src="./img/icons/items.png" alt="cat4">
+                            </div>
+                        <!--</a>-->
                     </div>
                 </div>
             </div>
         </div>
+
     </div>
 </div>

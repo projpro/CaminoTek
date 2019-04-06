@@ -4,6 +4,7 @@ var $$ = Dom7;
 var mediaURL = "http://appnotification.bistroux.com/Media/";
 var src = mediaURL + "notification.mp3";
 var myMedia = null;
+myMedia = new Media(src, onSuccess, onError, onStatus);
 var acceptOrderPopup;
 // Handle Cordova Device Ready Event
 $$(document).on('deviceready', function () {
@@ -464,6 +465,7 @@ $$(document).on('page:init', function (e) {
             });
         }
     }
+
     else if (pageURL.indexOf('profile') > -1)//Profile
     {
         LoadProfileDetails();
@@ -498,6 +500,9 @@ $$(document).on('page:init', function (e) {
                 var ampm = hours >= 12 ? 'PM' : 'AM';
                 hours = hours % 12;
                 hours = hours ? hours : 12; // the hour '0' should be '12'
+                if (hours <= 9) {
+                    hours = "0" + hours;
+                }
                 minutes = minutes < 30 ? '00' : '30';
                 var today = new Date();
                 var pickerInline = app.picker.create({
@@ -545,9 +550,28 @@ $$(document).on('page:init', function (e) {
                       {
                           values: (function () {
                               var arr = [];
-                              for (var i = 0; i <= 11; i++) { arr.push(i); }
+                              for (var i = 0; i <= 11; i++) {
+                                  if (i <= 9) {
+                                      arr.push("0" + i);
+                                  }
+                                  else {
+                                      arr.push(i);
+                                  }
+                              }
                               return arr;
                           })(),
+                          displayValues: (function () {
+                              var arr = [];
+                              for (var i = 0; i <= 11; i++) {
+                                  if (i <= 9) {
+                                      arr.push("0" + i);
+                                  }
+                                  else {
+                                      arr.push(i);
+                                  }
+                              }
+                              return arr;
+                          })()
                       },
                       // Divider
                       {
@@ -597,6 +621,9 @@ $$(document).on('page:init', function (e) {
                 var ampm = hours >= 12 ? 'PM' : 'AM';
                 hours = hours % 12;
                 hours = hours ? hours : 12; // the hour '0' should be '12'
+                if (hours <= 9) {
+                    hours = "0" + hours;
+                }
                 minutes = minutes < 30 ? '00' : '30';
                 var pickerInline = app.picker.create({
                     containerEl: '#Start-picker-date-container',
@@ -642,9 +669,28 @@ $$(document).on('page:init', function (e) {
                       {
                           values: (function () {
                               var arr = [];
-                              for (var i = 0; i <= 11; i++) { arr.push(i); }
+                              for (var i = 0; i <= 11; i++) {
+                                  if (i <= 9) {
+                                      arr.push("0" + i);
+                                  }
+                                  else {
+                                      arr.push(i);
+                                  }
+                              }
                               return arr;
                           })(),
+                          displayValues: (function () {
+                              var arr = [];
+                              for (var i = 0; i <= 11; i++) {
+                                  if (i <= 9) {
+                                      arr.push("0" + i);
+                                  }
+                                  else {
+                                      arr.push(i);
+                                  }
+                              }
+                              return arr;
+                          })()
                       },
                       // Divider
                       {
@@ -707,9 +753,9 @@ function InitPushNotification(storeId) {
         //WriteLog("registrationId: " + data.registrationId)
         console.log('registration event: ' + data.registrationId);
         //console.log('StoreId: ' + localStorage.getItem("StoreId"))
-        alert("current RegId: " + data.registrationId)
+       // alert("current RegId: " + data.registrationId)
         var oldRegId = localStorage.getItem('registrationId');
-        alert("oldRegId: " + oldRegId)
+       // alert("oldRegId: " + oldRegId)
         // console.log("oldRegId: " + oldRegId);
         if (oldRegId == null || oldRegId == undefined) {
             console.log("Save new registration ID")
@@ -735,7 +781,12 @@ function InitPushNotification(storeId) {
     });
 
     push.on('notification', function (data) {
-        alert('notification event: ' + data.message);
+        //setTimeout(function () {
+        //    stopAudio();
+        //    acceptOrderPopup.destroy();
+        //    // Do something after 30 second 
+        //}, 30000);
+        //alert('notification event: ' + data.message);
         CheckNewOrder();
         // alert('notification event: ' + data.message + ", " + data.title);
         //navigator.notification.alert(
@@ -835,7 +886,7 @@ function CheckStoreTimings() {
     console.log(GetCurrentDateTime() + " - " + "CheckStoreTimings END")
 }
 function CheckNewOrder() {
-    alert("CheckNewOrder START")
+   // alert("CheckNewOrder START")
     console.log(GetCurrentDateTime() + " - " + "CheckNewOrder START", browser);
     var params = getParams();
     var storeId = 0;
@@ -1028,33 +1079,10 @@ function CheckNewOrder() {
     console.log(GetCurrentDateTime() + " - " + "CheckNewOrder END", browser);
 }
 
-function playAudio() {
-    console.log("Playing")
-
-    myMedia = new Media(src, onSuccess, onError, onStatus);
-    //console.log("Playing")
-    myMedia.play();
-}
-function onSuccess() {
-    //alert("Playing Audio");
-}
-function onError(error) {
-    console.log('code: ' + error.code + '\n' +
-         'message: ' + error.message + '\n');
-}
-// onStatus Callback
-function onStatus(status) {
-
-}
-function pauseAudio() {
-    myMedia.pause();
-}
-function stopAudio() {
-    myMedia = new Media(src, onSuccess, onError, onStatus);
-    // alert("Stopping");
-    myMedia.stop();
-}
 function AcceptOrders() {
+    //if (isDevice()) {
+        stopAudio();
+    //}
     var orderIds = $("#hdnOrderIds").val().trim();
     var orders = [];
     var customerphone = [];
@@ -1112,9 +1140,7 @@ function AcceptOrders() {
         success: function (response) {
             acceptOrderPopup.destroy();
             //console.log("ChangeBulkOrderStatus: " + response)
-            if (isDevice()) {
-                stopAudio();
-            }
+          
 
             //CarryoutOrdersList("Processing", pageSize, currentPage);
             $("#hdnOrderIds").val("");
@@ -1186,47 +1212,34 @@ function Back() {
     //navigator.app.backHistory();
 }
 
+function playAudio() {
+    console.log("Playing")
 
-function SetUpLog() {
-    // setup a logfile path (required)
-    // this path is relative to your device sdcard storage directory
-    window.logToFile.setLogfilePath('/bistroux/log.txt', function () {
-        // write logmessages in different loglevels
-        //window.logToFile.debug('Sample debug message');
-        //window.logToFile.info(message);
-        //window.logToFile.warn('Sample warn message');
-        window.logToFile.info('log file has been set up');
-        //CheckStoreTimings();
-        //var intervalName = setInterval(CheckStoreTimings, Number(apprefreshinterval) * 1000);
-        // logger configured successfully
-    }, function (err) {
-        window.logToFile.error('log file error' + err);
-        // logfile could not be written
-        // handle error
-    });
+  
+    //console.log("Playing")
+    myMedia.play();
 }
-function WriteLog(message) {
-
-    window.logToFile.info(message);
-
-    //
-
-    // get the logfilePath from the currently running logger instance
-    //window.logToFile.getLogfilePath(function (logfilePath) {
-
-    //    // dosomething with the logfilepath
-    //}, function (err) {
-    //    window.logToFile.error('log file error: ' + err);
-    //    // handle error
-    //});
-
-    //// get the all archived logfile paths as array
-    //window.logToFile.getArchivedLogfilePaths(function (archivedlogfiles) {
-    //    // dosomething with the archived logs
-    //}, function (err) {
-    //    // handle error
-    //});
+function onSuccess() {
+    //alert("Playing Audio");
 }
+function onError(error) {
+    console.log('code: ' + error.code + '\n' +
+         'message: ' + error.message + '\n');
+}
+// onStatus Callback
+function onStatus(status) {
+
+}
+function pauseAudio() {
+    myMedia.pause();
+}
+function stopAudio() {
+    alert("Stopping")
+    // myMedia = new Media(src, onSuccess, onError, onStatus);
+    // alert("Stopping");
+    myMedia.stop();
+}
+
 
 
 

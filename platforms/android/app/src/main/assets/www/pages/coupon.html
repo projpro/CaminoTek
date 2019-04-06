@@ -14,9 +14,9 @@
                 <i class="material-icons menu-icon">card_membership</i>
                 <span class="tabbar-label">Reward</span>
             </a>
-            <a href="/coupon_list/" class="tab-link menuStartStop tab-link-active footer-menu-active">
-                <i class="material-icons menu-icon-active">receipt</i>
-                <span class="tabbar-label">Coupon</span>
+            <a href="/setup/" class="tab-link menuStartStop tab-link-active footer-menu-active">
+                <i class="material-icons menu-icon-active">settings</i>
+                <span class="tabbar-label">Setup</span>
             </a>
             <a href="/manageservice/" class="tab-link menuStartStop">
                 <i class="material-icons menu-icon">power_settings_new</i>
@@ -93,7 +93,7 @@
                                     </div>
                                 </li>
                                 <li>
-                                    <div class="block block-strong no-padding no-margin margin-bottom">
+                                    <div class="block no-padding no-margin margin-bottom">
                                         <div id="Start-picker-date-container"></div>
                                     </div>
                                 </li>
@@ -101,8 +101,8 @@
                                 <!--Timing Section Start--> 
                                 <li id="liDiscountTiming" style="display:none;">
                                     <ul style="padding-left:0px;">
-                                        <input type="hidden" id="hdnCouponTimingCount" value="8">
                                         <li class="item-content" style="width:100%">
+                                            <input type="hidden" id="hdnCouponTimingCount" value="8">
                                             <label style="width:35%" class="item-checkbox item-content">
                                                 <input type="checkbox" id="Offerday_0_IsCheck" name="Offerday[0].IsCheck" value="Monday" />
                                                 <i class="icon icon-checkbox"></i>
@@ -113,7 +113,7 @@
                                             <!--<input style="width:5%" checked="checked" id="Offerday_0_IsCheck" name="Offerday[0].IsCheck" type="checkbox" value="true">-->
                                             <input name="Offerday[0].IsCheck" type="hidden" value="false">
                                             <!--<label style="width:25%;">Monday</label>-->
-                                            <i style="width:65%;color: #08b3c7;font-weight: 600;" class="material-icons" onclick="AddNewTimingSection('Monday', 'Mo', '0');" id="Monday">add</i>
+                                            <i class="material-icons icon-add" onclick="AddNewTimingSection('Monday', 'Mo', '0');" id="Monday">add</i>
                                             <input id="Offerday_0_DayKey" name="Offerday[0].DayKey" type="hidden" value="Mo">
                                             <input id="Offerday_0_DayName" name="Offerday[0].DayName" type="hidden" value="Monday">
                                             <input id="Offerday_0_DiscountTimingId" name="Offerday[0].DiscountTimingId" type="hidden" value="0">
@@ -123,7 +123,7 @@
                                                 <div>
                                                     <div class="timing-flex-column-container">
                                                         <div style="flex-basis: 120px;">
-                                                            <label title="">Opening Time</label>
+                                                            <label title="">Start</label>
                                                         </div>
                                                         <div style="flex-basis: 80px;">
                                                             <select id="Offerday_0_StartHour" name="Offerday[0].StartHour">
@@ -216,7 +216,7 @@
                                                     </div>
                                                     <div class="timing-flex-column-container">
                                                         <div style="flex-basis: 120px;">
-                                                            <label title="">Closing Time</label>
+                                                            <label title="">End</label>
                                                         </div>
                                                         <div style="flex-basis: 80px;">
                                                             <select id="Offerday_0_EndHour" name="Offerday[0].EndHour">
@@ -324,7 +324,7 @@
                                             <!--<input style="width:5%" checked="checked" id="Offerday_1_IsCheck" name="Offerday[1].IsCheck" type="checkbox" value="true">-->
                                             <input name="Offerday[1].IsCheck" type="hidden" value="false">
                                             <!--<label style="width:25%;">Tuesday</label>-->
-                                            <i style="width:65%;color: #08b3c7;font-weight: 600;" class="material-icons" onclick="AddNewTimingSection('Tuesday', 'Tu', '1');" id="Tuesday">add</i>
+                                            <i class="material-icons icon-add" onclick="AddNewTimingSection('Tuesday', 'Tu', '1');" id="Tuesday">add</i>
                                             <input id="Offerday_1_DayKey" name="Offerday[1].DayKey" type="hidden" value="Tu">
                                             <input id="Offerday_1_DayName" name="Offerday[1].DayName" type="hidden" value="Tuesday">
                                             <input id="Offerday_1_DiscountTimingId" name="Offerday[1].DiscountTimingId" type="hidden" value="0">
@@ -334,7 +334,7 @@
                                                 <div>
                                                     <div class="timing-flex-column-container">
                                                         <div style="flex-basis: 120px;">
-                                                            <label title="">Opening Time</label>
+                                                            <label title="">Start</label>
                                                         </div>
                                                         <div style="flex-basis: 80px;">
                                                             <select id="Offerday_1_StartHour" name="Offerday[1].StartHour">
@@ -427,7 +427,7 @@
                                                     </div>
                                                     <div class="timing-flex-column-container">
                                                         <div style="flex-basis: 120px;">
-                                                            <label title="">Closing Time</label>
+                                                            <label title="">End</label>
                                                         </div>
                                                         <div style="flex-basis: 80px;">
                                                             <select id="Offerday_1_EndHour" name="Offerday[1].EndHour">
@@ -533,7 +533,7 @@
                                             <!--<input style="width:5%" checked="checked" id="Offerday_2_IsCheck" name="Offerday[1].IsCheck" type="checkbox" value="true">-->
                                             <input name="Offerday[2].IsCheck" type="hidden" value="false">
                                             <!--<label style="width:25%;">Wednesday</label>-->
-                                            <i style="width:65%;color: #08b3c7;font-weight: 600;" class="material-icons" onclick="AddNewTimingSection('Wednesday', 'We', '2');" id="Wednesday">add</i>
+                                            <i class="material-icons icon-add" onclick="AddNewTimingSection('Wednesday', 'We', '2');" id="Wednesday">add</i>
                                             <input id="Offerday_2_DayKey" name="Offerday[2].DayKey" type="hidden" value="We">
                                             <input id="Offerday_2_DayName" name="Offerday[2].DayName" type="hidden" value="Wednesday">
                                             <input id="Offerday_2_DiscountTimingId" name="Offerday[2].DiscountTimingId" type="hidden" value="0">
@@ -543,7 +543,7 @@
                                                 <div>
                                                     <div class="timing-flex-column-container">
                                                         <div style="flex-basis: 120px;">
-                                                            <label title="">Opening Time</label>
+                                                            <label title="">Start</label>
                                                         </div>
                                                         <div style="flex-basis: 80px;">
                                                             <select id="Offerday_2_StartHour" name="Offerday[2].StartHour">
@@ -636,7 +636,7 @@
                                                     </div>
                                                     <div class="timing-flex-column-container">
                                                         <div style="flex-basis: 120px;">
-                                                            <label title="">Closing Time</label>
+                                                            <label title="">End</label>
                                                         </div>
                                                         <div style="flex-basis: 80px;">
                                                             <select id="Offerday_2_EndHour" name="Offerday[2].EndHour">
@@ -742,7 +742,7 @@
                                             <!--<input style="width:5%" checked="checked" id="Offerday_3_IsCheck" name="Offerday[3].IsCheck" type="checkbox" value="true">-->
                                             <input name="Offerday[3].IsCheck" type="hidden" value="false">
                                             <!--<label style="width:25%;">Thursday</label>-->
-                                            <i style="width:65%;color: #08b3c7;font-weight: 600;" class="material-icons" onclick="AddNewTimingSection('Thursday', 'Th', '3');" id="Thursday">add</i>
+                                            <i class="material-icons icon-add" onclick="AddNewTimingSection('Thursday', 'Th', '3');" id="Thursday">add</i>
                                             <input id="Offerday_3_DayKey" name="Offerday[3].DayKey" type="hidden" value="Th">
                                             <input id="Offerday_3_DayName" name="Offerday[3].DayName" type="hidden" value="Thursday">
                                             <input id="Offerday_3_DiscountTimingId" name="Offerday[3].DiscountTimingId" type="hidden" value="0">
@@ -752,7 +752,7 @@
                                                 <div>
                                                     <div class="timing-flex-column-container">
                                                         <div style="flex-basis: 120px;">
-                                                            <label title="">Opening Time</label>
+                                                            <label title="">Start</label>
                                                         </div>
                                                         <div style="flex-basis: 80px;">
                                                             <select id="Offerday_3_StartHour" name="Offerday[3].StartHour">
@@ -845,7 +845,7 @@
                                                     </div>
                                                     <div class="timing-flex-column-container">
                                                         <div style="flex-basis: 120px;">
-                                                            <label title="">Closing Time</label>
+                                                            <label title="">End</label>
                                                         </div>
                                                         <div style="flex-basis: 80px;">
                                                             <select id="Offerday_3_EndHour" name="Offerday[3].EndHour">
@@ -951,7 +951,7 @@
                                             <!--<input style="width:5%" checked="checked" id="Offerday_4_IsCheck" name="Offerday[4].IsCheck" type="checkbox" value="true">-->
                                             <input name="Offerday[4].IsCheck" type="hidden" value="false">
                                             <!--<label style="width:25%;">Friday</label>-->
-                                            <i style="width:65%;color: #08b3c7;font-weight: 600;" class="material-icons" onclick="AddNewTimingSection('Friday', 'Fr', '4');" id="Friday">add</i>
+                                            <i class="material-icons icon-add" onclick="AddNewTimingSection('Friday', 'Fr', '4');" id="Friday">add</i>
                                             <input id="Offerday_4_DayKey" name="Offerday[4].DayKey" type="hidden" value="Fr">
                                             <input id="Businesday_4_DayName" name="Offerday[4].DayName" type="hidden" value="Friday">
                                             <input id="Offerday_4_DiscountTimingId" name="Offerday[4].DiscountTimingId" type="hidden" value="0">
@@ -961,7 +961,7 @@
                                                 <div>
                                                     <div class="timing-flex-column-container">
                                                         <div style="flex-basis: 120px;">
-                                                            <label title="">Opening Time</label>
+                                                            <label title="">Start</label>
                                                         </div>
                                                         <div style="flex-basis: 80px;">
                                                             <select id="Offerday_4_StartHour" name="Offerday[4].StartHour">
@@ -1054,7 +1054,7 @@
                                                     </div>
                                                     <div class="timing-flex-column-container">
                                                         <div style="flex-basis: 120px;">
-                                                            <label title="">Closing Time</label>
+                                                            <label title="">End</label>
                                                         </div>
                                                         <div style="flex-basis: 80px;">
                                                             <select id="Offerday_4_EndHour" name="Offerday[4].EndHour">
@@ -1160,7 +1160,7 @@
                                             <!--<input style="width:5%" checked="checked" id="Offerday_5_IsCheck" name="Offerday[5].IsCheck" type="checkbox" value="true">-->
                                             <input name="Offerday[5].IsCheck" type="hidden" value="false">
                                             <!--<label style="width:25%;">Saturday</label>-->
-                                            <i style="width:65%;color: #08b3c7;font-weight: 600;" class="material-icons" onclick="AddNewTimingSection('Saturday', 'Sa', '5');" id="Saturday">add</i>
+                                            <i class="material-icons icon-add" onclick="AddNewTimingSection('Saturday', 'Sa', '5');" id="Saturday">add</i>
                                             <input id="Offerday_5_DayKey" name="Offerday[5].DayKey" type="hidden" value="Sa">
                                             <input id="Offerday_5_DayName" name="Offerday[5].DayName" type="hidden" value="Saturday">
                                             <input id="Offerday_5_DiscountTimingId" name="Offerday[5].DiscountTimingId" type="hidden" value="0">
@@ -1170,7 +1170,7 @@
                                                 <div>
                                                     <div class="timing-flex-column-container">
                                                         <div style="flex-basis: 120px;">
-                                                            <label title="">Opening Time</label>
+                                                            <label title="">Start</label>
                                                         </div>
                                                         <div style="flex-basis: 80px;">
                                                             <select id="Offerday_5_StartHour" name="Offerday[5].StartHour">
@@ -1263,7 +1263,7 @@
                                                     </div>
                                                     <div class="timing-flex-column-container">
                                                         <div style="flex-basis: 120px;">
-                                                            <label title="">Closing Time</label>
+                                                            <label title="">End</label>
                                                         </div>
                                                         <div style="flex-basis: 80px;">
                                                             <select id="Offerday_5_EndHour" name="Offerday[5].EndHour">
@@ -1369,7 +1369,7 @@
                                             <!--<input style="width:5%" checked="checked" id="Offerday_6_IsCheck" name="Offerday[6].IsCheck" type="checkbox" value="true">-->
                                             <input name="Offerday[6].IsCheck" type="hidden" value="false">
                                             <!--<label style="width:25%;">Sunday</label>-->
-                                            <i style="width:65%;color: #08b3c7;font-weight: 600;" class="material-icons" onclick="AddNewTimingSection('Sunday', 'Su', '6');" id="Sunday">add</i>
+                                            <i class="material-icons icon-add" onclick="AddNewTimingSection('Sunday', 'Su', '6');" id="Sunday">add</i>
                                             <input id="Offerday_6_DayKey" name="Offerday[6].DayKey" type="hidden" value="Su">
                                             <input id="Offerday_6_DayName" name="Offerday[6].DayName" type="hidden" value="Sunday">
                                             <input id="Offerday_6_DiscountTimingId" name="Offerday[6].DiscountTimingId" type="hidden" value="0">
@@ -1379,7 +1379,7 @@
                                                 <div>
                                                     <div class="timing-flex-column-container">
                                                         <div style="flex-basis: 120px;">
-                                                            <label title="">Opening Time</label>
+                                                            <label title="">Start</label>
                                                         </div>
                                                         <div style="flex-basis: 80px;">
                                                             <select id="Offerday_6_StartHour" name="Offerday[6].StartHour">
@@ -1472,7 +1472,7 @@
                                                     </div>
                                                     <div class="timing-flex-column-container">
                                                         <div style="flex-basis: 120px;">
-                                                            <label title="">Closing Time</label>
+                                                            <label title="">End</label>
                                                         </div>
                                                         <div style="flex-basis: 80px;">
                                                             <select id="Offerday_6_EndHour" name="Offerday[6].EndHour">

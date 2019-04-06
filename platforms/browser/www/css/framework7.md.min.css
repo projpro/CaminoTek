@@ -3029,7 +3029,7 @@ li.list-group-title:before {
 .md .list .item-inner:after {
     content: '';
     position: absolute;
-    background-color: rgba(0, 0, 0, .12);
+    /*background-color: rgba(0, 0, 0, .12);*/
     display: block;
     z-index: 15;
     top: auto;
