@@ -780,6 +780,11 @@ function InitPushNotification(storeId) {
     });
 
     push.on('notification', function (data) {
+        setTimeout(function () {
+            stopAudio();
+            acceptOrderPopup.destroy();
+            // Do something after 30 second 
+        }, 30000);
         //alert('notification event: ' + data.message);
         CheckNewOrder();
         // alert('notification event: ' + data.message + ", " + data.title);
