@@ -780,7 +780,7 @@ function InitPushNotification(storeId) {
     });
 
     push.on('notification', function (data) {
-        alert('notification event: ' + data.message);
+        //alert('notification event: ' + data.message);
         CheckNewOrder();
         // alert('notification event: ' + data.message + ", " + data.title);
         //navigator.notification.alert(
@@ -880,7 +880,7 @@ function CheckStoreTimings() {
     console.log(GetCurrentDateTime() + " - " + "CheckStoreTimings END")
 }
 function CheckNewOrder() {
-    alert("CheckNewOrder START")
+   // alert("CheckNewOrder START")
     console.log(GetCurrentDateTime() + " - " + "CheckNewOrder START", browser);
     var params = getParams();
     var storeId = 0;
@@ -1073,32 +1073,6 @@ function CheckNewOrder() {
     console.log(GetCurrentDateTime() + " - " + "CheckNewOrder END", browser);
 }
 
-function playAudio() {
-    console.log("Playing")
-
-    myMedia = new Media(src, onSuccess, onError, onStatus);
-    //console.log("Playing")
-    myMedia.play();
-}
-function onSuccess() {
-    //alert("Playing Audio");
-}
-function onError(error) {
-    console.log('code: ' + error.code + '\n' +
-         'message: ' + error.message + '\n');
-}
-// onStatus Callback
-function onStatus(status) {
-
-}
-function pauseAudio() {
-    myMedia.pause();
-}
-function stopAudio() {
-   // myMedia = new Media(src, onSuccess, onError, onStatus);
-    // alert("Stopping");
-    myMedia.stop();
-}
 function AcceptOrders() {
     if (isDevice()) {
         stopAudio();
@@ -1232,47 +1206,33 @@ function Back() {
     //navigator.app.backHistory();
 }
 
+function playAudio() {
+    console.log("Playing")
 
-function SetUpLog() {
-    // setup a logfile path (required)
-    // this path is relative to your device sdcard storage directory
-    window.logToFile.setLogfilePath('/bistroux/log.txt', function () {
-        // write logmessages in different loglevels
-        //window.logToFile.debug('Sample debug message');
-        //window.logToFile.info(message);
-        //window.logToFile.warn('Sample warn message');
-        window.logToFile.info('log file has been set up');
-        //CheckStoreTimings();
-        //var intervalName = setInterval(CheckStoreTimings, Number(apprefreshinterval) * 1000);
-        // logger configured successfully
-    }, function (err) {
-        window.logToFile.error('log file error' + err);
-        // logfile could not be written
-        // handle error
-    });
+    myMedia = new Media(src, onSuccess, onError, onStatus);
+    //console.log("Playing")
+    myMedia.play();
 }
-function WriteLog(message) {
-
-    window.logToFile.info(message);
-
-    //
-
-    // get the logfilePath from the currently running logger instance
-    //window.logToFile.getLogfilePath(function (logfilePath) {
-
-    //    // dosomething with the logfilepath
-    //}, function (err) {
-    //    window.logToFile.error('log file error: ' + err);
-    //    // handle error
-    //});
-
-    //// get the all archived logfile paths as array
-    //window.logToFile.getArchivedLogfilePaths(function (archivedlogfiles) {
-    //    // dosomething with the archived logs
-    //}, function (err) {
-    //    // handle error
-    //});
+function onSuccess() {
+    //alert("Playing Audio");
 }
+function onError(error) {
+    console.log('code: ' + error.code + '\n' +
+         'message: ' + error.message + '\n');
+}
+// onStatus Callback
+function onStatus(status) {
+
+}
+function pauseAudio() {
+    myMedia.pause();
+}
+function stopAudio() {
+    // myMedia = new Media(src, onSuccess, onError, onStatus);
+    // alert("Stopping");
+    myMedia.stop();
+}
+
 
 
 
