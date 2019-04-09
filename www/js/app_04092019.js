@@ -60,8 +60,6 @@ $$(document).on('page:init', function (e) {
         else {
             localStorage.setItem("AppRefreshTimeInterval", appRefreshInterval);
         }
-
-        alert(storeId)
         if (storeId > 0)
         {
             setTimeout(function () { self.app.router.navigate('/carryout/', { reloadCurrent: false }); }, 1000);
@@ -142,12 +140,6 @@ $$(document).on('page:init', function (e) {
                 // $('#loader_msg').html("");
             }
 
-        });
-
-        $('#linkCarryoutFilterIcon').click(function () {
-            $('#ulFilterSortCarryout').show();
-            $('#ulFilterSortGiftCard').hide();
-            $('#ulFilterSortCoupon').hide();
         });
 
     }
@@ -352,11 +344,7 @@ $$(document).on('page:init', function (e) {
             LoadGiftCards();
         });
 
-        $$('#btnGiftCardOrderSort').click(function () {
-            LoadGiftCards();
-        });
-
-        function LoadGiftCards() {                
+        function LoadGiftCards() {
             GiftCardOrdersList(pageSize, currentPage);
         }
 
@@ -375,11 +363,6 @@ $$(document).on('page:init', function (e) {
 
         });
 
-        $$('#linkSearchIcon').click(function () {
-            $('#ulFilterSortGiftCard').show();
-            $('#ulFilterSortCoupon').hide();
-            $('#ulFilterSortCarryout').hide();
-        });
         //GiftCard Orders - End
 
         //Sudip - End
@@ -491,40 +474,11 @@ $$(document).on('page:init', function (e) {
 
     else if (pageURL.indexOf('coupon_list') > -1)//Coupon
     {
-        var pageSize = 10;
-        var currentPage = 0;
-        $$('#linkFilterIcon').click(function () {
-            $('#ulFilterSortCoupon').show();
-            $('#ulFilterSortCarryout').hide();
-            $('#ulFilterSortGiftCard').hide();
-        });
-
-        CouponList(pageSize, currentPage);
-
-        function LoadCouponList() {
-            CouponList(pageSize, currentPage);
-        }
-
+        CouponList();
         $$('#btnAddCoupon').click(function () {
             localStorage.setItem("HiddenDiscountId", 0);
             self.app.router.navigate('/coupon/', { reloadCurrent: false });
         });
-
-        $$('.page-content').scroll(function () {
-            var CouponAvailable = localStorage.getItem("CouponAvailable");
-            if (CouponAvailable == "1") {
-                currentPage = localStorage.getItem("CouponCurrentPage");
-                currentPage = Number(currentPage) + 1;
-                //console.log("currentPage: " + currentPage);
-                CouponListPagination(pageSize, currentPage);
-                localStorage.setItem("CouponCurrentPage", currentPage);
-            }
-            else {
-
-            }
-
-        });
-
     }
     else if (pageURL.indexOf('coupon') > -1)//Coupon Add Edit
     {
