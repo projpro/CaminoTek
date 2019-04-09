@@ -45,6 +45,7 @@ $$(document).on('page:init', function (e) {
     //console.log(e.detail.app.form.convertToData('#login'));
     var pageURL = e.detail.route.url;
     var page = e.detail.page;
+    alert(pageURL)
     // console.log('pageURL: ' + pageURL)
     if (pageURL == "/") {
         
@@ -61,7 +62,7 @@ $$(document).on('page:init', function (e) {
             localStorage.setItem("AppRefreshTimeInterval", appRefreshInterval);
         }
 
-        alert(storeId)
+        
         if (storeId > 0)
         {
             setTimeout(function () { self.app.router.navigate('/carryout/', { reloadCurrent: false }); }, 1000);
