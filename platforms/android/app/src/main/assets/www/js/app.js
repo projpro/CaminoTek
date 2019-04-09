@@ -4,7 +4,6 @@ var $$ = Dom7;
 var mediaURL = "http://appnotification.bistroux.com/Media/";
 var src = mediaURL + "notification.mp3";
 var myMedia = null;
-myMedia = new Media(src, onSuccess, onError, onStatus);
 var acceptOrderPopup;
 // Handle Cordova Device Ready Event
 $$(document).on('deviceready', function () {
@@ -14,6 +13,8 @@ $$(document).on('deviceready', function () {
     //InitPushNotification();
     if (device.platform != "browser")
     {
+        myMedia = new Media(src, onSuccess, onError, onStatus);
+
         if (localStorage.getItem("StoreId") != null)
             storeId = Number(localStorage.getItem("StoreId"));
         if (storeId > 0) {
@@ -45,6 +46,7 @@ $$(document).on('page:init', function (e) {
     //console.log(e.detail.app.form.convertToData('#login'));
     var pageURL = e.detail.route.url;
     var page = e.detail.page;
+    //alert(pageURL)
     // console.log('pageURL: ' + pageURL)
     if (pageURL == "/") {
         
@@ -60,6 +62,8 @@ $$(document).on('page:init', function (e) {
         else {
             localStorage.setItem("AppRefreshTimeInterval", appRefreshInterval);
         }
+
+        
         if (storeId > 0)
         {
             setTimeout(function () { self.app.router.navigate('/carryout/', { reloadCurrent: false }); }, 1000);
@@ -140,6 +144,12 @@ $$(document).on('page:init', function (e) {
                 // $('#loader_msg').html("");
             }
 
+        });
+
+        $('#linkCarryoutFilterIcon').click(function () {
+            $('#ulFilterSortCarryout').show();
+            $('#ulFilterSortGiftCard').hide();
+            $('#ulFilterSortCoupon').hide();
         });
 
     }
@@ -344,7 +354,11 @@ $$(document).on('page:init', function (e) {
             LoadGiftCards();
         });
 
-        function LoadGiftCards() {
+        $$('#btnGiftCardOrderSort').click(function () {
+            LoadGiftCards();
+        });
+
+        function LoadGiftCards() {                
             GiftCardOrdersList(pageSize, currentPage);
         }
 
@@ -363,6 +377,11 @@ $$(document).on('page:init', function (e) {
 
         });
 
+        $$('#linkSearchIcon').click(function () {
+            $('#ulFilterSortGiftCard').show();
+            $('#ulFilterSortCoupon').hide();
+            $('#ulFilterSortCarryout').hide();
+        });
         //GiftCard Orders - End
 
         //Sudip - End
@@ -466,6 +485,7 @@ $$(document).on('page:init', function (e) {
         }
     }
 
+
     else if (pageURL.indexOf('profile') > -1)//Profile
     {
         LoadProfileDetails();
@@ -473,11 +493,40 @@ $$(document).on('page:init', function (e) {
 
     else if (pageURL.indexOf('coupon_list') > -1)//Coupon
     {
-        CouponList();
+        var pageSize = 10;
+        var currentPage = 0;
+        $$('#linkFilterIcon').click(function () {
+            $('#ulFilterSortCoupon').show();
+            $('#ulFilterSortCarryout').hide();
+            $('#ulFilterSortGiftCard').hide();
+        });
+
+        CouponList(pageSize, currentPage);
+
+        function LoadCouponList() {
+            CouponList(pageSize, currentPage);
+        }
+
         $$('#btnAddCoupon').click(function () {
             localStorage.setItem("HiddenDiscountId", 0);
             self.app.router.navigate('/coupon/', { reloadCurrent: false });
         });
+
+        $$('.page-content').scroll(function () {
+            var CouponAvailable = localStorage.getItem("CouponAvailable");
+            if (CouponAvailable == "1") {
+                currentPage = localStorage.getItem("CouponCurrentPage");
+                currentPage = Number(currentPage) + 1;
+                //console.log("currentPage: " + currentPage);
+                CouponListPagination(pageSize, currentPage);
+                localStorage.setItem("CouponCurrentPage", currentPage);
+            }
+            else {
+
+            }
+
+        });
+
     }
     else if (pageURL.indexOf('coupon') > -1)//Coupon Add Edit
     {

@@ -1,6 +1,6 @@
 //var global = "http://www.appnotification.bistroux.com/Api/App/";
 var global = "http://www.consumerapp.bistroux.com/Api/App/";
-//var global = "http://192.168.1.6/Api/App/";
+//var global = "http://192.168.1.7/Api/App/";
 var mediaURL = "http://appnotification.bistroux.com/Media/";
 
 var browser = true;
@@ -1265,7 +1265,13 @@ function CloseCarryOutDetails()
 }
 function BindcarryoutTab(status)
 {
-   // console.log(status)
+    // console.log(status)
+    if (status == "All") {
+        $('#linkCarryoutFilterIcon').show();
+    }
+    else {
+        $('#linkCarryoutFilterIcon').hide();
+    }
     localStorage.setItem("CurrentPage", 0);
     $('#hdnCurrentState').val(status);
     CarryoutOrdersList(status, 10, 0, '');
@@ -2972,7 +2978,9 @@ function GiftCardOrdersList(pagesize, currentPage) {
     //$("#lblCutomerName").text("");
     //$("#lblCutomerPhone").text("");
     //$("#lblEmail").text("");
-    $("#hdnSelectedOrderId").val("0");
+
+    //$("#hdnSelectedOrderId").val("0");
+
     //$("#iconEmail").hide();
     //$("#iconPhone").hide();
     //$("#titleRedemptionHistory").hide();
@@ -2984,6 +2992,12 @@ function GiftCardOrdersList(pagesize, currentPage) {
     var orderId = $("#txtOrderId").val();
     var giftCardCode = $("#txtGiftCardCode").val();
     var name = $("#txtName").val();
+    var status = $("#ddlFilterStatus").val();
+
+    //Shorting
+    var sortValue = $("input[name='radioGiftCardSort']:checked").val();
+    var sortByValue = $("input[name='radioGiftCardSortBy']:checked").val();
+    //Shorting
 
     if (Number(storeId) > 0) {
         //SetMenuNavigation(storeId);
@@ -2998,7 +3012,9 @@ function GiftCardOrdersList(pagesize, currentPage) {
         $("#btnComplete").hide();
 
         currentPage = Number(currentPage) * Number(pagesize);
-        url = global + "/GetStoreAllGiftCards?storeid=" + storeId + "&orderId=" + orderId + "&giftcardcode=" + giftCardCode + "&recipientname=" + name + "&pagesize=" + pagesize + "&currentPage=" + currentPage;
+        url = global + "/GetStoreAllGiftCards?storeid=" + storeId + "&orderId=" + orderId + "&giftcardcode=" + giftCardCode + "&recipientname=" + name + "&status=" + status + "&pagesize=" + pagesize + "&currentPage=" + currentPage +
+            "&sortValue=" + sortValue + "&sortByValue=" + sortByValue;
+        //alert(url);
 
         try {
             $.getJSON(url, function (data) {
@@ -3048,16 +3064,15 @@ function GiftCardOrdersList(pagesize, currentPage) {
                         if (value.RECIPIENTNAME != "") {
                             name = value.RECIPIENTNAME;
 
-                        }
-
+                        }                       
                         if (value.PHONE != "") {
                             phone = value.PHONE;
-
                         }
                         if (value.EMAIL != "") {
                             email = value.EMAIL;
 
                         }
+
 
                         /*------------------Order Area-----------------------*/
 
@@ -3074,27 +3089,27 @@ function GiftCardOrdersList(pagesize, currentPage) {
                         /*------------------Status Icon--------------------*/
 
                         if (value.ORDERSTATUSID.toLowerCase() == "new") {
-                            html += "<div class=\"order-status-icon\"><img class=\"list-icon\" src=\"img/icons/new.png\" alt=\"\"/></div>";
+                            html += "<div class=\"order-status-icon\"><img id='img_" + value.ID + "' class=\"list-icon\" src=\"img/icons/new.png\" alt=\"\"/></div>";
                         }
                         else if (value.ORDERSTATUSID.toLowerCase() == "processing") {
-                            html += "<div class=\"order-status-icon\"><img class=\"list-icon\" src=\"img/icons/pending.png\" alt=\"\"/></div>";
+                            html += "<div class=\"order-status-icon\"><img id='img_" + value.ID + "' class=\"list-icon\" src=\"img/icons/pending.png\" alt=\"\"/></div>";
                         }
                         else if (value.ORDERSTATUSID.toLowerCase() == "shipped") {
-                            html += "<div class=\"order-status-icon\"><img class=\"list-icon\" src=\"img/icons/shipped.png\" alt=\"\"/></div>";
+                            html += "<div class=\"order-status-icon\"><img id='img_" + value.ID + "' class=\"list-icon\" src=\"img/icons/shipped.png\" alt=\"\"/></div>";
                         }
                         else if (value.ORDERSTATUSID.toLowerCase() == "complete") {
-                            html += "<div class=\"order-status-icon\"><img class=\"list-icon\" src=\"img/icons/Complete-Icon.png\" alt=\"\"/></div>";
+                            html += "<div class=\"order-status-icon\"><img id='img_" + value.ID + "' class=\"list-icon\" src=\"img/icons/Complete-Icon.png\" alt=\"\"/></div>";
                         }
                         else if (value.ORDERSTATUSID.toLowerCase() == "pickedup") {
-                            html += "<div class=\"order-status-icon\"><img class=\"list-icon\" src=\"img/icons/Picked-Up-Icon.png\" alt=\"\"/></div>";
+                            html += "<div class=\"order-status-icon\"><img id='img_" + value.ID + "' class=\"list-icon\" src=\"img/icons/Picked-Up-Icon.png\" alt=\"\"/></div>";
                         }
 
                         /*-----------------Status Icon End----------------*/
                         if (value.GIFTCARDCOUPONCODE != undefined) {
-                            html += "<div class=\"order-pickup\" id=\'lbl_giftCardCode_" + value.ID + "'>" + value.GIFTCARDCOUPONCODE + "</div>";
+                            html += "<div class=\"giftcard-order-pickup\" id=\'lbl_giftCardCode_" + value.ID + "'>" + value.GIFTCARDCOUPONCODE + "</div>";
                         }
                         else {
-                            html += "<div class=\"order-pickup\" id=\'lbl_giftCardCode_" + value.ID + "'></div>";
+                            html += "<div class=\"giftcard-order-pickup\" id=\'lbl_giftCardCode_" + value.ID + "'></div>";
                         }
                         html += "</div>";
                         /*------------------Column 1-----------------------*/
@@ -3102,7 +3117,8 @@ function GiftCardOrdersList(pagesize, currentPage) {
                         html += "<div class=\"order-column-two\">";
                         /*------------------1st Row-----------------------*/
                         html += "<div class=\"order-row-container\">";
-                        html += "<div class=\"order-number panel-open\" data-panel=\"left\" onclick=\"OpenGiftCardDetails(" + value.ID + ");\">#" + value.ORDERID + "<span> on </span><span>" + orderDate + " @ " + orderTime + "</span></div>";
+                        //html += "<div class=\"giftcard-order-number panel-open\" data-panel=\"left\" onclick=\"OpenGiftCardDetails(" + value.ID + ");\">#" + value.ORDERID + "<span> on </span><span>" + orderDate + " @ " + orderTime + "</span></div>";
+                        html += "<div class=\"giftcard-order-number panel-open\" data-panel=\"left\" onclick=\"OpenGiftCardDetails(" + value.ID + ");\">#" + value.ORDERID + "<span> on </span><span>" + orderDate + "</span></div>";
                         /*------------------Button Row-----------------------*/
                         if (value.ORDERSTATUSID == "New") {
 
@@ -3156,16 +3172,16 @@ function GiftCardOrdersList(pagesize, currentPage) {
                         html += "<div class=\"order-row-container\">";
 
                         /*------------------Customer Info-----------------------*/
-                        html += "<div class=\"order-date panel-open\" data-panel=\"left\" onclick=\"OpenGiftCardDetails(" + value.ID + ");\">";
+                        html += "<div class=\"giftcard-order-date panel-open\" data-panel=\"left\" onclick=\"OpenGiftCardDetails(" + value.ID + ");\">";
                         html += "<div class=\"customer-detail-container\">";
-                        html += "<div class=\"customer-name\">" + name + "</div>";
+                        html += "<div class=\"giftcard-customer-name\">" + name + "</div>";
                         html += "<div>" + phone + "</div>";
                         //html += "<div class=\"display-label-wrap\">" + email + "</div>";
                         html += "</div>";
                         html += "</div>";
                         /*------------------Customer Info-----------------------*/
                         /*------------------Order Info-----------------------*/
-                        html += "<div class=\"order-items-count\">";
+                        html += "<div class=\"giftcard-order-items-count\">";
                         html += "<div class=\"customer-detail-container\">";
                         html += "<div class=\"order-price\">" + giftcardBalance + "</div>";
 
@@ -3230,13 +3246,18 @@ function GiftCardOrdersListPagination(pagesize, currentPage) {
     var orderId = $("#txtOrderId").val();
     var giftCardCode = $("#txtGiftCardCode").val();
     var name = $("#txtName").val();
-
+    var status = $("#ddlFilterStatus").val();
+    //Shorting
+    var sortValue = $("input[name='radioGiftCardSort']:checked").val();
+    var sortByValue = $("input[name='radioGiftCardSortBy']:checked").val();
+    //Shorting
 
     if (Number(storeId) > 0) {
         //SetMenuNavigation(storeId);
 
         currentPage = Number(currentPage) * Number(pagesize);
-        url = global + "/GetStoreAllGiftCards?storeid=" + storeId + "&orderId=" + orderId + "&giftcardcode=" + giftCardCode + "&recipientname=" + name + "&pagesize=" + pagesize + "&currentPage=" + currentPage;
+        url = global + "/GetStoreAllGiftCards?storeid=" + storeId + "&orderId=" + orderId + "&giftcardcode=" + giftCardCode + "&recipientname=" + name + "&status=" + status + "&pagesize=" + pagesize + "&currentPage=" + currentPage +
+            "&sortValue=" + sortValue + "&sortByValue=" + sortByValue;
 
         try {
 
@@ -3323,10 +3344,10 @@ function GiftCardOrdersListPagination(pagesize, currentPage) {
 
                         /*-----------------Status Icon End----------------*/
                         if (value.GIFTCARDCOUPONCODE != undefined) {
-                            html += "<div class=\"order-pickup\" id=\'lbl_giftCardCode_" + value.ID + "'>" + value.GIFTCARDCOUPONCODE + "</div>";
+                            html += "<div class=\"giftcard-order-pickup\" id=\'lbl_giftCardCode_" + value.ID + "'>" + value.GIFTCARDCOUPONCODE + "</div>";
                         }
                         else {
-                            html += "<div class=\"order-pickup\" id=\'lbl_giftCardCode_" + value.ID + "'></div>";
+                            html += "<div class=\"giftcard-order-pickup\" id=\'lbl_giftCardCode_" + value.ID + "'></div>";
                         }
                         html += "</div>";
                         /*------------------Column 1-----------------------*/
@@ -3334,7 +3355,8 @@ function GiftCardOrdersListPagination(pagesize, currentPage) {
                         html += "<div class=\"order-column-two\">";
                         /*------------------1st Row-----------------------*/
                         html += "<div class=\"order-row-container\">";
-                        html += "<div class=\"order-number panel-open\" data-panel=\"left\" onclick=\"OpenGiftCardDetails(" + value.ID + ");\">#" + value.ORDERID + "<span> on </span><span>" + orderDate + " @ " + orderTime + "</span></div>";
+                        //html += "<div class=\"giftcard-order-number panel-open\" data-panel=\"left\" onclick=\"OpenGiftCardDetails(" + value.ID + ");\">#" + value.ORDERID + "<span> on </span><span>" + orderDate + " @ " + orderTime + "</span></div>";
+                        html += "<div class=\"giftcard-order-number panel-open\" data-panel=\"left\" onclick=\"OpenGiftCardDetails(" + value.ID + ");\">#" + value.ORDERID + "<span> on </span><span>" + orderDate + "</span></div>";
                         /*------------------Button Row-----------------------*/
                         if (value.ORDERSTATUSID == "New") {
 
@@ -3388,16 +3410,16 @@ function GiftCardOrdersListPagination(pagesize, currentPage) {
                         html += "<div class=\"order-row-container\">";
 
                         /*------------------Customer Info-----------------------*/
-                        html += "<div class=\"order-date panel-open\" data-panel=\"left\" onclick=\"OpenGiftCardDetails(" + value.ID + ");\">";
+                        html += "<div class=\"giftcard-order-date panel-open\" data-panel=\"left\" onclick=\"OpenGiftCardDetails(" + value.ID + ");\">";
                         html += "<div class=\"customer-detail-container\">";
-                        html += "<div class=\"customer-name\">" + name + "</div>";
+                        html += "<div class=\"giftcard-customer-name\">" + name + "</div>";
                         html += "<div>" + phone + "</div>";
                         //html += "<div class=\"display-label-wrap\">" + email + "</div>";
                         html += "</div>";
                         html += "</div>";
                         /*------------------Customer Info-----------------------*/
                         /*------------------Order Info-----------------------*/
-                        html += "<div class=\"order-items-count\">";
+                        html += "<div class=\"giftcard-order-items-count\">";
                         html += "<div class=\"customer-detail-container\">";
                         html += "<div class=\"order-price\">" + giftcardBalance + "</div>";
 
@@ -3482,7 +3504,6 @@ function GiftCardOrdersListPagination(pagesize, currentPage) {
     }
 
 }
-
 
 //Gift Card Details
 function OpenGiftCardDetails(id) {
@@ -3602,7 +3623,7 @@ function OpenGiftCardDetails(id) {
 
                 if (value.ORDERSTATUSID == "New") {
                     $("#btnProcessing").show();
-                    $("#btnProcessing img").attr("style", "width: 21% !important;");
+                    $("#btnProcessing img").attr("style", "width: 21% !important; float: right;");
                     //$("#imgNew").show();
 
                     $("#btnPickedUp").hide();
@@ -3618,14 +3639,18 @@ function OpenGiftCardDetails(id) {
                     $("#btnNew").show();
                     $("#btnComplete").show();
                     //$("#imgProcessing").show();
+                    $("#btnNew img").attr("style", "width: 41% !important;");
+                    $("#btnComplete img").attr("style", "width: 41% !important;");
                 }
                 else if (value.ORDERSTATUSID == "Shipped") {
                     $("#btnProcessing").hide();
-                    $("#btnPickedUp").show();
                     $("#btnShipped").hide();
                     $("#btnNew").hide();
+                    $("#btnPickedUp").show();
                     $("#btnComplete").show();
                     //$("#imgShipped").show();
+                    $("#btnPickedUp img").attr("style", "width: 41% !important;");
+                    $("#btnComplete img").attr("style", "width: 41% !important;");
                 }
                 else if (value.ORDERSTATUSID == "PickedUp") {
                     $("#btnProcessing").hide();
@@ -3634,6 +3659,8 @@ function OpenGiftCardDetails(id) {
                     $("#btnShipped").show();
                     $("#btnComplete").show();
                     //$("#imgPickedUp").show();
+                    $("#btnShipped img").attr("style", "width: 41% !important;");
+                    $("#btnComplete img").attr("style", "width: 41% !important;");
                 }
                 else if (value.ORDERSTATUSID == "Complete") {
                     $("#btnProcessing").show();
@@ -3670,7 +3697,7 @@ function OpenGiftCardDetails(id) {
                     orderDate = arrDateTime[0];
                     orderTime = arrDateTime[1];
                 }
-                html += "<tr><td style='font-weight:bold;'>" + orderDate + " @ " + orderTime + "</td>";
+                html += "<tr><td style=\"text-align:left;\">" + orderDate + " @ " + orderTime + "</td>";
                 if (value.Type == "Load") {
                     html += "<td style=\"text-align:right;\">" + FormatDecimal(value.UsedValue) + "</td>";
                 }
@@ -3714,7 +3741,63 @@ function ChangeGiftCardOrderStatusById(status, id, orderId) {
             async: false,
             success: function (data) {
                 //console.log(data);
-                RefreshGiftCards();
+                //RefreshGiftCards();
+
+                if (status == "New") {
+                    $("#btnProcessing_" + giftCardId).show();
+                    $("#btnProcessing_" + giftCardId + " img").attr("style", "width: 21% !important; float: right;");
+                    $("#img_" + giftCardId).attr("src", "img/icons/new.png");
+
+                    $("#btnNew_" + giftCardId).hide();
+                    $("#btnPickedUp_" + giftCardId).hide();
+                    $("#btnShipped_" + giftCardId).hide();
+                    $("#btnComplete_" + giftCardId).hide();
+                }
+                else if (status == "Processing") {
+                    $("#btnNew_" + giftCardId).show();
+                    $("#btnComplete_" + giftCardId).show();
+                    $("#btnNew_" + giftCardId + " img").attr("style", "width: 41% !important;margin: 0 25px !important;");
+                    $("#btnComplete_" + giftCardId + " img").attr("style", "width: 41% !important;margin: 0 25px !important;");
+                    $("#img_" + giftCardId).attr("src", "img/icons/pending.png");
+
+                    $("#btnProcessing_" + giftCardId).hide();
+                    $("#btnPickedUp_" + giftCardId).hide();
+                    $("#btnShipped_" + giftCardId).hide();
+                }
+                else if (status == "Shipped") {
+                    $("#btnPickedUp_" + giftCardId).show();
+                    $("#btnComplete_" + giftCardId).show();
+                    $("#btnPickedUp_" + giftCardId + " img").attr("style", "width: 41% !important;margin: 0 25px !important;");
+                    $("#btnComplete_" + giftCardId + " img").attr("style", "width: 41% !important;margin: 0 25px !important;");
+                    $("#img_" + giftCardId).attr("src", "img/icons/shipped.png");
+
+                    $("#btnNew_" + giftCardId).hide();
+                    $("#btnProcessing_" + giftCardId).hide();
+                    $("#btnShipped_" + giftCardId).hide();                    
+                }
+                else if (status == "PickedUp") {
+                    $("#btnShipped_" + giftCardId).show();
+                    $("#btnComplete_" + giftCardId).show();
+                    $("#btnShipped_" + giftCardId + " img").attr("style", "width: 41% !important;margin: 0 25px !important;");
+                    $("#btnComplete_" + giftCardId + " img").attr("style", "width: 41% !important;margin: 0 25px !important;");
+                    $("#img_" + giftCardId).attr("src", "img/icons/Picked-Up-Icon.png");
+
+                    $("#btnNew_" + giftCardId).hide();
+                    $("#btnProcessing_" + giftCardId).hide();
+                    $("#btnPickedUp_" + giftCardId).hide();
+                }
+                else if (status == "Complete") {
+                    $("#btnProcessing_" + giftCardId).show();
+                    $("#btnPickedUp_" + giftCardId).show();
+                    $("#btnShipped_" + giftCardId).show();
+                    $("#btnProcessing_" + giftCardId + " img").attr("style", "width: 61% !important;margin: 0 0 !important;");
+                    $("#btnPickedUp_" + giftCardId + " img").attr("style", "width: 61% !important;margin: 0 0 !important;");
+                    $("#btnShipped_" + giftCardId + " img").attr("style", "width: 61% !important;margin: 0 0 !important;");
+                    $("#img_" + giftCardId).attr("src", "img/icons/Complete-Icon.png");
+
+                    $("#btnNew_" + giftCardId).hide();
+                    $("#btnComplete_" + giftCardId).hide();
+                }
             },
             error: function (xhr, textStatus, errorThrown) {
                 //alert(xhr.responseText);
@@ -3819,7 +3902,7 @@ function ChangeGiftCardOrderStatusNew(status) {
             crossDomain: true,
             async: false,
             success: function (data) {
-
+                
                 RefreshGiftCards();
                 RefreshGiftCardDetails(giftCardId);
 
@@ -3896,10 +3979,14 @@ function GiftCardBack() {
 
 function ShowSearch() {
     $('#linkSearchIcon').show();
+    $('#ulFilterSortGiftCard').show();
+    $('#ulFilterSortCarryout').hide();
+    $('#ulFilterSortCoupon').hide();
     RefreshGiftCards();
 }
 function HideSearch() {
     $('#linkSearchIcon').hide();
+    $('#ulFilterSortGiftCard').hide();
 }
 //Gift Card Orders END
 
@@ -3981,6 +4068,7 @@ function SearchReward() {
                     $('#btnLoadReward').addClass("disabled");
                     $('#btnRedeemReward').addClass("disabled");
                     //WriteLog(SearchGiftCard() + " - " + " No order(s) found.", browser);
+                    callSweetAlertWarning("No records found.");
                 }
                 else {
                     //$("#txtMemberID_LoadRedeem").css('border', noErrorClassBorder);
@@ -4761,7 +4849,6 @@ function SetManageService() {
 /*04.04.2019*/
 
 
-
 //Profile Section Start//
 function GotoProfile() {
     self.app.router.navigate('/profile/', { reloadCurrent: true });
@@ -4777,7 +4864,7 @@ function LoadProfileDetails() {
 
         try {
             $.getJSON(url, function (data) {
-                console.log(data);
+                //console.log(data);
                 var obj = JSON.parse(data);
                 var length = Object.keys(obj).length;
                 console.log("Length: " + length);
@@ -4880,8 +4967,8 @@ function LoadProfileDetails() {
                             }
                         }
 
-                        console.log("Name: " + name + " Description: " + description + " Address1: " + address1 + " Address2: " + address2 + " City: " + city + " State: " + state + " Zip: " + zip + " Phone: " + phone + " Fax: " + fax +
-                                " SendFax: " + sendFax + " Refund Policy: " + refundPolicy + " Restaurnat Url: " + restaurantUrl + " Admin Eamil: " + adminEmail + " P Lead Time: " + pickupLeadTime + " C Lead Time: " + carryoutLeadTime);
+                        //console.log("Name: " + name + " Description: " + description + " Address1: " + address1 + " Address2: " + address2 + " City: " + city + " State: " + state + " Zip: " + zip + " Phone: " + phone + " Fax: " + fax +
+                                //" SendFax: " + sendFax + " Refund Policy: " + refundPolicy + " Restaurnat Url: " + restaurantUrl + " Admin Eamil: " + adminEmail + " P Lead Time: " + pickupLeadTime + " C Lead Time: " + carryoutLeadTime);
 
                     });
 
@@ -5125,8 +5212,8 @@ function ShowStoreTiming() {
                                 closingPeriod = value.CLOSINGPERIOD;
                             }
                         }
-                        console.log("TimingId: " + timingId + " Day: " + day + " OpeningTime: " + openingTime + " ClosingTime: " + closingTime);
-                        console.log("Opening: Hour: " + openingHour + " Minute: " + openingMinute + " Period: " + openingPeriod + " Closing: Hour: " + closingHour + " Minute: " + closingMinute + " Period: " + closingPeriod);
+                        //console.log("TimingId: " + timingId + " Day: " + day + " OpeningTime: " + openingTime + " ClosingTime: " + closingTime);
+                        //console.log("Opening: Hour: " + openingHour + " Minute: " + openingMinute + " Period: " + openingPeriod + " Closing: Hour: " + closingHour + " Minute: " + closingMinute + " Period: " + closingPeriod);
                         //dayName = GetDayNameByDayKey(day);
 
                         //Generate Edit Section Start//
@@ -5333,8 +5420,8 @@ function SaveStoreTiming() {
         }
     }
 
-    console.log(businessDays);
-    console.log(arrTimings);
+    //console.log(businessDays);
+    //console.log(arrTimings);
 
     if (Number(storeId) > 0) {
         var model = new Object();
@@ -5342,9 +5429,7 @@ function SaveStoreTiming() {
         model.StoreId = storeId;
         model.BusinessDays = businessDays;
         model.ListTiming = arrTimings;
-        console.log(model);
-        //var url = global + "/SaveStoreTiming";
-        //alert(url);
+        //console.log(model);
 
         $.post(global + "/SaveStoreTiming", model, function (data) {
             console.log(data.indexOf("Successful"));
@@ -5382,7 +5467,7 @@ function AddNewSection(dayName, dayKey, e) {
     html += "<div class=\"timing-flex-column-container\">";
     //Label Section Start//
     html += "<div style=\"flex-basis: 120px;\">";
-    html += "<label>Opening</label>";
+    html += "<label>Open</label>";
     html += "<input id=\"Businesday_" + idCount + "_StoreTimingId\" name=\"Businesday[" + idCount + "].StoreTimingId\" type=\"hidden\" value=\"0\">";
     html += "<input id=\"Businesday_" + idCount + "_DayKey\" name=\"Businesday[" + idCount + "].DayKey\" type=\"hidden\" value=\"" + dayKey + "\">";
     html += "</div>";
@@ -5421,7 +5506,7 @@ function AddNewSection(dayName, dayKey, e) {
     html += "<div class=\"timing-flex-column-container\">";
     //Label Section Start//
     html += "<div style=\"flex-basis: 120px;\">";
-    html += "<label>Closing</label>";
+    html += "<label>Close</label>";
     html += "</div>";
     //Label Section End//
 
@@ -5477,7 +5562,7 @@ function AppendEditSection(timingId, dayName, dayKey, openingHour, openingMinute
     html += "<div class=\"timing-flex-column-container\">";
     //Label Section Start//
     html += "<div style=\"flex-basis: 120px;\">";
-    html += "<label>Opening</label>";
+    html += "<label>Open</label>";
     html += "<input id=\"Businesday_" + idCount + "_StoreTimingId\" name=\"Businesday[" + idCount + "].StoreTimingId\" type=\"hidden\" value=\"" + timingId + "\">";
     html += "<input id=\"Businesday_" + idCount + "_DayKey\" name=\"Businesday[" + idCount + "].DayKey\" type=\"hidden\" value=\"" + dayKey + "\">";
     html += "</div>";
@@ -5516,7 +5601,7 @@ function AppendEditSection(timingId, dayName, dayKey, openingHour, openingMinute
     html += "<div class=\"timing-flex-column-container\">";
     //Label Section Start//
     html += "<div style=\"flex-basis: 120px;\">";
-    html += "<label>Closing</label>";
+    html += "<label>Close</label>";
     html += "</div>";
     //Label Section End//
 
@@ -5603,7 +5688,7 @@ function CreateHourEditHtml(iCount, type, selectedHour) {
         else {
             hour = i;
         }
-        if (hour == selectedHour) {
+        if (hour == selectedHour || i == selectedHour) {
             hourHtml += "<option value=\"" + hour + "\" selected>" + hour + "</option>";
         }
         else {
@@ -5624,7 +5709,7 @@ function CreateMinuteEditHtml(iCount, type, selectedMinute) {
         else {
             minute = i;
         }
-        if (minute == selectedMinute) {
+        if (minute == selectedMinute || i == selectedMinute) {
             minuteHtml += "<option value=\"" + minute + "\" selected>" + minute + "</option>";
         }
         else {
@@ -5680,23 +5765,36 @@ function DeleteSection(idCount, timingId) {
 
 //Coupon Section Start//
 
-function CouponList() {
+function CouponList(pagesize, currentPage) {
 
     var storeId = 0;
-    currentPage = 0;
     $("#CouponDiv").html("");
     storeId = SetStoreId();
     customerId = SetCustomerId();
+    currentPage = 0;
+    localStorage.setItem("CouponCurrentPage", currentPage);
+
+    var name = $("#txtFilterCouponName").val();
+    var startDate = $("#txtFilterCouponStart").val();
+    var endDate = $("#txtFilterCouponEnd").val();
+    var status = $("#ddlFilterCouponStatus").val();
+
+    //Shorting
+    var sortValue = $("input[name='radioCouponSort']:checked").val();
+    var sortByValue = $("input[name='radioCouponSortBy']:checked").val();
+    //Shorting
 
     if (Number(storeId) > 0) {
 
-        url = global + "/GetAllCoupons?storeid=" + storeId;
+        url = global + "/GetAllCoupons?storeid=" + storeId + "&name=" + name + "&startDate=" + startDate + "&endDate=" + endDate + "&status=" + status +
+           "&sortValue=" + sortValue + "&sortByValue=" + sortByValue + "&pagesize=" + pagesize + "&currentPage=" + currentPage;
 
         try {
             $.getJSON(url, function (data) {
                 var obj = JSON.parse(data);
                 var length = Object.keys(obj).length;
                 if (JSON.parse(data).indexOf("No Coupon(s) found.") < 0) {
+                    localStorage.setItem("CouponAvailable", "1");
                     var count = 0;
                     $.each(JSON.parse(data), function (index, value) {
 
@@ -5753,7 +5851,7 @@ function CouponList() {
 
                         html += "</div>";
                         html += "<div class=\"order-row-container panel-open\" onclick=\"OpenCouponListDetails(" + value.Id + ")\">";
-                        html += "<div class=\"order-date\" style=\"width:70%\">";
+                        html += "<div class=\"order-date\" style=\"width:55%\">";
                         html += "<div class=\"customer-detail-container\">";
 
                         /*------------------Code-----------------------*/
@@ -5761,21 +5859,21 @@ function CouponList() {
 
                         if (value.StartDateUtc != "" && value.EndDateUtc != "") {
                             /*------------------Start Date Ende Date-----------------------*/
-                            html += "<div class=\"customer-name\">Start Date: <span class=\"cc-number\">" + StartDate + "</span></div>";
-                            html += "<div class=\"customer-name\">End Date: <span class=\"cc-number\">" + EndDate + "</span></div>";
+                            html += "<div class=\"giftcard-customer-name\">Start: <span class=\"cc-number\">" + StartDate + "</span></div>";
+                            html += "<div class=\"giftcard-customer-name\">End: <span class=\"cc-number\">" + EndDate + "</span></div>";
                         }
 
 
                         html += "</div>";
                         html += "</div>";
-                        html += "<div class=\"order-items-count\" style=\"width:40%\">";
+                        html += "<div class=\"order-items-count\" style=\"width:45%; padding-left: 5px;\">";
                         html += "<div class=\"customer-detail-container\">";
 
                         /*------------------Discount Amount-----------------------*/
-                        html += "<div class=\"cc-number\" style=\"width:100%;font-size:14px\">Discount Amt.: <span class=\"order-price\" style=\"font-size:14px\">" + DiscAmt + "</span></div>"
+                        html += "<div class=\"cc-number\" style=\"width:100%;font-size:14px\">Discount Amount: <span class=\"order-price\" style=\"font-size:14px\">" + DiscAmt + "</span></div>"
 
                         /*------------------Minimun Amount-----------------------*/
-                        html += "<div class=\"cc-number\" style=\"width:100%;font-size:14px\">Min. Order Amt.: <span class=\"order-price\" style=\"font-size:14px\">" + MinAmt + "</span></div>";
+                        html += "<div class=\"cc-number\" style=\"width:100%;font-size:14px\">Min. Order Amount: <span class=\"order-price\" style=\"font-size:14px\">" + MinAmt + "</span></div>";
 
                         html += "</div></div></div></div></div></div>";
 
@@ -5785,8 +5883,128 @@ function CouponList() {
                     });
                 }
                 else {
+                    localStorage.setItem("CouponAvailable", "0");
                     var html = "<div class=\"order-list list-empty-label-text\">No Coupons</div>";
                     $("#CouponDiv").html(html);
+                }
+            });
+        }
+        catch (e) {
+
+        }
+    }
+    else {
+        self.app.router.navigate('/login_new/', { reloadCurrent: true });
+    }
+}
+
+
+function CouponListPagination(pagesize, currentPage) {
+
+    var storeId = 0;
+    storeId = SetStoreId();
+    customerId = SetCustomerId();
+    localStorage.setItem("CouponCurrentPage", currentPage);
+
+    if (Number(storeId) > 0) {
+        currentPage = Number(currentPage) * Number(pagesize);
+        url = global + "/GetAllCoupons?storeid=" + storeId + "&pagesize=" + pagesize + "&currentPage=" + currentPage;
+
+        try {
+            $.getJSON(url, function (data) {
+                var obj = JSON.parse(data);
+                var length = Object.keys(obj).length;
+                if (JSON.parse(data).indexOf("No Coupon(s) found.") < 0) {
+                    localStorage.setItem("CouponAvailable", "1");
+                    var count = 0;
+                    $.each(JSON.parse(data), function (index, value) {
+
+                        var name = "";
+                        var code = "";
+                        var MinAmt = "";
+                        var DiscAmt = "";
+                        var StartDate = "";
+                        var EndDate = "";
+
+                        if (value.NAME != "") {
+                            name = value.NAME;
+                        }
+                        if (value.CouponCode != "") {
+                            code = value.CouponCode;
+                        }
+                        if (value.MinimumOrderAmount != "") {
+                            MinAmt = FormatDecimal(value.MinimumOrderAmount);
+                        }
+                        else {
+                            MinAmt = "$0.00";
+                        }
+                        if (value.DiscountAmount != "") {
+                            DiscAmt = FormatDecimal(value.DiscountAmount);
+                        }
+                        else {
+                            DiscAmt = "$0.00";
+                        }
+                        if (value.StartDateUtc != "") {
+                            StartDate = value.StartDateUtc;
+                        }
+                        if (value.EndDateUtc != "") {
+                            EndDate = value.EndDateUtc;
+                        }
+
+                        var html = "<div class=\"order-container\"  id='li_" + value.Id + "' style=\"width:100%;padding-left: 20px;\" >";
+                        html += "<div id=\"dvCouponListInner_" + value.Id + "\" class=\"order-list \">";
+                        html += "<div class=\"order-column-two\" style=\"width:100%\">";
+                        html += "<div class=\"order-row-container\">";
+
+                        /*------------------Name-----------------------*/
+                        html += "<div class=\"order-pickup panel-open\" style=\"text-align:left;font-size:20px;width:60%\" onclick=\"OpenCouponListDetails(" + value.Id + ")\">" + code + "</div>";
+
+                        /*------------------Button-----------------------*/
+                        html += "<div class=\"order-buttons\" style=\"width:28%\">";
+                        if (value.IsActive == 1) {
+                            html += "<a><img src=\"./img/icons/active.png\"></a>";
+                        }
+                        else {
+                            html += "<a><img src=\"./img/icons/inactive.png\"></a>";
+                        }
+                        html += "<a onclick=\"GoToCouponEdit(" + value.Id + ");\"><img src=\"./img/icons/edit-icon.png\"></a>";
+                        html += "</div>";
+
+                        html += "</div>";
+                        html += "<div class=\"order-row-container panel-open\" onclick=\"OpenCouponListDetails(" + value.Id + ")\">";
+                        html += "<div class=\"order-date\" style=\"width:55%\">";
+                        html += "<div class=\"customer-detail-container\">";
+
+                        /*------------------Code-----------------------*/
+                        html += "<div class=\"order-number\" style=\"font-size:16px;width:100%\">" + name + "</div>";
+
+                        if (value.StartDateUtc != "" && value.EndDateUtc != "") {
+                            /*------------------Start Date Ende Date-----------------------*/
+                            html += "<div class=\"giftcard-customer-name\">Start: <span class=\"cc-number\">" + StartDate + "</span></div>";
+                            html += "<div class=\"giftcard-customer-name\">End: <span class=\"cc-number\">" + EndDate + "</span></div>";
+                        }
+
+
+                        html += "</div>";
+                        html += "</div>";
+                        html += "<div class=\"order-items-count\" style=\"width:45%; padding-left: 5px;\">";
+                        html += "<div class=\"customer-detail-container\">";
+
+                        /*------------------Discount Amount-----------------------*/
+                        html += "<div class=\"cc-number\" style=\"width:100%;font-size:14px\">Discount Amount: <span class=\"order-price\" style=\"font-size:14px\">" + DiscAmt + "</span></div>"
+
+                        /*------------------Minimun Amount-----------------------*/
+                        html += "<div class=\"cc-number\" style=\"width:100%;font-size:14px\">Min. Order Amount: <span class=\"order-price\" style=\"font-size:14px\">" + MinAmt + "</span></div>";
+
+                        html += "</div></div></div></div></div></div>";
+
+                        count++;
+
+                        $("#CouponDiv").append(html);
+                    });
+                }
+                else {
+                    localStorage.setItem("CouponAvailable", "0");
                 }
             });
         }
@@ -5989,18 +6207,26 @@ function LoadCouponEdit() {
                                 $("#checkCouponActive").prop('checked', false)
                             }
                             if (value.MinimumOrderAmount > 0) {
-                                $("#txtCouponMinAmount").val(value.MinimumOrderAmount);
-                                console.log(value.MinimumOrderAmount);
+                                var mimimumOrderAmount = FormatDecimal(value.MinimumOrderAmount);
+                                if (mimimumOrderAmount.indexOf('$') > -1) {
+                                    mimimumOrderAmount = mimimumOrderAmount.replace('$', '');
+                                }
+                                $("#txtCouponMinAmount").val(mimimumOrderAmount);
+                                //console.log(value.MinimumOrderAmount);
                             }
                             else {
-                                $("#txtCouponMinAmount").val(0.00);
+                                $("#txtCouponMinAmount").val(FormatDecimal(0.00).replace('$', ''));
                             }
                             if (value.DiscountAmount > 0) {
-                                $("#txtCouponDiscAmount").val(value.DiscountAmount);
-                                console.log(value.DiscountAmount);
+                                var discountAmount = FormatDecimal(value.DiscountAmount);
+                                if (discountAmount.indexOf('$') > -1) {
+                                    discountAmount = discountAmount.replace('$', '');
+                                }
+                                $("#txtCouponDiscAmount").val(discountAmount);
+                                //console.log(value.DiscountAmount);
                             }
                             else {
-                                $("#txtCouponDiscAmount").val(0.00);
+                                $("#txtCouponDiscAmount").val(FormatDecimal(0.00).replace('$', ''));
                             }
                             if (value.StartDateUtc != null) {
                                 $("#txtCouponStartDate").val(value.StartDateUtc);
@@ -6053,8 +6279,8 @@ function LoadCouponEdit() {
                                     closingPeriod = value.ENDPERIOD;
                                 }
                             }
-                            console.log("TimingId: " + timingId + " Day: " + day + " OpeningTime: " + openingTime + " ClosingTime: " + closingTime);
-                            console.log("Opening: Hour: " + openingHour + " Minute: " + openingMinute + " Period: " + openingPeriod + " Closing: Hour: " + closingHour + " Minute: " + closingMinute + " Period: " + closingPeriod);
+                            //console.log("TimingId: " + timingId + " Day: " + day + " OpeningTime: " + openingTime + " ClosingTime: " + closingTime);
+                            //console.log("Opening: Hour: " + openingHour + " Minute: " + openingMinute + " Period: " + openingPeriod + " Closing: Hour: " + closingHour + " Minute: " + closingMinute + " Period: " + closingPeriod);
                             //dayName = GetDayNameByDayKey(day);
 
                             //Generate Edit Section Start//
@@ -6564,7 +6790,7 @@ function CreateHourEditTimingHtml(iCount, type, selectedHour) {
         else {
             hour = i;
         }
-        if (hour == selectedHour) {
+        if (hour == selectedHour || i == selectedHour) {
             hourHtml += "<option value=\"" + hour + "\" selected>" + hour + "</option>";
         }
         else {
@@ -6585,7 +6811,7 @@ function CreateMinuteEditTimingHtml(iCount, type, selectedMinute) {
         else {
             minute = i;
         }
-        if (minute == selectedMinute) {
+        if (minute == selectedMinute || i == selectedMinute) {
             minuteHtml += "<option value=\"" + minute + "\" selected>" + minute + "</option>";
         }
         else {

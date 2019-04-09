@@ -11456,7 +11456,7 @@ label.item-radio.disabled {
 }
 
 .md label.item-radio>.icon-radio {
-    margin-right: 38px
+    margin-right: 20px
 }
 
 .md label.item-radio .item-content .item-media,
@@ -11545,13 +11545,13 @@ label.item-radio.disabled {
 .md .color-theme-pink .radio input[type=radio]:checked~.icon-radio,
 .md .color-theme-pink label.item-radio input[type=radio]:checked~* .icon-radio,
 .md .color-theme-pink label.item-radio input[type=radio]:checked~.icon-radio {
-    border-color: #e91e63
+    border-color: #08b3c7
 }
 
 .md .color-theme-pink .radio input[type=radio]:checked~.icon-radio:after,
 .md .color-theme-pink label.item-radio input[type=radio]:checked~* .icon-radio:after,
 .md .color-theme-pink label.item-radio input[type=radio]:checked~.icon-radio:after {
-    background-color: #e91e63
+    background-color: #08b3c7
 }
 
 .md .color-theme-pink .radio .ripple-wave {
