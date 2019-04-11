@@ -1,6 +1,6 @@
 //var global = "http://www.appnotification.bistroux.com/Api/App/";
 //var global = "http://www.consumerapp.bistroux.com/Api/App/";
-var global = "http://192.168.1.7/Api/App/";
+var global = "http://192.168.1.6/Api/App/";
 var mediaURL = "http://appnotification.bistroux.com/Media/";
 
 var browser = true;
@@ -4923,6 +4923,231 @@ function SetManageService() {
     }
 }
 
+//Carryout Items
+function CarryoutItemsList(carryoutpagesize, carryoutcurrentPage) {
+
+    //Shorting
+    var sortValue = "DESC";
+    var sortByValue = "";
+    var filterStatus = "";
+    var orderNoFrom = "";
+    var orderNoTo = "";
+    var phone = "";
+    var orderDateFrom = "";
+    var orderDateTo = "";
+
+    var customerId = 0;
+    var storeId = 0;
+    currentPage = 0;
+    $("#dvFoodItemList").html("");
+    storeId = SetStoreId();
+    customerId = SetCustomerId();
+
+
+    if (Number(storeId) > 0) {
+
+        carryoutcurrentPage = Number(carryoutcurrentPage) * Number(carryoutpagesize);
+        url = global + "/GetAllCarryOutItems?storeid=" + storeId + "&pagesize=" + carryoutpagesize + "&currentPage=" + carryoutcurrentPage;
+
+        try {
+
+            $.getJSON(url, function (data) {
+                $('#loader_msg').html("");
+                var obj = JSON.parse(data);
+                var length = Object.keys(obj).length;
+
+                if (JSON.parse(data).indexOf("No item(s) found") < 0) {
+                    localStorage.setItem("ItemAvailable", "1");
+                    var count = 0;
+                    $.each(JSON.parse(data), function (index, value) {
+                        var itemPrice = "$0.00";
+                        if (value.PRICE != "") {
+                            itemPrice = FormatDecimal(value.PRICE);
+
+                        }
+                      
+                        var html = "<div class=\"order-container\"  id='li_" + value.ID + "' style=\"width:100%;padding-left: 20px;\" >";
+                        html += "<div id=\"dvItemListInner_" + value.ID + "\" class=\"order-list\">";
+                        html += "<div class=\"order-column-two\" style=\"width:100%\">";
+                        html += "<div class=\"order-row-container\">";
+
+                        /*------------------Name-----------------------*/
+                        html += "<div class=\"order-pickup panel-open order-number\" style=\"text-align:left;font-size:20px;width:75%\" onclick=\"GoToItemEdit(" + value.ID + ")\">" + value.NAME + "</div>";
+
+                        /*------------------Button-----------------------*/
+                        html += "<div class=\"order-buttons\" style=\"width:25%\">";
+                        html += "<span class=\"order-price\" style=\"margin-right:10px\">" + itemPrice + "</span>";
+                        if (value.IsActive == 1) {
+                           
+                            //html += "<a><img src=\"./img/icons/active.png\"></a>";
+                        }
+                        else {
+                            //html += "<a><img src=\"./img/icons/inactive.png\"></a>";
+                        }
+                        html += "<a onclick=\"GoToItemEdit(" + value.ID + ");\"><img src=\"./img/icons/edit-icon.png\"></a>";
+                        html += "</div>";
+
+                        html += "</div>";
+                        html += "<div class=\"order-row-container panel-open\" onclick=\"GoToItemEdit(" + value.ID + ")\">";
+                        html += "<div class=\"order-date\" style=\"width:100%\">";
+                        html += "<div class=\"customer-detail-container\">";
+
+                        /*------------------SHORTDESCRIPTION-----------------------*/
+                        if (value.SHORTDESCRIPTION != undefined && value.SHORTDESCRIPTION != null && value.SHORTDESCRIPTION!="")
+                        html += "<div  style=\"font-size:16px;width:100%\">" + value.SHORTDESCRIPTION + "</div>";
+
+                        //if (value.StartDateUtc != "" && value.EndDateUtc != "") {
+                        //    /*------------------Start Date Ende Date-----------------------*/
+                        //    html += "<div class=\"giftcard-customer-name\">Start: <span class=\"cc-number\">" + StartDate + "</span></div>";
+                        //    html += "<div class=\"giftcard-customer-name\">End: <span class=\"cc-number\">" + EndDate + "</span></div>";
+                        //}
+
+
+                        html += "</div>";
+                        html += "</div>";
+                       
+
+                        html += "</div></div></div></div>";
+
+                        count++;
+
+                        $("#dvFoodItemList").append(html);
+
+
+                    });
+
+                }
+
+
+                else {
+                    localStorage.setItem("ItemAvailable", "0");
+                    var html = "<div class=\"order-list list-empty-label-text\">No items</div>";
+
+                    $("#dvFoodItemList").html(html);
+
+                }
+            });
+
+
+        }
+        catch (e) {
+        }
+    }
+    else {
+        self.app.router.navigate('/login_new/', { reloadCurrent: false });
+    }
+}
+
+//Carryout Items
+function CarryoutItemsListPagination(carryoutpagesize, carryoutcurrentPage) {
+    //Shorting
+    var sortValue = "DESC";
+    var sortByValue = "";
+    var filterStatus = "";
+    var orderNoFrom = "";
+    var orderNoTo = "";
+    var phone = "";
+    var orderDateFrom = "";
+    var orderDateTo = "";
+    //Shorting
+
+    var customerId = 0;
+    var storeId = 0;
+
+
+    storeId = SetStoreId();
+    customerId = SetCustomerId();
+    if (Number(storeId) > 0) {
+
+        carryoutcurrentPage = Number(carryoutcurrentPage) * Number(carryoutpagesize);
+        url = global + "/GetAllCarryOutItems?storeid=" + storeId + "&pagesize=" + carryoutpagesize + "&currentPage=" + carryoutcurrentPage ;
+  
+        try {
+
+            $.getJSON(url, function (data) {
+                var obj = JSON.parse(data);
+                var length = Object.keys(obj).length;
+
+                if (JSON.parse(data).indexOf("No item(s) found") < 0) {
+                    localStorage.setItem("ItemAvailable", "1");
+                    var count = 0;
+                    $.each(JSON.parse(data), function (index, value) {
+
+
+                        var html = "<div class=\"order-container\"  id='li_" + value.ID + "' style=\"width:100%;padding-left: 20px;\" >";
+                        html += "<div id=\"dvItemListInner_" + value.ID + "\" class=\"order-list\">";
+                        html += "<div class=\"order-column-two\" style=\"width:100%\">";
+                        html += "<div class=\"order-row-container\">";
+
+                        /*------------------Name-----------------------*/
+                        html += "<div class=\"order-pickup panel-open\" style=\"text-align:left;font-size:20px;width:60%\" onclick=\"GoToItemEdit(" + value.ID + ")\">" + value.NAME + "</div>";
+
+                        /*------------------Button-----------------------*/
+                        html += "<div class=\"order-buttons\" style=\"width:28%\">";
+                        html += "<span class=\"order-price\" style=\"font-size:14px\">" + value.PRICE + "</span>";
+                        if (value.IsActive == 1) {
+
+                            //html += "<a><img src=\"./img/icons/active.png\"></a>";
+                        }
+                        else {
+                            //html += "<a><img src=\"./img/icons/inactive.png\"></a>";
+                        }
+                        html += "<a onclick=\"GoToItemEdit(" + value.ID + ");\"><img src=\"./img/icons/edit-icon.png\"></a>";
+                        html += "</div>";
+
+                        html += "</div>";
+                        html += "<div class=\"order-row-container panel-open\" onclick=\"GoToItemEdit(" + value.ID + ")\">";
+                        html += "<div class=\"order-date\" style=\"width:100%\">";
+                        html += "<div class=\"customer-detail-container\">";
+
+                        /*------------------SHORTDESCRIPTION-----------------------*/
+                        if (value.SHORTDESCRIPTION != undefined && value.SHORTDESCRIPTION != null && value.SHORTDESCRIPTION != "")
+                            html += "<div class=\"order-number\" style=\"font-size:16px;width:100%\">" + value.SHORTDESCRIPTION + "</div>";
+
+                        //if (value.StartDateUtc != "" && value.EndDateUtc != "") {
+                        //    /*------------------Start Date Ende Date-----------------------*/
+                        //    html += "<div class=\"giftcard-customer-name\">Start: <span class=\"cc-number\">" + StartDate + "</span></div>";
+                        //    html += "<div class=\"giftcard-customer-name\">End: <span class=\"cc-number\">" + EndDate + "</span></div>";
+                        //}
+
+
+                        html += "</div>";
+                        html += "</div>";
+
+
+                        html += "</div></div></div></div>";
+
+                        count++;
+
+                        $("#dvFoodItemList").append(html);
+
+
+                    });
+
+                }
+
+
+                else {
+                    localStorage.setItem("ItemAvailable", "0");
+                    var html = "<div class=\"order-list list-empty-label-text\">No items</div>";
+
+                    $("#dvFoodItemList").html(html);
+
+                }
+
+
+
+            });
+
+        }
+        catch (e) {
+        }
+    }
+    else {
+        self.app.router.navigate('/login_new/', { reloadCurrent: false });
+    }
+
+}
 /*04.04.2019*/
 
 

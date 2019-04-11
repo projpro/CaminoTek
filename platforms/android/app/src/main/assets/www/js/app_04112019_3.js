@@ -202,7 +202,7 @@ $$(document).on('page:init', function (e) {
                 CarryoutItemsListPagination(pageSize, currentPage);
                 localStorage.setItem("CurrentPage", currentPage);
             }
-
+         
 
         });
     }

@@ -2824,7 +2824,7 @@ li.list-group-title:before {
 
 .md .list .item-content {
     min-height: 48px;
-    padding-left: 16px
+    padding-left: 10px
 }
 
 .md .list .item-subtitle {

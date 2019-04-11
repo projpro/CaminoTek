@@ -171,6 +171,41 @@ $$(document).on('page:init', function (e) {
         });
 
     }
+    else if (pageURL.indexOf('food_list') > -1) {
+        var pageSize = 10;
+        var currentPage = 0;
+        document.addEventListener("deviceready", onDeviceReady, false);
+        function onDeviceReady() {
+            var src = mediaURL + "notification.mp3";
+            myMedia = new Media(src, onSuccess, onError, onStatus);
+
+            if (device.platform != "browser") {
+                if (localStorage.getItem("StoreId") != null)
+                    storeId = Number(localStorage.getItem("StoreId"));
+                if (storeId > 0) {
+                    InitPushNotification(storeId);
+                }
+            }
+        }
+
+        localStorage.setItem("CurrentPage", currentPage);
+        CarryoutItemsList(10, 0);
+        //var timeout = null;
+        //var src = mediaURL + "notification.mp3";
+        //var myMedia = null;
+        $$('.page-content').scroll(function () {
+            var ItemAvailable = localStorage.getItem("ItemAvailable");
+            if (ItemAvailable == "1") {
+                currentPage = localStorage.getItem("CurrentPage");
+                currentPage = Number(currentPage) + 1;
+                // console.log("currentPage: " + currentPage);
+                CarryoutItemsListPagination(pageSize, currentPage);
+                localStorage.setItem("CurrentPage", currentPage);
+            }
+         
+
+        });
+    }
     else if (pageURL.indexOf('giftcard') > -1)//Gift Card
     {
 

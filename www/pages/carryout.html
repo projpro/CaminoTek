@@ -36,7 +36,7 @@
             <div class="center">Carry Out</div>
             <a class="fab fab-right-top panel-open navbar-site-action icon-only searchbar-enable navbar-right-icon-2" id="linkCarryoutFilterIcon" data-panel="right" style="display:none;"><i class="material-icons large-icon">filter_list</i></a>
             <div class="right">
-                <a class="icon-only navbar-right-single-icon" style="right:55px;" onclick="GotoProfile();"><i class="material-icons large-icon">account_circle</i></a>
+                <a class="icon-only navbar-right-single-icon" style="right:65px;" onclick="GotoProfile();"><i class="material-icons large-icon">account_circle</i></a>
                 <a class="icon-only navbar-right-single-icon" onclick="Logout();"><i class="material-icons large-icon">exit_to_app</i></a>
 
             </div>
@@ -186,9 +186,9 @@
         </div>
         <div class="mt pd"></div>
 
-        <div class="panel-overlay"></div>
+        <!--<div class="panel-overlay"></div>-->
 
-        <div class="panel panel-one panel-left panel-cover panel-menu" style="display:none;" id="dvCarryOutPanel">
+        <div class="panel panel-one panel-left panel-cover panel-menu" style="display:none;" id="dvDetailsPanel">
             <div class="page">
                 <div class="page-content">
                     <div class="block">
@@ -202,7 +202,7 @@
                 </div>
             </div>
         </div>
-        <div class="page" id="dvCarryOutDetails" style="display:none;">
+        <div class="page" id="dvCarryOutDetailsInner" style="display:none;">
             <div class="page-content">
                 <div class="page-title padding-left padding-right margin-top display-flex justify-content-space-between">
                     <h2>Order Details</h2>
@@ -211,8 +211,8 @@
                     </a>
                 </div>
                 <div class="block">
-
-                    <div class="order-list">
+                    <!--order-list-->
+                    <div class="">
                         <div>
                             <input type="hidden" id="hdnSelectedOrderId" value="0" />
                             <input type="hidden" id="hdnSelectedOrderDateTime" value="" />
@@ -380,14 +380,14 @@
                                     <li class="item-content">
                                         <div class="item-media" style="width:96%">
                                             <i class="material-icons">event</i>
-                                            <input type="date" placeholder="Start Date" id="txtFilterCouponStart" tabindex="2">
+                                            <input type="text" placeholder="Start Date" id="txtFilterCouponStart" tabindex="2">
                                             <span class="input-clear-button"></span>
                                         </div>
                                     </li>
                                     <li class="item-content">
                                         <div class="item-media" style="width:96%">
                                             <i class="material-icons">event</i>
-                                            <input type="date" placeholder="EndDate" id="txtFilterCouponEnd" tabindex="3">
+                                            <input type="text" placeholder="EndDate" id="txtFilterCouponEnd" tabindex="3">
                                             <span class="input-clear-button"></span>
                                         </div>
                                     </li>

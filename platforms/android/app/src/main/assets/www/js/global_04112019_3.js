@@ -305,7 +305,8 @@ function CarryoutOrdersList(status, carryoutpagesize, carryoutcurrentPage, divId
     var orderDateTo = "";
     //Shorting
     status = $('#hdnCurrentState').val();
-    if (status == "New") {
+    if (status == "New")
+    {
         divId = 'dvNewList';
     }
     else if (status == "Processing") {
@@ -329,18 +330,18 @@ function CarryoutOrdersList(status, carryoutpagesize, carryoutcurrentPage, divId
     var storeId = 0;
     currentPage = 0;
     $("#" + divId).html("");
-    storeId = SetStoreId();
+    storeId=SetStoreId();
     customerId = SetCustomerId();
-
-
+    
+   
     if (Number(storeId) > 0) {
-
+     
         carryoutcurrentPage = Number(carryoutcurrentPage) * Number(carryoutpagesize);
         url = global + "/GetAllCarryOutOrdersTemp?storeid=" + storeId + "&status=" + status + "&pagesize=" + carryoutpagesize + "&currentPage=" + carryoutcurrentPage + "&sortValue=" + sortValue + "&sortByValue=" + sortByValue +
             "&filterStatus=" + filterStatus + "&orderNoFrom=" + orderNoFrom + "&orderNoTo=" + orderNoTo + "&phone=" + phone + "&orderDateFrom=" + orderDateFrom + "&orderDateTo=" + orderDateTo;
-
+     
         try {
-
+           
             $.getJSON(url, function (data) {
                 $('#loader_msg').html("");
                 var obj = JSON.parse(data);
@@ -350,7 +351,7 @@ function CarryoutOrdersList(status, carryoutpagesize, carryoutcurrentPage, divId
                     localStorage.setItem("OrderAvailable", "1");
                     var count = 0;
                     $.each(JSON.parse(data), function (index, value) {
-                        //console.log(value);
+                        console.log(value);
                         //console.log(value.FIRSTNAME)
                         //console.log(value.BILLINGFIRSTNAME)
                         var orderDate = "";
@@ -407,7 +408,7 @@ function CarryoutOrdersList(status, carryoutpagesize, carryoutcurrentPage, divId
                             phone = FormatPhoneNumber(phone);
                         if (value.PAYMENTMETHOD != "" && value.PAYMENTMETHOD != undefined) {
                             paymentMethod = value.PAYMENTMETHOD;
-                            //console.log("#: " + value.ID + " " + paymentMethod);
+                            console.log("#: " + value.ID + " " + paymentMethod);
                         }
                         if (value.CARDNUMBER != "" && value.CARDNUMBER != undefined) {
                             cardNumber = value.CARDNUMBER;
@@ -425,7 +426,8 @@ function CarryoutOrdersList(status, carryoutpagesize, carryoutcurrentPage, divId
 
                         html += "<div class=\"order-column-one panel-open\" onclick=\"OpenCarryoutDetails(" + value.ID + ");\" >";
                         /*------------------Status Icon--------------------*/
-                        if (status == '' || status == "All") {
+                        if (status == '' || status == "All")
+                        {
                             if (value.ORDERSTATUSID.toLowerCase() == "new") {
                                 html += "<div class=\"order-status-icon\"><img class=\"list-icon\"  src=\"img/icons/new.png\" alt=\"\"/></div>";
                             }
@@ -439,22 +441,22 @@ function CarryoutOrdersList(status, carryoutpagesize, carryoutcurrentPage, divId
                                 html += "<div class=\"order-status-icon\"><img class=\"list-icon\"  src=\"img/icons/Picked-Up-Icon.png\" alt=\"\"/></div>";
                             }
                         }
-
+                    
                         /*-----------------Status Icon End----------------*/
-                        if (value.PICKUPTIME != undefined) {
-                            if (status == '' || status == "All")
-                                html += "<div class=\"order-pickup\">" + value.PICKUPTIME + "</div>";
-                            else
-                                html += "<div class=\"order-pickup  order-pickup-margin-top\" style=\"margin-top:22px;\">" + value.PICKUPTIME + "</div>";
-
+                      if (value.PICKUPTIME != undefined) {
+                        if (status == '' || status == "All")
+                            html += "<div class=\"order-pickup\">" + value.PICKUPTIME + "</div>";
+                        else
+                            html += "<div class=\"order-pickup  order-pickup-margin-top\" style=\"margin-top:22px;\">" + value.PICKUPTIME + "</div>";
+                           
                         }
-                        //else {
-                        //  if (status == '' || status == "All")
-                        //      html += "<div class=\"order-pickup\"></div>";
-                        //  else
+                      //else {
+                      //  if (status == '' || status == "All")
+                      //      html += "<div class=\"order-pickup\"></div>";
+                      //  else
 
-                        //      html += "<div class=\"order-pickup order-pickup-margin-top\"></div>";
-                        //  }
+                      //      html += "<div class=\"order-pickup order-pickup-margin-top\"></div>";
+                      //  }
                         html += "</div>";
                         /*------------------Column 1-----------------------*/
                         /*------------------Column 2-----------------------*/
@@ -484,8 +486,8 @@ function CarryoutOrdersList(status, carryoutpagesize, carryoutcurrentPage, divId
                             buttonHTML += "<a onclick=\"ChangeOrderStatusNew('Processing'," + value.ID + "," + storeId + ")\"  id=\"btnAccept\"  style=\"display:none;\"><img src=\"./img/icons/accept_button.png\" /></a>";
                             buttonHTML += "<a onclick=\"ChangeOrderStatusNew('New'," + value.ID + "," + storeId + ")\"  id=\"btnNew\" style=\"display:none;\"><img src=\"./img/icons/new_button.png\" /></a>";
                             buttonHTML += "<a onclick=\"ChangeOrderStatusNew('Complete'," + value.ID + "," + storeId + ")\"  id=\"btnComplete\" style=\"display:none;\"><img src=\"./img/icons/complete_button.png\"  /></a>";
-                            buttonHTML += "<a onclick=\"ChangeOrderStatusNew('Processing'," + value.ID + "," + storeId + ")\"  id=\"btnProcessing\" ><img src=\"./img/icons/pending_button.png\"/></a>";
-                            buttonHTML += "<a onclick=\"ChangeOrderStatusNew('PickedUp'," + value.ID + "," + storeId + ")\"  id=\"btnPickedUp\"><img src=\"./img/icons/picked_up_button.png\"/></a>";
+                            buttonHTML += "<a onclick=\"ChangeOrderStatusNew('Processing'," + value.ID + "," + storeId + ")\"  id=\"btnProcessing\" ><img src=\"./img/icons/pending_button.png\" style=\"width:61%;margin:0 0;\" /></a>";
+                            buttonHTML += "<a onclick=\"ChangeOrderStatusNew('PickedUp'," + value.ID + "," + storeId + ")\"  id=\"btnPickedUp\"><img src=\"./img/icons/picked_up_button.png\" style=\"width:61%;margin:0 0;\"/></a>";
                             //if ($("#hdnSelectedOrderPickUpSMSSentTime").val().trim() == "")
                             //    buttonHTML += "<a onclick=\"SendPickUpSMSToCustomer(" + value.ID + ")\"  id=\"btnPickupSMS\"><img src=\"./img/icons/pickup_sms_button.png\"  style=\"width:61%;margin:0 0;\"/></a>";
                             //else
@@ -525,13 +527,13 @@ function CarryoutOrdersList(status, carryoutpagesize, carryoutcurrentPage, divId
                         html += "<div class=\"order-items-count\">";
                         html += "<div class=\"customer-detail-container\">";
                         html += "<div class=\"order-price\">" + ordertotal + "</div>";
-                        if (value.NOOFITEMS == 1) {
+                        if (value.NOOFITEMS == 1){
                             html += "<div>1 item ";
-                        }
+                        }                            
                         else {
                             html += "<div>" + value.NOOFITEMS + " items ";
-                        }
-                        //console.log("#: " + value.ID + " " + paymentMethod);
+                        }                            
+                        console.log("#: " + value.ID + " " +  paymentMethod);
                         if (paymentMethod == "Cash On Delivery") {
                             html += "<span class=\"cc-number\">Due on Pickup</span>";
                         }
@@ -542,7 +544,7 @@ function CarryoutOrdersList(status, carryoutpagesize, carryoutcurrentPage, divId
                             //    html += "<span class=\"cc-number\"> CC " + cardNumber + "</span></span>";
                             //}
                             //else {
-                            html += "<span class=\"cc-number\">PAID</span>";
+                                html += "<span class=\"cc-number\">PAID</span>";
                             //}
                         }
                         html += "</div>";
@@ -552,16 +554,16 @@ function CarryoutOrdersList(status, carryoutpagesize, carryoutcurrentPage, divId
                         html += "</div>";
                         /*------------------Order Info-----------------------*/
 
-
+                        
                         html += "</div>";
                         /*------------------2nd Row-----------------------*/
                         html += "</div>";
                         /*------------------Column 2-----------------------*/
-
+                     
                         html += "</div>";
                         /*------------------Order Row-----------------------*/
 
-
+                      
 
                         html += "</div>";
                         /*------------------Order Area-----------------------*/
@@ -579,7 +581,7 @@ function CarryoutOrdersList(status, carryoutpagesize, carryoutcurrentPage, divId
                 else {
                     localStorage.setItem("OrderAvailable", "0");
                     var html = "<div class=\"order-list list-empty-label-text\">No Orders</div>";
-
+                  
                     $("#" + divId).html(html);
 
                 }
@@ -631,11 +633,11 @@ function CarryoutOrdersListPagination(status, carryoutpagesize, carryoutcurrentP
 
         //console.log("Sort: "+ sortValue + " By: " + sortByValue + " filter: " + filterStatus + " orderNofrom: " + orderNoFrom + " orderNoTo: " + orderNoTo + " phone: " + phone + " orderDateFrom: "+ orderDateFrom + " dateTo: " + orderDateTo);
     }
-
+   
     storeId = SetStoreId();
     customerId = SetCustomerId();
     if (Number(storeId) > 0) {
-
+       
         carryoutcurrentPage = Number(carryoutcurrentPage) * Number(carryoutpagesize);
         url = global + "/GetAllCarryOutOrdersTemp?storeid=" + storeId + "&status=" + status + "&pagesize=" + carryoutpagesize + "&currentPage=" + carryoutcurrentPage + "&sortValue=" + sortValue + "&sortByValue=" + sortByValue +
             "&filterStatus=" + filterStatus + "&orderNoFrom=" + orderNoFrom + "&orderNoTo=" + orderNoTo + "&phone=" + phone + "&orderDateFrom=" + orderDateFrom + "&orderDateTo=" + orderDateTo;
@@ -672,7 +674,7 @@ function CarryoutOrdersListPagination(status, carryoutpagesize, carryoutcurrentP
                     localStorage.setItem("OrderAvailable", "1");
                     var count = 0;
                     $.each(JSON.parse(data), function (index, value) {
-
+                    
                         var orderDate = "";
                         var orderTime = "";
                         var firstName = "";
@@ -804,8 +806,8 @@ function CarryoutOrdersListPagination(status, carryoutpagesize, carryoutcurrentP
                             buttonHTML += "<a onclick=\"ChangeOrderStatusNew('Processing'," + value.ID + "," + storeId + ")\"  id=\"btnAccept\"  style=\"display:none;\"><img src=\"./img/icons/accept_button.png\" /></a>";
                             buttonHTML += "<a onclick=\"ChangeOrderStatusNew('New'," + value.ID + "," + storeId + ")\"  id=\"btnNew\" style=\"display:none;\"><img src=\"./img/icons/new_button.png\" /></a>";
                             buttonHTML += "<a onclick=\"ChangeOrderStatusNew('Complete'," + value.ID + "," + storeId + ")\"  id=\"btnComplete\" style=\"display:none;\"><img src=\"./img/icons/complete_button.png\"  /></a>";
-                            buttonHTML += "<a onclick=\"ChangeOrderStatusNew('Processing'," + value.ID + "," + storeId + ")\"  id=\"btnProcessing\" ><img src=\"./img/icons/pending_button.png\"/></a>";
-                            buttonHTML += "<a onclick=\"ChangeOrderStatusNew('PickedUp'," + value.ID + "," + storeId + ")\"  id=\"btnPickedUp\"><img src=\"./img/icons/picked_up_button.png\"/></a>";
+                            buttonHTML += "<a onclick=\"ChangeOrderStatusNew('Processing'," + value.ID + "," + storeId + ")\"  id=\"btnProcessing\" ><img src=\"./img/icons/pending_button.png\" style=\"width:61%;margin:0 0;\" /></a>";
+                            buttonHTML += "<a onclick=\"ChangeOrderStatusNew('PickedUp'," + value.ID + "," + storeId + ")\"  id=\"btnPickedUp\"><img src=\"./img/icons/picked_up_button.png\" style=\"width:61%;margin:0 0;\"/></a>";
                             //if ($("#hdnSelectedOrderPickUpSMSSentTime").val().trim() == "")
                             //    buttonHTML += "<a onclick=\"SendPickUpSMSToCustomer(" + value.ID + ")\"  id=\"btnPickupSMS\"><img src=\"./img/icons/pickup_sms_button.png\"  style=\"width:61%;margin:0 0;\"/></a>";
                             //else
@@ -878,7 +880,7 @@ function CarryoutOrdersListPagination(status, carryoutpagesize, carryoutcurrentP
                         html += "</div>";
                         /*------------------Order Row-----------------------*/
 
-
+                       
 
                         html += "</div>";
                         /*------------------Order Area-----------------------*/
@@ -889,12 +891,12 @@ function CarryoutOrdersListPagination(status, carryoutpagesize, carryoutcurrentP
 
 
                     });
-
-
+                
+                 
                 }
                 else {
                     localStorage.setItem("OrderAvailable", "0");
-
+                 
                 }
 
 
@@ -912,13 +914,11 @@ function CarryoutOrdersListPagination(status, carryoutpagesize, carryoutcurrentP
 }
 //Carryout Details
 function OpenCarryoutDetails(id) {
+
     var storeId = SetStoreId();
     if (id > 0) {
         url = global + "/GetCarryOutOrderDetailsWithAllInfo?orderid=" + id;
         $.getJSON(url, function (data) {
-            $('#dvDetailsPanel').html("");
-            $("#dvOrderInfo").html("");
-            $("#dvItem").html("");
             var html = "";
             var htmlDiscount = "";
             var htmlRewards = "";
@@ -948,7 +948,7 @@ function OpenCarryoutDetails(id) {
             var numberOfItems = "";
             //console.log(data);
             $.each(JSON.parse(data), function (index, value) {
-                //console.log(value);
+                console.log(value);
 
                 if (value.Type == "OrderInfo") {
 
@@ -1078,8 +1078,7 @@ function OpenCarryoutDetails(id) {
 
                 /*------------------Order Area-----------------------*/
                 var buttonHTML = "";
-                var orderhtml = "";
-                orderhtml = "<div class=\"order-container\">";
+                var orderhtml = "<div class=\"order-container\">";
 
 
                 /*------------------Order Row-----------------------*/
@@ -1131,8 +1130,8 @@ function OpenCarryoutDetails(id) {
                     buttonHTML += "<a onclick=\"ChangeOrderStatusNew('Processing'," + orderId + "," + storeId + ")\"  id=\"btnAccept\"  style=\"display:none;\"><img src=\"./img/icons/accept_button.png\" /></a>";
                     buttonHTML += "<a onclick=\"ChangeOrderStatusNew('New'," + orderId + "," + storeId + ")\"  id=\"btnNew\" style=\"display:none;\"><img src=\"./img/icons/new_button.png\" /></a>";
                     buttonHTML += "<a onclick=\"ChangeOrderStatusNew('Complete'," + orderId + "," + storeId + ")\"  id=\"btnComplete\" style=\"display:none;\"><img src=\"./img/icons/complete_button.png\"  /></a>";
-                    buttonHTML += "<a onclick=\"ChangeOrderStatusNew('Processing'," + orderId + "," + storeId + ")\"  id=\"btnProcessing\" ><img src=\"./img/icons/pending_button.png\" /></a>";
-                    buttonHTML += "<a onclick=\"ChangeOrderStatusNew('PickedUp'," + orderId + "," + storeId + ")\"  id=\"btnPickedUp\"><img src=\"./img/icons/picked_up_button.png\"/></a>";
+                    buttonHTML += "<a onclick=\"ChangeOrderStatusNew('Processing'," + orderId + "," + storeId + ")\"  id=\"btnProcessing\" ><img src=\"./img/icons/pending_button.png\" style=\"width:61% !important;\" /></a>";
+                    buttonHTML += "<a onclick=\"ChangeOrderStatusNew('PickedUp'," + orderId + "," + storeId + ")\"  id=\"btnPickedUp\"><img src=\"./img/icons/picked_up_button.png\" style=\"width:61% !important;\" /></a>";
                     //if ($("#hdnSelectedOrderPickUpSMSSentTime").val().trim() == "")
                     //    buttonHTML += "<a onclick=\"SendPickUpSMSToCustomer(" + orderId + ")\"  id=\"btnPickupSMS\"><img src=\"./img/icons/pickup_sms_button.png\" style=\"width:61% !important;\"/></a>";
                     //else
@@ -1146,7 +1145,7 @@ function OpenCarryoutDetails(id) {
                     buttonHTML += "<a onclick=\"ChangeOrderStatusNew('Complete'," + orderId + "," + storeId + ")\"  id=\"btnComplete\"><img src=\"./img/icons/complete_button.png\" style=\"width:21% !important;float:right;\"/></a>";
                     buttonHTML += "<a onclick=\"ChangeOrderStatusNew('Processing'," + orderId + "," + storeId + ")\"  id=\"btnProcessing\" style=\"display:none;\"><img src=\"./img/icons/pending_button.png\"  /></a>";
                     buttonHTML += "<a onclick=\"ChangeOrderStatusNew('PickedUp'," + orderId + "," + storeId + ")\"  id=\"btnPickedUp\" style=\"display:none;\"><img src=\"./img/icons/pickup_sms_button.png\"  /></a>";
-                    //buttonHTML += "<a onclick=\"SendPickUpSMSToCustomer(" + orderId + ")\"  id=\"btnPickupSMS\" style=\"display:none;\"><img src=\"./img/icons/pickup_sms_button.png\"  /></a>";
+                    buttonHTML += "<a onclick=\"SendPickUpSMSToCustomer(" + orderId + ")\"  id=\"btnPickupSMS\" style=\"display:none;\"><img src=\"./img/icons/pickup_sms_button.png\"  /></a>";
 
                 }
                 orderhtml += "<div class=\"order-buttons\">";
@@ -1233,7 +1232,7 @@ function OpenCarryoutDetails(id) {
 
                 orderhtml += "</div>";
                 /*------------------Order Area-----------------------*/
-                
+
                 $("#dvOrderInfo").html(orderhtml);
                 //console.log(orderhtml);
 
@@ -1318,10 +1317,11 @@ function OpenCarryoutDetails(id) {
                 }
                 //console.log(html)
                 $("#dvItem").html(html + htmlSubTotal + htmlDiscount + htmlRewards + htmlGiftCard + htmlOrderTotal + "</tbody>");
-                
-                
+                //
+                //$("#dvOrderInner_")
+
                 //console.log($("#dvCarryOutDetails").html());
-                $('#dvDetailsPanel').html($('#dvCarryOutDetailsInner').html());
+                $("#dvCarryOutPanel").html($("#dvCarryOutDetails").html());
 
                 //$("#tableItems tbody").append(html + htmlSubTotal + htmlDiscount + htmlRewards + htmlGiftCard + htmlOrderTotal);
             });
@@ -1333,10 +1333,7 @@ function OpenCarryoutDetails(id) {
 }
 function CloseCarryOutDetails()
 {
-    $('#dvCarryOutDetailsInner').hide();
-    $('#dvOrderInfo').html("");
-    $('#dvItem').html("");
-    //$("#dvCarryOutPanel").html("");
+    $("#dvCarryOutPanel").html("");
 }
 function BindcarryoutTab(status)
 {
@@ -3793,7 +3790,7 @@ function OpenGiftCardDetails(id) {
         $("#dvOrderItem").html(html + "</tbody>");
         $("#titleRedemptionHistory").show();
     });
-    
+    $('#dvGiftCardDetailsInner').show();
     //$('#dvGiftCardDetails').html($('#dvGiftCardDetailsInner').html());
     $('#dvDetailsPanel').html($('#dvGiftCardDetailsInner').html());
 }
@@ -4102,7 +4099,7 @@ function SearchReward() {
             //alert(url);
             $('#tblRewardHistory tbody').html("");
             $.getJSON(url, function (data) {
-                //console.log(data);
+                console.log(data);
                 if (data.replace(/"/g, "").indexOf("Phone is not valid.") > -1) {
                     $('#dvInner_Reward').hide();
                     $('#btnLoadReward').addClass("disabled");
@@ -4179,9 +4176,7 @@ function SearchReward() {
                                 lastName = value.LASTNAME;
                             }
                             if (value.EMAIL != "") {
-                                if (value.EMAIL.indexOf('@bistroux.com') < 0) {
-                                    email = value.EMAIL;
-                                }                                
+                                email = value.EMAIL;
                             }
                             if (value.PHONE != "") {
                                 phoneNumber = value.PHONE;
@@ -4928,6 +4923,231 @@ function SetManageService() {
     }
 }
 
+//Carryout Items
+function CarryoutItemsList(carryoutpagesize, carryoutcurrentPage) {
+
+    //Shorting
+    var sortValue = "DESC";
+    var sortByValue = "";
+    var filterStatus = "";
+    var orderNoFrom = "";
+    var orderNoTo = "";
+    var phone = "";
+    var orderDateFrom = "";
+    var orderDateTo = "";
+
+    var customerId = 0;
+    var storeId = 0;
+    currentPage = 0;
+    $("#dvFoodItemList").html("");
+    storeId = SetStoreId();
+    customerId = SetCustomerId();
+
+
+    if (Number(storeId) > 0) {
+
+        carryoutcurrentPage = Number(carryoutcurrentPage) * Number(carryoutpagesize);
+        url = global + "/GetAllCarryOutItems?storeid=" + storeId + "&pagesize=" + carryoutpagesize + "&currentPage=" + carryoutcurrentPage;
+
+        try {
+
+            $.getJSON(url, function (data) {
+                $('#loader_msg').html("");
+                var obj = JSON.parse(data);
+                var length = Object.keys(obj).length;
+
+                if (JSON.parse(data).indexOf("No item(s) found") < 0) {
+                    localStorage.setItem("ItemAvailable", "1");
+                    var count = 0;
+                    $.each(JSON.parse(data), function (index, value) {
+                        var itemPrice = "$0.00";
+                        if (value.PRICE != "") {
+                            itemPrice = FormatDecimal(value.PRICE);
+
+                        }
+                      
+                        var html = "<div class=\"order-container\"  id='li_" + value.ID + "' style=\"width:100%;padding-left: 20px;\" >";
+                        html += "<div id=\"dvItemListInner_" + value.ID + "\" class=\"order-list\">";
+                        html += "<div class=\"order-column-two\" style=\"width:100%\">";
+                        html += "<div class=\"order-row-container\">";
+
+                        /*------------------Name-----------------------*/
+                        html += "<div class=\"order-pickup panel-open order-number\" style=\"text-align:left;font-size:20px;width:75%\" onclick=\"GoToItemEdit(" + value.ID + ")\">" + value.NAME + "</div>";
+
+                        /*------------------Button-----------------------*/
+                        html += "<div class=\"order-buttons\" style=\"width:25%\">";
+                        html += "<span class=\"order-price\" style=\"margin-right:10px\">" + itemPrice + "</span>";
+                        if (value.IsActive == 1) {
+                           
+                            //html += "<a><img src=\"./img/icons/active.png\"></a>";
+                        }
+                        else {
+                            //html += "<a><img src=\"./img/icons/inactive.png\"></a>";
+                        }
+                        html += "<a onclick=\"GoToItemEdit(" + value.ID + ");\"><img src=\"./img/icons/edit-icon.png\"></a>";
+                        html += "</div>";
+
+                        html += "</div>";
+                        html += "<div class=\"order-row-container panel-open\" onclick=\"GoToItemEdit(" + value.ID + ")\">";
+                        html += "<div class=\"order-date\" style=\"width:100%\">";
+                        html += "<div class=\"customer-detail-container\">";
+
+                        /*------------------SHORTDESCRIPTION-----------------------*/
+                        if (value.SHORTDESCRIPTION != undefined && value.SHORTDESCRIPTION != null && value.SHORTDESCRIPTION!="")
+                        html += "<div  style=\"font-size:16px;width:100%\">" + value.SHORTDESCRIPTION + "</div>";
+
+                        //if (value.StartDateUtc != "" && value.EndDateUtc != "") {
+                        //    /*------------------Start Date Ende Date-----------------------*/
+                        //    html += "<div class=\"giftcard-customer-name\">Start: <span class=\"cc-number\">" + StartDate + "</span></div>";
+                        //    html += "<div class=\"giftcard-customer-name\">End: <span class=\"cc-number\">" + EndDate + "</span></div>";
+                        //}
+
+
+                        html += "</div>";
+                        html += "</div>";
+                       
+
+                        html += "</div></div></div></div>";
+
+                        count++;
+
+                        $("#dvFoodItemList").append(html);
+
+
+                    });
+
+                }
+
+
+                else {
+                    localStorage.setItem("ItemAvailable", "0");
+                    var html = "<div class=\"order-list list-empty-label-text\">No items</div>";
+
+                    $("#dvFoodItemList").html(html);
+
+                }
+            });
+
+
+        }
+        catch (e) {
+        }
+    }
+    else {
+        self.app.router.navigate('/login_new/', { reloadCurrent: false });
+    }
+}
+
+//Carryout Items
+function CarryoutItemsListPagination(carryoutpagesize, carryoutcurrentPage) {
+    //Shorting
+    var sortValue = "DESC";
+    var sortByValue = "";
+    var filterStatus = "";
+    var orderNoFrom = "";
+    var orderNoTo = "";
+    var phone = "";
+    var orderDateFrom = "";
+    var orderDateTo = "";
+    //Shorting
+
+    var customerId = 0;
+    var storeId = 0;
+
+
+    storeId = SetStoreId();
+    customerId = SetCustomerId();
+    if (Number(storeId) > 0) {
+
+        carryoutcurrentPage = Number(carryoutcurrentPage) * Number(carryoutpagesize);
+        url = global + "/GetAllCarryOutItems?storeid=" + storeId + "&pagesize=" + carryoutpagesize + "&currentPage=" + carryoutcurrentPage ;
+  
+        try {
+
+            $.getJSON(url, function (data) {
+                var obj = JSON.parse(data);
+                var length = Object.keys(obj).length;
+
+                if (JSON.parse(data).indexOf("No item(s) found") < 0) {
+                    localStorage.setItem("ItemAvailable", "1");
+                    var count = 0;
+                    $.each(JSON.parse(data), function (index, value) {
+
+
+                        var html = "<div class=\"order-container\"  id='li_" + value.ID + "' style=\"width:100%;padding-left: 20px;\" >";
+                        html += "<div id=\"dvItemListInner_" + value.ID + "\" class=\"order-list\">";
+                        html += "<div class=\"order-column-two\" style=\"width:100%\">";
+                        html += "<div class=\"order-row-container\">";
+
+                        /*------------------Name-----------------------*/
+                        html += "<div class=\"order-pickup panel-open\" style=\"text-align:left;font-size:20px;width:60%\" onclick=\"GoToItemEdit(" + value.ID + ")\">" + value.NAME + "</div>";
+
+                        /*------------------Button-----------------------*/
+                        html += "<div class=\"order-buttons\" style=\"width:28%\">";
+                        html += "<span class=\"order-price\" style=\"font-size:14px\">" + value.PRICE + "</span>";
+                        if (value.IsActive == 1) {
+
+                            //html += "<a><img src=\"./img/icons/active.png\"></a>";
+                        }
+                        else {
+                            //html += "<a><img src=\"./img/icons/inactive.png\"></a>";
+                        }
+                        html += "<a onclick=\"GoToItemEdit(" + value.ID + ");\"><img src=\"./img/icons/edit-icon.png\"></a>";
+                        html += "</div>";
+
+                        html += "</div>";
+                        html += "<div class=\"order-row-container panel-open\" onclick=\"GoToItemEdit(" + value.ID + ")\">";
+                        html += "<div class=\"order-date\" style=\"width:100%\">";
+                        html += "<div class=\"customer-detail-container\">";
+
+                        /*------------------SHORTDESCRIPTION-----------------------*/
+                        if (value.SHORTDESCRIPTION != undefined && value.SHORTDESCRIPTION != null && value.SHORTDESCRIPTION != "")
+                            html += "<div class=\"order-number\" style=\"font-size:16px;width:100%\">" + value.SHORTDESCRIPTION + "</div>";
+
+                        //if (value.StartDateUtc != "" && value.EndDateUtc != "") {
+                        //    /*------------------Start Date Ende Date-----------------------*/
+                        //    html += "<div class=\"giftcard-customer-name\">Start: <span class=\"cc-number\">" + StartDate + "</span></div>";
+                        //    html += "<div class=\"giftcard-customer-name\">End: <span class=\"cc-number\">" + EndDate + "</span></div>";
+                        //}
+
+
+                        html += "</div>";
+                        html += "</div>";
+
+
+                        html += "</div></div></div></div>";
+
+                        count++;
+
+                        $("#dvFoodItemList").append(html);
+
+
+                    });
+
+                }
+
+
+                else {
+                    localStorage.setItem("ItemAvailable", "0");
+                    var html = "<div class=\"order-list list-empty-label-text\">No items</div>";
+
+                    $("#dvFoodItemList").html(html);
+
+                }
+
+
+
+            });
+
+        }
+        catch (e) {
+        }
+    }
+    else {
+        self.app.router.navigate('/login_new/', { reloadCurrent: false });
+    }
+
+}
 /*04.04.2019*/
 
 
@@ -5843,233 +6063,6 @@ function DeleteSection(idCount, timingId) {
     }
 }
 
-
-//Carryout Items
-function CarryoutItemsList(carryoutpagesize, carryoutcurrentPage) {
-
-    //Shorting
-    var sortValue = "DESC";
-    var sortByValue = "";
-    var filterStatus = "";
-    var orderNoFrom = "";
-    var orderNoTo = "";
-    var phone = "";
-    var orderDateFrom = "";
-    var orderDateTo = "";
-
-    var customerId = 0;
-    var storeId = 0;
-    currentPage = 0;
-    $("#dvFoodItemList").html("");
-    storeId = SetStoreId();
-    customerId = SetCustomerId();
-
-
-    if (Number(storeId) > 0) {
-
-        carryoutcurrentPage = Number(carryoutcurrentPage) * Number(carryoutpagesize);
-        url = global + "/GetAllCarryOutItems?storeid=" + storeId + "&pagesize=" + carryoutpagesize + "&currentPage=" + carryoutcurrentPage;
-
-        try {
-
-            $.getJSON(url, function (data) {
-                $('#loader_msg').html("");
-                var obj = JSON.parse(data);
-                var length = Object.keys(obj).length;
-
-                if (JSON.parse(data).indexOf("No item(s) found") < 0) {
-                    localStorage.setItem("ItemAvailable", "1");
-                    var count = 0;
-                    $.each(JSON.parse(data), function (index, value) {
-                        var itemPrice = "$0.00";
-                        if (value.PRICE != "") {
-                            itemPrice = FormatDecimal(value.PRICE);
-
-                        }
-
-                        var html = "<div class=\"order-container\"  id='li_" + value.ID + "' style=\"width:100%;padding-left: 20px;\" >";
-                        html += "<div id=\"dvItemListInner_" + value.ID + "\" class=\"order-list\">";
-                        html += "<div class=\"order-column-two\" style=\"width:100%\">";
-                        html += "<div class=\"order-row-container\">";
-
-                        /*------------------Name-----------------------*/
-                        html += "<div class=\"order-pickup panel-open order-number\" style=\"text-align:left;font-size:20px;width:75%\" onclick=\"GoToItemEdit(" + value.ID + ")\">" + value.NAME + "</div>";
-
-                        /*------------------Button-----------------------*/
-                        html += "<div class=\"order-buttons\" style=\"width:25%\">";
-                        html += "<span class=\"order-price\" style=\"margin-right:10px\">" + itemPrice + "</span>";
-                        if (value.IsActive == 1) {
-
-                            //html += "<a><img src=\"./img/icons/active.png\"></a>";
-                        }
-                        else {
-                            //html += "<a><img src=\"./img/icons/inactive.png\"></a>";
-                        }
-                        html += "<a onclick=\"GoToItemEdit(" + value.ID + ");\"><img src=\"./img/icons/edit-icon.png\"></a>";
-                        html += "</div>";
-
-                        html += "</div>";
-                        html += "<div class=\"order-row-container panel-open\" onclick=\"GoToItemEdit(" + value.ID + ")\">";
-                        html += "<div class=\"order-date\" style=\"width:100%\">";
-                        html += "<div class=\"customer-detail-container\">";
-
-                        /*------------------SHORTDESCRIPTION-----------------------*/
-                        if (value.SHORTDESCRIPTION != undefined && value.SHORTDESCRIPTION != null && value.SHORTDESCRIPTION != "")
-                            html += "<div  style=\"font-size:16px;width:100%\">" + value.SHORTDESCRIPTION + "</div>";
-
-                        //if (value.StartDateUtc != "" && value.EndDateUtc != "") {
-                        //    /*------------------Start Date Ende Date-----------------------*/
-                        //    html += "<div class=\"giftcard-customer-name\">Start: <span class=\"cc-number\">" + StartDate + "</span></div>";
-                        //    html += "<div class=\"giftcard-customer-name\">End: <span class=\"cc-number\">" + EndDate + "</span></div>";
-                        //}
-
-
-                        html += "</div>";
-                        html += "</div>";
-
-
-                        html += "</div></div></div></div>";
-
-                        count++;
-
-                        $("#dvFoodItemList").append(html);
-
-
-                    });
-
-                }
-
-
-                else {
-                    localStorage.setItem("ItemAvailable", "0");
-                    var html = "<div class=\"order-list list-empty-label-text\">No items</div>";
-
-                    $("#dvFoodItemList").html(html);
-
-                }
-            });
-
-
-        }
-        catch (e) {
-        }
-    }
-    else {
-        self.app.router.navigate('/login_new/', { reloadCurrent: false });
-    }
-}
-
-//Carryout Items
-function CarryoutItemsListPagination(carryoutpagesize, carryoutcurrentPage) {
-    //Shorting
-    var sortValue = "DESC";
-    var sortByValue = "";
-    var filterStatus = "";
-    var orderNoFrom = "";
-    var orderNoTo = "";
-    var phone = "";
-    var orderDateFrom = "";
-    var orderDateTo = "";
-    //Shorting
-
-    var customerId = 0;
-    var storeId = 0;
-
-
-    storeId = SetStoreId();
-    customerId = SetCustomerId();
-    if (Number(storeId) > 0) {
-
-        carryoutcurrentPage = Number(carryoutcurrentPage) * Number(carryoutpagesize);
-        url = global + "/GetAllCarryOutItems?storeid=" + storeId + "&pagesize=" + carryoutpagesize + "&currentPage=" + carryoutcurrentPage;
-
-        try {
-
-            $.getJSON(url, function (data) {
-                var obj = JSON.parse(data);
-                var length = Object.keys(obj).length;
-
-                if (JSON.parse(data).indexOf("No item(s) found") < 0) {
-                    localStorage.setItem("ItemAvailable", "1");
-                    var count = 0;
-                    $.each(JSON.parse(data), function (index, value) {
-
-
-                        var html = "<div class=\"order-container\"  id='li_" + value.ID + "' style=\"width:100%;padding-left: 20px;\" >";
-                        html += "<div id=\"dvItemListInner_" + value.ID + "\" class=\"order-list\">";
-                        html += "<div class=\"order-column-two\" style=\"width:100%\">";
-                        html += "<div class=\"order-row-container\">";
-
-                        /*------------------Name-----------------------*/
-                        html += "<div class=\"order-pickup panel-open\" style=\"text-align:left;font-size:20px;width:60%\" onclick=\"GoToItemEdit(" + value.ID + ")\">" + value.NAME + "</div>";
-
-                        /*------------------Button-----------------------*/
-                        html += "<div class=\"order-buttons\" style=\"width:28%\">";
-                        html += "<span class=\"order-price\" style=\"font-size:14px\">" + value.PRICE + "</span>";
-                        if (value.IsActive == 1) {
-
-                            //html += "<a><img src=\"./img/icons/active.png\"></a>";
-                        }
-                        else {
-                            //html += "<a><img src=\"./img/icons/inactive.png\"></a>";
-                        }
-                        html += "<a onclick=\"GoToItemEdit(" + value.ID + ");\"><img src=\"./img/icons/edit-icon.png\"></a>";
-                        html += "</div>";
-
-                        html += "</div>";
-                        html += "<div class=\"order-row-container panel-open\" onclick=\"GoToItemEdit(" + value.ID + ")\">";
-                        html += "<div class=\"order-date\" style=\"width:100%\">";
-                        html += "<div class=\"customer-detail-container\">";
-
-                        /*------------------SHORTDESCRIPTION-----------------------*/
-                        if (value.SHORTDESCRIPTION != undefined && value.SHORTDESCRIPTION != null && value.SHORTDESCRIPTION != "")
-                            html += "<div class=\"order-number\" style=\"font-size:16px;width:100%\">" + value.SHORTDESCRIPTION + "</div>";
-
-                        //if (value.StartDateUtc != "" && value.EndDateUtc != "") {
-                        //    /*------------------Start Date Ende Date-----------------------*/
-                        //    html += "<div class=\"giftcard-customer-name\">Start: <span class=\"cc-number\">" + StartDate + "</span></div>";
-                        //    html += "<div class=\"giftcard-customer-name\">End: <span class=\"cc-number\">" + EndDate + "</span></div>";
-                        //}
-
-
-                        html += "</div>";
-                        html += "</div>";
-
-
-                        html += "</div></div></div></div>";
-
-                        count++;
-
-                        $("#dvFoodItemList").append(html);
-
-
-                    });
-
-                }
-
-
-                else {
-                    localStorage.setItem("ItemAvailable", "0");
-                    var html = "<div class=\"order-list list-empty-label-text\">No items</div>";
-
-                    $("#dvFoodItemList").html(html);
-
-                }
-
-
-
-            });
-
-        }
-        catch (e) {
-        }
-    }
-    else {
-        self.app.router.navigate('/login_new/', { reloadCurrent: false });
-    }
-
-}
-
 //Profile Section End//
 
 //Coupon Section Start//
@@ -6331,7 +6324,8 @@ function OpenCouponListDetails(id) {
     var storeId = 0;
     storeId = SetStoreId();
     var moCount = 1; var tuCount = 1; var weCount = 1; var thCount = 1; var frCount = 1; var saCount = 1; var suCount = 1;
-    
+
+
     /*-------------HTML Start---------------------------------*/
     var innerHtml = "";
 
@@ -6458,7 +6452,7 @@ function OpenCouponListDetails(id) {
                 });
             }
         });
-        
+
         //$("#dvCouponDetails").html($("#dvCouponDetailInner").html());
         $("#dvDetailsPanel").html($("#dvCouponDetailInner").html());
 

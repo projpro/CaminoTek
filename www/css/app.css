@@ -1187,6 +1187,11 @@ h4{
     width:41%;
     margin:0 25px;
 }
+
+#dvFoodItemList .order-buttons img{
+    width:29%;
+    margin:0 14px;
+}
 .order-column-one
 {
     width:25%;
@@ -1559,7 +1564,7 @@ select:-moz-focusring {
     position: absolute;
 }
 .navbar-right-icon-2{
-   right: 85px !important;
+   right: 105px !important;
    top:3px  !important;
    position:absolute;
 }
