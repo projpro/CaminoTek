@@ -303,11 +303,11 @@ h4{
 }
 
 .bg3 {
-	background: #ddd;
+	background: #f0f0f0;
 }
 
 .bg4 {
-	background: #ddd;
+	background: #f0f0f0;
 }
 
 .bg5 {
@@ -564,7 +564,7 @@ h4{
 
 .list-categories .category {
 	padding: 22px;
-	border-radius: 5px;
+	border-radius: 2px;
 }
 
 .list-categories .category img {
@@ -1153,6 +1153,7 @@ h4{
 .order-list:first-child {
     display:flex;
        /*flex-direction:column;*/
+       padding-top:5px;
 
 }
 
@@ -1265,6 +1266,21 @@ h4{
 	font-size:26px;
 	color: #08b3c7;
         text-align: center;
+}
+.order-details-pickup {
+    margin-top:0px;
+	font-weight: 400;
+	font-size:26px;
+	color: #08b3c7;
+    text-align: left;
+    width:40%;
+}
+.carryout-order-number{
+    width: 60%;
+    font-size: 18px;
+    color: #111111;
+    text-align:right;
+    padding-right:10px;
 }
 .order-pickup-margin-top {
   margin-top:62px;
@@ -1615,6 +1631,9 @@ select:-moz-focusring {
 .button-color-4{
      border-color:#92278f !important;/*Magenta*/
 }
+#dvItem{padding-top:15px;}
+#dvItem table th{font-size:16px;}
+#dvItem table td{font-size:16px;}
 /*===============================================*/
 /* 11/A. Sudip Start					    	 */
 /*===============================================*/

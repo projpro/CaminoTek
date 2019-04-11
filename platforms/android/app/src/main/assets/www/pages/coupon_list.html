@@ -59,8 +59,21 @@
                 
             </div>
         </div>
-        <div class="panel panel-one panel-left panel-cover panel-menu" style="display:none;" id="dvCouponDetails" >
-            
+
+        <!--Coupon Details Panel Section-->
+        <div class="panel panel-one panel-left panel-cover panel-menu" style="display:none;" id="dvDetailsPanel">
+            <div class="page">
+                <div class="page-content">
+                    <div class="block">
+                        <div class="order-list">
+                            <div class="item-container">
+                                <img src="./img/loader.gif" alt="loading" />
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
         </div>
         <div id="dvCouponDetailInner" style="display:none;">
             <div class="page">
@@ -130,7 +143,7 @@
                                         </div>
                                     </li>
                                     <li class="item-content">
-                                        <a id="btnGiftCardOrderSearch" class="custom-btn custom-bg bg1 mt custom-link btn-filter" onclick="GiftCardOrdersList(10,0);">Filter</a>
+                                        <a id="btnGiftCardOrderSearch" class="custom-btn custom-bg bg1 custom-link btn-filter" onclick="GiftCardOrdersList(10,0);">Filter</a>
                                     </li>
                                     <li>
                                         <div class="page-content">
@@ -203,7 +216,7 @@
                                         </div>
                                     </li>
                                     <li class="item-content">
-                                        <a id="btnGiftCardOrderSort" class="custom-btn custom-bg bg1 mt custom-link btn-filter" onclick="GiftCardOrdersList(10,0);">Sort</a>
+                                        <a id="btnGiftCardOrderSort" class="custom-btn custom-bg bg1 custom-link btn-filter" onclick="GiftCardOrdersList(10,0);">Sort</a>
                                     </li>
                                 </ul>
 
@@ -228,19 +241,19 @@
                                     <li class="item-content">
                                         <div class="item-media" style="width:96%">
                                             <i class="material-icons">event</i>
-                                            <input type="date" placeholder="Start Date" id="txtFilterCouponStart" tabindex="2">
+                                            <input type="text" placeholder="Start Date" id="txtFilterCouponStart" tabindex="2">
                                             <span class="input-clear-button"></span>
                                         </div>
                                     </li>
                                     <li class="item-content">
                                         <div class="item-media" style="width:96%">
                                             <i class="material-icons">event</i>
-                                            <input type="date" placeholder="EndDate" id="txtFilterCouponEnd" tabindex="3">
+                                            <input type="text" placeholder="EndDate" id="txtFilterCouponEnd" tabindex="3">
                                             <span class="input-clear-button"></span>
                                         </div>
                                     </li>
                                     <li class="item-content">
-                                        <a id="btnCouponFilter" class="custom-btn custom-bg bg1 mt custom-link btn-filter" onclick="CouponList(10,0);">Filter</a>
+                                        <a id="btnCouponFilter" class="custom-btn custom-bg bg1 custom-link btn-filter" onclick="CouponList(10,0);">Filter</a>
                                     </li>
                                     <li>
                                         <div class="page-content">
@@ -295,9 +308,137 @@
                                         </div>
                                     </li>
                                     <li class="item-content">
-                                        <a id="btnCouponSort" class="custom-btn custom-bg bg1 mt custom-link btn-filter" onclick="CouponList(10,0);">Sort</a>
+                                        <a id="btnCouponSort" class="custom-btn custom-bg bg1 custom-link btn-filter" onclick="CouponList(10,0);">Sort</a>
                                     </li>
                                 </ul>
+
+                                <ul id="ulFilterSortCarryout" style="display:none;">
+                                    <li class="item-content">
+                                        <div class="item-media" style="width:96%">
+                                            <i class="material-icons">settings_ethernet</i>
+                                            <select id="ddlFilterCarryoutStatus">
+                                                <option value="">Status</option>
+                                                <option value="60">New</option>
+                                                <option value="10">Processing</option>
+                                                <option value="50">Picked Up</option>
+                                                <option value="30">Complete</option>
+                                            </select>
+                                        </div>
+                                    </li>
+                                    <li class="item-content">
+                                        <div class="item-media" style="width:96%">
+                                            <i class="material-icons">add_shopping_cart</i>
+                                            <input type="text" placeholder="Order #" id="txtFilterOrderNumberFrom" tabindex="1">
+                                            <span class="input-clear-button"></span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div style="text-align:center;">
+                                            <label>To</label>
+                                        </div>
+                                    </li>
+                                    <li class="item-content">
+                                        <div class="item-media" style="width:96%">
+                                            <i class="material-icons">add_shopping_cart</i>
+                                            <input type="text" placeholder="Order #" id="txtFilterOrderNumberTo" tabindex="2">
+                                            <span class="input-clear-button"></span>
+                                        </div>
+                                    </li>
+                                    <li class="item-content">
+                                        <div class="item-media" style="width:96%;">
+                                            <i class="material-icons">phone</i>
+                                            <input type="text" placeholder="Phone" id="txtFilterPhone" tabindex="3" />
+                                            <span class="input-clear-button"></span>
+                                        </div>
+                                    </li>
+                                    <li class="item-content">
+                                        <div class="item-media" style="width:96%">
+                                            <i class="material-icons">event</i>
+                                            <input type="text" placeholder="Order Date" id="txtFilterOrderDateFrom" tabindex="4">
+                                            <span class="input-clear-button"></span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div style="text-align:center;">
+                                            <label>To</label>
+                                        </div>
+                                    </li>
+                                    <li class="item-content">
+                                        <div class="item-media" style="width:96%">
+                                            <i class="material-icons">event</i>
+                                            <input type="text" placeholder="Order Date" id="txtFilterOrderDateTo" tabindex="5">
+                                            <span class="input-clear-button"></span>
+                                        </div>
+                                    </li>
+                                    <li class="item-content">
+                                        <a id="btnCarryoutFilter" class="custom-btn custom-bg bg1 custom-link btn-filter" onclick="CarryoutOrdersList('All', 10, 0, '');">Filter</a>
+                                    </li>
+                                    <li>
+                                        <div class="page-content">
+                                            <!--<div class="content-block-title" style="font-size:20px; padding-left:10px;padding-top: 25px;">Sort</div>-->
+                                            <h2 style="border:none;font-size:20px; padding-left:10px;padding-top: 25px;">Sort</h2>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <label class="item-radio item-content">
+                                            <input type="radio" name="radioCarryoutSort" value="ASC" />
+                                            <i class="icon icon-radio"></i>
+                                            <div class="item-inner">
+                                                <div class="item-title">Ascending</div>
+                                            </div>
+                                        </label>
+                                    </li>
+                                    <li>
+                                        <label class="item-radio item-content">
+                                            <input type="radio" name="radioCarryoutSort" value="DESC" checked />
+                                            <i class="icon icon-radio"></i>
+                                            <div class="item-inner">
+                                                <div class="item-title">Descending</div>
+                                            </div>
+                                        </label>
+                                    </li>
+                                    <li>
+                                        <div class="page-content">
+                                            <!--<div class="content-block-title" style="font-size:20px; padding-left:10px;">Field</div>-->
+                                            <h2 style="border:none;font-size:20px; padding-left:10px;">Field</h2>
+                                            <div class="list list-margin">
+                                                <ul style="padding-left:0px;">
+                                                    <li>
+                                                        <label class="item-radio item-content">
+                                                            <input type="radio" name="radioCarryoutSortBy" value="PickupTime" checked />
+                                                            <i class="icon icon-radio"></i>
+                                                            <div class="item-inner">
+                                                                <div class="item-title">Pick Up Time</div>
+                                                            </div>
+                                                        </label>
+                                                    </li>
+                                                    <li>
+                                                        <label class="item-radio item-content">
+                                                            <input type="radio" name="radioCarryoutSortBy" value="OrderTime" />
+                                                            <i class="icon icon-radio"></i>
+                                                            <div class="item-inner">
+                                                                <div class="item-title">Order Time</div>
+                                                            </div>
+                                                        </label>
+                                                    </li>
+                                                    <li>
+                                                        <label class="item-radio item-content">
+                                                            <input type="radio" name="radioCarryoutSortBy" value="OrderNumber" />
+                                                            <i class="icon icon-radio"></i>
+                                                            <div class="item-inner">
+                                                                <div class="item-title">Order #</div>
+                                                            </div>
+                                                        </label>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="item-content">
+                                        <a id="btnCarryoutSort" class="custom-btn custom-bg bg1 custom-link btn-filter" onclick="CarryoutOrdersList('All', 10, 0, '');">Sort</a>
+                                    </li>
+                                </ul>
+
                             </div>
 
                         </div>

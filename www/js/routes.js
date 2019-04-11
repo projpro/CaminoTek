@@ -147,6 +147,11 @@ var routes = [
           url: './pages/setup.html',
           name: 'setup',
       },
+       {
+           path: '/food_list/',
+           url: './pages/food_list.html',
+           name: 'food_list',
+       },
   // Default route (404 page). MUST BE THE LAST
   {
       path: '(.*)',

@@ -4,6 +4,7 @@ var $$ = Dom7;
 var mediaURL = "http://appnotification.bistroux.com/Media/";
 var src = mediaURL + "notification.mp3";
 var myMedia = null;
+//myMedia = new Media(src, onSuccess, onError, onStatus);
 var acceptOrderPopup;
 // Handle Cordova Device Ready Event
 $$(document).on('deviceready', function () {
@@ -13,8 +14,6 @@ $$(document).on('deviceready', function () {
     //InitPushNotification();
     if (device.platform != "browser")
     {
-        myMedia = new Media(src, onSuccess, onError, onStatus);
-
         if (localStorage.getItem("StoreId") != null)
             storeId = Number(localStorage.getItem("StoreId"));
         if (storeId > 0) {
@@ -36,6 +35,7 @@ var app = new Framework7({
     //pushState: true,
 });
 
+
 // Option 1. Using page callback for page (for "about" page in this case) (recommended way):
 //self.app.router.navigate('/carryout/', { reloadCurrent: true });
 // Option 1. Using one 'page:init' handler for all pages
@@ -43,10 +43,16 @@ $$(document).on('page:init', function (e) {
     $$('.back-new').click(function () {
         Back();
     });
+        
+    $$('.toolbar-inner a').click(function () {
+        if ($$('html').hasClass('with-panel-right-cover')) {
+            $$('.panel-close').click();
+        }
+    });
+
     //console.log(e.detail.app.form.convertToData('#login'));
     var pageURL = e.detail.route.url;
     var page = e.detail.page;
-    //alert(pageURL)
     // console.log('pageURL: ' + pageURL)
     if (pageURL == "/") {
         
@@ -62,8 +68,6 @@ $$(document).on('page:init', function (e) {
         else {
             localStorage.setItem("AppRefreshTimeInterval", appRefreshInterval);
         }
-
-        
         if (storeId > 0)
         {
             setTimeout(function () { self.app.router.navigate('/carryout/', { reloadCurrent: false }); }, 1000);
@@ -85,6 +89,20 @@ $$(document).on('page:init', function (e) {
     }
     else if (pageURL.indexOf('carryout') > -1)//Carry Out
     {
+        var calendarModalOrderStart = app.calendar.create({
+            inputEl: '#txtFilterOrderDateFrom',
+            openIn: 'customModal',
+            header: true,
+            footer: true,
+            dateFormat: 'mm/dd/yyyy',
+        });
+        var calendarModalOrderEnd = app.calendar.create({
+            inputEl: '#txtFilterOrderDateTo',
+            openIn: 'customModal',
+            header: true,
+            footer: true,
+            dateFormat: 'mm/dd/yyyy',
+        });
 
         CheckGiftCardPermission();
         $$("#hdnCurrentState").val('New');
@@ -493,6 +511,21 @@ $$(document).on('page:init', function (e) {
 
     else if (pageURL.indexOf('coupon_list') > -1)//Coupon
     {
+        var calendarModalCouponStart = app.calendar.create({
+            inputEl: '#txtFilterCouponStart',
+            openIn: 'customModal',
+            header: true,
+            footer: true,
+            dateFormat: 'mm/dd/yyyy',
+        });
+        var calendarModalCouponEnd = app.calendar.create({
+            inputEl: '#txtFilterCouponEnd',
+            openIn: 'customModal',
+            header: true,
+            footer: true,
+            dateFormat: 'mm/dd/yyyy',
+        });
+
         var pageSize = 10;
         var currentPage = 0;
         $$('#linkFilterIcon').click(function () {
@@ -1321,6 +1354,8 @@ function stopAudio() {
     // alert("Stopping");
     myMedia.stop();
 }
+
+
 
 
 

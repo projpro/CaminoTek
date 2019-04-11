@@ -4055,7 +4055,7 @@ button {
 
 .md .color-pink .button,
 .md .color-theme-pink .button {
-    color: #e91e63
+    color: #08b3c7
 }
 
 .md .color-pink .button.button-active,
@@ -15659,17 +15659,17 @@ label.item-radio.disabled {
 
 .md .color-pink .calendar-header,
 .md .color-theme-pink .calendar-header {
-    background: #e91e63
+    background: #08b3c7
 }
 
 .md .color-pink .calendar-day.calendar-day-today .calendar-day-number,
 .md .color-theme-pink .calendar-day.calendar-day-today .calendar-day-number {
-    color: #e91e63
+    color: #08b3c7
 }
 
 .md .color-pink .calendar-day.calendar-day-selected .calendar-day-number,
 .md .color-theme-pink .calendar-day.calendar-day-selected .calendar-day-number {
-    background: #e91e63;
+    background: #08b3c7;
     color: #fff
 }
 
