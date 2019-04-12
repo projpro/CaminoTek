@@ -1,6 +1,6 @@
 //var global = "http://www.appnotification.bistroux.com/Api/App/";
-//var global = "http://www.consumerapp.bistroux.com/Api/App/";
-var global = "http://192.168.1.6/Api/App/";
+var global = "http://www.consumerapp.bistroux.com/Api/App/";
+//var global = "http://192.168.1.6/Api/App/";
 var mediaURL = "http://appnotification.bistroux.com/Media/";
 
 var browser = true;
@@ -6145,7 +6145,6 @@ function BindItemById(productId) {
         });
     }
 }
-
 function BindCategoy() {
 
     var storeId = 0;
@@ -6792,7 +6791,7 @@ function LoadCouponEdit() {
                                 }
                                 else {
                                     $("#Offerday_2_DiscountTimingId").val(timingId)
-                                    $("#BOfferday_2_StartHour").val(openingHour);
+                                    $("#Offerday_2_StartHour").val(openingHour);
                                     $("#Offerday_2_StartMinute").val(openingMinute);
                                     $("#Offerday_2_StartPeriod").val(openingPeriod);
 
@@ -7327,7 +7326,6 @@ function DeleteTimingSection(idCount, timingId) {
 
 //Product Section Start
 
-
 function AddNewAvailTimingSection(dayName, dayKey, e) {
     var hdnCount = $('#hdnAvailTimingCount').val();
     var idCount = parseInt(hdnCount) + 1;
@@ -7447,8 +7445,6 @@ function RemoveAvailTimingSection(idCount, e) {
     $('#hdnAvailTimingCount').val(idCount);
 }
 
-
-
 function CreateAvailHourTimingHtml(iCount, type) {
     var hourHtml = "";
     hourHtml += "<select id=\"Avail_" + iCount + "_" + type + "Hour\" name=\"Avail[" + iCount + "]." + type + "Hour\">";
@@ -7485,6 +7481,5 @@ function CreateAvailPeriodTimingHtml(iCount, type) {
     periodHtml += "</select>";
     return periodHtml;
 }
-
 
 //Product Section End
