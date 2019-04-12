@@ -24,12 +24,6 @@ var routes = [
       url: './pages/chefs.html',
       name: 'chefs',
   },
-  // Foods
-  {
-      path: '/foods/',
-      url: './pages/foods.html',
-      name: 'foods',
-  },
   // Recipes
   {
       path: '/recipes/',
@@ -152,6 +146,12 @@ var routes = [
            url: './pages/food_list.html',
            name: 'food_list',
        },
+  // Foods
+  {
+      path: '/foods/',
+      url: './pages/foods.html',
+      name: 'foods',
+  },
   // Default route (404 page). MUST BE THE LAST
   {
       path: '(.*)',

@@ -1,6 +1,6 @@
 //var global = "http://www.appnotification.bistroux.com/Api/App/";
 //var global = "http://www.consumerapp.bistroux.com/Api/App/";
-var global = "http://192.168.1.6/Api/App/";
+var global = "http://192.168.1.7/Api/App/";
 var mediaURL = "http://appnotification.bistroux.com/Media/";
 
 var browser = true;
@@ -324,6 +324,30 @@ function CarryoutOrdersList(status, carryoutpagesize, carryoutcurrentPage, divId
         orderDateTo = $("#txtFilterOrderDateTo").val();
 
         //console.log("Sort: "+ sortValue + " By: " + sortByValue + " filter: " + filterStatus + " orderNofrom: " + orderNoFrom + " orderNoTo: " + orderNoTo + " phone: " + phone + " orderDateFrom: "+ orderDateFrom + " dateTo: " + orderDateTo);
+        if (sortValue == undefined) {
+            sortValue = "";
+        }
+        if (sortByValue == undefined) {
+            sortByValue = "";
+        }
+        if (filterStatus == undefined) {
+            filterStatus = "";
+        }
+        if (orderNoFrom == undefined) {
+            orderNoFrom = "";
+        }
+        if (orderNoTo == undefined) {
+            orderNoTo = "";
+        }
+        if (phone == undefined) {
+            phone = "";
+        }
+        if (orderDateFrom == undefined) {
+            orderDateFrom = "";
+        }
+        if (orderDateTo == undefined) {
+            orderDateTo = "";
+        }
     }
     var customerId = 0;
     var storeId = 0;
@@ -630,6 +654,30 @@ function CarryoutOrdersListPagination(status, carryoutpagesize, carryoutcurrentP
         orderDateTo = $("#txtFilterOrderDateTo").val();
 
         //console.log("Sort: "+ sortValue + " By: " + sortByValue + " filter: " + filterStatus + " orderNofrom: " + orderNoFrom + " orderNoTo: " + orderNoTo + " phone: " + phone + " orderDateFrom: "+ orderDateFrom + " dateTo: " + orderDateTo);
+        if (sortValue == undefined) {
+            sortValue = "";
+        }
+        if (sortByValue == undefined) {
+            sortByValue = "";
+        }
+        if (filterStatus == undefined) {
+            filterStatus = "";
+        }
+        if (orderNoFrom == undefined) {
+            orderNoFrom = "";
+        }
+        if (orderNoTo == undefined) {
+            orderNoTo = "";
+        }
+        if (phone == undefined) {
+            phone = "";
+        }
+        if (orderDateFrom == undefined) {
+            orderDateFrom = "";
+        }
+        if (orderDateTo == undefined) {
+            orderDateTo = "";
+        }
     }
 
     storeId = SetStoreId();
@@ -1839,28 +1887,6 @@ function Logout() {
     }
 
 }
-//function SetMenuNavigation(storeId) {
-//    console.log(storeId);
-//	var sId = window.localStorage.getItem("StoreId").trim();
-//	if (storeId === null || storeId === "" || storeId === "0") {
-//	}
-//	else
-//	{
-//		storeId=Number(sId);
-//	}
-//    $("#aManageService").removeAttr("href");
-//    $("#aManageService").attr("href", "manageservice.html?StoreId=" + storeId);
-
-//    $("#aCarryout").removeAttr("href");
-//    $("#aCarryout").attr("href", "carryout.html?StoreId=" + storeId);
-
-//    $("#aGiftCard").removeAttr("href");
-//    $("#aGiftCard").attr("href", "giftcardsredeem.html?StoreId=" + storeId);
-
-//    $("#aReward").removeAttr("href");
-//    $("#aReward").attr("href", "rewards.html?StoreId=" + storeId);
-
-//}
 
 function FormatDecimal(decimalValue) {
     var result = "";
@@ -1873,169 +1899,7 @@ function FormatPhoneNumber(s) {
     return (!m) ? null : "(" + m[1] + ") " + m[2] + "-" + m[3];
 }
 const dateFromStr = str => new Date('1970/01/01 ' + str);
-//function CheckNewOrder() {
-//    console.log(GetCurrentDateTime() + " - " + "CheckNewOrder START", browser);
-//    var params = getParams();
-//    var storeId = 0;
-//    storeId = SetStoreId();
-//    if (Number(storeId) > 0) {
-//        url = global + "/GetLatestCarryOutOrderPopupNew?storeid=" + storeId;
-//        try {
-//            console.log(GetCurrentDateTime() + " - " + "Searching for new orders", browser);
-//            $.getJSON(url, function (data) {
-//                var obj = JSON.parse(data).Rows;
-//                if (data.indexOf("No order(s) found.") > -1) {
-//                    console.log(GetCurrentDateTime() + " - " + " No new order(s) found", browser);
-//                }
-//                else {
 
-//                    var pickuptime = JSON.parse(data).PickUpTime;
-//                    pickuptime.sort((a, b) => dateFromStr(a) - dateFromStr(b));
-
-//                    if (obj != "") {
-//                        var html = "";
-//                        var orderIds = "";
-//                        $.each(obj, function (index, value) {
-//                            if (orderIds != "")
-//                                orderIds = orderIds + "," + value.ID;
-//                            else
-//                                orderIds = value.ID;
-
-//                            if (pickuptime.length > 0) {
-//                                var pickupcount = false;
-//                                var count = 0;
-//                                var pickuphtml = "<select class=\"pickup\" id=\"pickuplist_" + value.ID + "\">";
-//                                $.each(pickuptime, function (key, value1) {
-//                                    var now = new Date();
-//                                    var pickupdatetime = new Date(GetCurrentDateOnly() + " " + value.PICKUPTIME);
-//                                    var dropdownValueDateTime = new Date(GetCurrentDateOnly() + " " + value1);
-//                                    var minsDiff = Math.floor((dropdownValueDateTime.getTime() - now.getTime()) / 1000 / 60);
-//                                    var minsDiffFromPickUpTime = Math.floor((dropdownValueDateTime.getTime() - pickupdatetime.getTime()) / 1000 / 60);
-//                                    if ($.inArray(value.PICKUPTIME.trim(), pickuptime) > -1) {
-
-//                                        if (value1.trim() === value.PICKUPTIME.trim()) {
-//                                            pickuphtml += "<option value='" + value1 + "' selected>" + value1 + "</option>";
-//                                            pickupcount = true;
-
-//                                        }
-//                                        else {
-//                                            if (pickupcount === true) {
-
-//                                                if (minsDiffFromPickUpTime <= 120) {
-//                                                    if (minsDiff > 0) {
-//                                                        pickuphtml += "<option value='" + value1 + "'>" + value1 + "</option>";
-//                                                    }
-//                                                    else {
-//                                                        pickuphtml += "<option disabled value='" + value1 + "'>" + value1 + "</option>";
-//                                                    }
-
-//                                                }
-
-//                                            }
-
-//                                        }
-//                                    }
-//                                    else {
-//                                        if (minsDiffFromPickUpTime <= 120) {
-//                                            if (minsDiff > 0) {
-//                                                pickuphtml += "<option value='" + value1 + "'>" + value1 + "</option>";
-//                                            }
-//                                            else {
-//                                                pickuphtml += "<option disabled value='" + value1 + "'>" + value1 + "</option>";
-//                                            }
-
-//                                        }
-
-//                                    }
-
-//                                });
-//                                pickuphtml += "</select>";
-//                            }
-
-//                            html += "<div id=\"divAcknowledgement\" style=\"border-bottom:#cecece 1px dotted !important;padding:0 0 10px; 0;\">";
-//                            html += "<div class=\"row\">";
-//                            html += "<div class=\"col-md-4\" style=\"text-align:left;vertical-align:top;margin-top:10px;\"><span style=\"font-size:17px;font-weight:bold;\">Order #: </span>" + value.ID + "</div>";
-//                            if (value.PICKUPTIME != "")
-//                            {
-//                                html += "<div class=\"col-md-5\" style=\"padding-top:5px;\"><div id=\"pickuptime_" + value.ID + "\" style=\"font-size:28px;color:#08b3c7; float: left;\">" + value.PICKUPTIME + "</div>" + pickuphtml + "</div>";
-//                            }
-//                            else {
-//                                html += "<div class=\"col-md-5\" style=\"padding-top:5px;\"><input type=\"hidden\" name=\"giftcardorder\" id=\"" + value.ID + "\"/><div style=\"font-size:28px;color:#08b3c7; float: left;\">&nbsp;</div></div>";
-//                            }
-//                            html += "<div class=\"col-md-3\" style=\"text-align:right;vertical-align:top;\"><span style=\"font-size:28px;color:#799427;\" id=\"price\">" + FormatDecimal(value.ORDERTOTAL) + "</span></div></div>";
-//                            html += "<div class=\"row\"> <div class=\"col-md-12\" style=\"text-align:left;\"><span style=\"font-size:17px;font-weight:bold;\">Name: </span>" + value.BILLINGFIRSTNAME + " " + value.BILLINGLASTNAME + "</div></div>";;
-//                            if (value.BILLINGPHONE.length == 10)
-//                                html += "<div class=\"row\">  <div class=\"col-md-12\" style=\"text-align:left;\"><span style=\"font-size:17px;font-weight:bold;\">Phone: </span><span id=\"phone_" + value.ID + "\">" + FormatPhoneNumber(value.BILLINGPHONE) + "</span></div></div>";
-//                            else
-//                                html += "<div class=\"row\">  <div class=\"col-md-12\" style=\"text-align:left;\"><span style=\"font-size:17px;font-weight:bold;\">Phone: </span><span id=\"phone_" + value.ID + "\">" + value.BILLINGPHONE + "</span></div></div>";
-//                            html += "<div class=\"row\"><div class=\"col-md-12\" style=\"margin:10px 0 0 0;\">";
-
-//                            html += "<table width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\" id=\"popUpItems\"> <tbody>";
-//                            html += "<tr><td align=\"left\" style=\"font-size:17px;font-weight:bold;border-bottom:1px solid #000;\" width=\"60%\">Items</td><td style=\"font-size:17px;font-weight:bold;border-bottom:1px solid #000;\" align=\"center\" width=\"20%\">Quantity</td> <td style=\"font-size:17px;font-weight:bold;border-bottom:1px solid #000;\" align=\"right\" width=\"20%\">Price</td></tr>";
-//                            if (value.OrderItems.indexOf("#") > -1) {
-//                                var arrItemRows = value.OrderItems.split('#');
-//                                var i;
-//                                for (i = 0; i < arrItemRows.length - 1; i++) {
-//                                    html += "<tr>";
-//                                    var columns = arrItemRows[i].trim();
-//                                    if (columns.indexOf('~') > -1) {
-//                                        var arrColumn = columns.split('~');
-//                                        var j;
-//                                        //console.log("arrColumn.length: " + arrColumn.length)
-//                                        var name = arrColumn[0];
-//                                        var qty = arrColumn[1];
-//                                        var price = arrColumn[2];
-//                                        var notes = unescape(arrColumn[3]);
-//                                        if (notes != "") {
-//                                            html += "<td align=\"left\" style=\"font-size:17px;\">" + name + "(" + decode_str(notes) + ")</td>";
-//                                        }
-//                                        else {
-//                                            html += "<td align=\"left\" style=\"font-size:17px;\">" + name + "</td>";
-//                                        }
-
-//                                        html += "<td align=\"center\" style=\"font-size:17px;\">" + qty + "</td>";
-//                                        html += "<td align=\"right\" style=\"font-size:17px;\">" + FormatDecimal(price) + "</td>";
-
-//                                    }
-//                                    html += "</tr>";
-//                                }
-
-//                            }
-
-//                            html += "</tbody></table>";
-
-
-//                            html += "</div></div></div>";
-
-
-//                        });
-//                        //console.log("html: " + html)
-//                        $("#dvPopOrders").html(html);
-//                        $("#hdnOrderIds").val(orderIds);
-//                        console.log(GetCurrentDateTime() + " - " + " Found new orders(" + orderIds + ")", browser);
-//                        //$('#myModal').modal();
-                        
-//                        if (isDevice()) {
-//                           // console.log('isDevice 1: ')
-//                            playAudio();
-//                        }
-//                    }
-//                    else {
-//                        //console.log("2");
-//                        console.log(GetCurrentDateTime() + " - " + " No new order(s) found(2)", browser);
-//                    }
-
-//                }
-
-//            });
-//        }
-//        catch (e) {
-//            console.log(GetCurrentDateTime() + " - " + " Error CheckNewOrder", browser);
-//        }
-//    }
-
-//    console.log(GetCurrentDateTime() + " - " + "CheckNewOrder END", browser);
-//}
 function playAudio() {
     console.log("Playing")
 
@@ -2084,104 +1948,6 @@ function decode_str(str) {
     }
     return $.trim(str);
 }
-
-
-//function AcceptOrders() {
-//    var orderIds = $("#hdnOrderIds").val().trim();
-//    var orders = [];
-//    var customerphone = [];
-//    var carryoutchanged = 0;
-//    var giftcardchanged = 0;
-//    if (localStorage.getItem("RestaurantName") != null)
-//        restaurantDisplayName = localStorage.getItem("RestaurantName").trim();
-//    $(".pickup").each(function (index, element) {
-//        // element == this
-//        var elemId = $(this).attr("id");
-//        var orderId = $(this).attr("id").split('_')[1];
-
-//        var pickup = $(this).val().trim();
-//        var oldPickUp = $("#pickuptime_" + orderId).html().trim();
-//        var phone = $("#phone_" + orderId).html().trim().replace("(", "").replace(")", "").replace("-", "");
-//        //console.log("id: " + $(this).attr("id"));
-//        //console.log("oid:" + $(this).attr("id").split('_')[1]);
-//        //console.log("pickup: " + $(this).val());
-//        orders.push(orderId + "#" + pickup);
-//        if (oldPickUp != pickup) {
-//            customerphone.push(orderId + "#" + pickup + "#" + phone + "#changed");
-//        }
-//        else {
-//            customerphone.push(orderId + "#" + pickup + "#" + phone + "#notchanged");
-//        }
-//        carryoutchanged++;
-
-//    });
-//    var group = $('input[name="giftcardorder"]');
-
-//    if (group.length > 0) {
-//        group.each(function () {
-//            var orderId = $(this).attr("id");
-//            orders.push(orderId + "#NA");
-//            giftcardchanged++;
-//        });
-//    }
-//    //console.log(orders)
-//    currentPage = 0;
-//    pageSize = 10;
-//    $.ajax({
-//        url: global + 'ChangeBulkOrderStatus',
-//        type: 'GET',
-//        data: {
-//            orderId: JSON.stringify(orders),
-//            status: 'Processing',
-//            restaurantDisplayName: restaurantDisplayName,
-//            orderDetails: JSON.stringify(customerphone)
-//        },
-//        datatype: 'jsonp',
-//        contenttype: "application/json",
-//        crossDomain: true,
-//        async: false,
-//        success: function (response) {
-//            console.log("ChangeBulkOrderStatus: " + response)
-//            if (isDevice()) {
-//                stopAudio();
-//            }
-
-//            //CarryoutOrdersList("Processing", pageSize, currentPage);
-//            $("#hdnOrderIds").val("");
-//            acceptOrderPopup.close();
-//            var storeId = 0;
-//            storeId = SetStoreId();
-//            if (giftcardchanged > 0 && carryoutchanged > 0) {
-//                if (giftcardchanged > carryoutchanged) {
-//                    //window.location.href = "giftcardsorders.html?StoreId=" + storeId;
-//                    self.app.router.navigate('/giftcard/', { reloadCurrent: false });
-//                    localStorage.setItem("loadgiftcardorders", "true");
-//                }
-//                else {
-//                    //window.location.href = "carryout.html?StoreId=" + storeId + "&status=Processing";
-//                    self.app.router.navigate('/carryout/', { reloadCurrent: false });
-//                    localStorage.setItem("loadcarryoutprocessing", "true");
-
-//                }
-//            }
-//            else if (giftcardchanged > 0 && carryoutchanged == 0) {
-//                //window.location.href = "giftcardsorders.html?StoreId=" + storeId;
-//                self.app.router.navigate('/giftcard/', { reloadCurrent: false });
-//                localStorage.setItem("loadgiftcardorders", "true");
-//            }
-//            else if (carryoutchanged > 0 && giftcardchanged == 0) {
-//                // window.location.href = "carryout.html?StoreId=" + storeId + "&status=Processing";
-//                self.app.router.navigate('/carryout/', { reloadCurrent: false });
-//                localStorage.setItem("loadcarryoutprocessing", "true");
-//            }
-//        },
-//        error: function (xhr, textStatus, errorThrown) {
-//            //alert(xhr.responseText);
-//            //alert(textStatus);
-//            //alert(errorThrown);
-//        }
-//    });
-//}
 
 function AcceptOrdersOtherPage() {
     var orderIds = $("#hdnOrderIds").val().trim();
@@ -3078,6 +2844,26 @@ function GiftCardOrdersList(pagesize, currentPage) {
     var sortByValue = $("input[name='radioGiftCardSortBy']:checked").val();
     //Shorting
 
+    if(orderId == undefined)
+    {
+        orderId = "";
+    }
+    if (giftCardCode == undefined) {
+        giftCardCode = "";
+    }
+    if (name == undefined) {
+        name = "";
+    }
+    if (status == undefined) {
+        status = "";
+    }
+    if (sortValue == undefined) {
+        sortValue = "DESC";
+    }
+    if (sortByValue == undefined) {
+        sortByValue = "";
+    }
+
     if (Number(storeId) > 0) {
         //SetMenuNavigation(storeId);
         //$("#lblEditGiftCardCode").html("");
@@ -3330,6 +3116,25 @@ function GiftCardOrdersListPagination(pagesize, currentPage) {
     var sortValue = $("input[name='radioGiftCardSort']:checked").val();
     var sortByValue = $("input[name='radioGiftCardSortBy']:checked").val();
     //Shorting
+
+    if (orderId == undefined) {
+        orderId = "";
+    }
+    if (giftCardCode == undefined) {
+        giftCardCode = "";
+    }
+    if (name == undefined) {
+        name = "";
+    }
+    if (status == undefined) {
+        status = "";
+    }
+    if (sortValue == undefined) {
+        sortValue = "DESC";
+    }
+    if (sortByValue == undefined) {
+        sortByValue = "";
+    }
 
     if (Number(storeId) > 0) {
         //SetMenuNavigation(storeId);
@@ -5843,7 +5648,6 @@ function DeleteSection(idCount, timingId) {
     }
 }
 
-
 //Carryout Items
 function CarryoutItemsList(carryoutpagesize, carryoutcurrentPage) {
 
@@ -5897,15 +5701,9 @@ function CarryoutItemsList(carryoutpagesize, carryoutcurrentPage) {
 
                         /*------------------Button-----------------------*/
                         html += "<div class=\"order-buttons\" style=\"width:25%\">";
-                        html += "<span class=\"order-price\" style=\"margin-right:10px\">" + itemPrice + "</span>";
-                        if (value.IsActive == 1) {
+                        html += "<div class=\"order-price\" style=\"font-size:14px\">" + value.PRICE + "</div>";
 
-                            //html += "<a><img src=\"./img/icons/active.png\"></a>";
-                        }
-                        else {
-                            //html += "<a><img src=\"./img/icons/inactive.png\"></a>";
-                        }
-                        html += "<a onclick=\"GoToItemEdit(" + value.ID + ");\"><img src=\"./img/icons/edit-icon.png\"></a>";
+                        html += "<div><a onclick=\"GoToItemEdit(" + value.ID + ");\"><img src=\"./img/icons/edit-icon.png\"></a></div>";
                         html += "</div>";
 
                         html += "</div>";
@@ -6001,19 +5799,13 @@ function CarryoutItemsListPagination(carryoutpagesize, carryoutcurrentPage) {
                         html += "<div class=\"order-row-container\">";
 
                         /*------------------Name-----------------------*/
-                        html += "<div class=\"order-pickup panel-open\" style=\"text-align:left;font-size:20px;width:60%\" onclick=\"GoToItemEdit(" + value.ID + ")\">" + value.NAME + "</div>";
+                        html += "<div class=\"order-pickup panel-open\" style=\"text-align:left;font-size:20px;width:75%\" onclick=\"GoToItemEdit(" + value.ID + ")\">" + value.NAME + "</div>";
 
                         /*------------------Button-----------------------*/
-                        html += "<div class=\"order-buttons\" style=\"width:28%\">";
-                        html += "<span class=\"order-price\" style=\"font-size:14px\">" + value.PRICE + "</span>";
-                        if (value.IsActive == 1) {
+                        html += "<div class=\"order-buttons\" style=\"width:25%\">";
+                        html += "<div class=\"order-price\" style=\"font-size:14px\">" + value.PRICE + "</div>";
 
-                            //html += "<a><img src=\"./img/icons/active.png\"></a>";
-                        }
-                        else {
-                            //html += "<a><img src=\"./img/icons/inactive.png\"></a>";
-                        }
-                        html += "<a onclick=\"GoToItemEdit(" + value.ID + ");\"><img src=\"./img/icons/edit-icon.png\"></a>";
+                        html += "<div><a onclick=\"GoToItemEdit(" + value.ID + ");\"><img src=\"./img/icons/edit-icon.png\"></a></div>";
                         html += "</div>";
 
                         html += "</div>";
@@ -6092,6 +5884,25 @@ function CouponList(pagesize, currentPage) {
     var sortValue = $("input[name='radioCouponSort']:checked").val();
     var sortByValue = $("input[name='radioCouponSortBy']:checked").val();
     //Shorting
+
+    if (name == undefined) {
+        name = "";
+    }
+    if (startDate == undefined) {
+        startDate = "";
+    }
+    if (endDate == undefined) {
+        endDate = "";
+    }
+    if (status == undefined) {
+        status = "";
+    }
+    if (sortValue == undefined) {
+        sortValue = "";
+    }
+    if (sortByValue == undefined) {
+        sortByValue = "";
+    }
 
     if (Number(storeId) > 0) {
 
@@ -6215,9 +6026,39 @@ function CouponListPagination(pagesize, currentPage) {
     customerId = SetCustomerId();
     localStorage.setItem("CouponCurrentPage", currentPage);
 
+    var name = $("#txtFilterCouponName").val();
+    var startDate = $("#txtFilterCouponStart").val();
+    var endDate = $("#txtFilterCouponEnd").val();
+    var status = $("#ddlFilterCouponStatus").val();
+
+    //Shorting
+    var sortValue = $("input[name='radioCouponSort']:checked").val();
+    var sortByValue = $("input[name='radioCouponSortBy']:checked").val();
+    //Shorting
+
+    if (name == undefined) {
+        name = "";
+    }
+    if (startDate == undefined) {
+        startDate = "";
+    }
+    if (endDate == undefined) {
+        endDate = "";
+    }
+    if (status == undefined) {
+        status = "";
+    }
+    if (sortValue == undefined) {
+        sortValue = "";
+    }
+    if (sortByValue == undefined) {
+        sortByValue = "";
+    }
+
     if (Number(storeId) > 0) {
         currentPage = Number(currentPage) * Number(pagesize);
-        url = global + "/GetAllCoupons?storeid=" + storeId + "&pagesize=" + pagesize + "&currentPage=" + currentPage;
+        url = global + "/GetAllCoupons?storeid=" + storeId + "&name=" + name + "&startDate=" + startDate + "&endDate=" + endDate + "&status=" + status +
+            "&sortValue=" + sortValue + "&sortByValue=" + sortByValue + "&pagesize=" + pagesize + "&currentPage=" + currentPage;
 
         try {
             $.getJSON(url, function (data) {

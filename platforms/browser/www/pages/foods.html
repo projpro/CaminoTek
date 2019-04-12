@@ -1,84 +1,157 @@
-<div class="page no-navbar">
-	<div class="page-content">
-		
-		<div class="navbrar-site display-flex justify-content-space-between align-items-center padding-left padding-right mt margin-bottom">
-			<a href="#" class="link back">
-				<i class="icon icon-back color-black size-8"></i>
-			</a>
-		</div>
-		
-		<div class="page-title padding-left padding-right">
-			<h2>Food Categories</h2>
-		</div>
-		
-		<div class="section search-section mt">
-			<div class="section-content">
-				<form class="searchbar">
-					<div class="searchbar-input-wrap">
-						<input placeholder="Search" class="" type="search">
-						<i class="searchbar-icon"></i>
-						<span class="input-clear-button"></span>
-					</div>
-				</form>
-			</div>
-		</div>
-		
-		<div class="section list-categories mt">
-			<div class="section-content">
-				<div class="row no-gap">
-					<div class="col">
-						<a href="#">
-						<div class="category bg3">
-							<img src="./img/icons/humberger.png" alt="cat3">
-						</div>
-						</a>
-					</div>
-					<div class="col">
-						<a href="#">
-						<div class="category bg4">
-							<img src="./img/icons/fish.png" alt="cat4">
-						</div>
-						</a>
-					</div>
-				</div>
-				
-				<div class="row no-gap">
-					<div class="col">
-						<a href="#">
-						<div class="category bg1">
-							<img src="./img/icons/chicken.png" alt="cat1">
-						</div>
-						</a>
-					</div>
-					<div class="col">
-						<a href="#">
-						<div class="category bg2">
-							<img src="./img/icons/pizza.png" alt="cat2">
-						</div>
-						</a>
-					</div>
-				</div>
-				
-				<div class="row no-gap">
-					<div class="col">
-						<a href="#">
-						<div class="category bg3">
-							<img src="./img/icons/soup.png" alt="cat1">
-						</div>
-						</a>
-					</div>
-					<div class="col">
-						<a href="#">
-						<div class="category bg4">
-							<img src="./img/icons/cooking.png" alt="cat2">
-						</div>
-						</a>
-					</div>
-				</div>
-			</div>
-		</div>
-						
-		<div class="mt pd"></div>
-		
-	</div>
+
+<div class="page page-with-toolbar" id="giftcard">
+    <div class="toolbar tabbar tabbar-labels toolbar-bottom-md custom-toolbar">
+        <div class="toolbar-inner">
+            <a href="/carryout/" class="tab-link menuCarryout">
+                <i class="material-icons menu-icon">shopping_basket</i>
+                <span class="tabbar-label">Carry Out</span>
+            </a>
+            <a href="/giftcard/" class="tab-link menuGiftcard">
+                <i class="material-icons menu-icon">card_giftcard</i>
+                <span class="tabbar-label">Gift Card</span>
+            </a>
+            <a href="/new_rewards/" class="tab-link menuReward">
+                <i class="material-icons menu-icon">card_membership</i>
+                <span class="tabbar-label">Reward</span>
+            </a>
+            <a href="/setup/" class="tab-link menuStartStop tab-link-active footer-menu-active">
+                <i class="material-icons menu-icon-active">settings</i>
+                <span class="tabbar-label">Setup</span>
+            </a>
+            <a href="/manageservice/" class="tab-link menuStartStop">
+                <i class="material-icons menu-icon">power_settings_new</i>
+                <span class="tabbar-label">Start/Stop</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="navbar">
+        <div class="navbar-inner">
+            <div class="left">
+                <img src="./img/app-logo.png" />
+                <a class="tab-link back-new" onclick="Back();">
+                    <i class="material-icons material-icons-one">arrow_back</i>
+                </a>
+                <!--<a href="#" class="tab-link">
+                    <i class="icon icon-back"></i>
+                </a>-->
+            </div>
+            <div class="center">Product</div>
+            <div class="right">
+                <a class="icon-only navbar-right-single-icon" style="right:65px;" onclick="GotoProfile();"><i class="material-icons large-icon">account_circle</i></a>
+                <a class="icon-only navbar-right-single-icon" onclick="Logout();"><i class="material-icons large-icon">exit_to_app</i></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-content">
+
+
+        <div class="section list-restaurants">
+            <div class="section-content">
+
+                <div id="productTabs" class="custom-tabs display-flex justify-content-space-between align-items-center tab-margin-top fixed-tab-header">
+
+                    <div class="custom-tab custom-tab-carryout" style="width:50%">
+                        <a href="#tab-proudct-info" class="tab-link tab-link-active">
+                            <div class="tab-right-text">Info</div>
+                            <div class="border-tab"></div>
+                        </a>
+                    </div>
+
+                    <div class="custom-tab custom-tab-carryout" style="width:50%">
+                        <a href="#tab-product-attribute" class="tab-link">
+                            <div class="tab-right-text">Attributes</div>
+                            <div class="border-tab"></div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="tabs-animated-wrap">
+                    <div class="tabs">
+                        <!--tab-active-->
+                        <div id="tab-product-info" class="page-content tab tab-active">
+                            <div class="section mt md">
+                                <div class="section-content">
+                                    <div class="from-wrapper">
+                                        <div class="form-item">
+                                            <div class="list media-list">
+                                                <ul>
+                                                    <li class="item-content">
+                                                        <div class="item-media" style="width:96%">
+                                                            <i class="material-icons">account_circle</i>
+                                                            <div class="item-input-wrap input-dropdown-wrap">
+                                                                <select placeholder="Categories" id="ddlProductCategories" required class="mandatory">
+                                                                    <option value="">Categories</option>
+                                                                    <option value="AL">Alabama</option>
+                                                                    <option value="AK">Alaska</option>
+                                                                    <option value="AZ">Arizona</option>
+                                                                    <option value="AR">Arkansas</option>
+                                                                </select>
+                                                            </div>
+                                                            <span class="input-clear-button"></span>
+                                                        </div>
+                                                    </li>
+                                                    <li class="item-content">
+                                                        <div class="item-media" style="width:96%">
+                                                            <i class="material-icons">edit_location</i>
+                                                            <input type="text" placeholder="Name" id="txtProductName" required class="mandatory">
+                                                            <span class="input-clear-button"></span>
+                                                        </div>
+                                                    </li>  
+                                                    <li class="item-content">
+                                                        <div class="item-media" style="width:96%">
+                                                            <i class="material-icons">attach_money</i>
+                                                            <input type="number" min="1" step="any" placeholder="Price" id="txtProductPrice" class="mandatory">
+                                                            <span class="input-clear-button"></span>
+                                                        </div>
+                                                    </li>
+                                                    <li class="item-content">
+                                                        <div class="item-media" style="width:96%">
+                                                            <i class="material-icons">description</i>
+                                                            <textarea id="txtProductDescription" placeholder="Description"></textarea>
+                                                            <span class="input-clear-button"></span>
+                                                        </div>
+                                                    </li>
+                                                    
+                                                    <li class="item-content">
+                                                        <a class="custom-btn custom-bg custom-link" id="btnUpdateProduct" style="width: 97%;" onclick="SaveProfileInfo();">Save</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="tab-product-attribute" class="page-content tab">
+                            <div class="section mt md">
+                                <div class="section-content">
+                                    <div class="from-wrapper">
+                                        <div class="form-item">
+                                            <div class="list media-list" style="margin:auto">
+                                                <div class="item-media" style="width:96%">
+                                                    <div style="width:100%;">
+                                                        
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt pd"></div>
+    </div>
 </div>
+
