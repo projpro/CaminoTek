@@ -180,6 +180,11 @@ $$(document).on('page:init', function (e) {
 
     }
     else if (pageURL.indexOf('food_list') > -1) {//carry out food item list
+
+
+        $$('#btnAddItem').click(function () {
+            self.app.router.navigate('/food/', { reloadCurrent: false });
+        });
         var pageSize = 10;
         var currentPage = 0;
         document.addEventListener("deviceready", onDeviceReady, false);

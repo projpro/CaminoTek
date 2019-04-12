@@ -324,30 +324,6 @@ function CarryoutOrdersList(status, carryoutpagesize, carryoutcurrentPage, divId
         orderDateTo = $("#txtFilterOrderDateTo").val();
 
         //console.log("Sort: "+ sortValue + " By: " + sortByValue + " filter: " + filterStatus + " orderNofrom: " + orderNoFrom + " orderNoTo: " + orderNoTo + " phone: " + phone + " orderDateFrom: "+ orderDateFrom + " dateTo: " + orderDateTo);
-        if (sortValue == undefined) {
-            sortValue = "";
-        }
-        if (sortByValue == undefined) {
-            sortByValue = "";
-        }
-        if (filterStatus == undefined) {
-            filterStatus = "";
-        }
-        if (orderNoFrom == undefined) {
-            orderNoFrom = "";
-        }
-        if (orderNoTo == undefined) {
-            orderNoTo = "";
-        }
-        if (phone == undefined) {
-            phone = "";
-        }
-        if (orderDateFrom == undefined) {
-            orderDateFrom = "";
-        }
-        if (orderDateTo == undefined) {
-            orderDateTo = "";
-        }
     }
     var customerId = 0;
     var storeId = 0;
@@ -654,30 +630,6 @@ function CarryoutOrdersListPagination(status, carryoutpagesize, carryoutcurrentP
         orderDateTo = $("#txtFilterOrderDateTo").val();
 
         //console.log("Sort: "+ sortValue + " By: " + sortByValue + " filter: " + filterStatus + " orderNofrom: " + orderNoFrom + " orderNoTo: " + orderNoTo + " phone: " + phone + " orderDateFrom: "+ orderDateFrom + " dateTo: " + orderDateTo);
-        if (sortValue == undefined) {
-            sortValue = "";
-        }
-        if (sortByValue == undefined) {
-            sortByValue = "";
-        }
-        if (filterStatus == undefined) {
-            filterStatus = "";
-        }
-        if (orderNoFrom == undefined) {
-            orderNoFrom = "";
-        }
-        if (orderNoTo == undefined) {
-            orderNoTo = "";
-        }
-        if (phone == undefined) {
-            phone = "";
-        }
-        if (orderDateFrom == undefined) {
-            orderDateFrom = "";
-        }
-        if (orderDateTo == undefined) {
-            orderDateTo = "";
-        }
     }
 
     storeId = SetStoreId();
@@ -1888,6 +1840,7 @@ function Logout() {
 
 }
 
+
 function FormatDecimal(decimalValue) {
     var result = "";
     result = "$" + parseFloat(Math.round(decimalValue * 100) / 100).toFixed(2);
@@ -1899,6 +1852,8 @@ function FormatPhoneNumber(s) {
     return (!m) ? null : "(" + m[1] + ") " + m[2] + "-" + m[3];
 }
 const dateFromStr = str => new Date('1970/01/01 ' + str);
+
+
 
 function playAudio() {
     console.log("Playing")
@@ -2844,26 +2799,6 @@ function GiftCardOrdersList(pagesize, currentPage) {
     var sortByValue = $("input[name='radioGiftCardSortBy']:checked").val();
     //Shorting
 
-    if(orderId == undefined)
-    {
-        orderId = "";
-    }
-    if (giftCardCode == undefined) {
-        giftCardCode = "";
-    }
-    if (name == undefined) {
-        name = "";
-    }
-    if (status == undefined) {
-        status = "";
-    }
-    if (sortValue == undefined) {
-        sortValue = "DESC";
-    }
-    if (sortByValue == undefined) {
-        sortByValue = "";
-    }
-
     if (Number(storeId) > 0) {
         //SetMenuNavigation(storeId);
         //$("#lblEditGiftCardCode").html("");
@@ -3116,25 +3051,6 @@ function GiftCardOrdersListPagination(pagesize, currentPage) {
     var sortValue = $("input[name='radioGiftCardSort']:checked").val();
     var sortByValue = $("input[name='radioGiftCardSortBy']:checked").val();
     //Shorting
-
-    if (orderId == undefined) {
-        orderId = "";
-    }
-    if (giftCardCode == undefined) {
-        giftCardCode = "";
-    }
-    if (name == undefined) {
-        name = "";
-    }
-    if (status == undefined) {
-        status = "";
-    }
-    if (sortValue == undefined) {
-        sortValue = "DESC";
-    }
-    if (sortByValue == undefined) {
-        sortByValue = "";
-    }
 
     if (Number(storeId) > 0) {
         //SetMenuNavigation(storeId);
@@ -4733,6 +4649,220 @@ function SetManageService() {
     }
 }
 
+
+//Carryout Items
+function CarryoutItemsList(carryoutpagesize, carryoutcurrentPage) {
+
+    //Shorting
+    var sortValue = "DESC";
+    var sortByValue = "";
+    var filterStatus = "";
+    var orderNoFrom = "";
+    var orderNoTo = "";
+    var phone = "";
+    var orderDateFrom = "";
+    var orderDateTo = "";
+
+    var customerId = 0;
+    var storeId = 0;
+    currentPage = 0;
+    $("#dvFoodItemList").html("");
+    storeId = SetStoreId();
+    customerId = SetCustomerId();
+
+
+    if (Number(storeId) > 0) {
+
+        carryoutcurrentPage = Number(carryoutcurrentPage) * Number(carryoutpagesize);
+        url = global + "/GetAllCarryOutItems?storeid=" + storeId + "&pagesize=" + carryoutpagesize + "&currentPage=" + carryoutcurrentPage;
+
+        try {
+
+            $.getJSON(url, function (data) {
+                $('#loader_msg').html("");
+                var obj = JSON.parse(data);
+                var length = Object.keys(obj).length;
+
+                if (JSON.parse(data).indexOf("No item(s) found") < 0) {
+                    localStorage.setItem("ItemAvailable", "1");
+                    var count = 0;
+                    $.each(JSON.parse(data), function (index, value) {
+                        var itemPrice = "$0.00";
+                        if (value.PRICE != "") {
+                            itemPrice = FormatDecimal(value.PRICE);
+
+                        }
+
+                        var html = "<div class=\"order-container\"  id='li_" + value.ID + "' style=\"width:100%;padding-left: 20px;\" >";
+                        html += "<div id=\"dvItemListInner_" + value.ID + "\" class=\"order-list\">";
+                        html += "<div class=\"order-column-two\" style=\"width:100%\">";
+                        html += "<div class=\"order-row-container\">";
+
+                        /*------------------Name-----------------------*/
+                        html += "<div class=\"order-pickup panel-open order-number\" style=\"text-align:left;font-size:20px;width:75%\" onclick=\"GoToItemEdit(" + value.ID + ")\">" + value.NAME + "</div>";
+
+                        /*------------------Button-----------------------*/
+                        html += "<div class=\"order-buttons\" style=\"width:25%\">";
+                        html += "<div class=\"order-price\" style=\"font-size:14px\">" + value.PRICE + "</div>";
+
+                        html += "<div><a onclick=\"GoToItemEdit(" + value.ID + ");\"><img src=\"./img/icons/edit-icon.png\"></a></div>";
+                        html += "</div>";
+
+                        html += "</div>";
+                        html += "<div class=\"order-row-container panel-open\" onclick=\"GoToItemEdit(" + value.ID + ")\">";
+                        html += "<div class=\"order-date\" style=\"width:100%\">";
+                        html += "<div class=\"customer-detail-container\">";
+
+                        /*------------------SHORTDESCRIPTION-----------------------*/
+                        if (value.SHORTDESCRIPTION != undefined && value.SHORTDESCRIPTION != null && value.SHORTDESCRIPTION != "")
+                            html += "<div  style=\"font-size:16px;width:100%\">" + value.SHORTDESCRIPTION + "</div>";
+
+                        //if (value.StartDateUtc != "" && value.EndDateUtc != "") {
+                        //    /*------------------Start Date Ende Date-----------------------*/
+                        //    html += "<div class=\"giftcard-customer-name\">Start: <span class=\"cc-number\">" + StartDate + "</span></div>";
+                        //    html += "<div class=\"giftcard-customer-name\">End: <span class=\"cc-number\">" + EndDate + "</span></div>";
+                        //}
+
+
+                        html += "</div>";
+                        html += "</div>";
+
+
+                        html += "</div></div></div></div>";
+
+                        count++;
+
+                        $("#dvFoodItemList").append(html);
+
+
+                    });
+
+                }
+
+
+                else {
+                    localStorage.setItem("ItemAvailable", "0");
+                    var html = "<div class=\"order-list list-empty-label-text\">No items</div>";
+
+                    $("#dvFoodItemList").html(html);
+
+                }
+            });
+
+
+        }
+        catch (e) {
+        }
+    }
+    else {
+        self.app.router.navigate('/login_new/', { reloadCurrent: false });
+    }
+}
+
+//Carryout Items
+function CarryoutItemsListPagination(carryoutpagesize, carryoutcurrentPage) {
+    //Shorting
+    var sortValue = "DESC";
+    var sortByValue = "";
+    var filterStatus = "";
+    var orderNoFrom = "";
+    var orderNoTo = "";
+    var phone = "";
+    var orderDateFrom = "";
+    var orderDateTo = "";
+    //Shorting
+
+    var customerId = 0;
+    var storeId = 0;
+
+
+    storeId = SetStoreId();
+    customerId = SetCustomerId();
+    if (Number(storeId) > 0) {
+
+        carryoutcurrentPage = Number(carryoutcurrentPage) * Number(carryoutpagesize);
+        url = global + "/GetAllCarryOutItems?storeid=" + storeId + "&pagesize=" + carryoutpagesize + "&currentPage=" + carryoutcurrentPage;
+
+        try {
+
+            $.getJSON(url, function (data) {
+                var obj = JSON.parse(data);
+                var length = Object.keys(obj).length;
+
+                if (JSON.parse(data).indexOf("No item(s) found") < 0) {
+                    localStorage.setItem("ItemAvailable", "1");
+                    var count = 0;
+                    $.each(JSON.parse(data), function (index, value) {
+
+
+                        var html = "<div class=\"order-container\"  id='li_" + value.ID + "' style=\"width:100%;padding-left: 20px;\" >";
+                        html += "<div id=\"dvItemListInner_" + value.ID + "\" class=\"order-list\">";
+                        html += "<div class=\"order-column-two\" style=\"width:100%\">";
+                        html += "<div class=\"order-row-container\">";
+
+                        /*------------------Name-----------------------*/
+                        html += "<div class=\"order-pickup panel-open\" style=\"text-align:left;font-size:20px;width:75%\" onclick=\"GoToItemEdit(" + value.ID + ")\">" + value.NAME + "</div>";
+
+                        /*------------------Button-----------------------*/
+                        html += "<div class=\"order-buttons\" style=\"width:25%\">";
+                        html += "<div class=\"order-price\" style=\"font-size:14px\">" + value.PRICE + "</div>";
+                        
+                        html += "<div><a onclick=\"GoToItemEdit(" + value.ID + ");\"><img src=\"./img/icons/edit-icon.png\"></a></div>";
+                        html += "</div>";
+
+                        html += "</div>";
+                        html += "<div class=\"order-row-container panel-open\" onclick=\"GoToItemEdit(" + value.ID + ")\">";
+                        html += "<div class=\"order-date\" style=\"width:100%\">";
+                        html += "<div class=\"customer-detail-container\">";
+
+                        /*------------------SHORTDESCRIPTION-----------------------*/
+                        if (value.SHORTDESCRIPTION != undefined && value.SHORTDESCRIPTION != null && value.SHORTDESCRIPTION != "")
+                            html += "<div class=\"order-number\" style=\"font-size:16px;width:100%\">" + value.SHORTDESCRIPTION + "</div>";
+
+                        //if (value.StartDateUtc != "" && value.EndDateUtc != "") {
+                        //    /*------------------Start Date Ende Date-----------------------*/
+                        //    html += "<div class=\"giftcard-customer-name\">Start: <span class=\"cc-number\">" + StartDate + "</span></div>";
+                        //    html += "<div class=\"giftcard-customer-name\">End: <span class=\"cc-number\">" + EndDate + "</span></div>";
+                        //}
+
+
+                        html += "</div>";
+                        html += "</div>";
+
+
+                        html += "</div></div></div></div>";
+
+                        count++;
+
+                        $("#dvFoodItemList").append(html);
+
+
+                    });
+
+                }
+
+
+                else {
+                    localStorage.setItem("ItemAvailable", "0");
+                    var html = "<div class=\"order-list list-empty-label-text\">No items</div>";
+
+                    $("#dvFoodItemList").html(html);
+
+                }
+
+
+
+            });
+
+        }
+        catch (e) {
+        }
+    }
+    else {
+        self.app.router.navigate('/login_new/', { reloadCurrent: false });
+    }
+
+}
 /*04.04.2019*/
 
 
@@ -5648,229 +5778,7 @@ function DeleteSection(idCount, timingId) {
     }
 }
 
-//Carryout Items
-function CarryoutItemsList(carryoutpagesize, carryoutcurrentPage) {
 
-    //Shorting
-    var sortValue = "DESC";
-    var sortByValue = "";
-    var filterStatus = "";
-    var orderNoFrom = "";
-    var orderNoTo = "";
-    var phone = "";
-    var orderDateFrom = "";
-    var orderDateTo = "";
-
-    var customerId = 0;
-    var storeId = 0;
-    currentPage = 0;
-    $("#dvFoodItemList").html("");
-    storeId = SetStoreId();
-    customerId = SetCustomerId();
-
-
-    if (Number(storeId) > 0) {
-
-        carryoutcurrentPage = Number(carryoutcurrentPage) * Number(carryoutpagesize);
-        url = global + "/GetAllCarryOutItems?storeid=" + storeId + "&pagesize=" + carryoutpagesize + "&currentPage=" + carryoutcurrentPage;
-
-        try {
-
-            $.getJSON(url, function (data) {
-                $('#loader_msg').html("");
-                var obj = JSON.parse(data);
-                var length = Object.keys(obj).length;
-
-                if (JSON.parse(data).indexOf("No item(s) found") < 0) {
-                    localStorage.setItem("ItemAvailable", "1");
-                    var count = 0;
-                    $.each(JSON.parse(data), function (index, value) {
-                        var itemPrice = "$0.00";
-                        if (value.PRICE != "") {
-                            itemPrice = FormatDecimal(value.PRICE);
-
-                        }
-
-                        var html = "<div class=\"order-container\"  id='li_" + value.ID + "' style=\"width:100%;padding-left: 20px;\" >";
-                        html += "<div id=\"dvItemListInner_" + value.ID + "\" class=\"order-list\">";
-                        html += "<div class=\"order-column-two\" style=\"width:100%\">";
-                        html += "<div class=\"order-row-container\">";
-
-                        /*------------------Name-----------------------*/
-                        html += "<div class=\"order-pickup panel-open order-number\" style=\"text-align:left;font-size:20px;width:75%\" onclick=\"GoToItemEdit(" + value.ID + ")\">" + value.NAME + "</div>";
-
-                        /*------------------Button-----------------------*/
-                        html += "<div class=\"order-buttons\" style=\"width:25%\">";
-                        html += "<div class=\"order-price\" style=\"font-size:20px;width:50%;text-align:right;\">" + itemPrice + "</div>";
-
-                        html += "<div style=\"padding-left:10px;width:50%\"><a onclick=\"GoToItemEdit(" + value.ID + ");\"><img src=\"./img/icons/edit-icon.png\"></a></div>";
-                        html += "</div>";
-
-                        html += "</div>";
-                        html += "<div class=\"order-row-container panel-open\" onclick=\"GoToItemEdit(" + value.ID + ")\">";
-                        html += "<div class=\"order-date\" style=\"width:100%\">";
-                        html += "<div class=\"customer-detail-container\">";
-
-                        if (value.CATEGORY != undefined && value.CATEGORY != null && value.CATEGORY != "")
-                            html += "<div  style=\"font-size:13px;width:100%\">" + value.CATEGORY + "</div>";
-
-                        /*------------------SHORTDESCRIPTION-----------------------*/
-                        if (value.SHORTDESCRIPTION != undefined && value.SHORTDESCRIPTION != null && value.SHORTDESCRIPTION != "")
-                            html += "<div  style=\"font-size:16px;width:100%\">" + value.SHORTDESCRIPTION + "</div>";
-
-                        //if (value.StartDateUtc != "" && value.EndDateUtc != "") {
-                        //    /*------------------Start Date Ende Date-----------------------*/
-                        //    html += "<div class=\"giftcard-customer-name\">Start: <span class=\"cc-number\">" + StartDate + "</span></div>";
-                        //    html += "<div class=\"giftcard-customer-name\">End: <span class=\"cc-number\">" + EndDate + "</span></div>";
-                        //}
-
-
-                        html += "</div>";
-                        html += "</div>";
-
-
-                        html += "</div></div></div></div>";
-
-                        count++;
-
-                        $("#dvFoodItemList").append(html);
-
-
-                    });
-
-                }
-
-
-                else {
-                    localStorage.setItem("ItemAvailable", "0");
-                    var html = "<div class=\"order-list list-empty-label-text\">No items</div>";
-
-                    $("#dvFoodItemList").html(html);
-
-                }
-            });
-
-
-        }
-        catch (e) {
-        }
-    }
-    else {
-        self.app.router.navigate('/login_new/', { reloadCurrent: false });
-    }
-}
-
-//Carryout Items
-function CarryoutItemsListPagination(carryoutpagesize, carryoutcurrentPage) {
-    //Shorting
-    var sortValue = "DESC";
-    var sortByValue = "";
-    var filterStatus = "";
-    var orderNoFrom = "";
-    var orderNoTo = "";
-    var phone = "";
-    var orderDateFrom = "";
-    var orderDateTo = "";
-    //Shorting
-
-    var customerId = 0;
-    var storeId = 0;
-    console.log("CarryoutItemsListPagination carryoutpagesize: " + carryoutpagesize)
-    console.log("CarryoutItemsListPagination carryoutpagesize: " + carryoutcurrentPage)
-
-    storeId = SetStoreId();
-    customerId = SetCustomerId();
-    if (Number(storeId) > 0) {
-
-        carryoutcurrentPage = Number(carryoutcurrentPage) * Number(carryoutpagesize);
-        url = global + "/GetAllCarryOutItems?storeid=" + storeId + "&pagesize=" + carryoutpagesize + "&currentPage=" + carryoutcurrentPage;
-
-        try {
-
-            $.getJSON(url, function (data) {
-                var obj = JSON.parse(data);
-                var length = Object.keys(obj).length;
-
-                if (JSON.parse(data).indexOf("No item(s) found") < 0) {
-                    localStorage.setItem("ItemAvailable", "1");
-                    var count = 0;
-                    $.each(JSON.parse(data), function (index, value) {
-                        var itemPrice = "$0.00";
-                        if (value.PRICE != "") {
-                            itemPrice = FormatDecimal(value.PRICE);
-
-                        }
-
-                        var html = "<div class=\"order-container\"  id='li_" + value.ID + "' style=\"width:100%;padding-left: 20px;\" >";
-                        html += "<div id=\"dvItemListInner_" + value.ID + "\" class=\"order-list\">";
-                        html += "<div class=\"order-column-two\" style=\"width:100%\">";
-                        html += "<div class=\"order-row-container\">";
-
-                        /*------------------Name-----------------------*/
-                        html += "<div class=\"order-pickup panel-open order-number\" style=\"text-align:left;font-size:20px;width:75%\" onclick=\"GoToItemEdit(" + value.ID + ")\">" + value.NAME + "</div>";
-
-                        /*------------------Button-----------------------*/
-                        html += "<div class=\"order-buttons\" style=\"width:25%\">";
-                        html += "<div class=\"order-price\" style=\"font-size:20px;width:50%;text-align:right;\">" + itemPrice + "</div>";
-
-                        html += "<div style=\"padding-left:10px;width:50%\"><a onclick=\"GoToItemEdit(" + value.ID + ");\"><img src=\"./img/icons/edit-icon.png\"></a></div>";
-                        html += "</div>";
-
-                        html += "</div>";
-                        html += "<div class=\"order-row-container panel-open\" onclick=\"GoToItemEdit(" + value.ID + ")\">";
-                        html += "<div class=\"order-date\" style=\"width:100%\">";
-                        html += "<div class=\"customer-detail-container\">";
-                        if (value.CATEGORY != undefined && value.CATEGORY != null && value.CATEGORY != "")
-                            html += "<div  style=\"font-size:13px;width:100%\">" + value.CATEGORY + "</div>";
-
-                        /*------------------SHORTDESCRIPTION-----------------------*/
-                        if (value.SHORTDESCRIPTION != undefined && value.SHORTDESCRIPTION != null && value.SHORTDESCRIPTION != "")
-                            html += "<div  style=\"font-size:16px;width:100%\">" + value.SHORTDESCRIPTION + "</div>";
-
-                        //if (value.StartDateUtc != "" && value.EndDateUtc != "") {
-                        //    /*------------------Start Date Ende Date-----------------------*/
-                        //    html += "<div class=\"giftcard-customer-name\">Start: <span class=\"cc-number\">" + StartDate + "</span></div>";
-                        //    html += "<div class=\"giftcard-customer-name\">End: <span class=\"cc-number\">" + EndDate + "</span></div>";
-                        //}
-
-
-                        html += "</div>";
-                        html += "</div>";
-
-
-                        html += "</div></div></div></div>";
-
-                        count++;
-
-                        $("#dvFoodItemList").append(html);
-
-
-                    });
-
-                }
-
-
-                else {
-                    localStorage.setItem("ItemAvailable", "0");
-                    //var html = "<div class=\"order-list list-empty-label-text\">No items</div>";
-
-                    //$("#dvFoodItemList").html(html);
-
-                }
-
-
-
-            });
-
-        }
-        catch (e) {
-        }
-    }
-    else {
-        self.app.router.navigate('/login_new/', { reloadCurrent: false });
-    }
-
-}
 
 //Profile Section End//
 
@@ -5894,25 +5802,6 @@ function CouponList(pagesize, currentPage) {
     var sortValue = $("input[name='radioCouponSort']:checked").val();
     var sortByValue = $("input[name='radioCouponSortBy']:checked").val();
     //Shorting
-
-    if (name == undefined) {
-        name = "";
-    }
-    if (startDate == undefined) {
-        startDate = "";
-    }
-    if (endDate == undefined) {
-        endDate = "";
-    }
-    if (status == undefined) {
-        status = "";
-    }
-    if (sortValue == undefined) {
-        sortValue = "";
-    }
-    if (sortByValue == undefined) {
-        sortByValue = "";
-    }
 
     if (Number(storeId) > 0) {
 
@@ -6036,39 +5925,9 @@ function CouponListPagination(pagesize, currentPage) {
     customerId = SetCustomerId();
     localStorage.setItem("CouponCurrentPage", currentPage);
 
-    var name = $("#txtFilterCouponName").val();
-    var startDate = $("#txtFilterCouponStart").val();
-    var endDate = $("#txtFilterCouponEnd").val();
-    var status = $("#ddlFilterCouponStatus").val();
-
-    //Shorting
-    var sortValue = $("input[name='radioCouponSort']:checked").val();
-    var sortByValue = $("input[name='radioCouponSortBy']:checked").val();
-    //Shorting
-
-    if (name == undefined) {
-        name = "";
-    }
-    if (startDate == undefined) {
-        startDate = "";
-    }
-    if (endDate == undefined) {
-        endDate = "";
-    }
-    if (status == undefined) {
-        status = "";
-    }
-    if (sortValue == undefined) {
-        sortValue = "";
-    }
-    if (sortByValue == undefined) {
-        sortByValue = "";
-    }
-
     if (Number(storeId) > 0) {
         currentPage = Number(currentPage) * Number(pagesize);
-        url = global + "/GetAllCoupons?storeid=" + storeId + "&name=" + name + "&startDate=" + startDate + "&endDate=" + endDate + "&status=" + status +
-            "&sortValue=" + sortValue + "&sortByValue=" + sortByValue + "&pagesize=" + pagesize + "&currentPage=" + currentPage;
+        url = global + "/GetAllCoupons?storeid=" + storeId + "&pagesize=" + pagesize + "&currentPage=" + currentPage;
 
         try {
             $.getJSON(url, function (data) {

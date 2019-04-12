@@ -1,6 +1,6 @@
 //var global = "http://www.appnotification.bistroux.com/Api/App/";
 //var global = "http://www.consumerapp.bistroux.com/Api/App/";
-var global = "http://192.168.1.7/Api/App/";
+var global = "http://192.168.1.6/Api/App/";
 var mediaURL = "http://appnotification.bistroux.com/Media/";
 
 var browser = true;
@@ -5701,15 +5701,18 @@ function CarryoutItemsList(carryoutpagesize, carryoutcurrentPage) {
 
                         /*------------------Button-----------------------*/
                         html += "<div class=\"order-buttons\" style=\"width:25%\">";
-                        html += "<div class=\"order-price\" style=\"font-size:14px\">" + value.PRICE + "</div>";
+                        html += "<div class=\"order-price\" style=\"font-size:20px;width:50%;text-align:right;\">" + itemPrice + "</div>";
 
-                        html += "<div><a onclick=\"GoToItemEdit(" + value.ID + ");\"><img src=\"./img/icons/edit-icon.png\"></a></div>";
+                        html += "<div style=\"padding-left:10px;width:50%\"><a onclick=\"GoToItemEdit(" + value.ID + ");\"><img src=\"./img/icons/edit-icon.png\"></a></div>";
                         html += "</div>";
 
                         html += "</div>";
                         html += "<div class=\"order-row-container panel-open\" onclick=\"GoToItemEdit(" + value.ID + ")\">";
                         html += "<div class=\"order-date\" style=\"width:100%\">";
                         html += "<div class=\"customer-detail-container\">";
+
+                        if (value.CATEGORY != undefined && value.CATEGORY != null && value.CATEGORY != "")
+                            html += "<div  style=\"font-size:13px;width:100%\">" + value.CATEGORY + "</div>";
 
                         /*------------------SHORTDESCRIPTION-----------------------*/
                         if (value.SHORTDESCRIPTION != undefined && value.SHORTDESCRIPTION != null && value.SHORTDESCRIPTION != "")
@@ -5772,7 +5775,8 @@ function CarryoutItemsListPagination(carryoutpagesize, carryoutcurrentPage) {
 
     var customerId = 0;
     var storeId = 0;
-
+    console.log("CarryoutItemsListPagination carryoutpagesize: " + carryoutpagesize)
+    console.log("CarryoutItemsListPagination carryoutpagesize: " + carryoutcurrentPage)
 
     storeId = SetStoreId();
     customerId = SetCustomerId();
@@ -5791,7 +5795,11 @@ function CarryoutItemsListPagination(carryoutpagesize, carryoutcurrentPage) {
                     localStorage.setItem("ItemAvailable", "1");
                     var count = 0;
                     $.each(JSON.parse(data), function (index, value) {
+                        var itemPrice = "$0.00";
+                        if (value.PRICE != "") {
+                            itemPrice = FormatDecimal(value.PRICE);
 
+                        }
 
                         var html = "<div class=\"order-container\"  id='li_" + value.ID + "' style=\"width:100%;padding-left: 20px;\" >";
                         html += "<div id=\"dvItemListInner_" + value.ID + "\" class=\"order-list\">";
@@ -5799,23 +5807,25 @@ function CarryoutItemsListPagination(carryoutpagesize, carryoutcurrentPage) {
                         html += "<div class=\"order-row-container\">";
 
                         /*------------------Name-----------------------*/
-                        html += "<div class=\"order-pickup panel-open\" style=\"text-align:left;font-size:20px;width:75%\" onclick=\"GoToItemEdit(" + value.ID + ")\">" + value.NAME + "</div>";
+                        html += "<div class=\"order-pickup panel-open order-number\" style=\"text-align:left;font-size:20px;width:75%\" onclick=\"GoToItemEdit(" + value.ID + ")\">" + value.NAME + "</div>";
 
                         /*------------------Button-----------------------*/
                         html += "<div class=\"order-buttons\" style=\"width:25%\">";
-                        html += "<div class=\"order-price\" style=\"font-size:14px\">" + value.PRICE + "</div>";
+                        html += "<div class=\"order-price\" style=\"font-size:20px;width:50%;text-align:right;\">" + itemPrice + "</div>";
 
-                        html += "<div><a onclick=\"GoToItemEdit(" + value.ID + ");\"><img src=\"./img/icons/edit-icon.png\"></a></div>";
+                        html += "<div style=\"padding-left:10px;width:50%\"><a onclick=\"GoToItemEdit(" + value.ID + ");\"><img src=\"./img/icons/edit-icon.png\"></a></div>";
                         html += "</div>";
 
                         html += "</div>";
                         html += "<div class=\"order-row-container panel-open\" onclick=\"GoToItemEdit(" + value.ID + ")\">";
                         html += "<div class=\"order-date\" style=\"width:100%\">";
                         html += "<div class=\"customer-detail-container\">";
+                        if (value.CATEGORY != undefined && value.CATEGORY != null && value.CATEGORY != "")
+                            html += "<div  style=\"font-size:13px;width:100%\">" + value.CATEGORY + "</div>";
 
                         /*------------------SHORTDESCRIPTION-----------------------*/
                         if (value.SHORTDESCRIPTION != undefined && value.SHORTDESCRIPTION != null && value.SHORTDESCRIPTION != "")
-                            html += "<div class=\"order-number\" style=\"font-size:16px;width:100%\">" + value.SHORTDESCRIPTION + "</div>";
+                            html += "<div  style=\"font-size:16px;width:100%\">" + value.SHORTDESCRIPTION + "</div>";
 
                         //if (value.StartDateUtc != "" && value.EndDateUtc != "") {
                         //    /*------------------Start Date Ende Date-----------------------*/
@@ -5842,9 +5852,9 @@ function CarryoutItemsListPagination(carryoutpagesize, carryoutcurrentPage) {
 
                 else {
                     localStorage.setItem("ItemAvailable", "0");
-                    var html = "<div class=\"order-list list-empty-label-text\">No items</div>";
+                    //var html = "<div class=\"order-list list-empty-label-text\">No items</div>";
 
-                    $("#dvFoodItemList").html(html);
+                    //$("#dvFoodItemList").html(html);
 
                 }
 

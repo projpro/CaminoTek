@@ -50,14 +50,6 @@ $$(document).on('page:init', function (e) {
         }
     });
 
-        $$('input').keypress(function (e) {
-            var code = (e.keyCode ? e.keyCode : e.which);
-            if ((code == 13) || (code == 10)) {
-                $$(this).blur();
-                return false;
-            }
-        });
-
     //console.log(e.detail.app.form.convertToData('#login'));
     var pageURL = e.detail.route.url;
     var page = e.detail.page;
@@ -179,12 +171,7 @@ $$(document).on('page:init', function (e) {
         });
 
     }
-    else if (pageURL.indexOf('food_list') > -1) {//carry out food item list
-
-
-        $$('#btnAddItem').click(function () {
-            self.app.router.navigate('/food/', { reloadCurrent: false });
-        });
+    else if (pageURL.indexOf('food_list') > -1) {
         var pageSize = 10;
         var currentPage = 0;
         document.addEventListener("deviceready", onDeviceReady, false);
