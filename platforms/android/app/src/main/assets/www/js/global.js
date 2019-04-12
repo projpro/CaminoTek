@@ -1,6 +1,6 @@
 //var global = "http://www.appnotification.bistroux.com/Api/App/";
-var global = "http://www.consumerapp.bistroux.com/Api/App/";
-//var global = "http://192.168.1.6/Api/App/";
+//var global = "http://www.consumerapp.bistroux.com/Api/App/";
+var global = "http://192.168.1.6/Api/App/";
 var mediaURL = "http://appnotification.bistroux.com/Media/";
 
 var browser = true;
@@ -4744,7 +4744,7 @@ function GotoProfile() {
 function LoadProfileDetails() {
     var storeId = 0;
     storeId = SetStoreId();
-
+    alert(storeId)
     if (Number(storeId) > 0) {
 
         var url = global + "/GetStoreByStoreId?storeid=" + storeId;
@@ -5697,7 +5697,7 @@ function CarryoutItemsList(carryoutpagesize, carryoutcurrentPage) {
                         html += "<div class=\"order-row-container\">";
 
                         /*------------------Name-----------------------*/
-                        html += "<div class=\"order-pickup panel-open order-number\" style=\"text-align:left;font-size:20px;width:75%\" onclick=\"GoToItemEdit(" + value.ID + ")\">" + value.NAME + "</div>";
+                        html += "<div class=\"order-pickup order-number\" style=\"text-align:left;font-size:20px;width:75%\" >" + value.NAME + "</div>";
 
                         /*------------------Button-----------------------*/
                         html += "<div class=\"order-buttons\" style=\"width:25%\">";
@@ -5707,7 +5707,7 @@ function CarryoutItemsList(carryoutpagesize, carryoutcurrentPage) {
                         html += "</div>";
 
                         html += "</div>";
-                        html += "<div class=\"order-row-container panel-open\" onclick=\"GoToItemEdit(" + value.ID + ")\">";
+                        html += "<div class=\"order-row-container\" >";
                         html += "<div class=\"order-date\" style=\"width:100%\">";
                         html += "<div class=\"customer-detail-container\">";
 
@@ -5807,7 +5807,7 @@ function CarryoutItemsListPagination(carryoutpagesize, carryoutcurrentPage) {
                         html += "<div class=\"order-row-container\">";
 
                         /*------------------Name-----------------------*/
-                        html += "<div class=\"order-pickup panel-open order-number\" style=\"text-align:left;font-size:20px;width:75%\" onclick=\"GoToItemEdit(" + value.ID + ")\">" + value.NAME + "</div>";
+                        html += "<div class=\"order-pickup order-number\" style=\"text-align:left;font-size:20px;width:75%\" >" + value.NAME + "</div>";
 
                         /*------------------Button-----------------------*/
                         html += "<div class=\"order-buttons\" style=\"width:25%\">";
@@ -5817,7 +5817,7 @@ function CarryoutItemsListPagination(carryoutpagesize, carryoutcurrentPage) {
                         html += "</div>";
 
                         html += "</div>";
-                        html += "<div class=\"order-row-container panel-open\" onclick=\"GoToItemEdit(" + value.ID + ")\">";
+                        html += "<div class=\"order-row-container\" >";
                         html += "<div class=\"order-date\" style=\"width:100%\">";
                         html += "<div class=\"customer-detail-container\">";
                         if (value.CATEGORY != undefined && value.CATEGORY != null && value.CATEGORY != "")
@@ -5912,11 +5912,9 @@ function BindItemById(productId) {
                             $("#txtProductName").val(value.NAME);
                         }
                         if (value.SHORTDESCRIPTION != "") {
-                          
-                            $("textarea#txtProductDescription").val(value.SHORTDESCRIPTION);
-                        }
-                        if (value.PRICE != "") {
-                            $("#txtProductDescription").val(value.PRICE);
+                            var shortDescription = value.SHORTDESCRIPTION.replace("<p>", "").replace("</p>", "");
+                            $("#txtProductDescription").val(shortDescription);
+                           
                         }
                      
                         if (value.PRICE > 0) {
@@ -6167,6 +6165,44 @@ function BindCategoy() {
         });
 
     }
+
+}
+function AddUpdateItem()
+{
+    var storeId = SetStoreId();
+    var isActive = false;
+    var isLunch = false;
+    var isBreakfast = false;
+    var isDinner = false;
+    var isBrunch = false;
+    var isDineIn = false;
+    var isCarryOut = false;
+    var categoryId = $("#productCategory").val();
+    var name = $("#txtProductName").val();
+    var desc = $("#txtProductDescription").val();
+    var price = $("#txtProductPrice").val();
+    if ($("#checkItemActive").prop("checked") == true) {
+        isActive = true;
+    }
+    if ($("#chkLunch").prop("checked") == true) {
+        isLunch = true;
+    }
+    if ($("#chkBreakfast").prop("checked") == true) {
+        isBreakfast = true;
+    }
+    if ($("#chkDinner").prop("checked") == true) {
+        isDinner = true;
+    }
+    if ($("#chkBrunch").prop("checked") == true) {
+        isBrunch = true;
+    }
+    if ($("#chkDineIn").prop("checked") == true) {
+        isDineIn = true;
+    }
+    if ($("#chkCarryOut").prop("checked") == true) {
+        isCarryOut = true;
+    }
+
 
 }
 

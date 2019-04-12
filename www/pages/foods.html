@@ -60,12 +60,12 @@
                                         <i class="material-icons">toc</i>
 
                                         <div class="item-input-wrap input-dropdown-wrap">
-                                            <select placeholder="State" id="productCategory" required class="mandatory">
-                                                <option value="">Category</option>
-                                                <option value="40">Burgers(Bogey Inn)</option>
+                                            <select placeholder="Category" id="productCategory" required class="mandatory">
+                                                <!--<option value="">Category</option>-->
+                                                <!--<option value="40">Burgers(Bogey Inn)</option>
                                                 <option value="41">Desserts(Bogey Inn)</option>
                                                 <option value="36">Speciality Pizza(Bogey Inn)</option>
-                                                <option value="31">Sharables(Bogey Inn)</option>
+                                                <option value="31">Sharables(Bogey Inn)</option>-->
                                             </select>
                                         </div>
                                         <span class="input-clear-button"></span>
@@ -85,14 +85,20 @@
                                         <span class="input-clear-button"></span>
                                     </div>
                                 </li>
-                                <li class="item-content">
-                                    <div class="item-media" style="width:50%">
+                                <li class="item-content" style="width:96%">
+                                    <div class="item-media" style="width:75%;">
                                         <i class="material-icons">attach_money</i>
-                                        <input type="number" min="1" step="any" placeholder="Price" id="txtProductPrice" class="mandatory">
+                                        <input type="number" min="1" step="any" placeholder="Price" id="txtProductPrice" class="mandatory" >
                                         <span class="input-clear-button"></span>
                                     </div>
+                                    <span>Active</span>
+                                    <label class="toggle toggle-init color-blue">
+                                        <input type="checkbox" id="checkItemActive">
+                                        <span class="toggle-icon"></span>
+                                    </label>
+                                    
                                 </li>
-                                <li class="item-content">
+                                <!--<li class="item-content">
                                     <div class="item-media" style="width:96%;">
                                         <i class="material-icons">photo</i>
                                         <label class="file">
@@ -100,7 +106,7 @@
                                             <span class="file-custom"></span>
                                         </label>
                                     </div>
-                                </li>
+                                </li>-->
                                 <li class="item-content">
                                     <div class="item-media timing-flex-row-container">
                                         <div class="timing-flex-column-container" style="width:96%">

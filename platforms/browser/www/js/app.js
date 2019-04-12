@@ -252,10 +252,10 @@ $$(document).on('page:init', function (e) {
         }
         if (Number(itemId) > 0) {
             BindItemById(itemId);
-            $("#dvProductText").text("Edit Product");
+            $("#dvProductText").text("Edit Food");
         }
         else {
-            $("#dvProductText").text("Add Product");
+            $("#dvProductText").text("Add Food");
         }
     }
 
