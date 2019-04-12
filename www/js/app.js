@@ -183,7 +183,8 @@ $$(document).on('page:init', function (e) {
 
 
         $$('#btnAddItem').click(function () {
-            self.app.router.navigate('/food/', { reloadCurrent: false });
+            localStorage.setItem("HiddenItemId", 0);
+            self.app.router.navigate('/foods/', { reloadCurrent: false });
         });
         var pageSize = 10;
         var currentPage = 0;
@@ -219,6 +220,45 @@ $$(document).on('page:init', function (e) {
 
         });
     }
+
+    else if (pageURL.indexOf('foods') > -1)// Product Edit
+    {
+        var storeId = 0;
+        document.addEventListener("deviceready", onDeviceReady, false);
+        function onDeviceReady() {
+            var src = mediaURL + "notification.mp3";
+            myMedia = new Media(src, onSuccess, onError, onStatus);
+
+            if (device.platform != "browser") {
+                if (localStorage.getItem("StoreId") != null)
+                    storeId = Number(localStorage.getItem("StoreId"));
+                if (storeId > 0) {
+                    InitPushNotification(storeId);
+                }
+            }
+        }
+        $('input[type=radio][name=checkAvailability]').change(function () {
+            if (this.value == 'TimeSpecific') {
+                $('#liAvailTiming').show();
+            }
+            else if (this.value == 'Normal') {
+                $('#liAvailTiming').hide();
+            }
+        });
+        BindCategoy();
+        var itemId = 0;
+        if (localStorage.getItem("HiddenItemId") != null) {
+            itemId = localStorage.getItem("HiddenItemId").trim();
+        }
+        if (Number(itemId) > 0) {
+            BindItemById(itemId);
+            $("#dvProductText").text("Edit Product");
+        }
+        else {
+            $("#dvProductText").text("Add Product");
+        }
+    }
+
     else if (pageURL.indexOf('giftcard') > -1)//Gift Card
     {
 
@@ -454,6 +494,20 @@ $$(document).on('page:init', function (e) {
     }
 
     else if (pageURL.indexOf('manageservice') > -1) {
+        var storeId = 0;
+        document.addEventListener("deviceready", onDeviceReady, false);
+        function onDeviceReady() {
+            var src = mediaURL + "notification.mp3";
+            myMedia = new Media(src, onSuccess, onError, onStatus);
+
+            if (device.platform != "browser") {
+                if (localStorage.getItem("StoreId") != null)
+                    storeId = Number(localStorage.getItem("StoreId"));
+                if (storeId > 0) {
+                    InitPushNotification(storeId);
+                }
+            }
+        }
         SetManageService();
         //SetMenuNavigation();
     }
@@ -554,11 +608,40 @@ $$(document).on('page:init', function (e) {
 
     else if (pageURL.indexOf('profile') > -1)//Profile
     {
+        var storeId = 0;
+        document.addEventListener("deviceready", onDeviceReady, false);
+        function onDeviceReady() {
+            var src = mediaURL + "notification.mp3";
+            myMedia = new Media(src, onSuccess, onError, onStatus);
+
+            if (device.platform != "browser") {
+                if (localStorage.getItem("StoreId") != null)
+                    storeId = Number(localStorage.getItem("StoreId"));
+                if (storeId > 0) {
+                    InitPushNotification(storeId);
+                }
+            }
+        }
         LoadProfileDetails();
     }
 
     else if (pageURL.indexOf('coupon_list') > -1)//Coupon
     {
+
+        var storeId = 0;
+        document.addEventListener("deviceready", onDeviceReady, false);
+        function onDeviceReady() {
+            var src = mediaURL + "notification.mp3";
+            myMedia = new Media(src, onSuccess, onError, onStatus);
+
+            if (device.platform != "browser") {
+                if (localStorage.getItem("StoreId") != null)
+                    storeId = Number(localStorage.getItem("StoreId"));
+                if (storeId > 0) {
+                    InitPushNotification(storeId);
+                }
+            }
+        }
         var calendarModalCouponStart = app.calendar.create({
             inputEl: '#txtFilterCouponStart',
             openIn: 'customModal',
@@ -611,6 +694,21 @@ $$(document).on('page:init', function (e) {
     }
     else if (pageURL.indexOf('coupon') > -1)//Coupon Add Edit
     {
+
+        var storeId = 0;
+        document.addEventListener("deviceready", onDeviceReady, false);
+        function onDeviceReady() {
+            var src = mediaURL + "notification.mp3";
+            myMedia = new Media(src, onSuccess, onError, onStatus);
+
+            if (device.platform != "browser") {
+                if (localStorage.getItem("StoreId") != null)
+                    storeId = Number(localStorage.getItem("StoreId"));
+                if (storeId > 0) {
+                    InitPushNotification(storeId);
+                }
+            }
+        }
         //LoadCouponEdit(45);
         var couponId = 0;
         if (localStorage.getItem("HiddenDiscountId") != null) {

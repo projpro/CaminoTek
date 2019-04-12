@@ -5871,6 +5871,305 @@ function CarryoutItemsListPagination(carryoutpagesize, carryoutcurrentPage) {
     }
 
 }
+function GoToItemEdit(productId)
+{
+    localStorage.setItem("HiddenItemId", productId);
+    self.app.router.navigate('/foods/', { reloadCurrent: false });
+}
+function BindItemById(productId) {
+    var storeId = 0;
+    var productId = localStorage.getItem("HiddenItemId");
+    storeId = SetStoreId();
+    if (productId > 0 && Number(storeId) > 0)
+    {
+     
+        $('.div-contentTiming').remove();
+        $('#hdnTimingCount').val(8);
+        
+        
+        var moCount = 1; var tuCount = 1; var weCount = 1; var thCount = 1; var frCount = 1; var saCount = 1; var suCount = 1;
+        $("#liDiscountTiming").show();
+        $("#hdnItemId").val(productId);
+        var url = global + "/GetItemById?productId=" + productId ;
+
+        $.getJSON(url, function (data) {
+            if (data.replace(/"/g, "").indexOf("No record(s) found.") > -1) {
+
+            }
+            else {
+                //localStorage.setItem("HiddenDiscountId", 0);
+                $.each(JSON.parse(data), function (index, value) {
+                    //console.log(data);
+                    //console.log(value); 
+                    var count = 0;
+                    if (value.Type == "ItemInfo") {
+                        
+                        if (value.CategoryId != "") {
+                            $("#productCategory").val(value.CATEGORYID);
+                        }
+                        
+                        if (value.NAME != "") {
+                            $("#txtProductName").val(value.NAME);
+                        }
+                        if (value.SHORTDESCRIPTION != "") {
+                          
+                            $("textarea#txtProductDescription").val(value.SHORTDESCRIPTION);
+                        }
+                        if (value.PRICE != "") {
+                            $("#txtProductDescription").val(value.PRICE);
+                        }
+                     
+                        if (value.PRICE > 0) {
+                            var price = FormatDecimal(value.PRICE);
+                            if (price.indexOf('$') > -1) {
+                                price = price.replace('$', '');
+                            }
+                            $("#txtProductPrice").val(price);
+                            //console.log(value.MinimumOrderAmount);
+                        }
+                        else {
+                            $("#txtProductPrice").val(FormatDecimal(0.00).replace('$', ''));
+                        }
+                        if (value.FOODSELECTIONTYPE.toLowerCase().indexOf("lunch")) {
+                            $("#chkLunch").prop('checked', true);
+                        }
+                        if (value.FOODSELECTIONTYPE.toLowerCase().indexOf("dinner")) {
+                            $("#chkDinner").prop('checked', true);
+                        }
+                        if (value.FOODSELECTIONTYPE.toLowerCase().indexOf("breakfast")) {
+                            $("#chkBreakfast").prop('checked', true);
+                        }
+                        if (value.FOODSELECTIONTYPE.toLowerCase().indexOf("branch")) {
+                            $("#chkBrunch").prop('checked', true);
+                        }
+
+                        if (value.IsDineIn==1) {
+                            $("#chkDineIn").prop('checked', true);
+                        }
+                        if (value.IsCarryout == 1) {
+                            $("#chkCarryOut").prop('checked', true);
+                        }
+                        if (value.AVAILABILITYTYPE =="Normal") {
+                            $("#chkNormal").prop('checked', true);
+                        }
+                        else if (value.AVAILABILITYTYPE == "Time Specific") {
+                            $("#chkTimeSpecific").prop('checked', true);
+                        }
+                    }
+                    else if (value.Type == "ItemTiming") {
+                        var dayName = "";
+                        var timingId = 0;
+                        var day = "";
+                        var openingTime = "";
+                        var openingHour = "";
+                        var openingMinute = "";
+                        var openingPeriod = "";
+                        var closingTime = "";
+                        var closingHour = "";
+                        var closingMinute = "";
+                        var closingPeriod = "";
+                        if (value.TimingId > 0) {
+                            timingId = value.TimingId;
+                        }
+                        if (value.Day != "") {
+                            day = value.Day;
+                        }
+                        if (value.StartTime != "") {
+                            openingTime = value.StartTime;
+                            if (value.STARTHOUR != "") {
+                                openingHour = value.STARTHOUR;
+                            }
+                            if (value.STARTMINUTE != "") {
+                                openingMinute = value.STARTMINUTE;
+                            }
+                            if (value.STARTPERIOD != "") {
+                                openingPeriod = value.STARTPERIOD;
+                            }
+                        }
+                        if (value.EndTime != "") {
+                            closingTime = value.EndTime;
+                            if (value.ENDHOUR != "") {
+                                closingHour = value.ENDHOUR;
+                            }
+                            if (value.ENDMINUTE != "") {
+                                closingMinute = value.ENDMINUTE;
+                            }
+                            if (value.ENDPERIOD != "") {
+                                closingPeriod = value.ENDPERIOD;
+                            }
+                        }
+                        //console.log("TimingId: " + timingId + " Day: " + day + " OpeningTime: " + openingTime + " ClosingTime: " + closingTime);
+                        //console.log("Opening: Hour: " + openingHour + " Minute: " + openingMinute + " Period: " + openingPeriod + " Closing: Hour: " + closingHour + " Minute: " + closingMinute + " Period: " + closingPeriod);
+                        //dayName = GetDayNameByDayKey(day);
+
+                        //Generate Edit Section Start//
+                        var hdnCount = $('#hdnCount').val();
+
+                        if (day == "Mo") {
+                            $('#Offerday_0_IsCheck').prop('checked', true);
+                            dayName = "Monday";
+                            if (moCount > 1) {
+                                AppendEditTimingSection(timingId, dayName, day, openingHour, openingMinute, openingPeriod, closingHour, closingMinute, closingPeriod);
+                                moCount++;
+                            }
+                            else {
+                                $("#Offerday_0_DiscountTimingId").val(timingId)
+                                $("#Offerday_0_StartHour").val(openingHour);
+                                $("#Offerday_0_StartMinute").val(openingMinute);
+                                $("#Offerday_0_StartPeriod").val(openingPeriod);
+
+                                $("#Offerday_0_EndHour").val(closingHour);
+                                $("#Offerday_0_EndMinute").val(closingMinute);
+                                $("#Offerday_0_EndPeriod").val(closingPeriod);
+                                moCount++;
+                            }
+                        }
+                        else if (day == "Tu") {
+                            $('#Offerday_1_IsCheck').prop('checked', true);
+                            dayName = "Tuesday";
+                            if (tuCount > 1) {
+                                AppendEditTimingSection(timingId, dayName, day, openingHour, openingMinute, openingPeriod, closingHour, closingMinute, closingPeriod);
+                                tuCount++;
+                            }
+                            else {
+                                $("#Offerday_1_DiscountTimingId").val(timingId)
+                                $("#Offerday_1_StartHour").val(openingHour);
+                                $("#Offerday_1_StartMinute").val(openingMinute);
+                                $("#Offerday_1_StartPeriod").val(openingPeriod);
+
+                                $("#Offerday_1_EndHour").val(closingHour);
+                                $("#Offerday_1_EndMinute").val(closingMinute);
+                                $("#Offerday_1_EndPeriod").val(closingPeriod);
+                                tuCount++;
+                            }
+                        }
+                        else if (day == "We") {
+                            $('#Offerday_2_IsCheck').prop('checked', true);
+                            dayName = "Wednesday";
+                            if (weCount > 1) {
+                                AppendEditTimingSection(timingId, dayName, day, openingHour, openingMinute, openingPeriod, closingHour, closingMinute, closingPeriod);
+                                weCount++;
+                            }
+                            else {
+                                $("#Offerday_2_DiscountTimingId").val(timingId)
+                                $("#BOfferday_2_StartHour").val(openingHour);
+                                $("#Offerday_2_StartMinute").val(openingMinute);
+                                $("#Offerday_2_StartPeriod").val(openingPeriod);
+
+                                $("#Offerday_2_EndHour").val(closingHour);
+                                $("#Offerday_2_EndMinute").val(closingMinute);
+                                $("#Offerday_2_EndPeriod").val(closingPeriod);
+                                weCount++;
+                            }
+                        }
+                        else if (day == "Th") {
+                            $('#Offerday_3_IsCheck').prop('checked', true);
+                            dayName = "Thursday";
+                            if (thCount > 1) {
+                                AppendEditTimingSection(timingId, dayName, day, openingHour, openingMinute, openingPeriod, closingHour, closingMinute, closingPeriod);
+                                thCount++;
+                            }
+                            else {
+                                $("#Offerday_3_DiscountTimingId").val(timingId)
+                                $("#Offerday_3_StartHour").val(openingHour);
+                                $("#Offerday_3_StartMinute").val(openingMinute);
+                                $("#Offerday_3_StartPeriod").val(openingPeriod);
+
+                                $("#Offerday_3_EndHour").val(closingHour);
+                                $("#Offerday_3_EndMinute").val(closingMinute);
+                                $("#Offerday_3_EndPeriod").val(closingPeriod);
+                                thCount++;
+                            }
+                        }
+                        else if (day == "Fr") {
+                            $('#Offerday_4_IsCheck').prop('checked', true);
+                            dayName = "Friday";
+                            if (frCount > 1) {
+                                AppendEditTimingSection(timingId, dayName, day, openingHour, openingMinute, openingPeriod, closingHour, closingMinute, closingPeriod);
+                                frCount++;
+                            }
+                            else {
+                                $("#Offerday_4_DiscountTimingId").val(timingId)
+                                $("#Offerday_4_StartHour").val(openingHour);
+                                $("#Offerday_4_StartMinute").val(openingMinute);
+                                $("#Offerday_4_StartPeriod").val(openingPeriod);
+
+                                $("#Offerday_4_EndHour").val(closingHour);
+                                $("#Offerday_4_EndMinute").val(closingMinute);
+                                $("#Offerday_4_EndPeriod").val(closingPeriod);
+                                frCount++;
+                            }
+                        }
+                        else if (day == "Sa") {
+                            $('#Offerday_5_IsCheck').prop('checked', true);
+                            dayName = "Saturday";
+                            if (saCount > 1) {
+                                AppendEditTimingSection(timingId, dayName, day, openingHour, openingMinute, openingPeriod, closingHour, closingMinute, closingPeriod);
+                                saCount++;
+                            }
+                            else {
+                                $("#Offerday_5_DiscountTimingId").val(timingId)
+                                $("#Offerday_5_StartHour").val(openingHour);
+                                $("#Offerday_5_StartMinute").val(openingMinute);
+                                $("#Offerday_5_StartPeriod").val(openingPeriod);
+
+                                $("#Offerday_5_EndHour").val(closingHour);
+                                $("#Offerday_5_EndMinute").val(closingMinute);
+                                $("#Offerday_5_EndPeriod").val(closingPeriod);
+                                saCount++;
+                            }
+                        }
+                        else if (day == "Su") {
+                            $('#Offerday_6_IsCheck').prop('checked', true);
+                            dayName = "Sunday";
+                            if (suCount > 1) {
+                                AppendEditTimingSection(timingId, dayName, day, openingHour, openingMinute, openingPeriod, closingHour, closingMinute, closingPeriod);
+                                suCount++;
+                            }
+                            else {
+                                $("#Offerday_6_DiscountTimingId").val(timingId)
+                                $("#Offerday_6_StartHour").val(openingHour);
+                                $("#Offerday_6_StartMinute").val(openingMinute);
+                                $("#Offerday_6_StartPeriod").val(openingPeriod);
+
+                                $("#Offerday_6_EndHour").val(closingHour);
+                                $("#Offerday_6_EndMinute").val(closingMinute);
+                                $("#Offerday_6_EndPeriod").val(closingPeriod);
+                                suCount++;
+                            }
+                        }
+                        //Generate Edit Section End//
+                    }
+                });
+            }
+        });
+    }
+}
+
+function BindCategoy() {
+
+    var storeId = 0;
+    storeId = SetStoreId();
+    /*-------------HTML Start---------------------------------*/
+    var innerHtml = "";
+
+    if (storeId > 0) {
+        var url = global + "/GetCategoyByStoreId?storeId=" + storeId;
+
+        $.getJSON(url, function (data) {
+            //console.log(data)
+            if (data.replace(/"/g, "").indexOf("No record(s) found.") > -1) {
+
+            }
+            else {
+                $('#productCategory').html("<option value=\"\">Category</option>");
+                $('#productCategory').append(data);
+            }
+        });
+
+    }
+
+}
 
 //Profile Section End//
 
@@ -7025,3 +7324,167 @@ function DeleteTimingSection(idCount, timingId) {
 }
 
 //Coupon Section End
+
+//Product Section Start
+
+
+function AddNewAvailTimingSection(dayName, dayKey, e) {
+    var hdnCount = $('#hdnAvailTimingCount').val();
+    var idCount = parseInt(hdnCount) + 1;
+    var removeParameter = idCount + "," + e;
+
+    var html = "";
+    //Html Start Section//
+    html += "<div id=\"div_contentAvailTiming_" + idCount + "\" class=\"div-contentTiming\">";
+    //First Column Start//
+    html += "<div class=\"timing-flex-column-container\">";
+    //Label Section Start//
+    html += "<div style=\"flex-basis: 120px;\">";
+    html += "<label>Start</label>";
+    html += "<input id=\"Avail_" + idCount + "_TimingId\" name=\"Avail[" + idCount + "].TimingId\" type=\"hidden\" value=\"0\">";
+    html += "<input id=\"Avail_" + idCount + "_DayKey\" name=\"Avail[" + idCount + "].DayKey\" type=\"hidden\" value=\"" + dayKey + "\">";
+    html += "</div>";
+    //Label Section End//
+
+    //Hour Section Start//
+    html += "<div style=\"flex-basis: 80px;\">";
+    html += CreateHourTimingHtml(idCount, "Start");
+    html += "</div>";
+    //Hour Section End//
+
+    //Minute Section Start//
+    html += "<div style=\"flex-basis: 80px;\">";
+    html += CreateMinuteTimingHtml(idCount, "Start");
+    html += "</div>";
+    //Minute Section End//
+
+    //Period Section Start//
+    html += "<div style=\"flex-basis: 80px;\">";
+    html += CreatePeriodTimingHtml(idCount, "Start");
+    html += "</div>";
+    //Period Section End//
+
+    //Remove Icon Section Start//
+    html += "<div style=\"flex-basis: 40px;\">";
+    html += "<i id=\"remove_" + idCount + "\" class=\"material-icons\" onclick=\"RemoveAvailTimingSection(" + removeParameter + ");\" style=\"color: #e80000;\">delete</i>";
+    html += "</div>";
+    //Remove Icon Section End//
+
+    html += "</div>";
+    //First Column End//
+
+    //***********************//
+
+    //Second Column Start//
+    html += "<div class=\"timing-flex-column-container\">";
+    //Label Section Start//
+    html += "<div style=\"flex-basis: 120px;\">";
+    html += "<label>End</label>";
+    html += "</div>";
+    //Label Section End//
+
+    //Hour Section Start//
+    html += "<div style=\"flex-basis: 80px;\">";
+    html += CreateHourTimingHtml(idCount, "End");
+    html += "</div>";
+    //Hour Section End//
+
+    //Minute Section Start//
+    html += "<div style=\"flex-basis: 80px;\">";
+    html += CreateMinuteTimingHtml(idCount, "End");
+    html += "</div>";
+    //Minute Section End//
+
+    //Period Section Start//
+    html += "<div style=\"flex-basis: 80px;\">";
+    html += CreatePeriodTimingHtml(idCount, "End");
+    html += "</div>";
+    //Period Section End//
+
+    //Remove Icon Section Start//
+    html += "<div style=\"flex-basis: 40px;\">";
+    html += "</div>";
+    //Remove Icon Section End//
+
+    html += "</div>";
+    //Second Column Start//
+
+    //***********************//
+
+    //Third Column Start//
+    html += "<div class=\"timing-flex-column-container\">";
+    //Label Section Start//
+    html += "<div style=\"flex-basis: 120px;\">";
+    html += "<label>Price</label>";
+    html += "</div>";
+    //Label Section End//
+
+    //Hour Section Start//
+    html += "<div style=\"flex-basis: 240px;\">";
+    html += "<input type=\"number\" min=\"1\" step=\"any\" id=\"Avail_" + idCount + "_Price\">";
+    html += "</div>";
+    //Hour Section End//
+
+    //Remove Icon Section Start//
+    html += "<div style=\"flex-basis: 40px;\">";
+    html += "</div>";
+    //Remove Icon Section End//
+
+    html += "</div>";
+    //Third Column Start//
+
+    html += "</div>";
+    //Html End Section//
+
+    $("#div_" + dayName).append(html);
+    $('#hdnAvailTimingCount').val(idCount);
+}
+
+function RemoveAvailTimingSection(idCount, e) {
+    $("#div_contentAvailTiming_" + idCount + "").remove();
+    var hdnCount = $('#hdnAvailTimingCount').val();
+    var idCount = parseInt(hdnCount) - 1;
+    $('#hdnAvailTimingCount').val(idCount);
+}
+
+
+
+function CreateAvailHourTimingHtml(iCount, type) {
+    var hourHtml = "";
+    hourHtml += "<select id=\"Avail_" + iCount + "_" + type + "Hour\" name=\"Avail[" + iCount + "]." + type + "Hour\">";
+    for (var i = 0; i < 12; i++) {
+        if (i <= 9) {
+            hourHtml += "<option value=\"0" + i + "\">0" + i + "</option>";
+        }
+        else {
+            hourHtml += "<option value=\"" + i + "\">" + i + "</option>";
+        }
+    }
+    hourHtml += "</select>";
+    return hourHtml;
+}
+function CreateAvailMinuteTimingHtml(iCount, type) {
+    var minuteHtml = "";
+    minuteHtml += "<select id=\"Avail_" + iCount + "_" + type + "Minute\" name=\"Avail[" + iCount + "]." + type + "Minute\">";
+    for (var i = 0; i < 60; i++) {
+        if (i <= 9) {
+            minuteHtml += "<option value=\"0" + i + "\">0" + i + "</option>";
+        }
+        else {
+            minuteHtml += "<option value=\"" + i + "\">" + i + "</option>";
+        }
+    }
+    minuteHtml += "</select>";
+    return minuteHtml;
+}
+function CreateAvailPeriodTimingHtml(iCount, type) {
+    var periodHtml = "";
+    periodHtml += "<select id=\"Avail_" + iCount + "_" + type + "Period\" name=\"Avail[" + iCount + "]." + type + "Period\">";
+    periodHtml += "<option value=\"AM\">AM</option>";
+    periodHtml += "<option value=\"PM\">PM</option>";
+    periodHtml += "</select>";
+    return periodHtml;
+}
+
+
+//Product Section End
