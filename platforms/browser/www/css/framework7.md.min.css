@@ -149,7 +149,7 @@ p {
 }
 
 .md .color-theme-pink a {
-    /*color: #e91e63*/
+    /*color: #08b3c7*/
 }
 
 .md .color-theme-yellow a {
@@ -187,7 +187,7 @@ p {
 }
 
 .md a.color-pink {
-    color: #e91e63
+    color: #08b3c7
 }
 
 .md a.color-yellow {
@@ -808,7 +808,7 @@ html.with-statusbar.device-iphone-x .framework7-root {
 
 .md .color-theme-pink .navbar,
 .md .color-theme-pink.navbar {
-    /*background: #e91e63*/
+    /*background: #08b3c7*/
         background: #08b3c7
 
 }
@@ -851,7 +851,7 @@ html.with-statusbar.device-iphone-x .framework7-root {
 }
 
 .md .navbar.color-pink {
-    background: #e91e63
+    background: #08b3c7
 }
 
 .md .navbar.color-yellow {
@@ -1374,7 +1374,7 @@ html.with-statusbar.device-iphone-x .framework7-root {
 
 .md .color-theme-pink .toolbar:not(.messagebar),
 .md .color-theme-pink.toolbar:not(.messagebar) {
-    background: #e91e63
+    background: #08b3c7
 }
 
 .md .color-theme-yellow .toolbar:not(.messagebar),
@@ -1415,7 +1415,7 @@ html.with-statusbar.device-iphone-x .framework7-root {
 }
 
 .md .toolbar:not(.messagebar).color-pink {
-    background: #e91e63
+    background: #08b3c7
 }
 
 .md .toolbar:not(.messagebar).color-yellow {
@@ -1788,7 +1788,7 @@ html.with-statusbar.device-iphone-x .framework7-root {
 
 .md .color-theme-pink .subnavbar,
 .md .color-theme-pink.subnavbar {
-    background: #e91e63
+    background: #08b3c7
 }
 
 .md .color-theme-yellow .subnavbar,
@@ -1829,7 +1829,7 @@ html.with-statusbar.device-iphone-x .framework7-root {
 }
 
 .md .subnavbar.color-pink {
-    background: #e91e63
+    background: #08b3c7
 }
 
 .md .subnavbar.color-yellow {
@@ -3546,7 +3546,7 @@ html.device-pixel-ratio-3 .md li:last-child li .item-inner:after {
 }
 
 .md .color-theme-pink .list-button {
-    color: #e91e63
+    color: #08b3c7
 }
 
 .md .color-theme-yellow .list-button {
@@ -3606,7 +3606,7 @@ html.device-pixel-ratio-3 .md li:last-child li .item-inner:after {
 .md .list li.color-pink .item-link,
 .md .list li.color-pink .list-button,
 .md .simple-list li.color-pink {
-    color: #e91e63
+    color: #08b3c7
 }
 
 .md .links-list a.color-yellow,
@@ -3709,7 +3709,7 @@ html.device-pixel-ratio-3 .md li:last-child li .item-inner:after {
 }
 
 .md .badge.color-pink {
-    background-color: #e91e63
+    background-color: #08b3c7
 }
 
 .md .badge.color-yellow {
@@ -4066,7 +4066,7 @@ button {
 .md .color-theme-pink .button.button-fill,
 .md .color-theme-pink .button.button-fill-md,
 .md .color-theme-pink .button.tab-link-active {
-    background-color: #e91e63;
+    background-color: #08b3c7;
     color: #fff
 }
 
@@ -4083,7 +4083,7 @@ button {
 
 .md .color-pink .button.button-outline,
 .md .color-theme-pink .button.button-outline {
-    border-color: #e91e63
+    border-color: #08b3c7
 }
 
 .md .color-theme-yellow .button,
@@ -4321,14 +4321,14 @@ button {
 }
 
 .md .button.color-pink {
-    color: #e91e63
+    color: #08b3c7
 }
 
 .md .button.color-pink.button-active,
 .md .button.color-pink.button-fill,
 .md .button.color-pink.button-fill-md,
 .md .button.color-pink.tab-link-active {
-    background-color: #e91e63;
+    background-color: #08b3c7;
     color: #fff
 }
 
@@ -4340,7 +4340,7 @@ button {
 }
 
 .md .button.color-pink.button-outline {
-    border-color: #e91e63
+    border-color: #08b3c7
 }
 
 .md .button.color-yellow {
@@ -4833,7 +4833,7 @@ i.icon {
 }
 
 .md .icon.color-pink {
-    color: #e91e63
+    color: #08b3c7
 }
 
 .md .icon.color-yellow {
@@ -5179,7 +5179,7 @@ input[type=submit].md .dialog-button {
 }
 
 .md .dialog-button.color-pink {
-    color: #e91e63
+    color: #08b3c7
 }
 
 .md .dialog-button.color-yellow {
@@ -5474,7 +5474,7 @@ html.with-statusbar.md:not(.device-ios):not(.device-android) .login-screen {
 }
 
 .md .color-theme-pink .login-screen-content .list-button {
-    color: #e91e63
+    color: #08b3c7
 }
 
 .md .color-theme-yellow .login-screen-content .list-button {
@@ -5510,7 +5510,7 @@ html.with-statusbar.md:not(.device-ios):not(.device-android) .login-screen {
 }
 
 .md .login-screen-content .list-button.color-pink {
-    color: #e91e63
+    color: #08b3c7
 }
 
 .md .login-screen-content .list-button.color-yellow {
@@ -6043,7 +6043,7 @@ html.with-statusbar.md:not(.device-ios):not(.device-android) .login-screen {
 .md .actions-button.color-pink,
 .md .actions-button.color-pink .actions-button-text,
 .md .actions-label.color-pink {
-    color: #e91e63
+    color: #08b3c7
 }
 
 .md .actions-button.color-yellow,
@@ -6582,7 +6582,7 @@ html.with-modal-preloader .page-content {
 .md .preloader.color-pink .preloader-inner-half-circle,
 .md .preloader.preloader-pink .preloader-inner-gap,
 .md .preloader.preloader-pink .preloader-inner-half-circle {
-    border-color: #e91e63
+    border-color: #08b3c7
 }
 
 .md .preloader.color-yellow .preloader-inner-gap,
@@ -7093,12 +7093,12 @@ body>.progressbar-infinite {
 }
 
 .md .color-theme-pink .progressbar span {
-    background: #e91e63
+    background: #08b3c7
 }
 
 .md .color-theme-pink .progressbar-infinite:after,
 .md .color-theme-pink .progressbar-infinite:before {
-    background: #e91e63
+    background: #08b3c7
 }
 
 .md .color-theme-yellow .progressbar,
@@ -7219,12 +7219,12 @@ body>.progressbar-infinite {
 }
 
 .md .progressbar.color-pink span {
-    background: #e91e63
+    background: #08b3c7
 }
 
 .md .progressbar-infinite.color-pink:after,
 .md .progressbar-infinite.color-pink:before {
-    background: #e91e63
+    background: #08b3c7
 }
 
 .md .progressbar-infinite.color-yellow,
@@ -7776,7 +7776,7 @@ body>.progressbar-infinite {
 .md .swipeout-actions-right>button.color-pink,
 .md .swipeout-actions-right>div.color-pink,
 .md .swipeout-actions-right>span.color-pink {
-    background-color: #e91e63
+    background-color: #08b3c7
 }
 
 .md .swipeout-actions-left>a.color-yellow,
@@ -8197,14 +8197,14 @@ html.device-android-4 .accordion-item-content {
 
 .md .color-theme-pink .list-index ul,
 .md .list-index.color-theme-pink ul {
-    color: #e91e63
+    color: #08b3c7
 }
 
 .md .color-theme-pink .list-index .list-index-label,
 .md .color-theme-pink .list-index .list-index-skip-placeholder:after,
 .md .list-index.color-theme-pink .list-index-label,
 .md .list-index.color-theme-pink .list-index-skip-placeholder:after {
-    background-color: #e91e63
+    background-color: #08b3c7
 }
 
 .md .color-theme-yellow .list-index ul,
@@ -8295,12 +8295,12 @@ html.device-android-4 .accordion-item-content {
 }
 
 .md .list-index.color-pink ul {
-    color: #e91e63
+    color: #08b3c7
 }
 
 .md .list-index.color-pink .list-index-label,
 .md .list-index.color-pink .list-index-skip-placeholder:after {
-    background-color: #e91e63
+    background-color: #08b3c7
 }
 
 .md .list-index.color-yellow ul {
@@ -9186,7 +9186,7 @@ html.device-android-4 .accordion-item-content {
 .md .color-theme-pink .timeline-item-date,
 .md .color-theme-pink .timeline-month-title,
 .md .color-theme-pink .timeline-year-title {
-    background: #e91e63
+    background: #08b3c7
 }
 
 .md .color-theme-yellow .timeline-item-date,
@@ -9240,7 +9240,7 @@ html.device-android-4 .accordion-item-content {
 .md .timeline.color-theme-pink .timeline-item-date,
 .md .timeline.color-theme-pink .timeline-month-title,
 .md .timeline.color-theme-pink .timeline-year-title {
-    background: #e91e63
+    background: #08b3c7
 }
 
 .md .timeline.color-theme-yellow .timeline-item-date,
@@ -9856,7 +9856,7 @@ input[type=submit].md .card-header a.link {
 .md .card-header.color-theme-pink a.link,
 .md .color-theme-pink .card-footer a.link,
 .md .color-theme-pink .card-header a.link {
-    color: #e91e63
+    color: #08b3c7
 }
 
 .md .card-footer.color-theme-yellow a.link,
@@ -9911,7 +9911,7 @@ input[type=submit].md .card-header a.link {
 
 .md .card-footer a.link.color-pink,
 .md .card-header a.link.color-pink {
-    color: #e91e63
+    color: #08b3c7
 }
 
 .md .card-footer a.link.color-yellow,
@@ -10103,14 +10103,14 @@ input[type=submit].md .card-header a.link {
 }
 
 .md .chip.color-pink {
-    background: #e91e63;
+    background: #08b3c7;
     color: #fff
 }
 
 .md .chip.color-pink.chip-outline {
     background: 0 0;
-    border-color: #e91e63;
-    color: #e91e63
+    border-color: #08b3c7;
+    color: #08b3c7
 }
 
 .md .chip.color-yellow {
@@ -10878,12 +10878,12 @@ textarea {
 
 .md .color-theme-pink .item-input-focused .item-floating-label,
 .md .color-theme-pink .item-input-focused .item-label {
-    color: #e91e63
+    color: #08b3c7
 }
 
 .md .color-theme-pink .input-after:after,
 .md .color-theme-pink .item-input-focused .item-input-wrap:after {
-    background: #e91e63
+    background: #08b3c7
 }
 
 .md .color-theme-yellow .item-input-focused .item-floating-label,
@@ -10968,12 +10968,12 @@ textarea {
 
 .md .item-input-focused.color-pink .item-floating-label,
 .md .item-input-focused.color-pink .item-label {
-    color: #e91e63
+    color: #08b3c7
 }
 
 .md .input-after.color-pink:after,
 .md .item-input-focused.color-pink .item-input-wrap:after {
-    background: #e91e63
+    background: #08b3c7
 }
 
 .md .item-input-focused.color-yellow .item-floating-label,
@@ -11286,8 +11286,8 @@ label.item-checkbox.disabled {
 .md .checkbox.color-pink input[type=checkbox]:checked~i,
 .md label.item-checkbox.color-pink input[type=checkbox]:checked~* .icon-checkbox,
 .md label.item-checkbox.color-pink input[type=checkbox]:checked~.icon-checkbox {
-    background-color: #e91e63;
-    border-color: #e91e63
+    background-color: #08b3c7;
+    border-color: #08b3c7
 }
 
 .md .checkbox.color-pink .ripple-wave {
@@ -11539,7 +11539,7 @@ label.item-radio.disabled {
 }
 
 .md .color-theme-pink .icon-radio:after {
-    background-color: #e91e63
+    background-color: #08b3c7
 }
 
 .md .color-theme-pink .radio input[type=radio]:checked~.icon-radio,
@@ -11719,19 +11719,19 @@ label.item-radio.disabled {
 }
 
 .md .radio.color-pink .icon-radio:after {
-    background-color: #e91e63
+    background-color: #08b3c7
 }
 
 .md .radio.color-pink input[type=radio]:checked~.icon-radio,
 .md label.item-radio.color-pink input[type=radio]:checked~* .icon-radio,
 .md label.item-radio.color-pink input[type=radio]:checked~.icon-radio {
-    border-color: #e91e63
+    border-color: #08b3c7
 }
 
 .md .radio.color-pink input[type=radio]:checked~.icon-radio:after,
 .md label.item-radio.color-pink input[type=radio]:checked~* .icon-radio:after,
 .md label.item-radio.color-pink input[type=radio]:checked~.icon-radio:after {
-    background-color: #e91e63
+    background-color: #08b3c7
 }
 
 .md .radio.color-pink .ripple-wave {
@@ -11954,7 +11954,7 @@ label.item-radio.disabled {
 }
 
 .md .color-theme-pink .toggle input[type=checkbox]:checked+.toggle-icon:after {
-    background: #e91e63
+    background: #08b3c7
 }
 
 .md .color-theme-yellow .toggle input[type=checkbox]:checked+.toggle-icon {
@@ -12026,7 +12026,7 @@ label.item-radio.disabled {
 }
 
 .md .toggle.color-pink input[type=checkbox]:checked+.toggle-icon:after {
-    background: #e91e63
+    background: #08b3c7
 }
 
 .md .toggle.color-yellow input[type=checkbox]:checked+.toggle-icon {
@@ -12255,7 +12255,7 @@ label.item-radio.disabled {
 .md .color-theme-pink .range-slider .range-knob,
 .md .color-theme-pink .range-slider .range-knob-label,
 .md .color-theme-pink .range-slider .range-knob-label:before {
-    background-color: #e91e63
+    background-color: #08b3c7
 }
 
 .md .color-theme-yellow .range-slider .range-bar-active,
@@ -12318,7 +12318,7 @@ label.item-radio.disabled {
 .md .range-slider.color-pink .range-knob,
 .md .range-slider.color-pink .range-knob-label,
 .md .range-slider.color-pink .range-knob-label:before {
-    background-color: #e91e63
+    background-color: #08b3c7
 }
 
 .md .range-slider.color-yellow .range-bar-active,
@@ -12916,29 +12916,29 @@ label.item-radio.disabled {
 .md .color-theme-pink .stepper-button,
 .md .color-theme-pink .stepper-button-minus,
 .md .color-theme-pink .stepper-button-plus {
-    border-color: #e91e63;
-    color: #e91e63
+    border-color: #08b3c7;
+    color: #08b3c7
 }
 
 .md .color-theme-pink .stepper-button-minus:after,
 .md .color-theme-pink .stepper-button-minus:before,
 .md .color-theme-pink .stepper-button-plus:after,
 .md .color-theme-pink .stepper-button-plus:before {
-    background: #e91e63
+    background: #08b3c7
 }
 
 .md .color-theme-pink .stepper-input-wrap,
 .md .color-theme-pink .stepper-value {
-    border-top-color: #e91e63;
-    border-bottom-color: #e91e63
+    border-top-color: #08b3c7;
+    border-bottom-color: #08b3c7
 }
 
 .md .color-theme-pink .stepper-value {
-    color: #e91e63
+    color: #08b3c7
 }
 
 .md .color-theme-pink .stepper .stepper-input-wrap input {
-    color: #e91e63
+    color: #08b3c7
 }
 
 .md .color-theme-pink .stepper-fill .stepper-button,
@@ -12947,7 +12947,7 @@ label.item-radio.disabled {
 .md .color-theme-pink .stepper-fill-md .stepper-button,
 .md .color-theme-pink .stepper-fill-md .stepper-button-minus,
 .md .color-theme-pink .stepper-fill-md .stepper-button-plus {
-    background-color: #e91e63;
+    background-color: #08b3c7;
     color: #fff
 }
 
@@ -13474,29 +13474,29 @@ label.item-radio.disabled {
 .md .stepper.color-pink .stepper-button,
 .md .stepper.color-pink .stepper-button-minus,
 .md .stepper.color-pink .stepper-button-plus {
-    border-color: #e91e63;
-    color: #e91e63
+    border-color: #08b3c7;
+    color: #08b3c7
 }
 
 .md .stepper.color-pink .stepper-button-minus:after,
 .md .stepper.color-pink .stepper-button-minus:before,
 .md .stepper.color-pink .stepper-button-plus:after,
 .md .stepper.color-pink .stepper-button-plus:before {
-    background: #e91e63
+    background: #08b3c7
 }
 
 .md .stepper.color-pink .stepper-input-wrap,
 .md .stepper.color-pink .stepper-value {
-    border-top-color: #e91e63;
-    border-bottom-color: #e91e63
+    border-top-color: #08b3c7;
+    border-bottom-color: #08b3c7
 }
 
 .md .stepper.color-pink .stepper-value {
-    color: #e91e63
+    color: #08b3c7
 }
 
 .md .stepper.color-pink .stepper-input-wrap input {
-    color: #e91e63
+    color: #08b3c7
 }
 
 .md .stepper.color-pink.stepper-fill .stepper-button,
@@ -13505,7 +13505,7 @@ label.item-radio.disabled {
 .md .stepper.color-pink.stepper-fill-md .stepper-button,
 .md .stepper.color-pink.stepper-fill-md .stepper-button-minus,
 .md .stepper.color-pink.stepper-fill-md .stepper-button-plus {
-    background-color: #e91e63;
+    background-color: #08b3c7;
     color: #fff
 }
 
@@ -15680,7 +15680,7 @@ label.item-radio.disabled {
 
 .md .color-pink .calendar-day .calendar-day-event,
 .md .color-theme-pink .calendar-day .calendar-day-event {
-    background: #e91e63
+    background: #08b3c7
 }
 
 .md .color-theme-yellow .calendar-header,
@@ -16970,7 +16970,7 @@ html.device-desktop .data-table .sortable-cell:not(.sortable-cell-active):hover:
 
 .md .color-pink .data-table-title-selected,
 .md .color-theme-pink .data-table-title-selected {
-    color: #e91e63
+    color: #08b3c7
 }
 
 .md .color-theme-yellow .data-table-header-selected,
@@ -17546,7 +17546,7 @@ html.device-desktop .data-table .sortable-cell:not(.sortable-cell-active):hover:
 .md .color-theme-pink .fab>a,
 .md .color-theme-pink.fab-buttons a,
 .md .color-theme-pink.fab>a {
-    background: #e91e63
+    background: #08b3c7
 }
 
 .md .color-theme-pink .fab-buttons a.active-state,
@@ -17558,7 +17558,7 @@ html.device-desktop .data-table .sortable-cell:not(.sortable-cell-active):hover:
 
 .md .color-theme-pink .fab-morph,
 .md .color-theme-pink.fab-morph {
-    background: #e91e63
+    background: #08b3c7
 }
 
 .md .color-theme-yellow .fab-buttons a,
@@ -17721,7 +17721,7 @@ html.device-desktop .data-table .sortable-cell:not(.sortable-cell-active):hover:
 .md .fab.color-pink .fab-buttons>a,
 .md .fab.color-pink>a,
 .md .fab>a.color-pink {
-    background: #e91e63
+    background: #08b3c7
 }
 
 .md .fab .fab-buttons>a.color-pink.active-state,
@@ -17733,7 +17733,7 @@ html.device-desktop .data-table .sortable-cell:not(.sortable-cell-active):hover:
 }
 
 .md .fab-morph.color-pink {
-    background: #e91e63
+    background: #08b3c7
 }
 
 .md .fab .fab-buttons>a.color-yellow,
@@ -19874,7 +19874,7 @@ button.swiper-pagination-bullet {
 
 .md .color-pink .swiper-pagination-bullet-active,
 .md .color-theme-pink .swiper-pagination-bullet-active {
-    background: #e91e63
+    background: #08b3c7
 }
 
 .md .color-pink .swiper-pagination-progressbar,
@@ -19888,7 +19888,7 @@ button.swiper-pagination-bullet {
 .md .color-pink.swiper-pagination-progressbar .swiper-pagination-progressbar-fill,
 .md .color-theme-pink .swiper-pagination-progressbar .swiper-pagination-progressbar-fill,
 .md .color-theme-pink.swiper-pagination-progressbar .swiper-pagination-progressbar-fill {
-    background: #e91e63
+    background: #08b3c7
 }
 
 .md .color-theme-yellow .swiper-button-prev,
@@ -21893,15 +21893,15 @@ iframe#viAd {
 }
 
 .md .text-color-pink {
-    color: #e91e63!important
+    color: #08b3c7!important
 }
 
 .md .bg-color-pink {
-    background-color: #e91e63!important
+    background-color: #08b3c7!important
 }
 
 .md .border-color-pink {
-    border-color: #e91e63!important
+    border-color: #08b3c7!important
 }
 
 .md .text-color-yellow {

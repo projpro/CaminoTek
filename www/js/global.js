@@ -3878,6 +3878,7 @@ function HideSearch() {
 //GiftCard Redeem End
 
 //Reward Start
+//Reward Start
 function SearchReward() {
     //$('#btnRedeemReward').removeClass("search-button");
     //$('#btnRedeemReward').addClass("search-button-one");
@@ -3986,7 +3987,7 @@ function SearchReward() {
                             if (value.EMAIL != "") {
                                 if (value.EMAIL.indexOf('@bistroux.com') < 0) {
                                     email = value.EMAIL;
-                                }                                
+                                }
                             }
                             if (value.PHONE != "") {
                                 phoneNumber = value.PHONE;
@@ -4164,16 +4165,14 @@ function LoadReward() {
         }
     }
     else {
-        $('#dvInner_Reward').hide();
+        //$('#dvInner_Reward').hide();
         if (memberId == "") {
             $("#txtMemberID_LoadRedeem").css('border-bottom', errorClassBorder);
-            $("#txtRedeem_LoadRedeem").css('border-bottom', errorClassBorder);
-            $("#txtLoad_LoadRedeem").css('border-bottom', errorClassBorder);
+            $("#txtRedeem_LoadRedeem").css('border-bottom', bottomBorder);
         }
         else if (loadPoint == "" || loadPoint == "0") {
-            $("#txtMemberID_LoadRedeem").css('border-bottom', errorClassBorder);
-            $("#txtRedeem_LoadRedeem").css('border-bottom', errorClassBorder);
             $("#txtLoad_LoadRedeem").css('border-bottom', errorClassBorder);
+            $("#txtRedeem_LoadRedeem").css('border-bottom', bottomBorder);
 
         }
     }
@@ -4282,21 +4281,17 @@ function RedeemReward() {
 
     }
     else {
-        $('#dvInner_Reward').hide();
+        //$('#dvInner_Reward').hide();
         if (memberId == "") {
             $("#txtMemberID_LoadRedeem").css('border-bottom', errorClassBorder);
-
-            $("#txtLoad_LoadRedeem").css('border-bottom', errorClassBorder);
-            $("#txtRedeem_LoadRedeem").css('border-bottom', errorClassBorder);
-
+            $("#txtLoad_LoadRedeem").css('border-bottom', bottomBorder);
         }
         else if (redeemPoint == "" || redeemPoint == "0") {
-            $("#txtMemberID_LoadRedeem").css('border-bottom', errorClassBorder);
-            $("#txtLoad_LoadRedeem").css('border-bottom', errorClassBorder);
             $("#txtRedeem_LoadRedeem").css('border-bottom', errorClassBorder);
+            $("#txtLoad_LoadRedeem").css('border-bottom', bottomBorder);
         }
-        $('#dvOuter').show();
-        $('#dvOuterText').html("");
+        //$('#dvOuter').show();
+        //$('#dvOuterText').html("");
     }
 }
 
@@ -5880,17 +5875,16 @@ function BindItemById(productId) {
     var storeId = 0;
     var productId = localStorage.getItem("HiddenItemId");
     storeId = SetStoreId();
-    if (productId > 0 && Number(storeId) > 0)
-    {
-     
+    if (productId > 0 && Number(storeId) > 0) {
+
         $('.div-contentTiming').remove();
-        $('#hdnTimingCount').val(8);
-        
-        
+        $('#hdnAvailTimingCount').val(8);
+
+
         var moCount = 1; var tuCount = 1; var weCount = 1; var thCount = 1; var frCount = 1; var saCount = 1; var suCount = 1;
-        $("#liDiscountTiming").show();
+
         $("#hdnItemId").val(productId);
-        var url = global + "/GetItemById?productId=" + productId ;
+        var url = global + "/GetItemById?productId=" + productId;
 
         $.getJSON(url, function (data) {
             if (data.replace(/"/g, "").indexOf("No record(s) found.") > -1) {
@@ -5903,20 +5897,22 @@ function BindItemById(productId) {
                     //console.log(value); 
                     var count = 0;
                     if (value.Type == "ItemInfo") {
-                        
+
                         if (value.CategoryId != "") {
                             $("#productCategory").val(value.CATEGORYID);
                         }
-                        
+
                         if (value.NAME != "") {
                             $("#txtProductName").val(value.NAME);
                         }
                         if (value.SHORTDESCRIPTION != "") {
-                            var shortDescription = value.SHORTDESCRIPTION.replace("<p>", "").replace("</p>", "");
-                            $("#txtProductDescription").val(shortDescription);
-                           
+
+                            $("textarea#txtProductDescription").val(value.SHORTDESCRIPTION);
                         }
-                     
+                        if (value.PRICE != "") {
+                            $("#txtProductDescription").val(value.PRICE);
+                        }
+
                         if (value.PRICE > 0) {
                             var price = FormatDecimal(value.PRICE);
                             if (price.indexOf('$') > -1) {
@@ -5941,17 +5937,19 @@ function BindItemById(productId) {
                             $("#chkBrunch").prop('checked', true);
                         }
 
-                        if (value.IsDineIn==1) {
+                        if (value.IsDineIn == 1) {
                             $("#chkDineIn").prop('checked', true);
                         }
                         if (value.IsCarryout == 1) {
                             $("#chkCarryOut").prop('checked', true);
                         }
-                        if (value.AVAILABILITYTYPE =="Normal") {
+                        if (value.AVAILABILITYTYPE == "Normal") {
                             $("#chkNormal").prop('checked', true);
+                            $("#liAvailTiming").hide();
                         }
                         else if (value.AVAILABILITYTYPE == "Time Specific") {
                             $("#chkTimeSpecific").prop('checked', true);
+                            $("#liAvailTiming").show();
                         }
                     }
                     else if (value.Type == "ItemTiming") {
@@ -5966,6 +5964,7 @@ function BindItemById(productId) {
                         var closingHour = "";
                         var closingMinute = "";
                         var closingPeriod = "";
+                        var price = 0.00;
                         if (value.TimingId > 0) {
                             timingId = value.TimingId;
                         }
@@ -5996,143 +5995,152 @@ function BindItemById(productId) {
                                 closingPeriod = value.ENDPERIOD;
                             }
                         }
+                        if (value.Price != "") {
+                            price = value.Price;
+                        }
                         //console.log("TimingId: " + timingId + " Day: " + day + " OpeningTime: " + openingTime + " ClosingTime: " + closingTime);
                         //console.log("Opening: Hour: " + openingHour + " Minute: " + openingMinute + " Period: " + openingPeriod + " Closing: Hour: " + closingHour + " Minute: " + closingMinute + " Period: " + closingPeriod);
                         //dayName = GetDayNameByDayKey(day);
 
                         //Generate Edit Section Start//
-                        var hdnCount = $('#hdnCount').val();
 
                         if (day == "Mo") {
-                            $('#Offerday_0_IsCheck').prop('checked', true);
+                            $('#Avail_0_IsCheck').prop('checked', true);
                             dayName = "Monday";
                             if (moCount > 1) {
-                                AppendEditTimingSection(timingId, dayName, day, openingHour, openingMinute, openingPeriod, closingHour, closingMinute, closingPeriod);
+                                AppendEditAvailTimingSection(timingId, dayName, day, openingHour, openingMinute, openingPeriod, closingHour, closingMinute, closingPeriod, price);
                                 moCount++;
                             }
                             else {
-                                $("#Offerday_0_DiscountTimingId").val(timingId)
-                                $("#Offerday_0_StartHour").val(openingHour);
-                                $("#Offerday_0_StartMinute").val(openingMinute);
-                                $("#Offerday_0_StartPeriod").val(openingPeriod);
+                                $("#Avail_0_TimingId").val(timingId)
+                                $("#Avail_0_StartHour").val(openingHour);
+                                $("#Avail_0_StartMinute").val(openingMinute);
+                                $("#Avail_0_StartPeriod").val(openingPeriod);
 
-                                $("#Offerday_0_EndHour").val(closingHour);
-                                $("#Offerday_0_EndMinute").val(closingMinute);
-                                $("#Offerday_0_EndPeriod").val(closingPeriod);
+                                $("#Avail_0_EndHour").val(closingHour);
+                                $("#Avail_0_EndMinute").val(closingMinute);
+                                $("#Avail_0_EndPeriod").val(closingPeriod);
+                                $("#Avail_0_Price").val(price);
                                 moCount++;
                             }
                         }
                         else if (day == "Tu") {
-                            $('#Offerday_1_IsCheck').prop('checked', true);
+                            $('#Avail_1_IsCheck').prop('checked', true);
                             dayName = "Tuesday";
                             if (tuCount > 1) {
-                                AppendEditTimingSection(timingId, dayName, day, openingHour, openingMinute, openingPeriod, closingHour, closingMinute, closingPeriod);
+                                AppendEditAvailTimingSection(timingId, dayName, day, openingHour, openingMinute, openingPeriod, closingHour, closingMinute, closingPeriod, price);
                                 tuCount++;
                             }
                             else {
-                                $("#Offerday_1_DiscountTimingId").val(timingId)
-                                $("#Offerday_1_StartHour").val(openingHour);
-                                $("#Offerday_1_StartMinute").val(openingMinute);
-                                $("#Offerday_1_StartPeriod").val(openingPeriod);
+                                $("#Avail_1_TimingId").val(timingId)
+                                $("#Avail_1_StartHour").val(openingHour);
+                                $("#Avail_1_StartMinute").val(openingMinute);
+                                $("#Avail_1_StartPeriod").val(openingPeriod);
 
-                                $("#Offerday_1_EndHour").val(closingHour);
-                                $("#Offerday_1_EndMinute").val(closingMinute);
-                                $("#Offerday_1_EndPeriod").val(closingPeriod);
+                                $("#Avail_1_EndHour").val(closingHour);
+                                $("#Avail_1_EndMinute").val(closingMinute);
+                                $("#Avail_1_EndPeriod").val(closingPeriod);
+                                $("#Avail_1_Price").val(price);
                                 tuCount++;
                             }
                         }
                         else if (day == "We") {
-                            $('#Offerday_2_IsCheck').prop('checked', true);
+                            $('#Avail_2_IsCheck').prop('checked', true);
                             dayName = "Wednesday";
                             if (weCount > 1) {
-                                AppendEditTimingSection(timingId, dayName, day, openingHour, openingMinute, openingPeriod, closingHour, closingMinute, closingPeriod);
+                                AppendEditAvailTimingSection(timingId, dayName, day, openingHour, openingMinute, openingPeriod, closingHour, closingMinute, closingPeriod, price);
                                 weCount++;
                             }
                             else {
-                                $("#Offerday_2_DiscountTimingId").val(timingId)
-                                $("#BOfferday_2_StartHour").val(openingHour);
-                                $("#Offerday_2_StartMinute").val(openingMinute);
-                                $("#Offerday_2_StartPeriod").val(openingPeriod);
+                                $("#Avail_2_TimingId").val(timingId)
+                                $("#Avail_2_StartHour").val(openingHour);
+                                $("#Avail_2_StartMinute").val(openingMinute);
+                                $("#Avail_2_StartPeriod").val(openingPeriod);
 
-                                $("#Offerday_2_EndHour").val(closingHour);
-                                $("#Offerday_2_EndMinute").val(closingMinute);
-                                $("#Offerday_2_EndPeriod").val(closingPeriod);
+                                $("#Avail_2_EndHour").val(closingHour);
+                                $("#Avail_2_EndMinute").val(closingMinute);
+                                $("#Avail_2_EndPeriod").val(closingPeriod);
+                                $("#Avail_2_Price").val(price);
                                 weCount++;
                             }
                         }
                         else if (day == "Th") {
-                            $('#Offerday_3_IsCheck').prop('checked', true);
+                            $('#Avail_3_IsCheck').prop('checked', true);
                             dayName = "Thursday";
                             if (thCount > 1) {
-                                AppendEditTimingSection(timingId, dayName, day, openingHour, openingMinute, openingPeriod, closingHour, closingMinute, closingPeriod);
+                                AppendEditAvailTimingSection(timingId, dayName, day, openingHour, openingMinute, openingPeriod, closingHour, closingMinute, closingPeriod, price);
                                 thCount++;
                             }
                             else {
-                                $("#Offerday_3_DiscountTimingId").val(timingId)
-                                $("#Offerday_3_StartHour").val(openingHour);
-                                $("#Offerday_3_StartMinute").val(openingMinute);
-                                $("#Offerday_3_StartPeriod").val(openingPeriod);
+                                $("#Avail_3_TimingId").val(timingId)
+                                $("#Avail_3_StartHour").val(openingHour);
+                                $("#Avail_3_StartMinute").val(openingMinute);
+                                $("#Avail_3_StartPeriod").val(openingPeriod);
 
-                                $("#Offerday_3_EndHour").val(closingHour);
-                                $("#Offerday_3_EndMinute").val(closingMinute);
-                                $("#Offerday_3_EndPeriod").val(closingPeriod);
+                                $("#Avail_3_EndHour").val(closingHour);
+                                $("#Avail_3_EndMinute").val(closingMinute);
+                                $("#Avail_3_EndPeriod").val(closingPeriod);
+                                $("#Avail_3_Price").val(price);
                                 thCount++;
                             }
                         }
                         else if (day == "Fr") {
-                            $('#Offerday_4_IsCheck').prop('checked', true);
+                            $('#Avail_4_IsCheck').prop('checked', true);
                             dayName = "Friday";
                             if (frCount > 1) {
-                                AppendEditTimingSection(timingId, dayName, day, openingHour, openingMinute, openingPeriod, closingHour, closingMinute, closingPeriod);
+                                AppendEditAvailTimingSection(timingId, dayName, day, openingHour, openingMinute, openingPeriod, closingHour, closingMinute, closingPeriod, price);
                                 frCount++;
                             }
                             else {
-                                $("#Offerday_4_DiscountTimingId").val(timingId)
-                                $("#Offerday_4_StartHour").val(openingHour);
-                                $("#Offerday_4_StartMinute").val(openingMinute);
-                                $("#Offerday_4_StartPeriod").val(openingPeriod);
+                                $("#Avail_4_TimingId").val(timingId)
+                                $("#Avail_4_StartHour").val(openingHour);
+                                $("#Avail_4_StartMinute").val(openingMinute);
+                                $("#Avail_4_StartPeriod").val(openingPeriod);
 
-                                $("#Offerday_4_EndHour").val(closingHour);
-                                $("#Offerday_4_EndMinute").val(closingMinute);
-                                $("#Offerday_4_EndPeriod").val(closingPeriod);
+                                $("#Avail_4_EndHour").val(closingHour);
+                                $("#Avail_4_EndMinute").val(closingMinute);
+                                $("#Avail_4_EndPeriod").val(closingPeriod);
+                                $("#Avail_4_Price").val(price);
                                 frCount++;
                             }
                         }
                         else if (day == "Sa") {
-                            $('#Offerday_5_IsCheck').prop('checked', true);
+                            $('#Avail_5_IsCheck').prop('checked', true);
                             dayName = "Saturday";
                             if (saCount > 1) {
-                                AppendEditTimingSection(timingId, dayName, day, openingHour, openingMinute, openingPeriod, closingHour, closingMinute, closingPeriod);
+                                AppendEditAvailTimingSection(timingId, dayName, day, openingHour, openingMinute, openingPeriod, closingHour, closingMinute, closingPeriod, price);
                                 saCount++;
                             }
                             else {
-                                $("#Offerday_5_DiscountTimingId").val(timingId)
-                                $("#Offerday_5_StartHour").val(openingHour);
-                                $("#Offerday_5_StartMinute").val(openingMinute);
-                                $("#Offerday_5_StartPeriod").val(openingPeriod);
+                                $("#Avail_5_TimingId").val(timingId)
+                                $("#Avail_5_StartHour").val(openingHour);
+                                $("#Avail_5_StartMinute").val(openingMinute);
+                                $("#Avail_5_StartPeriod").val(openingPeriod);
 
-                                $("#Offerday_5_EndHour").val(closingHour);
-                                $("#Offerday_5_EndMinute").val(closingMinute);
-                                $("#Offerday_5_EndPeriod").val(closingPeriod);
+                                $("#Avail_5_EndHour").val(closingHour);
+                                $("#Avail_5_EndMinute").val(closingMinute);
+                                $("#Avail_5_EndPeriod").val(closingPeriod);
+                                $("#Avail_5_Price").val(price);
                                 saCount++;
                             }
                         }
                         else if (day == "Su") {
-                            $('#Offerday_6_IsCheck').prop('checked', true);
+                            $('#Avail_6_IsCheck').prop('checked', true);
                             dayName = "Sunday";
                             if (suCount > 1) {
-                                AppendEditTimingSection(timingId, dayName, day, openingHour, openingMinute, openingPeriod, closingHour, closingMinute, closingPeriod);
+                                AppendEditAvailTimingSection(timingId, dayName, day, openingHour, openingMinute, openingPeriod, closingHour, closingMinute, closingPeriod, price);
                                 suCount++;
                             }
                             else {
-                                $("#Offerday_6_DiscountTimingId").val(timingId)
-                                $("#Offerday_6_StartHour").val(openingHour);
-                                $("#Offerday_6_StartMinute").val(openingMinute);
-                                $("#Offerday_6_StartPeriod").val(openingPeriod);
+                                $("#Avail_6_TimingId").val(timingId)
+                                $("#Avail_6_StartHour").val(openingHour);
+                                $("#Avail_6_StartMinute").val(openingMinute);
+                                $("#Avail_6_StartPeriod").val(openingPeriod);
 
-                                $("#Offerday_6_EndHour").val(closingHour);
-                                $("#Offerday_6_EndMinute").val(closingMinute);
-                                $("#Offerday_6_EndPeriod").val(closingPeriod);
+                                $("#Avail_6_EndHour").val(closingHour);
+                                $("#Avail_6_EndMinute").val(closingMinute);
+                                $("#Avail_6_EndPeriod").val(closingPeriod);
+                                $("#Avail_6_Price").val(price);
                                 suCount++;
                             }
                         }
@@ -6143,6 +6151,361 @@ function BindItemById(productId) {
         });
     }
 }
+function SaveProductInfo() {
+    var itemId = 0;
+    itemId = $("#hdnItemId").val();
+    var customerId = 0;
+    customerId = localStorage.getItem("CustomerId");
+    var storeId = 0;
+    storeId = SetStoreId();
+
+    var hdnCount = $("#hdnAvailTimingCount").val();
+    var arrTimings = [];
+    var offerDays = [];
+    for (var i = 0; i < 8; i++) {
+        var dayKey = $("#Avail_" + i + "_DayKey").val();
+        if ($("#Avail_" + i + "_IsCheck").prop("checked") == true) {
+            offerDays.push(dayKey);
+        }
+    }
+
+    for (var j = 0; j <= hdnCount; j++) {
+        var valueTimingId = 0;
+        var valueDayKey = "";
+        if ($("#Avail_" + j + "_DayKey").length) {
+            valueDayKey = $("#Avail_" + j + "_DayKey").val();
+            var openingHour = "";
+            var openingMinute = "";
+            var openingPeriod = "";
+            var closingHour = "";
+            var closingMinute = "";
+            var closingPeriod = "";
+            var openingTime = "";
+            var closingTime = "";
+            if ($("#Avail_" + j + "_TimingId").length) {
+                valueTimingId = $("#Avail_" + j + "_TimingId").val();
+            }
+
+            openingHour = $("#Avail_" + j + "_StartHour").val();
+            openingMinute = $("#Avail_" + j + "_StartMinute").val();
+            openingPeriod = $("#Avail_" + j + "_StartPeriod").val();
+            openingTime = openingHour + ":" + openingMinute + " " + openingPeriod;
+
+            closingHour = $("#Avail_" + j + "_EndHour").val();
+            closingMinute = $("#Avail_" + j + "_EndMinute").val();
+            closingPeriod = $("#Avail_" + j + "_EndPeriod").val();
+            closingTime = closingHour + ":" + closingMinute + " " + closingPeriod;
+
+            var currentValue = { TimingId: valueTimingId, Daykey: valueDayKey, StartTime: openingTime, EndTime: closingTime }
+            arrTimings.push(currentValue);
+        }
+    }
+
+    //console.log(offerDays);
+    //console.log(arrTimings);
+
+    if (Number(storeId) > 0) {
+
+        var model = new Object();
+        model.ID = itemId
+
+
+        model.CustomerId = customerId;
+        model.OfferDays = offerDays;
+        model.ListTiming = arrTimings;
+        //console.log(model);
+
+
+        $.post(global + "/AddUpdateItem", model, function (data) {
+            console.log(data.indexOf("Successful"));
+            if (data.indexOf("Successful") > -1 || data == "") {
+                LoadCouponEdit();
+                swal({
+                    title: "Item saved successfully!",
+                    confirmButtonText: "OK",
+                    type: "success",
+                    confirmButtonClass: 'btn btn-success',
+                    buttonsStyling: false,
+                    customClass: 'swal-wide',
+                });
+            }
+            else {
+                callSweetAlertWarning("Unable to save Item!");
+            }
+        });
+
+    }
+    else {
+        self.app.router.navigate('/login_new/', { reloadCurrent: true });
+    }
+}
+//function BindItemById(productId) {
+//    var storeId = 0;
+//    var productId = localStorage.getItem("HiddenItemId");
+//    storeId = SetStoreId();
+//    if (productId > 0 && Number(storeId) > 0)
+//    {
+     
+//        $('.div-contentTiming').remove();
+//        $('#hdnTimingCount').val(8);
+        
+        
+//        var moCount = 1; var tuCount = 1; var weCount = 1; var thCount = 1; var frCount = 1; var saCount = 1; var suCount = 1;
+//        $("#liDiscountTiming").show();
+//        $("#hdnItemId").val(productId);
+//        var url = global + "/GetItemById?productId=" + productId ;
+
+//        $.getJSON(url, function (data) {
+//            if (data.replace(/"/g, "").indexOf("No record(s) found.") > -1) {
+
+//            }
+//            else {
+//                //localStorage.setItem("HiddenDiscountId", 0);
+//                $.each(JSON.parse(data), function (index, value) {
+//                    //console.log(data);
+//                    //console.log(value); 
+//                    var count = 0;
+//                    if (value.Type == "ItemInfo") {
+                        
+//                        if (value.CategoryId != "") {
+//                            $("#productCategory").val(value.CATEGORYID);
+//                        }
+                        
+//                        if (value.NAME != "") {
+//                            $("#txtProductName").val(value.NAME);
+//                        }
+//                        if (value.SHORTDESCRIPTION != "") {
+//                            var shortDescription = value.SHORTDESCRIPTION.replace("<p>", "").replace("</p>", "");
+//                            $("#txtProductDescription").val(shortDescription);
+                           
+//                        }
+                     
+//                        if (value.PRICE > 0) {
+//                            var price = FormatDecimal(value.PRICE);
+//                            if (price.indexOf('$') > -1) {
+//                                price = price.replace('$', '');
+//                            }
+//                            $("#txtProductPrice").val(price);
+//                            //console.log(value.MinimumOrderAmount);
+//                        }
+//                        else {
+//                            $("#txtProductPrice").val(FormatDecimal(0.00).replace('$', ''));
+//                        }
+//                        if (value.FOODSELECTIONTYPE.toLowerCase().indexOf("lunch")) {
+//                            $("#chkLunch").prop('checked', true);
+//                        }
+//                        if (value.FOODSELECTIONTYPE.toLowerCase().indexOf("dinner")) {
+//                            $("#chkDinner").prop('checked', true);
+//                        }
+//                        if (value.FOODSELECTIONTYPE.toLowerCase().indexOf("breakfast")) {
+//                            $("#chkBreakfast").prop('checked', true);
+//                        }
+//                        if (value.FOODSELECTIONTYPE.toLowerCase().indexOf("branch")) {
+//                            $("#chkBrunch").prop('checked', true);
+//                        }
+
+//                        if (value.IsDineIn==1) {
+//                            $("#chkDineIn").prop('checked', true);
+//                        }
+//                        if (value.IsCarryout == 1) {
+//                            $("#chkCarryOut").prop('checked', true);
+//                        }
+//                        if (value.AVAILABILITYTYPE =="Normal") {
+//                            $("#chkNormal").prop('checked', true);
+//                        }
+//                        else if (value.AVAILABILITYTYPE == "Time Specific") {
+//                            $("#chkTimeSpecific").prop('checked', true);
+//                        }
+//                    }
+//                    else if (value.Type == "ItemTiming") {
+//                        var dayName = "";
+//                        var timingId = 0;
+//                        var day = "";
+//                        var openingTime = "";
+//                        var openingHour = "";
+//                        var openingMinute = "";
+//                        var openingPeriod = "";
+//                        var closingTime = "";
+//                        var closingHour = "";
+//                        var closingMinute = "";
+//                        var closingPeriod = "";
+//                        if (value.TimingId > 0) {
+//                            timingId = value.TimingId;
+//                        }
+//                        if (value.Day != "") {
+//                            day = value.Day;
+//                        }
+//                        if (value.StartTime != "") {
+//                            openingTime = value.StartTime;
+//                            if (value.STARTHOUR != "") {
+//                                openingHour = value.STARTHOUR;
+//                            }
+//                            if (value.STARTMINUTE != "") {
+//                                openingMinute = value.STARTMINUTE;
+//                            }
+//                            if (value.STARTPERIOD != "") {
+//                                openingPeriod = value.STARTPERIOD;
+//                            }
+//                        }
+//                        if (value.EndTime != "") {
+//                            closingTime = value.EndTime;
+//                            if (value.ENDHOUR != "") {
+//                                closingHour = value.ENDHOUR;
+//                            }
+//                            if (value.ENDMINUTE != "") {
+//                                closingMinute = value.ENDMINUTE;
+//                            }
+//                            if (value.ENDPERIOD != "") {
+//                                closingPeriod = value.ENDPERIOD;
+//                            }
+//                        }
+//                        //console.log("TimingId: " + timingId + " Day: " + day + " OpeningTime: " + openingTime + " ClosingTime: " + closingTime);
+//                        //console.log("Opening: Hour: " + openingHour + " Minute: " + openingMinute + " Period: " + openingPeriod + " Closing: Hour: " + closingHour + " Minute: " + closingMinute + " Period: " + closingPeriod);
+//                        //dayName = GetDayNameByDayKey(day);
+
+//                        //Generate Edit Section Start//
+//                        var hdnCount = $('#hdnCount').val();
+
+//                        if (day == "Mo") {
+//                            $('#Offerday_0_IsCheck').prop('checked', true);
+//                            dayName = "Monday";
+//                            if (moCount > 1) {
+//                                AppendEditTimingSection(timingId, dayName, day, openingHour, openingMinute, openingPeriod, closingHour, closingMinute, closingPeriod);
+//                                moCount++;
+//                            }
+//                            else {
+//                                $("#Offerday_0_DiscountTimingId").val(timingId)
+//                                $("#Offerday_0_StartHour").val(openingHour);
+//                                $("#Offerday_0_StartMinute").val(openingMinute);
+//                                $("#Offerday_0_StartPeriod").val(openingPeriod);
+
+//                                $("#Offerday_0_EndHour").val(closingHour);
+//                                $("#Offerday_0_EndMinute").val(closingMinute);
+//                                $("#Offerday_0_EndPeriod").val(closingPeriod);
+//                                moCount++;
+//                            }
+//                        }
+//                        else if (day == "Tu") {
+//                            $('#Offerday_1_IsCheck').prop('checked', true);
+//                            dayName = "Tuesday";
+//                            if (tuCount > 1) {
+//                                AppendEditTimingSection(timingId, dayName, day, openingHour, openingMinute, openingPeriod, closingHour, closingMinute, closingPeriod);
+//                                tuCount++;
+//                            }
+//                            else {
+//                                $("#Offerday_1_DiscountTimingId").val(timingId)
+//                                $("#Offerday_1_StartHour").val(openingHour);
+//                                $("#Offerday_1_StartMinute").val(openingMinute);
+//                                $("#Offerday_1_StartPeriod").val(openingPeriod);
+
+//                                $("#Offerday_1_EndHour").val(closingHour);
+//                                $("#Offerday_1_EndMinute").val(closingMinute);
+//                                $("#Offerday_1_EndPeriod").val(closingPeriod);
+//                                tuCount++;
+//                            }
+//                        }
+//                        else if (day == "We") {
+//                            $('#Offerday_2_IsCheck').prop('checked', true);
+//                            dayName = "Wednesday";
+//                            if (weCount > 1) {
+//                                AppendEditTimingSection(timingId, dayName, day, openingHour, openingMinute, openingPeriod, closingHour, closingMinute, closingPeriod);
+//                                weCount++;
+//                            }
+//                            else {
+//                                $("#Offerday_2_DiscountTimingId").val(timingId)
+//                                $("#BOfferday_2_StartHour").val(openingHour);
+//                                $("#Offerday_2_StartMinute").val(openingMinute);
+//                                $("#Offerday_2_StartPeriod").val(openingPeriod);
+
+//                                $("#Offerday_2_EndHour").val(closingHour);
+//                                $("#Offerday_2_EndMinute").val(closingMinute);
+//                                $("#Offerday_2_EndPeriod").val(closingPeriod);
+//                                weCount++;
+//                            }
+//                        }
+//                        else if (day == "Th") {
+//                            $('#Offerday_3_IsCheck').prop('checked', true);
+//                            dayName = "Thursday";
+//                            if (thCount > 1) {
+//                                AppendEditTimingSection(timingId, dayName, day, openingHour, openingMinute, openingPeriod, closingHour, closingMinute, closingPeriod);
+//                                thCount++;
+//                            }
+//                            else {
+//                                $("#Offerday_3_DiscountTimingId").val(timingId)
+//                                $("#Offerday_3_StartHour").val(openingHour);
+//                                $("#Offerday_3_StartMinute").val(openingMinute);
+//                                $("#Offerday_3_StartPeriod").val(openingPeriod);
+
+//                                $("#Offerday_3_EndHour").val(closingHour);
+//                                $("#Offerday_3_EndMinute").val(closingMinute);
+//                                $("#Offerday_3_EndPeriod").val(closingPeriod);
+//                                thCount++;
+//                            }
+//                        }
+//                        else if (day == "Fr") {
+//                            $('#Offerday_4_IsCheck').prop('checked', true);
+//                            dayName = "Friday";
+//                            if (frCount > 1) {
+//                                AppendEditTimingSection(timingId, dayName, day, openingHour, openingMinute, openingPeriod, closingHour, closingMinute, closingPeriod);
+//                                frCount++;
+//                            }
+//                            else {
+//                                $("#Offerday_4_DiscountTimingId").val(timingId)
+//                                $("#Offerday_4_StartHour").val(openingHour);
+//                                $("#Offerday_4_StartMinute").val(openingMinute);
+//                                $("#Offerday_4_StartPeriod").val(openingPeriod);
+
+//                                $("#Offerday_4_EndHour").val(closingHour);
+//                                $("#Offerday_4_EndMinute").val(closingMinute);
+//                                $("#Offerday_4_EndPeriod").val(closingPeriod);
+//                                frCount++;
+//                            }
+//                        }
+//                        else if (day == "Sa") {
+//                            $('#Offerday_5_IsCheck').prop('checked', true);
+//                            dayName = "Saturday";
+//                            if (saCount > 1) {
+//                                AppendEditTimingSection(timingId, dayName, day, openingHour, openingMinute, openingPeriod, closingHour, closingMinute, closingPeriod);
+//                                saCount++;
+//                            }
+//                            else {
+//                                $("#Offerday_5_DiscountTimingId").val(timingId)
+//                                $("#Offerday_5_StartHour").val(openingHour);
+//                                $("#Offerday_5_StartMinute").val(openingMinute);
+//                                $("#Offerday_5_StartPeriod").val(openingPeriod);
+
+//                                $("#Offerday_5_EndHour").val(closingHour);
+//                                $("#Offerday_5_EndMinute").val(closingMinute);
+//                                $("#Offerday_5_EndPeriod").val(closingPeriod);
+//                                saCount++;
+//                            }
+//                        }
+//                        else if (day == "Su") {
+//                            $('#Offerday_6_IsCheck').prop('checked', true);
+//                            dayName = "Sunday";
+//                            if (suCount > 1) {
+//                                AppendEditTimingSection(timingId, dayName, day, openingHour, openingMinute, openingPeriod, closingHour, closingMinute, closingPeriod);
+//                                suCount++;
+//                            }
+//                            else {
+//                                $("#Offerday_6_DiscountTimingId").val(timingId)
+//                                $("#Offerday_6_StartHour").val(openingHour);
+//                                $("#Offerday_6_StartMinute").val(openingMinute);
+//                                $("#Offerday_6_StartPeriod").val(openingPeriod);
+
+//                                $("#Offerday_6_EndHour").val(closingHour);
+//                                $("#Offerday_6_EndMinute").val(closingMinute);
+//                                $("#Offerday_6_EndPeriod").val(closingPeriod);
+//                                suCount++;
+//                            }
+//                        }
+//                        //Generate Edit Section End//
+//                    }
+//                });
+//            }
+//        });
+//    }
+//}
 function BindCategoy() {
 
     var storeId = 0;
@@ -7362,6 +7725,7 @@ function DeleteTimingSection(idCount, timingId) {
 
 //Product Section Start
 
+
 function AddNewAvailTimingSection(dayName, dayKey, e) {
     var hdnCount = $('#hdnAvailTimingCount').val();
     var idCount = parseInt(hdnCount) + 1;
@@ -7382,19 +7746,19 @@ function AddNewAvailTimingSection(dayName, dayKey, e) {
 
     //Hour Section Start//
     html += "<div style=\"flex-basis: 80px;\">";
-    html += CreateHourTimingHtml(idCount, "Start");
+    html += CreateAvailHourTimingHtml(idCount, "Start");
     html += "</div>";
     //Hour Section End//
 
     //Minute Section Start//
     html += "<div style=\"flex-basis: 80px;\">";
-    html += CreateMinuteTimingHtml(idCount, "Start");
+    html += CreateAvailMinuteTimingHtml(idCount, "Start");
     html += "</div>";
     //Minute Section End//
 
     //Period Section Start//
     html += "<div style=\"flex-basis: 80px;\">";
-    html += CreatePeriodTimingHtml(idCount, "Start");
+    html += CreateAvailPeriodTimingHtml(idCount, "Start");
     html += "</div>";
     //Period Section End//
 
@@ -7419,19 +7783,19 @@ function AddNewAvailTimingSection(dayName, dayKey, e) {
 
     //Hour Section Start//
     html += "<div style=\"flex-basis: 80px;\">";
-    html += CreateHourTimingHtml(idCount, "End");
+    html += CreateAvailHourTimingHtml(idCount, "End");
     html += "</div>";
     //Hour Section End//
 
     //Minute Section Start//
     html += "<div style=\"flex-basis: 80px;\">";
-    html += CreateMinuteTimingHtml(idCount, "End");
+    html += CreateAvailMinuteTimingHtml(idCount, "End");
     html += "</div>";
     //Minute Section End//
 
     //Period Section Start//
     html += "<div style=\"flex-basis: 80px;\">";
-    html += CreatePeriodTimingHtml(idCount, "End");
+    html += CreateAvailPeriodTimingHtml(idCount, "End");
     html += "</div>";
     //Period Section End//
 
@@ -7516,6 +7880,205 @@ function CreateAvailPeriodTimingHtml(iCount, type) {
     periodHtml += "<option value=\"PM\">PM</option>";
     periodHtml += "</select>";
     return periodHtml;
+}
+
+function AppendEditAvailTimingSection(timingId, dayName, dayKey, openingHour, openingMinute, openingPeriod, closingHour, closingMinute, closingPeriod, price) {
+    var hdnCount = $('#hdnAvailTimingCount').val();
+    var idCount = parseInt(hdnCount) + 1;
+    var removeParameter = idCount + "," + timingId;
+
+    var html = "";
+    //Html Start Section//
+    html += "<div id=\"div_contentAvailTiming_" + idCount + "\" class=\"div-contentTiming\">";
+    //First Column Start//
+    html += "<div class=\"timing-flex-column-container\">";
+    //Label Section Start//
+    html += "<div style=\"flex-basis: 120px;\">";
+    html += "<label>Start</label>";
+    html += "<input id=\"Avail_" + idCount + "_TimingId\" name=\"Avail[" + idCount + "].TimingId\" type=\"hidden\" value=\"" + timingId + "\">";
+    html += "<input id=\"Avail_" + idCount + "_DayKey\" name=\"Avail[" + idCount + "].DayKey\" type=\"hidden\" value=\"" + dayKey + "\">";
+    html += "</div>";
+    //Label Section End//
+
+    //Hour Section Start//
+    html += "<div style=\"flex-basis: 80px;\">";
+    html += CreateHourEditAvailTimingHtml(idCount, "Start", openingHour);
+    html += "</div>";
+    //Hour Section End//
+
+    //Minute Section Start//
+    html += "<div style=\"flex-basis: 80px;\">";
+    html += CreateMinuteEditAvailTimingHtml(idCount, "Start", openingMinute);
+    html += "</div>";
+    //Minute Section End//
+
+    //Period Section Start//
+    html += "<div style=\"flex-basis: 80px;\">";
+    html += CreatePeriodEditAvailTimingHtml(idCount, "Start", openingPeriod);
+    html += "</div>";
+    //Period Section End//
+
+    //Remove Icon Section Start//
+    html += "<div style=\"flex-basis: 40px;\">";
+    html += "<i id=\"remove_" + idCount + "\" class=\"material-icons\" onclick=\"DeleteAvailTimingSection(" + removeParameter + ");\" style=\"color: #e80000;\">delete</i>";
+    html += "</div>";
+    //Remove Icon Section End//
+
+    html += "</div>";
+    //First Column End//
+
+    //***********************//
+
+    //Second Column Start//
+    html += "<div class=\"timing-flex-column-container\">";
+    //Label Section Start//
+    html += "<div style=\"flex-basis: 120px;\">";
+    html += "<label>End</label>";
+    html += "</div>";
+    //Label Section End//
+
+    //Hour Section Start//
+    html += "<div style=\"flex-basis: 80px;\">";
+    html += CreateHourEditAvailTimingHtml(idCount, "End", closingHour);
+    html += "</div>";
+    //Hour Section End//
+
+    //Minute Section Start//
+    html += "<div style=\"flex-basis: 80px;\">";
+    html += CreateMinuteEditAvailTimingHtml(idCount, "End", closingMinute);
+    html += "</div>";
+    //Minute Section End//
+
+    //Period Section Start//
+    html += "<div style=\"flex-basis: 80px;\">";
+    html += CreatePeriodEditAvailTimingHtml(idCount, "End", closingPeriod);
+    html += "</div>";
+    //Period Section End//
+
+    //Remove Icon Section Start//
+    html += "<div style=\"flex-basis: 40px;\">";
+    html += "</div>";
+    //Remove Icon Section End//
+
+    html += "</div>";
+    //Second Column Start//
+
+    //***********************//
+
+    //Third Column Start//
+    html += "<div class=\"timing-flex-column-container\">";
+    //Label Section Start//
+    html += "<div style=\"flex-basis: 120px;\">";
+    html += "<label>Price</label>";
+    html += "</div>";
+    //Label Section End//
+
+    //Hour Section Start//
+    html += "<div style=\"flex-basis: 240px;\">";
+    html += "<input type=\"number\" min=\"1\" step=\"any\" id=\"Avail_" + idCount + "_Price\" value=\"" + price + "\">";
+    html += "</div>";
+    //Hour Section End//
+
+    //Remove Icon Section Start//
+    html += "<div style=\"flex-basis: 40px;\">";
+    html += "</div>";
+    //Remove Icon Section End//
+
+    html += "</div>";
+    //Third Column Start//
+
+    html += "</div>";
+    //Html End Section//
+
+    $("#div_" + dayName).append(html);
+    $('#hdnAvailTimingCount').val(idCount);
+    //return html;
+}
+
+
+function CreateHourEditAvailTimingHtml(iCount, type, selectedHour) {
+    var hourHtml = "";
+    hourHtml += "<select id=\"Avail_" + iCount + "_" + type + "Hour\" name=\"Avail[" + iCount + "]." + type + "Hour\">";
+    for (var i = 0; i < 12; i++) {
+        var hour = "00";
+        if (i <= 9) {
+            hour = "0" + i;
+        }
+        else {
+            hour = i;
+        }
+        if (hour == selectedHour || i == selectedHour) {
+            hourHtml += "<option value=\"" + hour + "\" selected>" + hour + "</option>";
+        }
+        else {
+            hourHtml += "<option value=\"" + hour + "\">" + hour + "</option>";
+        }
+    }
+    hourHtml += "</select>";
+    return hourHtml;
+}
+function CreateMinuteEditAvailTimingHtml(iCount, type, selectedMinute) {
+    var minuteHtml = "";
+    minuteHtml += "<select id=\"Avail_" + iCount + "_" + type + "Minute\" name=\"Avail[" + iCount + "]." + type + "Minute\">";
+    for (var i = 0; i < 60; i++) {
+        var minute = "00";
+        if (i <= 9) {
+            minute = "0" + i;
+        }
+        else {
+            minute = i;
+        }
+        if (minute == selectedMinute || i == selectedMinute) {
+            minuteHtml += "<option value=\"" + minute + "\" selected>" + minute + "</option>";
+        }
+        else {
+            minuteHtml += "<option value=\"" + i + "\">" + i + "</option>";
+        }
+    }
+    minuteHtml += "</select>";
+    return minuteHtml;
+}
+function CreatePeriodEditAvailTimingHtml(iCount, type, period) {
+    var periodHtml = "";
+    periodHtml += "<select id=\"Avail_" + iCount + "_" + type + "Period\" name=\"Avail[" + iCount + "]." + type + "Period\">";
+    if (period == "AM") {
+        periodHtml += "<option value=\"AM\" selected>AM</option>";
+        periodHtml += "<option value=\"PM\">PM</option>";
+    }
+    else if (period == "PM") {
+        periodHtml += "<option value=\"AM\">AM</option>";
+        periodHtml += "<option value=\"PM\" selected>PM</option>";
+    }
+    else {
+        periodHtml += "<option value=\"AM\">AM</option>";
+        periodHtml += "<option value=\"PM\">PM</option>";
+    }
+    periodHtml += "</select>";
+    return periodHtml;
+}
+
+
+function DeleteAvailTimingSection(idCount, timingId) {
+
+    if (timingId > 0) {
+        if (confirm("Are you sure want to delete this record?")) {
+            $.ajax({
+                url: global + '/DeleteProductTimingById?timingId=' + timingId,
+                type: 'POST',
+                cache: false,
+                success: function (response) {
+                    if (response.indexOf("Successful") > -1) {
+                        $("#div_contentAvailTiming_" + idCount).remove();
+                        callSweetAlertSuccess("Timing deleted successfully.");
+                    }
+                    else {
+                        callSweetAlertWarning("Unable to delete timing!");
+                    }
+                }
+            });
+        }
+        return false;
+    }
 }
 
 //Product Section End

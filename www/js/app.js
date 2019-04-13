@@ -537,7 +537,12 @@ $$(document).on('page:init', function (e) {
         $$('#txtRedeem').on('blur', function () {
             ClearSpecialCharacter('txtRedeem');
         });
-
+        $$('#txtMemberID_LoadRedeem').on('change', function () {
+          
+            if ($('#txtMemberID_LoadRedeem').val() != "") {
+                $('#txtMemberID_LoadRedeem').css('border-bottom', bottomBorder);
+            }
+        });
         document.addEventListener("deviceready", onDeviceReady, false);
         function onDeviceReady() {
             console.log("deviceready")
