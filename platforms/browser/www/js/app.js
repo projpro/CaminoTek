@@ -268,7 +268,7 @@ $$(document).on('page:init', function (e) {
     else if (pageURL.indexOf('giftcard') > -1)//Gift Card
     {
         $$("#txtCardCode").focus();
-        $$("#txtCardCodeSearch").focus();
+        //$$("#txtCardCodeSearch").focus();
         var screen_width = document.documentElement.clientWidth;
         var screen_heght = document.documentElement.clientHeight;
         //console.log('screen_width: ' + screen_width)
@@ -517,7 +517,7 @@ $$(document).on('page:init', function (e) {
     else if (pageURL.indexOf('new_rewards') > -1)// Add Rewards
     {
         $$("#txtMemberId_Reward").focus();
-        $$("#txtMemberID_LoadRedeem").focus();
+        //$$("#txtMemberID_LoadRedeem").focus();
         CheckGiftCardPermission();
         //SetMenuNavigation();
         $$('#btnCreate').click(function () {

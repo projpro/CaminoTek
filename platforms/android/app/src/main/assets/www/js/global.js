@@ -3844,17 +3844,18 @@ function ShowSearch() {
     RefreshGiftCards();
 }
 function HideSearch(tabName) {
+  
+
+    //if(tabName=="New")
+    //{
+    //    $("#tab-giftcard-new #txtCardCode").focus();
+    //}
+    //else {
+    //    $("#tab-giftcard-loadRedeem #txtCardCodeSearch").focus();
+    //}
     $('#linkSearchIcon').hide();
     $('#ulFilterSortGiftCard').hide();
     $('#ulFilterSortItem').hide();
-
-    if(tabName=="New")
-    {
-        $("#txtCardCode").focus();
-    }
-    else {
-        $("#txtCardCodeSearch").focus();
-    }
 
 }
 function RewardsTabChange(tabName)
@@ -5639,7 +5640,6 @@ function DeleteSection(idCount, timingId) {
 //Carryout Items
 function CarryoutItemsList(carryoutpagesize, carryoutcurrentPage) {
 
-  
    
     var customerId = 0;
     var storeId = 0;
