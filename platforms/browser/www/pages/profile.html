@@ -1,5 +1,5 @@
 
-<div class="page page-with-toolbar" id="giftcard">
+<div class="page page-with-toolbar" id="profile">
     <div class="toolbar tabbar tabbar-labels toolbar-bottom-md custom-toolbar">
         <div class="toolbar-inner">
             <a href="/carryout/" class="tab-link menuCarryout">
@@ -38,7 +38,7 @@
             </div>
             <div class="center">Profile</div>
             <div class="right">
-                <a class="icon-only navbar-right-single-icon" style="right:65px;" onclick="GotoProfile();"><i class="material-icons large-icon">account_circle</i></a>
+                <a class="icon-only navbar-right-single-icon" style="right:65px;" href="/profile/"><i class="material-icons large-icon">account_circle</i></a>
                 <a class="icon-only navbar-right-single-icon" onclick="Logout();"><i class="material-icons large-icon">exit_to_app</i></a>
             </div>
         </div>
@@ -50,7 +50,7 @@
         <div class="section list-restaurants">
             <div class="section-content">
 
-                <div id="giftCardTabs" class="custom-tabs display-flex justify-content-space-between align-items-center tab-margin-top fixed-tab-header">
+                <div id="profileTabs" class="custom-tabs display-flex justify-content-space-between align-items-center tab-margin-top fixed-tab-header">
 
                     <div class="custom-tab custom-tab-carryout" style="width:50%">
                         <a href="#tab-profile-info" class="tab-link tab-link-active">
@@ -60,7 +60,7 @@
                     </div>
 
                     <div class="custom-tab custom-tab-carryout" style="width:50%">
-                        <a href="#tab-profile-timing" class="tab-link" onclick="ShowStoreTiming();">
+                        <a href="#tab-profile-timing" class="tab-link">  <!--onclick="ShowStoreTiming();"-->
                             <div class="tab-right-text">Hours</div>
                             <div class="border-tab"></div>
                         </a>

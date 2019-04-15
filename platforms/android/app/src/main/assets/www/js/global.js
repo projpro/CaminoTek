@@ -23,25 +23,7 @@ function InitLogin() {
 }
 
 function RegisterToken(storeId, token) {
-    //$.ajax({
-    //    url: global + 'Logout?storeid=' + storeId + '&registrationToken=' + token,
-    //    type: 'GET',
-    //    datatype: 'jsonp',
-    //    contenttype: "application/json",
-    //    crossDomain: true,
-    //    async: false,
-    //    success: function (data) {
-    //        console.log("DeviceRegistrationToken Deleted from DB successfully")
-
-    //        //window.location.href = "index.html";
-    //        //window.localStorage.clear();
-    //    },
-    //    error: function (xhr, textStatus, errorThrown) {
-    //        //window.location.href = "index.html";
-    //        console.log("Saved to DB failed")
-    //    }
-    //});
-    console.log('RegisterToken StoreId: ' + storeId)
+  
     $.ajax({
         url: global + 'StoreDeviceRegistrationTokenUpdate?storeid=' + storeId + '&registrationToken=' + token,
         type: 'GET',
@@ -50,7 +32,8 @@ function RegisterToken(storeId, token) {
         crossDomain: true,
         async: false,
         success: function (data) {
-            console.log("Saved to DB successfully")
+            //console.log("Saved to DB successfully");
+            alert("RegisterToken Saved to DB successfully")
             //window.location.href = "index.html";
             //window.localStorage.clear();
         },
@@ -80,7 +63,7 @@ function Login() {
             crossDomain: true,
             async: false,
             success: function (data) {
-                console.log("data: " + data);
+                //console.log("data: " + data);
                 //console.log("Login 2" + data);
                 //alert(data)
                 if (data.indexOf("No Data Found") > -1) {
@@ -2062,22 +2045,22 @@ function getCurrentdayOfWeek() {
     return dayOfweek;
 }
 
-function filterJSON(my_object, my_criteria) {
+//function filterJSON(my_object, my_criteria) {
 
-    var result = my_object.filter(function (entry) {
-        return entry.DAY === my_criteria;
-    });
-    return result;
-    //console.log("yahooOnly: " + yahooOnly)
-    //console.log("my_object: " + my_object.toString())
-    //console.log("my_criteria: " + my_criteria.toString())
-    //return my_object.filter(function (obj) {
-    //    return Object.keys(my_criteria).every(function (c) {
-    //        return obj[c] == my_criteria[c];
-    //    });
-    //});
+//    var result = my_object.filter(function (entry) {
+//        return entry.DAY === my_criteria;
+//    });
+//    return result;
+//    //console.log("yahooOnly: " + yahooOnly)
+//    //console.log("my_object: " + my_object.toString())
+//    //console.log("my_criteria: " + my_criteria.toString())
+//    //return my_object.filter(function (obj) {
+//    //    return Object.keys(my_criteria).every(function (c) {
+//    //        return obj[c] == my_criteria[c];
+//    //    });
+//    //});
 
-}
+//}
 
 function FormatDateTime() {
 
@@ -4723,13 +4706,13 @@ function SetManageService() {
 
 //Profile Section Start//
 function GotoProfile() {
-    self.app.router.navigate('/profile/', { reloadCurrent: true });
+    self.app.router.navigate('/my_Profile/', { reloadCurrent: true });
 }
 
 function LoadProfileDetails() {
     var storeId = 0;
     storeId = SetStoreId();
-    alert(storeId)
+   // alert(storeId)
     if (Number(storeId) > 0) {
 
         var url = global + "/GetStoreByStoreId?storeid=" + storeId;
@@ -4739,11 +4722,13 @@ function LoadProfileDetails() {
                 //console.log(data);
                 var obj = JSON.parse(data);
                 var length = Object.keys(obj).length;
-                console.log("Length: " + length);
+                //console.log("Length: " + data);
 
                 if (JSON.parse(data).indexOf("No record(s) found") < 0) {
+                   
                     var count = 0;
                     $.each(JSON.parse(data), function (index, value) {
+                        //console.log("LoadProfileDetails: 1");
                         var name = "";
                         var description = "";
                         var address1 = "";
@@ -4759,83 +4744,84 @@ function LoadProfileDetails() {
                         var adminEmail = "";
                         var pickupLeadTime = 0;
                         var carryoutLeadTime = 0;
-
+                        //console.log("LoadProfileDetails: 2");
                         if (value.RestaurantDisplayName != "") {
                             name = value.RestaurantDisplayName;
-                            $("#txtProfileName").val(name);
+                            $("#tab-profile-info #txtProfileName").val(name);
                         }
+                        //console.log("LoadProfileDetails: 3");
                         if (value.Description != "") {
                             description = value.Description;
-                            $("#txtProfileDescription").val(description);
+                            $("#tab-profile-info #txtProfileDescription").val(description);
                         }
                         if (value.Address1 != "") {
                             address1 = value.Address1
-                            $("#txtProfileAddress1").val(address1);
+                            $("#tab-profile-info #txtProfileAddress1").val(address1);
                         }
                         if (value.Address2 != "") {
                             address2 = value.Address2;
-                            $("#txtProfileAddress2").val(address2);
+                            $("#tab-profile-info #txtProfileAddress2").val(address2);
                         }
                         if (value.City != "") {
                             city = value.City;
-                            $("#txtProfileCity").val(city);
+                            $("#tab-profile-info #txtProfileCity").val(city);
                         }
                         if (value.State != "") {
                             state = value.State;
                             if (state.length == 2) {
-                                $("#ddlProfileState").val(state);
+                                $("#tab-profile-info #ddlProfileState").val(state);
                             }
                             else {
-                                $('#ddlProfileState option').map(function () {
+                                $('#tab-profile-info #ddlProfileState option').map(function () {
                                     if ($(this).text() == state) return this;
                                 }).attr('selected', 'selected');
                             }
                         }
                         if (value.Zip != "") {
                             zip = value.Zip;
-                            $("#txtProfileZip").val(zip);
+                            $("#tab-profile-info #txtProfileZip").val(zip);
                         }
                         if (value.CompanyPhoneNumber != "") {
                             phone = value.CompanyPhoneNumber;
-                            $("#txtProfilePhone").val(phone);
+                            $("#tab-profile-info #txtProfilePhone").val(phone);
                         }
                         if (value.Fax != "") {
                             fax = value.Fax;
-                            $("#txtProfileFax").val(fax);
+                            $("#tab-profile-info #txtProfileFax").val(fax);
                         }
                         if (value.SendFax == true) {
                             sendFax = true;
-                            $("#checkSendFax").prop('checked', true)
+                            $("#tab-profile-info #checkSendFax").prop('checked', true)
                         }
                         else {
                             sendFax = false;
-                            $("#checkSendFax").prop('checked', false)
+                            $("#tab-profile-info #checkSendFax").prop('checked', false)
                         }
                         if (value.RefundPolicy != "") {
                             refundPolicy = value.RefundPolicy;
-                            $("#txtProfileRefundPolicy").val(refundPolicy);
+                            $("#tab-profile-info #txtProfileRefundPolicy").val(refundPolicy);
                         }
                         if (value.Url != "") {
                             restaurantUrl = value.Url;
-                            $("#txtProfileRestaurantURL").val(restaurantUrl);
+                            $("#tab-profile-info #txtProfileRestaurantURL").val(restaurantUrl);
                         }
                         if (value.FullAdminEmail != "") {
-                            $("#hdnFullAdminEmail").val(value.FullAdminEmail);
+                            $("#tab-profile-info #hdnFullAdminEmail").val(value.FullAdminEmail);
                         }
                         if (value.AdminEmail != "") {
                             adminEmail = value.AdminEmail;
-                            $("#txtProfileAdminEmail").val(adminEmail);
+                            $("#tab-profile-info #txtProfileAdminEmail").val(adminEmail);
                         }
                         if (value.PickupLeadTimeInMinutes > 0) {
                             pickupLeadTime = value.PickupLeadTimeInMinutes;
                             if (pickupLeadTime > 0) {
-                                $("#ddlProfilePickupLeadTime").val(pickupLeadTime);
+                                $("#tab-profile-info #ddlProfilePickupLeadTime").val(pickupLeadTime);
                             }
                         }
                         if (value.CarryOutLeadTimeInMinutes > 0) {
                             carryoutLeadTime = value.CarryOutLeadTimeInMinutes;
                             if (carryoutLeadTime > 0) {
-                                $("#ddlProfileCarryOutLeadTime").val(carryoutLeadTime);
+                                $("#tab-profile-info #ddlProfileCarryOutLeadTime").val(carryoutLeadTime);
                             }
                         }
 
@@ -4846,7 +4832,7 @@ function LoadProfileDetails() {
 
                 }
                 else {
-
+                   // console.log("LoadProfileDetails: 4");
                 }
             });
 
@@ -5034,10 +5020,10 @@ function ShowStoreTiming() {
 
         try {
             $.getJSON(url, function (data) {
-                console.log(data);
+                //console.log(data);
                 var obj = JSON.parse(data);
                 var length = Object.keys(obj).length;
-                console.log("Length: " + length);
+                //console.log("Length: " + length);
 
                 if (JSON.parse(data).indexOf("No record(s) found") < 0) {
                     //console.log(data);
@@ -5084,143 +5070,140 @@ function ShowStoreTiming() {
                                 closingPeriod = value.CLOSINGPERIOD;
                             }
                         }
-                        //console.log("TimingId: " + timingId + " Day: " + day + " OpeningTime: " + openingTime + " ClosingTime: " + closingTime);
-                        //console.log("Opening: Hour: " + openingHour + " Minute: " + openingMinute + " Period: " + openingPeriod + " Closing: Hour: " + closingHour + " Minute: " + closingMinute + " Period: " + closingPeriod);
-                        //dayName = GetDayNameByDayKey(day);
-
+                      
                         //Generate Edit Section Start//
                         var hdnCount = $('#hdnCount').val();
 
                         if (day == "Mo") {
-                            $('#Businesday_0_IsCheck').prop('checked', true);
+                            $('#tab-profile-timing #Businesday_0_IsCheck').prop('checked', true);
                             dayName = "Monday";
                             if (moCount > 1) {
                                 AppendEditSection(timingId, dayName, day, openingHour, openingMinute, openingPeriod, closingHour, closingMinute, closingPeriod);
                                 moCount++;
                             }
                             else {
-                                $("#Businesday_0_StoreTimingId").val(timingId)
-                                $("#Businesday_0_OpeningHour").val(openingHour);
-                                $("#Businesday_0_OpeningMinute").val(openingMinute);
-                                $("#Businesday_0_OpeningPeriod").val(openingPeriod);
+                                $("#tab-profile-timing #Businesday_0_StoreTimingId").val(timingId)
+                                $("#tab-profile-timing #Businesday_0_OpeningHour").val(openingHour);
+                                $("#tab-profile-timing #Businesday_0_OpeningMinute").val(openingMinute);
+                                $("#tab-profile-timing #Businesday_0_OpeningPeriod").val(openingPeriod);
 
-                                $("#Businesday_0_ClosingHour").val(closingHour);
-                                $("#Businesday_0_ClosingMinute").val(closingMinute);
-                                $("#Businesday_0_ClosingPeriod").val(closingPeriod);
+                                $("#tab-profile-timing #Businesday_0_ClosingHour").val(closingHour);
+                                $("#tab-profile-timing #Businesday_0_ClosingMinute").val(closingMinute);
+                                $("#tab-profile-timing #Businesday_0_ClosingPeriod").val(closingPeriod);
                                 moCount++;
                             }
                         }
                         else if (day == "Tu") {
-                            $('#Businesday_1_IsCheck').prop('checked', true);
+                            $('#tab-profile-timing #Businesday_1_IsCheck').prop('checked', true);
                             dayName = "Tuesday";
                             if (tuCount > 1) {
                                 AppendEditSection(timingId, dayName, day, openingHour, openingMinute, openingPeriod, closingHour, closingMinute, closingPeriod);
                                 tuCount++;
                             }
                             else {
-                                $("#Businesday_1_StoreTimingId").val(timingId)
-                                $("#Businesday_1_OpeningHour").val(openingHour);
-                                $("#Businesday_1_OpeningMinute").val(openingMinute);
-                                $("#Businesday_1_OpeningPeriod").val(openingPeriod);
+                                $("#tab-profile-timing #Businesday_1_StoreTimingId").val(timingId)
+                                $("#tab-profile-timing #Businesday_1_OpeningHour").val(openingHour);
+                                $("#tab-profile-timing #Businesday_1_OpeningMinute").val(openingMinute);
+                                $("#tab-profile-timing #Businesday_1_OpeningPeriod").val(openingPeriod);
 
-                                $("#Businesday_1_ClosingHour").val(closingHour);
-                                $("#Businesday_1_ClosingMinute").val(closingMinute);
-                                $("#Businesday_1_ClosingPeriod").val(closingPeriod);
+                                $("#tab-profile-timing #Businesday_1_ClosingHour").val(closingHour);
+                                $("#tab-profile-timing #Businesday_1_ClosingMinute").val(closingMinute);
+                                $("#tab-profile-timing #Businesday_1_ClosingPeriod").val(closingPeriod);
                                 tuCount++;
                             }
                         }
                         else if (day == "We") {
-                            $('#Businesday_2_IsCheck').prop('checked', true);
+                            $('#tab-profile-timing #Businesday_2_IsCheck').prop('checked', true);
                             dayName = "Wednesday";
                             if (weCount > 1) {
                                 AppendEditSection(timingId, dayName, day, openingHour, openingMinute, openingPeriod, closingHour, closingMinute, closingPeriod);
                                 weCount++;
                             }
                             else {
-                                $("#Businesday_2_StoreTimingId").val(timingId)
-                                $("#Businesday_2_OpeningHour").val(openingHour);
-                                $("#Businesday_2_OpeningMinute").val(openingMinute);
-                                $("#Businesday_2_OpeningPeriod").val(openingPeriod);
+                                $("#tab-profile-timing #Businesday_2_StoreTimingId").val(timingId)
+                                $("#tab-profile-timing #Businesday_2_OpeningHour").val(openingHour);
+                                $("#tab-profile-timing #Businesday_2_OpeningMinute").val(openingMinute);
+                                $("#tab-profile-timing #Businesday_2_OpeningPeriod").val(openingPeriod);
 
-                                $("#Businesday_2_ClosingHour").val(closingHour);
-                                $("#Businesday_2_ClosingMinute").val(closingMinute);
-                                $("#Businesday_2_ClosingPeriod").val(closingPeriod);
+                                $("#tab-profile-timing #Businesday_2_ClosingHour").val(closingHour);
+                                $("#tab-profile-timing #Businesday_2_ClosingMinute").val(closingMinute);
+                                $("#tab-profile-timing #Businesday_2_ClosingPeriod").val(closingPeriod);
                                 weCount++;
                             }
                         }
                         else if (day == "Th") {
-                            $('#Businesday_3_IsCheck').prop('checked', true);
+                            $('#tab-profile-timing #Businesday_3_IsCheck').prop('checked', true);
                             dayName = "Thursday";
                             if (thCount > 1) {
                                 AppendEditSection(timingId, dayName, day, openingHour, openingMinute, openingPeriod, closingHour, closingMinute, closingPeriod);
                                 thCount++;
                             }
                             else {
-                                $("#Businesday_3_StoreTimingId").val(timingId)
-                                $("#Businesday_3_OpeningHour").val(openingHour);
-                                $("#Businesday_3_OpeningMinute").val(openingMinute);
-                                $("#Businesday_3_OpeningPeriod").val(openingPeriod);
+                                $("#tab-profile-timing #Businesday_3_StoreTimingId").val(timingId)
+                                $("#tab-profile-timing #Businesday_3_OpeningHour").val(openingHour);
+                                $("#tab-profile-timing #Businesday_3_OpeningMinute").val(openingMinute);
+                                $("#tab-profile-timing #Businesday_3_OpeningPeriod").val(openingPeriod);
 
-                                $("#Businesday_3_ClosingHour").val(closingHour);
-                                $("#Businesday_3_ClosingMinute").val(closingMinute);
-                                $("#Businesday_3_ClosingPeriod").val(closingPeriod);
+                                $("#tab-profile-timing #Businesday_3_ClosingHour").val(closingHour);
+                                $("#tab-profile-timing #Businesday_3_ClosingMinute").val(closingMinute);
+                                $("#tab-profile-timing #Businesday_3_ClosingPeriod").val(closingPeriod);
                                 thCount++;
                             }
                         }
                         else if (day == "Fr") {
-                            $('#Businesday_4_IsCheck').prop('checked', true);
+                            $('#tab-profile-timing #Businesday_4_IsCheck').prop('checked', true);
                             dayName = "Friday";
                             if (frCount > 1) {
                                 AppendEditSection(timingId, dayName, day, openingHour, openingMinute, openingPeriod, closingHour, closingMinute, closingPeriod);
                                 frCount++;
                             }
                             else {
-                                $("#Businesday_4_StoreTimingId").val(timingId)
-                                $("#Businesday_4_OpeningHour").val(openingHour);
-                                $("#Businesday_4_OpeningMinute").val(openingMinute);
-                                $("#Businesday_4_OpeningPeriod").val(openingPeriod);
+                                $("#tab-profile-timing #Businesday_4_StoreTimingId").val(timingId)
+                                $("#tab-profile-timing #Businesday_4_OpeningHour").val(openingHour);
+                                $("#tab-profile-timing #Businesday_4_OpeningMinute").val(openingMinute);
+                                $("#tab-profile-timing #Businesday_4_OpeningPeriod").val(openingPeriod);
 
-                                $("#Businesday_4_ClosingHour").val(closingHour);
-                                $("#Businesday_4_ClosingMinute").val(closingMinute);
-                                $("#Businesday_4_ClosingPeriod").val(closingPeriod);
+                                $("#tab-profile-timing #Businesday_4_ClosingHour").val(closingHour);
+                                $("#tab-profile-timing #Businesday_4_ClosingMinute").val(closingMinute);
+                                $("#tab-profile-timing #Businesday_4_ClosingPeriod").val(closingPeriod);
                                 frCount++;
                             }
                         }
                         else if (day == "Sa") {
-                            $('#Businesday_5_IsCheck').prop('checked', true);
+                            $('#tab-profile-timing #Businesday_5_IsCheck').prop('checked', true);
                             dayName = "Saturday";
                             if (saCount > 1) {
                                 AppendEditSection(timingId, dayName, day, openingHour, openingMinute, openingPeriod, closingHour, closingMinute, closingPeriod);
                                 saCount++;
                             }
                             else {
-                                $("#Businesday_5_StoreTimingId").val(timingId)
-                                $("#Businesday_5_OpeningHour").val(openingHour);
-                                $("#Businesday_5_OpeningMinute").val(openingMinute);
-                                $("#Businesday_5_OpeningPeriod").val(openingPeriod);
+                                $("#tab-profile-timing #Businesday_5_StoreTimingId").val(timingId)
+                                $("#tab-profile-timing #Businesday_5_OpeningHour").val(openingHour);
+                                $("#tab-profile-timing #Businesday_5_OpeningMinute").val(openingMinute);
+                                $("#tab-profile-timing #Businesday_5_OpeningPeriod").val(openingPeriod);
 
-                                $("#Businesday_5_ClosingHour").val(closingHour);
-                                $("#Businesday_5_ClosingMinute").val(closingMinute);
-                                $("#Businesday_5_ClosingPeriod").val(closingPeriod);
+                                $("#tab-profile-timing #Businesday_5_ClosingHour").val(closingHour);
+                                $("#tab-profile-timing #Businesday_5_ClosingMinute").val(closingMinute);
+                                $("#tab-profile-timing #Businesday_5_ClosingPeriod").val(closingPeriod);
                                 saCount++;
                             }
                         }
                         else if (day == "Su") {
-                            $('#Businesday_6_IsCheck').prop('checked', true);
+                            $('#tab-profile-timing #Businesday_6_IsCheck').prop('checked', true);
                             dayName = "Sunday";
                             if (suCount > 1) {
                                 AppendEditSection(timingId, dayName, day, openingHour, openingMinute, openingPeriod, closingHour, closingMinute, closingPeriod);
                                 suCount++;
                             }
                             else {
-                                $("#Businesday_6_StoreTimingId").val(timingId)
-                                $("#Businesday_6_OpeningHour").val(openingHour);
-                                $("#Businesday_6_OpeningMinute").val(openingMinute);
-                                $("#Businesday_6_OpeningPeriod").val(openingPeriod);
+                                $("#tab-profile-timing #Businesday_6_StoreTimingId").val(timingId)
+                                $("#tab-profile-timing #Businesday_6_OpeningHour").val(openingHour);
+                                $("#tab-profile-timing #Businesday_6_OpeningMinute").val(openingMinute);
+                                $("#tab-profile-timing #Businesday_6_OpeningPeriod").val(openingPeriod);
 
-                                $("#Businesday_6_ClosingHour").val(closingHour);
-                                $("#Businesday_6_ClosingMinute").val(closingMinute);
-                                $("#Businesday_6_ClosingPeriod").val(closingPeriod);
+                                $("#tab-profile-timing #Businesday_6_ClosingHour").val(closingHour);
+                                $("#tab-profile-timing #Businesday_6_ClosingMinute").val(closingMinute);
+                                $("#tab-profile-timing #Businesday_6_ClosingPeriod").val(closingPeriod);
                                 suCount++;
                             }
                         }
@@ -6304,7 +6287,7 @@ function SaveProductInfo() {
                         buttonsStyling: false,
                         customClass: 'swal-wide',
                     }).then(function () {
-                        self.app.router.navigate('/food_list/', { reloadCurrent: true });
+                        self.app.router.navigate('/food_list/', { reloadCurrent: false });
                     });
                 }
                 else {

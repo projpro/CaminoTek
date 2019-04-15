@@ -146,6 +146,12 @@ var routes = [
            url: './pages/food_list.html',
            name: 'food_list',
        },
+       // Profil
+  {
+      path: '/my_profile/',
+      url: './pages/my_profile.html',
+      name: 'my_profile',
+  },
   // Foods
   {
       path: '/foods/',

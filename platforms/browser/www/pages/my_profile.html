@@ -38,7 +38,7 @@
             </div>
             <div class="center">Profile</div>
             <div class="right">
-                <a class="icon-only navbar-right-single-icon" style="right:65px;" href="/profile/"><i class="material-icons large-icon">account_circle</i></a>
+                <a class="icon-only navbar-right-single-icon" style="right:65px;" onclick="GotoProfile();"><i class="material-icons large-icon">account_circle</i></a>
                 <a class="icon-only navbar-right-single-icon" onclick="Logout();"><i class="material-icons large-icon">exit_to_app</i></a>
             </div>
         </div>
@@ -60,7 +60,8 @@
                     </div>
 
                     <div class="custom-tab custom-tab-carryout" style="width:50%">
-                        <a href="#tab-profile-timing" class="tab-link">  <!--onclick="ShowStoreTiming();"-->
+                        <a href="#tab-profile-timing" class="tab-link">
+                            <!--onclick="ShowStoreTiming();"-->
                             <div class="tab-right-text">Hours</div>
                             <div class="border-tab"></div>
                         </a>
@@ -110,7 +111,7 @@
                                                             <!--<i class="material-icons">location_city</i>-->
                                                             <input type="text" placeholder="City" id="txtProfileCity" required class="mandatory">
                                                             <span class="input-clear-button"></span>
-                                                        </div>  
+                                                        </div>
                                                         <div class="item-media" style="width:45%">
                                                             <i class="material-icons">phone</i>
                                                             <input type="number" placeholder="Phone" id="txtProfilePhone" required class="mandatory" onKeyPress="if(this.value.length==10) return false;">
@@ -185,7 +186,7 @@
                                                             <span class="input-clear-button"></span>
                                                         </div>
                                                     </li>
-                                                    <li class="item-content" style="width:96%">   
+                                                    <li class="item-content" style="width:96%">
                                                         <div class="item-media" style="width:45%">
                                                             <!--<i class="material-icons">location_city</i>-->
                                                             <input type="number" placeholder="Zip" id="txtProfileZip" required class="mandatory" onKeyPress="if(this.value.length==5) return false;">
@@ -195,7 +196,7 @@
                                                         <label class="toggle toggle-init color-blue">
                                                             <input type="checkbox" id="checkSendFax">
                                                             <span class="toggle-icon"></span>
-                                                        </label>  
+                                                        </label>
                                                     </li>
                                                     <li class="item-content">
                                                         <div class="item-media" style="width:96%">
@@ -268,11 +269,11 @@
                                                 <div class="item-media" style="width:96%">
                                                     <div style="width:100%;">
                                                         <input type="hidden" id="hdnCount" value="8">
-                                                                                                                    
+
                                                         <ul>
                                                             <li class="item-content" style="width:100%">
                                                                 <label style="width:35%" class="item-checkbox item-content">
-                                                                    <input type="checkbox"  id="Businesday_0_IsCheck" name="Businesday[0].IsCheck" value="Monday" />
+                                                                    <input type="checkbox" id="Businesday_0_IsCheck" name="Businesday[0].IsCheck" value="Monday" />
                                                                     <i class="icon icon-checkbox"></i>
                                                                     <div class="item-inner">
                                                                         <div class="item-title">Monday</div>
@@ -283,8 +284,8 @@
                                                                 <!--<label style="width:25%;">Monday</label>-->
                                                                 <i class="material-icons icon-add" onclick="AddNewSection('Monday', 'Mo', '0');" id="Monday">add</i>
                                                                 <input id="Businesday_0_DayKey" name="Businesday[0].DayKey" type="hidden" value="Mo">
-                                                                <input id="Businesday_0_DayName" name="Businesday[0].DayName" type="hidden" value="Monday">  
-                                                                <input id="Businesday_0_StoreTimingId" name="Businesday[0].StoreTimingId" type="hidden" value="0">                                                                
+                                                                <input id="Businesday_0_DayName" name="Businesday[0].DayName" type="hidden" value="Monday">
+                                                                <input id="Businesday_0_StoreTimingId" name="Businesday[0].StoreTimingId" type="hidden" value="0">
                                                             </li>
                                                             <li class="item-content">
                                                                 <div class="timing-flex-row-container" id="div_Monday">
@@ -477,7 +478,7 @@
                                                                         </div>
                                                                     </div>
 
-                                                                    
+
                                                                 </div>
                                                             </li>
 
@@ -495,7 +496,7 @@
                                                                 <i class="material-icons icon-add" onclick="AddNewSection('Tuesday', 'Tu', '1');" id="Tuesday">add</i>
                                                                 <input id="Businesday_1_DayKey" name="Businesday[1].DayKey" type="hidden" value="Tu">
                                                                 <input id="Businesday_1_DayName" name="Businesday[1].DayName" type="hidden" value="Tuesday">
-                                                                <input id="Businesday_1_StoreTimingId" name="Businesday[1].StoreTimingId" type="hidden" value="0">  
+                                                                <input id="Businesday_1_StoreTimingId" name="Businesday[1].StoreTimingId" type="hidden" value="0">
                                                             </li>
                                                             <li class="item-content">
                                                                 <div class="timing-flex-row-container" id="div_Tuesday">
@@ -687,7 +688,7 @@
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                </div>                                                                 
+                                                                </div>
                                                             </li>
 
                                                             <li class="item-content" style="width:100%">
@@ -704,7 +705,7 @@
                                                                 <i class="material-icons icon-add" onclick="AddNewSection('Wednesday', 'We', '2');" id="Wednesday">add</i>
                                                                 <input id="Businesday_2_DayKey" name="Businesday[2].DayKey" type="hidden" value="We">
                                                                 <input id="Businesday_2_DayName" name="Businesday[2].DayName" type="hidden" value="Wednesday">
-                                                                <input id="Businesday_2_StoreTimingId" name="Businesday[2].StoreTimingId" type="hidden" value="0">  
+                                                                <input id="Businesday_2_StoreTimingId" name="Businesday[2].StoreTimingId" type="hidden" value="0">
                                                             </li>
                                                             <li class="item-content">
                                                                 <div class="timing-flex-row-container" id="div_Wednesday">
@@ -896,7 +897,7 @@
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                </div>                                                                
+                                                                </div>
                                                             </li>
 
                                                             <li class="item-content" style="width:100%">
@@ -913,9 +914,9 @@
                                                                 <i class="material-icons icon-add" onclick="AddNewSection('Thursday', 'Th', '3');" id="Thursday">add</i>
                                                                 <input id="Businesday_3_DayKey" name="Businesday[3].DayKey" type="hidden" value="Th">
                                                                 <input id="Businesday_3_DayName" name="Businesday[3].DayName" type="hidden" value="Thursday">
-                                                                <input id="Businesday_3_StoreTimingId" name="Businesday[3].StoreTimingId" type="hidden" value="0">  
+                                                                <input id="Businesday_3_StoreTimingId" name="Businesday[3].StoreTimingId" type="hidden" value="0">
                                                             </li>
-                                                            <li class="item-content"> 
+                                                            <li class="item-content">
                                                                 <div class="timing-flex-row-container" id="div_Thursday">
                                                                     <div>
                                                                         <div class="timing-flex-column-container">
@@ -1105,7 +1106,7 @@
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                </div>                                                                
+                                                                </div>
                                                             </li>
 
                                                             <li class="item-content" style="width:100%">
@@ -1122,7 +1123,7 @@
                                                                 <i class="material-icons icon-add" onclick="AddNewSection('Friday', 'Fr', '4');" id="Friday">add</i>
                                                                 <input id="Businesday_4_DayKey" name="Businesday[4].DayKey" type="hidden" value="Fr">
                                                                 <input id="Businesday_4_DayName" name="Businesday[4].DayName" type="hidden" value="Friday">
-                                                                <input id="Businesday_4_StoreTimingId" name="Businesday[4].StoreTimingId" type="hidden" value="0">  
+                                                                <input id="Businesday_4_StoreTimingId" name="Businesday[4].StoreTimingId" type="hidden" value="0">
                                                             </li>
                                                             <li class="item-content">
                                                                 <div class="timing-flex-row-container" id="div_Friday">
@@ -1314,7 +1315,7 @@
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                </div>                                                                
+                                                                </div>
                                                             </li>
 
                                                             <li class="item-content" style="width:100%">
@@ -1331,9 +1332,9 @@
                                                                 <i class="material-icons icon-add" onclick="AddNewSection('Saturday', 'Sa', '5');" id="Saturday">add</i>
                                                                 <input id="Businesday_5_DayKey" name="Businesday[5].DayKey" type="hidden" value="Sa">
                                                                 <input id="Businesday_5_DayName" name="Businesday[5].DayName" type="hidden" value="Saturday">
-                                                                <input id="Businesday_5_StoreTimingId" name="Businesday[5].StoreTimingId" type="hidden" value="0">  
+                                                                <input id="Businesday_5_StoreTimingId" name="Businesday[5].StoreTimingId" type="hidden" value="0">
                                                             </li>
-                                                            <li class="item-content"> 
+                                                            <li class="item-content">
                                                                 <div class="timing-flex-row-container" id="div_Saturday">
                                                                     <div>
                                                                         <div class="timing-flex-column-container">
@@ -1523,7 +1524,7 @@
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                </div>                                                                 
+                                                                </div>
                                                             </li>
 
                                                             <li class="item-content" style="width:100%">
@@ -1540,9 +1541,9 @@
                                                                 <i class="material-icons icon-add" onclick="AddNewSection('Sunday', 'Su', '6');" id="Sunday">add</i>
                                                                 <input id="Businesday_6_DayKey" name="Businesday[6].DayKey" type="hidden" value="Su">
                                                                 <input id="Businesday_6_DayName" name="Businesday[6].DayName" type="hidden" value="Sunday">
-                                                                <input id="Businesday_6_StoreTimingId" name="Businesday[6].StoreTimingId" type="hidden" value="0">  
+                                                                <input id="Businesday_6_StoreTimingId" name="Businesday[6].StoreTimingId" type="hidden" value="0">
                                                             </li>
-                                                            <li class="item-content">    
+                                                            <li class="item-content">
                                                                 <div class="timing-flex-row-container" id="div_Sunday">
                                                                     <div>
                                                                         <div class="timing-flex-column-container">
@@ -1732,14 +1733,14 @@
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                </div>                                                                
+                                                                </div>
                                                             </li>
                                                             <li class="item-content">
                                                                 <a class="custom-btn custom-bg custom-link" id="btnSaveStoreTiming" style="width: 97%;" onclick="SaveStoreTiming();">Save</a>
                                                             </li>
                                                         </ul>
                                                     </div>
-                                                                                                           
+
                                                 </div>
                                             </div>
                                         </div>

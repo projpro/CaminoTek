@@ -154,9 +154,9 @@ $$(document).on('page:init', function (e) {
 
         }
 
-        CheckStoreTimings();
+        //CheckStoreTimings();
 
-        var intervalName = setInterval(CheckStoreTimings, Number(apprefreshinterval) * 1000);
+        //var intervalName = setInterval(CheckStoreTimings, Number(apprefreshinterval) * 1000);
         $$('.page-content').scroll(function () {
             var OrderAvailable = localStorage.getItem("OrderAvailable");
             if (OrderAvailable == "1") {
@@ -1019,7 +1019,7 @@ function InitPushNotification(storeId) {
         //    acceptOrderPopup.destroy();
         //    // Do something after 30 second 
         //}, 30000);
-        //alert('notification event: ' + data.message);
+        alert('notification event: ' + data.message);
         if (data.message == "A new order has been placed")
         {
             CheckNewOrder();
@@ -1075,56 +1075,56 @@ function CheckLoggedIn() {
 
     }
 }
-function CheckStoreTimings() {
+//function CheckStoreTimings() {
 
-    var isAvailable = false;
-    if (localStorage.getItem("storetimings") != null) {
+//    var isAvailable = false;
+//    if (localStorage.getItem("storetimings") != null) {
 
-        var storetimings = JSON.parse(localStorage.getItem("storetimings"));
-        var dayOfWeek = getCurrentdayOfWeek();
-        //WriteLog("dayOfWeek: " + dayOfWeek)
-        var filtered_json = filterJSON(JSON.parse(storetimings.toString()), dayOfWeek);
+//        var storetimings = JSON.parse(localStorage.getItem("storetimings"));
+//        var dayOfWeek = getCurrentdayOfWeek();
+//        //WriteLog("dayOfWeek: " + dayOfWeek)
+//        var filtered_json = filterJSON(JSON.parse(storetimings.toString()), dayOfWeek);
 
-        $.each(JSON.parse(JSON.stringify(filtered_json)), function (key, value) {
-            var day = value.DAY;
-            //var openingdate = value.OPENINGTIME.split('~')[0];
-            var openingdate = GetCurrentDateOnly();
-            var openingtime = value.OPENINGTIME.split('~')[1];
+//        $.each(JSON.parse(JSON.stringify(filtered_json)), function (key, value) {
+//            var day = value.DAY;
+//            //var openingdate = value.OPENINGTIME.split('~')[0];
+//            var openingdate = GetCurrentDateOnly();
+//            var openingtime = value.OPENINGTIME.split('~')[1];
 
-            //var closingdate = value.CLOSINGTIME.split('~')[0];
-            var closingdate = GetCurrentDateOnly();
-            var closingtime = value.CLOSINGTIME.split('~')[1];
+//            //var closingdate = value.CLOSINGTIME.split('~')[0];
+//            var closingdate = GetCurrentDateOnly();
+//            var closingtime = value.CLOSINGTIME.split('~')[1];
 
-            var startTime = Date.parse(openingdate + " " + openingtime);
-            var endTime = Date.parse(closingdate + " " + closingtime);
-            var currentTime = Date.now();
+//            var startTime = Date.parse(openingdate + " " + openingtime);
+//            var endTime = Date.parse(closingdate + " " + closingtime);
+//            var currentTime = Date.now();
 
-            if (currentTime >= startTime && currentTime <= endTime) {
-                isAvailable = true;
-                return false;
-            }
-            else {
-                isAvailable = false;
-            }
+//            if (currentTime >= startTime && currentTime <= endTime) {
+//                isAvailable = true;
+//                return false;
+//            }
+//            else {
+//                isAvailable = false;
+//            }
 
-        });
-        if (isAvailable === true) {
-            //CheckNewOrder();
+//        });
+//        if (isAvailable === true) {
+//            //CheckNewOrder();
 
-        }
-        else {
+//        }
+//        else {
 
-            console.log(GetCurrentDateTime() + " - " + "Store is Closed")
-        }
-    }
-    else {
+//            console.log(GetCurrentDateTime() + " - " + "Store is Closed")
+//        }
+//    }
+//    else {
 
-        //  CheckNewOrder();
-        //setInterval(CheckNewOrder, Number(apprefreshinterval) * 1000);
-    }
+//        //  CheckNewOrder();
+//        //setInterval(CheckNewOrder, Number(apprefreshinterval) * 1000);
+//    }
 
-    console.log(GetCurrentDateTime() + " - " + "CheckStoreTimings END")
-}
+//    console.log(GetCurrentDateTime() + " - " + "CheckStoreTimings END")
+//}
 function CheckNewOrder() {
    // alert("CheckNewOrder START")
     console.log(GetCurrentDateTime() + " - " + "CheckNewOrder START", browser);
@@ -1451,8 +1451,8 @@ function StopSoundOtherDevices(storeId)
 function Back() {
     console.log('Back')
     //console.log(app.views.main.router);
-    console.log(app.views.main.router.url);
-    console.log(app.views.main.router.history);
+    //console.log(app.views.main.router.url);
+    //console.log(app.views.main.router.history);
     if (app.views.main.router.history.length > 0) {
         var secondLastPage = "";
         var thirdLastPage = "";
@@ -1461,15 +1461,15 @@ function Back() {
             secondLastPage = app.views.main.router.history[length - 2];
             thirdLastPage = app.views.main.router.history[length - 3];
         }
-        console.log('secondLastPage: ' + secondLastPage);
-        console.log('thirdLastPage: ' + thirdLastPage);
+        ///console.log('secondLastPage: ' + secondLastPage);
+        //console.log('thirdLastPage: ' + thirdLastPage);
         if (secondLastPage != "/login_new/" && secondLastPage != "/") {
-            console.log(1);
+            //console.log(1);
             app.views.main.router.back();
         }
         else {
 
-            console.log(2);
+            //console.log(2);
             //CheckLoggedIn();
         }
     }
@@ -1480,9 +1480,6 @@ function Back() {
 
 function playAudio() {
     console.log("Playing")
-
-  
-    //console.log("Playing")
     myMedia.play();
 }
 function onSuccess() {
