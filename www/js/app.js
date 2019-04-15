@@ -1019,7 +1019,7 @@ function InitPushNotification(storeId) {
         //    acceptOrderPopup.destroy();
         //    // Do something after 30 second 
         //}, 30000);
-        alert('notification event: ' + data.message);
+        //alert('notification event: ' + data.message);
         if (data.message == "A new order has been placed")
         {
             CheckNewOrder();
