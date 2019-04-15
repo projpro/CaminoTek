@@ -252,10 +252,10 @@ $$(document).on('page:init', function (e) {
         }
         if (Number(itemId) > 0) {
             BindItemById(itemId);
-            $("#dvProductText").text("Edit Food");
+            $("#dvProductText").text("Edit Item");
         }
         else {
-            $("#dvProductText").text("Add Food");
+            $("#dvProductText").text("Add Item");
         }
     }
 
@@ -456,13 +456,13 @@ $$(document).on('page:init', function (e) {
         });
 
 
-        $$('#btnGiftCardOrderSearch').click(function () {
-            LoadGiftCards();
-        });
+        //$$('#btnGiftCardOrderSearch').click(function () {
+        //    LoadGiftCards();
+        //});
 
-        $$('#btnGiftCardOrderSort').click(function () {
-            LoadGiftCards();
-        });
+        //$$('#btnGiftCardOrderSort').click(function () {
+        //    LoadGiftCards();
+        //});
 
         function LoadGiftCards() {                
             GiftCardOrdersList(pageSize, currentPage);

@@ -13,7 +13,7 @@ var myMedia = null;
 
 
 function InitLogin() {
-   // console.log('Init Login');
+    // console.log('Init Login');
     var mydate = new Date()
     var year = mydate.getYear()
     if (year < 1000)
@@ -22,8 +22,7 @@ function InitLogin() {
     $(".login-footer #footerYear").html(year);
 }
 
-function RegisterToken(storeId, token)
-{
+function RegisterToken(storeId, token) {
     //$.ajax({
     //    url: global + 'Logout?storeid=' + storeId + '&registrationToken=' + token,
     //    type: 'GET',
@@ -33,7 +32,7 @@ function RegisterToken(storeId, token)
     //    async: false,
     //    success: function (data) {
     //        console.log("DeviceRegistrationToken Deleted from DB successfully")
-           
+
     //        //window.location.href = "index.html";
     //        //window.localStorage.clear();
     //    },
@@ -117,14 +116,14 @@ function Login() {
                     //console.log("Login 3" + storeId);
                     if (Number(storeId) > 0) {
                         //InitPushNotification(storeId);
-                       // InitPushNotification();
+                        // InitPushNotification();
                         //window.location.href = "carryout.html?StoreId=" + storeId;
                         if (carryOutEnabled == "True") {
-                           
+
                             GetStoreCarryOutTimings(storeId);
                         }
                         else {
-                          
+
                             if (giftCardsEnabled != "True" && giftCardProgramEnabled != "True" && rewardEnabled != "True") {
                                 $('#lblErr').html();
                                 $('#lblErr').html("Carryout/Gift Card/Rewards are not enabled. Please contact system administrator!");
@@ -165,7 +164,7 @@ function Login() {
                                     self.app.router.navigate('/giftcard/', { reloadCurrent: true });
                                 }
                                 else if (rewardEnabled == "True") {
-                                   // window.location.href = "rewards.html?StoreId=" + storeId;
+                                    // window.location.href = "rewards.html?StoreId=" + storeId;
                                     self.app.router.navigate('/new_rewards/', { reloadCurrent: true });
                                 }
                             }
@@ -190,8 +189,7 @@ function Login() {
 
 }
 
-function SetMenuNavigation()
-{
+function SetMenuNavigation() {
     var carryOutEnabled = localStorage.getItem("CarryOutEnabled");
     var giftCardsEnabled = localStorage.getItem("GiftCardsEnabled");
     var giftCardProgramEnabled = localStorage.getItem("GiftCardProgramEnabled");
@@ -258,7 +256,7 @@ function ValidateLogIn() {
 function isValidEmailAddress(emailAddress) {
     //console.log("isValidEmailAddress");
     var pattern = /^([a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+(\.[a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)*|"((([ \t]*\r\n)?[ \t]+)?([\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*(([ \t]*\r\n)?[ \t]+)?")@(([a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.)+([a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.?$/i;
-    
+
     return pattern.test(emailAddress);
 };
 
@@ -275,7 +273,7 @@ function GetStoreCarryOutTimings(storeId) {
             else {
                 if (obj != "") {
                     localStorage.setItem("storetimings", JSON.stringify(data));
-                   // window.location.href = "carryout.html?StoreId=" + storeId;
+                    // window.location.href = "carryout.html?StoreId=" + storeId;
                     self.app.router.navigate('/carryout/', { reloadCurrent: false });
                 }
                 else {
@@ -1281,7 +1279,7 @@ function OpenCarryoutDetails(id) {
 
                 orderhtml += "</div>";
                 /*------------------Order Area-----------------------*/
-                
+
                 $("#dvOrderInfo").html(orderhtml);
                 //console.log(orderhtml);
 
@@ -1366,8 +1364,8 @@ function OpenCarryoutDetails(id) {
                 }
                 //console.log(html)
                 $("#dvItem").html(html + htmlSubTotal + htmlDiscount + htmlRewards + htmlGiftCard + htmlOrderTotal + "</tbody>");
-                
-                
+
+
                 //console.log($("#dvCarryOutDetails").html());
                 $('#dvDetailsPanel').html($('#dvCarryOutDetailsInner').html());
 
@@ -1379,15 +1377,13 @@ function OpenCarryoutDetails(id) {
     }
 
 }
-function CloseCarryOutDetails()
-{
+function CloseCarryOutDetails() {
     $('#dvCarryOutDetailsInner').hide();
     $('#dvOrderInfo').html("");
     $('#dvItem').html("");
     //$("#dvCarryOutPanel").html("");
 }
-function BindcarryoutTab(status)
-{
+function BindcarryoutTab(status) {
     // console.log(status)
     if (status == "All") {
         $('#linkCarryoutFilterIcon').show();
@@ -1513,8 +1509,8 @@ function ChangeOrderStatusNew(status) {
 
 }
 //Change Order Status
-function ChangeOrderStatusNew(status,orderId, storeId) {
-    
+function ChangeOrderStatusNew(status, orderId, storeId) {
+
 
     if (storeId > 0 && orderId > 0) {
         currentPage = 0;
@@ -1528,19 +1524,18 @@ function ChangeOrderStatusNew(status,orderId, storeId) {
             crossDomain: true,
             async: false,
             success: function (data) {
-               
-                if($('#hdnCurrentState').val()=="New")
-                {
+
+                if ($('#hdnCurrentState').val() == "New") {
                     localStorage.setItem("CurrentPage", 0);
                     CarryoutOrdersList('New', 10, 0, 'dvNewList');
                 }
                 else if ($('#hdnCurrentState').val() == "Processing") {
-                   
+
                     localStorage.setItem("CurrentPage", 0);
                     CarryoutOrdersList('Processing', 10, 0, 'dvProcessingList');
                 }
                 else {
-                   
+
                     localStorage.setItem("CurrentPage", 0);
                     CarryoutOrdersList('All', 10, 0, 'dvAllList');
                 }
@@ -1965,7 +1960,7 @@ function AcceptOrdersOtherPage() {
         var pickup = $(this).val().trim();
         var oldPickUp = $("#pickuptime_" + orderId).html().trim();
         var phone = $("#phone_" + orderId).html().trim().replace("(", "").replace(")", "").replace("-", "");
-       
+
         orders.push(orderId + "#" + pickup);
         if (oldPickUp != pickup) {
             customerphone.push(orderId + "#" + pickup + "#" + phone + "#changed");
@@ -2011,10 +2006,8 @@ function AcceptOrdersOtherPage() {
             $("#hdnOrderIds").val("");
             var storeId = 0;
             storeId = SetStoreId();
-            if (giftcardchanged > 0 && carryoutchanged > 0)
-            {
-                if (giftcardchanged > carryoutchanged)
-                {
+            if (giftcardchanged > 0 && carryoutchanged > 0) {
+                if (giftcardchanged > carryoutchanged) {
                     window.location.href = "giftcardsorders.html?StoreId=" + storeId;
                 }
                 else {
@@ -2022,8 +2015,7 @@ function AcceptOrdersOtherPage() {
 
                 }
             }
-            else if(giftcardchanged>0 && carryoutchanged==0)
-            {
+            else if (giftcardchanged > 0 && carryoutchanged == 0) {
                 window.location.href = "giftcardsorders.html?StoreId=" + storeId;
             }
             else if (carryoutchanged > 0 && giftcardchanged == 0) {
@@ -2844,8 +2836,7 @@ function GiftCardOrdersList(pagesize, currentPage) {
     var sortByValue = $("input[name='radioGiftCardSortBy']:checked").val();
     //Shorting
 
-    if(orderId == undefined)
-    {
+    if (orderId == undefined) {
         orderId = "";
     }
     if (giftCardCode == undefined) {
@@ -2929,7 +2920,7 @@ function GiftCardOrdersList(pagesize, currentPage) {
                         if (value.RECIPIENTNAME != "") {
                             name = value.RECIPIENTNAME;
 
-                        }                       
+                        }
                         if (value.PHONE != "") {
                             phone = value.PHONE;
                         }
@@ -3598,7 +3589,7 @@ function OpenGiftCardDetails(id) {
         $("#dvOrderItem").html(html + "</tbody>");
         $("#titleRedemptionHistory").show();
     });
-    
+
     //$('#dvGiftCardDetails').html($('#dvGiftCardDetailsInner').html());
     $('#dvDetailsPanel').html($('#dvGiftCardDetailsInner').html());
 }
@@ -3658,7 +3649,7 @@ function ChangeGiftCardOrderStatusById(status, id, orderId) {
 
                     $("#btnNew_" + giftCardId).hide();
                     $("#btnProcessing_" + giftCardId).hide();
-                    $("#btnShipped_" + giftCardId).hide();                    
+                    $("#btnShipped_" + giftCardId).hide();
                 }
                 else if (status == "PickedUp") {
                     $("#btnShipped_" + giftCardId).show();
@@ -3787,7 +3778,7 @@ function ChangeGiftCardOrderStatusNew(status) {
             crossDomain: true,
             async: false,
             success: function (data) {
-                
+
                 RefreshGiftCards();
                 RefreshGiftCardDetails(giftCardId);
 
@@ -4662,8 +4653,7 @@ function GotoRewards() {
     //window.location.href = 'rewards.html';
 }
 
-function SetStoreId()
-{
+function SetStoreId() {
     var storeId = 0;
     var params = getParams();
     if (localStorage.getItem("StoreId") != null) {
@@ -4677,7 +4667,7 @@ function SetStoreId()
     if (storeId > 0)
         return storeId;
     else {
-        self.app.router.navigate('/login_new/', { reloadCurrent: false }); 
+        self.app.router.navigate('/login_new/', { reloadCurrent: false });
     }
 }
 function SetCustomerId() {
@@ -4694,7 +4684,7 @@ function SetCustomerId() {
     if (customerId > 0)
         return customerId;
     else {
-        self.app.router.navigate('/login_new/', { reloadCurrent: false }); 
+        self.app.router.navigate('/login_new/', { reloadCurrent: false });
     }
 }
 
@@ -4850,7 +4840,7 @@ function LoadProfileDetails() {
                         }
 
                         //console.log("Name: " + name + " Description: " + description + " Address1: " + address1 + " Address2: " + address2 + " City: " + city + " State: " + state + " Zip: " + zip + " Phone: " + phone + " Fax: " + fax +
-                                //" SendFax: " + sendFax + " Refund Policy: " + refundPolicy + " Restaurnat Url: " + restaurantUrl + " Admin Eamil: " + adminEmail + " P Lead Time: " + pickupLeadTime + " C Lead Time: " + carryoutLeadTime);
+                        //" SendFax: " + sendFax + " Refund Policy: " + refundPolicy + " Restaurnat Url: " + restaurantUrl + " Admin Eamil: " + adminEmail + " P Lead Time: " + pickupLeadTime + " C Lead Time: " + carryoutLeadTime);
 
                     });
 
@@ -5770,8 +5760,8 @@ function CarryoutItemsListPagination(carryoutpagesize, carryoutcurrentPage) {
 
     var customerId = 0;
     var storeId = 0;
-    console.log("CarryoutItemsListPagination carryoutpagesize: " + carryoutpagesize)
-    console.log("CarryoutItemsListPagination carryoutpagesize: " + carryoutcurrentPage)
+   // console.log("CarryoutItemsListPagination carryoutpagesize: " + carryoutpagesize)
+    //console.log("CarryoutItemsListPagination carryoutpagesize: " + carryoutcurrentPage)
 
     storeId = SetStoreId();
     customerId = SetCustomerId();
@@ -5866,8 +5856,7 @@ function CarryoutItemsListPagination(carryoutpagesize, carryoutcurrentPage) {
     }
 
 }
-function GoToItemEdit(productId)
-{
+function GoToItemEdit(productId) {
     localStorage.setItem("HiddenItemId", productId);
     self.app.router.navigate('/foods/', { reloadCurrent: false });
 }
@@ -5906,11 +5895,9 @@ function BindItemById(productId) {
                             $("#txtProductName").val(value.NAME);
                         }
                         if (value.SHORTDESCRIPTION != "") {
+                            var shortDescription = value.SHORTDESCRIPTION.replace("<p>", "").replace("</p>", "");
+                            $("#txtProductDescription").val(shortDescription);
 
-                            $("textarea#txtProductDescription").val(value.SHORTDESCRIPTION);
-                        }
-                        if (value.PRICE != "") {
-                            $("#txtProductDescription").val(value.PRICE);
                         }
 
                         if (value.PRICE > 0) {
@@ -5943,6 +5930,7 @@ function BindItemById(productId) {
                         if (value.IsCarryout == 1) {
                             $("#chkCarryOut").prop('checked', true);
                         }
+                       
                         if (value.AVAILABILITYTYPE == "Normal") {
                             $("#chkNormal").prop('checked', true);
                             $("#liAvailTiming").hide();
@@ -6156,9 +6144,47 @@ function SaveProductInfo() {
     itemId = $("#hdnItemId").val();
     var customerId = 0;
     customerId = localStorage.getItem("CustomerId");
-    var storeId = 0;
-    storeId = SetStoreId();
+    var storeId = SetStoreId();
+    var isActive = false;
+    var isLunch = true;
+    var isBreakfast = false;
+    var isDinner = true;
+    var isBrunch = false;
+    var isDineIn = true;
+    var isCarryOut = true;
+    var foodSelectionType = "";
+    var availabilityType = "Normal";
+    var categoryId = $("#productCategory").val();
+    var name = $("#txtProductName").val();
+    var desc = $("#txtProductDescription").val();
+    var productprice = $("#txtProductPrice").val();
+    if ($("#checkItemActive").prop("checked") == true) {
+        isActive = true;
+    }
+    if ($("#chkLunch").prop("checked") == true) {
+        isLunch = true;
+    }
+    if ($("#chkBreakfast").prop("checked") == true) {
+        isBreakfast = true;
 
+    }
+    if ($("#chkDinner").prop("checked") == true) {
+        isDinner = true;
+    }
+    if ($("#chkBrunch").prop("checked") == true) {
+        isBrunch = true;
+    }
+    if ($("#chkDineIn").prop("checked") == true) {
+        isDineIn = true;
+    }
+    if ($("#chkCarryOut").prop("checked") == true) {
+        isCarryOut = true;
+    }
+
+    if ($("#chkTimeSpecific").prop("checked") == true) {
+        availabilityType = "Time Specific";
+    }
+    
     var hdnCount = $("#hdnAvailTimingCount").val();
     var arrTimings = [];
     var offerDays = [];
@@ -6182,6 +6208,7 @@ function SaveProductInfo() {
             var closingPeriod = "";
             var openingTime = "";
             var closingTime = "";
+            var price="0.00";
             if ($("#Avail_" + j + "_TimingId").length) {
                 valueTimingId = $("#Avail_" + j + "_TimingId").val();
             }
@@ -6190,49 +6217,120 @@ function SaveProductInfo() {
             openingMinute = $("#Avail_" + j + "_StartMinute").val();
             openingPeriod = $("#Avail_" + j + "_StartPeriod").val();
             openingTime = openingHour + ":" + openingMinute + " " + openingPeriod;
+            price=$("#Avail_" + j + "_Price").val();
 
             closingHour = $("#Avail_" + j + "_EndHour").val();
             closingMinute = $("#Avail_" + j + "_EndMinute").val();
             closingPeriod = $("#Avail_" + j + "_EndPeriod").val();
             closingTime = closingHour + ":" + closingMinute + " " + closingPeriod;
 
-            var currentValue = { TimingId: valueTimingId, Daykey: valueDayKey, StartTime: openingTime, EndTime: closingTime }
-            arrTimings.push(currentValue);
+            var currentValue = { TimingId: valueTimingId, Daykey: valueDayKey, StartTime: openingTime, EndTime: closingTime, Price: price };
+            if (price != "" && price != "0.00")
+            {
+                arrTimings.push(currentValue);
+            }
+            
         }
     }
 
-    //console.log(offerDays);
-    //console.log(arrTimings);
+  
 
     if (Number(storeId) > 0) {
 
-        var model = new Object();
-        model.ID = itemId
+        if (name != "" && categoryId != "0" && productprice != "")
+        {
+            var model = new Object();
+            model.ID = itemId;
 
-
-        model.CustomerId = customerId;
-        model.OfferDays = offerDays;
-        model.ListTiming = arrTimings;
-        //console.log(model);
-
-
-        $.post(global + "/AddUpdateItem", model, function (data) {
-            console.log(data.indexOf("Successful"));
-            if (data.indexOf("Successful") > -1 || data == "") {
-                LoadCouponEdit();
-                swal({
-                    title: "Item saved successfully!",
-                    confirmButtonText: "OK",
-                    type: "success",
-                    confirmButtonClass: 'btn btn-success',
-                    buttonsStyling: false,
-                    customClass: 'swal-wide',
-                });
+            model.CustomerId = customerId;
+            model.OfferDays = offerDays;
+            model.ListTiming = arrTimings;
+            model.StoreId = storeId;
+            model.CategoryId = categoryId;
+            model.Name = name;
+            model.ShortDescription = desc;
+            model.Price = productprice;
+            model.Published = isActive;
+            model.IsDinner = isDinner;
+            model.IsBreakFast = isBreakfast;
+            model.IsBranch = isBrunch;
+            model.IsLunch = isLunch;
+            model.IsDineIn = isDineIn;
+            model.IsCarryOut = isCarryOut;
+            model.AvailabilityType = availabilityType;
+            if (model.IsBranch) {
+                if (foodSelectionType != "") {
+                    foodSelectionType = foodSelectionType + "," + "Branch";
+                }
+                else {
+                    foodSelectionType = "Branch";
+                }
             }
-            else {
-                callSweetAlertWarning("Unable to save Item!");
+            if (model.IsBreakFast) {
+                if (foodSelectionType != "") {
+                    foodSelectionType = foodSelectionType + "," + "Breakfast";
+                }
+                else {
+                    foodSelectionType = "Breakfast";
+                }
             }
-        });
+            if (model.IsDinner) {
+                if (foodSelectionType != "") {
+                    foodSelectionType = foodSelectionType + "," + "Dinner";
+                }
+                else {
+                    foodSelectionType = "Dinner";
+                }
+            }
+            if (model.IsLunch) {
+                if (foodSelectionType != "") {
+                    foodSelectionType = foodSelectionType + "," + "Lunch";
+                }
+                else {
+                    foodSelectionType = "Lunch";
+                }
+            }
+
+            model.FoodSelectionType = foodSelectionType;
+            //console.log(model);
+            $.post(global + "/AddUpdateItem", model, function (data) {
+                console.log(data.indexOf("Successful"));
+                if (data.indexOf("Successful") > -1 || data == "") {
+                    swal({
+                        title: "Food item added successfully!",
+                        confirmButtonText: "OK",
+                        type: "success",
+                        confirmButtonClass: 'btn btn-success',
+                        buttonsStyling: false,
+                        customClass: 'swal-wide',
+                    }).then(function () {
+                        self.app.router.navigate('/food_list/', { reloadCurrent: true });
+                    });
+                }
+                else {
+                    callSweetAlertWarning("Food item add failed!");
+                }
+            });
+        }
+        else {
+            if (name == "") {
+                $('#txtProductName').css('border-bottom', errorClassBorder);
+            } else {
+                $('#txtProductName').css('border-bottom', bottomBorder);
+            }
+            if (categoryId == "0") {
+                $('#productCategory').css('border-bottom', errorClassBorder);
+            } else {
+                $('#productCategory').css('border-bottom', bottomBorder);
+            }
+            if (price == "") {
+                $('#txtProductPrice').css('border-bottom', errorClassBorder);
+            } else {
+                $('#txtProductPrice').css('border-bottom', bottomBorder);
+            }
+        }
+
+
 
     }
     else {
@@ -6245,11 +6343,11 @@ function SaveProductInfo() {
 //    storeId = SetStoreId();
 //    if (productId > 0 && Number(storeId) > 0)
 //    {
-     
+
 //        $('.div-contentTiming').remove();
 //        $('#hdnTimingCount').val(8);
-        
-        
+
+
 //        var moCount = 1; var tuCount = 1; var weCount = 1; var thCount = 1; var frCount = 1; var saCount = 1; var suCount = 1;
 //        $("#liDiscountTiming").show();
 //        $("#hdnItemId").val(productId);
@@ -6266,20 +6364,20 @@ function SaveProductInfo() {
 //                    //console.log(value); 
 //                    var count = 0;
 //                    if (value.Type == "ItemInfo") {
-                        
+
 //                        if (value.CategoryId != "") {
 //                            $("#productCategory").val(value.CATEGORYID);
 //                        }
-                        
+
 //                        if (value.NAME != "") {
 //                            $("#txtProductName").val(value.NAME);
 //                        }
 //                        if (value.SHORTDESCRIPTION != "") {
 //                            var shortDescription = value.SHORTDESCRIPTION.replace("<p>", "").replace("</p>", "");
 //                            $("#txtProductDescription").val(shortDescription);
-                           
+
 //                        }
-                     
+
 //                        if (value.PRICE > 0) {
 //                            var price = FormatDecimal(value.PRICE);
 //                            if (price.indexOf('$') > -1) {
@@ -6522,7 +6620,7 @@ function BindCategoy() {
 
             }
             else {
-                $('#productCategory').html("<option value=\"\">Category</option>");
+                $('#productCategory').html("<option value=\"0\">Category</option>");
                 $('#productCategory').append(data);
             }
         });
@@ -6530,44 +6628,7 @@ function BindCategoy() {
     }
 
 }
-function AddUpdateItem()
-{
-    var storeId = SetStoreId();
-    var isActive = false;
-    var isLunch = false;
-    var isBreakfast = false;
-    var isDinner = false;
-    var isBrunch = false;
-    var isDineIn = false;
-    var isCarryOut = false;
-    var categoryId = $("#productCategory").val();
-    var name = $("#txtProductName").val();
-    var desc = $("#txtProductDescription").val();
-    var price = $("#txtProductPrice").val();
-    if ($("#checkItemActive").prop("checked") == true) {
-        isActive = true;
-    }
-    if ($("#chkLunch").prop("checked") == true) {
-        isLunch = true;
-    }
-    if ($("#chkBreakfast").prop("checked") == true) {
-        isBreakfast = true;
-    }
-    if ($("#chkDinner").prop("checked") == true) {
-        isDinner = true;
-    }
-    if ($("#chkBrunch").prop("checked") == true) {
-        isBrunch = true;
-    }
-    if ($("#chkDineIn").prop("checked") == true) {
-        isDineIn = true;
-    }
-    if ($("#chkCarryOut").prop("checked") == true) {
-        isCarryOut = true;
-    }
 
-
-}
 
 //Profile Section End//
 
@@ -6674,6 +6735,7 @@ function CouponList(pagesize, currentPage) {
                             html += "<a><img src=\"./img/icons/inactive.png\"></a>";
                         }
                         html += "<a onclick=\"GoToCouponEdit(" + value.Id + ");\"><img src=\"./img/icons/edit-icon.png\"></a>";
+                        html += "<a onclick=\"DeleteCoupon(" + value.Id + ");\"><i class=\"material-icons\" style=\"font-size: 26px;padding-top: 5px;color:#ee3e3e;\">delete</i></a>";
                         html += "</div>";
 
                         html += "</div>";
@@ -6825,6 +6887,7 @@ function CouponListPagination(pagesize, currentPage) {
                             html += "<a><img src=\"./img/icons/inactive.png\"></a>";
                         }
                         html += "<a onclick=\"GoToCouponEdit(" + value.Id + ");\"><img src=\"./img/icons/edit-icon.png\"></a>";
+                        html += "<a onclick=\"DeleteCoupon(" + value.Id + ");\"><i class=\"material-icons\" style=\"font-size: 26px;padding-top: 5px;color:#ee3e3e;\">delete</i></a>";
                         html += "</div>";
 
                         html += "</div>";
@@ -6873,13 +6936,34 @@ function CouponListPagination(pagesize, currentPage) {
         self.app.router.navigate('/login_new/', { reloadCurrent: true });
     }
 }
+function DeleteCoupon(id) {
+    if (id > 0) {
+        if (confirm("Are you sure want to delete this record?") ){
+            $.ajax({
+                url: global + '/DeleteCouponById?couponId=' + id,
+                type: 'POST',
+                cache: false,
+                success: function (response) {
+                    if (response.indexOf("Successful" > -1) ){
+                        callSweetAlertSuccess("Coupon deleted successfully.");
+                        CouponList(10, 0);
+                    }
+                    else {
+                        callSweetAlertWarning("Unable to delete coupon!");
+                    }
+                }
+            });
+        }
+        return false;
+    }
+}
 
 function OpenCouponListDetails(id) {
 
     var storeId = 0;
     storeId = SetStoreId();
     var moCount = 1; var tuCount = 1; var weCount = 1; var thCount = 1; var frCount = 1; var saCount = 1; var suCount = 1;
-    
+
     /*-------------HTML Start---------------------------------*/
     var innerHtml = "";
 
@@ -7006,7 +7090,7 @@ function OpenCouponListDetails(id) {
                 });
             }
         });
-        
+
         //$("#dvCouponDetails").html($("#dvCouponDetailInner").html());
         $("#dvDetailsPanel").html($("#dvCouponDetailInner").html());
 
@@ -7353,8 +7437,8 @@ function SaveDiscount() {
         }
     }
 
-    console.log(offerDays);
-    console.log(arrTimings);
+    //console.log(offerDays);
+    //console.log(arrTimings);
 
     if (Number(storeId) > 0) {
         if (name != "" && couponCode != "") {
@@ -7724,8 +7808,6 @@ function DeleteTimingSection(idCount, timingId) {
 //Coupon Section End
 
 //Product Section Start
-
-
 function AddNewAvailTimingSection(dayName, dayKey, e) {
     var hdnCount = $('#hdnAvailTimingCount').val();
     var idCount = parseInt(hdnCount) + 1;
@@ -7837,14 +7919,12 @@ function AddNewAvailTimingSection(dayName, dayKey, e) {
     $("#div_" + dayName).append(html);
     $('#hdnAvailTimingCount').val(idCount);
 }
-
 function RemoveAvailTimingSection(idCount, e) {
     $("#div_contentAvailTiming_" + idCount + "").remove();
     var hdnCount = $('#hdnAvailTimingCount').val();
     var idCount = parseInt(hdnCount) - 1;
     $('#hdnAvailTimingCount').val(idCount);
 }
-
 function CreateAvailHourTimingHtml(iCount, type) {
     var hourHtml = "";
     hourHtml += "<select id=\"Avail_" + iCount + "_" + type + "Hour\" name=\"Avail[" + iCount + "]." + type + "Hour\">";
@@ -7881,7 +7961,6 @@ function CreateAvailPeriodTimingHtml(iCount, type) {
     periodHtml += "</select>";
     return periodHtml;
 }
-
 function AppendEditAvailTimingSection(timingId, dayName, dayKey, openingHour, openingMinute, openingPeriod, closingHour, closingMinute, closingPeriod, price) {
     var hdnCount = $('#hdnAvailTimingCount').val();
     var idCount = parseInt(hdnCount) + 1;
@@ -7994,8 +8073,6 @@ function AppendEditAvailTimingSection(timingId, dayName, dayKey, openingHour, op
     $('#hdnAvailTimingCount').val(idCount);
     //return html;
 }
-
-
 function CreateHourEditAvailTimingHtml(iCount, type, selectedHour) {
     var hourHtml = "";
     hourHtml += "<select id=\"Avail_" + iCount + "_" + type + "Hour\" name=\"Avail[" + iCount + "]." + type + "Hour\">";
@@ -8056,8 +8133,6 @@ function CreatePeriodEditAvailTimingHtml(iCount, type, period) {
     periodHtml += "</select>";
     return periodHtml;
 }
-
-
 function DeleteAvailTimingSection(idCount, timingId) {
 
     if (timingId > 0) {

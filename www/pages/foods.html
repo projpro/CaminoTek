@@ -36,7 +36,7 @@
                     <i class="icon icon-back"></i>
                 </a>-->
             </div>
-            <div class="center" id="dvProductText">Add Product</div>
+            <div class="center" id="dvProductText">Add Item</div>
             <div class="right">
                 <a class="icon-only navbar-right-single-icon" style="right:65px;" onclick="GotoProfile();"><i class="material-icons large-icon">account_circle</i></a>
                 <a class="icon-only navbar-right-single-icon" onclick="Logout();"><i class="material-icons large-icon">exit_to_app</i></a>
@@ -93,7 +93,7 @@
                                     </div>
                                     <span>Active</span>
                                     <label class="toggle toggle-init color-blue">
-                                        <input type="checkbox" id="checkItemActive">
+                                        <input type="checkbox" id="checkItemActive" checked>
                                         <span class="toggle-icon"></span>
                                     </label>
                                     
@@ -120,7 +120,7 @@
                                                 </div>
                                             </label>
                                             <label class="item-checkbox item-content">
-                                                <input type="checkbox" name="checkMenuType" value="Dinner" id="chkDinner" />
+                                                <input type="checkbox" name="checkMenuType" value="Dinner" id="chkDinner" checked="checked"/>
                                                 <i class="icon icon-checkbox"></i>
                                                 <div class="item-inner">
                                                     <div class="item-title">Dinner</div>
@@ -131,7 +131,7 @@
                                             <i class="material-icons"></i>
 
                                             <label class="item-checkbox item-content">
-                                                <input type="checkbox" name="checkMenuType" value="Breakfast" checked="checked" id="chkBreakfast" />
+                                                <input type="checkbox" name="checkMenuType" value="Breakfast" id="chkBreakfast" />
                                                 <i class="icon icon-checkbox"></i>
                                                 <div class="item-inner">
                                                     <div class="item-title">Breakfast</div>
@@ -160,7 +160,7 @@
                                                 </div>
                                             </label>
                                             <label class="item-checkbox item-content">
-                                                <input type="checkbox" name="checkFoodType" value="Carry Out" id="chkCarryOut" />
+                                                <input type="checkbox" name="checkFoodType" value="Carry Out" id="chkCarryOut" checked="checked"/>
                                                 <i class="icon icon-checkbox"></i>
                                                 <div class="item-inner">
                                                     <div class="item-title">Carry Out</div>
@@ -1733,7 +1733,7 @@
                                 <!--Timing Section End-->
 
                                 <li class="item-content">
-                                    <a class="custom-btn custom-bg custom-link" id="btnUpdateProduct" style="width: 97%;" onclick="SaveProfileInfo();">Save</a>
+                                    <a class="custom-btn custom-bg custom-link" id="btnUpdateProduct" style="width: 97%;" onclick="SaveProductInfo();">Save</a>
                                 </li>
                             </ul>
                         </div>
