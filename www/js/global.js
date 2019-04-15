@@ -5619,32 +5619,22 @@ function DeleteSection(idCount, timingId) {
 //Carryout Items
 function CarryoutItemsList(carryoutpagesize, carryoutcurrentPage) {
 
-    //Shorting
-    var sortValue = "DESC";
-    var sortByValue = "";
-    var filterStatus = "";
-    var orderNoFrom = "";
-    var orderNoTo = "";
-    var phone = "";
-    var orderDateFrom = "";
-    var orderDateTo = "";
-
+  
+   
     var customerId = 0;
     var storeId = 0;
     currentPage = 0;
     $("#dvFoodItemList").html("");
     storeId = SetStoreId();
     customerId = SetCustomerId();
-
+    //Sorting
 
     var name = $("#txtFilterItemName").val();
     var category = $("#filterProductCategory").val();
     var status = $("#ddlFilterItemStatus").val();
 
-    //Shorting
     var sortValue = $("input[name='radioItemSort']:checked").val();
     var sortByValue = $("input[name='radioItemSortBy']:checked").val();
-    //Shorting
 
     if (name == undefined) {
         name = "";
@@ -5753,27 +5743,39 @@ function CarryoutItemsList(carryoutpagesize, carryoutcurrentPage) {
 //Carryout Items
 function CarryoutItemsListPagination(carryoutpagesize, carryoutcurrentPage) {
     //Shorting
-    var sortValue = "DESC";
-    var sortByValue = "";
-    var filterStatus = "";
-    var orderNoFrom = "";
-    var orderNoTo = "";
-    var phone = "";
-    var orderDateFrom = "";
-    var orderDateTo = "";
-    //Shorting
-
+  
     var customerId = 0;
     var storeId = 0;
-   // console.log("CarryoutItemsListPagination carryoutpagesize: " + carryoutpagesize)
-    //console.log("CarryoutItemsListPagination carryoutpagesize: " + carryoutcurrentPage)
+  
 
     storeId = SetStoreId();
     customerId = SetCustomerId();
     if (Number(storeId) > 0) {
 
+        //Sorting
+
+        var name = $("#txtFilterItemName").val();
+        var category = $("#filterProductCategory").val();
+        var status = $("#ddlFilterItemStatus").val();
+
+        var sortValue = $("input[name='radioItemSort']:checked").val();
+        var sortByValue = $("input[name='radioItemSortBy']:checked").val();
+
+        if (name == undefined) {
+            name = "";
+        }
+        if (category == undefined) {
+            category = "0";
+        }
+
+        if (status == undefined) {
+            status = "";
+        }
+
+
         carryoutcurrentPage = Number(carryoutcurrentPage) * Number(carryoutpagesize);
-        url = global + "/GetAllCarryOutItems?storeid=" + storeId + "&pagesize=" + carryoutpagesize + "&currentPage=" + carryoutcurrentPage;
+        url = global + "/GetAllCarryOutItems?storeid=" + storeId + "&pagesize=" + carryoutpagesize + "&currentPage=" + carryoutcurrentPage + "&name=" + name + "&category=" + category + "&status=" + status +
+           "&sortValue=" + sortValue + "&sortByValue=" + sortByValue;
 
         try {
 
@@ -5838,8 +5840,6 @@ function CarryoutItemsListPagination(carryoutpagesize, carryoutcurrentPage) {
                     });
 
                 }
-
-
                 else {
                     localStorage.setItem("ItemAvailable", "0");
                     //var html = "<div class=\"order-list list-empty-label-text\">No items</div>";
