@@ -456,14 +456,6 @@ $$(document).on('page:init', function (e) {
         });
 
 
-        $$('#btnGiftCardOrderSearch').click(function () {
-            LoadGiftCards();
-        });
-
-        $$('#btnGiftCardOrderSort').click(function () {
-            LoadGiftCards();
-        });
-
         function LoadGiftCards() {                
             GiftCardOrdersList(pageSize, currentPage);
         }
