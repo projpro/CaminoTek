@@ -1027,6 +1027,7 @@ function InitPushNotification(storeId) {
         else if(data.message == "Stop Audio")
         {
             myMedia.stop();
+            acceptOrderPopup.destroy();
         }
         // alert('notification event: ' + data.message + ", " + data.title);
         //navigator.notification.alert(
