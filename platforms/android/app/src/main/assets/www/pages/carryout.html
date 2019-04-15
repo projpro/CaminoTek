@@ -522,6 +522,105 @@
                                         <a id="btnCarryoutSort" class="custom-btn custom-bg bg1 custom-link btn-filter" onclick="CarryoutOrdersList('All', 10, 0, '');">Sort</a>
                                     </li>
                                 </ul>
+
+                                <ul id="ulFilterSortItem" style="display:none;">
+                                    <li class="item-content">
+                                        <div class="item-media" style="width:96%">
+                                            <i class="material-icons">settings_ethernet</i>
+                                            <select id="ddlFilterItemStatus">
+                                                <option value="">Status</option>
+                                                <option value="Active">Active</option>
+                                                <option value="Inactive">Inactive</option>
+                                               
+                                            </select>
+                                        </div>
+                                    </li>
+                                    <li class="item-content">
+                                        <div class="item-media" style="width:96%">
+                                            <i class="material-icons">toc</i>
+                                            <div class="item-input-wrap input-dropdown-wrap">
+                                                <select placeholder="Category" id="filterProductCategory" required class="mandatory"></select>
+                                            </div>
+                                            <span class="input-clear-button"></span>
+                                        </div>
+                                    </li>
+                                    
+                                    <li class="item-content">
+                                        <div class="item-media" style="width:96%">
+                                            <i class="material-icons">local_pizza</i>
+                                            <input type="text" placeholder="Order #" id="txtFilterItemName" tabindex="2">
+                                            <span class="input-clear-button"></span>
+                                        </div>
+                                    </li>
+                                 
+                                    <li class="item-content">
+                                        <a id="btnItemFilter" class="custom-btn custom-bg bg1 custom-link btn-filter" onclick="CarryoutItemsList(10, 0);">Filter</a>
+                                    </li>
+                                    <li>
+                                        <div class="page-content">
+                                            <!--<div class="content-block-title" style="font-size:20px; padding-left:10px;padding-top: 25px;">Sort</div>-->
+                                            <h2 style="border:none;font-size:20px; padding-left:10px;padding-top: 25px;">Sort</h2>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <label class="item-radio item-content">
+                                            <input type="radio" name="radioItemSort" value="ASC" checked/>
+                                            <i class="icon icon-radio"></i>
+                                            <div class="item-inner">
+                                                <div class="item-title">Ascending</div>
+                                            </div>
+                                        </label>
+                                    </li>
+                                    <li>
+                                        <label class="item-radio item-content">
+                                            <input type="radio" name="radioItemSort" value="DESC"  />
+                                            <i class="icon icon-radio"></i>
+                                            <div class="item-inner">
+                                                <div class="item-title">Descending</div>
+                                            </div>
+                                        </label>
+                                    </li>
+                                    <li>
+                                        <div class="page-content">
+                                            <!--<div class="content-block-title" style="font-size:20px; padding-left:10px;">Field</div>-->
+                                            <h2 style="border:none;font-size:20px; padding-left:10px;">Field</h2>
+                                            <div class="list list-margin">
+                                                <ul style="padding-left:0px;">
+                                                    <li>
+                                                        <label class="item-radio item-content">
+                                                            <input type="radio" name="radioItemSortBy" value="Name" checked />
+                                                            <i class="icon icon-radio"></i>
+                                                            <div class="item-inner">
+                                                                <div class="item-title">Name</div>
+                                                            </div>
+                                                        </label>
+                                                    </li>
+                                                    <li>
+                                                        <label class="item-radio item-content">
+                                                            <input type="radio" name="radioItemSortBy" value="Category" />
+                                                            <i class="icon icon-radio"></i>
+                                                            <div class="item-inner">
+                                                                <div class="item-title">Category</div>
+                                                            </div>
+                                                        </label>
+                                                    </li>
+                                                    <li>
+                                                        <label class="item-radio item-content">
+                                                            <input type="radio" name="radioItemSortBy" value="Price" />
+                                                            <i class="icon icon-radio"></i>
+                                                            <div class="item-inner">
+                                                                <div class="item-title">Price</div>
+                                                            </div>
+                                                        </label>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="item-content">
+                                        <a id="btnItemSort" class="custom-btn custom-bg bg1 custom-link btn-filter" onclick="CarryoutItemsList(10, 0);">Sort</a>
+                                    </li>
+                                </ul>
                             </div>
 
                         </div>

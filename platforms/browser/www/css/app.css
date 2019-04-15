@@ -568,7 +568,8 @@ h4{
 }
 
 .list-categories .category img {
-	width: 90px;
+    width: 60%;
+	/*width: 90px;*/
 	display: block;
 	margin: 0px auto;
 }

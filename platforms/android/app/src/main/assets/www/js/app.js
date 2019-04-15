@@ -12,16 +12,15 @@ $$(document).on('deviceready', function () {
     var storeId = 0;
 
     //InitPushNotification();
-    if (device.platform != "browser")
-    {
+    if (device.platform != "browser") {
         if (localStorage.getItem("StoreId") != null)
             storeId = Number(localStorage.getItem("StoreId"));
         if (storeId > 0) {
             InitPushNotification(storeId);
         }
     }
-  
-    
+
+
 });
 // Init App
 var app = new Framework7({
@@ -43,27 +42,27 @@ $$(document).on('page:init', function (e) {
     $$('.back-new').click(function () {
         Back();
     });
-        
+
     $$('.toolbar-inner a').click(function () {
         if ($$('html').hasClass('with-panel-right-cover')) {
             $$('.panel-close').click();
         }
     });
 
-        $$('input').keypress(function (e) {
-            var code = (e.keyCode ? e.keyCode : e.which);
-            if ((code == 13) || (code == 10)) {
-                $$(this).blur();
-                return false;
-            }
-        });
+    $$('input').keypress(function (e) {
+        var code = (e.keyCode ? e.keyCode : e.which);
+        if ((code == 13) || (code == 10)) {
+            $$(this).blur();
+            return false;
+        }
+    });
 
     //console.log(e.detail.app.form.convertToData('#login'));
     var pageURL = e.detail.route.url;
     var page = e.detail.page;
     // console.log('pageURL: ' + pageURL)
     if (pageURL == "/") {
-        
+
         var appRefreshInterval = 120;
         var storeId = 0;
         if (localStorage.getItem("StoreId") != null)
@@ -76,10 +75,9 @@ $$(document).on('page:init', function (e) {
         else {
             localStorage.setItem("AppRefreshTimeInterval", appRefreshInterval);
         }
-        if (storeId > 0)
-        {
+        if (storeId > 0) {
             setTimeout(function () { self.app.router.navigate('/carryout/', { reloadCurrent: false }); }, 1000);
-           
+
         }
         else
             setTimeout(function () { self.app.router.navigate('/login_new/', { reloadCurrent: false }); }, 1000);
@@ -176,15 +174,23 @@ $$(document).on('page:init', function (e) {
             $('#ulFilterSortCarryout').show();
             $('#ulFilterSortGiftCard').hide();
             $('#ulFilterSortCoupon').hide();
+            $('#ulFilterSortItem').hide();
         });
 
     }
     else if (pageURL.indexOf('food_list') > -1) {//carry out food item list
 
-
+        BindCategoy('filterProductCategory');
         $$('#btnAddItem').click(function () {
             localStorage.setItem("HiddenItemId", 0);
             self.app.router.navigate('/foods/', { reloadCurrent: false });
+        });
+        $$('#linkfoodFilterIcon').click(function () {
+            $('#ulFilterSortCarryout').hide();
+            $('#ulFilterSortGiftCard').hide();
+            $('#ulFilterSortCoupon').hide();
+            $('#ulFilterSortItem').show();
+           
         });
         var pageSize = 10;
         var currentPage = 0;
@@ -245,7 +251,7 @@ $$(document).on('page:init', function (e) {
                 $('#liAvailTiming').hide();
             }
         });
-        BindCategoy();
+        BindCategoy('productCategory');
         var itemId = 0;
         if (localStorage.getItem("HiddenItemId") != null) {
             itemId = localStorage.getItem("HiddenItemId").trim();
@@ -456,15 +462,7 @@ $$(document).on('page:init', function (e) {
         });
 
 
-        //$$('#btnGiftCardOrderSearch').click(function () {
-        //    LoadGiftCards();
-        //});
-
-        //$$('#btnGiftCardOrderSort').click(function () {
-        //    LoadGiftCards();
-        //});
-
-        function LoadGiftCards() {                
+        function LoadGiftCards() {
             GiftCardOrdersList(pageSize, currentPage);
         }
 
@@ -487,6 +485,7 @@ $$(document).on('page:init', function (e) {
             $('#ulFilterSortGiftCard').show();
             $('#ulFilterSortCoupon').hide();
             $('#ulFilterSortCarryout').hide();
+            $('#ulFilterSortItem').hide();
         });
         //GiftCard Orders - End
 
@@ -538,7 +537,7 @@ $$(document).on('page:init', function (e) {
             ClearSpecialCharacter('txtRedeem');
         });
         $$('#txtMemberID_LoadRedeem').on('change', function () {
-          
+
             if ($('#txtMemberID_LoadRedeem').val() != "") {
                 $('#txtMemberID_LoadRedeem').css('border-bottom', bottomBorder);
             }
@@ -668,6 +667,7 @@ $$(document).on('page:init', function (e) {
             $('#ulFilterSortCoupon').show();
             $('#ulFilterSortCarryout').hide();
             $('#ulFilterSortGiftCard').hide();
+            $('#ulFilterSortItem').hide();
         });
 
         CouponList(pageSize, currentPage);
@@ -986,9 +986,9 @@ function InitPushNotification(storeId) {
         //WriteLog("registrationId: " + data.registrationId)
         console.log('registration event: ' + data.registrationId);
         //console.log('StoreId: ' + localStorage.getItem("StoreId"))
-       // alert("current RegId: " + data.registrationId)
+        // alert("current RegId: " + data.registrationId)
         var oldRegId = localStorage.getItem('registrationId');
-       // alert("oldRegId: " + oldRegId)
+        // alert("oldRegId: " + oldRegId)
         // console.log("oldRegId: " + oldRegId);
         if (oldRegId == null || oldRegId == undefined) {
             console.log("Save new registration ID")
@@ -1020,12 +1020,10 @@ function InitPushNotification(storeId) {
         //    // Do something after 30 second 
         //}, 30000);
         //alert('notification event: ' + data.message);
-        if (data.message == "A new order has been placed")
-        {
+        if (data.message == "A new order has been placed") {
             CheckNewOrder();
         }
-        else if(data.message == "Stop Audio")
-        {
+        else if (data.message == "Stop Audio") {
             myMedia.stop();
             acceptOrderPopup.destroy();
         }
@@ -1076,58 +1074,9 @@ function CheckLoggedIn() {
 
     }
 }
-//function CheckStoreTimings() {
 
-//    var isAvailable = false;
-//    if (localStorage.getItem("storetimings") != null) {
-
-//        var storetimings = JSON.parse(localStorage.getItem("storetimings"));
-//        var dayOfWeek = getCurrentdayOfWeek();
-//        //WriteLog("dayOfWeek: " + dayOfWeek)
-//        var filtered_json = filterJSON(JSON.parse(storetimings.toString()), dayOfWeek);
-
-//        $.each(JSON.parse(JSON.stringify(filtered_json)), function (key, value) {
-//            var day = value.DAY;
-//            //var openingdate = value.OPENINGTIME.split('~')[0];
-//            var openingdate = GetCurrentDateOnly();
-//            var openingtime = value.OPENINGTIME.split('~')[1];
-
-//            //var closingdate = value.CLOSINGTIME.split('~')[0];
-//            var closingdate = GetCurrentDateOnly();
-//            var closingtime = value.CLOSINGTIME.split('~')[1];
-
-//            var startTime = Date.parse(openingdate + " " + openingtime);
-//            var endTime = Date.parse(closingdate + " " + closingtime);
-//            var currentTime = Date.now();
-
-//            if (currentTime >= startTime && currentTime <= endTime) {
-//                isAvailable = true;
-//                return false;
-//            }
-//            else {
-//                isAvailable = false;
-//            }
-
-//        });
-//        if (isAvailable === true) {
-//            //CheckNewOrder();
-
-//        }
-//        else {
-
-//            console.log(GetCurrentDateTime() + " - " + "Store is Closed")
-//        }
-//    }
-//    else {
-
-//        //  CheckNewOrder();
-//        //setInterval(CheckNewOrder, Number(apprefreshinterval) * 1000);
-//    }
-
-//    console.log(GetCurrentDateTime() + " - " + "CheckStoreTimings END")
-//}
 function CheckNewOrder() {
-   // alert("CheckNewOrder START")
+    // alert("CheckNewOrder START")
     console.log(GetCurrentDateTime() + " - " + "CheckNewOrder START", browser);
     var params = getParams();
     var storeId = 0;
@@ -1322,7 +1271,7 @@ function CheckNewOrder() {
 
 function AcceptOrders() {
     myMedia.stop();
-  
+
     var orderIds = $("#hdnOrderIds").val().trim();
     var orders = [];
     var customerphone = [];
@@ -1380,7 +1329,7 @@ function AcceptOrders() {
         success: function (response) {
             acceptOrderPopup.destroy();
             //console.log("ChangeBulkOrderStatus: " + response)
-          
+
 
             //CarryoutOrdersList("Processing", pageSize, currentPage);
             $("#hdnOrderIds").val("");
@@ -1424,15 +1373,14 @@ function AcceptOrders() {
 
     StopSoundOtherDevices();
 }
-function StopSoundOtherDevices(storeId)
-{
+function StopSoundOtherDevices(storeId) {
     $.ajax({
         url: global + 'StopSoundInAllDevices',
         type: 'GET',
         data: {
-            
+
             storeId: storeId,
-            
+
         },
         datatype: 'jsonp',
         contenttype: "application/json",
@@ -1440,7 +1388,7 @@ function StopSoundOtherDevices(storeId)
         async: false,
         success: function (response) {
             console.log(response)
-            
+
         },
         error: function (xhr, textStatus, errorThrown) {
             //alert(xhr.responseText);
