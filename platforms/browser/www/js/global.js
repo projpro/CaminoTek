@@ -3843,9 +3843,29 @@ function ShowSearch() {
     $('#ulFilterSortCoupon').hide();
     RefreshGiftCards();
 }
-function HideSearch() {
+function HideSearch(tabName) {
     $('#linkSearchIcon').hide();
     $('#ulFilterSortGiftCard').hide();
+    $('#ulFilterSortItem').hide();
+
+    if(tabName=="New")
+    {
+        $("#txtCardCode").focus();
+    }
+    else {
+        $("#txtCardCodeSearch").focus();
+    }
+
+}
+function RewardsTabChange(tabName)
+{
+    $('#ulFilterSortItem').hide();
+    if (tabName == "New") {
+       $("#txtMemberId_Reward").focus();
+    }
+    else {
+        $("#txtMemberID_LoadRedeem").focus();
+    }
 }
 //Gift Card Orders END
 
