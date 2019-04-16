@@ -110,6 +110,22 @@ $$(document).on('page:init', function (e) {
             dateFormat: 'mm/dd/yyyy',
         });
 
+
+        var calendarModalCouponStart = app.calendar.create({
+            inputEl: '#txtFilterCouponStart',
+            openIn: 'customModal',
+            header: true,
+            footer: true,
+            dateFormat: 'mm/dd/yyyy',
+        });
+        var calendarModalCouponEnd = app.calendar.create({
+            inputEl: '#txtFilterCouponEnd',
+            openIn: 'customModal',
+            header: true,
+            footer: true,
+            dateFormat: 'mm/dd/yyyy',
+        });
+
         CheckGiftCardPermission();
         $$("#hdnCurrentState").val('New');
 
@@ -192,6 +208,38 @@ $$(document).on('page:init', function (e) {
             $('#ulFilterSortItem').show();
            
         });
+
+
+        var calendarModalOrderStart = app.calendar.create({
+            inputEl: '#txtFilterOrderDateFrom',
+            openIn: 'customModal',
+            header: true,
+            footer: true,
+            dateFormat: 'mm/dd/yyyy',
+        });
+        var calendarModalOrderEnd = app.calendar.create({
+            inputEl: '#txtFilterOrderDateTo',
+            openIn: 'customModal',
+            header: true,
+            footer: true,
+            dateFormat: 'mm/dd/yyyy',
+        });
+
+
+        var calendarModalCouponStart = app.calendar.create({
+            inputEl: '#txtFilterCouponStart',
+            openIn: 'customModal',
+            header: true,
+            footer: true,
+            dateFormat: 'mm/dd/yyyy',
+        });
+        var calendarModalCouponEnd = app.calendar.create({
+            inputEl: '#txtFilterCouponEnd',
+            openIn: 'customModal',
+            header: true,
+            footer: true,
+            dateFormat: 'mm/dd/yyyy',
+        });
         var pageSize = 10;
         var currentPage = 0;
         document.addEventListener("deviceready", onDeviceReady, false);
@@ -267,6 +315,37 @@ $$(document).on('page:init', function (e) {
 
     else if (pageURL.indexOf('giftcard') > -1)//Gift Card
     {
+
+        var calendarModalOrderStart = app.calendar.create({
+            inputEl: '#txtFilterOrderDateFrom',
+            openIn: 'customModal',
+            header: true,
+            footer: true,
+            dateFormat: 'mm/dd/yyyy',
+        });
+        var calendarModalOrderEnd = app.calendar.create({
+            inputEl: '#txtFilterOrderDateTo',
+            openIn: 'customModal',
+            header: true,
+            footer: true,
+            dateFormat: 'mm/dd/yyyy',
+        });
+
+
+        var calendarModalCouponStart = app.calendar.create({
+            inputEl: '#txtFilterCouponStart',
+            openIn: 'customModal',
+            header: true,
+            footer: true,
+            dateFormat: 'mm/dd/yyyy',
+        });
+        var calendarModalCouponEnd = app.calendar.create({
+            inputEl: '#txtFilterCouponEnd',
+            openIn: 'customModal',
+            header: true,
+            footer: true,
+            dateFormat: 'mm/dd/yyyy',
+        });
         function preventScroll(e) {
             e.preventDefault();
         }
@@ -695,6 +774,22 @@ $$(document).on('page:init', function (e) {
                 }
             }
         }
+        var calendarModalOrderStart = app.calendar.create({
+            inputEl: '#txtFilterOrderDateFrom',
+            openIn: 'customModal',
+            header: true,
+            footer: true,
+            dateFormat: 'mm/dd/yyyy',
+        });
+        var calendarModalOrderEnd = app.calendar.create({
+            inputEl: '#txtFilterOrderDateTo',
+            openIn: 'customModal',
+            header: true,
+            footer: true,
+            dateFormat: 'mm/dd/yyyy',
+        });
+
+
         var calendarModalCouponStart = app.calendar.create({
             inputEl: '#txtFilterCouponStart',
             openIn: 'customModal',

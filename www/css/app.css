@@ -1183,12 +1183,32 @@ h4{
     margin:auto;
     width:40%;
 }
-
+.giftcard-buttons
+{
+    /*width:100%;*/
+   display:flex;
+    /*flex-direction:column;*/
+    align-items:center;
+    margin:auto;
+    width:50%;
+}
 /*.order-buttons img{
     width:41%;
     margin:0 25px;
 }*/
-
+.coupon-buttons
+{
+    /*width:100%;*/
+   display:flex;
+    /*flex-direction:column;*/
+    align-items:center;
+    margin:auto;
+    width:40%;
+}
+.coupon-buttons img{
+    width:41%;
+    margin:0 25px;
+}
 #dvFoodItemList .order-buttons img{
     width:40%;
     margin:0 14px;
@@ -1757,7 +1777,7 @@ select:-moz-focusring {
 .swal2-popup .swal2-actions{display:block !important;}
 .large-icon{font-size:35px;}
 .giftcard-order-number {
-    width: 60%;
+    width: 40%;
     font-size: 18px;
     color: #111111;
 }
@@ -1822,6 +1842,10 @@ select:-moz-focusring {
 }
 .carryout-button{
     margin-right:5px;
+}
+.giftcard-button-set {
+    width: 17% !important;
+    margin: 0 7px 0 0 !important;
 }
 /*---Profile Section End-*/
 
