@@ -30,7 +30,11 @@ var app = new Framework7({
     routes: routes,
     view: {
         pushState: false
-    }
+    },
+    statusbar: {
+        androidOverlaysWebView: true,
+        overlay:false
+},
     //pushState: true,
 });
 
