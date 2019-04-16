@@ -267,10 +267,23 @@ $$(document).on('page:init', function (e) {
 
     else if (pageURL.indexOf('giftcard') > -1)//Gift Card
     {
+        function preventScroll(e) {
+            e.preventDefault();
+        }
+
+        // Call this func to block page scroll
+        function blockScroll() {
+            $$('.page').on('touchstart touchmove', preventScroll);
+        }
+        function blockOffScroll() {
+            $$('.page').off('touchstart touchmove', preventScroll);
+        }
+
         $$("#txtCardCode").focus();
         //$$("#txtCardCodeSearch").focus();
         var screen_width = document.documentElement.clientWidth;
         var screen_heght = document.documentElement.clientHeight;
+        var currentTab = "New";
         //console.log('screen_width: ' + screen_width)
         // console.log('screen_heght: ' + screen_heght)
         //Check GiftCard and GiftCard Program Enable
@@ -290,7 +303,8 @@ $$(document).on('page:init', function (e) {
 
             }
             else if (giftCardProgramEnabled == "True") {
-                //$('#txtCardCode').focus();
+                blockScroll();
+                $('#txtCardCode').focus();
                 $('#linkGiftCardNew').removeClass('disabled');
                 $('#linkGiftCardRedeem').removeClass('disabled');
                 $('.tabs').css({ "transform": "translate3d(0%, 0px, 0px)" });
@@ -409,6 +423,30 @@ $$(document).on('page:init', function (e) {
         GiftCardOrdersList(pageSize, currentPage);
         //$$('.page-content').css('overflow', 'hidden');
         //GiftCard Load New - Start
+        $$('#linkGiftCardNew').click(function () {
+            $('#txtCardCode').focus();
+            currentTab = "New";
+            blockScroll();
+        });
+        $$('#linkGiftCardRedeem').click(function () {
+            $('#txtCardCodeSearch').focus();
+            if (currentTab == "New") {
+                if (screen_width <= 417) {
+                    $('.tabs').css("transform", "translate3d(-1%, 0px, 0px)");
+                }
+                else {
+                    $('.tabs').css("transform", "translate3d(-30%, 0px, 0px)");
+                }
+            }
+            else {
+                $('.tabs').css("transform", "translate3d(-100%, 0px, 0px)");
+            }
+            blockOffScroll();
+        });
+        $$('#linkGiftCardOrder').click(function () {
+            currentTab = "Order";
+            blockOffScroll();
+        });
         $$('#txtCardCode').on('blur', function () {
             ClearSpecialCharacter('txtCardCode');
         });
@@ -546,6 +584,12 @@ $$(document).on('page:init', function (e) {
             if ($('#txtMemberID_LoadRedeem').val() != "") {
                 $('#txtMemberID_LoadRedeem').css('border-bottom', bottomBorder);
             }
+        });
+        $$('#linkRewardNew').click(function () {
+            $('#txtMemberId_Reward').focus();
+        });
+        $$('#linkRewardLoadRedeem').click(function () {
+            $('#txtMemberID_LoadRedeem').focus();
         });
         document.addEventListener("deviceready", onDeviceReady, false);
         function onDeviceReady() {
@@ -788,7 +832,7 @@ $$(document).on('page:init', function (e) {
                       {
                           values: (function () {
                               var arr = [];
-                              for (var i = 0; i <= 11; i++) {
+                              for (var i = 1; i <= 12; i++) {
                                   if (i <= 9) {
                                       arr.push("0" + i);
                                   }
@@ -800,7 +844,7 @@ $$(document).on('page:init', function (e) {
                           })(),
                           displayValues: (function () {
                               var arr = [];
-                              for (var i = 0; i <= 11; i++) {
+                              for (var i = 1; i <= 12; i++) {
                                   if (i <= 9) {
                                       arr.push("0" + i);
                                   }
@@ -907,7 +951,7 @@ $$(document).on('page:init', function (e) {
                       {
                           values: (function () {
                               var arr = [];
-                              for (var i = 0; i <= 11; i++) {
+                              for (var i = 1; i <= 12; i++) {
                                   if (i <= 9) {
                                       arr.push("0" + i);
                                   }
@@ -919,7 +963,7 @@ $$(document).on('page:init', function (e) {
                           })(),
                           displayValues: (function () {
                               var arr = [];
-                              for (var i = 0; i <= 11; i++) {
+                              for (var i = 1; i <= 12; i++) {
                                   if (i <= 9) {
                                       arr.push("0" + i);
                                   }

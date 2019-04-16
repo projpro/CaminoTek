@@ -52,14 +52,14 @@
 
                 <div id="profileTabs" class="custom-tabs display-flex justify-content-space-between align-items-center tab-margin-top fixed-tab-header">
 
-                    <div class="custom-tab custom-tab-carryout" style="width:50%">
+                    <div class="custom-tab custom-tab-carryout width-half">
                         <a href="#tab-profile-info" class="tab-link tab-link-active">
                             <div class="tab-right-text">Info</div>
                             <div class="border-tab"></div>
                         </a>
                     </div>
 
-                    <div class="custom-tab custom-tab-carryout" style="width:50%">
+                    <div class="custom-tab custom-tab-carryout width-half">
                         <a href="#tab-profile-timing" class="tab-link" onclick="ShowStoreTiming();">  
                             <div class="tab-right-text">Hours</div>
                             <div class="border-tab"></div>
@@ -78,47 +78,47 @@
                                             <div class="list media-list">
                                                 <ul>
                                                     <li class="item-content">
-                                                        <div class="item-media" style="width:96%">
+                                                        <div class="item-media item-media-section">
                                                             <i class="material-icons">account_circle</i>
                                                             <input type="text" placeholder="Name" id="txtProfileName" required class="mandatory">
                                                             <span class="input-clear-button"></span>
                                                         </div>
                                                     </li>
                                                     <li class="item-content">
-                                                        <div class="item-media" style="width:96%">
+                                                        <div class="item-media item-media-section">
                                                             <i class="material-icons">description</i>
                                                             <textarea id="txtProfileDescription" placeholder="Description"></textarea>
                                                             <span class="input-clear-button"></span>
                                                         </div>
                                                     </li>
                                                     <li class="item-content">
-                                                        <div class="item-media" style="width:96%">
+                                                        <div class="item-media item-media-section">
                                                             <i class="material-icons">edit_location</i>
                                                             <input type="text" placeholder="Address" id="txtProfileAddress1" required class="mandatory">
                                                             <span class="input-clear-button"></span>
                                                         </div>
                                                     </li>
                                                     <li class="item-content">
-                                                        <div class="item-media" style="width:96%">
+                                                        <div class="item-media item-media-section">
                                                             <!--<i class="material-icons">edit_location</i>-->
                                                             <input type="text" placeholder="Address1" id="txtProfileAddress2">
                                                             <span class="input-clear-button"></span>
                                                         </div>
                                                     </li>
-                                                    <li class="item-content" style="width:96%">
-                                                        <div class="item-media" style="width:45%">
+                                                    <li class="item-content item-media-section">
+                                                        <div class="item-media width-half">
                                                             <!--<i class="material-icons">location_city</i>-->
                                                             <input type="text" placeholder="City" id="txtProfileCity" required class="mandatory">
                                                             <span class="input-clear-button"></span>
                                                         </div>  
-                                                        <div class="item-media" style="width:45%">
+                                                        <div class="item-media width-half">
                                                             <i class="material-icons">phone</i>
                                                             <input type="number" placeholder="Phone" id="txtProfilePhone" required class="mandatory" onKeyPress="if(this.value.length==10) return false;">
                                                             <span class="input-clear-button"></span>
                                                         </div>
                                                     </li>
-                                                    <li class="item-content" style="width:96%">
-                                                        <div class="item-media" style="width:45%">
+                                                    <li class="item-content item-media-section">
+                                                        <div class="item-media width-half">
                                                             <!--<i class="material-icons">account_balance</i>-->
                                                             <!--<input type="text" placeholder="State" id="txtProfileState" class="mandatory">-->
                                                             <div class="item-input-wrap input-dropdown-wrap">
@@ -179,14 +179,14 @@
                                                             </div>
                                                             <span class="input-clear-button"></span>
                                                         </div>
-                                                        <div class="item-media" style="width:45%">
+                                                        <div class="item-media width-half">
                                                             <i class="material-icons">chrome_reader_mode</i>
                                                             <input type="number" placeholder="Fax" id="txtProfileFax" onKeyPress="if(this.value.length==10) return false;">
                                                             <span class="input-clear-button"></span>
                                                         </div>
                                                     </li>
-                                                    <li class="item-content" style="width:96%">   
-                                                        <div class="item-media" style="width:45%">
+                                                    <li class="item-content item-media-section">   
+                                                        <div class="item-media width-half">
                                                             <!--<i class="material-icons">location_city</i>-->
                                                             <input type="number" placeholder="Zip" id="txtProfileZip" required class="mandatory" onKeyPress="if(this.value.length==5) return false;">
                                                             <span class="input-clear-button"></span>
@@ -198,29 +198,29 @@
                                                         </label>  
                                                     </li>
                                                     <li class="item-content">
-                                                        <div class="item-media" style="width:96%">
+                                                        <div class="item-media item-media-section">
                                                             <i class="material-icons">assignment</i>
                                                             <textarea id="txtProfileRefundPolicy" placeholder="Refund Policy"></textarea>
                                                             <span class="input-clear-button"></span>
                                                         </div>
                                                     </li>
                                                     <li class="item-content">
-                                                        <div class="item-media" style="width:96%">
+                                                        <div class="item-media item-media-section">
                                                             <i class="material-icons">web</i>
                                                             <input type="text" placeholder="Restaurant URL" id="txtProfileRestaurantURL" required class="mandatory">
                                                             <span class="input-clear-button"></span>
                                                         </div>
                                                     </li>
                                                     <li class="item-content">
-                                                        <div class="item-media" style="width:96%">
+                                                        <div class="item-media item-media-section">
                                                             <input type="hidden" id="hdnFullAdminEmail" />
                                                             <i class="material-icons">email</i>
                                                             <input type="text" placeholder="Admin Email" id="txtProfileAdminEmail" required class="mandatory">
                                                             <span class="input-clear-button"></span>
                                                         </div>
                                                     </li>
-                                                    <li class="item-content" style="width:96%">
-                                                        <div class="item-media" style="width:45%">
+                                                    <li class="item-content item-media-section">
+                                                        <div class="item-media width-half">
                                                             <i class="material-icons" title="Pickup Lead Time(mins)">replay_10</i>
                                                             <div class="item-input-wrap input-dropdown-wrap">
                                                                 <select placeholder="Pickup Lead Time" required id="ddlProfilePickupLeadTime">
@@ -232,7 +232,7 @@
                                                                 </select>
                                                             </div>
                                                         </div>
-                                                        <div class="item-media" style="width:45%">
+                                                        <div class="item-media width-half">
                                                             <i class="material-icons" title="Carry Out Lead Time(mins)">forward_10</i>
                                                             <div class="item-input-wrap input-dropdown-wrap">
                                                                 <select placeholder="Carry Out Lead Time" required id="ddlProfileCarryOutLeadTime">
@@ -247,7 +247,7 @@
                                                         </div>
                                                     </li>
                                                     <li class="item-content">
-                                                        <a class="custom-btn custom-bg custom-link" id="btnUpdateProfile" style="width: 97%;" onclick="SaveStoreInfo();">Save</a>
+                                                        <a class="custom-btn custom-bg custom-link item-media-section" id="btnUpdateProfile"onclick="SaveStoreInfo();">Save</a>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -265,12 +265,12 @@
                                     <div class="from-wrapper">
                                         <div class="form-item">
                                             <div class="list media-list" style="margin:auto">
-                                                <div class="item-media" style="width:96%">
-                                                    <div style="width:100%;">
+                                                <div class="item-media item-media-section">
+                                                    <div class="width-full">
                                                         <input type="hidden" id="hdnCount" value="8">
                                                                                                                     
                                                         <ul>
-                                                            <li class="item-content" style="width:100%">
+                                                            <li class="item-content width-full">
                                                                 <label style="width:35%" class="item-checkbox item-content">
                                                                     <input type="checkbox"  id="Businesday_0_IsCheck" name="Businesday[0].IsCheck" value="Monday" />
                                                                     <i class="icon icon-checkbox"></i>
@@ -481,7 +481,7 @@
                                                                 </div>
                                                             </li>
 
-                                                            <li class="item-content" style="width:100%">
+                                                            <li class="item-content width-full">
                                                                 <label style="width:35%" class="item-checkbox item-content">
                                                                     <input type="checkbox" id="Businesday_1_IsCheck" name="Businesday[1].IsCheck" value="Tuesday" />
                                                                     <i class="icon icon-checkbox"></i>
@@ -690,7 +690,7 @@
                                                                 </div>                                                                 
                                                             </li>
 
-                                                            <li class="item-content" style="width:100%">
+                                                            <li class="item-content width-full">
                                                                 <label style="width:35%" class="item-checkbox item-content">
                                                                     <input type="checkbox" id="Businesday_2_IsCheck" name="Businesday[1].IsCheck" value="Wednesday" />
                                                                     <i class="icon icon-checkbox"></i>
@@ -899,7 +899,7 @@
                                                                 </div>                                                                
                                                             </li>
 
-                                                            <li class="item-content" style="width:100%">
+                                                            <li class="item-content width-full">
                                                                 <label style="width:35%" class="item-checkbox item-content">
                                                                     <input type="checkbox" id="Businesday_3_IsCheck" name="Businesday[3].IsCheck" value="Thursday" />
                                                                     <i class="icon icon-checkbox"></i>
@@ -1108,7 +1108,7 @@
                                                                 </div>                                                                
                                                             </li>
 
-                                                            <li class="item-content" style="width:100%">
+                                                            <li class="item-content width-full">
                                                                 <label style="width:35%" class="item-checkbox item-content">
                                                                     <input type="checkbox" id="Businesday_4_IsCheck" name="Businesday[4].IsCheck" value="Friday" />
                                                                     <i class="icon icon-checkbox"></i>
@@ -1317,7 +1317,7 @@
                                                                 </div>                                                                
                                                             </li>
 
-                                                            <li class="item-content" style="width:100%">
+                                                            <li class="item-content width-full">
                                                                 <label style="width:35%" class="item-checkbox item-content">
                                                                     <input type="checkbox" id="Businesday_5_IsCheck" name="Businesday[5].IsCheck" value="Saturday" />
                                                                     <i class="icon icon-checkbox"></i>
@@ -1526,7 +1526,7 @@
                                                                 </div>                                                                 
                                                             </li>
 
-                                                            <li class="item-content" style="width:100%">
+                                                            <li class="item-content width-full">
                                                                 <label style="width:35%" class="item-checkbox item-content">
                                                                     <input type="checkbox" id="Businesday_6_IsCheck" name="Businesday[6].IsCheck" value="Sunday" />
                                                                     <i class="icon icon-checkbox"></i>
@@ -1735,7 +1735,7 @@
                                                                 </div>                                                                
                                                             </li>
                                                             <li class="item-content">
-                                                                <a class="custom-btn custom-bg custom-link" id="btnSaveStoreTiming" style="width: 97%;" onclick="SaveStoreTiming();">Save</a>
+                                                                <a class="custom-btn custom-bg custom-link item-media-section" id="btnSaveStoreTiming" onclick="SaveStoreTiming();">Save</a>
                                                             </li>
                                                         </ul>
                                                     </div>

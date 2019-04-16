@@ -25,10 +25,12 @@
         </div>
     </div>
 
+
+
     <div class="navbar">
         <div class="navbar-inner">
             <div class="left">
-                <img src="./img/app-logo.png" />
+                <img src="./img/app-logo.png" " />
                 <a class="tab-link back-new" onclick="Back();">
                     <i class="material-icons material-icons-one">arrow_back</i>
                 </a>
@@ -39,7 +41,7 @@
             <div class="center">Gift Card</div>
             <a class="fab fab-right-top panel-open navbar-site-action icon-only searchbar-enable navbar-right-icon-2" id="linkSearchIcon" data-panel="right" style="display:none;"><i class="material-icons large-icon">filter_list</i></a>
             <div class="right">
-                <a class="icon-only navbar-right-single-icon" style="right:65px;" href="/profile/"><i class="material-icons large-icon">account_circle</i></a>
+                <a class="icon-only navbar-right-single-icon" style="right:65px;" onclick="GotoProfile();"><i class="material-icons large-icon">account_circle</i></a>
                 <a class="icon-only navbar-right-single-icon" onclick="Logout();"><i class="material-icons large-icon">exit_to_app</i></a>
             </div>
         </div>
@@ -54,14 +56,14 @@
 
                     <div class="custom-tab custom-tab-carryout">
                         <!--tab-link-active-->
-                        <a href="#tab-giftcard-new" class="tab-link tab-link-active" id="linkGiftCardNew" onclick="HideSearch('New');">
+                        <a href="#tab-giftcard-new" class="tab-link tab-link-active" id="linkGiftCardNew" onclick="HideSearch();">
                             <div class="tab-right-text">New</div>
                             <div class="border-tab"></div>
                         </a>
                     </div>
 
                     <div class="custom-tab custom-tab-carryout">
-                        <a href="#tab-giftcard-loadRedeem" class="tab-link" id="linkGiftCardRedeem" onclick="HideSearch('LoadRedeem');">
+                        <a href="#tab-giftcard-loadRedeem" class="tab-link" id="linkGiftCardRedeem" onclick="HideSearch();">
                             <div class="tab-right-text">Load/Redeem</div>
                             <div class="border-tab"></div>
                         </a>
@@ -93,45 +95,44 @@
                                                 <ul>
 
                                                     <li class="item-content">
-                                                        <div class="item-media" style="width:96%">
+                                                        <div class="item-media item-media-section">
                                                             <i class="material-icons">credit_card</i>
-                                                            <input type="text" placeholder="Card Code" id="txtCardCode" class="mandatory">
+                                                            <input type="text" placeholder="Card Code" id="txtCardCode" class="mandatory" autofocus>
                                                             <span class="input-clear-button"></span>
 
 
                                                         </div>
                                                     </li>
                                                     <li class="item-content">
-                                                        <div class="item-media" style="width:96%">
+                                                        <div class="item-media item-media-section">
                                                             <i class="material-icons">phone</i>
                                                             <input type="number" placeholder="Phone" id="txtPhone">
                                                             <span class="input-clear-button"></span>
                                                         </div>
                                                     </li>
                                                     <li class="item-content">
-                                                        <div class="item-media" style="width:96%">
+                                                        <div class="item-media item-media-section">
                                                             <i class="material-icons">account_circle</i>
                                                             <input type="text" placeholder="Name" id="txtName">
                                                             <span class="input-clear-button"></span>
                                                         </div>
                                                     </li>
                                                     <li class="item-content">
-                                                        <div class="item-media" style="width:96%">
+                                                        <div class="item-media item-media-section">
                                                             <i class="material-icons">email</i>
                                                             <input type="text" placeholder="Email" id="txtEmail">
                                                             <span class="input-clear-button"></span>
                                                         </div>
                                                     </li>
                                                     <li class="item-content">
-                                                        <div class="item-media" style="width:96%">
+                                                        <div class="item-media item-media-section">
                                                             <i class="material-icons">attach_money</i>
-                                                            <!--<input type="number" min="1" step="any" placeholder="Amount" id="txtAmount" class="mandatory">-->
-                                                            <input type="tel" placeholder="Amount" id="txtAmount" class="mandatory">
+                                                            <input type="number" min="1" step="any" placeholder="Amount" id="txtAmount" class="mandatory">
                                                             <span class="input-clear-button"></span>
                                                         </div>
                                                     </li>
                                                     <li class="item-content">
-                                                        <a class="custom-btn custom-bg custom-link" id="btnAddCard" style="width: 97%;">Add Card</a>
+                                                        <a class="custom-btn custom-bg custom-link btn-add-card" id="btnAddCard">Add Card</a>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -157,46 +158,44 @@
                                                     <div class="list media-list" style="margin:auto">
                                                         <ul>
                                                             <li class="item-content">
-                                                                <div class="item-media" style="width:96%">
+                                                                <div class="item-media item-media-section">
                                                                     <i class="material-icons">credit_card</i>
-                                                                    <input type="text" placeholder="Card Code" id="txtCardCodeSearch" class="mandatory">
+                                                                    <input type="text" placeholder="Card Code" id="txtCardCodeSearch" class="mandatory" autofocus>
                                                                     <span class="input-clear-button"></span>
                                                                 </div>
                                                             </li>
                                                             <li class="item-content">
-                                                                <div class="item-media" style="width:96%">
+                                                                <div class="item-media item-media-section">
                                                                     <i class="material-icons">phone</i>
                                                                     <input type="number" placeholder="Phone" id="txtPhoneSearch">
                                                                     <span class="input-clear-button"></span>
                                                                 </div>
                                                             </li>
                                                             <li class="item-content">
-                                                                <a href="#" id="btnGiftCardSearch" class="custom-btn custom-bg bg1 mt custom-link" style="width:185%">Search</a>
+                                                                <a href="#" id="btnGiftCardSearch" class="custom-btn custom-bg bg1 mt custom-link item-media-section">Search</a>
                                                             </li>
                                                             <li class="item-content">
-                                                                <div class="item-media" style="width:96%">
+                                                                <div class="item-media item-media-section">
                                                                     <i class="material-icons">attach_money</i>
-                                                                    <!--<input type="number" placeholder="Load" id="txtLoad" min="1" step="any">-->
-                                                                    <input type="tel" placeholder="Load" id="txtLoad">
+                                                                    <input type="number" placeholder="Load" id="txtLoad" min="1" step="any">
                                                                     <span class="input-clear-button"></span>
                                                                 </div>
                                                             </li>
                                                             <li class="item-content">
-                                                                <a href="#" id="btnLoadGiftCard" class="custom-btn custom-bg bg1 mt custom-link disabled" style="width:240%">Load</a>
+                                                                <a href="#" id="btnLoadGiftCard" class="custom-btn custom-bg bg1 mt custom-link item-media-section disabled">Load</a>
                                                             </li>
                                                             <li class="item-content">
-                                                                <div class="item-media" style="width:96%">
+                                                                <div class="item-media item-media-section">
                                                                     <i class="material-icons">attach_money</i>
-                                                                    <!--<input type="number" placeholder="Redeem" id="txtRedeem" min="1" step="any">-->
-                                                                    <input type="tel" placeholder="Redeem" id="txtRedeem">
+                                                                    <input type="number" placeholder="Redeem" id="txtRedeem" min="1" step="any">
                                                                     <span class="input-clear-button"></span>
                                                                 </div>
                                                             </li>
                                                             <li class="item-content">
-                                                                <a href="#" id="btnRedeemGiftCard" class="custom-btn custom-bg bg1 mt custom-link disabled" style="width:180%">Redeem</a>
+                                                                <a href="#" id="btnRedeemGiftCard" class="custom-btn custom-bg bg1 mt custom-link item-media-section disabled">Redeem</a>
                                                             </li>
                                                             <li class="item-content">
-                                                                <div class="form-item" style="margin-top: 20px;">
+                                                                <div class="form-item form-item-select">
                                                                     <div class="form-item-content">
                                                                         <select id="ddlRegister">
                                                                             <option value="0">--Select Register--</option>
@@ -249,14 +248,7 @@
 
                                                                 <h6>History</h6>
                                                                 <table id="tblRedeemHistory" class="table-history">
-                                                                    <thead>
-                                                                        <tr>
-                                                                            <th style="text-align:left; width:55%;">Date</th>
-                                                                            <th style="text-align:right; width:20%;">Amount</th>
-                                                                            <th style="text-align:center; width:25%;">Register</th>
-                                                                        </tr>
-                                                                    </thead>
-                                                                    <tbody></tbody>
+                                                                    
                                                                 </table>
                                                             </div>
                                                         </div>
@@ -327,13 +319,6 @@
                                 <input type="hidden" id="hdnSelectedOrderDateTime" value="" />
                                 <input type="hidden" id="hdnSelectedOrderOrderPrice" value="0.00" />
                                 
-                                <div class="order-status-icon" style="display:none;">
-                                    <img id="imgNew" class="list-icon" src="img/icons/new.png" alt="" style="display:none; width:11%;">
-                                    <img id="imgProcessing" class="list-icon" src="img/icons/pending.png" alt="" style="display:none; width:11%;">
-                                    <img id="imgPickedUp" class="list-icon" src="img/icons/Picked-Up-Icon.png" alt="" style="display:none; width:11%;">
-                                    <img id="imgShipped" class="list-icon" src="img/icons/shipped.png" alt="" style="display:none; width:11%;" />
-                                    <img id="imgComplete" class="list-icon" src="img/icons/Complete-Icon.png" alt="" style="display:none; width:11%;">
-                                </div>
                                 <div class="giftcard-code-one">                                      
                                     <label id="lblEditGiftCardCode"></label>
                                     <a id="aEditCode" onclick="EditCardCode();"><i class="material-icons" style="color:#ca1300;">mode_edit</i></a>

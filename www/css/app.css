@@ -1766,6 +1766,11 @@ select:-moz-focusring {
 .text-edit-cardcode{height:30px !important;}
 .list-margin{margin-top:0 !important; margin-bottom: 0 !important;}
 .message-section {font-size:20px;text-align:center;}
+.item-media-section{width:96%;}
+.btn-add-card{width:97%;}
+.form-item-select{margin-top:20px;}
+.width-half{width:50%;}
+.width-full{width:100%;}
 /*---Profile Section Start-*/
 .timing-flex-row-container{
     display:flex;
@@ -1785,9 +1790,8 @@ select:-moz-focusring {
 .icon-add{width:65% !important;color: #08b3c7;font-weight: 600;}
 /*.input-with-value{padding-left:0px !important; padding-right:0px !important;}*/
 .item-content .item-checkbox{ width:35% !important;}
-
-
 .btn-filter{width:226px;}
+.ul-media-list-li{padding-left:0px !important;}
 /*---Profile Section End-*/
 
 
@@ -1822,6 +1826,11 @@ text-align: center;
 display: block;
     margin:8px 10px 0 10px;
 }
+.header-filter{border:none;font-size:20px; padding-left:10px;padding-top: 25px;}
+#tblRewardHistory .th-date{text-align:left;border-bottom:#333 1px solid !important;background:none !important; width:55%;}
+#tblRewardHistory .th-name{text-align:left;border-bottom:#333 1px solid !important;background:none !important; width:20%;}
+#tblRewardHistory .th-points{text-align:center;border-bottom:#333 1px solid !important;background:none !important; width:10%;}
+#tblRewardHistory .th-value{text-align:right;border-bottom:#333 1px solid !important;background:none !important; width:15%;}
 /*===============================================*/
 /* 11/B. Arnab End  	     	 */
 /*===============================================*/

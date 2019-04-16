@@ -31,48 +31,32 @@
                 <a class="tab-link back-new" onclick="Back();">
                     <i class="material-icons material-icons-one">arrow_back</i>
                 </a> 
-                <!--<a href="#" class="tab-link">
-                    <i class="material-icons material-icons-one">menu</i>
-                </a>-->
-                <!--<a href="#" class="link icon-only">
-                    <i class="icon icon-back"></i>
-                </a>-->
+                
             </div>
-            <div class="center"><!--<img src="/img/logo.png" />-->Reward</div>
+            <div class="center">Reward</div>
             <div class="right">
-                <a class="icon-only navbar-right-single-icon" style="right:65px;" href="/profile/"><i class="material-icons large-icon">account_circle</i></a>
+                <a class="icon-only navbar-right-single-icon" style="right:65px;" onclick="GotoProfile();"><i class="material-icons large-icon">account_circle</i></a>
                 <a class="icon-only navbar-right-single-icon"  onclick="Logout();"><i class="material-icons large-icon">exit_to_app</i></a>
             </div>
         </div>
     </div>
 
     <div class="page-content">
-
-
-        <!--<div class="navbrar-site display-flex justify-content-flex-end align-items-center  padding-left padding-right mt margin-bottom">
-            <a class="navbar-site-action" href="/checkout/">
-                <img src="./img/icons/basket.png" alt="basket" class="icon-size-20">
-            </a>
-        </div>
-
-        <div class="page-title padding-left padding-right">
-            <h2>Rewards</h2>
-        </div>-->
-
+          
         <div class="section list-restaurants">
             <div class="section-content">
 
                 <div class="custom-tabs display-flex justify-content-space-between align-items-center tab-margin-top  fixed-tab-header" >
 
-                    <div class="custom-tab custom-tab-carryout" style="width:50%">
-                        <a href="#reward_new" class="tab-link tab-link-active" >
+                    <div class="custom-tab custom-tab-carryout width-half">
+                        <a href="#reward_new" class="tab-link tab-link-active" id="linkRewardNew">
                             <div class="tab-right-text">New</div>
                             <div class="border-tab"></div>
                         </a>
                     </div>
 
-                    <div class="custom-tab custom-tab-carryout" style="width:50%" >
-                        <a href="#reward_LoadRedeem" class="tab-link"  >
+                    <div class="custom-tab custom-tab-carryout width-half">
+                        <a href="#reward_LoadRedeem" class="tab-link" id="linkRewardLoadRedeem">
                             <div class="tab-right-text">Load/Redeem</div>
                             <div class="border-tab"></div>
                         </a>
@@ -95,42 +79,42 @@
                                             <div class="list media-list">
                                                 <ul>
                                                     <li class="item-content">
-                                                        <div class="item-media" style="width:96%">
+                                                        <div class="item-media item-media-section">
                                                             <i class="material-icons">assignment_ind</i>
-                                                            <input type="number" placeholder="Member ID" id="txtMemberId_Reward">
+                                                            <input type="number" placeholder="Member ID" id="txtMemberId_Reward" autofocus>
                                                             <span class="input-clear-button"></span>
                                                         </div>
                                                     </li>
                                                     <li class="item-content">
-                                                        <div class="item-media" style="width:96%">
+                                                        <div class="item-media item-media-section">
                                                             <i class="material-icons">phone</i>
                                                             <input type="number" placeholder="Phone" id="txtPhone_Reward" class="mandatory">
                                                             <span class="input-clear-button"></span>
                                                         </div>
                                                     </li>
                                                     <li class="item-content">
-                                                        <div class="item-media" style="width:96%">
+                                                        <div class="item-media item-media-section">
                                                             <i class="material-icons">account_circle</i>
                                                             <input type="text" placeholder="Name" id="txtName_Reward">
                                                             <span class="input-clear-button"></span>
                                                         </div>
                                                     </li>
                                                     <li class="item-content">
-                                                        <div class="item-media" style="width:96%">
+                                                        <div class="item-media item-media-section">
                                                             <i class="material-icons">email</i>
                                                             <input type="text" placeholder="Email" id="txtEmail_Reward">
                                                             <span class="input-clear-button"></span>
                                                         </div>
                                                     </li>
                                                     <li class="item-content">
-                                                        <div class="item-media" style="width:96%">
+                                                        <div class="item-media item-media-section">
                                                             <i class="material-icons">local_atm</i>
                                                             <input type="number" placeholder="Points" id="txtPoints_Reward" class="mandatory">
                                                             <span class="input-clear-button"></span>
                                                         </div>
                                                     </li>
                                                     <li class="item-content">
-                                                        <a class="custom-btn custom-bg custom-link" id="btnCreate" style="width: 97%;">Add Member</a>
+                                                        <a class="custom-btn custom-bg custom-link btn-add-card" id="btnCreate">Add Member</a>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -155,49 +139,49 @@
                                                     </div>
                                                     <div class="list media-list" style="margin:auto">
                                                         <ul>
-                                                            <li class="item-content" style="margin-left:10px">
-                                                                <div class="item-media" style="width:96%">
+                                                            <li class="item-content">
+                                                                <div class="item-media item-media-section">
                                                                     <i class="material-icons">assignment_ind</i>
                                                                     <input type="number" placeholder="Member ID" id="txtMemberID_LoadRedeem">
                                                                     <span class="input-clear-button"></span>
                                                                 </div>
                                                             </li>
-                                                            <li class="item-content" style="margin-left:10px">
-                                                                <div class="item-media" style="width:96%">
+                                                            <li class="item-content">
+                                                                <div class="item-media item-media-section">
                                                                     <i class="material-icons">phone</i>
                                                                     <input type="number" placeholder="Phone" id="txtPhone_LoadRedeem">
                                                                     <span class="input-clear-button"></span>
                                                                 </div>
                                                             </li>
-                                                            <li class="item-content" style="margin-left:10px">
-                                                                <div class="item-media" style="width:96%">
+                                                            <li class="item-content">
+                                                                <div class="item-media item-media-section">
                                                                     <i class="material-icons">account_circle</i>
                                                                     <input type="text" placeholder="Last Name" id="txtLastName_LoadRedeem">
                                                                     <span class="input-clear-button"></span>
                                                                 </div>
                                                             </li>
                                                             <li class="item-content">
-                                                                <a class="custom-btn custom-bg custom-link" id="btnSearch" style="width:185%">Search</a>
+                                                                <a class="custom-btn custom-bg custom-link item-media-section" id="btnSearch">Search</a>
                                                             </li>
                                                             <li class="item-content">
-                                                                <div class="item-media" style="width:96%">
+                                                                <div class="item-media item-media-section">
                                                                     <i class="material-icons">attach_money</i>
                                                                     <input type="number" placeholder="Load" id="txtLoad_LoadRedeem">
                                                                     <span class="input-clear-button"></span>
                                                                 </div>
                                                             </li>
                                                             <li class="item-content">
-                                                                <a class="custom-btn custom-bg custom-link disabled" id="btnLoadReward" style="width:240%">Load</a>
+                                                                <a class="custom-btn custom-bg custom-link item-media-section disabled" id="btnLoadReward">Load</a>
                                                             </li>
                                                             <li class="item-content">
-                                                                <div class="item-media" style="width:96%">
+                                                                <div class="item-media item-media-section">
                                                                     <i class="material-icons">attach_money</i>
                                                                     <input type="number" placeholder="Redeem" id="txtRedeem_LoadRedeem">
                                                                     <span class="input-clear-button"></span>
                                                                 </div>
                                                             </li>
                                                             <li class="item-content">
-                                                                <a class="custom-btn custom-bg custom-link disabled" id="btnRedeemReward" style="width:180%">Redeem</a>
+                                                                <a class="custom-btn custom-bg custom-link item-media-section disabled" id="btnRedeemReward">Redeem</a>
                                                             </li>
                                                         </ul>
                                                     </div>
@@ -238,10 +222,10 @@
                                                             <table id="tblRewardHistory">
                                                                 <thead>
                                                                     <tr>
-                                                                        <th style="text-align:left;border-bottom:#333 1px solid !important;background:none !important;" width="55%">Date</th>
-                                                                        <th style="text-align:left;border-bottom:#333 1px solid !important;background:none !important;" width="20%">Name</th>
-                                                                        <th style="text-align:center;border-bottom:#333 1px solid !important;background:none !important;" width="10%">Points</th>
-                                                                        <th style="text-align:right;border-bottom:#333 1px solid !important;background:none !important;" width="15%">Value</th>
+                                                                        <th class="th-date">Date</th>
+                                                                        <th class="th-name">Name</th>
+                                                                        <th class="th-points">Points</th>
+                                                                        <th class="th-value">Value</th>
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody></tbody>

@@ -1,6 +1,6 @@
 //var global = "http://www.appnotification.bistroux.com/Api/App/";
 var global = "http://www.consumerapp.bistroux.com/Api/App/";
-//var global = "http://192.168.1.6/Api/App/";
+//var global = "http://192.168.1.7/Api/App/";
 var mediaURL = "http://appnotification.bistroux.com/Media/";
 
 var browser = true;
@@ -6366,12 +6366,12 @@ function SaveProductInfo() {
             } else {
                 $('#txtProductName').css('border-bottom', bottomBorder);
             }
-            if (categoryId == "0") {
+            if (categoryId == "0" || categoryId=="") {
                 $('#productCategory').css('border-bottom', errorClassBorder);
             } else {
                 $('#productCategory').css('border-bottom', bottomBorder);
             }
-            if (price == "") {
+            if (productprice == "") {
                 $('#txtProductPrice').css('border-bottom', errorClassBorder);
             } else {
                 $('#txtProductPrice').css('border-bottom', bottomBorder);
