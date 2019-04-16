@@ -33,7 +33,7 @@ function RegisterToken(storeId, token) {
         async: false,
         success: function (data) {
             //console.log("Saved to DB successfully");
-            alert("RegisterToken Saved to DB successfully")
+            //alert("RegisterToken Saved to DB successfully")
             //window.location.href = "index.html";
             //window.localStorage.clear();
         },
