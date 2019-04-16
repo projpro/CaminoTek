@@ -1,6 +1,6 @@
-var global = "http://www.appnotification.bistroux.com/Api/App/";
+//var global = "http://www.appnotification.bistroux.com/Api/App/";
 //var global = "http://www.consumerapp.bistroux.com/Api/App/";
-//var global = "http://192.168.1.6/Api/App/";
+var global = "http://192.168.1.6/Api/App/";
 var mediaURL = "http://appnotification.bistroux.com/Media/";
 
 var browser = true;
@@ -1628,7 +1628,7 @@ function GetOrderDetailsById() {
 
                 else if (value.Type == "DiscountInfo") {
                     // console.log("html: " + html)
-                    console.log("DiscountInfo: " + value.COUPONCODE);
+                    //console.log("DiscountInfo: " + value.COUPONCODE);
 
                     htmlDiscount += " <tr><td width=\"70%\">&nbsp;</td>";
                     htmlDiscount += "<td colspan=\"2\" width=\"20%\"  style=\"text-align:left;\">Coupon (" + value.COUPONCODE + ") Discount:</td>";
@@ -3646,7 +3646,7 @@ function ChangeGiftCardOrderStatusById(status, id, orderId) {
 
                 var buttonHTML = "";
                 if (status == "New") {
-
+                    $("#img_" + giftCardId).attr("src", "img/icons/new.png");
                     buttonHTML += "<img class=\"giftcard-button-set carryout-button\" src=\"./img/icons/new_button_active.png\"  />";
                     buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusById('Processing'," + giftCardId + ", " + orderId + ")\" id=\"btnProcessing_" + giftCardId + "\"><img src=\"./img/icons/pending_button.png\" class=\"carryout-button-set-2\" /></a>";
 
@@ -3657,6 +3657,7 @@ function ChangeGiftCardOrderStatusById(status, id, orderId) {
 
                 }
                 else if (status == "Processing") {
+                    $("#img_" + giftCardId).attr("src", "img/icons/pending.png");
                     buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusById('New'," + giftCardId + ", " + orderId + ")\" id=\"btnNew_" + giftCardId + "\"><img src=\"./img/icons/new_button.png\" class=\"carryout-button-set-2\" /></a>";
                     buttonHTML += "<img class=\"giftcard-button-set carryout-button\" src=\"./img/icons/pending_button_active.png\" />";
                     buttonHTML += "<img class=\"giftcard-button-set carryout-button\" src=\"./img/icons/picked_up_button_active.png\"/>";
@@ -3664,6 +3665,7 @@ function ChangeGiftCardOrderStatusById(status, id, orderId) {
                     buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusById('Complete'," + giftCardId + ", " + orderId + ")\" id=\"btnComplete_" + giftCardId + "\"><img src=\"./img/icons/complete_button.png\" class=\"carryout-button-set-2\"/></a>";
                 }
                 else if (status == "Shipped") {
+                    $("#img_" + giftCardId).attr("src", "img/icons/shipped.png");
                     buttonHTML += "<img class=\"giftcard-button-set carryout-button\"  src=\"./img/icons/new_button_active.png\"  />";
                     buttonHTML += "<img class=\"giftcard-button-set carryout-button\"  src=\"./img/icons/pending_button_active.png\" />";
                     buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusById('PickedUp'," + giftCardId + ", " + orderId + ")\" id=\"btnPickedUp_" + giftCardId + "\"><img src=\"./img/icons/picked_up_button.png\"  class=\"carryout-button-set-2\"/></a>";
@@ -3672,6 +3674,7 @@ function ChangeGiftCardOrderStatusById(status, id, orderId) {
 
                 }
                 else if (status == "PickedUp") {
+                    $("#img_" + giftCardId).attr("src", "img/icons/Picked-Up-Icon.png");
                     buttonHTML += "<img class=\"giftcard-button-set carryout-button\" src=\"./img/icons/new_button_active.png\"  />";
                     buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusById('Processing'," + giftCardId + ", " + orderId + ")\" id=\"btnProcessing_" + giftCardId + "\" style=\"display:none;\"><img src=\"./img/icons/pending_button.png\" class=\"carryout-button-set-2\"/></a>";
                     buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusById('PickedUp'," + giftCardId + ", " + orderId + ")\" id=\"btnPickedUp_" + giftCardId + "\" style=\"display:none;\"><img src=\"./img/icons/picked_up_button.png\" class=\"carryout-button-set-2\"/></a>";
@@ -3679,6 +3682,7 @@ function ChangeGiftCardOrderStatusById(status, id, orderId) {
                     buttonHTML += "<img class=\"giftcard-button-set carryout-button\" src=\"./img/icons/complete_button_active.png\" />";
                 }
                 else if (status == "Complete") {
+                    $("#img_" + giftCardId).attr("src", "img/icons/Complete-Icon.png");
                     buttonHTML += "<img class=\"giftcard-button-set carryout-button\" src=\"./img/icons/new_button.png\"  />";
                     buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusById('Processing'," + giftCardId + ", " + orderId + ")\" id=\"btnProcessing_" + giftCardId + "\"><img src=\"./img/icons/pending_button.png\"  class=\"carryout-button-set-2\" /></a>";
                     buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusById('PickedUp'," + giftCardId + ", " + orderId + ")\" id=\"btnPickedUp_" + giftCardId + "\"><img src=\"./img/icons/picked_up_button.png\" class=\"carryout-button-set-2\"/></a>";
