@@ -39,7 +39,7 @@
             <div class="center" id="dvProductText">Add Item</div>
             <input type="hidden" id="hdnItemId" value="0" />
             <div class="right">
-                <a class="icon-only navbar-right-single-icon" style="right:65px;" href="/profile/"><i class="material-icons large-icon">account_circle</i></a>
+                <a class="icon-only navbar-right-single-icon menu-margin-right" href="/profile/"><i class="material-icons large-icon">account_circle</i></a>
                 <a class="icon-only navbar-right-single-icon" onclick="Logout();"><i class="material-icons large-icon">exit_to_app</i></a>
             </div>
         </div>
@@ -57,37 +57,35 @@
                         <div class="list media-list">
                             <ul>
                                 <li class="item-content">
-                                    <div class="item-media" style="width:96%">
+                                    <div class="item-media item-media-section">
                                         <i class="material-icons">toc</i>
 
                                         <div class="item-input-wrap input-dropdown-wrap">
-                                            <select placeholder="Category" id="productCategory" required class="mandatory">
-                                               
-                                            </select>
+                                            <select placeholder="Category" id="productCategory" required class="mandatory"></select>
                                         </div>
                                         <span class="input-clear-button"></span>
                                     </div>
                                 </li>
                                 <li class="item-content">
-                                    <div class="item-media" style="width:96%">
+                                    <div class="item-media item-media-section">
                                         <i class="material-icons">local_pizza</i>
                                         <input type="text" placeholder="Name" id="txtProductName" required class="mandatory">
                                         <span class="input-clear-button"></span>
                                     </div>
                                 </li>
                                 <li class="item-content">
-                                    <div class="item-media" style="width:96%">
+                                    <div class="item-media item-media-section">
                                         <i class="material-icons">description</i>
                                         <textarea id="txtProductDescription" placeholder="Description"></textarea>
                                         <span class="input-clear-button"></span>
                                     </div>
                                 </li>
-                                <li class="item-content" style="width:96%">
-                                    <div class="item-media" style="width:75%;">
+                                <li class="item-content item-media-section">
+                                    <div class="item-media item-media-large">
                                         <i class="material-icons">attach_money</i>
                                         <!--<input type="number" min="1" step="any" placeholder="Price" id="txtProductPrice" class="mandatory" >-->
-                                        <input type="tel"  placeholder="Price" id="txtProductPrice" class="mandatory">
-                                       
+                                        <input type="tel" placeholder="Price" id="txtProductPrice" class="mandatory">
+
                                         <span class="input-clear-button"></span>
                                     </div>
                                     <span>Active</span>
@@ -95,13 +93,13 @@
                                         <input type="checkbox" id="checkItemActive" checked>
                                         <span class="toggle-icon"></span>
                                     </label>
-                                    
+
                                 </li>
-                               
+
                                 <li class="item-content">
                                     <div class="item-media timing-flex-row-container">
-                                        <div class="timing-flex-column-container" style="width:96%">
-                                            <i class="material-icons" style="margin-top:10px;">menu</i>
+                                        <div class="timing-flex-column-container item-media-section">
+                                            <i class="material-icons material-icons-left">menu</i>
 
                                             <label class="item-checkbox item-content">
                                                 <input type="checkbox" name="checkMenuType" value="Lunch" checked="checked" id="chkLunch" />
@@ -111,14 +109,14 @@
                                                 </div>
                                             </label>
                                             <label class="item-checkbox item-content">
-                                                <input type="checkbox" name="checkMenuType" value="Dinner" id="chkDinner" checked="checked"/>
+                                                <input type="checkbox" name="checkMenuType" value="Dinner" id="chkDinner" checked="checked" />
                                                 <i class="icon icon-checkbox"></i>
                                                 <div class="item-inner">
                                                     <div class="item-title">Dinner</div>
                                                 </div>
                                             </label>
                                         </div>
-                                        <div class="timing-flex-column-container" style="width:96%;">
+                                        <div class="timing-flex-column-container item-media-section">
                                             <i class="material-icons"></i>
 
                                             <label class="item-checkbox item-content">
@@ -140,8 +138,8 @@
                                 </li>
                                 <li class="item-content">
                                     <div class="item-media timing-flex-row-container">
-                                        <div class="timing-flex-column-container" style="width:96%">
-                                            <i class="material-icons" style="margin-top:10px;">restaurant_menu</i>
+                                        <div class="timing-flex-column-container item-media-section">
+                                            <i class="material-icons material-icons-left">restaurant_menu</i>
 
                                             <label class="item-checkbox item-content">
                                                 <input type="checkbox" name="checkFoodType" value="Dine In" checked="checked" id="chkDineIn" />
@@ -151,7 +149,7 @@
                                                 </div>
                                             </label>
                                             <label class="item-checkbox item-content">
-                                                <input type="checkbox" name="checkFoodType" value="Carry Out" id="chkCarryOut" checked="checked"/>
+                                                <input type="checkbox" name="checkFoodType" value="Carry Out" id="chkCarryOut" checked="checked" />
                                                 <i class="icon icon-checkbox"></i>
                                                 <div class="item-inner">
                                                     <div class="item-title">Carry Out</div>
@@ -162,8 +160,8 @@
                                 </li>
                                 <li class="item-content">
                                     <div class="item-media timing-flex-row-container">
-                                        <div class="timing-flex-column-container" style="width:96%">
-                                            <i class="material-icons" style="margin-top:10px;">alarm</i>
+                                        <div class="timing-flex-column-container item-media-section">
+                                            <i class="material-icons material-icons-left">alarm</i>
 
                                             <label class="item-radio item-content">
                                                 <input type="radio" name="checkAvailability" value="Normal" checked id="chkNormal" />
@@ -186,9 +184,9 @@
                                 <!--Timing Section Start-->
                                 <li id="liAvailTiming" style="display:none;">
                                     <ul style="padding-left:0px;">
-                                        <li class="item-content" style="width:100%">
+                                        <li class="item-content width-full">
                                             <input type="hidden" id="hdnAvailTimingCount" value="8">
-                                            <label style="width:35%" class="item-checkbox item-content">
+                                            <label class="item-checkbox item-content label-timing-checkbox">
                                                 <input type="checkbox" id="Avail_0_IsCheck" name="Avail0].IsCheck" value="Monday" />
                                                 <i class="icon icon-checkbox"></i>
                                                 <div class="item-inner">
@@ -198,7 +196,9 @@
                                             <!--<input style="width:5%" checked="checked" id="Offerday_0_IsCheck" name="Offerday[0].IsCheck" type="checkbox" value="true">-->
                                             <input name="Avail[0].IsCheck" type="hidden" value="false">
                                             <!--<label style="width:25%;">Monday</label>-->
-                                            <i class="material-icons icon-add" onclick="AddNewAvailTimingSection('Monday', 'Mo', '0');" id="Monday">add</i>
+                                            <div class="icon-section">
+                                                <i class="material-icons icon-add" onclick="AddNewAvailTimingSection('Monday', 'Mo', '0');" id="Monday">add</i>
+                                            </div>
                                             <input id="Avail_0_DayKey" name="Avail[0].DayKey" type="hidden" value="Mo">
                                             <input id="Avail_0_DayName" name="Avail[0].DayName" type="hidden" value="Monday">
                                             <input id="Avail_0_TimingId" name="Avail[0].TimingId" type="hidden" value="0">
@@ -408,8 +408,8 @@
                                             </div>
                                         </li>
 
-                                        <li class="item-content" style="width:100%">
-                                            <label style="width:35%" class="item-checkbox item-content">
+                                        <li class="item-content width-full">
+                                            <label class="item-checkbox item-content label-timing-checkbox">
                                                 <input type="checkbox" id="Avail_1_IsCheck" name="Avail[1].IsCheck" value="Tuesday" />
                                                 <i class="icon icon-checkbox"></i>
                                                 <div class="item-inner">
@@ -419,7 +419,9 @@
                                             <!--<input style="width:5%" checked="checked" id="Offerday_1_IsCheck" name="Offerday[1].IsCheck" type="checkbox" value="true">-->
                                             <input name="Avail[1].IsCheck" type="hidden" value="false">
                                             <!--<label style="width:25%;">Tuesday</label>-->
-                                            <i class="material-icons icon-add" onclick="AddNewAvailTimingSection('Tuesday', 'Tu', '1');" id="Tuesday">add</i>
+                                            <div class="icon-section">
+                                                <i class="material-icons icon-add" onclick="AddNewAvailTimingSection('Tuesday', 'Tu', '1');" id="Tuesday">add</i>
+                                            </div>
                                             <input id="Avail_1_DayKey" name="Avail[1].DayKey" type="hidden" value="Tu">
                                             <input id="Avail_1_DayName" name="Avail[1].DayName" type="hidden" value="Tuesday">
                                             <input id="Avail_1_TimingId" name="Avail[1].TimingId" type="hidden" value="0">
@@ -627,8 +629,8 @@
                                             </div>
                                         </li>
 
-                                        <li class="item-content" style="width:100%">
-                                            <label style="width:35%" class="item-checkbox item-content">
+                                        <li class="item-content width-full">
+                                            <label class="item-checkbox item-content label-timing-checkbox">
                                                 <input type="checkbox" id="Avail_2_IsCheck" name="Avail[1].IsCheck" value="Wednesday" />
                                                 <i class="icon icon-checkbox"></i>
                                                 <div class="item-inner">
@@ -638,7 +640,9 @@
                                             <!--<input style="width:5%" checked="checked" id="Offerday_2_IsCheck" name="Offerday[1].IsCheck" type="checkbox" value="true">-->
                                             <input name="Avail[2].IsCheck" type="hidden" value="false">
                                             <!--<label style="width:25%;">Wednesday</label>-->
-                                            <i class="material-icons icon-add" onclick="AddNewAvailTimingSection('Wednesday', 'We', '2');" id="Wednesday">add</i>
+                                            <div class="icon-section">
+                                                <i class="material-icons icon-add" onclick="AddNewAvailTimingSection('Wednesday', 'We', '2');" id="Wednesday">add</i>
+                                            </div>
                                             <input id="Avail_2_DayKey" name="Avail[2].DayKey" type="hidden" value="We">
                                             <input id="Avail_2_DayName" name="Avail[2].DayName" type="hidden" value="Wednesday">
                                             <input id="Avail_2_TimingId" name="Avail[2].TimingId" type="hidden" value="0">
@@ -846,8 +850,8 @@
                                             </div>
                                         </li>
 
-                                        <li class="item-content" style="width:100%">
-                                            <label style="width:35%" class="item-checkbox item-content">
+                                        <li class="item-content width-full">
+                                            <label class="item-checkbox item-content label-timing-checkbox">
                                                 <input type="checkbox" id="Avail_3_IsCheck" name="Avail[3].IsCheck" value="Thursday" />
                                                 <i class="icon icon-checkbox"></i>
                                                 <div class="item-inner">
@@ -857,7 +861,9 @@
                                             <!--<input style="width:5%" checked="checked" id="Offerday_3_IsCheck" name="Offerday[3].IsCheck" type="checkbox" value="true">-->
                                             <input name="Avail[3].IsCheck" type="hidden" value="false">
                                             <!--<label style="width:25%;">Thursday</label>-->
-                                            <i class="material-icons icon-add" onclick="AddNewAvailTimingSection('Thursday', 'Th', '3');" id="Thursday">add</i>
+                                            <div class="icon-section">
+                                                <i class="material-icons icon-add" onclick="AddNewAvailTimingSection('Thursday', 'Th', '3');" id="Thursday">add</i>
+                                            </div>
                                             <input id="Avail_3_DayKey" name="Avail[3].DayKey" type="hidden" value="Th">
                                             <input id="Avail_3_DayName" name="Avail[3].DayName" type="hidden" value="Thursday">
                                             <input id="Avail_3_TimingId" name="Avail[3].TimingId" type="hidden" value="0">
@@ -1065,8 +1071,8 @@
                                             </div>
                                         </li>
 
-                                        <li class="item-content" style="width:100%">
-                                            <label style="width:35%" class="item-checkbox item-content">
+                                        <li class="item-content width-full">
+                                            <label class="item-checkbox item-content label-timing-checkbox">
                                                 <input type="checkbox" id="Avail_4_IsCheck" name="Avail[4].IsCheck" value="Friday" />
                                                 <i class="icon icon-checkbox"></i>
                                                 <div class="item-inner">
@@ -1076,7 +1082,9 @@
                                             <!--<input style="width:5%" checked="checked" id="Offerday_4_IsCheck" name="Offerday[4].IsCheck" type="checkbox" value="true">-->
                                             <input name="Avail[4].IsCheck" type="hidden" value="false">
                                             <!--<label style="width:25%;">Friday</label>-->
-                                            <i class="material-icons icon-add" onclick="AddNewAvailTimingSection('Friday', 'Fr', '4');" id="Friday">add</i>
+                                            <div class="icon-section">
+                                                <i class="material-icons icon-add" onclick="AddNewAvailTimingSection('Friday', 'Fr', '4');" id="Friday">add</i>
+                                            </div>
                                             <input id="Avail_4_DayKey" name="Avail[4].DayKey" type="hidden" value="Fr">
                                             <input id="Avail_4_DayName" name="Avail[4].DayName" type="hidden" value="Friday">
                                             <input id="Avail_4_TimingId" name="Avail[4].TimingId" type="hidden" value="0">
@@ -1284,8 +1292,8 @@
                                             </div>
                                         </li>
 
-                                        <li class="item-content" style="width:100%">
-                                            <label style="width:35%" class="item-checkbox item-content">
+                                        <li class="item-content width-full">
+                                            <label class="item-checkbox item-content label-timing-checkbox">
                                                 <input type="checkbox" id="Avail_5_IsCheck" name="Avail[5].IsCheck" value="Saturday" />
                                                 <i class="icon icon-checkbox"></i>
                                                 <div class="item-inner">
@@ -1294,7 +1302,9 @@
                                             </label>
                                             <input name="Avail[5].IsCheck" type="hidden" value="false">
                                             <!--<label style="width:25%;">Saturday</label>-->
-                                            <i class="material-icons icon-add" onclick="AddNewAvailTimingSection('Saturday', 'Sa', '5');" id="Saturday">add</i>
+                                            <div class="icon-section">
+                                                <i class="material-icons icon-add" onclick="AddNewAvailTimingSection('Saturday', 'Sa', '5');" id="Saturday">add</i>
+                                            </div>
                                             <input id="Avail_5_DayKey" name="Avail[5].DayKey" type="hidden" value="Sa">
                                             <input id="Avail_5_DayName" name="Avail[5].DayName" type="hidden" value="Saturday">
                                             <input id="Avail_5_TimingId" name="Avail[5].TimingId" type="hidden" value="0">
@@ -1502,8 +1512,8 @@
                                             </div>
                                         </li>
 
-                                        <li class="item-content" style="width:100%">
-                                            <label style="width:35%" class="item-checkbox item-content">
+                                        <li class="item-content width-full">
+                                            <label class="item-checkbox item-content label-timing-checkbox">
                                                 <input type="checkbox" id="Avail_6_IsCheck" name="Avail[6].IsCheck" value="Sunday" />
                                                 <i class="icon icon-checkbox"></i>
                                                 <div class="item-inner">
@@ -1511,7 +1521,9 @@
                                                 </div>
                                             </label>
                                             <input name="Avail[6].IsCheck" type="hidden" value="false">
-                                            <i class="material-icons icon-add" onclick="AddNewAvailTimingSection('Sunday', 'Su', '6');" id="Sunday">add</i>
+                                            <div class="icon-section">
+                                                <i class="material-icons icon-add" onclick="AddNewAvailTimingSection('Sunday', 'Su', '6');" id="Sunday">add</i>
+                                            </div>
                                             <input id="Avail_6_DayKey" name="Avail[6].DayKey" type="hidden" value="Su">
                                             <input id="Avail_6_DayName" name="Avail[6].DayName" type="hidden" value="Sunday">
                                             <input id="Avail_6_TimingId" name="Avail[6].TimingId" type="hidden" value="0">
@@ -1733,8 +1745,8 @@
 
                 </div>
             </div>
-              
-            </div>
+
+        </div>
 
         <div class="mt pd"></div>
     </div>

@@ -35,7 +35,7 @@
             </div>
             <div class="center" id="dvCouponHeaderText">Add Coupon</div>
             <div class="right">
-                <a class="icon-only navbar-right-single-icon" style="right:65px;" href="/profile/"><i class="material-icons large-icon">account_circle</i></a>
+                <a class="icon-only navbar-right-single-icon menu-margin-right" href="/profile/"><i class="material-icons large-icon">account_circle</i></a>
                 <a class="icon-only navbar-right-single-icon" onclick="Logout();"><i class="material-icons large-icon">exit_to_app</i></a>
             </div>
         </div>
@@ -56,8 +56,8 @@
                                         <span class="input-clear-button"></span>
                                     </div>
                                 </li>
-                                <li class="item-content item-media-section" >
-                                    <div class="item-media " style="width:75%">
+                                <li class="item-content item-media-section">
+                                    <div class="item-media item-media-large">
                                         <i class="material-icons">confirmation_number</i>
                                         <input type="text" placeholder="Coupon Code" id="txtCouponCode">
                                         <span class="input-clear-button"></span>
@@ -115,11 +115,13 @@
                                             <!--<input style="width:5%" checked="checked" id="Offerday_0_IsCheck" name="Offerday[0].IsCheck" type="checkbox" value="true">-->
                                             <input name="Offerday[0].IsCheck" type="hidden" value="false">
                                             <!--<label style="width:25%;">Monday</label>-->
-                                            <i class="material-icons icon-add" onclick="AddNewTimingSection('Monday', 'Mo', '0');" id="Monday">add</i>
-                                            <input id="Offerday_0_DayKey" name="Offerday[0].DayKey" type="hidden" value="Mo">
-                                            <input id="Offerday_0_DayName" name="Offerday[0].DayName" type="hidden" value="Monday">
-                                            <input id="Offerday_0_DiscountTimingId" name="Offerday[0].DiscountTimingId" type="hidden" value="0">
-                                        </li>
+                                            <div class="icon-section">
+                                                <i class="material-icons icon-add" onclick="AddNewTimingSection('Monday', 'Mo', '0');" id="Monday">add</i>
+                                                </div>
+                                                <input id="Offerday_0_DayKey" name="Offerday[0].DayKey" type="hidden" value="Mo">
+                                                <input id="Offerday_0_DayName" name="Offerday[0].DayName" type="hidden" value="Monday">
+                                                <input id="Offerday_0_DiscountTimingId" name="Offerday[0].DiscountTimingId" type="hidden" value="0">
+</li>
                                         <li class="item-content">
                                             <div class="timing-flex-row-container" id="div_Monday">
                                                 <div>
@@ -326,11 +328,13 @@
                                             <!--<input style="width:5%" checked="checked" id="Offerday_1_IsCheck" name="Offerday[1].IsCheck" type="checkbox" value="true">-->
                                             <input name="Offerday[1].IsCheck" type="hidden" value="false">
                                             <!--<label style="width:25%;">Tuesday</label>-->
-                                            <i class="material-icons icon-add" onclick="AddNewTimingSection('Tuesday', 'Tu', '1');" id="Tuesday">add</i>
-                                            <input id="Offerday_1_DayKey" name="Offerday[1].DayKey" type="hidden" value="Tu">
-                                            <input id="Offerday_1_DayName" name="Offerday[1].DayName" type="hidden" value="Tuesday">
-                                            <input id="Offerday_1_DiscountTimingId" name="Offerday[1].DiscountTimingId" type="hidden" value="0">
-                                        </li>
+                                            <div class="icon-section">
+                                                <i class="material-icons icon-add" onclick="AddNewTimingSection('Tuesday', 'Tu', '1');" id="Tuesday">add</i>
+                                                </div>
+                                                <input id="Offerday_1_DayKey" name="Offerday[1].DayKey" type="hidden" value="Tu">
+                                                <input id="Offerday_1_DayName" name="Offerday[1].DayName" type="hidden" value="Tuesday">
+                                                <input id="Offerday_1_DiscountTimingId" name="Offerday[1].DiscountTimingId" type="hidden" value="0">
+</li>
                                         <li class="item-content">
                                             <div class="timing-flex-row-container" id="div_Tuesday">
                                                 <div>
@@ -535,11 +539,13 @@
                                             <!--<input style="width:5%" checked="checked" id="Offerday_2_IsCheck" name="Offerday[1].IsCheck" type="checkbox" value="true">-->
                                             <input name="Offerday[2].IsCheck" type="hidden" value="false">
                                             <!--<label style="width:25%;">Wednesday</label>-->
-                                            <i class="material-icons icon-add" onclick="AddNewTimingSection('Wednesday', 'We', '2');" id="Wednesday">add</i>
-                                            <input id="Offerday_2_DayKey" name="Offerday[2].DayKey" type="hidden" value="We">
-                                            <input id="Offerday_2_DayName" name="Offerday[2].DayName" type="hidden" value="Wednesday">
-                                            <input id="Offerday_2_DiscountTimingId" name="Offerday[2].DiscountTimingId" type="hidden" value="0">
-                                        </li>
+                                            <div class="icon-section">
+                                                <i class="material-icons icon-add" onclick="AddNewTimingSection('Wednesday', 'We', '2');" id="Wednesday">add</i>
+                                                </div>
+                                                <input id="Offerday_2_DayKey" name="Offerday[2].DayKey" type="hidden" value="We">
+                                                <input id="Offerday_2_DayName" name="Offerday[2].DayName" type="hidden" value="Wednesday">
+                                                <input id="Offerday_2_DiscountTimingId" name="Offerday[2].DiscountTimingId" type="hidden" value="0">
+</li>
                                         <li class="item-content">
                                             <div class="timing-flex-row-container" id="div_Wednesday">
                                                 <div>
@@ -744,11 +750,13 @@
                                             <!--<input style="width:5%" checked="checked" id="Offerday_3_IsCheck" name="Offerday[3].IsCheck" type="checkbox" value="true">-->
                                             <input name="Offerday[3].IsCheck" type="hidden" value="false">
                                             <!--<label style="width:25%;">Thursday</label>-->
-                                            <i class="material-icons icon-add" onclick="AddNewTimingSection('Thursday', 'Th', '3');" id="Thursday">add</i>
-                                            <input id="Offerday_3_DayKey" name="Offerday[3].DayKey" type="hidden" value="Th">
-                                            <input id="Offerday_3_DayName" name="Offerday[3].DayName" type="hidden" value="Thursday">
-                                            <input id="Offerday_3_DiscountTimingId" name="Offerday[3].DiscountTimingId" type="hidden" value="0">
-                                        </li>
+                                            <div class="icon-section">
+                                                <i class="material-icons icon-add" onclick="AddNewTimingSection('Thursday', 'Th', '3');" id="Thursday">add</i>
+                                                </div>
+                                                <input id="Offerday_3_DayKey" name="Offerday[3].DayKey" type="hidden" value="Th">
+                                                <input id="Offerday_3_DayName" name="Offerday[3].DayName" type="hidden" value="Thursday">
+                                                <input id="Offerday_3_DiscountTimingId" name="Offerday[3].DiscountTimingId" type="hidden" value="0">
+</li>
                                         <li class="item-content">
                                             <div class="timing-flex-row-container" id="div_Thursday">
                                                 <div>
@@ -953,11 +961,13 @@
                                             <!--<input style="width:5%" checked="checked" id="Offerday_4_IsCheck" name="Offerday[4].IsCheck" type="checkbox" value="true">-->
                                             <input name="Offerday[4].IsCheck" type="hidden" value="false">
                                             <!--<label style="width:25%;">Friday</label>-->
-                                            <i class="material-icons icon-add" onclick="AddNewTimingSection('Friday', 'Fr', '4');" id="Friday">add</i>
-                                            <input id="Offerday_4_DayKey" name="Offerday[4].DayKey" type="hidden" value="Fr">
-                                            <input id="Businesday_4_DayName" name="Offerday[4].DayName" type="hidden" value="Friday">
-                                            <input id="Offerday_4_DiscountTimingId" name="Offerday[4].DiscountTimingId" type="hidden" value="0">
-                                        </li>
+                                            <div class="icon-section">
+                                                <i class="material-icons icon-add" onclick="AddNewTimingSection('Friday', 'Fr', '4');" id="Friday">add</i>
+                                                </div>
+                                                <input id="Offerday_4_DayKey" name="Offerday[4].DayKey" type="hidden" value="Fr">
+                                                <input id="Businesday_4_DayName" name="Offerday[4].DayName" type="hidden" value="Friday">
+                                                <input id="Offerday_4_DiscountTimingId" name="Offerday[4].DiscountTimingId" type="hidden" value="0">
+</li>
                                         <li class="item-content">
                                             <div class="timing-flex-row-container" id="div_Friday">
                                                 <div>
@@ -1162,11 +1172,13 @@
                                             <!--<input style="width:5%" checked="checked" id="Offerday_5_IsCheck" name="Offerday[5].IsCheck" type="checkbox" value="true">-->
                                             <input name="Offerday[5].IsCheck" type="hidden" value="false">
                                             <!--<label style="width:25%;">Saturday</label>-->
-                                            <i class="material-icons icon-add" onclick="AddNewTimingSection('Saturday', 'Sa', '5');" id="Saturday">add</i>
-                                            <input id="Offerday_5_DayKey" name="Offerday[5].DayKey" type="hidden" value="Sa">
-                                            <input id="Offerday_5_DayName" name="Offerday[5].DayName" type="hidden" value="Saturday">
-                                            <input id="Offerday_5_DiscountTimingId" name="Offerday[5].DiscountTimingId" type="hidden" value="0">
-                                        </li>
+                                            <div class="icon-section">
+                                                <i class="material-icons icon-add" onclick="AddNewTimingSection('Saturday', 'Sa', '5');" id="Saturday">add</i>
+                                                </div>
+                                                <input id="Offerday_5_DayKey" name="Offerday[5].DayKey" type="hidden" value="Sa">
+                                                <input id="Offerday_5_DayName" name="Offerday[5].DayName" type="hidden" value="Saturday">
+                                                <input id="Offerday_5_DiscountTimingId" name="Offerday[5].DiscountTimingId" type="hidden" value="0">
+</li>
                                         <li class="item-content">
                                             <div class="timing-flex-row-container" id="div_Saturday">
                                                 <div>
@@ -1371,11 +1383,13 @@
                                             <!--<input style="width:5%" checked="checked" id="Offerday_6_IsCheck" name="Offerday[6].IsCheck" type="checkbox" value="true">-->
                                             <input name="Offerday[6].IsCheck" type="hidden" value="false">
                                             <!--<label style="width:25%;">Sunday</label>-->
-                                            <i class="material-icons icon-add" onclick="AddNewTimingSection('Sunday', 'Su', '6');" id="Sunday">add</i>
-                                            <input id="Offerday_6_DayKey" name="Offerday[6].DayKey" type="hidden" value="Su">
-                                            <input id="Offerday_6_DayName" name="Offerday[6].DayName" type="hidden" value="Sunday">
-                                            <input id="Offerday_6_DiscountTimingId" name="Offerday[6].DiscountTimingId" type="hidden" value="0">
-                                        </li>
+                                            <div class="icon-section">
+                                                <i class="material-icons icon-add" onclick="AddNewTimingSection('Sunday', 'Su', '6');" id="Sunday">add</i>
+                                                </div>
+                                                <input id="Offerday_6_DayKey" name="Offerday[6].DayKey" type="hidden" value="Su">
+                                                <input id="Offerday_6_DayName" name="Offerday[6].DayName" type="hidden" value="Sunday">
+                                                <input id="Offerday_6_DiscountTimingId" name="Offerday[6].DiscountTimingId" type="hidden" value="0">
+</li>
                                         <li class="item-content">
                                             <div class="timing-flex-row-container" id="div_Sunday">
                                                 <div>

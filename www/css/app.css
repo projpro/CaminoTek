@@ -1184,10 +1184,10 @@ h4{
     width:40%;
 }
 
-.order-buttons img{
+/*.order-buttons img{
     width:41%;
     margin:0 25px;
-}
+}*/
 
 #dvFoodItemList .order-buttons img{
     width:40%;
@@ -1640,6 +1640,24 @@ select:-moz-focusring {
 #dvItem{padding-top:15px;}
 #dvItem table th{font-size:16px;}
 #dvItem table td{font-size:16px;}
+.menu-margin-right{
+    right:65px;
+}
+.menu-margin-right-one{
+    right:55px;
+}
+.sort-header{
+    border:none;
+    font-size:20px;
+    padding-left:10px;
+    padding-top: 25px;
+}
+.custom-width{
+    width:96%;
+}
+.filter-header{
+    border:none;font-size:20px; padding-left:10px;
+}
 /*===============================================*/
 /* 11/A. Sudip Start					    	 */
 /*===============================================*/
@@ -1787,27 +1805,26 @@ select:-moz-focusring {
   margin: 5px;
   text-align: center;
 }
-.icon-add{width:65% !important;color: #08b3c7;font-weight: 600;}
+.icon-section{width:65%;}
+.icon-add{color: #08b3c7;font-weight: 600;width:50px;}
 /*.input-with-value{padding-left:0px !important; padding-right:0px !important;}*/
 .item-content .item-checkbox{ width:35% !important;}
 .btn-filter{width:226px;}
 .ul-media-list-li{padding-left:0px !important;}
+.label-timing-checkbox{width:35%;}
+
+.carryout-button-set{
+    width:21% !important;
+    margin:0 7px 0 0 !important;
+}
+.carryout-button-set-2{
+    width:90% !important;
+}
+.carryout-button{
+    margin-right:5px;
+}
 /*---Profile Section End-*/
 
-
-/*---Media Query-*/
-@media (min-width: 320px) and (max-width: 480px){
-.flex{flex-direction:column;}
-.div-left{width:100%;}
-.div-right{width:100%;}
-.giftcard-column-one { width:100%; }
-.giftcard-column-two { width:100%;margin:0 0 0 7px; }
-.giftcard-code{font-size:17px;}
-.giftcard-customer{ font-size: 13px; font-weight: 400; color: #111111;}
-.giftcard-price{font-size:14px;}
-.item-content .item-checkbox{ width:45% !important;}
-.giftcard-order-pickup{font-size:15px;}
-}
 
 /*===============================================*/
 /* 11/A. Sudip End  					    	 */
@@ -1826,6 +1843,8 @@ text-align: center;
 display: block;
     margin:8px 10px 0 10px;
 }
+.list-section{margin-top:20px;}
+.item-media-large{width:75%;}
 .header-filter{border:none;font-size:20px; padding-left:10px;padding-top: 25px;}
 #tblRewardHistory .th-date{text-align:left;border-bottom:#333 1px solid !important;background:none !important; width:55%;}
 #tblRewardHistory .th-name{text-align:left;border-bottom:#333 1px solid !important;background:none !important; width:20%;}
@@ -1893,6 +1912,7 @@ display: block;
 .file input:focus ~ .file-custom {
   box-shadow: 0 0 0 .075rem #fff, 0 0 0 .2rem #0074d9;
 }
+.material-icons-left{margin-top:12px;}
 /*===============================================*/
 /* 11/C. Item End  	     	 */
 /*===============================================*/
@@ -1953,6 +1973,17 @@ display: block;
 	font-weight: 400;
 	color: #111111;
 }
+
+  .flex{flex-direction:column;}
+.div-left{width:100%;}
+.div-right{width:100%;}
+.giftcard-column-one { width:100%; }
+.giftcard-column-two { width:100%;margin:0 0 0 7px; }
+.giftcard-code{font-size:17px;}
+.giftcard-customer{ font-size: 13px; font-weight: 400; color: #111111;}
+.giftcard-price{font-size:14px;}
+.item-content .item-checkbox{ width:45% !important;}
+.giftcard-order-pickup{font-size:15px;}
 }
 /*===============================================*/
 /* 12. Responsive 						    	 */
