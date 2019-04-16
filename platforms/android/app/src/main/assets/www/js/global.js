@@ -1,6 +1,6 @@
-//var global = "http://www.appnotification.bistroux.com/Api/App/";
-var global = "http://www.consumerapp.bistroux.com/Api/App/";
-//var global = "http://192.168.1.7/Api/App/";
+var global = "http://www.appnotification.bistroux.com/Api/App/";
+//var global = "http://www.consumerapp.bistroux.com/Api/App/";
+//var global = "http://192.168.1.6/Api/App/";
 var mediaURL = "http://appnotification.bistroux.com/Media/";
 
 var browser = true;
@@ -5667,7 +5667,8 @@ function CarryoutItemsList(carryoutpagesize, carryoutcurrentPage) {
         status = "";
     }
    
-
+    console.log("radioItemSortBy: " + sortValue)
+    console.log("radioItemSort: " + sortByValue)
     if (Number(storeId) > 0) {
 
         carryoutcurrentPage = Number(carryoutcurrentPage) * Number(carryoutpagesize);
@@ -5690,20 +5691,26 @@ function CarryoutItemsList(carryoutpagesize, carryoutcurrentPage) {
                             itemPrice = FormatDecimal(value.PRICE);
 
                         }
-
+                        console.log(value.PUBLISHED)
                         var html = "<div class=\"order-container\"  id='li_" + value.ID + "' style=\"width:100%;padding-left: 20px;\" >";
                         html += "<div id=\"dvItemListInner_" + value.ID + "\" class=\"order-list\">";
                         html += "<div class=\"order-column-two\" style=\"width:100%\">";
                         html += "<div class=\"order-row-container\">";
 
                         /*------------------Name-----------------------*/
-                        html += "<div class=\"order-pickup order-number\" style=\"text-align:left;font-size:20px;width:75%\" >" + value.NAME + "</div>";
+                        html += "<div class=\"order-pickup order-number\" style=\"text-align:left;font-size:20px;width:70%\" >" + value.NAME + "</div>";
 
                         /*------------------Button-----------------------*/
-                        html += "<div class=\"order-buttons\" style=\"width:25%\">";
-                        html += "<div class=\"order-price\" style=\"font-size:20px;width:50%;text-align:right;\">" + itemPrice + "</div>";
+                        html += "<div class=\"order-buttons\" style=\"width:30%\">";
+                        if (value.PUBLISHED == 1) {
+                            html += "<div style=\"width:33.33%;\"><a><img src=\"./img/icons/active.png\"></a></div>";
+                        }
+                        else {
+                            html += "<div style=\"width:33.33%;\"><a><img src=\"./img/icons/inactive.png\"></a></div>";
+                        }
+                        html += "<div class=\"order-price\" style=\"font-size:20px;width:33.33%;text-align:right;\">" + itemPrice + "</div>";
 
-                        html += "<div style=\"padding-left:10px;width:50%\"><a onclick=\"GoToItemEdit(" + value.ID + ");\"><img src=\"./img/icons/edit-icon.png\"></a></div>";
+                        html += "<div style=\"padding-left:0px;width:33.33%\"><a onclick=\"GoToItemEdit(" + value.ID + ");\"><img src=\"./img/icons/edit-icon.png\"></a></div>";
                         html += "</div>";
 
                         html += "</div>";
@@ -5712,7 +5719,7 @@ function CarryoutItemsList(carryoutpagesize, carryoutcurrentPage) {
                         html += "<div class=\"customer-detail-container\">";
 
                         if (value.CATEGORY != undefined && value.CATEGORY != null && value.CATEGORY != "")
-                            html += "<div  style=\"font-size:13px;width:100%\">" + value.CATEGORY + "</div>";
+                            html += "<div  style=\"font-size:14px;width:100%;font-weight:600;\">" + value.CATEGORY + "</div>";
 
                         /*------------------SHORTDESCRIPTION-----------------------*/
                         if (value.SHORTDESCRIPTION != undefined && value.SHORTDESCRIPTION != null && value.SHORTDESCRIPTION != "")
@@ -5773,7 +5780,6 @@ function CarryoutItemsListPagination(carryoutpagesize, carryoutcurrentPage) {
     if (Number(storeId) > 0) {
 
         //Sorting
-
         var name = $("#txtFilterItemName").val();
         var category = $("#filterProductCategory").val();
         var status = $("#ddlFilterItemStatus").val();
@@ -5791,7 +5797,8 @@ function CarryoutItemsListPagination(carryoutpagesize, carryoutcurrentPage) {
         if (status == undefined) {
             status = "";
         }
-
+        console.log("radioItemSortBy: " + sortValue)
+        console.log("radioItemSort: " + sortByValue)
 
         carryoutcurrentPage = Number(carryoutcurrentPage) * Number(carryoutpagesize);
         url = global + "/GetAllCarryOutItems?storeid=" + storeId + "&pagesize=" + carryoutpagesize + "&currentPage=" + carryoutcurrentPage + "&name=" + name + "&category=" + category + "&status=" + status +
@@ -5819,13 +5826,19 @@ function CarryoutItemsListPagination(carryoutpagesize, carryoutcurrentPage) {
                         html += "<div class=\"order-row-container\">";
 
                         /*------------------Name-----------------------*/
-                        html += "<div class=\"order-pickup order-number\" style=\"text-align:left;font-size:20px;width:75%\" >" + value.NAME + "</div>";
+                        html += "<div class=\"order-pickup order-number\" style=\"text-align:left;font-size:20px;width:70%\" >" + value.NAME + "</div>";
 
                         /*------------------Button-----------------------*/
-                        html += "<div class=\"order-buttons\" style=\"width:25%\">";
-                        html += "<div class=\"order-price\" style=\"font-size:20px;width:50%;text-align:right;\">" + itemPrice + "</div>";
+                        html += "<div class=\"order-buttons\" style=\"width:30%\">";
+                        if (value.PUBLISHED == 1) {
+                            html += "<div style=\"width:33.33%;\"><a><img src=\"./img/icons/active.png\"></a></div>";
+                        }
+                        else {
+                            html += "<div style=\"width:33.33%;\"><a><img src=\"./img/icons/inactive.png\"></a></div>";
+                        }
+                        html += "<div class=\"order-price\" style=\"font-size:20px;width:33.33%;text-align:right;\">" + itemPrice + "</div>";
 
-                        html += "<div style=\"padding-left:10px;width:50%\"><a onclick=\"GoToItemEdit(" + value.ID + ");\"><img src=\"./img/icons/edit-icon.png\"></a></div>";
+                        html += "<div style=\"padding-left:0px;width:33.33%;\"><a onclick=\"GoToItemEdit(" + value.ID + ");\"><img src=\"./img/icons/edit-icon.png\"></a></div>";
                         html += "</div>";
 
                         html += "</div>";
@@ -5833,7 +5846,7 @@ function CarryoutItemsListPagination(carryoutpagesize, carryoutcurrentPage) {
                         html += "<div class=\"order-date\" style=\"width:100%\">";
                         html += "<div class=\"customer-detail-container\">";
                         if (value.CATEGORY != undefined && value.CATEGORY != null && value.CATEGORY != "")
-                            html += "<div  style=\"font-size:13px;width:100%\">" + value.CATEGORY + "</div>";
+                            html += "<div  style=\"font-size:14px;width:100%;font-weight:600;\">" + value.CATEGORY + "</div>";
 
                         /*------------------SHORTDESCRIPTION-----------------------*/
                         if (value.SHORTDESCRIPTION != undefined && value.SHORTDESCRIPTION != null && value.SHORTDESCRIPTION != "")
@@ -5881,6 +5894,14 @@ function CarryoutItemsListPagination(carryoutpagesize, carryoutcurrentPage) {
     }
 
 }
+//Filter & Sort Items
+function FilterSortItems()
+{
+    var pageSize = 10;
+    var currentPage = 0;
+    localStorage.setItem("CurrentPage", currentPage);
+    CarryoutItemsList(10, 0);
+}
 function GoToItemEdit(productId) {
     localStorage.setItem("HiddenItemId", productId);
     self.app.router.navigate('/foods/', { reloadCurrent: false });
@@ -5890,7 +5911,7 @@ function BindItemById(productId) {
     var productId = localStorage.getItem("HiddenItemId");
     storeId = SetStoreId();
     if (productId > 0 && Number(storeId) > 0) {
-
+        console.log("productId: " + productId)
         $('.div-contentTiming').remove();
         $('#hdnAvailTimingCount').val(8);
 
@@ -5913,7 +5934,7 @@ function BindItemById(productId) {
                     //console.log(value); 
                     var count = 0;
                     if (value.Type == "ItemInfo") {
-                        console.log("CategoryId: " + value.FOODSELECTIONTYPE)
+                        console.log("value.PUBLISHED: " + value.PUBLISHED)
                         if (value.CategoryId != "") {
                             $("#productCategory").val(value.CATEGORYID);
                         }
@@ -5957,7 +5978,12 @@ function BindItemById(productId) {
                         if (value.IsCarryout == 1) {
                             $("#chkCarryOut").prop('checked', true);
                         }
-                       
+                        if (value.PUBLISHED == 1) {
+                            $("#checkItemActive").prop('checked', true);
+                        }
+                        else {
+                            $("#checkItemActive").prop('checked', false);
+                        }
                         if (value.AVAILABILITYTYPE == "Normal") {
                             $("#chkNormal").prop('checked', true);
                             $("#liAvailTiming").hide();
@@ -6010,15 +6036,17 @@ function BindItemById(productId) {
                                 closingPeriod = value.ENDPERIOD;
                             }
                         }
+                      
                         if (value.Price != "") {
-                            price = value.Price;
+                            price = FormatDecimal(value.Price);
+                            if (price.indexOf('$') > -1) {
+                                price = price.replace('$', '');
+                            }
+                            //$("#txtProductPrice").val(price);
+                           // price = value.Price;
                         }
-                        //console.log("TimingId: " + timingId + " Day: " + day + " OpeningTime: " + openingTime + " ClosingTime: " + closingTime);
-                        //console.log("Opening: Hour: " + openingHour + " Minute: " + openingMinute + " Period: " + openingPeriod + " Closing: Hour: " + closingHour + " Minute: " + closingMinute + " Period: " + closingPeriod);
-                        //dayName = GetDayNameByDayKey(day);
-
+                        
                         //Generate Edit Section Start//
-
                         if (day == "Mo") {
                             $('#Avail_0_IsCheck').prop('checked', true);
                             dayName = "Monday";
@@ -6385,7 +6413,6 @@ function SaveProductInfo() {
         self.app.router.navigate('/login_new/', { reloadCurrent: true });
     }
 }
-
 function BindCategoy(id) {
 
     var storeId = 0;
@@ -6397,7 +6424,7 @@ function BindCategoy(id) {
         var url = global + "/GetCategoyByStoreId?storeId=" + storeId;
 
         $.getJSON(url, function (data) {
-            console.log(data)
+            //console.log(data)
             if (data.replace(/"/g, "").indexOf("No record(s) found.") > -1) {
 
             }
@@ -6410,8 +6437,6 @@ function BindCategoy(id) {
     }
 
 }
-
-
 //Profile Section End//
 
 //Coupon Section Start//
