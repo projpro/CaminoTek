@@ -369,7 +369,7 @@ $$(document).on('page:init', function (e) {
         var screen_width = document.documentElement.clientWidth;
         var screen_heght = document.documentElement.clientHeight;
 
-        alert("screen_width: " + screen_width)
+        //alert("screen_width: " + screen_width)
         var currentTab = "New";
         //console.log('screen_width: ' + screen_width)
         // console.log('screen_heght: ' + screen_heght)

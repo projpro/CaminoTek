@@ -18,7 +18,7 @@
     <variable name="API_KEY_FOR_ANDROID" value="AIzaSyBJZvmtBkzgIFt4YKxn9YaFgFzow9wkTOk" />
     <variable name="API_KEY_FOR_IOS" value="AIzaSyBFxZQaz73onx2qvWPDLq0asFflKiuPb-s" />
     <variable name="PLAY_SERVICES_VERSION" value="11.8.0" />
-    <preference name="DisallowOverscroll" value="false" />
+    <preference name="DisallowOverscroll" value="true" />
     <preference name="orientation" value="portrait" />
     <preference name="fullscreen" value="true" />
     <preference name="KeepRunning" value="false" />
