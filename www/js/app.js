@@ -272,7 +272,7 @@ $$(document).on('page:init', function (e) {
             if (ItemAvailable == "1") {
                 currentPage = localStorage.getItem("CurrentPage");
                 currentPage = Number(currentPage) + 1;
-                console.log("currentPage: " + currentPage);
+                //console.log("currentPage: " + currentPage);
                 CarryoutItemsListPagination(pageSize, currentPage);
                 localStorage.setItem("CurrentPage", currentPage);
             }
@@ -368,6 +368,8 @@ $$(document).on('page:init', function (e) {
         //$$("#txtCardCodeSearch").focus();
         var screen_width = document.documentElement.clientWidth;
         var screen_heght = document.documentElement.clientHeight;
+
+        alert("screen_width: " + screen_width)
         var currentTab = "New";
         //console.log('screen_width: ' + screen_width)
         // console.log('screen_heght: ' + screen_heght)
@@ -521,6 +523,7 @@ $$(document).on('page:init', function (e) {
                 }
                 else {
                     $('.tabs').css("transform", "translate3d(-30%, 0px, 0px)");
+                    //$('.tabs').css("transform", "translate3d(0%, 0px, 0px)");
                 }
             }
             else {
