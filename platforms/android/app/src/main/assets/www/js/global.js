@@ -424,7 +424,7 @@ function CarryoutOrdersList(status, carryoutpagesize, carryoutcurrentPage, divId
 
                         /*------------------Order Row-----------------------*/
 
-                        html += "<div id=\"dvOrderInner_" + value.ID + "\" class=\"order-list\" data-panel=\"left\"  data-popup=\".popup-details\">";
+                        html += "<div id=\"dvOrderInner_" + value.ID + "\" class=\"order-list\"  data-popup=\".popup-details\">";
 
                         /*------------------Column 1-----------------------*/
 
@@ -525,7 +525,7 @@ function CarryoutOrdersList(status, carryoutpagesize, carryoutcurrentPage, divId
 
                         /*------------------Customer Info-----------------------*/
                         html += "<div class=\"order-date\">";
-                        html += "<div class=\"customer-detail-container panel-open\" onclick=\"OpenCarryoutDetails(" + value.ID + ");\" >";
+                        html += "<div class=\"customer-detail-container panel-open\" onclick=\"OpenCarryoutDetails(" + value.ID + ");\">";
                         html += "<div class=\"customer-name\">" + firstName + " " + lastName + "</div>";
                         html += "<div>" + phone + "</div>";
                         //html += "<div class=\"display-label-wrap\">" + email + "</div>";
@@ -771,7 +771,7 @@ function CarryoutOrdersListPagination(status, carryoutpagesize, carryoutcurrentP
 
                         /*------------------Order Row-----------------------*/
 
-                        html += "<div class=\"order-list panel-open\" data-panel=\"left\"  data-popup=\".popup-details\" >";
+                        html += "<div class=\"order-list\" data-panel=\"left\"  data-popup=\".popup-details\" >";
 
                         /*------------------Column 1-----------------------*/
 
@@ -813,7 +813,7 @@ function CarryoutOrdersListPagination(status, carryoutpagesize, carryoutcurrentP
                         html += "<div class=\"order-column-two\">";
                         /*------------------1st Row-----------------------*/
                         html += "<div class=\"order-row-container\">";
-                        html += "<div class=\"order-number panel-open\" onclick=\"OpenCarryoutDetails(" + value.ID + ");\" >#" + value.ID + "<span> on </span><span>" + orderDate + " @ " + orderTime + "</span></div>";
+                        html += "<div class=\"order-number panel-open\" onclick=\"OpenCarryoutDetails(" + value.ID + ");\">#" + value.ID + "<span> on </span><span>" + orderDate + " @ " + orderTime + "</span></div>";
                         /*------------------Button Row-----------------------*/
                         if (value.ORDERSTATUSID == "New") {
 
@@ -867,11 +867,11 @@ function CarryoutOrdersListPagination(status, carryoutpagesize, carryoutcurrentP
                         /*------------------1st Row-----------------------*/
 
                         /*------------------2nd Row-----------------------*/
-                        html += "<div class=\"order-row-container\"  >";
+                        html += "<div class=\"order-row-container panel-open\"  onclick=\"OpenCarryoutDetails(" + value.ID + ");\">";
 
                         /*------------------Customer Info-----------------------*/
                         html += "<div class=\"order-date\">";
-                        html += "<div class=\"customer-detail-container panel-open\" onclick=\"OpenCarryoutDetails(" + value.ID + ");\">";
+                        html += "<div class=\"customer-detail-container\">";
                         html += "<div class=\"customer-name\">" + firstName + " " + lastName + "</div>";
                         html += "<div>" + phone + "</div>";
                         //html += "<div class=\"display-label-wrap\">" + email + "</div>";
@@ -3030,7 +3030,7 @@ function GiftCardOrdersList(pagesize, currentPage) {
 
                         /*------------------Column 1-----------------------*/
 
-                        html += "<div class=\"order-column-one panel-open\" data-panel=\"left\" onclick=\"OpenGiftCardDetails(" + value.ID + ");\">";
+                        html += "<div class=\"order-column-one\" data-panel=\"left\" onclick=\"OpenGiftCardDetails(" + value.ID + ");\">";
                         /*------------------Status Icon--------------------*/
 
                         if (value.ORDERSTATUSID.toLowerCase() == "new") {
