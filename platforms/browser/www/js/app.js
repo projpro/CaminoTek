@@ -1182,9 +1182,12 @@ function InitPushNotification(storeId) {
             CheckNewOrder();
         }
         else if (data.message == "Stop Audio") {
-            myMedia = new Media(src, onSuccess, onError, onStatus);
-            myMedia.stop();
-            acceptOrderPopup.destroy();
+            alert(data.message)
+            //myMedia = new Media(src, onSuccess, onError, onStatus);
+           // myMedia.stop();
+           // acceptOrderPopup.destroy();
+            $("#btnAcknowledgement").click();
+            //AcceptOrders();
         }
         // alert('notification event: ' + data.message + ", " + data.title);
         //navigator.notification.alert(
