@@ -6285,7 +6285,7 @@ function BindItemById(productId) {
     var productId = localStorage.getItem("HiddenItemId");
     storeId = SetStoreId();
     if (productId > 0 && Number(storeId) > 0) {
-        console.log("productId: " + productId)
+       // console.log("productId: " + productId)
         $('.div-contentTiming').remove();
         $('#hdnAvailTimingCount').val(8);
 
@@ -6308,11 +6308,12 @@ function BindItemById(productId) {
                     //console.log(value); 
                     var count = 0;
                     if (value.Type == "ItemInfo") {
-                        console.log("value.PUBLISHED: " + value.PUBLISHED)
+                        console.log("value.CATEGORYID: " + value.CATEGORYID)
+                       
                         if (value.CategoryId != "") {
-                            $("#productCategory").val(value.CATEGORYID);
+                           // $("#food-page-content #productCategory").val(value.CATEGORYID);
+                            $("#productCategory option[value='" + value.CATEGORYID + "']").attr("selected", "selected");
                         }
-
                         if (value.NAME != "") {
                             $("#txtProductName").val(value.NAME);
                         }
@@ -6366,6 +6367,8 @@ function BindItemById(productId) {
                             $("#chkTimeSpecific").prop('checked', true);
                             $("#liAvailTiming").show();
                         }
+
+                        console.log("value.CATEGORYID 1: ")
                     }
                     else if (value.Type == "ItemTiming") {
                         var dayName = "";
@@ -6807,7 +6810,8 @@ function BindCategoy(id) {
                 $('#' + id).append(data);
             }
         });
-
+       // $('#' + id).prop('selectedIndex', 0);
+      //  
     }
 
 }
