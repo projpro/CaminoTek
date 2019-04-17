@@ -4246,15 +4246,17 @@ function RewardsTabChange(tabName)
 //Reward Start
 //Reward Start
 function SearchReward() {
+
+    alert('SearchReward');
     //$('#btnRedeemReward').removeClass("search-button");
     //$('#btnRedeemReward').addClass("search-button-one");
     //$('#btnLoadReward').removeClass("search-button");
     //$('#btnLoadReward').addClass("search-button-one");
 
-    $("#txtLoad_LoadRedeem").css('border-bottom', bottomBorder);
-    $("#txtRedeem_LoadRedeem").css('border-bottom', bottomBorder);
-    $('#btnLoadReward').text("Load");
-    $('#btnRedeemReward').text("Redeem");
+    $("#reward_LoadRedeem #txtLoad_LoadRedeem").css('border-bottom', bottomBorder);
+    $("#reward_LoadRedeem #txtRedeem_LoadRedeem").css('border-bottom', bottomBorder);
+    $('#reward_LoadRedeem #btnLoadReward').text("Load");
+    $('#reward_LoadRedeem #btnRedeemReward').text("Redeem");
     $('#dvOuter').hide();
 
 
@@ -4266,9 +4268,11 @@ function SearchReward() {
 
     var lastName = $("#reward_LoadRedeem #txtLastName_LoadRedeem").val();
 
-
+    alert('memberId: ' + memberId);
+    alert('phone: ' + phone);
+    alert('lastName: ' + lastName);
     if (memberId != "" || phone != "" || phone != '0' || lastName != "") {
-
+        alert('2');
         try {
             url = global + "/RewardSearch?storeid=" + storeId + "&rewardMemberId=" + memberId + "&phone=" + phone + "&lastName=" + encodeURIComponent(lastName);
             //alert(url);
@@ -4446,7 +4450,7 @@ function SearchReward() {
         }
     }
     else {
-
+        alert('3');
         $('#dvInner_Reward').hide();
         //$("#txtMemberID_LoadRedeem").css('border-bottom', errorClassBorder);
 
