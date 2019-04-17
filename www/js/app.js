@@ -100,7 +100,6 @@ $$(document).on('page:init', function (e) {
     else if (pageURL.indexOf('carryout') > -1)//Carry Out
     {
 
-        StopSoundOtherDevices(3);
         $('#dvParentGiftCardDetailsPanel').html("");
         $('#dvDetailsPanel').html("");
         var calendarModalOrderStart = app.calendar.create({
