@@ -1534,7 +1534,7 @@ function AcceptOrders() {
         }
     });
 
-    StopSoundOtherDevices(storeId);
+    //StopSoundOtherDevices(storeId);
 }
 function StopSoundOtherDevices(storeId) {
     $.ajax({
