@@ -6285,290 +6285,312 @@ function BindItemById(productId) {
     var productId = localStorage.getItem("HiddenItemId");
     storeId = SetStoreId();
     if (productId > 0 && Number(storeId) > 0) {
+        /*-------------HTML Start---------------------------------*/
+        var innerHtml = "";
+        //console.log("BindCategoy: " + storeId)
+        if (storeId > 0) {
+            var url = global + "/GetCategoyByStoreId?storeId=" + storeId;
+
+            $.getJSON(url, function (data) {
+                //console.log(data)
+                if (data.replace(/"/g, "").indexOf("No record(s) found.") > -1) {
+
+                }
+                else {
+                    $('#productCategory').html("<option value=\"0\">Category</option>");
+                    $('#productCategory').append(data);
+
+                    $('.div-contentTiming').remove();
+                    $('#hdnAvailTimingCount').val(8);
+
+
+                    var moCount = 1; var tuCount = 1; var weCount = 1; var thCount = 1; var frCount = 1; var saCount = 1; var suCount = 1;
+
+                    $("#hdnItemId").val(productId);
+                    var url = global + "/GetItemById?productId=" + productId;
+
+                    $.getJSON(url, function (data) {
+                        if (data.replace(/"/g, "").indexOf("No record(s) found.") > -1) {
+
+                        }
+                        else {
+
+                            //localStorage.setItem("HiddenDiscountId", 0);
+                            $.each(JSON.parse(data), function (index, value) {
+
+                                //console.log(data);
+                                //console.log(value); 
+                                var count = 0;
+                                if (value.Type == "ItemInfo") {
+                                    console.log("value.CATEGORYID: " + value.CATEGORYID)
+
+                                    if (value.CategoryId != "") {
+                                        // $("#food-page-content #productCategory").val(value.CATEGORYID);
+                                        $("#productCategory option[value='" + value.CATEGORYID + "']").attr("selected", "selected");
+                                    }
+                                    if (value.NAME != "") {
+                                        $("#txtProductName").val(value.NAME);
+                                    }
+                                    if (value.SHORTDESCRIPTION != "") {
+                                        var shortDescription = value.SHORTDESCRIPTION.replace("<p>", "").replace("</p>", "");
+                                        $("#txtProductDescription").val(shortDescription);
+
+                                    }
+
+                                    if (value.PRICE > 0) {
+                                        var price = FormatDecimal(value.PRICE);
+                                        if (price.indexOf('$') > -1) {
+                                            price = price.replace('$', '');
+                                        }
+                                        $("#txtProductPrice").val(price);
+                                        //console.log(value.MinimumOrderAmount);
+                                    }
+                                    else {
+                                        $("#txtProductPrice").val(FormatDecimal(0.00).replace('$', ''));
+                                    }
+                                    if (value.FOODSELECTIONTYPE.toLowerCase().indexOf("lunch") > -1) {
+                                        $("#chkLunch").prop('checked', true);
+                                    }
+                                    if (value.FOODSELECTIONTYPE.toLowerCase().indexOf("dinner") > -1) {
+                                        $("#chkDinner").prop('checked', true);
+                                    }
+                                    if (value.FOODSELECTIONTYPE.toLowerCase().indexOf("breakfast") > -1) {
+                                        $("#chkBreakfast").prop('checked', true);
+                                    }
+                                    if (value.FOODSELECTIONTYPE.toLowerCase().indexOf("branch") > -1) {
+                                        $("#chkBrunch").prop('checked', true);
+                                    }
+
+                                    if (value.IsDineIn == 1) {
+                                        $("#chkDineIn").prop('checked', true);
+                                    }
+                                    if (value.IsCarryout == 1) {
+                                        $("#chkCarryOut").prop('checked', true);
+                                    }
+                                    if (value.PUBLISHED == 1) {
+                                        $("#checkItemActive").prop('checked', true);
+                                    }
+                                    else {
+                                        $("#checkItemActive").prop('checked', false);
+                                    }
+                                    if (value.AVAILABILITYTYPE == "Normal") {
+                                        $("#chkNormal").prop('checked', true);
+                                        $("#liAvailTiming").hide();
+                                    }
+                                    else if (value.AVAILABILITYTYPE == "Time Specific") {
+                                        $("#chkTimeSpecific").prop('checked', true);
+                                        $("#liAvailTiming").show();
+                                    }
+
+                                    console.log("value.CATEGORYID 1: ")
+                                }
+                                else if (value.Type == "ItemTiming") {
+                                    var dayName = "";
+                                    var timingId = 0;
+                                    var day = "";
+                                    var openingTime = "";
+                                    var openingHour = "";
+                                    var openingMinute = "";
+                                    var openingPeriod = "";
+                                    var closingTime = "";
+                                    var closingHour = "";
+                                    var closingMinute = "";
+                                    var closingPeriod = "";
+                                    var price = 0.00;
+                                    if (value.TimingId > 0) {
+                                        timingId = value.TimingId;
+                                    }
+                                    if (value.Day != "") {
+                                        day = value.Day;
+                                    }
+                                    if (value.StartTime != "") {
+                                        openingTime = value.StartTime;
+                                        if (value.STARTHOUR != "") {
+                                            openingHour = value.STARTHOUR;
+                                        }
+                                        if (value.STARTMINUTE != "") {
+                                            openingMinute = value.STARTMINUTE;
+                                        }
+                                        if (value.STARTPERIOD != "") {
+                                            openingPeriod = value.STARTPERIOD;
+                                        }
+                                    }
+                                    if (value.EndTime != "") {
+                                        closingTime = value.EndTime;
+                                        if (value.ENDHOUR != "") {
+                                            closingHour = value.ENDHOUR;
+                                        }
+                                        if (value.ENDMINUTE != "") {
+                                            closingMinute = value.ENDMINUTE;
+                                        }
+                                        if (value.ENDPERIOD != "") {
+                                            closingPeriod = value.ENDPERIOD;
+                                        }
+                                    }
+
+                                    if (value.Price != "") {
+                                        price = FormatDecimal(value.Price);
+                                        if (price.indexOf('$') > -1) {
+                                            price = price.replace('$', '');
+                                        }
+                                        //$("#txtProductPrice").val(price);
+                                        // price = value.Price;
+                                    }
+
+                                    //Generate Edit Section Start//
+                                    if (day == "Mo") {
+                                        $('#Avail_0_IsCheck').prop('checked', true);
+                                        dayName = "Monday";
+                                        if (moCount > 1) {
+                                            AppendEditAvailTimingSection(timingId, dayName, day, openingHour, openingMinute, openingPeriod, closingHour, closingMinute, closingPeriod, price);
+                                            moCount++;
+                                        }
+                                        else {
+                                            $("#Avail_0_TimingId").val(timingId)
+                                            $("#Avail_0_StartHour").val(openingHour);
+                                            $("#Avail_0_StartMinute").val(openingMinute);
+                                            $("#Avail_0_StartPeriod").val(openingPeriod);
+
+                                            $("#Avail_0_EndHour").val(closingHour);
+                                            $("#Avail_0_EndMinute").val(closingMinute);
+                                            $("#Avail_0_EndPeriod").val(closingPeriod);
+                                            $("#Avail_0_Price").val(price);
+                                            moCount++;
+                                        }
+                                    }
+                                    else if (day == "Tu") {
+                                        $('#Avail_1_IsCheck').prop('checked', true);
+                                        dayName = "Tuesday";
+                                        if (tuCount > 1) {
+                                            AppendEditAvailTimingSection(timingId, dayName, day, openingHour, openingMinute, openingPeriod, closingHour, closingMinute, closingPeriod, price);
+                                            tuCount++;
+                                        }
+                                        else {
+                                            $("#Avail_1_TimingId").val(timingId)
+                                            $("#Avail_1_StartHour").val(openingHour);
+                                            $("#Avail_1_StartMinute").val(openingMinute);
+                                            $("#Avail_1_StartPeriod").val(openingPeriod);
+
+                                            $("#Avail_1_EndHour").val(closingHour);
+                                            $("#Avail_1_EndMinute").val(closingMinute);
+                                            $("#Avail_1_EndPeriod").val(closingPeriod);
+                                            $("#Avail_1_Price").val(price);
+                                            tuCount++;
+                                        }
+                                    }
+                                    else if (day == "We") {
+                                        $('#Avail_2_IsCheck').prop('checked', true);
+                                        dayName = "Wednesday";
+                                        if (weCount > 1) {
+                                            AppendEditAvailTimingSection(timingId, dayName, day, openingHour, openingMinute, openingPeriod, closingHour, closingMinute, closingPeriod, price);
+                                            weCount++;
+                                        }
+                                        else {
+                                            $("#Avail_2_TimingId").val(timingId)
+                                            $("#Avail_2_StartHour").val(openingHour);
+                                            $("#Avail_2_StartMinute").val(openingMinute);
+                                            $("#Avail_2_StartPeriod").val(openingPeriod);
+
+                                            $("#Avail_2_EndHour").val(closingHour);
+                                            $("#Avail_2_EndMinute").val(closingMinute);
+                                            $("#Avail_2_EndPeriod").val(closingPeriod);
+                                            $("#Avail_2_Price").val(price);
+                                            weCount++;
+                                        }
+                                    }
+                                    else if (day == "Th") {
+                                        $('#Avail_3_IsCheck').prop('checked', true);
+                                        dayName = "Thursday";
+                                        if (thCount > 1) {
+                                            AppendEditAvailTimingSection(timingId, dayName, day, openingHour, openingMinute, openingPeriod, closingHour, closingMinute, closingPeriod, price);
+                                            thCount++;
+                                        }
+                                        else {
+                                            $("#Avail_3_TimingId").val(timingId)
+                                            $("#Avail_3_StartHour").val(openingHour);
+                                            $("#Avail_3_StartMinute").val(openingMinute);
+                                            $("#Avail_3_StartPeriod").val(openingPeriod);
+
+                                            $("#Avail_3_EndHour").val(closingHour);
+                                            $("#Avail_3_EndMinute").val(closingMinute);
+                                            $("#Avail_3_EndPeriod").val(closingPeriod);
+                                            $("#Avail_3_Price").val(price);
+                                            thCount++;
+                                        }
+                                    }
+                                    else if (day == "Fr") {
+                                        $('#Avail_4_IsCheck').prop('checked', true);
+                                        dayName = "Friday";
+                                        if (frCount > 1) {
+                                            AppendEditAvailTimingSection(timingId, dayName, day, openingHour, openingMinute, openingPeriod, closingHour, closingMinute, closingPeriod, price);
+                                            frCount++;
+                                        }
+                                        else {
+                                            $("#Avail_4_TimingId").val(timingId)
+                                            $("#Avail_4_StartHour").val(openingHour);
+                                            $("#Avail_4_StartMinute").val(openingMinute);
+                                            $("#Avail_4_StartPeriod").val(openingPeriod);
+
+                                            $("#Avail_4_EndHour").val(closingHour);
+                                            $("#Avail_4_EndMinute").val(closingMinute);
+                                            $("#Avail_4_EndPeriod").val(closingPeriod);
+                                            $("#Avail_4_Price").val(price);
+                                            frCount++;
+                                        }
+                                    }
+                                    else if (day == "Sa") {
+                                        $('#Avail_5_IsCheck').prop('checked', true);
+                                        dayName = "Saturday";
+                                        if (saCount > 1) {
+                                            AppendEditAvailTimingSection(timingId, dayName, day, openingHour, openingMinute, openingPeriod, closingHour, closingMinute, closingPeriod, price);
+                                            saCount++;
+                                        }
+                                        else {
+                                            $("#Avail_5_TimingId").val(timingId)
+                                            $("#Avail_5_StartHour").val(openingHour);
+                                            $("#Avail_5_StartMinute").val(openingMinute);
+                                            $("#Avail_5_StartPeriod").val(openingPeriod);
+
+                                            $("#Avail_5_EndHour").val(closingHour);
+                                            $("#Avail_5_EndMinute").val(closingMinute);
+                                            $("#Avail_5_EndPeriod").val(closingPeriod);
+                                            $("#Avail_5_Price").val(price);
+                                            saCount++;
+                                        }
+                                    }
+                                    else if (day == "Su") {
+                                        $('#Avail_6_IsCheck').prop('checked', true);
+                                        dayName = "Sunday";
+                                        if (suCount > 1) {
+                                            AppendEditAvailTimingSection(timingId, dayName, day, openingHour, openingMinute, openingPeriod, closingHour, closingMinute, closingPeriod, price);
+                                            suCount++;
+                                        }
+                                        else {
+                                            $("#Avail_6_TimingId").val(timingId)
+                                            $("#Avail_6_StartHour").val(openingHour);
+                                            $("#Avail_6_StartMinute").val(openingMinute);
+                                            $("#Avail_6_StartPeriod").val(openingPeriod);
+
+                                            $("#Avail_6_EndHour").val(closingHour);
+                                            $("#Avail_6_EndMinute").val(closingMinute);
+                                            $("#Avail_6_EndPeriod").val(closingPeriod);
+                                            $("#Avail_6_Price").val(price);
+                                            suCount++;
+                                        }
+                                    }
+                                    //Generate Edit Section End//
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+            // $('#' + id).prop('selectedIndex', 0);
+            //  
+        }
+
        // console.log("productId: " + productId)
-        $('.div-contentTiming').remove();
-        $('#hdnAvailTimingCount').val(8);
 
-
-        var moCount = 1; var tuCount = 1; var weCount = 1; var thCount = 1; var frCount = 1; var saCount = 1; var suCount = 1;
-
-        $("#hdnItemId").val(productId);
-        var url = global + "/GetItemById?productId=" + productId;
-
-        $.getJSON(url, function (data) {
-            if (data.replace(/"/g, "").indexOf("No record(s) found.") > -1) {
-
-            }
-            else {
-              
-                //localStorage.setItem("HiddenDiscountId", 0);
-                $.each(JSON.parse(data), function (index, value) {
-             
-                    //console.log(data);
-                    //console.log(value); 
-                    var count = 0;
-                    if (value.Type == "ItemInfo") {
-                        console.log("value.CATEGORYID: " + value.CATEGORYID)
-                       
-                        if (value.CategoryId != "") {
-                           // $("#food-page-content #productCategory").val(value.CATEGORYID);
-                            $("#productCategory option[value='" + value.CATEGORYID + "']").attr("selected", "selected");
-                        }
-                        if (value.NAME != "") {
-                            $("#txtProductName").val(value.NAME);
-                        }
-                        if (value.SHORTDESCRIPTION != "") {
-                            var shortDescription = value.SHORTDESCRIPTION.replace("<p>", "").replace("</p>", "");
-                            $("#txtProductDescription").val(shortDescription);
-
-                        }
-
-                        if (value.PRICE > 0) {
-                            var price = FormatDecimal(value.PRICE);
-                            if (price.indexOf('$') > -1) {
-                                price = price.replace('$', '');
-                            }
-                            $("#txtProductPrice").val(price);
-                            //console.log(value.MinimumOrderAmount);
-                        }
-                        else {
-                            $("#txtProductPrice").val(FormatDecimal(0.00).replace('$', ''));
-                        }
-                        if (value.FOODSELECTIONTYPE.toLowerCase().indexOf("lunch")>-1) {
-                            $("#chkLunch").prop('checked', true);
-                        }
-                        if (value.FOODSELECTIONTYPE.toLowerCase().indexOf("dinner") > -1) {
-                            $("#chkDinner").prop('checked', true);
-                        }
-                        if (value.FOODSELECTIONTYPE.toLowerCase().indexOf("breakfast") > -1) {
-                            $("#chkBreakfast").prop('checked', true);
-                        }
-                        if (value.FOODSELECTIONTYPE.toLowerCase().indexOf("branch") > -1) {
-                            $("#chkBrunch").prop('checked', true);
-                        }
-
-                        if (value.IsDineIn == 1) {
-                            $("#chkDineIn").prop('checked', true);
-                        }
-                        if (value.IsCarryout == 1) {
-                            $("#chkCarryOut").prop('checked', true);
-                        }
-                        if (value.PUBLISHED == 1) {
-                            $("#checkItemActive").prop('checked', true);
-                        }
-                        else {
-                            $("#checkItemActive").prop('checked', false);
-                        }
-                        if (value.AVAILABILITYTYPE == "Normal") {
-                            $("#chkNormal").prop('checked', true);
-                            $("#liAvailTiming").hide();
-                        }
-                        else if (value.AVAILABILITYTYPE == "Time Specific") {
-                            $("#chkTimeSpecific").prop('checked', true);
-                            $("#liAvailTiming").show();
-                        }
-
-                        console.log("value.CATEGORYID 1: ")
-                    }
-                    else if (value.Type == "ItemTiming") {
-                        var dayName = "";
-                        var timingId = 0;
-                        var day = "";
-                        var openingTime = "";
-                        var openingHour = "";
-                        var openingMinute = "";
-                        var openingPeriod = "";
-                        var closingTime = "";
-                        var closingHour = "";
-                        var closingMinute = "";
-                        var closingPeriod = "";
-                        var price = 0.00;
-                        if (value.TimingId > 0) {
-                            timingId = value.TimingId;
-                        }
-                        if (value.Day != "") {
-                            day = value.Day;
-                        }
-                        if (value.StartTime != "") {
-                            openingTime = value.StartTime;
-                            if (value.STARTHOUR != "") {
-                                openingHour = value.STARTHOUR;
-                            }
-                            if (value.STARTMINUTE != "") {
-                                openingMinute = value.STARTMINUTE;
-                            }
-                            if (value.STARTPERIOD != "") {
-                                openingPeriod = value.STARTPERIOD;
-                            }
-                        }
-                        if (value.EndTime != "") {
-                            closingTime = value.EndTime;
-                            if (value.ENDHOUR != "") {
-                                closingHour = value.ENDHOUR;
-                            }
-                            if (value.ENDMINUTE != "") {
-                                closingMinute = value.ENDMINUTE;
-                            }
-                            if (value.ENDPERIOD != "") {
-                                closingPeriod = value.ENDPERIOD;
-                            }
-                        }
-                      
-                        if (value.Price != "") {
-                            price = FormatDecimal(value.Price);
-                            if (price.indexOf('$') > -1) {
-                                price = price.replace('$', '');
-                            }
-                            //$("#txtProductPrice").val(price);
-                           // price = value.Price;
-                        }
-                        
-                        //Generate Edit Section Start//
-                        if (day == "Mo") {
-                            $('#Avail_0_IsCheck').prop('checked', true);
-                            dayName = "Monday";
-                            if (moCount > 1) {
-                                AppendEditAvailTimingSection(timingId, dayName, day, openingHour, openingMinute, openingPeriod, closingHour, closingMinute, closingPeriod, price);
-                                moCount++;
-                            }
-                            else {
-                                $("#Avail_0_TimingId").val(timingId)
-                                $("#Avail_0_StartHour").val(openingHour);
-                                $("#Avail_0_StartMinute").val(openingMinute);
-                                $("#Avail_0_StartPeriod").val(openingPeriod);
-
-                                $("#Avail_0_EndHour").val(closingHour);
-                                $("#Avail_0_EndMinute").val(closingMinute);
-                                $("#Avail_0_EndPeriod").val(closingPeriod);
-                                $("#Avail_0_Price").val(price);
-                                moCount++;
-                            }
-                        }
-                        else if (day == "Tu") {
-                            $('#Avail_1_IsCheck').prop('checked', true);
-                            dayName = "Tuesday";
-                            if (tuCount > 1) {
-                                AppendEditAvailTimingSection(timingId, dayName, day, openingHour, openingMinute, openingPeriod, closingHour, closingMinute, closingPeriod, price);
-                                tuCount++;
-                            }
-                            else {
-                                $("#Avail_1_TimingId").val(timingId)
-                                $("#Avail_1_StartHour").val(openingHour);
-                                $("#Avail_1_StartMinute").val(openingMinute);
-                                $("#Avail_1_StartPeriod").val(openingPeriod);
-
-                                $("#Avail_1_EndHour").val(closingHour);
-                                $("#Avail_1_EndMinute").val(closingMinute);
-                                $("#Avail_1_EndPeriod").val(closingPeriod);
-                                $("#Avail_1_Price").val(price);
-                                tuCount++;
-                            }
-                        }
-                        else if (day == "We") {
-                            $('#Avail_2_IsCheck').prop('checked', true);
-                            dayName = "Wednesday";
-                            if (weCount > 1) {
-                                AppendEditAvailTimingSection(timingId, dayName, day, openingHour, openingMinute, openingPeriod, closingHour, closingMinute, closingPeriod, price);
-                                weCount++;
-                            }
-                            else {
-                                $("#Avail_2_TimingId").val(timingId)
-                                $("#Avail_2_StartHour").val(openingHour);
-                                $("#Avail_2_StartMinute").val(openingMinute);
-                                $("#Avail_2_StartPeriod").val(openingPeriod);
-
-                                $("#Avail_2_EndHour").val(closingHour);
-                                $("#Avail_2_EndMinute").val(closingMinute);
-                                $("#Avail_2_EndPeriod").val(closingPeriod);
-                                $("#Avail_2_Price").val(price);
-                                weCount++;
-                            }
-                        }
-                        else if (day == "Th") {
-                            $('#Avail_3_IsCheck').prop('checked', true);
-                            dayName = "Thursday";
-                            if (thCount > 1) {
-                                AppendEditAvailTimingSection(timingId, dayName, day, openingHour, openingMinute, openingPeriod, closingHour, closingMinute, closingPeriod, price);
-                                thCount++;
-                            }
-                            else {
-                                $("#Avail_3_TimingId").val(timingId)
-                                $("#Avail_3_StartHour").val(openingHour);
-                                $("#Avail_3_StartMinute").val(openingMinute);
-                                $("#Avail_3_StartPeriod").val(openingPeriod);
-
-                                $("#Avail_3_EndHour").val(closingHour);
-                                $("#Avail_3_EndMinute").val(closingMinute);
-                                $("#Avail_3_EndPeriod").val(closingPeriod);
-                                $("#Avail_3_Price").val(price);
-                                thCount++;
-                            }
-                        }
-                        else if (day == "Fr") {
-                            $('#Avail_4_IsCheck').prop('checked', true);
-                            dayName = "Friday";
-                            if (frCount > 1) {
-                                AppendEditAvailTimingSection(timingId, dayName, day, openingHour, openingMinute, openingPeriod, closingHour, closingMinute, closingPeriod, price);
-                                frCount++;
-                            }
-                            else {
-                                $("#Avail_4_TimingId").val(timingId)
-                                $("#Avail_4_StartHour").val(openingHour);
-                                $("#Avail_4_StartMinute").val(openingMinute);
-                                $("#Avail_4_StartPeriod").val(openingPeriod);
-
-                                $("#Avail_4_EndHour").val(closingHour);
-                                $("#Avail_4_EndMinute").val(closingMinute);
-                                $("#Avail_4_EndPeriod").val(closingPeriod);
-                                $("#Avail_4_Price").val(price);
-                                frCount++;
-                            }
-                        }
-                        else if (day == "Sa") {
-                            $('#Avail_5_IsCheck').prop('checked', true);
-                            dayName = "Saturday";
-                            if (saCount > 1) {
-                                AppendEditAvailTimingSection(timingId, dayName, day, openingHour, openingMinute, openingPeriod, closingHour, closingMinute, closingPeriod, price);
-                                saCount++;
-                            }
-                            else {
-                                $("#Avail_5_TimingId").val(timingId)
-                                $("#Avail_5_StartHour").val(openingHour);
-                                $("#Avail_5_StartMinute").val(openingMinute);
-                                $("#Avail_5_StartPeriod").val(openingPeriod);
-
-                                $("#Avail_5_EndHour").val(closingHour);
-                                $("#Avail_5_EndMinute").val(closingMinute);
-                                $("#Avail_5_EndPeriod").val(closingPeriod);
-                                $("#Avail_5_Price").val(price);
-                                saCount++;
-                            }
-                        }
-                        else if (day == "Su") {
-                            $('#Avail_6_IsCheck').prop('checked', true);
-                            dayName = "Sunday";
-                            if (suCount > 1) {
-                                AppendEditAvailTimingSection(timingId, dayName, day, openingHour, openingMinute, openingPeriod, closingHour, closingMinute, closingPeriod, price);
-                                suCount++;
-                            }
-                            else {
-                                $("#Avail_6_TimingId").val(timingId)
-                                $("#Avail_6_StartHour").val(openingHour);
-                                $("#Avail_6_StartMinute").val(openingMinute);
-                                $("#Avail_6_StartPeriod").val(openingPeriod);
-
-                                $("#Avail_6_EndHour").val(closingHour);
-                                $("#Avail_6_EndMinute").val(closingMinute);
-                                $("#Avail_6_EndPeriod").val(closingPeriod);
-                                $("#Avail_6_Price").val(price);
-                                suCount++;
-                            }
-                        }
-                        //Generate Edit Section End//
-                    }
-                });
-            }
-        });
     }
 }
 function SaveProductInfo() {
@@ -6812,6 +6834,33 @@ function BindCategoy(id) {
         });
        // $('#' + id).prop('selectedIndex', 0);
       //  
+    }
+
+}
+function BindAddUpdateCategoy(id) {
+
+    var storeId = 0;
+    storeId = SetStoreId();
+    /*-------------HTML Start---------------------------------*/
+    var innerHtml = "";
+    //console.log("BindCategoy: " + storeId)
+    if (storeId > 0) {
+        var url = global + "/GetCategoyByStoreId?storeId=" + storeId;
+
+        $.getJSON(url, function (data) {
+            //console.log(data)
+            if (data.replace(/"/g, "").indexOf("No record(s) found.") > -1) {
+
+            }
+            else {
+                $('#' + id).html("<option value=\"0\">Category</option>");
+                $('#' + id).append(data);
+
+
+            }
+        });
+        // $('#' + id).prop('selectedIndex', 0);
+        //  
     }
 
 }

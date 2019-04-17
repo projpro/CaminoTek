@@ -306,7 +306,7 @@ $$(document).on('page:init', function (e) {
                 $('#liAvailTiming').hide();
             }
         });
-        BindCategoy('productCategory');
+       // BindCategoy('productCategory');
         var itemId = 0;
         if (localStorage.getItem("HiddenItemId") != null) {
             itemId = localStorage.getItem("HiddenItemId").trim();
