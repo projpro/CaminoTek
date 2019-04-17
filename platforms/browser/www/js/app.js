@@ -1546,7 +1546,7 @@ function StopSoundOtherDevices(storeId) {
     });
 }
 function Back() {
-    console.log('Back')
+   // console.log('Back')
     //console.log(app.views.main.router);
     //console.log(app.views.main.router.url);
     //console.log(app.views.main.router.history);
@@ -1560,7 +1560,7 @@ function Back() {
         }
         ///console.log('secondLastPage: ' + secondLastPage);
         //console.log('thirdLastPage: ' + thirdLastPage);
-        if (secondLastPage != "/login_new/" && secondLastPage != "/") {
+        if (secondLastPage!="" && secondLastPage != "/login_new/" && secondLastPage != "/") {
             //console.log(1);
             app.views.main.router.back();
         }
