@@ -99,6 +99,8 @@ $$(document).on('page:init', function (e) {
     }
     else if (pageURL.indexOf('carryout') > -1)//Carry Out
     {
+        $('#dvParentGiftCardDetailsPanel').html("");
+        $('#dvDetailsPanel').html("");
         var calendarModalOrderStart = app.calendar.create({
             inputEl: '#txtFilterOrderDateFrom',
             openIn: 'customModal',

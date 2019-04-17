@@ -288,7 +288,7 @@
                                                          
         <div class="mt pd"></div>            
         <!--GiftCard Details Section-->
-        <div class="panel panel-one panel-left panel-cover panel-menu" style="display:none;" id="dvParentGiftCardDetailsPanel">
+        <!--<div class="panel panel-one panel-left panel-cover panel-menu" style="display:none;" id="dvParentGiftCardDetailsPanel">
             <div class="page">
                 <div class="page-content">
                     <div class="block">
@@ -301,7 +301,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>-->
         <!--<div id="dvGiftCardDetailsInner" style="display:none;">-->
             <div class="page" id="dvGiftCardDetailsInner" style="display:none;">
                 <div class="page-content" id="divGiftCardDetailsPanel">
@@ -318,7 +318,8 @@
                                 <input type="hidden" id="hdnGiftCardId" value="0" />
                                 <input type="hidden" id="hdnSelectedOrderDateTime" value="" />
                                 <input type="hidden" id="hdnSelectedOrderOrderPrice" value="0.00" />
-                                
+                                  <div class="order-row-container"></div>
+
                                 <div class="giftcard-code-one">                                      
                                     <label id="lblEditGiftCardCode"></label>
                                     <a id="aEditCode" onclick="EditCardCode();"><i class="material-icons" style="color:#ca1300;">mode_edit</i></a>
@@ -333,12 +334,12 @@
                                         <span> on </span>
                                         <span id="spanOrderTime">04/06/19 @ 08:37 AM</span>-->
                                     </div>
-                                    <div class="order-buttons">
-                                        <a onclick="ChangeGiftCardOrderStatusNew('New')" id="btnNew" style="display:none;"><img src="./img/icons/new_button.png" /></a>
+                                    <div class="giftcard-buttons" id="popupGiftCardButtons">
+                                        <!--<a onclick="ChangeGiftCardOrderStatusNew('New')" id="btnNew" style="display:none;"><img src="./img/icons/new_button.png" /></a>
                                         <a onclick="ChangeGiftCardOrderStatusNew('Processing')" id="btnProcessing" style="display:none;"><img src="./img/icons/pending_button.png" /></a>
                                         <a onclick="ChangeGiftCardOrderStatusNew('PickedUp')" id="btnPickedUp" style="display:none;"><img src="./img/icons/picked_up_button.png" /></a>
                                         <a onclick="ChangeGiftCardOrderStatusNew('Shipped')" id="btnShipped" style="display:none;"><img src="./img/icons/shipped_button.png" /></a>
-                                        <a onclick="ChangeGiftCardOrderStatusNew('Complete')" id="btnComplete" style="display:none;"><img src="./img/icons/complete_button.png" /></a>
+                                        <a onclick="ChangeGiftCardOrderStatusNew('Complete')" id="btnComplete" style="display:none;"><img src="./img/icons/complete_button.png" /></a>-->
                                     </div>
                                 </div>
                                 <div class="order-row-container">                                    
