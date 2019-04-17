@@ -99,6 +99,8 @@ $$(document).on('page:init', function (e) {
     }
     else if (pageURL.indexOf('carryout') > -1)//Carry Out
     {
+
+        StopSoundOtherDevices(3);
         $('#dvParentGiftCardDetailsPanel').html("");
         $('#dvDetailsPanel').html("");
         var calendarModalOrderStart = app.calendar.create({
@@ -1175,11 +1177,13 @@ function InitPushNotification(storeId) {
         //    acceptOrderPopup.destroy();
         //    // Do something after 30 second 
         //}, 30000);
-        alert('notification event: ' + data.message);
+        //alert('notification event: ' + data.message);
         if (data.message == "A new order has been placed") {
+            myMedia = new Media(src, onSuccess, onError, onStatus);
             CheckNewOrder();
         }
         else if (data.message == "Stop Audio") {
+            myMedia = new Media(src, onSuccess, onError, onStatus);
             myMedia.stop();
             acceptOrderPopup.destroy();
         }
@@ -1240,7 +1244,7 @@ function CheckNewOrder() {
     if (Number(storeId) > 0) {
         url = global + "/GetLatestCarryOutOrderPopupNew?storeid=" + storeId;
         try {
-            console.log(GetCurrentDateTime() + " - " + "Searching for new orders", browser);
+            //console.log(GetCurrentDateTime() + " - " + "Searching for new orders", browser);
             $.getJSON(url, function (data) {
                 var obj = JSON.parse(data).Rows;
                 if (data.indexOf("No order(s) found.") > -1) {
@@ -1373,7 +1377,7 @@ function CheckNewOrder() {
                         //console.log("html: " + html)
                         //$("#dvPopOrders").html(html);
                         $("#hdnOrderIds").val(orderIds);
-                        console.log(GetCurrentDateTime() + " - " + " Found new orders(" + orderIds + ")", browser);
+                        //console.log(GetCurrentDateTime() + " - " + " Found new orders(" + orderIds + ")", browser);
 
                         if (html != "") {
                             acceptOrderPopup = app.popup.create({
@@ -1405,12 +1409,13 @@ function CheckNewOrder() {
 
                         if (isDevice()) {
                             // console.log('isDevice 1: ')
-                            playAudio();
+                            //playAudio();
+                            myMedia.play();
                         }
                     }
                     else {
                         //console.log("2");
-                        console.log(GetCurrentDateTime() + " - " + " No new order(s) found(2)", browser);
+                       // console.log(GetCurrentDateTime() + " - " + " No new order(s) found(2)", browser);
                     }
 
                 }
@@ -1422,7 +1427,7 @@ function CheckNewOrder() {
         }
     }
 
-    console.log(GetCurrentDateTime() + " - " + "CheckNewOrder END", browser);
+  //  console.log(GetCurrentDateTime() + " - " + "CheckNewOrder END", browser);
 }
 
 function AcceptOrders() {
