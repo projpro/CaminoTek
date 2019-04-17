@@ -651,7 +651,7 @@ $$(document).on('page:init', function (e) {
         });
 
         $$('#btnSearch').click(function () {
-            alert(1)
+            //alert(1)
             SearchReward();
         });
 
@@ -1138,7 +1138,7 @@ function InitPushNotification(storeId) {
     push.on('registration', function (data) {
         //SetUpLog();
         //WriteLog("registrationId: " + data.registrationId)
-        console.log('registration event: ' + data.registrationId);
+        //console.log('registration event: ' + data.registrationId);
         //console.log('StoreId: ' + localStorage.getItem("StoreId"))
         // alert("current RegId: " + data.registrationId)
         var oldRegId = localStorage.getItem('registrationId');
@@ -1168,12 +1168,14 @@ function InitPushNotification(storeId) {
     });
 
     push.on('notification', function (data) {
+
+
         //setTimeout(function () {
         //    stopAudio();
         //    acceptOrderPopup.destroy();
         //    // Do something after 30 second 
         //}, 30000);
-        //alert('notification event: ' + data.message);
+        alert('notification event: ' + data.message);
         if (data.message == "A new order has been placed") {
             CheckNewOrder();
         }
@@ -1425,7 +1427,7 @@ function CheckNewOrder() {
 
 function AcceptOrders() {
     myMedia.stop();
-
+    var storeId = SetStoreId();
     var orderIds = $("#hdnOrderIds").val().trim();
     var orders = [];
     var customerphone = [];
@@ -1525,7 +1527,7 @@ function AcceptOrders() {
         }
     });
 
-    StopSoundOtherDevices();
+    StopSoundOtherDevices(storeId);
 }
 function StopSoundOtherDevices(storeId) {
     $.ajax({

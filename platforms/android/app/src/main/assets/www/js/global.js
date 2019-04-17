@@ -4247,7 +4247,7 @@ function RewardsTabChange(tabName)
 //Reward Start
 function SearchReward() {
 
-    alert('SearchReward');
+    //alert('SearchReward');
     //$('#btnRedeemReward').removeClass("search-button");
     //$('#btnRedeemReward').addClass("search-button-one");
     //$('#btnLoadReward').removeClass("search-button");
@@ -4268,17 +4268,17 @@ function SearchReward() {
 
     var lastName = $("#reward_LoadRedeem #txtLastName_LoadRedeem").val();
 
-    alert('memberId: ' + memberId);
-    alert('phone: ' + phone);
-    alert('lastName: ' + lastName);
+    //alert('memberId: ' + memberId);
+   // alert('phone: ' + phone);
+    //alert('lastName: ' + lastName);
     if (memberId != "" || phone != "" || phone != '0' || lastName != "") {
-        alert('2');
+        //alert('2');
         try {
             url = global + "/RewardSearch?storeid=" + storeId + "&rewardMemberId=" + memberId + "&phone=" + phone + "&lastName=" + encodeURIComponent(lastName);
-            //alert(url);
+           
             $('#tblRewardHistory tbody').html("");
             $.getJSON(url, function (data) {
-                alert(data)
+               
                 //console.log(data);
                 if (data.replace(/"/g, "").indexOf("Phone is not valid.") > -1) {
                     $('#dvInner_Reward').hide();
@@ -4450,7 +4450,7 @@ function SearchReward() {
         }
     }
     else {
-        alert('3');
+        //alert('3');
         $('#dvInner_Reward').hide();
         //$("#txtMemberID_LoadRedeem").css('border-bottom', errorClassBorder);
 
