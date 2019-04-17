@@ -382,7 +382,7 @@ $$(document).on('page:init', function (e) {
             if (giftCardProgramEnabled == "" || giftCardProgramEnabled != "True") {
                 $('#linkGiftCardNew').addClass('disabled');
                 $('#linkGiftCardRedeem').addClass('disabled');
-                $('.tabs').css({ "transform": "translate3d(-200%, 0px, 0px)" });
+                //$('.tabs').css({ "transform": "translate3d(-200%, 0px, 0px)" });
                 $('#linkGiftCardOrder').addClass('tab-link-active');
                 $('#linkGiftCardNew').removeClass('tab-link-active');
                 $('#tab-giftcard-order').addClass('tab-active');
@@ -394,7 +394,7 @@ $$(document).on('page:init', function (e) {
                 $('#txtCardCode').focus();
                 $('#linkGiftCardNew').removeClass('disabled');
                 $('#linkGiftCardRedeem').removeClass('disabled');
-                $('.tabs').css({ "transform": "translate3d(0%, 0px, 0px)" });
+                //$('.tabs').css({ "transform": "translate3d(0%, 0px, 0px)" });
             }
         }
         else {
@@ -518,16 +518,16 @@ $$(document).on('page:init', function (e) {
         $$('#linkGiftCardRedeem').click(function () {
             $('#txtCardCodeSearch').focus();
             if (currentTab == "New") {
-                if (screen_width <= 417) {
-                    $('.tabs').css("transform", "translate3d(-1%, 0px, 0px)");
-                }
-                else {
-                    $('.tabs').css("transform", "translate3d(-30%, 0px, 0px)");
-                    //$('.tabs').css("transform", "translate3d(0%, 0px, 0px)");
-                }
+                //if (screen_width <= 417) {
+                //    $('.tabs').css("transform", "translate3d(-1%, 0px, 0px)");
+                //}
+                //else {
+                //    $('.tabs').css("transform", "translate3d(-30%, 0px, 0px)");
+                //    //$('.tabs').css("transform", "translate3d(0%, 0px, 0px)");
+                //}
             }
             else {
-                $('.tabs').css("transform", "translate3d(-100%, 0px, 0px)");
+                //$('.tabs').css("transform", "translate3d(-100%, 0px, 0px)");
             }
             blockOffScroll();
         });
