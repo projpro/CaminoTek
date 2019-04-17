@@ -651,6 +651,7 @@ $$(document).on('page:init', function (e) {
         });
 
         $$('#btnSearch').click(function () {
+            alert(1)
             SearchReward();
         });
 

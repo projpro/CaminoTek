@@ -4260,11 +4260,11 @@ function SearchReward() {
 
     var storeId = 0;
     storeId = SetStoreId();
-    var memberId = $('#txtMemberID_LoadRedeem').val();
+    var memberId = $('#reward_LoadRedeem #txtMemberID_LoadRedeem').val();
 
-    var phone = $('#txtPhone_LoadRedeem').val();
+    var phone = $('#reward_LoadRedeem #txtPhone_LoadRedeem').val();
 
-    var lastName = $("#txtLastName_LoadRedeem").val();
+    var lastName = $("#reward_LoadRedeem #txtLastName_LoadRedeem").val();
 
 
     if (memberId != "" || phone != "" || phone != '0' || lastName != "") {
@@ -4274,6 +4274,7 @@ function SearchReward() {
             //alert(url);
             $('#tblRewardHistory tbody').html("");
             $.getJSON(url, function (data) {
+                alert(data)
                 //console.log(data);
                 if (data.replace(/"/g, "").indexOf("Phone is not valid.") > -1) {
                     $('#dvInner_Reward').hide();
