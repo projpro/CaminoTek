@@ -1182,7 +1182,7 @@ function InitPushNotification(storeId) {
             CheckNewOrder();
         }
         else if (data.message == "Stop Audio") {
-            alert(data.message)
+          ///  alert(data.message)
             //myMedia = new Media(src, onSuccess, onError, onStatus);
            // myMedia.stop();
            // acceptOrderPopup.destroy();
