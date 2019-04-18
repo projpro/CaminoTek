@@ -760,7 +760,9 @@ h4{
 #tab-giftcard-new .md .list{
     margin-top:0px !important;
 }
-
+.list-restaurants{
+    width:96%;
+}
 
 /*===============================================*/
 /* 03. RESTAURANT DETAIL				    	 */

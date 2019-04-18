@@ -247,6 +247,7 @@ $$(document).on('page:init', function (e) {
             footer: true,
             dateFormat: 'mm/dd/yyyy',
         });
+        CheckGiftCardPermission();
         var pageSize = 10;
         var currentPage = 0;
         document.addEventListener("deviceready", onDeviceReady, false);
@@ -285,6 +286,7 @@ $$(document).on('page:init', function (e) {
     else if (pageURL.indexOf('foods') > -1)// Product Edit
     {
         var storeId = 0;
+        CheckGiftCardPermission();
         document.addEventListener("deviceready", onDeviceReady, false);
         function onDeviceReady() {
             var src = mediaURL + "notification.mp3";
@@ -624,6 +626,7 @@ $$(document).on('page:init', function (e) {
 
     else if (pageURL.indexOf('manageservice') > -1) {
         var storeId = 0;
+        CheckGiftCardPermission();
         document.addEventListener("deviceready", onDeviceReady, false);
         function onDeviceReady() {
             var src = mediaURL + "notification.mp3";
@@ -747,11 +750,11 @@ $$(document).on('page:init', function (e) {
             });
         }
     }
-
-
+        
     else if (pageURL.indexOf('profile') > -1)//Profile
     {
         var storeId = 0;
+        CheckGiftCardPermission();
         document.addEventListener("deviceready", onDeviceReady, false);
         function onDeviceReady() {
             var src = mediaURL + "notification.mp3";
@@ -772,6 +775,7 @@ $$(document).on('page:init', function (e) {
     {
 
         var storeId = 0;
+        CheckGiftCardPermission();
         document.addEventListener("deviceready", onDeviceReady, false);
         function onDeviceReady() {
             var src = mediaURL + "notification.mp3";
@@ -856,6 +860,7 @@ $$(document).on('page:init', function (e) {
     {
 
         var storeId = 0;
+        CheckGiftCardPermission();
         document.addEventListener("deviceready", onDeviceReady, false);
         function onDeviceReady() {
             var src = mediaURL + "notification.mp3";
@@ -1117,6 +1122,10 @@ $$(document).on('page:init', function (e) {
 
         });
 
+    }
+    else if(pageURL.indexOf('setup') > -1)//Setup
+    {
+        CheckGiftCardPermission();
     }
 });
 
