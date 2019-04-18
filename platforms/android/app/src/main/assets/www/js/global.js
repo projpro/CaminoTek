@@ -4279,7 +4279,7 @@ function SearchReward() {
            
             $('#tblRewardHistory tbody').html("");
             $.getJSON(url, function (data) {
-               
+                $('#tblRewardHistory tbody').html("");
                 //console.log(data);
                 if (data.replace(/"/g, "").indexOf("Phone is not valid.") > -1) {
                     $('#dvInner_Reward').hide();
