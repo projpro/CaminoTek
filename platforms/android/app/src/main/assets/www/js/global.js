@@ -1610,8 +1610,8 @@ function PopupChangeOrderStatusNew(status, orderId, storeId) {
                     orderhtml = "<img class=\"list-icon\"  src=\"img/icons/new.png\" alt=\"\"/>";
                     buttonHTML += "<a onclick=\"PopupChangeOrderStatusNew('Processing'," + orderId + "," + storeId + ")\"  id=\"btnAccept\"><img src=\"./img/icons/accept_button.png\" style=\"width:40%;margin: 0 61px;\" /></a>";
                     buttonHTML += "<a onclick=\"PopupChangeOrderStatusNew('New'," + orderId + "," + storeId + ")\"  id=\"btnNew\" style=\"display:none;\"><img src=\"./img/icons/new_button.png\" /></a>";
-                    buttonHTML += "<a onclick=\"PopupChangeOrderStatusNew('Complete'," + orderId + "," + storeId + ")\" id=\"btnComplete\" style=\"display:none;\"><img src=\"./img/icons/complete_button.png\"  /></a>";
                     buttonHTML += "<a onclick=\"PopupChangeOrderStatusNew('Processing'," + orderId + "," + storeId + ")\"  id=\"btnProcessing\" style=\"display:none;\"><img src=\"./img/icons/pending_button.png\"  /></a>";
+                    buttonHTML += "<a onclick=\"PopupChangeOrderStatusNew('Complete'," + orderId + "," + storeId + ")\" id=\"btnComplete\" style=\"display:none;\"><img src=\"./img/icons/complete_button.png\"  /></a>";                    
                     buttonHTML += "<a onclick=\"PopupChangeOrderStatusNew('PickedUp'," + orderId + "," + storeId + ")\"  id=\"btnPickedUp\" style=\"display:none;\"><img src=\"./img/icons/picked_up_button.png\"  /></a>";
                     //buttonHTML += "<a onclick=\"SendPickUpSMSToCustomer(" + value.ID + ")\"  id=\"btnPickupSMS\" style=\"display:none;\"><img src=\"./img/icons/pickup_sms_button.png\" /></a>";
                 }
@@ -1619,8 +1619,8 @@ function PopupChangeOrderStatusNew(status, orderId, storeId) {
                     orderhtml = "<img class=\"list-icon\"  src=\"img/icons/pending.png\" alt=\"\"/>";
                     buttonHTML += "<a onclick=\"PopupChangeOrderStatusNew('Processing'," + orderId + "," + storeId + ")\"  id=\"btnAccept\"  style=\"display:none;\"><img src=\"./img/icons/accept_button.png\"  /></a>";
                     buttonHTML += "<a class=\"carryout-button\" onclick=\"PopupChangeOrderStatusNew('New'," + orderId + "," + storeId + ")\"  id=\"btnNew\"><img class=\"carryout-button-set-2\" src=\"./img/icons/new_button.png\"  /></a>";
-                    buttonHTML += "<a class=\"carryout-button\" onclick=\"PopupChangeOrderStatusNew('Complete'," + orderId + "," + storeId + ")\"  id=\"btnComplete\"><img class=\"carryout-button-set-2\" src=\"./img/icons/complete_button.png\" /></a>";
                     buttonHTML += "<img class=\"carryout-button-set carryout-button\" src=\"./img/icons/pending_button_active.png\" />";
+                    buttonHTML += "<a class=\"carryout-button\" onclick=\"PopupChangeOrderStatusNew('Complete'," + orderId + "," + storeId + ")\"  id=\"btnComplete\"><img class=\"carryout-button-set-2\" src=\"./img/icons/complete_button.png\" /></a>";                    
                     //buttonHTML += "<a onclick=\"ChangeOrderStatusNew('Processing'," + value.ID + "," + storeId + ")\"  id=\"btnProcessing\" style=\"display:none;\"><img src=\"./img/icons/pending_button.png\" /></a>";
                     buttonHTML += "<a class=\"carryout-button\" onclick=\"PopupChangeOrderStatusNew('PickedUp'," + orderId + "," + storeId + ")\"  id=\"btnPickedUp\"><img class=\"carryout-button-set-2\" src=\"./img/icons/picked_up_button.png\"/></a>";
                     //buttonHTML += "<a onclick=\"SendPickUpSMSToCustomer(" + value.ID + ")\"  id=\"btnPickupSMS\" style=\"display:none;\"><img src=\"./img/icons/pickup_sms_button.png\"  /></a>";
@@ -1631,8 +1631,8 @@ function PopupChangeOrderStatusNew(status, orderId, storeId) {
                     buttonHTML += "<a onclick=\"PopupChangeOrderStatusNew('Processing'," + orderId + "," + storeId + ")\"  id=\"btnAccept\"  style=\"display:none;\"><img src=\"./img/icons/accept_button.png\" /></a>";
                     buttonHTML += "<a class=\"carryout-button\" onclick=\"PopupChangeOrderStatusNew('New'," + orderId + "," + storeId + ")\"  id=\"btnNew\"><img class=\"carryout-button-set-2\" src=\"./img/icons/new_button.png\" /></a>";
                     //buttonHTML += "<a onclick=\"ChangeOrderStatusNew('Complete'," + value.ID + "," + storeId + ")\"  id=\"btnComplete\" style=\"display:none;\"><img src=\"./img/icons/complete_button.png\"  /></a>";
-                    buttonHTML += "<img class=\"carryout-button-set carryout-button\" src=\"./img/icons/complete_button_active.png\"/>";
                     buttonHTML += "<a class=\"carryout-button\" onclick=\"PopupChangeOrderStatusNew('Processing'," + orderId + "," + storeId + ")\"  id=\"btnProcessing\" ><img class=\"carryout-button-set-2\" src=\"./img/icons/pending_button.png\"/></a>";
+                    buttonHTML += "<img class=\"carryout-button-set carryout-button\" src=\"./img/icons/complete_button_active.png\"/>";                    
                     buttonHTML += "<a class=\"carryout-button\" onclick=\"PopupChangeOrderStatusNew('PickedUp'," + orderId + "," + storeId + ")\"  id=\"btnPickedUp\"><img class=\"carryout-button-set-2\" src=\"./img/icons/picked_up_button.png\"/></a>";
                     //if ($("#hdnSelectedOrderPickUpSMSSentTime").val().trim() == "")
                     //    buttonHTML += "<a onclick=\"SendPickUpSMSToCustomer(" + value.ID + ")\"  id=\"btnPickupSMS\"><img src=\"./img/icons/pickup_sms_button.png\"  style=\"width:61%;margin:0 0;\"/></a>";
@@ -1644,8 +1644,8 @@ function PopupChangeOrderStatusNew(status, orderId, storeId) {
                     orderhtml = "<img class=\"list-icon\"  src=\"img/icons/Picked-Up-Icon.png\" alt=\"\"/>";
                     buttonHTML += "<a onclick=\"PopupChangeOrderStatusNew('Processing'," + orderId + "," + storeId + ")\"  id=\"btnAccept\"  style=\"display:none;\"><img src=\"./img/icons/accept_button.png\"  /></a>";
                     buttonHTML += "<a class=\"carryout-button\" onclick=\"PopupChangeOrderStatusNew('New'," + orderId + "," + storeId + ")\"  id=\"btnNew\"><img src=\"./img/icons/new_button.png\" class=\"carryout-button-set-2\"  /></a>";
-                    buttonHTML += "<a class=\"carryout-button\" onclick=\"PopupChangeOrderStatusNew('Complete'," + orderId + "," + storeId + ")\"  id=\"btnComplete\"><img class=\"carryout-button-set-2\" src=\"./img/icons/complete_button.png\" /></a>";
                     buttonHTML += "<a class=\"carryout-button\" onclick=\"PopupChangeOrderStatusNew('Processing'," + orderId + "," + storeId + ")\"  id=\"btnProcessing\"><img class=\"carryout-button-set-2\" src=\"./img/icons/pending_button.png\"  /></a>";
+                    buttonHTML += "<a class=\"carryout-button\" onclick=\"PopupChangeOrderStatusNew('Complete'," + orderId + "," + storeId + ")\"  id=\"btnComplete\"><img class=\"carryout-button-set-2\" src=\"./img/icons/complete_button.png\" /></a>";                    
                     //buttonHTML += "<a onclick=\"ChangeOrderStatusNew('PickedUp'," + value.ID + "," + storeId + ")\"  id=\"btnPickedUp\" style=\"display:none;\"><img src=\"./img/icons/pickup_sms_button.png\"  /></a>";
                     buttonHTML += "<img class=\"carryout-button-set carryout-button\" src=\"./img/icons/picked_up_button_active.png\"  /></a>";
 
@@ -1654,6 +1654,60 @@ function PopupChangeOrderStatusNew(status, orderId, storeId) {
 
                 $("#popUpCarryoutIcon_" + orderId).html(orderhtml);
                 $("#popupCarryOutDetails_" + orderId).html(buttonHTML);
+
+
+                //List Area Update
+                var buttonListHTML = "";
+                var iconListHTML = "";
+                if (status == "New") {
+                    iconListHTML = "<img class=\"list-icon\" src=\"img/icons/new.png\" alt=\"\"/>";
+                    buttonListHTML += "<a onclick=\"ChangeOrderStatusNew('Processing'," + orderId + "," + storeId + ")\"  id=\"btnAccept\"><img src=\"./img/icons/accept_button.png\" style=\"width:40%;margin: 0 61px;\" /></a>";
+                    buttonListHTML += "<a onclick=\"ChangeOrderStatusNew('New'," + orderId + "," + storeId + ")\"  id=\"btnNew\" style=\"display:none;\"><img src=\"./img/icons/new_button.png\" /></a>";
+                    buttonListHTML += "<a onclick=\"ChangeOrderStatusNew('Processing'," + orderId + "," + storeId + ")\"  id=\"btnProcessing\" style=\"display:none;\"><img src=\"./img/icons/pending_button.png\"  /></a>";
+
+                    buttonListHTML += "<a onclick=\"ChangeOrderStatusNew('Complete'," + orderId + "," + storeId + ")\" id=\"btnComplete\" style=\"display:none;\"><img src=\"./img/icons/complete_button.png\"  /></a>";
+                    buttonListHTML += "<a onclick=\"ChangeOrderStatusNew('PickedUp'," + orderId + "," + storeId + ")\"  id=\"btnPickedUp\" style=\"display:none;\"><img src=\"./img/icons/picked_up_button.png\"  /></a>";
+                    //buttonHTML += "<a onclick=\"SendPickUpSMSToCustomer(" + value.ID + ")\"  id=\"btnPickupSMS\" style=\"display:none;\"><img src=\"./img/icons/pickup_sms_button.png\" /></a>";
+                }
+                else if (status == "Processing") {
+                    iconListHTML = "<img class=\"list-icon\"  src=\"img/icons/pending.png\" alt=\"\"/>";
+                    buttonListHTML += "<a onclick=\"ChangeOrderStatusNew('Processing'," + orderId + "," + storeId + ")\"  id=\"btnAccept\"  style=\"display:none;\"><img src=\"./img/icons/accept_button.png\"  /></a>";
+                    buttonListHTML += "<a class=\"carryout-button\" onclick=\"ChangeOrderStatusNew('New'," + orderId + "," + storeId + ")\"  id=\"btnNew\"><img class=\"carryout-button-set-2\" src=\"./img/icons/new_button.png\"  /></a>";
+                    buttonListHTML += "<img class=\"carryout-button-set carryout-button\" src=\"./img/icons/pending_button_active.png\" />";
+
+                    buttonListHTML += "<a class=\"carryout-button\" onclick=\"ChangeOrderStatusNew('Complete'," + orderId + "," + storeId + ")\"  id=\"btnComplete\"><img class=\"carryout-button-set-2\" src=\"./img/icons/complete_button.png\" /></a>";
+                    //buttonHTML += "<a onclick=\"ChangeOrderStatusNew('Processing'," + value.ID + "," + storeId + ")\"  id=\"btnProcessing\" style=\"display:none;\"><img src=\"./img/icons/pending_button.png\" /></a>";
+                    buttonListHTML += "<a class=\"carryout-button\" onclick=\"ChangeOrderStatusNew('PickedUp'," + orderId + "," + storeId + ")\"  id=\"btnPickedUp\"><img class=\"carryout-button-set-2\" src=\"./img/icons/picked_up_button.png\"/></a>";
+                    //buttonHTML += "<a onclick=\"SendPickUpSMSToCustomer(" + value.ID + ")\"  id=\"btnPickupSMS\" style=\"display:none;\"><img src=\"./img/icons/pickup_sms_button.png\"  /></a>";
+                }
+                else if (status == "Complete") {
+                    iconListHTML = "<img class=\"list-icon\"  src=\"img/icons/Complete-Icon.png\" alt=\"\"/>";
+                    buttonListHTML += "<a onclick=\"ChangeOrderStatusNew('Processing'," + orderId + "," + storeId + ")\"  id=\"btnAccept\"  style=\"display:none;\"><img src=\"./img/icons/accept_button.png\" /></a>";
+                    buttonListHTML += "<a class=\"carryout-button\" onclick=\"ChangeOrderStatusNew('New'," + orderId + "," + storeId + ")\"  id=\"btnNew\"><img class=\"carryout-button-set-2\" src=\"./img/icons/new_button.png\" /></a>";
+                    //buttonHTML += "<a onclick=\"ChangeOrderStatusNew('Complete'," + value.ID + "," + storeId + ")\"  id=\"btnComplete\" style=\"display:none;\"><img src=\"./img/icons/complete_button.png\"  /></a>";
+                    buttonListHTML += "<a class=\"carryout-button\" onclick=\"ChangeOrderStatusNew('Processing'," + orderId + "," + storeId + ")\"  id=\"btnProcessing\" ><img class=\"carryout-button-set-2\" src=\"./img/icons/pending_button.png\"/></a>";
+                    buttonListHTML += "<img class=\"carryout-button-set carryout-button\" src=\"./img/icons/complete_button_active.png\"/>";
+                    buttonListHTML += "<a class=\"carryout-button\" onclick=\"ChangeOrderStatusNew('PickedUp'," + orderId + "," + storeId + ")\"  id=\"btnPickedUp\"><img class=\"carryout-button-set-2\" src=\"./img/icons/picked_up_button.png\"/></a>";
+                    //if ($("#hdnSelectedOrderPickUpSMSSentTime").val().trim() == "")
+                    //    buttonHTML += "<a onclick=\"SendPickUpSMSToCustomer(" + value.ID + ")\"  id=\"btnPickupSMS\"><img src=\"./img/icons/pickup_sms_button.png\"  style=\"width:61%;margin:0 0;\"/></a>";
+                    //else
+                    //    buttonHTML += "<a onclick=\"SendPickUpSMSToCustomer(" + value.ID + ")\"  id=\"btnPickupSMS\" style=\"display:none;\"><img src=\"./img/icons/pickup_sms_button.png\" style=\"width:61%;margin:0 0;\"/></a>";
+
+                }
+                else if (status == "PickedUp") {
+                    iconListHTML = "<img class=\"list-icon\"  src=\"img/icons/Picked-Up-Icon.png\" alt=\"\"/>";
+                    buttonListHTML += "<a onclick=\"ChangeOrderStatusNew('Processing'," + orderId + "," + storeId + ")\"  id=\"btnAccept\"  style=\"display:none;\"><img src=\"./img/icons/accept_button.png\"  /></a>";
+                    buttonListHTML += "<a class=\"carryout-button\" onclick=\"ChangeOrderStatusNew('New'," + orderId + "," + storeId + ")\"  id=\"btnNew\"><img src=\"./img/icons/new_button.png\" class=\"carryout-button-set-2\"  /></a>";
+                    buttonListHTML += "<a class=\"carryout-button\" onclick=\"ChangeOrderStatusNew('Processing'," + orderId + "," + storeId + ")\"  id=\"btnProcessing\"><img class=\"carryout-button-set-2\" src=\"./img/icons/pending_button.png\"  /></a>";
+                    buttonListHTML += "<a class=\"carryout-button\" onclick=\"ChangeOrderStatusNew('Complete'," + orderId + "," + storeId + ")\"  id=\"btnComplete\"><img class=\"carryout-button-set-2\" src=\"./img/icons/complete_button.png\" /></a>";
+                    //buttonHTML += "<a onclick=\"ChangeOrderStatusNew('PickedUp'," + value.ID + "," + storeId + ")\"  id=\"btnPickedUp\" style=\"display:none;\"><img src=\"./img/icons/pickup_sms_button.png\"  /></a>";
+                    buttonListHTML += "<img class=\"carryout-button-set carryout-button\" src=\"./img/icons/picked_up_button_active.png\"  /></a>";
+
+                    //buttonHTML += "<a onclick=\"SendPickUpSMSToCustomer(" + value.ID + ")\"  id=\"btnPickupSMS\" style=\"display:none;\"><img src=\"./img/icons/pickup_sms_button.png\"  /></a>";
+                }
+
+                $("#dvCarryOutButtons_" + orderId).html(buttonListHTML);
+                $("#carryoutstatus_" + orderId).html(iconListHTML);
             },
             error: function (xhr, textStatus, errorThrown) {
                 //alert(xhr.responseText);
@@ -2795,7 +2849,7 @@ function LoadNewGiftCard() {
 
                 var totalHistoryAmount = 0;
                 $.getJSON(url, function (data) {
-                    $('#btnLoadGiftCard').text("Add Card");
+                    $('#btnAddCard').text("Add Card");
                     $("#txtCardCode").css('border-bottom', bottomBorder);
                     $("#txtAmount").css('border-bottom', bottomBorder);
                     $("#txtPhone").css('border-bottom', bottomBorder);
@@ -2808,7 +2862,7 @@ function LoadNewGiftCard() {
 
                     //$("#txtEmail").css('border-width', '1px');
                     //$("#txtName").css('border-width', '1px');
-                    console.log(data);
+                    //console.log(data);
                     if (data.indexOf("Card is already in the system.") > -1) {
                         $('#dvOuter').hide();
                         //$('#dvInner').hide();
@@ -2845,7 +2899,7 @@ function LoadNewGiftCard() {
                                 popuphtml = popuphtml + "<p>" + $("#txtPhone").val() + "</p>";
                         }
 
-                        console.log(popuphtml)
+                        //console.log(popuphtml)
 
 
                         //callSweetAlertSuccess("Card loaded successfully.");
@@ -4881,7 +4935,7 @@ function AddNewMemberID() {
         else {
             url = global + "/GenerateNewMemberID?storeid=" + storeId + "&name=" + encodeURIComponent(name) + "&email=" + encodeURIComponent(email) + "&phone=" + phone + "&points=" + points + "&memberId=" + memberId;
             $.getJSON(url, function (data1) {
-                console.log(data1);
+                //console.log(data1);
                 var obj = JSON.parse(data1);
                 $.each(JSON.parse(data1), function (index, value) {
 

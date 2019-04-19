@@ -1779,9 +1779,10 @@ select:-moz-focusring {
 .swal2-popup .swal2-actions{display:block !important;}
 .large-icon{font-size:35px;}
 .giftcard-order-number {
-    width: 40%;
+    width: 60%;
     font-size: 18px;
     color: #111111;
+    padding-top: 8px;
 }
 .giftcard-order-pickup {
     margin-top:0px;
