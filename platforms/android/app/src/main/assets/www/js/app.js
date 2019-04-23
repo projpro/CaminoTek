@@ -319,6 +319,7 @@ $$(document).on('page:init', function (e) {
         }
         else {
             $("#dvProductText").text("Add Item");
+            BindCategoy('productCategory');
         }
     }
 

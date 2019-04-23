@@ -6691,6 +6691,7 @@ function BindItemById(productId) {
        // console.log("productId: " + productId)
 
     }
+ 
 }
 function SaveProductInfo() {
     var itemId = 0;
