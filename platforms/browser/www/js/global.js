@@ -1,6 +1,6 @@
-var global = "http://www.appnotification.bistroux.com/Api/App/";
+//var global = "http://www.appnotification.bistroux.com/Api/App/";
 //var global = "http://www.consumerapp.bistroux.com/Api/App/";
-//var global = "http://192.168.1.6/Api/App/";
+var global = "http://192.168.1.6/Api/App/";
 var mediaURL = "http://appnotification.bistroux.com/Media/";
 
 var browser = true;
@@ -368,9 +368,28 @@ function CarryoutOrdersList(status, carryoutpagesize, carryoutcurrentPage, divId
                         var cardNumber = "";
                         var ordertotal = "";
                         var buttonHTML = "";
+                        var subTotal = 0.00;
+                        var grandTotal = 0.00;
+                        var discount = 0.00;
+                        var displayTotal = 0.00;
+                     
+                        if (value.SUBTOTAL != "") {
+                            subTotal = value.SUBTOTAL;
+                        }
+                        if (value.ORDERDISCOUNT != "") {
+                            discount = value.ORDERDISCOUNT;
+                        }
                         if (value.ORDERTOTAL != "") {
-                            ordertotal = FormatDecimal(value.ORDERTOTAL);
-
+                            grandTotal = value.ORDERTOTAL;
+                            console.log('value.grandTotal: ' + grandTotal)
+                            console.log('value.subTotal: ' + subTotal)
+                            if(grandTotal!=subTotal)
+                            {
+                                ordertotal = FormatDecimal(Number(subTotal) - Number(discount));
+                            }
+                            else {
+                                ordertotal = FormatDecimal(value.ORDERTOTAL);
+                            }
                         }
                         else {
 
@@ -8547,6 +8566,8 @@ function ResetRewardLoadRedeem()
     //$("#txtLastName_LoadRedeem").val("");
     $('input[type="text"]').val("");
     $('input[type="text"]').css('border-bottom', bottomBorder);
+    $('input[type="number"]').val("");
+    $('input[type="number"]').css('border-bottom', bottomBorder);
     $('#lblOurPoints').html("");
     $('#hdnCurrentStorePoints').val("0");
     $('#lblBistroPoints').html("");
@@ -8577,28 +8598,36 @@ function ResetRewardNew() {
    
     $('input[type="text"]').val("");
     $('input[type="text"]').css('border-bottom', bottomBorder);
+    $('input[type="number"]').val("");
+    $('input[type="number"]').css('border-bottom', bottomBorder);
     $$(".input-clear-button").click();
 }
 function ResetGiftCardNew()
 {
     $('input[type="text"]').val("");
     $('input[type="text"]').css('border-bottom', bottomBorder);
+    $('input[type="number"]').val("");
+    $('input[type="number"]').css('border-bottom', bottomBorder);
     $$(".input-clear-button").click();
 }
 function ResetGiftCardLoadRedeem() {
     $('input[type="text"]').val("");
     $('input[type="text"]').css('border-bottom', bottomBorder);
+    $('input[type="number"]').val("");
+    $('input[type="number"]').css('border-bottom', bottomBorder);
     $("#ddlRegister").val("0");
     $$(".input-clear-button").click();
 }
 function ResetFilters(page) {
     $('input[type="text"]').val("");
     $('input[type="text"]').css('border-bottom', bottomBorder);
+    $('input[type="number"]').val("");
+    $('input[type="number"]').css('border-bottom', bottomBorder);
     //$$(".input-clear-button").click();
     // $('input[name=radioCarryoutSort]').attr('checked', true);
     if (page == "carryout")
     {
-        $("#ulFilterSortCarryout #ddlFilterCarryoutStatus").val("");
+        $("#ddlFilterCarryoutStatus").val("");
         console.log(page)
         $('[name="radioCarryoutSort"]')[1].checked = true;
         $('[name="radioCarryoutSortBy"]')[0].checked = true;
