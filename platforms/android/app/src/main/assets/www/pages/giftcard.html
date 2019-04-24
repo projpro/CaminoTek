@@ -97,7 +97,7 @@
                                                     <li class="item-content">
                                                         <div class="item-media item-media-section">
                                                             <i class="material-icons">credit_card</i>
-                                                            <input type="text" placeholder="Card Code" id="txtCardCode" class="mandatory" autofocus>
+                                                            <input type="text" placeholder="Card Code" id="txtCardCode" class="mandatory" onKeyDown="if(this.value.length==15) this.value = this.value.slice(0, -1);" autofocus>
                                                             <span class="input-clear-button"></span>
 
 
@@ -106,28 +106,28 @@
                                                     <li class="item-content">
                                                         <div class="item-media item-media-section">
                                                             <i class="material-icons">phone</i>
-                                                            <input type="number" placeholder="Phone" id="txtPhone">
+                                                            <input type="number" placeholder="Phone" id="txtPhone" onKeyDown="if(this.value.length==10) this.value = this.value.slice(0, -1);">
                                                             <span class="input-clear-button"></span>
                                                         </div>
                                                     </li>
                                                     <li class="item-content">
                                                         <div class="item-media item-media-section">
                                                             <i class="material-icons">account_circle</i>
-                                                            <input type="text" placeholder="Name" id="txtName">
+                                                            <input type="text" placeholder="Name" id="txtName" onKeyDown="if(this.value.length==100) this.value = this.value.slice(0, -1);">
                                                             <span class="input-clear-button"></span>
                                                         </div>
                                                     </li>
                                                     <li class="item-content">
                                                         <div class="item-media item-media-section">
                                                             <i class="material-icons">email</i>
-                                                            <input type="text" placeholder="Email" id="txtEmail">
+                                                            <input type="text" placeholder="Email" id="txtEmail" onKeyDown="if(this.value.length==100) this.value = this.value.slice(0, -1);">
                                                             <span class="input-clear-button"></span>
                                                         </div>
                                                     </li>
                                                     <li class="item-content">
                                                         <div class="item-media item-media-section">
                                                             <i class="material-icons">attach_money</i>
-                                                            <input type="number" min="1" step="any" placeholder="Amount" id="txtAmount" class="mandatory">
+                                                            <input type="number" min="1" step="any" placeholder="Amount" id="txtAmount" class="mandatory" onKeyDown="if(this.value.length==10) this.value = this.value.slice(0, -1);">
                                                             <span class="input-clear-button"></span>
                                                         </div>
                                                     </li>
@@ -160,14 +160,14 @@
                                                             <li class="item-content">
                                                                 <div class="item-media item-media-section">
                                                                     <i class="material-icons">credit_card</i>
-                                                                    <input type="text" placeholder="Card Code" id="txtCardCodeSearch" class="mandatory" autofocus>
+                                                                    <input type="text" placeholder="Card Code" id="txtCardCodeSearch" class="mandatory" onKeyDown="if(this.value.length==15) this.value = this.value.slice(0, -1);" autofocus>
                                                                     <span class="input-clear-button"></span>
                                                                 </div>
                                                             </li>
                                                             <li class="item-content">
                                                                 <div class="item-media item-media-section">
                                                                     <i class="material-icons">phone</i>
-                                                                    <input type="number" placeholder="Phone" id="txtPhoneSearch">
+                                                                    <input type="number" placeholder="Phone" id="txtPhoneSearch" onKeyDown="if(this.value.length==10) this.value = this.value.slice(0, -1);">
                                                                     <span class="input-clear-button"></span>
                                                                 </div>
                                                             </li>
@@ -177,7 +177,7 @@
                                                             <li class="item-content">
                                                                 <div class="item-media item-media-section">
                                                                     <i class="material-icons">attach_money</i>
-                                                                    <input type="number" placeholder="Load" id="txtLoad" min="1" step="any">
+                                                                    <input type="number" placeholder="Load" id="txtLoad" min="1" step="any" onKeyDown="if(this.value.length==10) this.value = this.value.slice(0, -1);">
                                                                     <span class="input-clear-button"></span>
                                                                 </div>
                                                             </li>
@@ -187,12 +187,12 @@
                                                             <li class="item-content">
                                                                 <div class="item-media item-media-section">
                                                                     <i class="material-icons">attach_money</i>
-                                                                    <input type="number" placeholder="Redeem" id="txtRedeem" min="1" step="any">
+                                                                    <input type="number" placeholder="Redeem" id="txtRedeem" min="1" step="any" onKeyDown="if(this.value.length==10) this.value = this.value.slice(0, -1);">
                                                                     <span class="input-clear-button"></span>
                                                                 </div>
                                                             </li>
                                                             <li class="item-content">
-                                                                <a href="#" id="btnRedeemGiftCard" class="custom-btn custom-bg bg1 custom-link item-media-section disabled">Redeem</a>
+                                                                <a id="btnRedeemGiftCard" class="custom-btn custom-bg bg1 custom-link item-media-section disabled">Redeem</a>
                                                             </li>
                                                             <li class="item-content">
                                                                 <div class="form-item form-item-select">
@@ -239,14 +239,14 @@
                                                             <div id="dvItem">
                                                                 <input type="hidden" id="hdnSelectedOrderId" value="">
                                                                 <div class="row">
-                                                                    <label id="lblCutomerName" class="label-style-one">Sam Smiht</label>
+                                                                    <label id="lblCutomerName" class="label-style-one"></label>
                                                                 </div>
                                                                 <div class="row">
                                                                     <!--<i class="material-icons" id="iconEmail">email</i>-->
-                                                                    <label id="lblEmail" class="label-style-one">test@mail.com</label>
+                                                                    <label id="lblEmail" class="label-style-one"></label>
                                                                 </div>
 
-                                                                <h6>History</h6>
+                                                                <h6 style="margin:7px auto;font-weight:600;">History</h6>
                                                                 <table id="tblRedeemHistory" class="table-history">
                                                                       <tbody></tbody>
                                                                 </table>
@@ -372,7 +372,7 @@
                         </div>
                         <div class="row">
                             <div class="inner-page-body-header">
-                                <h3 id="titleRedemptionHistory">History</h3>
+                                <h3 id="titleRedemptionHistory" style="font-weight: 600;font-size:18px;">History</h3>
                                 <div id="dvOrderItem"></div>
                             </div>
                         </div>

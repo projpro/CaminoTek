@@ -99,7 +99,7 @@ $$(document).on('page:init', function (e) {
     }
     else if (pageURL.indexOf('carryout') > -1)//Carry Out
     {
-
+      
         $('#dvParentGiftCardDetailsPanel').html("");
         $('#dvDetailsPanel').html("");
         var calendarModalOrderStart = app.calendar.create({
@@ -202,7 +202,7 @@ $$(document).on('page:init', function (e) {
 
     }
     else if (pageURL.indexOf('food_list') > -1) {//carry out food item list
-
+        ResetFilters('items');
         BindCategoy('filterProductCategory');
         $$('#btnAddItem').click(function () {
             localStorage.setItem("HiddenItemId", 0);
@@ -515,11 +515,13 @@ $$(document).on('page:init', function (e) {
         //$$('.page-content').css('overflow', 'hidden');
         //GiftCard Load New - Start
         $$('#linkGiftCardNew').click(function () {
+            ResetGiftCardNew();
             $('#txtCardCode').focus();
             currentTab = "New";
             blockScroll();
         });
         $$('#linkGiftCardRedeem').click(function () {
+            ResetGiftCardLoadRedeem();
             $('#txtCardCodeSearch').focus();
             if (currentTab == "New") {
                 //if (screen_width <= 417) {
@@ -536,6 +538,7 @@ $$(document).on('page:init', function (e) {
             blockOffScroll();
         });
         $$('#linkGiftCardOrder').click(function () {
+            ResetFilters('giftcardorders');
             currentTab = "Order";
             blockOffScroll();
         });
@@ -680,9 +683,13 @@ $$(document).on('page:init', function (e) {
             }
         });
         $$('#linkRewardNew').click(function () {
+           
+            ResetRewardNew();
             $('#txtMemberId_Reward').focus();
         });
         $$('#linkRewardLoadRedeem').click(function () {
+           
+            ResetRewardLoadRedeem();
             $('#txtMemberID_LoadRedeem').focus();
         });
         document.addEventListener("deviceready", onDeviceReady, false);
@@ -774,7 +781,7 @@ $$(document).on('page:init', function (e) {
 
     else if (pageURL.indexOf('coupon_list') > -1)//Coupon
     {
-
+        ResetFilters('coupons');
         var storeId = 0;
         CheckGiftCardPermission();
         document.addEventListener("deviceready", onDeviceReady, false);

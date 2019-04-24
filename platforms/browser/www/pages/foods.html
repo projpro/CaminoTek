@@ -69,14 +69,14 @@
                                 <li class="item-content">
                                     <div class="item-media item-media-section">
                                         <i class="material-icons">local_pizza</i>
-                                        <input type="text" placeholder="Name" id="txtProductName" required class="mandatory">
+                                        <input type="text" placeholder="Name" id="txtProductName" required class="mandatory" onKeyDown="if(this.value.length==100) this.value = this.value.slice(0, -1);">
                                         <span class="input-clear-button"></span>
                                     </div>
                                 </li>
                                 <li class="item-content">
                                     <div class="item-media item-media-section">
                                         <i class="material-icons">description</i>
-                                        <textarea id="txtProductDescription" placeholder="Description"></textarea>
+                                        <textarea id="txtProductDescription" placeholder="Description" ></textarea>
                                         <span class="input-clear-button"></span>
                                     </div>
                                 </li>
@@ -84,7 +84,7 @@
                                     <div class="item-media item-media-large">
                                         <i class="material-icons">attach_money</i>
                                         <!--<input type="number" min="1" step="any" placeholder="Price" id="txtProductPrice" class="mandatory" >-->
-                                        <input type="tel" placeholder="Price" id="txtProductPrice" class="mandatory">
+                                        <input type="tel" placeholder="Price" id="txtProductPrice" class="mandatory" onKeyDown="if(this.value.length==10) this.value = this.value.slice(0, -1);">
 
                                         <span class="input-clear-button"></span>
                                     </div>

@@ -81,35 +81,35 @@
                                                     <li class="item-content">
                                                         <div class="item-media item-media-section">
                                                             <i class="material-icons">assignment_ind</i>
-                                                            <input type="number" placeholder="Member ID" id="txtMemberId_Reward" autofocus>
+                                                            <input type="number" placeholder="Member ID" id="txtMemberId_Reward" onKeyDown="if(this.value.length==15) this.value = this.value.slice(0, -1);" autofocus>
                                                             <span class="input-clear-button"></span>
                                                         </div>
                                                     </li>
                                                     <li class="item-content">
                                                         <div class="item-media item-media-section">
                                                             <i class="material-icons">phone</i>
-                                                            <input type="number" placeholder="Phone" id="txtPhone_Reward" class="mandatory">
+                                                            <input type="number" placeholder="Phone" id="txtPhone_Reward" class="mandatory" onKeyDown="if(this.value.length==10) this.value = this.value.slice(0, -1);">
                                                             <span class="input-clear-button"></span>
                                                         </div>
                                                     </li>
                                                     <li class="item-content">
                                                         <div class="item-media item-media-section">
                                                             <i class="material-icons">account_circle</i>
-                                                            <input type="text" placeholder="Name" id="txtName_Reward">
+                                                            <input type="text" placeholder="Name" id="txtName_Reward" onKeyDown="if(this.value.length==100) this.value = this.value.slice(0, -1);">
                                                             <span class="input-clear-button"></span>
                                                         </div>
                                                     </li>
                                                     <li class="item-content">
                                                         <div class="item-media item-media-section">
                                                             <i class="material-icons">email</i>
-                                                            <input type="text" placeholder="Email" id="txtEmail_Reward">
+                                                            <input type="text" placeholder="Email" id="txtEmail_Reward" onKeyDown="if(this.value.length==100) this.value = this.value.slice(0, -1);">
                                                             <span class="input-clear-button"></span>
                                                         </div>
                                                     </li>
                                                     <li class="item-content">
                                                         <div class="item-media item-media-section">
                                                             <i class="material-icons">local_atm</i>
-                                                            <input type="number" placeholder="Points" id="txtPoints_Reward" class="mandatory">
+                                                            <input type="number" placeholder="Points" id="txtPoints_Reward" class="mandatory" onKeyDown="if(this.value.length==10) this.value = this.value.slice(0, -1);">
                                                             <span class="input-clear-button"></span>
                                                         </div>
                                                     </li>
@@ -142,14 +142,14 @@
                                                             <li class="item-content">
                                                                 <div class="item-media item-media-section">
                                                                     <i class="material-icons">assignment_ind</i>
-                                                                    <input type="number" placeholder="Member ID" id="txtMemberID_LoadRedeem">
+                                                                    <input type="number" placeholder="Member ID" id="txtMemberID_LoadRedeem" onKeyDown="if(this.value.length==15) this.value = this.value.slice(0, -1);">
                                                                     <span class="input-clear-button"></span>
                                                                 </div>
                                                             </li>
                                                             <li class="item-content">
                                                                 <div class="item-media item-media-section">
                                                                     <i class="material-icons">phone</i>
-                                                                    <input type="number" placeholder="Phone" id="txtPhone_LoadRedeem">
+                                                                    <input type="number" placeholder="Phone" id="txtPhone_LoadRedeem" onKeyDown="if(this.value.length==10) this.value = this.value.slice(0, -1);">
                                                                     <span class="input-clear-button"></span>
                                                                 </div>
                                                             </li>
@@ -218,7 +218,7 @@
                                                                 <input id="hdnCurrentStorePoints" type="hidden" />
                                                             </div>
 
-                                                            <h6>History</h6>
+                                                            <h6 style="margin:7px auto;font-weight:600;">History</h6>
                                                             <table id="tblRewardHistory">
                                                                 <thead>
                                                                     <tr>

@@ -1371,7 +1371,9 @@ function CloseCarryOutDetails() {
 function BindcarryoutTab(status) {
     // console.log(status)
     if (status == "All") {
+
         $('#linkCarryoutFilterIcon').show();
+        ResetFilters('carryout');
     }
     else {
         $('#linkCarryoutFilterIcon').hide();
@@ -2736,7 +2738,7 @@ function LoadGiftCard() {
                 $("#txtLoad").css('border-bottom', bottomBorder);
                 $("#txtPhoneSearch").css('border-bottom', bottomBorder);
 
-                console.log("Load: " + data);
+                //console.log("Load: " + data);
                 if (data.replace(/"/g, "").indexOf("Phone is not valid.") > -1) {
                     $('#tblRedeemHistory tbody').html("");
                     $('#dvInner').hide();
@@ -4362,11 +4364,11 @@ function SearchReward() {
 
     var storeId = 0;
     storeId = SetStoreId();
-    var memberId = $('#reward_LoadRedeem #txtMemberID_LoadRedeem').val();
+    var memberId = $('#reward_LoadRedeem #txtMemberID_LoadRedeem').val().trim();
 
-    var phone = $('#reward_LoadRedeem #txtPhone_LoadRedeem').val();
+    var phone = $('#reward_LoadRedeem #txtPhone_LoadRedeem').val().trim();
 
-    var lastName = $("#reward_LoadRedeem #txtLastName_LoadRedeem").val();
+    var lastName = $("#reward_LoadRedeem #txtLastName_LoadRedeem").val().trim();
     //alert('memberId: ' + memberId);
    // alert('phone: ' + phone);
     //alert('lastName: ' + lastName);
@@ -4420,11 +4422,10 @@ function SearchReward() {
                     $('#dvInner_Reward').hide();
                     $('#dvOuter').show();
                     $('#dvOuterText').html("");
-                    $('#dvOuterText').html("No records found.");
                     $('#btnLoadReward').addClass("disabled");
                     $('#btnRedeemReward').addClass("disabled");
                     //WriteLog(SearchGiftCard() + " - " + " No order(s) found.", browser);
-                    callSweetAlertWarning("No records found.");
+                    callSweetAlertWarning("No record found.");
                 }
                 else {
                     //$("#txtMemberID_LoadRedeem").css('border', noErrorClassBorder);
@@ -4499,20 +4500,20 @@ function SearchReward() {
 
                         }
                         else if (value.Type == "RewardHistory") {
-                            var rewardDate = value.CreatedOnUtc.replace("~", " @ ");
+                            var rewardDate = value.CreatedOnUtc.replace("~", " <br/> ");
                             htmlHistory += "<tr>";
-                            htmlHistory += "<td style=\"text-align:left; width=\"45%\"\">" + rewardDate + "</td>";
-                            htmlHistory += "<td style=\"text-align:left; width=\"25%\">" + value.STORENAME + "</td>";
+                            htmlHistory += "<td style=\"text-align:left;vertical-align:top;padding-top: 2px;\" width=\"30%\"\">" + rewardDate + "</td>";
+                            htmlHistory += "<td style=\"text-align:left;vertical-align:top;padding-top: 2px;\" width=\"45%\">" + value.STORENAME + "</td>";
                             if (value.Points != "" && value.Points.toString().startsWith("-")) {
-                                htmlHistory += "<td style=\"text-align:center; width=\"15%\">" + value.Points + "</td>";
+                                htmlHistory += "<td style=\"text-align:center;vertical-align:top;padding-top: 2px;\" width=\"10%\">" + value.Points + "</td>";
                             }
                             else if (value.Points != "") {
-                                htmlHistory += "<td style=\"text-align:center; width=\"15%\">+" + value.Points + "</td>";
+                                htmlHistory += "<td style=\"text-align:center;vertical-align:top;padding-top: 2px;\" width=\"10%\">+" + value.Points + "</td>";
                             }
                             else {
-                                htmlHistory += "<td style=\"text-align:center; width=\"15%\"> </td>";
+                                htmlHistory += "<td style=\"text-align:center;vertical-align:top;padding-top: 2px;\" width=\"10%\"> </td>";
                             }
-                            htmlHistory += "<td style=\"text-align:right; width=\"15%\">" + FormatDecimal(value.OrderValue) + "</td>";
+                            htmlHistory += "<td style=\"text-align:right;vertical-align:top;padding-top: 2px;\" width=\"15%\">" + FormatDecimal(value.OrderValue) + "</td>";
                             htmlHistory += "</tr>";
                             $('#tblRewardHistory tbody').append(htmlHistory);
                         }
@@ -4549,6 +4550,7 @@ function SearchReward() {
         }
     }
     else {
+        callSweetAlertWarning("Please enter either Member ID or Phone & Name");
         //alert('3');
         $('#dvInner_Reward').hide();
         //$("#txtMemberID_LoadRedeem").css('border-bottom', errorClassBorder);
@@ -4772,7 +4774,7 @@ function AddNewMemberID() {
     $("#txtPoints").css('border-bottom', bottomBorder);
 
     var email = $("#txtEmail_Reward").val().trim();
-
+    //console.log("Reward Email: " + email)
     var phone = $("input#txtPhone_Reward").val();
 
     var points = $("#txtPoints_Reward").val().trim();
@@ -4782,12 +4784,27 @@ function AddNewMemberID() {
     var storeId = 0;
     storeId = SetStoreId();
     var valid = true;
-    if (isEmail("#txtEmail_Reward") == true) {
-        valid = true;
+
+    if (email.trim() != "") {
+        var filter = /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+        if (!filter.test(email)) {
+            //console.log("Invalid Email Address");
+            $("#txtEmail_Reward").css('border-bottom', errorClassBorder);
+            valid= false;
+
+        } else {
+
+            //console.log("Valid Email Address");
+            $("#txtEmail_Reward").css('border-bottom', bottomBorder);
+            valid= true;
+
+        }
     }
     else {
-        valid = false;
+        $("#txtEmail_Reward").css('border-bottom', bottomBorder);
+        valid= true;
     }
+
     if (phone == "") {
         $("#txtPhone_Reward").css('border-bottom', errorClassBorder);
 
@@ -4815,7 +4832,7 @@ function AddNewMemberID() {
         if (memberId != "") {
             var url = global + "/CheckCustomerExists?storeid=" + storeId + "&email=" + encodeURIComponent(email) + "&phone=" + phone + "&memberId=" + memberId;
             $.getJSON(url, function (data) {
-                console.log(data);
+                //console.log(data);
 
                 var dd = JSON.parse(data);
                 if (dd.Message != undefined && dd.Message != null && dd.Message.indexOf("Restaurant not found") > -1) {
@@ -4841,7 +4858,7 @@ function AddNewMemberID() {
                                 var id = dd.ID;
                                 url = global + "/GenerateNewMemberID?storeid=" + storeId + "&name=" + encodeURIComponent(name) + "&email=" + encodeURIComponent(email) + "&phone=" + phone + "&points=" + points + "&memberId=" + memberId + "&id=" + id;
                                 $.getJSON(url, function (data1) {
-                                    console.log(data1);
+                                    //console.log(data1);
                                     var obj = JSON.parse(data1);
                                     $.each(JSON.parse(data1), function (index, value) {
 
@@ -4915,7 +4932,7 @@ function AddNewMemberID() {
                     else {
                         url = global + "/GenerateNewMemberID?storeid=" + storeId + "&name=" + encodeURIComponent(name) + "&email=" + encodeURIComponent(email) + "&phone=" + phone + "&points=" + points + "&memberId=" + memberId;
                         $.getJSON(url, function (data1) {
-                            console.log(data1);
+                            //console.log(data1);
                             var obj = JSON.parse(data1);
                             $.each(JSON.parse(data1), function (index, value) {
 
@@ -4963,6 +4980,10 @@ function AddNewMemberID() {
                                         $$('input#txtPoints_Reward').val('');
                                         $$('input#txtName_Reward').val('');
                                         $$('input#txtMemberId_Reward').val('');
+
+                                        $$(".input-clear-button").click();
+                                        $$("input#txtMemberId_Reward").focus();
+                                        $$("input#txtMemberId_Reward").addClass("input-focused");
                                         //html: "<p><span style='color:#000;'>Member ID:  </span><span class=\"main-one\">1082</span></p><span style='color:#000;'>Points:  </span><p><span class=\"main-two\" >100</span></p><p>John Smith</p><p>(614) 805-5665</p><p>cyberv1@mail.com</p>",
 
                                     })();
@@ -5046,7 +5067,7 @@ function AddNewMemberID() {
 function isEmail(el) {
 
     var email = $(el).val();
-    console.log("email:" + email)
+    //console.log("email:" + email)
 
     if (email.trim() != "") {
         var filter = /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
@@ -8516,3 +8537,91 @@ function DeleteAvailTimingSection(idCount, timingId) {
 }
 
 //Product Section End
+
+
+//Reset functionalities
+function ResetRewardLoadRedeem()
+{
+    //$("#txtMemberID_LoadRedeem").val("");
+    //$("#txtPhone_LoadRedeem").val("");
+    //$("#txtLastName_LoadRedeem").val("");
+    $('input[type="text"]').val("");
+    $('input[type="text"]').css('border-bottom', bottomBorder);
+    $('#lblOurPoints').html("");
+    $('#hdnCurrentStorePoints').val("0");
+    $('#lblBistroPoints').html("");
+    $('#lblRelatedPoints').html("");
+    $('#lblName').html("");
+    $("#lblPhone").html("");
+    $('#iconPhone').hide();
+    $('#lblEmail').html("");
+    $('#tblRewardHistory tbody').html("");
+    $('#reward_LoadRedeem #dvInner_Reward').hide();
+
+    //$("#txtLoad_LoadRedeem").css('border-bottom', bottomBorder);
+    //$("#txtRedeem_LoadRedeem").css('border-bottom', bottomBorder);
+    //$("#txtPhone_LoadRedeem").css('border-bottom', bottomBorder);
+    //$("#txtLastName_LoadRedeem").css('border-bottom', bottomBorder);
+    $('#btnLoadReward').text("Load");
+    $('#btnRedeemReward').text("Redeem");
+    $('#dvOuter').hide();
+
+    $("#btnLoadReward").attr("disabled", "disabled");
+    $("#btnRedeemReward").attr("disabled", "disabled");
+    $("#btnLoadReward").addClass("disabled");
+    $("#btnRedeemReward").addClass("disabled");
+
+    $$(".input-clear-button").click();
+}
+function ResetRewardNew() {
+   
+    $('input[type="text"]').val("");
+    $('input[type="text"]').css('border-bottom', bottomBorder);
+    $$(".input-clear-button").click();
+}
+function ResetGiftCardNew()
+{
+    $('input[type="text"]').val("");
+    $('input[type="text"]').css('border-bottom', bottomBorder);
+    $$(".input-clear-button").click();
+}
+function ResetGiftCardLoadRedeem() {
+    $('input[type="text"]').val("");
+    $('input[type="text"]').css('border-bottom', bottomBorder);
+    $("#ddlRegister").val("0");
+    $$(".input-clear-button").click();
+}
+function ResetFilters(page) {
+    $('input[type="text"]').val("");
+    $('input[type="text"]').css('border-bottom', bottomBorder);
+    //$$(".input-clear-button").click();
+    // $('input[name=radioCarryoutSort]').attr('checked', true);
+    if (page == "carryout")
+    {
+        $("#ulFilterSortCarryout #ddlFilterCarryoutStatus").val("");
+        console.log(page)
+        $('[name="radioCarryoutSort"]')[1].checked = true;
+        $('[name="radioCarryoutSortBy"]')[0].checked = true;
+    }
+    else if (page == "giftcardorders") {
+        $("#ddlFilterStatus").val("");
+        //$('input[name="radioGiftCardSort"][value="DESC"]').prop("checked", true);
+        //$('input[name="radioGiftCardSortBy"][value="Status"]').prop("checked", true);
+        $('[name="radioGiftCardSort"]')[1].checked = true;
+        $('[name="radioGiftCardSortBy"]')[0].checked = true;
+    }
+    if (page == "coupons") {
+        $("#ddlFilterCouponStatus").val("");
+        //$('input[name="radioCouponSort"][value="DESC"]').prop("checked", true);
+        $('[name="radioCouponSort"]')[1].checked = true;
+        $('[name="radioCouponSortBy"]')[0].checked = true;
+    }
+    if (page == "items") {
+        $("#ddlFilterItemStatus").val("");
+        $("#filterProductCategory").val("0");
+       
+        $('[name="radioItemSort"]')[0].checked = true;
+        $('[name="radioItemSortBy"]')[0].checked = true;
+    }
+    
+}

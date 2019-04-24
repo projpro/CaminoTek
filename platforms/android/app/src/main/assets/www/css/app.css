@@ -1659,6 +1659,8 @@ select:-moz-focusring {
 .button-color-4{
      border-color:#92278f !important;/*Magenta*/
 }
+#dvInner #dvItem{padding-top:0px;}
+
 #dvItem{padding-top:15px;}
 #dvItem table th{font-size:16px;}
 #dvItem table td{font-size:16px;}
@@ -1873,8 +1875,8 @@ display: block;
 .list-section{margin-top:20px;}
 .item-media-large{width:75%;}
 .header-filter{border:none;font-size:20px; padding-left:10px;padding-top: 25px;}
-#tblRewardHistory .th-date{text-align:left;border-bottom:#333 1px solid !important;background:none !important; width:55%;}
-#tblRewardHistory .th-name{text-align:left;border-bottom:#333 1px solid !important;background:none !important; width:20%;}
+#tblRewardHistory .th-date{text-align:left;border-bottom:#333 1px solid !important;background:none !important; width:30%;}
+#tblRewardHistory .th-name{text-align:left;border-bottom:#333 1px solid !important;background:none !important; width:45%;}
 #tblRewardHistory .th-points{text-align:center;border-bottom:#333 1px solid !important;background:none !important; width:10%;}
 #tblRewardHistory .th-value{text-align:right;border-bottom:#333 1px solid !important;background:none !important; width:15%;}
 /*===============================================*/
