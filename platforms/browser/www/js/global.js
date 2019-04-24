@@ -2541,7 +2541,7 @@ function SearchGiftCard() {
                                     amount = FormatDecimal(value.AMOUNT);
                                     //amount = value.AMOUNT;
                                 }
-                                console.log("Card Balance: " + value.BALANCEAMOUNT);
+                                //console.log("Card Balance: " + value.BALANCEAMOUNT);
                                 if (value.BALANCEAMOUNT != "") {
                                     balanceAmount = FormatDecimal(value.BALANCEAMOUNT);
                                     //balanceAmount = value.BALANCEAMOUNT;
@@ -8655,6 +8655,18 @@ function ResetGiftCardLoadRedeem() {
     $('input[type="number"]').css('border-bottom', bottomBorder);
     $("#ddlRegister").val("0");
     $$(".input-clear-button").click();
+
+
+    $('#lblCutomerName').html("");
+    $("#lblCutomerPhone").html("");
+    $('#iconPhone').hide();  
+    $('#iconEmail').hide();
+    $("#lblEmail").html("");
+    $('#hdnSelectedOrderId').val(0);
+    $('#lblCurrentBalance').html("");
+    $('#lblOriginalValue').html("");
+    $('#tblRedeemHistory tbody').html("");
+    $('#dvInner').hide();
 }
 function ResetFilters(page) {
     $('input[type="text"]').val("");
