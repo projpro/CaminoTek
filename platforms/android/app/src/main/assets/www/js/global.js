@@ -355,9 +355,7 @@ function CarryoutOrdersList(status, carryoutpagesize, carryoutcurrentPage, divId
                     localStorage.setItem("OrderAvailable", "1");
                     var count = 0;
                     $.each(JSON.parse(data), function (index, value) {
-                        //console.log(value);
-                        //console.log(value.FIRSTNAME)
-                        //console.log(value.BILLINGFIRSTNAME)
+                        
                         var orderDate = "";
                         var orderTime = "";
                         var firstName = "";
@@ -371,30 +369,35 @@ function CarryoutOrdersList(status, carryoutpagesize, carryoutcurrentPage, divId
                         var subTotal = 0.00;
                         var grandTotal = 0.00;
                         var discount = 0.00;
-                        var displayTotal = 0.00;
-                     
                         if (value.SUBTOTAL != "") {
                             subTotal = value.SUBTOTAL;
                         }
                         if (value.ORDERDISCOUNT != "") {
                             discount = value.ORDERDISCOUNT;
                         }
-                        if (value.ORDERTOTAL != "") {
+                       
+                        //if (value.ORDERTOTAL != "") {
+                        //    grandTotal = value.ORDERTOTAL;
+                        //    if(Number(grandTotal)!=Number(subTotal))
+                        //    {
+                        //        ordertotal = FormatDecimal(Number(subTotal) - Number(discount));
+                        //    }
+                        //    else {
+                        //        ordertotal = FormatDecimal(grandTotal);
+                        //    }
+                        //}
+
+                        //else {
                             grandTotal = value.ORDERTOTAL;
-                            console.log('value.grandTotal: ' + grandTotal)
-                            console.log('value.subTotal: ' + subTotal)
-                            if(grandTotal!=subTotal)
-                            {
+                           
+                            if (Number(grandTotal) != Number(subTotal)) {
                                 ordertotal = FormatDecimal(Number(subTotal) - Number(discount));
                             }
                             else {
-                                ordertotal = FormatDecimal(value.ORDERTOTAL);
+                                ordertotal = FormatDecimal(grandTotal);
                             }
-                        }
-                        else {
-
-                            ordertotal = "$0.00";
-                        }
+                            //ordertotal = "$0.00";
+                        //}
                         if (value.CREATEDONUTC != null && value.CREATEDONUTC != undefined) {
                             var arrDateTime = value.CREATEDONUTC.split('~');
                             var orderDate = arrDateTime[0];
@@ -554,6 +557,7 @@ function CarryoutOrdersList(status, carryoutpagesize, carryoutcurrentPage, divId
                         /*------------------Order Info-----------------------*/
                         html += "<div class=\"order-items-count\">";
                         html += "<div class=\"customer-detail-container\">";
+                        console.log('value.ordertotal 2(' + value.ID + '): ' + ordertotal)
                         html += "<div class=\"order-price\">" + ordertotal + "</div>";
                         if (value.NOOFITEMS == 1) {
                             html += "<div>1 item ";
@@ -735,13 +739,30 @@ function CarryoutOrdersListPagination(status, carryoutpagesize, carryoutcurrentP
                         var cardNumber = "";
                         var ordertotal = "";
                         var buttonHTML = "";
-                        if (value.ORDERTOTAL != "") {
-                            ordertotal = FormatDecimal(value.ORDERTOTAL);
+                        var subTotal = 0.00;
+                        var grandTotal = 0.00;
+                        var discount = 0.00;
+                        if (value.SUBTOTAL != "") {
+                            subTotal = value.SUBTOTAL;
+                        }
+                        if (value.ORDERDISCOUNT != "") {
+                            discount = value.ORDERDISCOUNT;
+                        }
+                        //if (value.ORDERTOTAL != "") {
+                        //    ordertotal = FormatDecimal(value.ORDERTOTAL);
 
+                        //}
+                        //else {
+
+                        //    ordertotal = "$0.00";
+                        //}
+                        grandTotal = value.ORDERTOTAL;
+
+                        if (Number(grandTotal) != Number(subTotal)) {
+                            ordertotal = FormatDecimal(Number(subTotal) - Number(discount));
                         }
                         else {
-
-                            ordertotal = "$0.00";
+                            ordertotal = FormatDecimal(grandTotal);
                         }
                         if (value.CREATEDONUTC != null && value.CREATEDONUTC != undefined) {
                             var arrDateTime = value.CREATEDONUTC.split('~');
@@ -984,7 +1005,8 @@ function OpenCarryoutDetails(id) {
             var subtotalvalue = "0.00";
             var ordertotalvalue = "0.00";
             var orderDiscount = 0.00;
-
+            var grandTotal = 0.00;
+            var grandTotalvalue = "0.00";
             var orderDate = "";
             var orderTime = "";
             var firstName = "";
@@ -1010,17 +1032,29 @@ function OpenCarryoutDetails(id) {
 
                     orderDiscount = value.ORDERDISCOUNT;
                     subtotalvalue = value.SUBTOTAL;
+                    grandTotal = value.ORDERTOTAL;
+                    grandTotalvalue = FormatDecimal(grandTotal);
                     //ordertotalvalue = value.ORDERTOTAL;
                     orderId = value.OID;
 
                     $("#hdnSelectedOrderId").val(orderId);
-                    if (value.ORDERTOTAL != "") {
-                        $("#hdnSelectedOrderOrderPrice").val(FormatDecimal(value.ORDERTOTAL));
-                        ordertotalvalue = FormatDecimal(value.ORDERTOTAL);
+                    //if (value.ORDERTOTAL != "") {
+                    //    $("#hdnSelectedOrderOrderPrice").val(FormatDecimal(value.ORDERTOTAL));
+                    //    ordertotalvalue = FormatDecimal(value.ORDERTOTAL);
+                    //}
+                    //else {
+                    //    $("#hdnSelectedOrderOrderPrice").val("$0.00");
+                    //}
+
+                  
+
+                    if (Number(grandTotal) != Number(subtotalvalue)) {
+                        ordertotalvalue = FormatDecimal(Number(subtotalvalue) - Number(orderDiscount));
                     }
                     else {
-                        $("#hdnSelectedOrderOrderPrice").val("$0.00");
+                        ordertotalvalue = FormatDecimal(grandTotal);
                     }
+                    $("#hdnSelectedOrderOrderPrice").val(ordertotalvalue);
                     if (value.CREATEDONUTC != null && value.CREATEDONUTC != undefined) {
                         var arrDateTime = value.CREATEDONUTC.split('~');
                         orderDate = arrDateTime[0];
@@ -1359,13 +1393,13 @@ function OpenCarryoutDetails(id) {
 
                     htmlOrderTotal = " <tr>";
                     htmlOrderTotal += "<td colspan=\"3\" style=\"text-align:right; font-weight: bold;\">Order Total:</td>";
-                    htmlOrderTotal += "<td style=\"text-align:right;\">" + ordertotalvalue + "</td>";
+                    htmlOrderTotal += "<td style=\"text-align:right;\">" + grandTotalvalue + "</td>";
                     htmlOrderTotal += "</tr>";
                 }
                 else {
                     htmlOrderTotal = " <tr>";
                     htmlOrderTotal += "<td colspan=\"3\" style=\"text-align:right; font-weight: bold;\">Order Total:</td>";
-                    htmlOrderTotal += "<td style=\"text-align:right;\">" + ordertotalvalue + "</td>";
+                    htmlOrderTotal += "<td style=\"text-align:right;\">" + grandTotalvalue + "</td>";
                     htmlOrderTotal += "</tr>";
                 }
                 //console.log(html)
