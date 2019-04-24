@@ -3082,7 +3082,10 @@ function GiftCardOrdersList(pagesize, currentPage) {
                     $('#dvOuterOrder').show();
                     $("#dvOuterOrderText").show();
                     $('#dvOuterOrderText').html("");
-                    $('#dvOuterOrderText').html("No records found.");
+                    //$('#dvOuterOrderText').html("No records found.");
+
+                    var html = "<div class=\"order-list list-empty-label-text\">No Orders</div>";
+                    $('#dvOuterOrderText').html(html);
                 }
 
                 if (JSON.parse(data).indexOf("No giftcard(s) found") < 0) {
@@ -3853,6 +3856,7 @@ function OpenGiftCardDetails(id) {
 
        
         if (JSON.parse(JSON.stringify(filtered_history)).length < 0) {
+
             $("#dvOrderItem").html("No record(s) found.");
 
         }
@@ -8661,6 +8665,7 @@ function ResetFilters(page) {
     // $('input[name=radioCarryoutSort]').attr('checked', true);
     if (page == "carryout")
     {
+   
         $("#ddlFilterCarryoutStatus").val("");
         console.log(page)
         $('[name="radioCarryoutSort"]')[1].checked = true;

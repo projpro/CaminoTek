@@ -6,6 +6,10 @@ var src = mediaURL + "notification.mp3";
 var myMedia = null;
 //myMedia = new Media(src, onSuccess, onError, onStatus);
 var acceptOrderPopup;
+var calendarModalOrderStart;
+var calendarModalOrderEnd;
+var calendarModalCouponStart;
+var calendarModalCouponEnd;
 // Handle Cordova Device Ready Event
 $$(document).on('deviceready', function () {
     console.log("Device is ready!");
@@ -102,14 +106,19 @@ $$(document).on('page:init', function (e) {
       
         $('#dvParentGiftCardDetailsPanel').html("");
         $('#dvDetailsPanel').html("");
-        var calendarModalOrderStart = app.calendar.create({
+       // console.log(calendarModalOrderStart)
+        if (calendarModalOrderStart!=undefined)
+            calendarModalOrderStart.destroy();
+        if (calendarModalOrderEnd != undefined)
+        calendarModalOrderEnd.destroy();
+        calendarModalOrderStart = app.calendar.create({
             inputEl: '#txtFilterOrderDateFrom',
             openIn: 'customModal',
             header: true,
             footer: true,
             dateFormat: 'mm/dd/yyyy',
         });
-        var calendarModalOrderEnd = app.calendar.create({
+        calendarModalOrderEnd = app.calendar.create({
             inputEl: '#txtFilterOrderDateTo',
             openIn: 'customModal',
             header: true,
@@ -118,20 +127,20 @@ $$(document).on('page:init', function (e) {
         });
 
 
-        var calendarModalCouponStart = app.calendar.create({
-            inputEl: '#txtFilterCouponStart',
-            openIn: 'customModal',
-            header: true,
-            footer: true,
-            dateFormat: 'mm/dd/yyyy',
-        });
-        var calendarModalCouponEnd = app.calendar.create({
-            inputEl: '#txtFilterCouponEnd',
-            openIn: 'customModal',
-            header: true,
-            footer: true,
-            dateFormat: 'mm/dd/yyyy',
-        });
+        //var calendarModalCouponStart = app.calendar.create({
+        //    inputEl: '#txtFilterCouponStart',
+        //    openIn: 'customModal',
+        //    header: true,
+        //    footer: true,
+        //    dateFormat: 'mm/dd/yyyy',
+        //});
+        //var calendarModalCouponEnd = app.calendar.create({
+        //    inputEl: '#txtFilterCouponEnd',
+        //    openIn: 'customModal',
+        //    header: true,
+        //    footer: true,
+        //    dateFormat: 'mm/dd/yyyy',
+        //});
 
         CheckGiftCardPermission();
         $$("#hdnCurrentState").val('New');
@@ -217,36 +226,36 @@ $$(document).on('page:init', function (e) {
         });
 
 
-        var calendarModalOrderStart = app.calendar.create({
-            inputEl: '#txtFilterOrderDateFrom',
-            openIn: 'customModal',
-            header: true,
-            footer: true,
-            dateFormat: 'mm/dd/yyyy',
-        });
-        var calendarModalOrderEnd = app.calendar.create({
-            inputEl: '#txtFilterOrderDateTo',
-            openIn: 'customModal',
-            header: true,
-            footer: true,
-            dateFormat: 'mm/dd/yyyy',
-        });
+        //var calendarModalOrderStart = app.calendar.create({
+        //    inputEl: '#txtFilterOrderDateFrom',
+        //    openIn: 'customModal',
+        //    header: true,
+        //    footer: true,
+        //    dateFormat: 'mm/dd/yyyy',
+        //});
+        //var calendarModalOrderEnd = app.calendar.create({
+        //    inputEl: '#txtFilterOrderDateTo',
+        //    openIn: 'customModal',
+        //    header: true,
+        //    footer: true,
+        //    dateFormat: 'mm/dd/yyyy',
+        //});
 
 
-        var calendarModalCouponStart = app.calendar.create({
-            inputEl: '#txtFilterCouponStart',
-            openIn: 'customModal',
-            header: true,
-            footer: true,
-            dateFormat: 'mm/dd/yyyy',
-        });
-        var calendarModalCouponEnd = app.calendar.create({
-            inputEl: '#txtFilterCouponEnd',
-            openIn: 'customModal',
-            header: true,
-            footer: true,
-            dateFormat: 'mm/dd/yyyy',
-        });
+        //var calendarModalCouponStart = app.calendar.create({
+        //    inputEl: '#txtFilterCouponStart',
+        //    openIn: 'customModal',
+        //    header: true,
+        //    footer: true,
+        //    dateFormat: 'mm/dd/yyyy',
+        //});
+        //var calendarModalCouponEnd = app.calendar.create({
+        //    inputEl: '#txtFilterCouponEnd',
+        //    openIn: 'customModal',
+        //    header: true,
+        //    footer: true,
+        //    dateFormat: 'mm/dd/yyyy',
+        //});
         CheckGiftCardPermission();
         var pageSize = 10;
         var currentPage = 0;
@@ -326,36 +335,36 @@ $$(document).on('page:init', function (e) {
     else if (pageURL.indexOf('giftcard') > -1)//Gift Card
     {
 
-        var calendarModalOrderStart = app.calendar.create({
-            inputEl: '#txtFilterOrderDateFrom',
-            openIn: 'customModal',
-            header: true,
-            footer: true,
-            dateFormat: 'mm/dd/yyyy',
-        });
-        var calendarModalOrderEnd = app.calendar.create({
-            inputEl: '#txtFilterOrderDateTo',
-            openIn: 'customModal',
-            header: true,
-            footer: true,
-            dateFormat: 'mm/dd/yyyy',
-        });
+        //var calendarModalOrderStart = app.calendar.create({
+        //    inputEl: '#txtFilterOrderDateFrom',
+        //    openIn: 'customModal',
+        //    header: true,
+        //    footer: true,
+        //    dateFormat: 'mm/dd/yyyy',
+        //});
+        //var calendarModalOrderEnd = app.calendar.create({
+        //    inputEl: '#txtFilterOrderDateTo',
+        //    openIn: 'customModal',
+        //    header: true,
+        //    footer: true,
+        //    dateFormat: 'mm/dd/yyyy',
+        //});
 
 
-        var calendarModalCouponStart = app.calendar.create({
-            inputEl: '#txtFilterCouponStart',
-            openIn: 'customModal',
-            header: true,
-            footer: true,
-            dateFormat: 'mm/dd/yyyy',
-        });
-        var calendarModalCouponEnd = app.calendar.create({
-            inputEl: '#txtFilterCouponEnd',
-            openIn: 'customModal',
-            header: true,
-            footer: true,
-            dateFormat: 'mm/dd/yyyy',
-        });
+        //var calendarModalCouponStart = app.calendar.create({
+        //    inputEl: '#txtFilterCouponStart',
+        //    openIn: 'customModal',
+        //    header: true,
+        //    footer: true,
+        //    dateFormat: 'mm/dd/yyyy',
+        //});
+        //var calendarModalCouponEnd = app.calendar.create({
+        //    inputEl: '#txtFilterCouponEnd',
+        //    openIn: 'customModal',
+        //    header: true,
+        //    footer: true,
+        //    dateFormat: 'mm/dd/yyyy',
+        //});
         function preventScroll(e) {
             e.preventDefault();
         }
@@ -797,22 +806,25 @@ $$(document).on('page:init', function (e) {
                 }
             }
         }
-        var calendarModalOrderStart = app.calendar.create({
-            inputEl: '#txtFilterOrderDateFrom',
-            openIn: 'customModal',
-            header: true,
-            footer: true,
-            dateFormat: 'mm/dd/yyyy',
-        });
-        var calendarModalOrderEnd = app.calendar.create({
-            inputEl: '#txtFilterOrderDateTo',
-            openIn: 'customModal',
-            header: true,
-            footer: true,
-            dateFormat: 'mm/dd/yyyy',
-        });
+        //var calendarModalOrderStart = app.calendar.create({
+        //    inputEl: '#txtFilterOrderDateFrom',
+        //    openIn: 'customModal',
+        //    header: true,
+        //    footer: true,
+        //    dateFormat: 'mm/dd/yyyy',
+        //});
+        //var calendarModalOrderEnd = app.calendar.create({
+        //    inputEl: '#txtFilterOrderDateTo',
+        //    openIn: 'customModal',
+        //    header: true,
+        //    footer: true,
+        //    dateFormat: 'mm/dd/yyyy',
+        //});
 
-
+        if (calendarModalCouponStart != undefined)
+            calendarModalCouponStart.destroy();
+        if (calendarModalCouponEnd != undefined)
+            calendarModalCouponEnd.destroy();
         var calendarModalCouponStart = app.calendar.create({
             inputEl: '#txtFilterCouponStart',
             openIn: 'customModal',
