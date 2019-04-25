@@ -4842,48 +4842,8 @@ function AddNewMemberID() {
     storeId = SetStoreId();
     var valid = true;
 
-    if (email.trim() != "") {
-        var filter = /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
-        if (!filter.test(email)) {
-            //console.log("Invalid Email Address");
-            $("#txtEmail_Reward").css('border-bottom', errorClassBorder);
-            valid= false;
 
-        } else {
-
-            //console.log("Valid Email Address");
-            $("#txtEmail_Reward").css('border-bottom', bottomBorder);
-            valid= true;
-
-        }
-    }
-    else {
-        $("#txtEmail_Reward").css('border-bottom', bottomBorder);
-        valid= true;
-    }
-
-    if (phone == "") {
-        $("#txtPhone_Reward").css('border-bottom', errorClassBorder);
-
-        valid = false;
-    }
-    else {
-        $("#txtPhone_Reward").css('border-bottom', bottomBorder);
-
-        valid = true;
-    }
-
-    if (points == "") {
-        $("#txtPoints_Reward").css('border-bottom', errorClassBorder);
-
-        valid = false;
-    }
-    else {
-        $("#txtPoints_Reward").css('border-bottom', bottomBorder);
-
-        valid = true;
-    }
-    if (valid == true) {
+    if (ValidateReward() == true) {
 
         $("#btnCreate").text("Adding...");
         if (memberId != "") {
@@ -4918,7 +4878,7 @@ function AddNewMemberID() {
                                     //console.log(data1);
                                     var obj = JSON.parse(data1);
                                     $.each(JSON.parse(data1), function (index, value) {
-
+                                        console.log("1: "+value.EMAIL.toLowerCase().indexOf("bistroux.com"))
                                         var popuphtml = "";
                                         if (value.REWARDMEMBERID != "")
                                             popuphtml = popuphtml + "<p><span style='color:#000;'>Member ID:  </span><span class=\"main-one\">" + value.REWARDMEMBERID + "</span></p>";
@@ -4940,7 +4900,7 @@ function AddNewMemberID() {
 
                                         }
 
-                                        if (value.EMAIL != "")
+                                        if (value.EMAIL != "" && value.EMAIL.toLowerCase().indexOf("bistroux.com") == -1)
                                             popuphtml = popuphtml + "<p>" + value.EMAIL + "</p>";
 
 
@@ -4992,7 +4952,7 @@ function AddNewMemberID() {
                             //console.log(data1);
                             var obj = JSON.parse(data1);
                             $.each(JSON.parse(data1), function (index, value) {
-
+                                console.log("1: " + value.EMAIL.toLowerCase().indexOf("bistroux.com"))
                                 var popuphtml = "";
                                 if (value.REWARDMEMBERID != "")
                                     popuphtml = popuphtml + "<p><span style='color:#000;'>Member ID:  </span><span class=\"main-one\">" + value.REWARDMEMBERID + "</span></p>";
@@ -5014,7 +4974,7 @@ function AddNewMemberID() {
 
                                 }
 
-                                if (value.EMAIL != "")
+                                if (value.EMAIL != "" && value.EMAIL.toLowerCase().indexOf("bistroux.com") == -1)
                                     popuphtml = popuphtml + "<p>" + value.EMAIL + "</p>";
 
 
@@ -5060,7 +5020,7 @@ function AddNewMemberID() {
                 //console.log(data1);
                 var obj = JSON.parse(data1);
                 $.each(JSON.parse(data1), function (index, value) {
-
+                  
                     var popuphtml = "";
                     if (value.REWARDMEMBERID != "")
                         popuphtml = popuphtml + "<p><span style='color:#000;'>Member ID:  </span><span class=\"main-one\">" + value.REWARDMEMBERID + "</span></p>";
@@ -5082,8 +5042,10 @@ function AddNewMemberID() {
 
                     }
 
-                    if (value.EMAIL != "")
+                    if (value.EMAIL != "" && value.EMAIL.toLowerCase().indexOf("bistroux.com")==-1)
+                    {
                         popuphtml = popuphtml + "<p>" + value.EMAIL + "</p>";
+                    }
 
 
                     if (value.ACTIONTYPE = "ADD") {
@@ -5105,6 +5067,9 @@ function AddNewMemberID() {
                             $$('input#txtPoints_Reward').val('');
                             $$('input#txtName_Reward').val('');
                             $$('input#txtMemberId_Reward').val('');
+                            $("input#txtEmail_Reward").css('border-bottom', bottomBorder);
+                            $("input#txtPhone_Reward").css('border-bottom', bottomBorder);
+                            $("input#txtPoints_Reward").css('border-bottom', bottomBorder);
                             //html: "<p><span style='color:#000;'>Member ID:  </span><span class=\"main-one\">1082</span></p><span style='color:#000;'>Points:  </span><p><span class=\"main-two\" >100</span></p><p>John Smith</p><p>(614) 805-5665</p><p>cyberv1@mail.com</p>",
 
                         })();
@@ -5161,7 +5126,50 @@ function isNumber(evt) {
     }
     return true;
 }
+function ValidateReward()
+{
+    var email = $("#txtEmail_Reward").val().trim();
+    var phone = $("input#txtPhone_Reward").val();
+    var points = $("#txtPoints_Reward").val().trim();
+    var name = $("#txtName_Reward").val().trim();
+    var memberId = $("#txtMemberId_Reward").val().trim();
+    var valid = true;
 
+    if (email.trim() != "") {
+        var filter = /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+        if (!filter.test(email)) {
+            //console.log("Invalid Email Address");
+            $("#txtEmail_Reward").css('border-bottom', errorClassBorder);
+            valid = false;
+
+        } else {
+
+            //console.log("Valid Email Address");
+            $("#txtEmail_Reward").css('border-bottom', bottomBorder);
+        }
+    }
+    else {
+        $("#txtEmail_Reward").css('border-bottom', bottomBorder);
+    }
+
+    if (phone == "") {
+        $("#txtPhone_Reward").css('border-bottom', errorClassBorder);
+        valid = false;
+    }
+    else {
+        $("#txtPhone_Reward").css('border-bottom', bottomBorder);
+       
+    }
+
+    if (points == "") {
+        $("#txtPoints_Reward").css('border-bottom', errorClassBorder);
+        valid = false;
+    }
+    else {
+        $("#txtPoints_Reward").css('border-bottom', bottomBorder);
+    }
+    return valid;
+}
 
 function callSweetAlertWarning(message) {
 
@@ -6301,7 +6309,7 @@ function CarryoutItemsList(carryoutpagesize, carryoutcurrentPage) {
 
                 else {
                     localStorage.setItem("ItemAvailable", "0");
-                    var html = "<div class=\"order-list list-empty-label-text\">No items</div>";
+                    var html = "<div class=\"order-list list-empty-label-text\">No Items</div>";
 
                     $("#dvFoodItemList").html(html);
 
