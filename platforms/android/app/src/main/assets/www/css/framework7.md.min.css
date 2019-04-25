@@ -15209,7 +15209,8 @@ label.item-radio.disabled {
     cursor: pointer;
     z-index: 20;
     color: #000;
-    height: 100%
+     height: 50%;
+    /*height: 100%*/
 }
 
 .calendar-day.calendar-day-next,

@@ -557,7 +557,7 @@ function CarryoutOrdersList(status, carryoutpagesize, carryoutcurrentPage, divId
                         /*------------------Order Info-----------------------*/
                         html += "<div class=\"order-items-count\">";
                         html += "<div class=\"customer-detail-container\">";
-                        console.log('value.ordertotal 2(' + value.ID + '): ' + ordertotal)
+                        //console.log('value.ordertotal 2(' + value.ID + '): ' + ordertotal)
                         html += "<div class=\"order-price\">" + ordertotal + "</div>";
                         if (value.NOOFITEMS == 1) {
                             html += "<div>1 item ";
@@ -7009,11 +7009,12 @@ function BindCategoy(id) {
         var url = global + "/GetCategoyByStoreId?storeId=" + storeId;
 
         $.getJSON(url, function (data) {
-            //console.log(data)
+            console.log(data)
             if (data.replace(/"/g, "").indexOf("No record(s) found.") > -1) {
 
             }
             else {
+
                 $('#' + id).html("<option value=\"0\">Category</option>");
                 $('#' + id).append(data);
             }
@@ -8677,6 +8678,7 @@ function ResetGiftCardLoadRedeem() {
     $('#dvInner').hide();
 }
 function ResetFilters(page) {
+    //console.log(page)
     $('input[type="text"]').val("");
     $('input[type="text"]').css('border-bottom', bottomBorder);
     $('input[type="number"]').val("");
@@ -8685,28 +8687,34 @@ function ResetFilters(page) {
     // $('input[name=radioCarryoutSort]').attr('checked', true);
     if (page == "carryout")
     {
-   
-        $("#ddlFilterCarryoutStatus").val("");
-        console.log(page)
+      
+        //console.log("1: " + $('#ddlFilterCarryoutStatus').val())
+        $("#ddlFilterCarryoutStatus")[0].selectedIndex = 0;
+       // $("#ddlFilterCarryoutStatus").removeAttr("class");
+        //console.log(page)
         $('[name="radioCarryoutSort"]')[1].checked = true;
         $('[name="radioCarryoutSortBy"]')[0].checked = true;
     }
     else if (page == "giftcardorders") {
-        $("#ddlFilterStatus").val("");
+        $("#ddlFilterStatus")[0].selectedIndex = 0;
+        //$("#ddlFilterStatus").val("");
         //$('input[name="radioGiftCardSort"][value="DESC"]').prop("checked", true);
         //$('input[name="radioGiftCardSortBy"][value="Status"]').prop("checked", true);
         $('[name="radioGiftCardSort"]')[1].checked = true;
         $('[name="radioGiftCardSortBy"]')[0].checked = true;
     }
     if (page == "coupons") {
-        $("#ddlFilterCouponStatus").val("");
+        $("#ddlFilterCouponStatus")[0].selectedIndex = 0;
+        //$("#ddlFilterCouponStatus").val("");
         //$('input[name="radioCouponSort"][value="DESC"]').prop("checked", true);
         $('[name="radioCouponSort"]')[1].checked = true;
         $('[name="radioCouponSortBy"]')[0].checked = true;
     }
     if (page == "items") {
-        $("#ddlFilterItemStatus").val("");
-        $("#filterProductCategory").val("0");
+        //$("#ddlFilterItemStatus").val("");
+        $("#ddlFilterItemStatus")[0].selectedIndex = 0;
+        //$("#filterProductCategory").val("0");
+        $("#filterProductCategory")[0].selectedIndex = 0;
        
         $('[name="radioItemSort"]')[0].checked = true;
         $('[name="radioItemSortBy"]')[0].checked = true;
