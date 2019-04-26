@@ -7144,22 +7144,24 @@ function CouponList(pagesize, currentPage) {
                         html += "<div class=\"order-row-container\">";
 
                         /*------------------Name-----------------------*/
-                        html += "<div class=\"order-pickup panel-open\" style=\"text-align:left;font-size:20px;width:60%\" onclick=\"OpenCouponListDetails(" + value.Id + ")\">" + code + "</div>";
+                        html += "<div class=\"order-pickup\"><div class=\"code\">" + code + "</div>";
 
-                        /*------------------Button-----------------------*/
-                        html += "<div class=\"coupon-buttons\" style=\"width:28%\">";
                         if (value.IsActive == 1) {
-                            html += "<a><img src=\"./img/icons/active.png\"></a>";
+                            html += "<div class=\"coupon-status-icon\"><img class=\"list-icon\" src=\"./img/icons/active.png\"></div>";
                         }
                         else {
-                            html += "<a><img src=\"./img/icons/inactive.png\"></a>";
+                            html += "<div class=\"coupon-status-icon\"><img class=\"list-icon\" src=\"./img/icons/inactive.png\"><div>";
                         }
+                        html +="</div>";
+                        /*------------------Button-----------------------*/
+                        html += "<div class=\"coupon-buttons\" style=\"width:15%\">";
+                       
                         html += "<a onclick=\"GoToCouponEdit(" + value.Id + ");\"><img src=\"./img/icons/edit-icon.png\"></a>";
-                        html += "<a onclick=\"DeleteCoupon(" + value.Id + ");\"><i class=\"material-icons\" style=\"font-size: 26px;padding-top: 5px;color:#ee3e3e;\">delete</i></a>";
+                        html += "<a style=\"padding-left:10px;\" onclick=\"DeleteCoupon(" + value.Id + ");\"><img src=\"./img/icons/delete.png\"></a>";
                         html += "</div>";
 
                         html += "</div>";
-                        html += "<div class=\"order-row-container panel-open\" onclick=\"OpenCouponListDetails(" + value.Id + ")\">";
+                        html += "<div class=\"order-row-container\">";
                         html += "<div class=\"order-date\" style=\"width:55%\">";
                         html += "<div class=\"customer-detail-container\">";
 

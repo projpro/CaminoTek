@@ -229,7 +229,9 @@ h4{
 .favorite {
 	background: #f0eadc;
 }
-
+#giftcard .mt {
+    margin-top: 0px!important;
+}
 .mt {
 	margin-top: 30px!important;
 }
@@ -1153,6 +1155,18 @@ h4{
   display: flex;
   flex-direction: row;
 }
+#giftcard .order-list:first-child {
+    display:flex;
+       /*flex-direction:column;*/
+       padding-top:10px;
+
+}
+#coupon_list  .order-list:first-child {
+    display:flex;
+       /*flex-direction:column;*/
+       padding-top:10px;
+
+}
 .order-list:first-child {
     display:flex;
        /*flex-direction:column;*/
@@ -1183,7 +1197,7 @@ h4{
     /*flex-direction:column;*/
     align-items:center;
     margin:auto;
-    width:40%;
+    width:50%;
 }
 .giftcard-buttons
 {
@@ -1208,8 +1222,8 @@ h4{
     width:40%;
 }
 .coupon-buttons img{
-    width:41%;
-    margin:0 25px;
+    /*width:41%;*/
+    /*margin:0 25px;*/
 }
 #dvFoodItemList .order-buttons img{
     width:40%;
@@ -1274,7 +1288,7 @@ h4{
 	color: #111111;
 }
 .order-number {
-    width:60%;
+    width:55%;
     /*text-align:center;*/
     /*width:33.33%;*/
 	font-weight: 600;
@@ -1288,12 +1302,33 @@ h4{
 	color: #08b3c7;
         text-align: center;
 }
+#coupon_list .order-pickup {
+    margin-top: 0px;
+    font-weight: 400;
+    font-size: 26px;
+    color: #08b3c7;
+    text-align: left;
+    display:flex;
+    width:75%;
+}
 .order-pickup {
     margin-top:0px;
 	font-weight: 400;
 	font-size:26px;
 	color: #08b3c7;
         text-align: center;
+}
+.code {
+   text-align:left;
+   font-size:20px;
+   /*width:60%;*/
+   display:inline-block;
+   margin-top:6px;
+}
+.coupon-status-icon{
+    width:75%;
+    display:inline-block;
+    padding-left:10px;
 }
 .order-details-pickup {
     margin-top:0px;
@@ -1411,10 +1446,13 @@ h4{
 .menu-icon{
     color:#7d7d7d;
 }
-
+#coupon_list .list-icon {
+    display: inline-block;
+    max-width: 12%;
+}
 .list-icon{
     display: inline-block;
-    max-width: 20%;
+    max-width: 30%;
 }
 .list-empty-label-text{
             font-size: 36px;
@@ -1842,6 +1880,9 @@ select:-moz-focusring {
     width:21% !important;
     margin:0 7px 0 0 !important;
 }
+#carryout .carryout-button-set-2 {
+    width: 85% !important;
+}
 .carryout-button-set-2{
     width:90% !important;
 }
@@ -1872,6 +1913,8 @@ text-align: center;
 display: block;
     margin:8px 10px 0 10px;
 }
+#coupon_list .list-section{margin-top:0px;}
+
 .list-section{margin-top:20px;}
 .item-media-large{width:75%;}
 .header-filter{border:none;font-size:20px; padding-left:10px;padding-top: 25px;}

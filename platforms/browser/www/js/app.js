@@ -127,20 +127,6 @@ $$(document).on('page:init', function (e) {
         });
 
 
-        //var calendarModalCouponStart = app.calendar.create({
-        //    inputEl: '#txtFilterCouponStart',
-        //    openIn: 'customModal',
-        //    header: true,
-        //    footer: true,
-        //    dateFormat: 'mm/dd/yyyy',
-        //});
-        //var calendarModalCouponEnd = app.calendar.create({
-        //    inputEl: '#txtFilterCouponEnd',
-        //    openIn: 'customModal',
-        //    header: true,
-        //    footer: true,
-        //    dateFormat: 'mm/dd/yyyy',
-        //});
 
         CheckGiftCardPermission();
         $$("#hdnCurrentState").val('New');

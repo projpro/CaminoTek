@@ -9272,7 +9272,13 @@ html.device-android-4 .accordion-item-content {
 .md .timeline.color-theme-black .timeline-year-title {
     background: #000
 }
-
+#giftcard .tabs{
+    /*position: relative;*/
+    position: absolute;
+    width: 100%;
+    overflow: hidden;
+    height: 100%;
+}
 .tabs .tab {
     display: none
 }
@@ -9282,7 +9288,8 @@ html.device-android-4 .accordion-item-content {
 }
 
 .tabs-animated-wrap {
-    position: relative;
+    /*position: relative;*/
+    position: absolute;
     width: 100%;
     overflow: hidden;
     height: 100%;
