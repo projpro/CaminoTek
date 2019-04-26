@@ -6225,8 +6225,7 @@ function CarryoutItemsList(carryoutpagesize, carryoutcurrentPage) {
         status = "";
     }
    
-    console.log("radioItemSortBy: " + sortValue)
-    console.log("radioItemSort: " + sortByValue)
+   
     if (Number(storeId) > 0) {
 
         carryoutcurrentPage = Number(carryoutcurrentPage) * Number(carryoutpagesize);
@@ -6256,19 +6255,27 @@ function CarryoutItemsList(carryoutpagesize, carryoutcurrentPage) {
                         html += "<div class=\"order-row-container\">";
 
                         /*------------------Name-----------------------*/
-                        html += "<div class=\"order-pickup order-number\" style=\"text-align:left;font-size:20px;width:70%\" >" + value.NAME + "</div>";
-
-                        /*------------------Button-----------------------*/
-                        html += "<div class=\"order-buttons\" style=\"width:30%\">";
+                        //html += "<div class=\"order-pickup order-number\" style=\"text-align:left;font-size:20px;width:70%\" ><div style=\"display:inline-block;\">" + value.NAME+"</div>";
+                        html += "<div class=\"order-pickup\" ><div class=\"code\">" + value.NAME + "</div>";
+                        //if (value.PUBLISHED == 1) {
+                        //    html += "<div style=\"width:33.33%;\"><a><img src=\"./img/icons/active.png\"></a></div>";
+                        //}
+                        //else {
+                        //    html += "<div style=\"width:33.33%;\"><a><img src=\"./img/icons/inactive.png\"></a></div>";
+                        //}
                         if (value.PUBLISHED == 1) {
-                            html += "<div style=\"width:33.33%;\"><a><img src=\"./img/icons/active.png\"></a></div>";
+                            html += "<div  class=\"coupon-status-icon\"><img class=\"list-icon\" src=\"./img/icons/active.png\"></div>";
                         }
                         else {
-                            html += "<div style=\"width:33.33%;\"><a><img src=\"./img/icons/inactive.png\"></a></div>";
+                            html += "<div class=\"coupon-status-icon\"><img class=\"list-icon\" src=\"./img/icons/inactive.png\"><div>";
                         }
-                        html += "<div class=\"order-price\" style=\"font-size:20px;width:33.33%;text-align:right;\">" + itemPrice + "</div>";
+                        html += "</div>";
+                        /*------------------Button-----------------------*/
+                        html += "<div class=\"order-buttons\" style=\"width:30%\">";
+                     
+                        html += "<div class=\"order-price\" style=\"font-size:20px;width:50%;text-align:right;\">" + itemPrice + "</div>";
 
-                        html += "<div style=\"padding-left:0px;width:33.33%\"><a onclick=\"GoToItemEdit(" + value.ID + ");\"><img src=\"./img/icons/edit-icon.png\"></a></div>";
+                        html += "<div style=\"padding-left:0px;width:50%\"><a onclick=\"GoToItemEdit(" + value.ID + ");\"><img src=\"./img/icons/edit-icon.png\"></a></div>";
                         html += "</div>";
 
                         html += "</div>";
@@ -6282,14 +6289,6 @@ function CarryoutItemsList(carryoutpagesize, carryoutcurrentPage) {
                         /*------------------SHORTDESCRIPTION-----------------------*/
                         if (value.SHORTDESCRIPTION != undefined && value.SHORTDESCRIPTION != null && value.SHORTDESCRIPTION != "")
                             html += "<div  style=\"font-size:16px;width:100%\">" + value.SHORTDESCRIPTION + "</div>";
-
-                        //if (value.StartDateUtc != "" && value.EndDateUtc != "") {
-                        //    /*------------------Start Date Ende Date-----------------------*/
-                        //    html += "<div class=\"giftcard-customer-name\">Start: <span class=\"cc-number\">" + StartDate + "</span></div>";
-                        //    html += "<div class=\"giftcard-customer-name\">End: <span class=\"cc-number\">" + EndDate + "</span></div>";
-                        //}
-
-
                         html += "</div>";
                         html += "</div>";
 
@@ -7298,22 +7297,24 @@ function CouponListPagination(pagesize, currentPage) {
                         html += "<div class=\"order-row-container\">";
 
                         /*------------------Name-----------------------*/
-                        html += "<div class=\"order-pickup panel-open\" style=\"text-align:left;font-size:20px;width:60%\" onclick=\"OpenCouponListDetails(" + value.Id + ")\">" + code + "</div>";
+                        html += "<div class=\"order-pickup\"><div class=\"code\">" + code + "</div>";
 
-                        /*------------------Button-----------------------*/
-                        html += "<div class=\"coupon-buttons\" style=\"width:28%\">";
                         if (value.IsActive == 1) {
-                            html += "<a><img src=\"./img/icons/active.png\"></a>";
+                            html += "<div class=\"coupon-status-icon\"><img class=\"list-icon\" src=\"./img/icons/active.png\"></div>";
                         }
                         else {
-                            html += "<a><img src=\"./img/icons/inactive.png\"></a>";
+                            html += "<div class=\"coupon-status-icon\"><img class=\"list-icon\" src=\"./img/icons/inactive.png\"><div>";
                         }
+                        html += "</div>";
+                        /*------------------Button-----------------------*/
+                        html += "<div class=\"coupon-buttons\" style=\"width:15%\">";
+
                         html += "<a onclick=\"GoToCouponEdit(" + value.Id + ");\"><img src=\"./img/icons/edit-icon.png\"></a>";
-                        html += "<a onclick=\"DeleteCoupon(" + value.Id + ");\"><i class=\"material-icons\" style=\"font-size: 26px;padding-top: 5px;color:#ee3e3e;\">delete</i></a>";
+                        html += "<a style=\"padding-left:10px;\" onclick=\"DeleteCoupon(" + value.Id + ");\"><img src=\"./img/icons/delete.png\"></a>";
                         html += "</div>";
 
                         html += "</div>";
-                        html += "<div class=\"order-row-container panel-open\" onclick=\"OpenCouponListDetails(" + value.Id + ")\">";
+                        html += "<div class=\"order-row-container\">";
                         html += "<div class=\"order-date\" style=\"width:55%\">";
                         html += "<div class=\"customer-detail-container\">";
 

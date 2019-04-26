@@ -1311,6 +1311,15 @@ h4{
     display:flex;
     width:75%;
 }
+#food_list .order-pickup {
+    margin-top: 0px;
+    font-weight: 400;
+    font-size: 26px;
+    color: #08b3c7;
+    text-align: left;
+    display:flex;
+    width:75%;
+}
 .order-pickup {
     margin-top:0px;
 	font-weight: 400;
@@ -1324,6 +1333,11 @@ h4{
    /*width:60%;*/
    display:inline-block;
    margin-top:6px;
+}
+#food_list .coupon-status-icon{
+    width:31%;
+    display:inline-block;
+    padding-left:10px;
 }
 .coupon-status-icon{
     width:75%;
@@ -1449,6 +1463,10 @@ h4{
 #coupon_list .list-icon {
     display: inline-block;
     max-width: 12%;
+}
+#food_list .list-icon {
+    display: inline-block;
+    max-width: 30%;
 }
 .list-icon{
     display: inline-block;
@@ -1914,6 +1932,7 @@ display: block;
     margin:8px 10px 0 10px;
 }
 #coupon_list .list-section{margin-top:0px;}
+#food_list .list-section{margin-top:0px;}
 
 .list-section{margin-top:20px;}
 .item-media-large{width:75%;}
