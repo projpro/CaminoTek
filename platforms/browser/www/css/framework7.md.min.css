@@ -15066,7 +15066,9 @@ label.item-radio.disabled {
 
 .calendar-modal {
     position: absolute;
-    height: 420px;
+    /*height: 420px;*/
+        height:350px;
+
     overflow: hidden;
     top: 50%;
     left: 50%;
@@ -15136,7 +15138,9 @@ label.item-radio.disabled {
 
 .calendar-months {
     width: 100%;
-    height: 100%;
+    /*height: 100%;*/
+        height: 100%;
+
     overflow: hidden;
     position: relative;
     -webkit-flex-shrink: 10;
@@ -15147,6 +15151,7 @@ label.item-radio.disabled {
 .calendar-months-wrapper {
     position: relative;
     width: 100%;
+    /*height: 100%;*/
     height: 100%;
     -webkit-transition: .3s;
     transition: .3s
@@ -15163,7 +15168,9 @@ label.item-radio.disabled {
     -ms-flex-direction: column;
     flex-direction: column;
     width: 100%;
-    height: 100%;
+    /*height: 100%;*/
+        height: 100%;
+
     position: absolute;
     left: 0;
     top: 0

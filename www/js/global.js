@@ -488,7 +488,7 @@ function CarryoutOrdersList(status, carryoutpagesize, carryoutcurrentPage, divId
                         html += "<div class=\"order-column-two\">";
                         /*------------------1st Row-----------------------*/
                         html += "<div class=\"order-row-container\">";
-                        html += "<div class=\"order-number panel-open\" onclick=\"OpenCarryoutDetails(" + value.ID + ");\" >#" + value.ID + "<span> on </span><span>" + orderDate + " @ " + orderTime + "</span></div>";
+                        html += "<div class=\"order-number\">#" + value.ID + "<span> on </span><span>" + orderDate + " @ " + orderTime + "</span></div>";
                         /*------------------Button Row-----------------------*/
                         if (value.ORDERSTATUSID == "New") {
 
@@ -547,7 +547,7 @@ function CarryoutOrdersList(status, carryoutpagesize, carryoutcurrentPage, divId
 
                         /*------------------Customer Info-----------------------*/
                         html += "<div class=\"order-date\">";
-                        html += "<div class=\"customer-detail-container panel-open\" onclick=\"OpenCarryoutDetails(" + value.ID + ");\">";
+                        html += "<div class=\"customer-detail-container\">";
                         html += "<div class=\"customer-name\">" + firstName + " " + lastName + "</div>";
                         html += "<div>" + phone + "</div>";
                         //html += "<div class=\"display-label-wrap\">" + email + "</div>";
@@ -853,7 +853,7 @@ function CarryoutOrdersListPagination(status, carryoutpagesize, carryoutcurrentP
                         html += "<div class=\"order-column-two\">";
                         /*------------------1st Row-----------------------*/
                         html += "<div class=\"order-row-container\">";
-                        html += "<div class=\"order-number panel-open\" onclick=\"OpenCarryoutDetails(" + value.ID + ");\">#" + value.ID + "<span> on </span><span>" + orderDate + " @ " + orderTime + "</span></div>";
+                        html += "<div class=\"order-number\">#" + value.ID + "<span> on </span><span>" + orderDate + " @ " + orderTime + "</span></div>";
                         /*------------------Button Row-----------------------*/
                         if (value.ORDERSTATUSID == "New") {
 
@@ -907,7 +907,7 @@ function CarryoutOrdersListPagination(status, carryoutpagesize, carryoutcurrentP
                         /*------------------1st Row-----------------------*/
 
                         /*------------------2nd Row-----------------------*/
-                        html += "<div class=\"order-row-container panel-open\"  onclick=\"OpenCarryoutDetails(" + value.ID + ");\">";
+                        html += "<div class=\"order-row-container\"  >";
 
                         /*------------------Customer Info-----------------------*/
                         html += "<div class=\"order-date\">";
@@ -4437,7 +4437,7 @@ function SearchReward() {
             $('#tblRewardHistory tbody').html("");
             $.getJSON(url, function (data) {
                 $('#tblRewardHistory tbody').html("");
-                //console.log(data);
+                console.log(data);
                 if (data.replace(/"/g, "").indexOf("Phone is not valid.") > -1) {
                     $('#dvInner_Reward').hide();
                     $('#btnLoadReward').addClass("disabled");
@@ -4481,7 +4481,6 @@ function SearchReward() {
                     $('#dvOuterText').html("");
                     $('#btnLoadReward').addClass("disabled");
                     $('#btnRedeemReward').addClass("disabled");
-                    //WriteLog(SearchGiftCard() + " - " + " No order(s) found.", browser);
                     callSweetAlertWarning("No record found.");
                 }
                 else {
@@ -8692,7 +8691,7 @@ function ResetFilters(page) {
         $("#ddlFilterCarryoutStatus")[0].selectedIndex = 0;
        // $("#ddlFilterCarryoutStatus").removeAttr("class");
         //console.log(page)
-        $('[name="radioCarryoutSort"]')[1].checked = true;
+        $('[name="radioCarryoutSort"]')[0].checked = true;
         $('[name="radioCarryoutSortBy"]')[0].checked = true;
     }
     else if (page == "giftcardorders") {
