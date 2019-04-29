@@ -6267,7 +6267,7 @@ function CarryoutItemsList(carryoutpagesize, carryoutcurrentPage) {
                             html += "<div  class=\"coupon-status-icon\"><img class=\"list-icon\" src=\"./img/icons/active.png\"></div>";
                         }
                         else {
-                            html += "<div class=\"coupon-status-icon\"><img class=\"list-icon\" src=\"./img/icons/inactive.png\"><div>";
+                            html += "<div class=\"coupon-status-icon\"><img class=\"list-icon\" src=\"./img/icons/inactive.png\"></div>";
                         }
                         html += "</div>";
                         /*------------------Button-----------------------*/
@@ -6383,19 +6383,27 @@ function CarryoutItemsListPagination(carryoutpagesize, carryoutcurrentPage) {
                         html += "<div class=\"order-row-container\">";
 
                         /*------------------Name-----------------------*/
-                        html += "<div class=\"order-pickup order-number\" style=\"text-align:left;font-size:20px;width:70%\" >" + value.NAME + "</div>";
-
-                        /*------------------Button-----------------------*/
-                        html += "<div class=\"order-buttons\" style=\"width:30%\">";
+                        //html += "<div class=\"order-pickup order-number\" style=\"text-align:left;font-size:20px;width:70%\" ><div style=\"display:inline-block;\">" + value.NAME+"</div>";
+                        html += "<div class=\"order-pickup\" ><div class=\"code\">" + value.NAME + "</div>";
+                        //if (value.PUBLISHED == 1) {
+                        //    html += "<div style=\"width:33.33%;\"><a><img src=\"./img/icons/active.png\"></a></div>";
+                        //}
+                        //else {
+                        //    html += "<div style=\"width:33.33%;\"><a><img src=\"./img/icons/inactive.png\"></a></div>";
+                        //}
                         if (value.PUBLISHED == 1) {
-                            html += "<div style=\"width:33.33%;\"><a><img src=\"./img/icons/active.png\"></a></div>";
+                            html += "<div  class=\"coupon-status-icon\"><img class=\"list-icon\" src=\"./img/icons/active.png\"></div>";
                         }
                         else {
-                            html += "<div style=\"width:33.33%;\"><a><img src=\"./img/icons/inactive.png\"></a></div>";
+                            html += "<div class=\"coupon-status-icon\"><img class=\"list-icon\" src=\"./img/icons/inactive.png\"></div>";
                         }
-                        html += "<div class=\"order-price\" style=\"font-size:20px;width:33.33%;text-align:right;\">" + itemPrice + "</div>";
+                        html += "</div>";
+                        /*------------------Button-----------------------*/
+                        html += "<div class=\"order-buttons\" style=\"width:30%\">";
 
-                        html += "<div style=\"padding-left:0px;width:33.33%;\"><a onclick=\"GoToItemEdit(" + value.ID + ");\"><img src=\"./img/icons/edit-icon.png\"></a></div>";
+                        html += "<div class=\"order-price\" style=\"font-size:20px;width:50%;text-align:right;\">" + itemPrice + "</div>";
+
+                        html += "<div style=\"padding-left:0px;width:50%\"><a onclick=\"GoToItemEdit(" + value.ID + ");\"><img src=\"./img/icons/edit-icon.png\"></a></div>";
                         html += "</div>";
 
                         html += "</div>";
@@ -7149,7 +7157,7 @@ function CouponList(pagesize, currentPage) {
                             html += "<div class=\"coupon-status-icon\"><img class=\"list-icon\" src=\"./img/icons/active.png\"></div>";
                         }
                         else {
-                            html += "<div class=\"coupon-status-icon\"><img class=\"list-icon\" src=\"./img/icons/inactive.png\"><div>";
+                            html += "<div class=\"coupon-status-icon\"><img class=\"list-icon\" src=\"./img/icons/inactive.png\"></div>";
                         }
                         html +="</div>";
                         /*------------------Button-----------------------*/
@@ -7303,7 +7311,7 @@ function CouponListPagination(pagesize, currentPage) {
                             html += "<div class=\"coupon-status-icon\"><img class=\"list-icon\" src=\"./img/icons/active.png\"></div>";
                         }
                         else {
-                            html += "<div class=\"coupon-status-icon\"><img class=\"list-icon\" src=\"./img/icons/inactive.png\"><div>";
+                            html += "<div class=\"coupon-status-icon\"><img class=\"list-icon\" src=\"./img/icons/inactive.png\"></div>";
                         }
                         html += "</div>";
                         /*------------------Button-----------------------*/
