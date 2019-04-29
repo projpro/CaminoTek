@@ -1468,6 +1468,11 @@ h4{
     display: inline-block;
     max-width: 30%;
 }
+#dvOrderInfo  .list-icon{
+    display: inline-block;
+    max-width: 20%;
+    margin-left: 22px;
+}
 .list-icon{
     display: inline-block;
     max-width: 30%;

@@ -488,7 +488,7 @@ function CarryoutOrdersList(status, carryoutpagesize, carryoutcurrentPage, divId
                         html += "<div class=\"order-column-two\">";
                         /*------------------1st Row-----------------------*/
                         html += "<div class=\"order-row-container\">";
-                        html += "<div class=\"order-number\">#" + value.ID + "<span> on </span><span>" + orderDate + " @ " + orderTime + "</span></div>";
+                        html += "<div class=\"order-number panel-open\" onclick=\"OpenCarryoutDetails(" + value.ID + ");\">#" + value.ID + "<span> on </span><span>" + orderDate + " @ " + orderTime + "</span></div>";
                         /*------------------Button Row-----------------------*/
                         if (value.ORDERSTATUSID == "New") {
 
@@ -547,7 +547,7 @@ function CarryoutOrdersList(status, carryoutpagesize, carryoutcurrentPage, divId
 
                         /*------------------Customer Info-----------------------*/
                         html += "<div class=\"order-date\">";
-                        html += "<div class=\"customer-detail-container\">";
+                        html += "<div class=\"customer-detail-container panel-open\" onclick=\"OpenCarryoutDetails(" + value.ID + ");\">";
                         html += "<div class=\"customer-name\">" + firstName + " " + lastName + "</div>";
                         html += "<div>" + phone + "</div>";
                         //html += "<div class=\"display-label-wrap\">" + email + "</div>";
