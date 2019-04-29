@@ -294,21 +294,6 @@ $$(document).on('page:init', function (e) {
     else if (pageURL.indexOf('giftcard') > -1)//Gift Card
     {
 
-        //var calendarModalOrderStart = app.calendar.create({
-        //    inputEl: '#txtFilterOrderDateFrom',
-        //    openIn: 'customModal',
-        //    header: true,
-        //    footer: true,
-        //    dateFormat: 'mm/dd/yyyy',
-        //});
-        //var calendarModalOrderEnd = app.calendar.create({
-        //    inputEl: '#txtFilterOrderDateTo',
-        //    openIn: 'customModal',
-        //    header: true,
-        //    footer: true,
-        //    dateFormat: 'mm/dd/yyyy',
-        //});
-
         function preventScroll(e) {
             e.preventDefault();
         }
@@ -1164,8 +1149,9 @@ function InitPushNotification(storeId) {
             //myMedia = new Media(src, onSuccess, onError, onStatus);
            // myMedia.stop();
            // acceptOrderPopup.destroy();
-            $("#btnAcknowledgement").click();
+            //$("#btnAcknowledgement").click();
             //AcceptOrders();
+            //$(".popup-close").click();
         }
         // alert('notification event: ' + data.message + ", " + data.title);
         //navigator.notification.alert(
