@@ -730,14 +730,14 @@ $$(document).on('page:init', function (e) {
             calendarModalOrderStart.destroy();
         if (calendarModalOrderEnd != undefined)
             calendarModalOrderEnd.destroy();
-        var calendarModalCouponStart = app.calendar.create({
+        calendarModalCouponStart = app.calendar.create({
             inputEl: '#txtFilterCouponStart',
             openIn: 'customModal',
             header: true,
             footer: true,
             dateFormat: 'mm/dd/yyyy',
         });
-        var calendarModalCouponEnd = app.calendar.create({
+        calendarModalCouponEnd = app.calendar.create({
             inputEl: '#txtFilterCouponEnd',
             openIn: 'customModal',
             header: true,
