@@ -46,7 +46,7 @@
     <plugin name="cordova-plugin-whitelist" source="npm" spec="1.1.0" />
     <plugin name="cordova-plugin-whitelist" spec="~1.2.0" />
     <plugin name="cordova-plugin-console" spec="~1.0.1" />
-    <plugin name="cordova-plugin-statusbar" spec="~1.0.1" />
+    <plugin name="cordova-plugin-statusbar" spec="2.2.2"/>
     <plugin name="cordova-plugin-whitelist" source="npm" />
     <plugin name="cordova-plugin-datepicker" />
     <variable name="API_KEY_FOR_ANDROID" value="AIzaSyBJZvmtBkzgIFt4YKxn9YaFgFzow9wkTOk" />
