@@ -33,7 +33,7 @@
     <preference name="DisallowOverscroll" value="true" />
     <preference name="orientation" value="portrait" />
     <preference name="fullscreen" value="true" />
-    <preference name="StatusBarOverlaysWebView" value="true" />
+    <preference name="StatusBarOverlaysWebView" value="false" />
   <preference name="StatusBarDefaultScrollToTop" value="false" />
   <preference name="StatusBarStyle" value="lightcontent" />
     <preference name="KeepRunning" value="false" />
