@@ -18,11 +18,15 @@
     <variable name="API_KEY_FOR_ANDROID" value="AIzaSyBJZvmtBkzgIFt4YKxn9YaFgFzow9wkTOk" />
     <variable name="API_KEY_FOR_IOS" value="AIzaSyBFxZQaz73onx2qvWPDLq0asFflKiuPb-s" />
     <variable name="PLAY_SERVICES_VERSION" value="11.8.0" />
+    <preference name="android-windowSoftInputMode" value="adjustResize" />
     <preference name="DisallowOverscroll" value="true" />
     <preference name="orientation" value="portrait" />
     <preference name="fullscreen" value="true" />
-    <preference name="StatusBarOverlaysWebView" value="true" />
-    <preference name="KeepRunning" value="false" />
+    <preference name="AndroidLaunchMode" value="singleInstance" />
+    <preference name="StatusBarOverlaysWebView" value="false" />
+    <preference name="StatusBarDefaultScrollToTop" value="false" />
+    <preference name="StatusBarStyle" value="lightcontent" />
+    <preference name="KeepRunning" value="true" />
     <preference name="SplashScreen" value="screen" />
     <preference name="phonegap-version" value="cli-8.1.1" />
 </widget>

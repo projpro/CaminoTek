@@ -33,10 +33,11 @@
     <preference name="DisallowOverscroll" value="true" />
     <preference name="orientation" value="portrait" />
     <preference name="fullscreen" value="true" />
-    <!--<preference name="StatusBarOverlaysWebView" value="false" />
+  <preference name="AndroidLaunchMode" value="singleInstance" />
+    <preference name="StatusBarOverlaysWebView" value="false" />
   <preference name="StatusBarDefaultScrollToTop" value="false" />
-  <preference name="StatusBarStyle" value="lightcontent" />-->
-    <preference name="KeepRunning" value="false" />
+  <preference name="StatusBarStyle" value="lightcontent" />
+    <preference name="KeepRunning" value="true" />
     <preference name="SplashScreen" value="screen" />
     <preference name="phonegap-version" value="cli-8.1.1" />
     <plugin name="cordova-plugin-device" source="npm" spec="1.0.1" />
@@ -45,7 +46,7 @@
     <plugin name="cordova-plugin-whitelist" source="npm" spec="1.1.0" />
     <plugin name="cordova-plugin-whitelist" spec="~1.2.0" />
     <plugin name="cordova-plugin-console" spec="~1.0.1" />
-    <!--<plugin name="cordova-plugin-statusbar" spec="~1.0.1" />-->
+    <plugin name="cordova-plugin-statusbar" spec="~1.0.1" />
     <plugin name="cordova-plugin-whitelist" source="npm" />
     <plugin name="cordova-plugin-datepicker" />
     <variable name="API_KEY_FOR_ANDROID" value="AIzaSyBJZvmtBkzgIFt4YKxn9YaFgFzow9wkTOk" />
