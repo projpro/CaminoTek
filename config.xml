@@ -35,6 +35,7 @@
     <preference name="fullscreen" value="true" />
     <preference name="StatusBarOverlaysWebView" value="true" />
   <preference name="StatusBarDefaultScrollToTop" value="false" />
+  <preference name="StatusBarStyle" value="lightcontent" />
     <preference name="KeepRunning" value="false" />
     <preference name="SplashScreen" value="screen" />
     <preference name="phonegap-version" value="cli-8.1.1" />
