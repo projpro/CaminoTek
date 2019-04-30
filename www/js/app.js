@@ -94,8 +94,7 @@ $$(document).on('page:init', function (e) {
     else if (pageURL.indexOf('login_new') > -1)//Login
     {
         InitLogin();
-        //CheckLoggedIn();
-        //console.log('login_new')
+       
         $$('#loginnew #btnLogin').click(function () {
             Login();
         });
@@ -103,42 +102,78 @@ $$(document).on('page:init', function (e) {
     }
     else if (pageURL.indexOf('carryout') > -1)//Carry Out
     {
-      
+       $("#txtFilterOrderDateFrom").flatpickr({
+           enableTime: false,
+           dateFormat: "mm/dd/YYYY",
+           //disableMobile: false,
+           onChange: function (dateObj, dateStr) {
+               //console.log("#txtFilterOrderDateFrom dateObj:" + dateObj);
+               //console.log("#txtFilterOrderDateFrom dateStr:" + dateStr);
+               if (dateStr != undefined && dateStr != null && dateStr.trim() != "")
+               {
+                   //console.log("1");
+                   $$("#phFilterOrderDateFrom").hide();
+               }
+               else {
+                   //console.log("2");
+                   $$("#phFilterOrderDateFrom").show();
+               }
+               
+           }
+       });
+       $("#txtFilterOrderDateTo").flatpickr({
+           enableTime: false,
+           dateFormat: "mm/dd/YYYY",
+           //disableMobile: "false",
+           onChange: function (dateObj, dateStr) {
+               //console.log("#txtFilterOrderDateFrom dateObj:" + dateObj);
+               //console.log("#txtFilterOrderDateFrom dateStr:" + dateStr);
+               if (dateStr != undefined && dateStr != null && dateStr.trim() != "") {
+                   //console.log("1");
+                   $$("#phFilterOrderDateTo").hide();
+               }
+               else {
+                   //console.log("2");
+                   $$("#phFilterOrderDateTo").show();
+               }
+
+           }
+       });
         $('#dvParentGiftCardDetailsPanel').html("");
         $('#dvDetailsPanel').html("");
        // console.log(calendarModalOrderStart)
-        if (calendarModalOrderStart!=undefined)
-            calendarModalOrderStart.destroy();
-        if (calendarModalOrderEnd != undefined)
-            calendarModalOrderEnd.destroy();
-        if (calendarModalCouponStart != undefined)
-            calendarModalCouponStart.destroy();
-        if (calendarModalCouponEnd != undefined)
-            calendarModalCouponEnd.destroy();
-        calendarModalOrderStart = app.calendar.create({
-            inputEl: '#txtFilterOrderDateFrom',
-            openIn: 'customModal',
-            header: true,
-            footer: true,
-            dateFormat: 'mm/dd/yyyy',
-        });
-        calendarModalOrderEnd = app.calendar.create({
-            inputEl: '#txtFilterOrderDateTo',
-            openIn: 'customModal',
-            header: true,
-            footer: true,
-            dateFormat: 'mm/dd/yyyy',
-        });
-
-
-
+        //if (calendarModalOrderStart!=undefined)
+        //    calendarModalOrderStart.destroy();
+        //if (calendarModalOrderEnd != undefined)
+        //    calendarModalOrderEnd.destroy();
+        //if (calendarModalCouponStart != undefined)
+        //    calendarModalCouponStart.destroy();
+        //if (calendarModalCouponEnd != undefined)
+        //    calendarModalCouponEnd.destroy();
+        //calendarModalOrderStart = app.calendar.create({
+        //    inputEl: '#txtFilterOrderDateFrom',
+        //    openIn: 'customModal',
+        //    header: true,
+        //    footer: true,
+        //    dateFormat: 'mm/dd/yyyy',
+        //});
+        //calendarModalOrderEnd = app.calendar.create({
+        //    inputEl: '#txtFilterOrderDateTo',
+        //    openIn: 'customModal',
+        //    header: true,
+        //    footer: true,
+        //    dateFormat: 'mm/dd/yyyy',
+        //});
+    
         CheckGiftCardPermission();
         $$("#hdnCurrentState").val('New');
 
         var pageSize = 10;
         var currentPage = 0;
+     
         document.addEventListener("deviceready", onDeviceReady, false);
         function onDeviceReady() {
+            
             var src = mediaURL + "notification.mp3";
             myMedia = new Media(src, onSuccess, onError, onStatus);
 
@@ -149,8 +184,8 @@ $$(document).on('page:init', function (e) {
                     InitPushNotification(storeId);
                 }
             }
+           
         }
-
 
         localStorage.setItem("CurrentPage", currentPage);
         var loadProcessing = localStorage.getItem("loadcarryoutprocessing");
@@ -721,29 +756,64 @@ $$(document).on('page:init', function (e) {
     {
         ResetFilters('coupons');
         var storeId = 0;
+        $("#txtFilterCouponStart").flatpickr({
+            enableTime: false,
+            dateFormat: "mm/dd/YYYY",
+            //disableMobile: "false",
+            onChange: function (dateObj, dateStr) {
+                //console.log("#txtFilterOrderDateFrom dateObj:" + dateObj);
+                //console.log("#txtFilterOrderDateFrom dateStr:" + dateStr);
+                if (dateStr != undefined && dateStr != null && dateStr.trim() != "") {
+                    //console.log("1");
+                    $$("#phFilterCouponStart").hide();
+                }
+                else {
+                    //console.log("2");
+                    $$("#phFilterCouponStart").show();
+                }
 
-        if (calendarModalCouponStart != undefined)
-            calendarModalCouponStart.destroy();
-        if (calendarModalCouponEnd != undefined)
-            calendarModalCouponEnd.destroy();
-        if (calendarModalOrderStart != undefined)
-            calendarModalOrderStart.destroy();
-        if (calendarModalOrderEnd != undefined)
-            calendarModalOrderEnd.destroy();
-        calendarModalCouponStart = app.calendar.create({
-            inputEl: '#txtFilterCouponStart',
-            openIn: 'customModal',
-            header: true,
-            footer: true,
-            dateFormat: 'mm/dd/yyyy',
+            }
         });
-        calendarModalCouponEnd = app.calendar.create({
-            inputEl: '#txtFilterCouponEnd',
-            openIn: 'customModal',
-            header: true,
-            footer: true,
-            dateFormat: 'mm/dd/yyyy',
+        $("#txtFilterCouponEnd").flatpickr({
+            enableTime: false,
+            dateFormat: "mm/dd/YYYY",
+            onChange: function (dateObj, dateStr) {
+                //console.log("#txtFilterOrderDateFrom dateObj:" + dateObj);
+                //console.log("#txtFilterOrderDateFrom dateStr:" + dateStr);
+                if (dateStr != undefined && dateStr != null && dateStr.trim() != "") {
+                    //console.log("1");
+                    $$("#phFilterCouponEnd").hide();
+                }
+                else {
+                    //console.log("2");
+                    $$("#phFilterCouponEnd").show();
+                }
+
+            }
+           // disableMobile: "false"
         });
+        //if (calendarModalCouponStart != undefined)
+        //    calendarModalCouponStart.destroy();
+        //if (calendarModalCouponEnd != undefined)
+        //    calendarModalCouponEnd.destroy();
+        //if (calendarModalOrderStart != undefined)
+        //    calendarModalOrderStart.destroy();
+        //if (calendarModalOrderEnd != undefined)
+        //    calendarModalOrderEnd.destroy();
+        //calendarModalCouponStart = app.calendar.create({
+        //    inputEl: '#txtFilterCouponStart',
+        //    openIn: 'customModal',
+        //    header: true,
+        //    footer: true,
+        //    dateFormat: 'mm/dd/yyyy',
+        //});
+        //calendarModalCouponEnd = app.calendar.create({
+        //    inputEl: '#txtFilterCouponEnd',
+        //    openIn: 'customModal',
+        //    header: true,
+        //    footer: true,
+        //    dateFormat: 'mm/dd/yyyy',
+        //});
         CheckGiftCardPermission();
         document.addEventListener("deviceready", onDeviceReady, false);
         function onDeviceReady() {

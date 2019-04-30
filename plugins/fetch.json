@@ -110,21 +110,5 @@
     },
     "is_top_level": true,
     "variables": {}
-  },
-  "cordova-plugin-calendar": {
-    "source": {
-      "type": "registry",
-      "id": "https://github.com/EddyVerbruggen/Calendar-PhoneGap-Plugin.git"
-    },
-    "is_top_level": true,
-    "variables": {}
-  },
-  "cordova-plugin-datepicker": {
-    "source": {
-      "type": "registry",
-      "id": "cordova-plugin-datepicker"
-    },
-    "is_top_level": true,
-    "variables": {}
   }
 }

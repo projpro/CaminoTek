@@ -59,14 +59,6 @@
                         {
                             "xml": "<feature name=\"PushNotification\"><param name=\"android-package\" value=\"com.adobe.phonegap.push.PushPlugin\" /></feature>",
                             "count": 1
-                        },
-                        {
-                            "xml": "<feature name=\"Calendar\"><param name=\"android-package\" value=\"nl.xservices.plugins.Calendar\" /></feature>",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<feature name=\"DatePickerPlugin\"><param name=\"android-package\" value=\"com.plugin.datepicker.DatePickerPlugin\" /></feature>",
-                            "count": 1
                         }
                     ]
                 }
@@ -163,14 +155,6 @@
                         {
                             "xml": "<uses-permission android:name=\"android.permission.VIBRATE\" />",
                             "count": 1
-                        },
-                        {
-                            "xml": "<uses-permission android:name=\"android.permission.READ_CALENDAR\" />",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<uses-permission android:name=\"android.permission.WRITE_CALENDAR\" />",
-                            "count": 1
                         }
                     ]
                 }
@@ -228,12 +212,6 @@
         "phonegap-plugin-push": {
             "ANDROID_SUPPORT_V13_VERSION": "27.+",
             "FCM_VERSION": "11.6.2",
-            "PACKAGE_NAME": "com.notification.bistroux"
-        },
-        "cordova-plugin-calendar": {
-            "PACKAGE_NAME": "com.notification.bistroux"
-        },
-        "cordova-plugin-datepicker": {
             "PACKAGE_NAME": "com.notification.bistroux"
         }
     },
@@ -515,22 +493,6 @@
             "clobbers": [
                 "PushNotification"
             ]
-        },
-        {
-            "id": "cordova-plugin-calendar.Calendar",
-            "file": "plugins/cordova-plugin-calendar/www/Calendar.js",
-            "pluginId": "cordova-plugin-calendar",
-            "clobbers": [
-                "Calendar"
-            ]
-        },
-        {
-            "id": "cordova-plugin-datepicker.DatePicker",
-            "file": "plugins/cordova-plugin-datepicker/www/android/DatePicker.js",
-            "pluginId": "cordova-plugin-datepicker",
-            "clobbers": [
-                "datePicker"
-            ]
         }
     ],
     "plugin_metadata": {
@@ -549,8 +511,6 @@
         "phonegap-plugin-barcodescanner": "7.0.4",
         "cordova-support-google-services": "1.1.0",
         "phonegap-plugin-multidex": "1.0.0",
-        "phonegap-plugin-push": "2.2.3",
-        "cordova-plugin-calendar": "5.1.4",
-        "cordova-plugin-datepicker": "0.9.3"
+        "phonegap-plugin-push": "2.2.3"
     }
 }

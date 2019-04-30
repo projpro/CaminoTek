@@ -1445,6 +1445,21 @@ h4{
 ::-ms-input-placeholder { /* Microsoft Edge */
   color: #212121;
 }
+.custom-placeholder {
+      position: absolute;
+    top: 50%;
+    left: 30px;
+    padding-left:16px;
+    transform: translateY(-50%);
+    color: #aaa;
+    pointer-events: none;
+    font-size: 19px;
+    color: #7d7d7d;
+}
+/*.date[type="text"] + .custom-placeholder,
+.date:valid + .custom-placeholder{
+  display: none;
+}*/
 /*.tab-link-active a  {
 	background: #08b3c7;
 }

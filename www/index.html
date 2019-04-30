@@ -19,11 +19,14 @@
 
 		<link rel="stylesheet" href="css/icons.css">
 		<link rel="stylesheet" href="css/app.css">
-        <link rel="stylesheet" href="lib/pickadate/themes/default.css">
-        <link rel="stylesheet" href="lib/pickadate/themes/default.date.css">
 
+        <!--<link href="css/tiny-date-picker.css" rel="stylesheet" type="text/css">-->
+        <!--<link href="css/window-date-picker.css" rel="stylesheet">-->
+        <!--<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">-->
+        <link rel="stylesheet" href="css/flatpickr.min.css">
 		<link rel="apple-touch-icon" href="img/f7-icon-square.png">
 		<link rel="icon" href="img/f7-icon.png">
+        
 	</head>
 	<body class="color-theme-pink md">
 		<div id="app">
@@ -65,7 +68,6 @@
                     </div>
                     <!--Right Side Filter Sorting Panel-->
                     <div class="panel panel-right panel-cover panel-menu" style="display: none;">
-                        <!--<div class="page">-->
                             <div>
                                 <div class="page-title padding-left padding-right margin-top display-flex justify-content-space-between">
                                     <h2 style="border:none;">Filter</h2>
@@ -116,7 +118,6 @@
                                                 </li>
                                                 <li>
                                                     <div class="page-content">
-                                                        <!--<div class="content-block-title" style="font-size:20px; padding-left:10px;padding-top: 25px;">Sort</div>-->
                                                         <h2 class="sort-header">Sort</h2>
                                                     </div>
                                                 </li>
@@ -140,7 +141,6 @@
                                                 </li>
                                                 <li>
                                                     <div class="page-content">
-                                                        <!--<div class="content-block-title" style="font-size:20px; padding-left:10px;">Field</div>-->
                                                         <h2 class="filter-header">Field</h2>
                                                         <div class="list list-margin">
                                                             <ul style="padding-left:0px;">
@@ -210,14 +210,16 @@
                                                 <li class="item-content">
                                                     <div class="item-media custom-width">
                                                         <i class="material-icons">event</i>
-                                                        <input type="text" placeholder="Start Date" id="txtFilterCouponStart" tabindex="2">
+                                                        <input type="text"  id="txtFilterCouponStart" tabindex="2" data-input>
+                                                        <span class="custom-placeholder" id="phFilterCouponStart">Start Date</span>
                                                         <span class="input-clear-button"></span>
                                                     </div>
                                                 </li>
                                                 <li class="item-content">
                                                     <div class="item-media custom-width">
                                                         <i class="material-icons">event</i>
-                                                        <input type="text" placeholder="End Date" id="txtFilterCouponEnd" tabindex="3">
+                                                        <input type="text"  id="txtFilterCouponEnd" tabindex="3" data-input>
+                                                        <span class="custom-placeholder" id="phFilterCouponEnd">End Date</span>
                                                         <span class="input-clear-button"></span>
                                                     </div>
                                                 </li>
@@ -226,7 +228,6 @@
                                                 </li>
                                                 <li>
                                                     <div class="page-content">
-                                                        <!--<div class="content-block-title" style="font-size:20px; padding-left:10px;padding-top: 25px;">Sort</div>-->
                                                         <h2 class="sort-header">Sort</h2>
                                                     </div>
                                                 </li>
@@ -250,7 +251,6 @@
                                                 </li>
                                                 <li>
                                                     <div class="page-content">
-                                                        <!--<div class="content-block-title" style="font-size:20px; padding-left:10px;">Field</div>-->
                                                         <h2 class="filter-header">Field</h2>
                                                         <div class="list list-margin">
                                                             <ul style="padding-left:0px;">
@@ -321,10 +321,11 @@
                                                     </div>
                                                 </li>
                                                 <li class="item-content">
-                                                    <div class="item-media custom-width" style="position:relative;">
+                                                    <div class="item-media custom-width">
                                                         <i class="material-icons">event</i>
-                                                        <input type="text" placeholder="Order Date" id="txtFilterOrderDateFrom" tabindex="4" class="datepicker">
-                                                        <span class="input-clear-button"></span>
+                                                        <input type="text" class="date" id="txtFilterOrderDateFrom" tabindex="4" data-input/>
+                                                        <span class="custom-placeholder"  id="phFilterOrderDateFrom">Order Date</span>
+                                                       <span class="input-clear-button"></span>
                                                     </div>
                                                 </li>
                                                 <li>
@@ -335,7 +336,8 @@
                                                 <li class="item-content">
                                                     <div class="item-media custom-width">
                                                         <i class="material-icons">event</i>
-                                                        <input type="text" placeholder="Order Date" id="txtFilterOrderDateTo" tabindex="5">
+                                                        <input type="text" class="date" id="txtFilterOrderDateTo" tabindex="5" data-input>
+                                                        <span class="custom-placeholder"  id="phFilterOrderDateTo">Order Date</span>
                                                         <span class="input-clear-button"></span>
                                                     </div>
                                                 </li>
@@ -344,7 +346,6 @@
                                                 </li>
                                                 <li>
                                                     <div class="page-content">
-                                                        <!--<div class="content-block-title" style="font-size:20px; padding-left:10px;padding-top: 25px;">Sort</div>-->
                                                         <h2 class="sort-header">Sort</h2>
                                                     </div>
                                                 </li>
@@ -368,7 +369,6 @@
                                                 </li>
                                                 <li>
                                                     <div class="page-content">
-                                                        <!--<div class="content-block-title" style="font-size:20px; padding-left:10px;">Field</div>-->
                                                         <h2 class="filter-header">Field</h2>
                                                         <div class="list list-margin">
                                                             <ul style="padding-left:0px;">
@@ -443,7 +443,6 @@
                                                 </li>
                                                 <li>
                                                     <div class="page-content">
-                                                        <!--<div class="content-block-title" style="font-size:20px; padding-left:10px;padding-top: 25px;">Sort</div>-->
                                                         <h2 class="sort-header">Sort</h2>
                                                     </div>
                                                 </li>
@@ -467,7 +466,6 @@
                                                 </li>
                                                 <li>
                                                     <div class="page-content">
-                                                        <!--<div class="content-block-title" style="font-size:20px; padding-left:10px;">Field</div>-->
                                                         <h2 class="filter-header">Field</h2>
                                                         <div class="list list-margin">
                                                             <ul style="padding-left:0px;">
@@ -512,7 +510,6 @@
 
                                 </div>
                             </div>
-                        <!--</div>-->
                     </div>
 
 				</div>
@@ -527,14 +524,17 @@
 		</div>
         <script type="text/javascript" src="cordova.js"></script>
 		<script src="js/framework7.min.js"></script>
+        <script src="js/jquery.min.js"></script>
+        <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>-->
+     
+        <!--<script src="js/window-date-picker.js"></script>-->
+        <!--<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>-->
+        <script src="js/flatpickr.js"></script>
 		<script src="js/routes.js"></script>
 		<script src="js/app.js"></script>
-        <script src="js/jquery.min.js"></script>
+       
         <script src="js/global.js"></script>
 
-        <script src="lib/pickadate/picker.js"></script>
-        <script src="lib/pickadate/picker.date.js"></script>
-        <script src="lib/pickadate/legacy.js"></script>
         <!--<script src="js/jquery-code-scanner.js"></script>-->
         <!-- SweetAlert -->
         <script src="js/sweet-alert/sweetalert.min.js"></script>

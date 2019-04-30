@@ -336,14 +336,6 @@ module.exports = [
         "clobbers": [
             "PushNotification"
         ]
-    },
-    {
-        "file": "plugins/cordova-plugin-calendar/www/Calendar.js",
-        "id": "cordova-plugin-calendar.Calendar",
-        "pluginId": "cordova-plugin-calendar",
-        "clobbers": [
-            "Calendar"
-        ]
     }
 ];
 module.exports.metadata = 
@@ -365,9 +357,7 @@ module.exports.metadata =
     "cordova-universal-clipboard": "0.1.0",
     "phonegap-plugin-barcodescanner": "7.0.4",
     "phonegap-plugin-multidex": "1.0.0",
-    "phonegap-plugin-push": "2.2.3",
-    "cordova-plugin-calendar": "5.1.4",
-    "cordova-plugin-datepicker": "0.9.3"
+    "phonegap-plugin-push": "2.2.3"
 }
 // BOTTOM OF METADATA
 });
