@@ -125,7 +125,7 @@ $$(document).on('page:init', function (e) {
         //    closeOnClear: false,
         //})
 
-        var picker = $input.pickadate('picker')
+        //var picker = $input.pickadate('picker')
         $('#dvParentGiftCardDetailsPanel').html("");
         $('#dvDetailsPanel').html("");
        // console.log(calendarModalOrderStart)
@@ -170,8 +170,14 @@ $$(document).on('page:init', function (e) {
                 if (storeId > 0) {
                     InitPushNotification(storeId);
                 }
+
+                if (parseFloat(window.device.version) >= 7.0) {
+                    document.body.style.marginTop = "20px";
+                    // OR do whatever layout you need here, to expand a navigation bar etc
+                }
+                navigator.splashscreen.hide();
             }
-            StatusBar.hide();
+           
         }
 
 
