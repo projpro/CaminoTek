@@ -60,6 +60,6 @@
         <variable name="FCM_VERSION" value="15.0.0" />
         <variable name="SENDER_ID" value="771458932582" />
     </plugin>
-    <plugin name="com.sharinglabs.cordova.plugin.datepicker" source="pgb" spec="1.1.3" />
+    <!--<plugin name="com.sharinglabs.cordova.plugin.datepicker" source="pgb" spec="1.1.3" />-->
     <plugin name="cordova-plugin-calendar" spec="https://github.com/EddyVerbruggen/Calendar-PhoneGap-Plugin.git" />
 </widget>
