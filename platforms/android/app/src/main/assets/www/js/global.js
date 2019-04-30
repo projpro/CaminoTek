@@ -1,6 +1,6 @@
-var global = "http://www.appnotification.bistroux.com/Api/App/";
+//var global = "http://www.appnotification.bistroux.com/Api/App/";
 //var global = "http://www.consumerapp.bistroux.com/Api/App/";
-//var global = "http://192.168.1.6/Api/App/";
+var global = "http://192.168.1.6/Api/App/";
 var mediaURL = "http://appnotification.bistroux.com/Media/";
 
 var browser = true;
@@ -369,6 +369,10 @@ function CarryoutOrdersList(status, carryoutpagesize, carryoutcurrentPage, divId
                         var subTotal = 0.00;
                         var grandTotal = 0.00;
                         var discount = 0.00;
+                        var ordertype = "";
+                        if (value.ORDERTYPE != "") {
+                            ordertype = value.ORDERTYPE;
+                        }
                         if (value.SUBTOTAL != "") {
                             subTotal = value.SUBTOTAL;
                         }
@@ -469,10 +473,32 @@ function CarryoutOrdersList(status, carryoutpagesize, carryoutcurrentPage, divId
 
                         /*-----------------Status Icon End----------------*/
                         if (value.PICKUPTIME != undefined) {
-                            if (status == '' || status == "All")
-                                html += "<div class=\"order-pickup\">" + value.PICKUPTIME + "</div>";
-                            else
-                                html += "<div class=\"order-pickup  order-pickup-margin-top\" style=\"margin-top:22px;\">" + value.PICKUPTIME + "</div>";
+                            var pickupdatetime = value.PICKUPTIME;
+                           
+                            if (ordertype == "Carry Out")
+                            {
+                                if (status == '' || status == "All")
+                                    html += "<div class=\"order-pickup\">" + pickupdatetime + "</div>";
+                                else
+                                    html += "<div class=\"order-pickup  order-pickup-margin-top\" style=\"margin-top:22px;\">" + pickupdatetime + "</div>";
+                            }
+                            else {
+                                if (pickupdatetime.indexOf("@")>-1)
+                                {
+                                    var pickupDate = pickupdatetime.split('@')[0].trim();
+                                    var pickupTime = pickupdatetime.split('@')[1].trim();
+                                    if (status == '' || status == "All")
+                                        html += "<div class=\"order-pickup\">" + pickupTime + "</br><span style=\"font-size:16px;\">" + pickupDate + "</span></div>";
+                                    else
+                                        html += "<div class=\"order-pickup  order-pickup-margin-top\" style=\"margin-top:4px;\">" + pickupTime + "</br><span style=\"font-size:16px;\">" + pickupDate + "</span></div>";
+                                }
+                                else {
+                                    if (status == '' || status == "All")
+                                        html += "<div class=\"order-pickup\">" + pickupdatetime + "</div>";
+                                    else
+                                        html += "<div class=\"order-pickup  order-pickup-margin-top\" style=\"margin-top:22px;\">" + pickupdatetime + "</div>";
+                                }
+                            }
 
                         }
                         //else {
@@ -742,20 +768,17 @@ function CarryoutOrdersListPagination(status, carryoutpagesize, carryoutcurrentP
                         var subTotal = 0.00;
                         var grandTotal = 0.00;
                         var discount = 0.00;
+                        var ordertype = "";
+                        if (value.ORDERTYPE != "") {
+                            ordertype = value.ORDERTYPE;
+                        }
                         if (value.SUBTOTAL != "") {
                             subTotal = value.SUBTOTAL;
                         }
                         if (value.ORDERDISCOUNT != "") {
                             discount = value.ORDERDISCOUNT;
                         }
-                        //if (value.ORDERTOTAL != "") {
-                        //    ordertotal = FormatDecimal(value.ORDERTOTAL);
-
-                        //}
-                        //else {
-
-                        //    ordertotal = "$0.00";
-                        //}
+                  
                         grandTotal = value.ORDERTOTAL;
 
                         if (Number(grandTotal) != Number(subTotal)) {
@@ -834,10 +857,30 @@ function CarryoutOrdersListPagination(status, carryoutpagesize, carryoutcurrentP
 
                         /*-----------------Status Icon End----------------*/
                         if (value.PICKUPTIME != undefined) {
-                            if (status == '' || status == "All")
-                                html += "<div class=\"order-pickup\">" + value.PICKUPTIME + "</div>";
-                            else
-                                html += "<div class=\"order-pickup  order-pickup-margin-top\" style=\"margin-top:22px;\">" + value.PICKUPTIME + "</div>";
+                            var pickupdatetime = value.PICKUPTIME;
+
+                            if (ordertype == "Carry Out") {
+                                if (status == '' || status == "All")
+                                    html += "<div class=\"order-pickup\">" + pickupdatetime + "</div>";
+                                else
+                                    html += "<div class=\"order-pickup  order-pickup-margin-top\" style=\"margin-top:22px;\">" + pickupdatetime + "</div>";
+                            }
+                            else {
+                                if (pickupdatetime.indexOf("@") > -1) {
+                                    var pickupDate = pickupdatetime.split('@')[0].trim();
+                                    var pickupTime = pickupdatetime.split('@')[1].trim();
+                                    if (status == '' || status == "All")
+                                        html += "<div class=\"order-pickup\">" + pickupTime + "</br><span style=\"font-size:16px;\">" + pickupDate + "</span></div>";
+                                    else
+                                        html += "<div class=\"order-pickup  order-pickup-margin-top\" style=\"margin-top:4px;\">" + pickupTime + "</br><span style=\"font-size:16px;\">" + pickupDate + "</span></div>";
+                                }
+                                else {
+                                    if (status == '' || status == "All")
+                                        html += "<div class=\"order-pickup\">" + pickupdatetime + "</div>";
+                                    else
+                                        html += "<div class=\"order-pickup  order-pickup-margin-top\" style=\"margin-top:22px;\">" + pickupdatetime + "</div>";
+                                }
+                            }
 
                         }
                         else {
@@ -1003,11 +1046,16 @@ function OpenCarryoutDetails(id) {
             var htmlGiftCard = "";
             var htmlSubTotal = "";
             var htmlOrderTotal = "";
+            var htmlDueAmount = "";
             var subtotalvalue = "0.00";
             var ordertotalvalue = "0.00";
             var orderDiscount = 0.00;
             var grandTotal = 0.00;
             var grandTotalvalue = "0.00";
+            var dueAmount = 0.00;
+            var dueAmountValue = "0.00";
+            var paidAmount = 0.00;
+            var paidAmountValue = "0.00";
             var orderDate = "";
             var orderTime = "";
             var firstName = "";
@@ -1025,16 +1073,43 @@ function OpenCarryoutDetails(id) {
             var pickupTime = "";
             var orderStatus = "";
             var numberOfItems = "";
+            var ordertype = "";
+           
             //console.log(data);
             $.each(JSON.parse(data), function (index, value) {
                 //console.log(value);
 
                 if (value.Type == "OrderInfo") {
-
+                    if (value.ORDERTYPE != "") {
+                        ordertype = value.ORDERTYPE;
+                    }
                     orderDiscount = value.ORDERDISCOUNT;
                     subtotalvalue = value.SUBTOTAL;
-                    grandTotal = value.ORDERTOTAL;
-                    grandTotalvalue = FormatDecimal(grandTotal);
+                  
+                    if (value.BALANCEDUE != undefined && Number(value.BALANCEDUE)>0)
+                    {
+                        dueAmount = value.BALANCEDUE;
+                        dueAmountValue = FormatDecimal(dueAmount);
+                        grandTotal = Number(value.SUBTOTAL) - Number(value.ORDERDISCOUNT);
+                        grandTotalvalue = FormatDecimal(grandTotal);
+                        paidAmount = grandTotal - Number(value.BALANCEDUE);
+                        paidAmountValue = FormatDecimal(paidAmount);
+
+                        htmlDueAmount = " <tr>";
+                        htmlDueAmount += "<td colspan=\"3\" style=\"text-align:right; font-weight: bold;\">Paid:</td>";
+                        htmlDueAmount += "<td style=\"text-align:right;\">" + paidAmountValue + "</td>";
+                        htmlDueAmount += "</tr>";
+
+                        htmlDueAmount += " <tr>";
+                        htmlDueAmount += "<td colspan=\"3\" style=\"text-align:right; font-weight: bold;\">Due at Pickup:</td>";
+                        htmlDueAmount += "<td style=\"text-align:right;\">" + dueAmountValue + "</td>";
+                        htmlDueAmount += "</tr>";
+                    }
+                    else {
+                        grandTotal = value.ORDERTOTAL;
+                        grandTotalvalue = FormatDecimal(grandTotal);
+                    }
+                   
                     //ordertotalvalue = value.ORDERTOTAL;
                     orderId = value.OID;
 
@@ -1062,12 +1137,12 @@ function OpenCarryoutDetails(id) {
                         orderTime = arrDateTime[1];
                         $("#hdnSelectedOrderDateTime").val(orderDate + "#" + orderTime);
                     }
-
+                    //console.log(value.PICKUPTIME)
                     if (value.PICKUPTIME != undefined) {
                         $("#hdnSelectedOrderPickUpTime").val(value.PICKUPTIME);
                         pickupTime = value.PICKUPTIME;
                     }
-
+                    //console.log("1:"+pickupTime)
                     if (value.ORDERPICKUPSMSSENTON != undefined && value.ORDERPICKUPSMSSENTON != null && value.ORDERPICKUPSMSSENTON != "") {
 
                         if (value.ORDERPICKUPSMSSENTON.indexOf("~") > -1) {
@@ -1166,7 +1241,7 @@ function OpenCarryoutDetails(id) {
                 }
 
 
-
+                console.log("2:" + pickupTime)
                 /*------------------Order Area-----------------------*/
                 var buttonHTML = "";
                 var orderhtml = "";
@@ -1251,11 +1326,26 @@ function OpenCarryoutDetails(id) {
 
                 /*------------------Column 2 New Start-----------------------*/
                 orderhtml += "<div class=\"order-row-container\">";
+                //console.log("3:" + pickupTime)
                 if (pickupTime != undefined) {
-                    if (status == '' || status == "All")
-                        orderhtml += "<div class=\"order-details-pickup\">" + pickupTime + "</div>";
-                    else
-                        orderhtml += "<div class=\"order-details-pickup  order-pickup-margin-top\">" + pickupTime + "</div>";
+                    if (pickupTime.indexOf("@") > -1)
+                    {
+                        var pickupDateOnly = pickupTime.split('@')[0].trim();
+                        var pickupTimeOnly = pickupTime.split('@')[1].trim();
+                        //console.log("pickupDateOnly:" + pickupDateOnly)
+                        if (status == '' || status == "All")
+                            orderhtml += "<div class=\"order-details-pickup\">" + pickupTimeOnly + "</br><span style=\"font-size:16px;\">" + pickupDateOnly + "</span>" + "</div>";
+                        else
+                            orderhtml += "<div class=\"order-details-pickup  order-pickup-margin-top\">" + pickupTimeOnly + "</br><span style=\"font-size:16px;\">" + pickupDateOnly + "</span>" + "</div>";
+                    }
+                    else {
+                        if (status == '' || status == "All")
+                            orderhtml += "<div class=\"order-details-pickup\">" + pickupTime + "</div>";
+                        else
+                            orderhtml += "<div class=\"order-details-pickup  order-pickup-margin-top\">" + pickupTime + "</div>";
+                    }
+
+                    
 
                 }
                 else {
@@ -1265,6 +1355,50 @@ function OpenCarryoutDetails(id) {
 
                         orderhtml += "<div class=\"order-details-pickup order-pickup-margin-top\"></div>";
                 }
+                //if (value.Type == "OrderInfo")
+                //{
+                //    if (pickupTime != undefined) {
+
+                //        var pickupdatetime = pickupTime;
+
+                //        if (ordertype == "Carry Out") {
+                //            if (status == '' || status == "All")
+                //                orderhtml += "<div class=\"order-details-pickup\">" + pickupdatetime + "</div>";
+                //            else
+                //                orderhtml += "<div class=\"order-details-pickup  order-pickup-margin-top\">" + pickupdatetime + "</div>";
+                //        }
+                //        else {
+
+                //            if (pickupdatetime.indexOf("@") > -1)
+                //            {
+                //                var pickupDate = pickupdatetime.split('@')[0].trim();
+                //                var pickupTime = pickupdatetime.split('@')[1].trim();
+
+
+                //                if (status == '' || status == "All")
+                //                    orderhtml += "<div class=\"order-details-pickup\">" + pickupTime + "</br><span style=\"font-size:16px;\">" + pickupDate + "</span>" + "</div>";
+                //                else
+                //                    orderhtml += "<div class=\"order-details-pickup  order-pickup-margin-top\">" + pickupTime + "</br><span style=\"font-size:16px;\">" + pickupDate + "</span>" + "</div>";
+                //            }
+                //            else {
+                //                if (status == '' || status == "All")
+                //                    orderhtml += "<div class=\"order-details-pickup\">" + pickupdatetime + "</div>";
+                //                else
+                //                    orderhtml += "<div class=\"order-details-pickup  order-pickup-margin-top\">" + pickupdatetime + "</div>";
+                //            }
+                //        }
+
+
+                //    }
+                //    else {
+                //        if (status == '' || status == "All")
+                //            orderhtml += "<div class=\"order-details-pickup\"></div>";
+                //        else
+
+                //            orderhtml += "<div class=\"order-details-pickup order-pickup-margin-top\"></div>";
+                //    }
+                //}
+               
 
                 orderhtml += "<div class=\"carryout-order-number\"><span class=\"order-number\"> #" + orderId + "</span> on " + orderDate + " @ " + orderTime + "</div>";
 
@@ -1404,7 +1538,13 @@ function OpenCarryoutDetails(id) {
                     htmlOrderTotal += "</tr>";
                 }
                 //console.log(html)
-                $("#dvItem").html(html + htmlSubTotal + htmlDiscount + htmlRewards + htmlGiftCard + htmlOrderTotal + "</tbody>");
+                if (dueAmount > 0)
+                {
+                    $("#dvItem").html(html + htmlSubTotal + htmlDiscount + htmlRewards + htmlGiftCard + htmlOrderTotal + htmlDueAmount + "</tbody>");
+                }
+                else {
+                    $("#dvItem").html(html + htmlSubTotal + htmlDiscount + htmlRewards + htmlGiftCard + htmlOrderTotal + "</tbody>");
+                }
                // $('#dvDetailsPanel').html($('#dvCarryOutDetailsInner').html());
 
                 $('#dvDetailsPanel').html($('#carryout #dvCarryOutDetailsInner').html());

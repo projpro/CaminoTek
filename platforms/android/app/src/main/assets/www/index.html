@@ -19,6 +19,8 @@
 
 		<link rel="stylesheet" href="css/icons.css">
 		<link rel="stylesheet" href="css/app.css">
+        <link rel="stylesheet" href="lib/pickadate/themes/default.css">
+        <link rel="stylesheet" href="lib/pickadate/themes/default.date.css">
 
 		<link rel="apple-touch-icon" href="img/f7-icon-square.png">
 		<link rel="icon" href="img/f7-icon.png">
@@ -319,9 +321,9 @@
                                                     </div>
                                                 </li>
                                                 <li class="item-content">
-                                                    <div class="item-media custom-width">
+                                                    <div class="item-media custom-width" style="position:relative;">
                                                         <i class="material-icons">event</i>
-                                                        <input type="text" placeholder="Order Date" id="txtFilterOrderDateFrom" tabindex="4">
+                                                        <input type="text" placeholder="Order Date" id="txtFilterOrderDateFrom" tabindex="4" class="datepicker">
                                                         <span class="input-clear-button"></span>
                                                     </div>
                                                 </li>
@@ -524,12 +526,15 @@
             
 		</div>
         <script type="text/javascript" src="cordova.js"></script>
-      
 		<script src="js/framework7.min.js"></script>
 		<script src="js/routes.js"></script>
 		<script src="js/app.js"></script>
         <script src="js/jquery.min.js"></script>
         <script src="js/global.js"></script>
+
+        <script src="lib/pickadate/picker.js"></script>
+        <script src="lib/pickadate/picker.date.js"></script>
+        <script src="lib/pickadate/legacy.js"></script>
         <!--<script src="js/jquery-code-scanner.js"></script>-->
         <!-- SweetAlert -->
         <script src="js/sweet-alert/sweetalert.min.js"></script>

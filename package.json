@@ -10,11 +10,13 @@
       "phonegap-plugin-barcodescanner": {
         "ANDROID_SUPPORT_V4_VERSION": "27.1.1"
       },
-      "phonegap-plugin-push": {}
+      "phonegap-plugin-push": {},
+      "cordova-plugin-calendar": {}
     }
   },
   "dependencies": {
     "cordova-android": "~7.1.4",
-    "cordova-browser": "^5.0.4"
+    "cordova-browser": "^5.0.4",
+    "cordova-plugin-calendar": "git+https://github.com/EddyVerbruggen/Calendar-PhoneGap-Plugin.git"
   }
 }

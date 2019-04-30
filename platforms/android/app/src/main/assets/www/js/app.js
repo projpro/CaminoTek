@@ -103,7 +103,29 @@ $$(document).on('page:init', function (e) {
     }
     else if (pageURL.indexOf('carryout') > -1)//Carry Out
     {
-      
+    
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth() + 1; //January is 0!
+        var yyyy = today.getFullYear();
+        if (dd < 10) {
+            dd = '0' + dd;
+        }
+        if (mm < 10) {
+            mm = '0' + mm;
+        }
+        today = dd + '/' + mm + '/' + yyyy;
+
+        var $input = $('.datepicker').pickadate({
+            formatSubmit: 'yyyy/mm/dd',
+            // min: [2015, 7, 14],
+            container: '#container',
+            // editable: true,
+            closeOnSelect: false,
+            closeOnClear: false,
+        })
+
+        var picker = $input.pickadate('picker')
         $('#dvParentGiftCardDetailsPanel').html("");
         $('#dvDetailsPanel').html("");
        // console.log(calendarModalOrderStart)
@@ -115,20 +137,20 @@ $$(document).on('page:init', function (e) {
             calendarModalCouponStart.destroy();
         if (calendarModalCouponEnd != undefined)
             calendarModalCouponEnd.destroy();
-        calendarModalOrderStart = app.calendar.create({
-            inputEl: '#txtFilterOrderDateFrom',
-            openIn: 'customModal',
-            header: true,
-            footer: true,
-            dateFormat: 'mm/dd/yyyy',
-        });
-        calendarModalOrderEnd = app.calendar.create({
-            inputEl: '#txtFilterOrderDateTo',
-            openIn: 'customModal',
-            header: true,
-            footer: true,
-            dateFormat: 'mm/dd/yyyy',
-        });
+        //calendarModalOrderStart = app.calendar.create({
+        //    inputEl: '#txtFilterOrderDateFrom',
+        //    openIn: 'customModal',
+        //    header: true,
+        //    footer: true,
+        //    dateFormat: 'mm/dd/yyyy',
+        //});
+        //calendarModalOrderEnd = app.calendar.create({
+        //    inputEl: '#txtFilterOrderDateTo',
+        //    openIn: 'customModal',
+        //    header: true,
+        //    footer: true,
+        //    dateFormat: 'mm/dd/yyyy',
+        //});
 
 
 
