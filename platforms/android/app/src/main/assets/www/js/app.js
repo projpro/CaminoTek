@@ -105,21 +105,24 @@ $$(document).on('page:init', function (e) {
        $("#txtFilterOrderDateFrom").flatpickr({
            enableTime: false,
            dateFormat: "m/d/Y",
-           //disableMobile: false,
-           onChange: function (dateObj, dateStr) {
-               //console.log("#txtFilterOrderDateFrom dateObj:" + dateObj);
+           //disableMobile: true,
+           onChange: function (selectedDates, dateStr, instance) {
+               console.log("#txtFilterOrderDateFrom dateStr:" + dateStr);
+               console.log("#txtFilterOrderDateFrom selectedDates:" + selectedDates);
+               console.log("#txtFilterOrderDateFrom instance:" + instance);
                //console.log("#txtFilterOrderDateFrom dateStr:" + dateStr);
                if (dateStr != undefined && dateStr != null && dateStr.trim() != "")
                {
-                   //console.log("1");
+                   console.log("1");
                    $$("#phFilterOrderDateFrom").hide();
                }
                else {
-                   //console.log("2");
+                   console.log("2");
                    $$("#phFilterOrderDateFrom").show();
                }
                
-           }
+           },
+           
        });
        $("#txtFilterOrderDateTo").flatpickr({
            enableTime: false,
@@ -137,6 +140,28 @@ $$(document).on('page:init', function (e) {
                    $$("#phFilterOrderDateTo").show();
                }
 
+           }
+       });
+       $('#txtFilterOrderDateFrom').change(function () {
+           var dateStr = $('#txtFilterOrderDateFrom').val();
+           if (dateStr != undefined && dateStr != null && dateStr.trim() != "") {
+               //console.log("1");
+               $$("#phFilterOrderDateFrom").hide();
+           }
+           else {
+               //console.log("2");
+               $$("#phFilterOrderDateFrom").show();
+           }
+       });
+       $('#txtFilterOrderDateTo').change(function () {
+           var dateStr = $('#txtFilterOrderDateTo').val();
+           if (dateStr != undefined && dateStr != null && dateStr.trim() != "") {
+               //console.log("1");
+               $$("#phFilterOrderDateTo").hide();
+           }
+           else {
+               //console.log("2");
+               $$("#phFilterOrderDateTo").show();
            }
        });
         $('#dvParentGiftCardDetailsPanel').html("");
@@ -791,6 +816,28 @@ $$(document).on('page:init', function (e) {
 
             }
            // disableMobile: "false"
+        });
+        $('#txtFilterCouponStart').change(function () {
+            var dateStr = $('#txtFilterCouponStart').val();
+            if (dateStr != undefined && dateStr != null && dateStr.trim() != "") {
+                //console.log("1");
+                $$("#phFilterCouponStart").hide();
+            }
+            else {
+                //console.log("2");
+                $$("#phFilterCouponStart").show();
+            }
+        });
+        $('#txtFilterCouponEnd').change(function () {
+            var dateStr = $('#txtFilterCouponEnd').val();
+            if (dateStr != undefined && dateStr != null && dateStr.trim() != "") {
+                //console.log("1");
+                $$("#phFilterCouponEnd").hide();
+            }
+            else {
+                //console.log("2");
+                $$("#phFilterCouponEnd").show();
+            }
         });
         //if (calendarModalCouponStart != undefined)
         //    calendarModalCouponStart.destroy();

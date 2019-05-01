@@ -303,8 +303,8 @@ function CarryoutOrdersList(status, carryoutpagesize, carryoutcurrentPage, divId
         phone = $("#txtFilterPhone").val();
         orderDateFrom = $("#txtFilterOrderDateFrom").val();
         orderDateTo = $("#txtFilterOrderDateTo").val();
-        console.log("orderDateFrom: " + orderDateFrom)
-        console.log("orderDateTo: " + orderDateTo)
+        //console.log("orderDateFrom: " + orderDateFrom)
+        //console.log("orderDateTo: " + orderDateTo)
         //console.log("Sort: "+ sortValue + " By: " + sortByValue + " filter: " + filterStatus + " orderNofrom: " + orderNoFrom + " orderNoTo: " + orderNoTo + " phone: " + phone + " orderDateFrom: "+ orderDateFrom + " dateTo: " + orderDateTo);
         if (sortValue == undefined) {
             sortValue = "";
@@ -1564,11 +1564,12 @@ function CloseCarryOutDetails() {
     //$("#dvCarryOutPanel").html("");
 }
 function BindcarryoutTab(status) {
+    ResetFilters('carryout');
     // console.log(status)
     if (status == "All") {
 
         $('#linkCarryoutFilterIcon').show();
-        ResetFilters('carryout');
+        
     }
     else {
         $('#linkCarryoutFilterIcon').hide();
@@ -8839,13 +8840,13 @@ function ResetFilters(page) {
     // $('input[name=radioCarryoutSort]').attr('checked', true);
     if (page == "carryout")
     {
-      
-        //console.log("1: " + $('#ddlFilterCarryoutStatus').val())
         $("#ddlFilterCarryoutStatus")[0].selectedIndex = 0;
-       // $("#ddlFilterCarryoutStatus").removeAttr("class");
-        //console.log(page)
         $('[name="radioCarryoutSort"]')[0].checked = true;
         $('[name="radioCarryoutSortBy"]')[0].checked = true;
+        //$("#phFilterOrderDateFrom").show();
+        //$("#phFilterOrderDateTo").show();
+        $('#txtFilterOrderDateFrom').flatpickr().clear();
+        $('#txtFilterOrderDateTo').flatpickr().clear();
     }
     else if (page == "giftcardorders") {
         $("#ddlFilterStatus")[0].selectedIndex = 0;
@@ -8861,6 +8862,8 @@ function ResetFilters(page) {
         //$('input[name="radioCouponSort"][value="DESC"]').prop("checked", true);
         $('[name="radioCouponSort"]')[1].checked = true;
         $('[name="radioCouponSortBy"]')[0].checked = true;
+        $("#phFilterCouponStart").show();
+        $("#phFilterCouponEnd").show();
     }
     if (page == "items") {
         //$("#ddlFilterItemStatus").val("");
