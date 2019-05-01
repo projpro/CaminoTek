@@ -303,7 +303,8 @@ function CarryoutOrdersList(status, carryoutpagesize, carryoutcurrentPage, divId
         phone = $("#txtFilterPhone").val();
         orderDateFrom = $("#txtFilterOrderDateFrom").val();
         orderDateTo = $("#txtFilterOrderDateTo").val();
-
+        console.log("orderDateFrom: " + orderDateFrom)
+        console.log("orderDateTo: " + orderDateTo)
         //console.log("Sort: "+ sortValue + " By: " + sortByValue + " filter: " + filterStatus + " orderNofrom: " + orderNoFrom + " orderNoTo: " + orderNoTo + " phone: " + phone + " orderDateFrom: "+ orderDateFrom + " dateTo: " + orderDateTo);
         if (sortValue == undefined) {
             sortValue = "";

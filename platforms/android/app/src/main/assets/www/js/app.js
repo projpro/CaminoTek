@@ -104,7 +104,7 @@ $$(document).on('page:init', function (e) {
     {
        $("#txtFilterOrderDateFrom").flatpickr({
            enableTime: false,
-           dateFormat: "mm/dd/YYYY",
+           dateFormat: "m/d/Y",
            //disableMobile: false,
            onChange: function (dateObj, dateStr) {
                //console.log("#txtFilterOrderDateFrom dateObj:" + dateObj);
@@ -123,7 +123,7 @@ $$(document).on('page:init', function (e) {
        });
        $("#txtFilterOrderDateTo").flatpickr({
            enableTime: false,
-           dateFormat: "mm/dd/YYYY",
+           dateFormat: "m/d/Y",
            //disableMobile: "false",
            onChange: function (dateObj, dateStr) {
                //console.log("#txtFilterOrderDateFrom dateObj:" + dateObj);
@@ -758,7 +758,7 @@ $$(document).on('page:init', function (e) {
         var storeId = 0;
         $("#txtFilterCouponStart").flatpickr({
             enableTime: false,
-            dateFormat: "mm/dd/YYYY",
+            dateFormat: "m/d/Y",
             //disableMobile: "false",
             onChange: function (dateObj, dateStr) {
                 //console.log("#txtFilterOrderDateFrom dateObj:" + dateObj);
@@ -776,7 +776,7 @@ $$(document).on('page:init', function (e) {
         });
         $("#txtFilterCouponEnd").flatpickr({
             enableTime: false,
-            dateFormat: "mm/dd/YYYY",
+            dateFormat: "m/d/Y",
             onChange: function (dateObj, dateStr) {
                 //console.log("#txtFilterOrderDateFrom dateObj:" + dateObj);
                 //console.log("#txtFilterOrderDateFrom dateStr:" + dateStr);
