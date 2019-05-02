@@ -104,7 +104,7 @@ $$(document).on('page:init', function (e) {
     }
     else if (pageURL.indexOf('carryout') > -1)//Carry Out
     {
-        CheckNewOrder();
+        //CheckNewOrder();
        $("#txtFilterOrderDateFrom").flatpickr({
            enableTime: false,
            dateFormat: "m/d/Y",
@@ -1267,7 +1267,7 @@ function InitPushNotification(storeId) {
         else if (data.message == "Stop Audio") {
           ///  alert(data.message)
             //myMedia = new Media(src, onSuccess, onError, onStatus);
-            myMedia.stop();
+            //myMedia.stop();
            // acceptOrderPopup.destroy();
             //$("#btnAcknowledgement").click();
             //AcceptOrders();
