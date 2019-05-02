@@ -1710,6 +1710,8 @@ function AcceptOrders() {
                 self.app.router.navigate('/carryout/', { reloadCurrent: true });
 
             }
+
+            StopSoundOtherDevices(storeId);
         },
         error: function (xhr, textStatus, errorThrown) {
             //alert(xhr.responseText);
@@ -1718,7 +1720,7 @@ function AcceptOrders() {
         }
     });
 
-    //StopSoundOtherDevices(storeId);
+    
 }
 function StopSoundOtherDevices(storeId) {
     $.ajax({
