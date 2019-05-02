@@ -1265,11 +1265,12 @@ function InitPushNotification(storeId) {
             CheckNewOrder();
         }
         else if (data.message == "Stop Audio") {
-          ///  alert(data.message)
+            console.log(data.message)
+            $("#btnAcknowledgement").click();
+
             myMedia = new Media(src, onSuccess, onError, onStatus);
             myMedia.stop();
           // acceptOrderPopup.destroy();
-            $("#btnAcknowledgement").click();
             //AcceptOrders();
             //$(".popup-close").click();
         }
