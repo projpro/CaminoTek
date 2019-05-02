@@ -1266,10 +1266,10 @@ function InitPushNotification(storeId) {
         }
         else if (data.message == "Stop Audio") {
           ///  alert(data.message)
-            //myMedia = new Media(src, onSuccess, onError, onStatus);
-            //myMedia.stop();
-           // acceptOrderPopup.destroy();
-            //$("#btnAcknowledgement").click();
+            myMedia = new Media(src, onSuccess, onError, onStatus);
+            myMedia.stop();
+          // acceptOrderPopup.destroy();
+            $("#btnAcknowledgement").click();
             //AcceptOrders();
             //$(".popup-close").click();
         }
