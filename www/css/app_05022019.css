@@ -1449,11 +1449,11 @@ h4{
       position: absolute;
     top: 50%;
     left: 30px;
-    padding-left:18px;
+    padding-left:16px;
     transform: translateY(-50%);
     color: #aaa;
     pointer-events: none;
-    font-size: 18px;
+    font-size: 19px;
     color: #7d7d7d;
 }
 /*.date[type="text"] + .custom-placeholder,
@@ -1630,36 +1630,9 @@ select:-moz-focusring {
     display:flex;
     width:100%;
 }
-.popup-column-four{
-    
-    width:40%;
-}
-.popup-column-five{
-    
-    width:30%;
-}
-.popup-column-six{
-    
-    width:25%;
-}
-.popup-column-seven{
-    
-    width:65%;
-    display:inline-block;
-}
-.popup-column-eight{
-    
-    width:35%;
-    display:inline-block;
-}
 .popup-column-three{
     
     width:33.33%;
-}
-.popup-column-two{
-    
-    width:50%;
-    /*margin:0 36px;*/
 }
 .popup-column-one{
     

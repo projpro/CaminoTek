@@ -10,6 +10,8 @@ var calendarModalOrderStart;
 var calendarModalOrderEnd;
 var calendarModalCouponStart;
 var calendarModalCouponEnd;
+var isShift = false;
+var seperator = "/";
 // Handle Cordova Device Ready Event
 $$(document).on('deviceready', function () {
     console.log("Device is ready!");
@@ -102,6 +104,7 @@ $$(document).on('page:init', function (e) {
     }
     else if (pageURL.indexOf('carryout') > -1)//Carry Out
     {
+        CheckNewOrder();
        $("#txtFilterOrderDateFrom").flatpickr({
            enableTime: false,
            dateFormat: "m/d/Y",
@@ -956,7 +959,7 @@ $$(document).on('page:init', function (e) {
         }
 
         $$('#txtCouponStartDate').on('click', function () {
-            console.log($("#Start-picker-date-container").html())
+            //console.log($("#Start-picker-date-container").html())
             if ($("#Start-picker-date-container").html() == "") {
                 var today = new Date();
                 var hours = today.getHours();
@@ -1288,7 +1291,7 @@ function CheckLoggedIn() {
     var appRefreshInterval = 120;
     if (localStorage.getItem("StoreId") != null)
         storeId = localStorage.getItem("StoreId").trim();
-    console.log("CheckLoggedIn StoreId: " + storeId);
+    //console.log("CheckLoggedIn StoreId: " + storeId);
     if (storeId === null || storeId === "" || storeId === "0") {
         //console.log("StoreId: 111")
         return true;
@@ -1306,38 +1309,29 @@ function CheckLoggedIn() {
         }
         //console.log("StoreId: 333")
         if (Number(storeId) > 0) {
-            //console.log("StoreId: 444");
-            //window.location.href = "carryout.html?StoreId=" + storeId;
+          
             self.app.router.navigate('/carryout/', { reloadCurrent: false });
         }
-
-
-
-
-
     }
 }
 
 function CheckNewOrder() {
-    // alert("CheckNewOrder START")
-   // console.log(GetCurrentDateTime() + " - " + "CheckNewOrder START", browser);
+   
     var params = getParams();
     var storeId = 0;
     storeId = SetStoreId();
     if (Number(storeId) > 0) {
-        url = global + "/GetLatestCarryOutOrderPopupNew?storeid=" + storeId;
+      var  url = global + "/GetLatestCarryOutOrderPopupNew?storeid=" + storeId;
         try {
-            //console.log(GetCurrentDateTime() + " - " + "Searching for new orders", browser);
             $.getJSON(url, function (data) {
                 var obj = JSON.parse(data).Rows;
+              
                 if (data.indexOf("No order(s) found.") > -1) {
                     console.log(GetCurrentDateTime() + " - " + " No new order(s) found", browser);
                 }
                 else {
-
                     var pickuptime = JSON.parse(data).PickUpTime;
                     pickuptime.sort((a, b) => dateFromStr(a) - dateFromStr(b));
-
                     if (obj != "") {
                         var html = "";
                         var orderIds = "";
@@ -1346,29 +1340,51 @@ function CheckNewOrder() {
                                 orderIds = orderIds + "," + value.ID;
                             else
                                 orderIds = value.ID;
+                            html += "<div id=\"divAcknowledgement\">";
+                            if (value.PICKUPTIME != "")
+                            {
+                                if (value.PICKUPTIME.indexOf("@") > -1)
+                                {
+                                   var pickupdateOnly = value.PICKUPTIME.split('@')[0].trim();
+                                   var pickuptimeOnly = value.PICKUPTIME.split('@')[1].trim();
+                                  
+                                    if (pickuptime.length > 0) {
+                                        var pickupcount = false;
+                                        var count = 0;
+                                        var pickuphtml = "<div  class=\"popup-column-six\">&nbsp;</div><div class=\"popup-column-two\"><div class=\"popup-column-seven\" style=\"margin:auto;\"><input onfocus=\"this.value = this.value;\" style=\"width:80%;\" type=\"text\" class=\"popup_date\" data-input id=\"pickupdate_" + value.ID + "\" value=\"" + pickupdateOnly + "\"/></div><div class=\"popup-column-eight\"><select class=\"pickup\" id=\"pickuplist_" + value.ID + "\">";
+                                        $.each(pickuptime, function (key, value1) {
+                                            if ($.inArray(pickuptimeOnly.trim(), pickuptime) > -1) {
 
-                            if (pickuptime.length > 0) {
-                                var pickupcount = false;
-                                var count = 0;
+                                                if (value1.trim() === pickuptimeOnly.trim()) {
+                                                    pickuphtml += "<option value='" + value1 + "' selected>" + value1 + "</option>";
+                                                    pickupcount = true;
+                                                }
+                                                else {
+                                                    if (pickupcount === true) {
+                                                        if (value.PICKUPTIME.indexOf('@') > -1) {
+                                                            pickuphtml += "<option value='" + value1 + "'>" + value1 + "</option>";
+                                                        }
+                                                        else {
 
-                                var pickuphtml = "<select class=\"pickup\" id=\"pickuplist_" + value.ID + "\">";
-                                //var pickuphtml = "<div class=\"selectdiv\"><label><select class=\"pickup\" id=\"pickuplist_" + value.ID + "\">";
-                                $.each(pickuptime, function (key, value1) {
-                                    var now = new Date();
-                                    var pickupdatetime = new Date(GetCurrentDateOnly() + " " + value.PICKUPTIME);
-                                    var dropdownValueDateTime = new Date(GetCurrentDateOnly() + " " + value1);
-                                    var minsDiff = Math.floor((dropdownValueDateTime.getTime() - now.getTime()) / 1000 / 60);
-                                    var minsDiffFromPickUpTime = Math.floor((dropdownValueDateTime.getTime() - pickupdatetime.getTime()) / 1000 / 60);
-                                    if ($.inArray(value.PICKUPTIME.trim(), pickuptime) > -1) {
+                                                            var now = new Date();
+                                                            var pickupdatetime = new Date(GetCurrentDateOnly() + " " + value.PICKUPTIME);
+                                                            var dropdownValueDateTime = new Date(GetCurrentDateOnly() + " " + value1);
+                                                            var minsDiff = Math.floor((dropdownValueDateTime.getTime() - now.getTime()) / 1000 / 60);
+                                                            var minsDiffFromPickUpTime = Math.floor((dropdownValueDateTime.getTime() - pickupdatetime.getTime()) / 1000 / 60);
+                                                            if (minsDiffFromPickUpTime <= 120) {
+                                                                if (minsDiff > 0) {
+                                                                    pickuphtml += "<option value='" + value1 + "'>" + value1 + "</option>";
+                                                                }
+                                                                else {
+                                                                    pickuphtml += "<option disabled value='" + value1 + "'>" + value1 + "</option>";
+                                                                }
 
-                                        if (value1.trim() === value.PICKUPTIME.trim()) {
-                                            pickuphtml += "<option value='" + value1 + "' selected>" + value1 + "</option>";
-                                            pickupcount = true;
-
-                                        }
-                                        else {
-                                            if (pickupcount === true) {
-
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                            else {
                                                 if (minsDiffFromPickUpTime <= 120) {
                                                     if (minsDiff > 0) {
                                                         pickuphtml += "<option value='" + value1 + "'>" + value1 + "</option>";
@@ -1376,47 +1392,87 @@ function CheckNewOrder() {
                                                     else {
                                                         pickuphtml += "<option disabled value='" + value1 + "'>" + value1 + "</option>";
                                                     }
+                                                }
+                                            }
 
+                                        });
+                                        pickuphtml += "</select></div></div><div  class=\"popup-column-six\">&nbsp;</div>";
+                                    }
+                                    html += "<div class=\"popup-row\">";
+                                    html += "<div  class=\"popup-column-five\"><div class=\"pop-up-display-label\">Order #: <span class=\"pop-up-value-label\">" + value.ID + "</span></div></div>";
+                                    html += "<div class=\"popup-column-four\"><div id=\"pickuptime_" + value.ID + "\" style=\"font-size:20px;color:#08b3c7;padding-bottom:10px;padding-top:4px; text-align:center;\">" + value.PICKUPTIME.split('@')[0].trim() + " @ " + value.PICKUPTIME.split('@')[1].trim() + "</div>" + "</div>";
+                                    html += "<div class=\"popup-column-five\" style=\"text-align:right;\"><span style=\"font-size:28px;color:#799427;\" id=\"price\">" + FormatDecimal(value.ORDERTOTAL) + "</span></div></div>";
+
+                                    html += "<div class=\"popup-row\">";
+                                    html += pickuphtml;
+                                    html += "</div>";
+
+                                  
+
+                                }
+                                else {
+                                    var pickuphtml = "<div class=\"popup-column-two\"><input type=\"text\" class=\"popup_date\" id=\"pickupdate_" + value.ID + "\" data-dateFormat=\"n/j/Y\"/></div><div class=\"popup-column-two\"><select class=\"pickup\" id=\"pickuplist_" + value.ID + "\">";
+                                    $.each(pickuptime, function (key, value1) {
+
+                                        if ($.inArray(value.PICKUPTIME.trim(), pickuptime) > -1) {
+
+                                            if (value1.trim() === value.PICKUPTIME.trim()) {
+                                                pickuphtml += "<option value='" + value1 + "' selected>" + value1 + "</option>";
+                                                pickupcount = true;
+                                            }
+                                            else {
+                                                if (pickupcount === true) {
+                                                        var now = new Date();
+                                                        var pickupdatetime = new Date(GetCurrentDateOnly() + " " + value.PICKUPTIME);
+                                                        var dropdownValueDateTime = new Date(GetCurrentDateOnly() + " " + value1);
+                                                        var minsDiff = Math.floor((dropdownValueDateTime.getTime() - now.getTime()) / 1000 / 60);
+                                                        var minsDiffFromPickUpTime = Math.floor((dropdownValueDateTime.getTime() - pickupdatetime.getTime()) / 1000 / 60);
+                                                        if (minsDiffFromPickUpTime <= 120) {
+                                                            if (minsDiff > 0) {
+                                                                pickuphtml += "<option value='" + value1 + "'>" + value1 + "</option>";
+                                                            }
+                                                            else {
+                                                                pickuphtml += "<option disabled value='" + value1 + "'>" + value1 + "</option>";
+                                                            }
+                                                        }
+                                                }
+
+                                            }
+                                        }
+                                        else {
+                                            if (minsDiffFromPickUpTime <= 120) {
+                                                if (minsDiff > 0) {
+                                                    pickuphtml += "<option value='" + value1 + "'>" + value1 + "</option>";
+                                                }
+                                                else {
+                                                    pickuphtml += "<option disabled value='" + value1 + "'>" + value1 + "</option>";
                                                 }
 
                                             }
 
                                         }
-                                    }
-                                    else {
-                                        if (minsDiffFromPickUpTime <= 120) {
-                                            if (minsDiff > 0) {
-                                                pickuphtml += "<option value='" + value1 + "'>" + value1 + "</option>";
-                                            }
-                                            else {
-                                                pickuphtml += "<option disabled value='" + value1 + "'>" + value1 + "</option>";
-                                            }
 
-                                        }
-
-                                    }
-
-                                });
-                                //pickuphtml += "</select></label></div>";
-                                pickuphtml += "</select>";
-                            }
-
-                            html += "<div id=\"divAcknowledgement\">";
-                            html += "<div class=\"popup-row\">";
-                            html += "<div  class=\"popup-column-three\"><div class=\"pop-up-display-label\">Order #: <span class=\"pop-up-value-label\">" + value.ID + "</span></div></div>";
-                            if (value.PICKUPTIME != "") {
-                                html += "<div class=\"popup-column-three\"><div id=\"pickuptime_" + value.ID + "\" style=\"font-size:28px;color:#08b3c7;padding-bottom:10px; float: left;\">" + value.PICKUPTIME + "</div>" + pickuphtml + "</div>";
+                                    });
+                                    pickuphtml += "</select></div>";
+                                    html += "<div class=\"popup-row\">";
+                                    html += "<div  class=\"popup-column-three\"><div class=\"pop-up-display-label\">Order #: <span class=\"pop-up-value-label\">" + value.ID + "</span></div></div>";
+                                    html += "<div class=\"popup-column-three\"><div id=\"pickuptime_" + value.ID + "\" style=\"font-size:28px;color:#08b3c7;padding-bottom:10px; float: left;\">" + value.PICKUPTIME + "</div>" + pickuphtml + "</div>";
+                                    html += "<div class=\"popup-column-three\" style=\"text-align:right;\"><span style=\"font-size:28px;color:#799427;\" id=\"price\">" + FormatDecimal(value.ORDERTOTAL) + "</span></div></div>";
+                                }
                             }
                             else {
+                                html += "<div class=\"popup-row\">";
+                                html += "<div  class=\"popup-column-three\"><div class=\"pop-up-display-label\">Order #: <span class=\"pop-up-value-label\">" + value.ID + "</span></div></div>";
                                 html += "<div class=\"popup-column-three\"><input type=\"hidden\" name=\"giftcardorder\" id=\"" + value.ID + "\"/><div style=\"font-size:28px;color:#08b3c7; float: left;\">&nbsp;</div></div>";
+                                html += "<div class=\"popup-column-three\" style=\"text-align:right;\"><span style=\"font-size:28px;color:#799427;\" id=\"price\">" + FormatDecimal(value.ORDERTOTAL) + "</span></div></div>";
+
                             }
-                            html += "<div class=\"popup-column-three\" style=\"text-align:right;\"><span style=\"font-size:28px;color:#799427;\" id=\"price\">" + FormatDecimal(value.ORDERTOTAL) + "</span></div></div>";
                             html += "<div class=\"popup-row\"> <div class=\"popup-column-one pop-up-display-label \">Name: <span class=\"pop-up-value-label\">" + value.BILLINGFIRSTNAME + " " + value.BILLINGLASTNAME + "</span></div></div>";;
                             if (value.BILLINGPHONE.length == 10)
                                 html += "<div class=\"popup-row\">  <div class=\"popup-column-one pop-up-display-label\" >Phone: <span class=\"pop-up-value-label\" id=\"phone_" + value.ID + "\">" + FormatPhoneNumber(value.BILLINGPHONE) + "</span></div></div>";
                             else
                                 html += "<div class=\"popup-row\">  <div class=\"popup-column-one pop-up-display-label\">Phone: <span  class=\"pop-up-value-label\" id=\"phone_" + value.ID + "\">" + value.BILLINGPHONE + "</span></div></div>";
-                            html += "<div class=\"popup-row\"><div class=\"popup-column-one\" style=\"margin:10px 0 0 0;\">";
+                            html += "<div class=\"popup-row\"><div class=\"popup-column-one\" style=\"margin:10px 0 10px 0;\">";
 
                             html += "<table width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\" id=\"popUpItems\"> <tbody>";
                             html += "<tr><td align=\"left\" style=\"font-size:17px;font-weight:bold;border-bottom:1px solid #000;\" width=\"60%\">Items</td><td style=\"font-size:17px;font-weight:bold;border-bottom:1px solid #000;\" align=\"center\" width=\"20%\">Quantity</td> <td style=\"font-size:17px;font-weight:bold;border-bottom:1px solid #000;\" align=\"right\" width=\"20%\">Price</td></tr>";
@@ -1455,12 +1511,15 @@ function CheckNewOrder() {
 
                             html += "</div></div></div>";
 
-
+                           
                         });
                       
                         $("#hdnOrderIds").val(orderIds);
 
                         if (html != "") {
+                           // html += "<div class=\"block no-padding no-margin margin-bottom\"><div id=\"popup-picker-date-container\"></div></div>";
+                         
+                                    
                             acceptOrderPopup = app.popup.create({
                                 content: '<div class="popup">' +
                                             '<div class="block">' +
@@ -1486,8 +1545,43 @@ function CheckNewOrder() {
                                 console.log('Popup close');
                             });
                             acceptOrderPopup.open();
-                        }
 
+                           
+                            //Reference the Table.
+                            var tblForm = document.getElementById("dvPopOrders");
+
+                            //Reference all INPUT elements in the Table.
+                            var inputs = document.getElementsByTagName("input");
+
+                            //Loop through all INPUT elements.
+                            for (var i = 0; i < inputs.length; i++) {
+                                //Check whether the INPUT element is TextBox.
+                                if (inputs[i].type == "text") {
+                                     $(inputs[i])
+                                    .putCursorAtEnd() // should be chainable
+                                    .on("focus", function () { // could be on any event
+                                        $(inputs[i]).putCursorAtEnd()
+                                    });
+                                    //Check whether Date Format Validation is required.
+                                    if (inputs[i].className.indexOf("popup_date") != 1) {
+
+                                        //Set Max Length.
+                                        inputs[i].setAttribute("maxlength", 10);
+
+                                        //Only allow Numeric Keys.
+                                        inputs[i].onkeydown = function (e) {
+                                            return IsNumeric(this, e.keyCode);
+                                        };
+
+                                        //Validate Date as User types.
+                                        inputs[i].onkeyup = function (e) {
+                                            ValidateDateFormat(this, e.keyCode);
+                                        };
+                                    }
+                                }
+                            }
+                        }
+                        console.log('isDevice 1: '+isDevice())
                         if (isDevice()) {
                             // console.log('isDevice 1: ')
                             //playAudio();
@@ -1512,7 +1606,9 @@ function CheckNewOrder() {
 }
 
 function AcceptOrders() {
-    myMedia.stop();
+    if (isDevice()) {
+        myMedia.stop();
+    }
     var storeId = SetStoreId();
     var orderIds = $("#hdnOrderIds").val().trim();
     var orders = [];
@@ -1526,25 +1622,44 @@ function AcceptOrders() {
         // element == this
         var elemId = $(this).attr("id");
         var orderId = $(this).attr("id").split('_')[1];
-
+        var pickupdate = $("#pickupdate_" + orderId).val();
+        //console.log('pickupdate: ' + pickupdate);
         var pickup = $(this).val().trim();
         var oldPickUp = $("#pickuptime_" + orderId).html().trim();
-        var phone = $("#phone_" + orderId).html().trim().replace("(", "").replace(")", "").replace("-", "");
-        //console.log("id: " + $(this).attr("id"));
-        //console.log("oid:" + $(this).attr("id").split('_')[1]);
-        //console.log("pickup: " + $(this).val());
-        orders.push(orderId + "#" + pickup);
-        if (oldPickUp != pickup) {
-            customerphone.push(orderId + "#" + pickup + "#" + phone + "#changed");
+        var oldpickupdate = "";
+        var oldpickuptime = "";
+       // console.log(oldPickUp)
+        if (oldPickUp.indexOf("@") > -1)
+        {
+            var phone = $("#phone_" + orderId).html().trim().replace("(", "").replace(")", "").replace("-", "");
+
+            oldpickupdate = oldPickUp.split('@')[0].trim();
+            oldpickuptime = oldPickUp.split('@')[1].trim();
+            orders.push(orderId + "#" + (pickupdate + "@" + pickup));
+            if (oldpickupdate != pickupdate || oldpickuptime != pickup) {
+                customerphone.push(orderId + "#" + (pickupdate + "@" + pickup) + "#" + phone + "#changed");
+            }
+            else {
+                customerphone.push(orderId + "#" + (pickupdate + "@" + pickup) + "#" + phone + "#notchanged");
+            }
         }
         else {
-            customerphone.push(orderId + "#" + pickup + "#" + phone + "#notchanged");
+            var phone = $("#phone_" + orderId).html().trim().replace("(", "").replace(")", "").replace("-", "");
+
+            oldpickuptime = oldPickUp;
+            orders.push(orderId + "#" + pickup);
+            if (oldPickUp != pickup) {
+                customerphone.push(orderId + "#" + pickup + "#" + phone + "#changed");
+            }
+            else {
+                customerphone.push(orderId + "#" + pickup + "#" + phone + "#notchanged");
+            }
         }
         carryoutchanged++;
 
     });
     var group = $('input[name="giftcardorder"]');
-
+    //console.log(orders)
     if (group.length > 0) {
         group.each(function () {
             var orderId = $(this).attr("id");
@@ -1552,7 +1667,6 @@ function AcceptOrders() {
             giftcardchanged++;
         });
     }
-    //console.log(orders)
     var currentPage = 0;
     var pageSize = 10;
     $.ajax({
@@ -1570,24 +1684,17 @@ function AcceptOrders() {
         async: false,
         success: function (response) {
             acceptOrderPopup.destroy();
-            //console.log("ChangeBulkOrderStatus: " + response)
-
-
-            //CarryoutOrdersList("Processing", pageSize, currentPage);
             $("#hdnOrderIds").val("");
-            // acceptOrderPopup.close();
             var storeId = 0;
             storeId = SetStoreId();
             if (giftcardchanged > 0 && carryoutchanged > 0) {
                 if (giftcardchanged > carryoutchanged) {
                     localStorage.setItem("loadgiftcardorders", "true");
-                    //window.location.href = "giftcardsorders.html?StoreId=" + storeId;
                     self.app.router.navigate('/giftcard/', { reloadCurrent: true });
 
                 }
                 else {
                     localStorage.setItem("loadcarryoutprocessing", "true");
-                    //window.location.href = "carryout.html?StoreId=" + storeId + "&status=Processing";
                     self.app.router.navigate('/carryout/', { reloadCurrent: true });
 
 
@@ -1595,13 +1702,11 @@ function AcceptOrders() {
             }
             else if (giftcardchanged > 0 && carryoutchanged == 0) {
                 localStorage.setItem("loadgiftcardorders", "true");
-                //window.location.href = "giftcardsorders.html?StoreId=" + storeId;
                 self.app.router.navigate('/giftcard/', { reloadCurrent: true });
 
             }
             else if (carryoutchanged > 0 && giftcardchanged == 0) {
                 localStorage.setItem("loadcarryoutprocessing", "true");
-                // window.location.href = "carryout.html?StoreId=" + storeId + "&status=Processing";
                 self.app.router.navigate('/carryout/', { reloadCurrent: true });
 
             }
@@ -1695,10 +1800,91 @@ function stopAudio() {
 }
 
 
+function IsNumeric(input, keyCode) {
+    if (keyCode == 16) {
+        isShift = true;
+    }
+    //Allow only Numeric Keys.
+    if (((keyCode >= 48 && keyCode <= 57) || keyCode == 8 || keyCode <= 37 || keyCode <= 39 || (keyCode >= 96 && keyCode <= 105)) && isShift == false) {
+        if ((input.value.length == 2 || input.value.length == 5) && keyCode != 8) {
+            input.value += seperator;
+        }
+
+        return true;
+    }
+    else {
+        return false;
+    }
+};
+
+function ValidateDateFormat(input, keyCode) {
+    var dateString = input.value;
+    if (keyCode == 16) {
+        isShift = false;
+    }
+    //var regex = /(((0|1)[0-9]|2[0-9]|3[0-1])\/(0[1-9]|1[0-2])\/((19|20)\d\d))$/;
+    var regex = /(0[1-9]|1[0-2])\/(((0|1)[0-9]|2[0-9]|3[0-1])\/((19|20)\d\d))$/;
+
+    //Check whether valid dd/MM/yyyy Date Format.
+    if (regex.test(dateString) || dateString.length == 0) {
+        $(input).css('border-bottom', bottomBorder);
+
+        //ShowHideError(input, "none");
+    } else {
+        //ShowHideError(input, "block");
+        $(input).css('border-bottom', errorClassBorder);
+
+    }
+};
+
+function ShowHideError(textbox, display) {
+    var row = textbox.parentNode.parentNode;
+    var errorMsg = row.getElementsByTagName("span")[0];
+    if (errorMsg != null) {
+        errorMsg.style.display = display;
+    }
+};
 
 
+$.fn.putCursorAtEnd = function () {
 
+    return this.each(function () {
 
+        // Cache references
+        var $el = $(this),
+            el = this;
+
+        // Only focus if input isn't already
+        if (!$el.is(":focus")) {
+            $el.focus();
+        }
+
+        // If this function exists... (IE 9+)
+        if (el.setSelectionRange) {
+
+            // Double the length because Opera is inconsistent about whether a carriage return is one character or two.
+            var len = $el.val().length * 2;
+
+            // Timeout seems to be required for Blink
+            setTimeout(function () {
+                el.setSelectionRange(len, len);
+            }, 1);
+
+        } else {
+
+            // As a fallback, replace the contents with itself
+            // Doesn't work in Chrome, but Chrome supports setSelectionRange
+            $el.val($el.val());
+
+        }
+
+        // Scroll to the bottom, in case we're in a tall textarea
+        // (Necessary for Firefox and Chrome)
+        this.scrollTop = 999999;
+
+    });
+
+};
 
 
 
