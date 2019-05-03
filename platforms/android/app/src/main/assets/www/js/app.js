@@ -1744,7 +1744,7 @@ function StopSoundOtherDevices(storeId) {
         type: 'GET',
         data: {
             storeId: storeId,
-            currentDeviceId: regId
+            currentDeviceId: deviceUUID
         },
         datatype: 'jsonp',
         contenttype: "application/json",
