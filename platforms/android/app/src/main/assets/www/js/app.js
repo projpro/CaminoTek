@@ -107,6 +107,7 @@ $$(document).on('page:init', function (e) {
     }
     else if (pageURL.indexOf('carryout') > -1)//Carry Out
     {
+       // openacceptorderpopup();
         //CheckNewOrder();
        $("#txtFilterOrderDateFrom").flatpickr({
            enableTime: false,
@@ -1278,12 +1279,12 @@ function InitPushNotification(storeId,name,uuid,version) {
         }
         else if (data.message == "Stop Audio") {
             //myMedia = new Media(src, onSuccess, onError, onStatus);
-            myMedia.stop();
-            $(".popup-close").click();
-            $(".link").click();
-            $("#btnAcknowledgement").click();
-            localStorage.setItem("loadcarryoutprocessing", "true");
-            self.app.router.navigate('/carryout/', { reloadCurrent: true });
+            //myMedia.stop();
+            //$(".popup-close").click();
+            //$(".link").click();
+            //$("#btnAcknowledgement").click();
+            //localStorage.setItem("loadcarryoutprocessing", "true");
+           // self.app.router.navigate('/carryout/', { reloadCurrent: true });
             //alert(data.message)
            
             //acceptOrderPopup.destroy();
@@ -1302,7 +1303,27 @@ function InitPushNotification(storeId,name,uuid,version) {
         //);
     });
 }
+function openacceptorderpopup()
+{
 
+    $('.popup-wrap').fadeIn(500);
+    $('.popup-box').removeClass('transform-out').addClass('transform-in');
+
+    //e.preventDefault();
+    //$('.popup-btn').click(function (e) {
+    //    $('.popup-wrap').fadeIn(500);
+    //    $('.popup-box').removeClass('transform-out').addClass('transform-in');
+
+    //    e.preventDefault();
+    //});
+
+    //$('.popup-close').click(function (e) {
+    //    $('.popup-wrap').fadeOut(500);
+    //    $('.popup-box').removeClass('transform-in').addClass('transform-out');
+
+    //    e.preventDefault();
+    //});
+}
 //Check whether logged in or not
 function CheckLoggedIn() {
 
@@ -1732,7 +1753,7 @@ function AcceptOrders() {
                 localStorage.setItem("loadcarryoutprocessing", "true");
                 self.app.router.navigate('/carryout/', { reloadCurrent: true });
             }
-            StopSoundOtherDevices(storeId);
+           // StopSoundOtherDevices(storeId);
         },
         error: function (xhr, textStatus, errorThrown) {
             //alert(xhr.responseText);
