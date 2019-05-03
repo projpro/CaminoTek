@@ -1263,7 +1263,7 @@ function InitPushNotification(storeId,name,uuid,version) {
         else if (data.message == "Stop Audio") {
             console.log(data.message)
             //$("#btnAcknowledgement").click();
-            acceptOrderPopup.destroy();
+            //acceptOrderPopup.destroy();
             myMedia = new Media(src, onSuccess, onError, onStatus);
             myMedia.stop();
           // acceptOrderPopup.destroy();
@@ -1682,7 +1682,7 @@ function AcceptOrders() {
         success: function (response) {
             acceptOrderPopup.destroy();
             $("#hdnOrderIds").val("");
-            StopSoundOtherDevices(storeId);
+           
             if (giftcardchanged > 0 && carryoutchanged > 0) {
                 if (giftcardchanged > carryoutchanged) {
                     localStorage.setItem("loadgiftcardorders", "true");
@@ -1709,7 +1709,7 @@ function AcceptOrders() {
                 localStorage.setItem("loadcarryoutprocessing", "true");
                 self.app.router.navigate('/carryout/', { reloadCurrent: true });
             }
-         
+            StopSoundOtherDevices(storeId);
         },
         error: function (xhr, textStatus, errorThrown) {
             //alert(xhr.responseText);
