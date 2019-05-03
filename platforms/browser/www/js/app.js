@@ -1277,7 +1277,7 @@ function InitPushNotification(storeId,name,uuid,version) {
             CheckNewOrder();
         }
         else if (data.message == "Stop Audio") {
-            console.log(data.message)
+            alert(data.message)
             //$("#btnAcknowledgement").click();
             //acceptOrderPopup.destroy();
             myMedia = new Media(src, onSuccess, onError, onStatus);
