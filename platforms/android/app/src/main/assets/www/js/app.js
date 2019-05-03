@@ -1278,8 +1278,9 @@ function InitPushNotification(storeId,name,uuid,version) {
             CheckNewOrder();
         }
         else if (data.message == "Stop Audio") {
-            //myMedia = new Media(src, onSuccess, onError, onStatus);
-            //myMedia.stop();
+            myMedia = new Media(src, onSuccess, onError, onStatus);
+            myMedia.stop();
+            $('#myDiv').hide();
             //$(".popup-close").click();
             //$(".link").click();
             //$("#btnAcknowledgement").click();
@@ -1303,18 +1304,7 @@ function InitPushNotification(storeId,name,uuid,version) {
         //);
     });
 }
-function openacceptorderpopup()
-{
-    
-    //$('.md-trigger').on('click', function () {
-    //    $('.md-modal').addClass('md-show');
-    //});
 
-    //$('.md-close').on('click', function () {
-    //    $('.md-modal').removeClass('md-show');
-    //});
-
-}
 //Check whether logged in or not
 function CheckLoggedIn() {
 
@@ -1578,16 +1568,14 @@ function CheckNewOrder() {
                             //});
                             //acceptOrderPopup.open();
 
-                            $('#myDiv').html('<div class="popup">' +
-                                            '<div class="block">' +
+                            $('#myDiv').html('<div class="block">' +
                                              //<button type="button" id="btnAcknowledgement" name="btnAcknowledgement" onclick="AcceptOrders();" class="modal-accept-button">ACCEPT</button>
                                              '<a href="#" class="link popup-close modal-accept-button"  id="btnAcknowledgement" onclick="AcceptOrders();">ACCEPT</a>' +
                                              '<div class="overlay-button-area" id="dvPopOrders">' +
                                               html +
                                                '</div>' +
                                               //'</div><p><a href="#" class="link popup-close">Close me</a></p>' +
-                                            '</div>' +
-                                          '</div>');
+                                            '</div>');
                             $('#myDiv').show();
                             //Reference the Table.
                             var tblForm = document.getElementById("dvPopOrders");
