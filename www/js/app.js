@@ -1277,15 +1277,18 @@ function InitPushNotification(storeId,name,uuid,version) {
             CheckNewOrder();
         }
         else if (data.message == "Stop Audio") {
+            //myMedia = new Media(src, onSuccess, onError, onStatus);
+            myMedia.stop();
+            localStorage.setItem("loadcarryoutprocessing", "true");
+            self.app.router.navigate('/carryout/', { reloadCurrent: true });
             //alert(data.message)
             //$("#btnAcknowledgement").click();
             //acceptOrderPopup.destroy();
-            //myMedia = new Media(src, onSuccess, onError, onStatus);
-            //myMedia.stop();
+           
             //AcceptOrders();
           // acceptOrderPopup.destroy();
             //AcceptOrders();
-           $(".popup-close").click();
+          // $(".popup-close").click();
         }
         // alert('notification event: ' + data.message + ", " + data.title);
         //navigator.notification.alert(
