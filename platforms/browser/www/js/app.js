@@ -104,7 +104,7 @@ $$(document).on('page:init', function (e) {
     }
     else if (pageURL.indexOf('carryout') > -1)//Carry Out
     {
-        CheckNewOrder();
+        //CheckNewOrder();
        $("#txtFilterOrderDateFrom").flatpickr({
            enableTime: false,
            dateFormat: "m/d/Y",
@@ -1265,11 +1265,12 @@ function InitPushNotification(storeId) {
             CheckNewOrder();
         }
         else if (data.message == "Stop Audio") {
-          ///  alert(data.message)
-            //myMedia = new Media(src, onSuccess, onError, onStatus);
-           // myMedia.stop();
-           // acceptOrderPopup.destroy();
+            console.log(data.message)
             //$("#btnAcknowledgement").click();
+            acceptOrderPopup.destroy();
+            myMedia = new Media(src, onSuccess, onError, onStatus);
+            myMedia.stop();
+          // acceptOrderPopup.destroy();
             //AcceptOrders();
             //$(".popup-close").click();
         }
@@ -1685,8 +1686,7 @@ function AcceptOrders() {
         success: function (response) {
             acceptOrderPopup.destroy();
             $("#hdnOrderIds").val("");
-            var storeId = 0;
-            storeId = SetStoreId();
+            StopSoundOtherDevices(storeId);
             if (giftcardchanged > 0 && carryoutchanged > 0) {
                 if (giftcardchanged > carryoutchanged) {
                     localStorage.setItem("loadgiftcardorders", "true");
@@ -1708,8 +1708,12 @@ function AcceptOrders() {
             else if (carryoutchanged > 0 && giftcardchanged == 0) {
                 localStorage.setItem("loadcarryoutprocessing", "true");
                 self.app.router.navigate('/carryout/', { reloadCurrent: true });
-
             }
+            else {
+                localStorage.setItem("loadcarryoutprocessing", "true");
+                self.app.router.navigate('/carryout/', { reloadCurrent: true });
+            }
+         
         },
         error: function (xhr, textStatus, errorThrown) {
             //alert(xhr.responseText);
@@ -1718,16 +1722,17 @@ function AcceptOrders() {
         }
     });
 
-    //StopSoundOtherDevices(storeId);
+    
 }
 function StopSoundOtherDevices(storeId) {
+    var regId = localStorage.getItem('registrationId');
+
     $.ajax({
         url: global + 'StopSoundInAllDevices',
         type: 'GET',
         data: {
-
             storeId: storeId,
-
+            currentDeviceId: regId
         },
         datatype: 'jsonp',
         contenttype: "application/json",

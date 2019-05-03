@@ -10,8 +10,6 @@ var calendarModalOrderStart;
 var calendarModalOrderEnd;
 var calendarModalCouponStart;
 var calendarModalCouponEnd;
-var isShift = false;
-var seperator = "/";
 // Handle Cordova Device Ready Event
 $$(document).on('deviceready', function () {
     console.log("Device is ready!");
@@ -104,7 +102,7 @@ $$(document).on('page:init', function (e) {
     }
     else if (pageURL.indexOf('carryout') > -1)//Carry Out
     {
-        //CheckNewOrder();
+       // CheckNewOrder();
        $("#txtFilterOrderDateFrom").flatpickr({
            enableTime: false,
            dateFormat: "m/d/Y",
@@ -1265,12 +1263,11 @@ function InitPushNotification(storeId) {
             CheckNewOrder();
         }
         else if (data.message == "Stop Audio") {
-            console.log(data.message)
-            //$("#btnAcknowledgement").click();
-            acceptOrderPopup.destroy();
-            myMedia = new Media(src, onSuccess, onError, onStatus);
-            myMedia.stop();
-          // acceptOrderPopup.destroy();
+          ///  alert(data.message)
+           myMedia = new Media(src, onSuccess, onError, onStatus);
+           myMedia.stop();
+           // acceptOrderPopup.destroy();
+          $("#btnAcknowledgement").click();
             //AcceptOrders();
             //$(".popup-close").click();
         }
@@ -1352,7 +1349,7 @@ function CheckNewOrder() {
                                     if (pickuptime.length > 0) {
                                         var pickupcount = false;
                                         var count = 0;
-                                        var pickuphtml = "<div  class=\"popup-column-six\">&nbsp;</div><div class=\"popup-column-two\"><div class=\"popup-column-seven\" style=\"margin:auto;\"><input onfocus=\"this.value = this.value;\" style=\"width:80%;\" type=\"text\" class=\"popup_date\" data-input id=\"pickupdate_" + value.ID + "\" value=\"" + pickupdateOnly + "\"/></div><div class=\"popup-column-eight\"><select class=\"pickup\" id=\"pickuplist_" + value.ID + "\">";
+                                        var pickuphtml = "<div class=\"popup-column-two\"><input type=\"text\" class=\"popup_date\" id=\"pickupdate_" + value.ID + "\" value=\"" + pickupdateOnly + "\"/></div><div class=\"popup-column-two\"><select class=\"pickup\" id=\"pickuplist_" + value.ID + "\">";
                                         $.each(pickuptime, function (key, value1) {
                                             if ($.inArray(pickuptimeOnly.trim(), pickuptime) > -1) {
 
@@ -1397,18 +1394,16 @@ function CheckNewOrder() {
                                             }
 
                                         });
-                                        pickuphtml += "</select></div></div><div  class=\"popup-column-six\">&nbsp;</div>";
+                                        pickuphtml += "</select></div>";
                                     }
                                     html += "<div class=\"popup-row\">";
-                                    html += "<div  class=\"popup-column-five\"><div class=\"pop-up-display-label\">Order #: <span class=\"pop-up-value-label\">" + value.ID + "</span></div></div>";
-                                    html += "<div class=\"popup-column-four\"><div id=\"pickuptime_" + value.ID + "\" style=\"font-size:20px;color:#08b3c7;padding-bottom:10px;padding-top:4px; text-align:center;\">" + value.PICKUPTIME.split('@')[0].trim() + " @ " + value.PICKUPTIME.split('@')[1].trim() + "</div>" + "</div>";
-                                    html += "<div class=\"popup-column-five\" style=\"text-align:right;\"><span style=\"font-size:28px;color:#799427;\" id=\"price\">" + FormatDecimal(value.ORDERTOTAL) + "</span></div></div>";
+                                    html += "<div  class=\"popup-column-three\"><div class=\"pop-up-display-label\">Order #: <span class=\"pop-up-value-label\">" + value.ID + "</span></div></div>";
+                                    html += "<div class=\"popup-column-three\"><div id=\"pickuptime_" + value.ID + "\" style=\"font-size:28px;color:#08b3c7;padding-bottom:10px; float: left;\">" + value.PICKUPTIME.split('@')[0].trim() + "<br/>" + value.PICKUPTIME.split('@')[1].trim() + "</div>" + "</div>";
+                                    html += "<div class=\"popup-column-three\" style=\"text-align:right;\"><span style=\"font-size:28px;color:#799427;\" id=\"price\">" + FormatDecimal(value.ORDERTOTAL) + "</span></div></div>";
 
                                     html += "<div class=\"popup-row\">";
-                                    html += pickuphtml;
-                                    html += "</div>";
-
-                                  
+                                    html += pickuphtml
+                                    html += "</div>"
 
                                 }
                                 else {
@@ -1468,12 +1463,17 @@ function CheckNewOrder() {
                                 html += "<div class=\"popup-column-three\" style=\"text-align:right;\"><span style=\"font-size:28px;color:#799427;\" id=\"price\">" + FormatDecimal(value.ORDERTOTAL) + "</span></div></div>";
 
                             }
+
+                           
+
+
+
                             html += "<div class=\"popup-row\"> <div class=\"popup-column-one pop-up-display-label \">Name: <span class=\"pop-up-value-label\">" + value.BILLINGFIRSTNAME + " " + value.BILLINGLASTNAME + "</span></div></div>";;
                             if (value.BILLINGPHONE.length == 10)
                                 html += "<div class=\"popup-row\">  <div class=\"popup-column-one pop-up-display-label\" >Phone: <span class=\"pop-up-value-label\" id=\"phone_" + value.ID + "\">" + FormatPhoneNumber(value.BILLINGPHONE) + "</span></div></div>";
                             else
                                 html += "<div class=\"popup-row\">  <div class=\"popup-column-one pop-up-display-label\">Phone: <span  class=\"pop-up-value-label\" id=\"phone_" + value.ID + "\">" + value.BILLINGPHONE + "</span></div></div>";
-                            html += "<div class=\"popup-row\"><div class=\"popup-column-one\" style=\"margin:10px 0 10px 0;\">";
+                            html += "<div class=\"popup-row\"><div class=\"popup-column-one\" style=\"margin:10px 0 0 0;\">";
 
                             html += "<table width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\" id=\"popUpItems\"> <tbody>";
                             html += "<tr><td align=\"left\" style=\"font-size:17px;font-weight:bold;border-bottom:1px solid #000;\" width=\"60%\">Items</td><td style=\"font-size:17px;font-weight:bold;border-bottom:1px solid #000;\" align=\"center\" width=\"20%\">Quantity</td> <td style=\"font-size:17px;font-weight:bold;border-bottom:1px solid #000;\" align=\"right\" width=\"20%\">Price</td></tr>";
@@ -1512,14 +1512,14 @@ function CheckNewOrder() {
 
                             html += "</div></div></div>";
 
-                           
+
                         });
                       
                         $("#hdnOrderIds").val(orderIds);
 
                         if (html != "") {
                            // html += "<div class=\"block no-padding no-margin margin-bottom\"><div id=\"popup-picker-date-container\"></div></div>";
-                         
+                                        
                                     
                             acceptOrderPopup = app.popup.create({
                                 content: '<div class="popup">' +
@@ -1546,43 +1546,8 @@ function CheckNewOrder() {
                                 console.log('Popup close');
                             });
                             acceptOrderPopup.open();
-
-                           
-                            //Reference the Table.
-                            var tblForm = document.getElementById("dvPopOrders");
-
-                            //Reference all INPUT elements in the Table.
-                            var inputs = document.getElementsByTagName("input");
-
-                            //Loop through all INPUT elements.
-                            for (var i = 0; i < inputs.length; i++) {
-                                //Check whether the INPUT element is TextBox.
-                                if (inputs[i].type == "text") {
-                                     $(inputs[i])
-                                    .putCursorAtEnd() // should be chainable
-                                    .on("focus", function () { // could be on any event
-                                        $(inputs[i]).putCursorAtEnd()
-                                    });
-                                    //Check whether Date Format Validation is required.
-                                    if (inputs[i].className.indexOf("popup_date") != 1) {
-
-                                        //Set Max Length.
-                                        inputs[i].setAttribute("maxlength", 10);
-
-                                        //Only allow Numeric Keys.
-                                        inputs[i].onkeydown = function (e) {
-                                            return IsNumeric(this, e.keyCode);
-                                        };
-
-                                        //Validate Date as User types.
-                                        inputs[i].onkeyup = function (e) {
-                                            ValidateDateFormat(this, e.keyCode);
-                                        };
-                                    }
-                                }
-                            }
                         }
-                        console.log('isDevice 1: '+isDevice())
+                       
                         if (isDevice()) {
                             // console.log('isDevice 1: ')
                             //playAudio();
@@ -1630,12 +1595,12 @@ function AcceptOrders() {
         var oldpickupdate = "";
         var oldpickuptime = "";
        // console.log(oldPickUp)
-        if (oldPickUp.indexOf("@") > -1)
+        if (oldPickUp.indexOf("<br>") > -1)
         {
             var phone = $("#phone_" + orderId).html().trim().replace("(", "").replace(")", "").replace("-", "");
 
-            oldpickupdate = oldPickUp.split('@')[0].trim();
-            oldpickuptime = oldPickUp.split('@')[1].trim();
+            oldpickupdate = oldPickUp.split('<br>')[0].trim();
+            oldpickuptime = oldPickUp.split('<br>')[1].trim();
             orders.push(orderId + "#" + (pickupdate + "@" + pickup));
             if (oldpickupdate != pickupdate || oldpickuptime != pickup) {
                 customerphone.push(orderId + "#" + (pickupdate + "@" + pickup) + "#" + phone + "#changed");
@@ -1686,7 +1651,9 @@ function AcceptOrders() {
         success: function (response) {
             acceptOrderPopup.destroy();
             $("#hdnOrderIds").val("");
+            //var storeId = 0;
             StopSoundOtherDevices(storeId);
+            //storeId = SetStoreId();
             if (giftcardchanged > 0 && carryoutchanged > 0) {
                 if (giftcardchanged > carryoutchanged) {
                     localStorage.setItem("loadgiftcardorders", "true");
@@ -1713,7 +1680,6 @@ function AcceptOrders() {
                 localStorage.setItem("loadcarryoutprocessing", "true");
                 self.app.router.navigate('/carryout/', { reloadCurrent: true });
             }
-         
         },
         error: function (xhr, textStatus, errorThrown) {
             //alert(xhr.responseText);
@@ -1722,7 +1688,7 @@ function AcceptOrders() {
         }
     });
 
-    
+    //StopSoundOtherDevices(storeId);
 }
 function StopSoundOtherDevices(storeId) {
     var regId = localStorage.getItem('registrationId');
@@ -1739,7 +1705,7 @@ function StopSoundOtherDevices(storeId) {
         crossDomain: true,
         async: false,
         success: function (response) {
-            console.log(response)
+            alert(response)
 
         },
         error: function (xhr, textStatus, errorThrown) {
@@ -1805,91 +1771,10 @@ function stopAudio() {
 }
 
 
-function IsNumeric(input, keyCode) {
-    if (keyCode == 16) {
-        isShift = true;
-    }
-    //Allow only Numeric Keys.
-    if (((keyCode >= 48 && keyCode <= 57) || keyCode == 8 || keyCode <= 37 || keyCode <= 39 || (keyCode >= 96 && keyCode <= 105)) && isShift == false) {
-        if ((input.value.length == 2 || input.value.length == 5) && keyCode != 8) {
-            input.value += seperator;
-        }
-
-        return true;
-    }
-    else {
-        return false;
-    }
-};
-
-function ValidateDateFormat(input, keyCode) {
-    var dateString = input.value;
-    if (keyCode == 16) {
-        isShift = false;
-    }
-    //var regex = /(((0|1)[0-9]|2[0-9]|3[0-1])\/(0[1-9]|1[0-2])\/((19|20)\d\d))$/;
-    var regex = /(0[1-9]|1[0-2])\/(((0|1)[0-9]|2[0-9]|3[0-1])\/((19|20)\d\d))$/;
-
-    //Check whether valid dd/MM/yyyy Date Format.
-    if (regex.test(dateString) || dateString.length == 0) {
-        $(input).css('border-bottom', bottomBorder);
-
-        //ShowHideError(input, "none");
-    } else {
-        //ShowHideError(input, "block");
-        $(input).css('border-bottom', errorClassBorder);
-
-    }
-};
-
-function ShowHideError(textbox, display) {
-    var row = textbox.parentNode.parentNode;
-    var errorMsg = row.getElementsByTagName("span")[0];
-    if (errorMsg != null) {
-        errorMsg.style.display = display;
-    }
-};
 
 
-$.fn.putCursorAtEnd = function () {
 
-    return this.each(function () {
 
-        // Cache references
-        var $el = $(this),
-            el = this;
-
-        // Only focus if input isn't already
-        if (!$el.is(":focus")) {
-            $el.focus();
-        }
-
-        // If this function exists... (IE 9+)
-        if (el.setSelectionRange) {
-
-            // Double the length because Opera is inconsistent about whether a carriage return is one character or two.
-            var len = $el.val().length * 2;
-
-            // Timeout seems to be required for Blink
-            setTimeout(function () {
-                el.setSelectionRange(len, len);
-            }, 1);
-
-        } else {
-
-            // As a fallback, replace the contents with itself
-            // Doesn't work in Chrome, but Chrome supports setSelectionRange
-            $el.val($el.val());
-
-        }
-
-        // Scroll to the bottom, in case we're in a tall textarea
-        // (Necessary for Firefox and Chrome)
-        this.scrollTop = 999999;
-
-    });
-
-};
 
 
 
