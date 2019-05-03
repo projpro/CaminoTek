@@ -1279,10 +1279,13 @@ function InitPushNotification(storeId,name,uuid,version) {
         else if (data.message == "Stop Audio") {
             //myMedia = new Media(src, onSuccess, onError, onStatus);
             myMedia.stop();
+            $(".popup-close").click();
+            $(".link").click();
+            $("#btnAcknowledgement").click();
             localStorage.setItem("loadcarryoutprocessing", "true");
             self.app.router.navigate('/carryout/', { reloadCurrent: true });
             //alert(data.message)
-            //$("#btnAcknowledgement").click();
+           
             //acceptOrderPopup.destroy();
            
             //AcceptOrders();
