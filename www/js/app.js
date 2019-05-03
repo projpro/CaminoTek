@@ -22,7 +22,8 @@ $$(document).on('deviceready', function () {
         if (localStorage.getItem("StoreId") != null)
             storeId = Number(localStorage.getItem("StoreId"));
         if (storeId > 0) {
-            InitPushNotification(storeId);
+           
+            InitPushNotification(storeId, device.manufacturer.toUpperCase(), device.uuid, device.version);
         }
     }
 
@@ -209,7 +210,7 @@ $$(document).on('page:init', function (e) {
                 if (localStorage.getItem("StoreId") != null)
                     storeId = Number(localStorage.getItem("StoreId"));
                 if (storeId > 0) {
-                    InitPushNotification(storeId);
+                    InitPushNotification(storeId, device.manufacturer, device.uuid, device.version);
                 }
             }
            
@@ -290,7 +291,7 @@ $$(document).on('page:init', function (e) {
                 if (localStorage.getItem("StoreId") != null)
                     storeId = Number(localStorage.getItem("StoreId"));
                 if (storeId > 0) {
-                    InitPushNotification(storeId);
+                    InitPushNotification(storeId, device.manufacturer, device.uuid, device.version);
                 }
             }
         }
@@ -327,7 +328,7 @@ $$(document).on('page:init', function (e) {
                 if (localStorage.getItem("StoreId") != null)
                     storeId = Number(localStorage.getItem("StoreId"));
                 if (storeId > 0) {
-                    InitPushNotification(storeId);
+                    InitPushNotification(storeId, device.manufacturer, device.uuid, device.version);
                 }
             }
         }
@@ -415,7 +416,7 @@ $$(document).on('page:init', function (e) {
                 if (localStorage.getItem("StoreId") != null)
                     storeId = Number(localStorage.getItem("StoreId"));
                 if (storeId > 0) {
-                    InitPushNotification(storeId);
+                    InitPushNotification(storeId, device.manufacturer, device.uuid, device.version);
                 }
             }
             $$('#scan').on('click', function () {
@@ -641,7 +642,7 @@ $$(document).on('page:init', function (e) {
                 if (localStorage.getItem("StoreId") != null)
                     storeId = Number(localStorage.getItem("StoreId"));
                 if (storeId > 0) {
-                    InitPushNotification(storeId);
+                    InitPushNotification(storeId, device.manufacturer, device.uuid, device.version);
                 }
             }
         }
@@ -700,7 +701,7 @@ $$(document).on('page:init', function (e) {
             if (localStorage.getItem("StoreId") != null)
                 storeId = localStorage.getItem("StoreId").trim();
             if (storeId > 0)
-                InitPushNotification(storeId);
+                InitPushNotification(storeId, device.manufacturer, device.uuid, device.version);
             $$('#scan').on('click', function () {
 
                 console.log("reward scan click")
@@ -773,7 +774,7 @@ $$(document).on('page:init', function (e) {
                 if (localStorage.getItem("StoreId") != null)
                     storeId = Number(localStorage.getItem("StoreId"));
                 if (storeId > 0) {
-                    InitPushNotification(storeId);
+                    InitPushNotification(storeId, device.manufacturer, device.uuid, device.version);
                 }
             }
         }
@@ -874,7 +875,7 @@ $$(document).on('page:init', function (e) {
                 if (localStorage.getItem("StoreId") != null)
                     storeId = Number(localStorage.getItem("StoreId"));
                 if (storeId > 0) {
-                    InitPushNotification(storeId);
+                    InitPushNotification(storeId, device.manufacturer, device.uuid, device.version);
                 }
             }
         }
@@ -944,7 +945,7 @@ $$(document).on('page:init', function (e) {
                 if (localStorage.getItem("StoreId") != null)
                     storeId = Number(localStorage.getItem("StoreId"));
                 if (storeId > 0) {
-                    InitPushNotification(storeId);
+                    InitPushNotification(storeId, device.manufacturer, device.uuid, device.version);
                 }
             }
         }
@@ -1203,7 +1204,7 @@ $$(document).on('page:init', function (e) {
     }
 });
 
-function InitPushNotification(storeId) {
+function InitPushNotification(storeId,name,uuid,version) {
 
     var push = PushNotification.init({
         "android": {
@@ -1220,28 +1221,23 @@ function InitPushNotification(storeId) {
     // console.log('after init');
 
     push.on('registration', function (data) {
-        //SetUpLog();
-        //WriteLog("registrationId: " + data.registrationId)
-        //console.log('registration event: ' + data.registrationId);
-        //console.log('StoreId: ' + localStorage.getItem("StoreId"))
-        // alert("current RegId: " + data.registrationId)
+       
         var oldRegId = localStorage.getItem('registrationId');
-        // alert("oldRegId: " + oldRegId)
-        // console.log("oldRegId: " + oldRegId);
-        if (oldRegId == null || oldRegId == undefined) {
-            console.log("Save new registration ID")
-            // Save new registration ID
-            localStorage.setItem('registrationId', data.registrationId);
-            RegisterToken(storeId, data.registrationId);
-        }
-        else {
-            if (oldRegId !== data.registrationId) {
+      
+        //if (oldRegId == null || oldRegId == undefined) {
+        //    console.log("Save new registration ID")
+        //    // Save new registration ID
+        //    localStorage.setItem('registrationId', data.registrationId);
+        //    RegisterToken(storeId, data.registrationId,name,uuid,version);
+        //}
+        //else {
+            //if (oldRegId !== data.registrationId) {
                 console.log("Save new registration ID")
                 // Save new registration ID
                 localStorage.setItem('registrationId', data.registrationId);
-                RegisterToken(storeId, data.registrationId);
-            }
-        }
+                RegisterToken(storeId, data.registrationId,name,uuid,version);
+           // }
+        //}
 
 
 

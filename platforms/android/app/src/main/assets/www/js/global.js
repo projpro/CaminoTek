@@ -1,6 +1,6 @@
 //var global = "http://www.appnotification.bistroux.com/Api/App/";
-var global = "http://www.consumerapp.bistroux.com/Api/App/";
-//var global = "http://192.168.1.4/Api/App/";
+//var global = "http://www.consumerapp.bistroux.com/Api/App/";
+var global = "http://192.168.1.6/Api/App/";
 var mediaURL = "http://appnotification.bistroux.com/Media/";
 
 var browser = true;
@@ -22,10 +22,10 @@ function InitLogin() {
     $(".login-footer #footerYear").html(year);
 }
 
-function RegisterToken(storeId, token) {
-  
+function RegisterToken(storeId, token, name, uuid, version) {
+   
     $.ajax({
-        url: global + 'StoreDeviceRegistrationTokenUpdate?storeid=' + storeId + '&registrationToken=' + token,
+        url: global + 'StoreDeviceRegistrationTokenUpdate?storeid=' + storeId + '&registrationToken=' + token + "&deviceUUID=" + uuid + "&version=" + version + "&name=" + name,
         type: 'GET',
         datatype: 'jsonp',
         contenttype: "application/json",
