@@ -12,6 +12,7 @@ var calendarModalCouponStart;
 var calendarModalCouponEnd;
 var isShift = false;
 var seperator = "/";
+var deviceUUID = "";
 // Handle Cordova Device Ready Event
 $$(document).on('deviceready', function () {
     console.log("Device is ready!");
@@ -19,6 +20,7 @@ $$(document).on('deviceready', function () {
 
     //InitPushNotification();
     if (device.platform != "browser") {
+        deviceUUID = device.uuid;
         if (localStorage.getItem("StoreId") != null)
             storeId = Number(localStorage.getItem("StoreId"));
         if (storeId > 0) {
@@ -207,6 +209,7 @@ $$(document).on('page:init', function (e) {
             myMedia = new Media(src, onSuccess, onError, onStatus);
 
             if (device.platform != "browser") {
+                deviceUUID = device.uuid;
                 if (localStorage.getItem("StoreId") != null)
                     storeId = Number(localStorage.getItem("StoreId"));
                 if (storeId > 0) {
@@ -288,6 +291,7 @@ $$(document).on('page:init', function (e) {
             myMedia = new Media(src, onSuccess, onError, onStatus);
 
             if (device.platform != "browser") {
+                deviceUUID = device.uuid;
                 if (localStorage.getItem("StoreId") != null)
                     storeId = Number(localStorage.getItem("StoreId"));
                 if (storeId > 0) {
@@ -325,6 +329,7 @@ $$(document).on('page:init', function (e) {
             myMedia = new Media(src, onSuccess, onError, onStatus);
 
             if (device.platform != "browser") {
+                deviceUUID = device.uuid;
                 if (localStorage.getItem("StoreId") != null)
                     storeId = Number(localStorage.getItem("StoreId"));
                 if (storeId > 0) {
@@ -413,6 +418,7 @@ $$(document).on('page:init', function (e) {
         function onDeviceReady() {
             console.log("deviceready")
             if (device.platform != "browser") {
+                deviceUUID = device.uuid;
                 if (localStorage.getItem("StoreId") != null)
                     storeId = Number(localStorage.getItem("StoreId"));
                 if (storeId > 0) {
@@ -635,10 +641,12 @@ $$(document).on('page:init', function (e) {
         CheckGiftCardPermission();
         document.addEventListener("deviceready", onDeviceReady, false);
         function onDeviceReady() {
+
             var src = mediaURL + "notification.mp3";
             myMedia = new Media(src, onSuccess, onError, onStatus);
 
             if (device.platform != "browser") {
+                deviceUUID = device.uuid;
                 if (localStorage.getItem("StoreId") != null)
                     storeId = Number(localStorage.getItem("StoreId"));
                 if (storeId > 0) {
@@ -697,6 +705,9 @@ $$(document).on('page:init', function (e) {
         document.addEventListener("deviceready", onDeviceReady, false);
         function onDeviceReady() {
             console.log("deviceready")
+            if (device.platform != "browser") {
+                deviceUUID = device.uuid;
+            }
             var storeId = 0;
             if (localStorage.getItem("StoreId") != null)
                 storeId = localStorage.getItem("StoreId").trim();
@@ -769,8 +780,9 @@ $$(document).on('page:init', function (e) {
         function onDeviceReady() {
             var src = mediaURL + "notification.mp3";
             myMedia = new Media(src, onSuccess, onError, onStatus);
-
+        
             if (device.platform != "browser") {
+                deviceUUID = device.uuid;
                 if (localStorage.getItem("StoreId") != null)
                     storeId = Number(localStorage.getItem("StoreId"));
                 if (storeId > 0) {
@@ -872,6 +884,8 @@ $$(document).on('page:init', function (e) {
             myMedia = new Media(src, onSuccess, onError, onStatus);
 
             if (device.platform != "browser") {
+                deviceUUID = device.uuid;
+
                 if (localStorage.getItem("StoreId") != null)
                     storeId = Number(localStorage.getItem("StoreId"));
                 if (storeId > 0) {
@@ -942,6 +956,8 @@ $$(document).on('page:init', function (e) {
             myMedia = new Media(src, onSuccess, onError, onStatus);
 
             if (device.platform != "browser") {
+                deviceUUID = device.uuid;
+
                 if (localStorage.getItem("StoreId") != null)
                     storeId = Number(localStorage.getItem("StoreId"));
                 if (storeId > 0) {
