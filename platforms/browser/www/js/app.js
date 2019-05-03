@@ -107,7 +107,7 @@ $$(document).on('page:init', function (e) {
     }
     else if (pageURL.indexOf('carryout') > -1)//Carry Out
     {
-       // openacceptorderpopup();
+        //openacceptorderpopup();
         //CheckNewOrder();
        $("#txtFilterOrderDateFrom").flatpickr({
            enableTime: false,
@@ -1305,24 +1305,15 @@ function InitPushNotification(storeId,name,uuid,version) {
 }
 function openacceptorderpopup()
 {
-
-    $('.popup-wrap').fadeIn(500);
-    $('.popup-box').removeClass('transform-out').addClass('transform-in');
-
-    //e.preventDefault();
-    //$('.popup-btn').click(function (e) {
-    //    $('.popup-wrap').fadeIn(500);
-    //    $('.popup-box').removeClass('transform-out').addClass('transform-in');
-
-    //    e.preventDefault();
+    
+    //$('.md-trigger').on('click', function () {
+    //    $('.md-modal').addClass('md-show');
     //});
 
-    //$('.popup-close').click(function (e) {
-    //    $('.popup-wrap').fadeOut(500);
-    //    $('.popup-box').removeClass('transform-in').addClass('transform-out');
-
-    //    e.preventDefault();
+    //$('.md-close').on('click', function () {
+    //    $('.md-modal').removeClass('md-show');
     //});
+
 }
 //Check whether logged in or not
 function CheckLoggedIn() {
@@ -1561,8 +1552,33 @@ function CheckNewOrder() {
                            // html += "<div class=\"block no-padding no-margin margin-bottom\"><div id=\"popup-picker-date-container\"></div></div>";
                          
                                     
-                            acceptOrderPopup = app.popup.create({
-                                content: '<div class="popup">' +
+                            //acceptOrderPopup = app.popup.create({
+                            //    content: '<div class="popup">' +
+                            //                '<div class="block">' +
+                            //                 //<button type="button" id="btnAcknowledgement" name="btnAcknowledgement" onclick="AcceptOrders();" class="modal-accept-button">ACCEPT</button>
+                            //                 '<a href="#" class="link popup-close modal-accept-button"  id="btnAcknowledgement" onclick="AcceptOrders();">ACCEPT</a>' +
+                            //                 '<div class="overlay-button-area" id="dvPopOrders">' +
+                            //                  html +
+                            //                   '</div>' +
+                            //                  //'</div><p><a href="#" class="link popup-close">Close me</a></p>' +
+                            //                '</div>' +
+                            //              '</div>',
+                            //    on: {
+                            //        open: function (popup) {
+                            //            // console.log('Popup open');
+                            //        },
+                            //        opened: function (popup) {
+                            //            //console.log('Popup opened');
+                            //        },
+                            //    }
+                            //});
+                            //// Events also can be assigned on instance later
+                            //acceptOrderPopup.on('close', function (popup) {
+                            //    console.log('Popup close');
+                            //});
+                            //acceptOrderPopup.open();
+
+                            $('#myDiv').html('<div class="popup">' +
                                             '<div class="block">' +
                                              //<button type="button" id="btnAcknowledgement" name="btnAcknowledgement" onclick="AcceptOrders();" class="modal-accept-button">ACCEPT</button>
                                              '<a href="#" class="link popup-close modal-accept-button"  id="btnAcknowledgement" onclick="AcceptOrders();">ACCEPT</a>' +
@@ -1571,23 +1587,8 @@ function CheckNewOrder() {
                                                '</div>' +
                                               //'</div><p><a href="#" class="link popup-close">Close me</a></p>' +
                                             '</div>' +
-                                          '</div>',
-                                on: {
-                                    open: function (popup) {
-                                        // console.log('Popup open');
-                                    },
-                                    opened: function (popup) {
-                                        //console.log('Popup opened');
-                                    },
-                                }
-                            });
-                            // Events also can be assigned on instance later
-                            acceptOrderPopup.on('close', function (popup) {
-                                console.log('Popup close');
-                            });
-                            acceptOrderPopup.open();
-
-                           
+                                          '</div>');
+                            $('#myDiv').show();
                             //Reference the Table.
                             var tblForm = document.getElementById("dvPopOrders");
 
@@ -1724,7 +1725,8 @@ function AcceptOrders() {
         crossDomain: true,
         async: false,
         success: function (response) {
-            acceptOrderPopup.destroy();
+            $('#myDiv').hide();
+            //acceptOrderPopup.destroy();
             $("#hdnOrderIds").val("");
            
             if (giftcardchanged > 0 && carryoutchanged > 0) {
@@ -1753,7 +1755,7 @@ function AcceptOrders() {
                 localStorage.setItem("loadcarryoutprocessing", "true");
                 self.app.router.navigate('/carryout/', { reloadCurrent: true });
             }
-           // StopSoundOtherDevices(storeId);
+            StopSoundOtherDevices(storeId);
         },
         error: function (xhr, textStatus, errorThrown) {
             //alert(xhr.responseText);
