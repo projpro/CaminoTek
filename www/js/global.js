@@ -8798,6 +8798,7 @@ function ResetRewardNew() {
     $('input[type="number"]').val("");
     $('input[type="number"]').css('border-bottom', bottomBorder);
     $$(".input-clear-button").click();
+    $("#btnCreate").text("Add Member");
 }
 function ResetGiftCardNew()
 {
@@ -8806,6 +8807,7 @@ function ResetGiftCardNew()
     $('input[type="number"]').val("");
     $('input[type="number"]').css('border-bottom', bottomBorder);
     $$(".input-clear-button").click();
+    $('#btnAddCard').text("Add Card");
 }
 function ResetGiftCardLoadRedeem() {
     $('input[type="text"]').val("");
@@ -8826,6 +8828,9 @@ function ResetGiftCardLoadRedeem() {
     $('#lblOriginalValue').html("");
     $('#tblRedeemHistory tbody').html("");
     $('#dvInner').hide();
+
+    $('#btnRedeemGiftCard').text("Redeem");
+
 }
 function ResetFilters(page) {
     //console.log(page)
