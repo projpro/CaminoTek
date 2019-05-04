@@ -2597,7 +2597,7 @@ function SearchGiftCard() {
                 var totalHistoryAmount = 0;
                 $.getJSON(url, function (data) {
                     $('#tblRedeemHistory tbody').html("");
-                    //console.log(data);
+                    console.log(data);
                     //console.log(data.replace(/"/g, "").indexOf("Invalid Card Code."));
                     if (data.replace(/"/g, "").indexOf("Phone is not valid.") > -1) {
                         $('#dvInner').hide();
@@ -2643,14 +2643,10 @@ function SearchGiftCard() {
                         $("#txtLoad").css('border-bottom', bottomBorder);
 
                         $.each(JSON.parse(data), function (index, value) {
-                            //console.log(value);
+                            console.log(value);
                             $('#btnRedeemGiftCard').removeClass("disabled");
-                            //$('#btnRedeemReward').addClass("search-button");
                             $('#btnLoadGiftCard').removeClass("disabled");
-                            //$('#btnLoadReward').addClass("search-button");
-                            //$('#btnLoadReward').prop("disabled", false);
-                            //$('#btnRedeemReward').prop("disabled", false);
-                            //console.log("Value Type: " + value.Type);
+                          
                             if (value.Type == "GiftCardInfo") {
                                 var htmlHistory = "";
                                 var firstName = "";
@@ -2684,7 +2680,7 @@ function SearchGiftCard() {
                                     amount = FormatDecimal(value.AMOUNT);
                                     //amount = value.AMOUNT;
                                 }
-                                //console.log("Card Balance: " + value.BALANCEAMOUNT);
+                               
                                 if (value.BALANCEAMOUNT != "") {
                                     balanceAmount = FormatDecimal(value.BALANCEAMOUNT);
                                     //balanceAmount = value.BALANCEAMOUNT;
@@ -2692,6 +2688,7 @@ function SearchGiftCard() {
                                 else {
                                     balanceAmount = "$0.00";
                                 }
+                                console.log("Card Balance: " + balanceAmount);
                                 $('#lblCutomerName').html(firstName + " " + lastName);
                                 if (phoneNumber.length == 10)
                                     $("#lblCutomerPhone").html(formatPhoneNumber(phoneNumber));
@@ -2705,10 +2702,10 @@ function SearchGiftCard() {
                                     $('#iconEmail').hide();
                                 else
                                     $('#iconEmail').show();
-                                $("#lblEmail").html(email);
-                                $('#hdnSelectedOrderId').val(orderId);
-                                $('#lblCurrentBalance').html(" " + balanceAmount);
-                                $('#lblOriginalValue').html(" " + amount);
+                                $("#giftcard #lblEmail").html(email);
+                                $('#giftcard #hdnSelectedOrderId').val(orderId);
+                                $('#giftcard #lblCurrentBalance').html(" " + balanceAmount);
+                                $('#giftcard #lblOriginalValue').html(" " + amount);
 
                             }
                             else if (value.Type == "UsedHistory") {
