@@ -766,6 +766,20 @@ h4 {
 #tab-giftcard-new .md .list {
     margin-top: 0px !important;
 }
+#reward_new .md .list {
+    margin-top: 0px !important;
+}
+#reward_new .mt {
+     margin-top: 0px !important;
+    /* margin-top: 30px !important; */
+}
+#reward_LoadRedeem .md .list {
+    margin-top: 0px !important;
+}
+#reward_LoadRedeem .mt {
+     margin-top: 0px !important;
+    /* margin-top: 30px !important; */
+}
 
 .list-restaurants {
     width: 96%;
