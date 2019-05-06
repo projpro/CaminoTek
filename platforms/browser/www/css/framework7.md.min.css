@@ -332,9 +332,19 @@ html.with-statusbar.device-iphone-x .framework7-root {
     pointer-events: none
 }
 
-.page-content {
+/*.page-content {
     overflow: auto;
     -webkit-overflow-scrolling: touch;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    height: 100%;
+    position: relative;
+    z-index: 1
+}*/
+.page-content {
+    overflow-x: hidden;
+    overflow-y: auto;
+    /*-webkit-overflow-scrolling: touch;*/
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
     height: 100%;
@@ -9294,9 +9304,14 @@ html.device-android-4 .accordion-item-content {
     overflow: hidden;
     height: 100%;
 }
+#carryout .tabs{
+    /*position: relative;*/
+    position: absolute;
+    width: 100%;
+    overflow: hidden;
+    height: 100%;
+}
 .tabs-animated-wrap-margin-top {
-  
-
     top: 106px;
 }
 .tabs-animated-wrap>.tabs {
