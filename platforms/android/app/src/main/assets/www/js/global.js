@@ -2637,12 +2637,8 @@ function GoToRewardsNew() {
 
 
 function SearchGiftCard() {
-    //$('#dvOuter').hide();
-    //$('#dvOuterText').html("");
-
-    //$('#btnRedeemReward').removeClass("search-button");
+  
     $('#btnLoadGiftCard').addClass("disabled");
-    //$('#btnLoadReward').removeClass("search-button");
     $('#btnRedeemGiftCard').addClass("disabled");
 
     $("#txtRedeem").css('border-bottom', bottomBorder)
@@ -2651,7 +2647,7 @@ function SearchGiftCard() {
     $("#txtLoad").val("");
     $('#btnLoadGiftCard').text("Load");
     $('#btnRedeemGiftCard').text("Redeem");
-
+    
 
     var storeId = 0;
     var params = getParams();
@@ -2660,25 +2656,31 @@ function SearchGiftCard() {
     if (storeId > 0) {
         var cardCode = $('#txtCardCodeSearch').val();
         var phone = $('#txtPhone').val();
+       
         if (phone == '') {
             phone = '0';
         }
+        var pin = $("#txtPINSearch").val();
+        if (pin == '') {
+            pin = '0';
+        }
         if (cardCode != "") {
+            
             $("#txtCardCodeSearch").css('border-bottom', bottomBorder);
             $("#txtPhoneSearch").css('border-bottom', bottomBorder);
             $("#txtRedeem").css('border-bottom', bottomBorder);
             $("#txtLoad").css('border-bottom', bottomBorder);
-
+            $("#txtPINSearch").css('border-bottom', bottomBorder);
             $('#dvOuter').show();
             $('#dvOuterText').html("");
             try {
-                var url = global + "/GiftCardSearch?storeid=" + storeId + "&giftCardCode=" + encodeURIComponent(cardCode) + "&phone=" + phone;
+                var url = global + "/GiftCardSearch?storeid=" + storeId + "&giftCardCode=" + encodeURIComponent(cardCode) + "&phone=" + phone + "&pin=" + pin;
                 //alert(url);
                 $('#tblRedeemHistory tbody').html("");
                 var totalHistoryAmount = 0;
                 $.getJSON(url, function (data) {
                     $('#tblRedeemHistory tbody').html("");
-                    console.log(data);
+                    //console.log(data);
                     //console.log(data.replace(/"/g, "").indexOf("Invalid Card Code."));
                     if (data.replace(/"/g, "").indexOf("Phone is not valid.") > -1) {
                         $('#dvInner').hide();
@@ -2692,13 +2694,34 @@ function SearchGiftCard() {
                             $("#txtPhoneSearch").css('border-bottom', errorClassBorder);
                         }
                         else {
-                            console.log("2");
+                            //console.log("2");
                             $("#txtPhoneSearch").css('border', noErrorClassBorder);
                             $('#dvInner').hide();
                             $('#dvOuter').hide();
 
                             callSweetAlertWarning("Invalid Phone Number.");
                         }
+                    }
+                    else if (data.replace(/"/g, "").indexOf("PIN is required.") > -1) {
+                        $('#dvInner').hide();
+                        //$('#btnLoadReward').prop("disabled", true);
+                        //$('#btnRedeemReward').prop("disabled", true);
+                        if (pin.trim() === '' || pin === '0') {
+                           // console.log("1");
+                            $('#dvInner').hide();
+                            $('#dvOuter').hide();
+                            $('#dvOuterText').html("");
+                            $("#txtPINSearch").css('border-bottom', errorClassBorder);
+                        }
+                  
+                    }
+                    else if (data.replace(/"/g, "").indexOf("Invalid PIN.") > -1) {
+                        $('#dvInner').hide();
+                        $('#dvOuter').hide();
+                        $('#dvOuterText').html("");
+                        $("#txtPINSearch").val("");
+                        callSweetAlertWarning("Invalid PIN.");
+
                     }
                     else if (data.replace(/"/g, "").indexOf("Invalid Card Code.") > -1) {
                         //$('#btnLoadReward').prop("disabled", true);
@@ -2724,7 +2747,7 @@ function SearchGiftCard() {
                         $("#txtLoad").css('border-bottom', bottomBorder);
 
                         $.each(JSON.parse(data), function (index, value) {
-                            console.log(value);
+                            //console.log(value);
                             $('#btnRedeemGiftCard').removeClass("disabled");
                             $('#btnLoadGiftCard').removeClass("disabled");
                           
@@ -2734,6 +2757,7 @@ function SearchGiftCard() {
                                 var lastName = "";
                                 var email = "";
                                 var phoneNumber = "";
+                                var pin = "";
                                 var orderId = "";
                                 var amount = "";
                                 var balanceAmount = "";
@@ -2753,6 +2777,13 @@ function SearchGiftCard() {
                                 else {
                                     $("#txtPhoneSearch").val("");
                                 }
+                                if (value.PIN != "") {
+                                    $("#txtPINSearch").val(value.PIN);
+
+                                }
+                                else {
+                                    $("#txtPINSearch").val("");
+                                }
 
                                 if (value.ORDERID != "") {
                                     orderId = value.ORDERID;
@@ -2769,7 +2800,7 @@ function SearchGiftCard() {
                                 else {
                                     balanceAmount = "$0.00";
                                 }
-                                console.log("Card Balance: " + balanceAmount);
+                                //console.log("Card Balance: " + balanceAmount);
                                 $('#lblCutomerName').html(firstName + " " + lastName);
                                 if (phoneNumber.length == 10)
                                     $("#lblCutomerPhone").html(formatPhoneNumber(phoneNumber));
@@ -2848,6 +2879,10 @@ function RedeemGiftCard() {
     if (phone == '') {
         phone = '0';
     }
+    var pin = $("#txtPINSearch").val();
+    if (pin == '') {
+        pin = '0';
+    }
     var amount = $('#txtRedeem').val();
     if (amount == '')
         amount = '0';
@@ -2857,7 +2892,7 @@ function RedeemGiftCard() {
             $('#btnRedeemGiftCard').text("Redeeming...");
             //$('#btnRedeemReward').css("font-size", "22px");
             try {
-                url = global + "/GiftCardRedeem?storeid=" + storeId + "&giftCardCode=" + encodeURIComponent(cardCode) + "&phone=" + phone + "&amount=" + amount + "&register=" + register;
+                url = global + "/GiftCardRedeem?storeid=" + storeId + "&giftCardCode=" + encodeURIComponent(cardCode) + "&phone=" + phone + "&amount=" + amount + "&register=" + register + "&pin=" + pin;
                 //alert(url);
                 $('#tblRedeemHistory tbody').html("");
                 var totalHistoryAmount = 0;
@@ -2868,8 +2903,30 @@ function RedeemGiftCard() {
                     $("#txtRedeem").css('border-bottom', bottomBorder);
                     $("#txtPhoneSearch").css('border-bottom', bottomBorder);
 
-                    console.log("Redeemed: " + data);
-                    if (data.replace(/"/g, "").indexOf("Phone is not valid.") > -1) {
+                   
+                    if (data.replace(/"/g, "").indexOf("PIN is required.") > -1) {
+                        $('#dvInner').hide();
+                        //$('#btnLoadReward').prop("disabled", true);
+                        //$('#btnRedeemReward').prop("disabled", true);
+                        if (pin.trim() === '' || pin === '0') {
+                            // console.log("1");
+                            $('#dvInner').hide();
+                            $('#dvOuter').hide();
+                            $('#dvOuterText').html("");
+                            $("#txtPINSearch").css('border-bottom', errorClassBorder);
+                        }
+
+                    }
+                    else if (data.replace(/"/g, "").indexOf("Invalid PIN.") > -1) {
+                        $('#dvInner').hide();
+                        $('#dvOuter').hide();
+                        $('#dvOuterText').html("");
+                        $("#txtPINSearch").val("");
+                        callSweetAlertWarning("Invalid PIN.");
+
+                    }
+                        //console.log("Load: " + data);
+                    else if (data.replace(/"/g, "").indexOf("Phone is not valid.") > -1) {
                         $('#dvInner').hide();
                         if (phone == '' || phone == '0') {
                             $('#dvInner').hide();
@@ -2985,6 +3042,10 @@ function LoadGiftCard() {
     if (phone == '') {
         phone = '0';
     }
+    var pin = $("#txtPINSearch").val();
+    if (pin == '') {
+        pin = '0';
+    }
     var amount = $('#txtLoad').val();
     if (amount == '')
         amount = '0';
@@ -3002,7 +3063,7 @@ function LoadGiftCard() {
 
         $('#btnLoadGiftCard').text("Loading...");
         try {
-            url = global + "/GiftCardLoad?storeid=" + storeId + "&giftCardCode=" + encodeURIComponent(cardCode) + "&phone=" + phone + "&amount=" + amount;
+            url = global + "/GiftCardLoad?storeid=" + storeId + "&giftCardCode=" + encodeURIComponent(cardCode) + "&phone=" + phone + "&amount=" + amount+"&pin="+pin;
             //alert(url);
 
             var totalHistoryAmount = 0;
@@ -3011,9 +3072,29 @@ function LoadGiftCard() {
                 $("#txtCardCodeSearch").css('border-bottom', bottomBorder);
                 $("#txtLoad").css('border-bottom', bottomBorder);
                 $("#txtPhoneSearch").css('border-bottom', bottomBorder);
+                if (data.replace(/"/g, "").indexOf("PIN is required.") > -1) {
+                    $('#dvInner').hide();
+                //$('#btnLoadReward').prop("disabled", true);
+                //$('#btnRedeemReward').prop("disabled", true);
+                    if (pin.trim() === '' || pin === '0') {
+                        // console.log("1");
+                        $('#dvInner').hide();
+                        $('#dvOuter').hide();
+                        $('#dvOuterText').html("");
+                        $("#txtPINSearch").css('border-bottom', errorClassBorder);
+                    }
+                  
+                }
+               else if (data.replace(/"/g, "").indexOf("Invalid PIN.") > -1) {
+                    $('#dvInner').hide();
+                    $('#dvOuter').hide();
+                    $('#dvOuterText').html("");
+                    $("#txtPINSearch").val("");
+                    callSweetAlertWarning("Invalid PIN.");
 
+                }
                 //console.log("Load: " + data);
-                if (data.replace(/"/g, "").indexOf("Phone is not valid.") > -1) {
+               else if (data.replace(/"/g, "").indexOf("Phone is not valid.") > -1) {
                     $('#tblRedeemHistory tbody').html("");
                     $('#dvInner').hide();
                     //$('#alertHearderText').html("Message");

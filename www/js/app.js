@@ -1623,10 +1623,7 @@ function CheckNewOrder() {
                             myMedia.play();
                         }
                     }
-                    else {
-                        //console.log("2");
-                       // console.log(GetCurrentDateTime() + " - " + " No new order(s) found(2)", browser);
-                    }
+                   
 
                 }
 
