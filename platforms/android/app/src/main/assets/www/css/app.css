@@ -233,7 +233,9 @@ h4 {
 #giftcard .mt {
     margin-top: 0px !important;
 }
-
+/*#carryout .mt {
+    margin-top: 115px !important;
+}*/
 .mt {
     margin-top: 30px !important;
 }
@@ -1575,7 +1577,7 @@ h4 {
 #dvOrderInfo .list-icon {
     display: inline-block;
     max-width: 20%;
-    margin-left: 22px;
+    /*margin-left: 22px;*/
 }
 
 .list-icon {
