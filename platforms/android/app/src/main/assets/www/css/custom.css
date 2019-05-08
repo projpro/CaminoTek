@@ -66,7 +66,11 @@ position: relative;
     color: red !important;
     font-size: 19px;
     font-weight: 700;
+    display:none;
 
+}
+.status-disabled{
+    opacity: .55!important;
 }
 
 

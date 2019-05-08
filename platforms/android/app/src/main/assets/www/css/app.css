@@ -139,7 +139,18 @@ img {
     background-size: 24px 24px;
     background-color: transparent;
 }
-
+#reward_new .md .form-item .item-content .input-clear-button {
+    width: 30px;
+    height: 30px;
+    margin-top: -15px;
+    right: 3px;
+    background-image: url(data:image/svg+xml;charset=utf-8,%3Csvg%20fill%3D'%23737373'%20height%3D'24…2z'%2F%3E%3Cpath%20d%3D'M0%200h24v24H0z'%20fill%3D'none'%2F%3E%3C%2Fsvg%3E);
+    border-radius: 0;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 24px 24px;
+    background-color: transparent;
+}
 /*.md .form-item-content .input-clear-button {
 	width: 30px;
 	height: 30px;
@@ -744,6 +755,7 @@ h4 {
 }
 
 .custom-btn {
+    width:87% !important;
     font-weight: 400;
     padding: 10px 0px;
     border-radius: 2px;
@@ -754,7 +766,30 @@ h4 {
     display: block;
     /*margin:8px 15px 0 15px;*/
 }
-
+.custom-btn-large {
+    width:96% !important;
+    font-weight: 400;
+    padding: 10px 0px;
+    border-radius: 2px;
+    font-size: 19px;
+    text-transform: uppercase;
+    margin-top: 8px;
+    text-align: center;
+    display: block;
+    /*margin:8px 15px 0 15px;*/
+}
+.custom-btn-xl {
+    width:100% !important;
+    font-weight: 400;
+    padding: 10px 0px;
+    border-radius: 2px;
+    font-size: 19px;
+    text-transform: uppercase;
+    margin-top: 8px;
+    text-align: center;
+    display: block;
+    /*margin:8px 15px 0 15px;*/
+}
 .food-list-content {
     padding-top: 5px;
     padding-left: 10px;
@@ -1372,7 +1407,25 @@ h4 {
     display: inline-block;
     width: 60%;
 }
-
+.popup-button-right{
+    width: 13%;
+    float: right;
+    padding-right: 12px;
+    position: absolute;
+    right: 0%;
+}
+.popup-label-left{
+color: #3b9847;
+    font-size: 15px;
+    padding-top: 5px;
+    width: 87%;
+    /* text-align: right; */
+    /* margin-right: 40px; */
+    position: absolute;
+    /* float: right; */
+    /* right: -39%; */
+    padding-left: 61px;
+}
 #coupon_list .order-pickup {
     margin-top: 0px;
     font-weight: 400;
@@ -2171,8 +2224,12 @@ select:-moz-focusring {
     font-size: 18px;
     color: #111111;
     padding-top: 8px;
+    font-weight:600;
 }
-
+.giftcard-order-number span {
+    font-size: 13px;
+    font-weight: 400;
+}
 .giftcard-order-pickup {
     margin-top: 0px;
     font-weight: 400;
@@ -2189,7 +2246,7 @@ select:-moz-focusring {
 }
 
 .giftcard-customer-name {
-    font-weight: 400;
+    font-weight: 600;
     font-size: 14px;
     color: #111111;
 }
@@ -2219,7 +2276,12 @@ select:-moz-focusring {
 .item-media-section {
     width: 96%;
 }
-
+#reward_new .item-media-section {
+    width: 100%;
+}
+#tab-giftcard-new .item-media-section {
+    width: 100%;
+}
 .btn-add-card {
     width: 97%;
 }

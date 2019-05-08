@@ -23,7 +23,7 @@ function InitLogin() {
 }
 
 function RegisterToken(storeId, token, name, uuid, version) {
-   
+
     $.ajax({
         url: global + 'StoreDeviceRegistrationTokenUpdate?storeid=' + storeId + '&registrationToken=' + token + "&deviceUUID=" + uuid + "&version=" + version + "&name=" + name,
         type: 'GET',
@@ -356,7 +356,7 @@ function CarryoutOrdersList(status, carryoutpagesize, carryoutcurrentPage, divId
                     localStorage.setItem("OrderAvailable", "1");
                     var count = 0;
                     $.each(JSON.parse(data), function (index, value) {
-                        
+
                         var orderDate = "";
                         var orderTime = "";
                         var firstName = "";
@@ -380,7 +380,7 @@ function CarryoutOrdersList(status, carryoutpagesize, carryoutcurrentPage, divId
                         if (value.ORDERDISCOUNT != "") {
                             discount = value.ORDERDISCOUNT;
                         }
-                       
+
                         //if (value.ORDERTOTAL != "") {
                         //    grandTotal = value.ORDERTOTAL;
                         //    if(Number(grandTotal)!=Number(subTotal))
@@ -393,15 +393,15 @@ function CarryoutOrdersList(status, carryoutpagesize, carryoutcurrentPage, divId
                         //}
 
                         //else {
-                            grandTotal = value.ORDERTOTAL;
-                           
-                            if (Number(grandTotal) != Number(subTotal)) {
-                                ordertotal = FormatDecimal(Number(subTotal) - Number(discount));
-                            }
-                            else {
-                                ordertotal = FormatDecimal(grandTotal);
-                            }
-                            //ordertotal = "$0.00";
+                        grandTotal = value.ORDERTOTAL;
+
+                        if (Number(grandTotal) != Number(subTotal)) {
+                            ordertotal = FormatDecimal(Number(subTotal) - Number(discount));
+                        }
+                        else {
+                            ordertotal = FormatDecimal(grandTotal);
+                        }
+                        //ordertotal = "$0.00";
                         //}
                         if (value.CREATEDONUTC != null && value.CREATEDONUTC != undefined) {
                             var arrDateTime = value.CREATEDONUTC.split('~');
@@ -459,22 +459,27 @@ function CarryoutOrdersList(status, carryoutpagesize, carryoutcurrentPage, divId
                         /*------------------Status Icon--------------------*/
                         if (status == '' || status == "All") {
                             if (value.ORDERSTATUSID.toLowerCase() == "new") {
-                                html += "<div class=\"order-status-icon\" id=\"carryoutstatus_" + value.ID + "\"><img class=\"list-icon\"  src=\"img/icons/new.png\" alt=\"\"/></div>";
+                                //html += "<div class=\"order-status-icon\" id=\"carryoutstatus_" + value.ID + "\"><img class=\"list-icon\"  src=\"img/icons/new.png\" alt=\"\"/></div>";
+                                html += "<div class=\"dropdown\" id=\"carryoutstatus_" + value.ID + "\">";
+                                html += "<button id=\"btnStatusChange\" onclick=\"myFunction(" + value.ID + ")\" class=\"dropbtn\"><img class=\"list-icon\"  src=\"img/icons/new.png\" alt=\"\"/></button>";
+                                html += "<div id=\"myDropdown_" + value.ID + "\" class=\"dropdown-content\"><div onclick=\"HideStatusChangeDropdown(" + value.ID + ");\" id =\"close_status_dropdown\" class=\"close_status_dropdown\">X</div>";
+                                html += "<a onclick=\"ChangeOrderStatusDropdown('Processing'," + value.ID + "," + storeId + ")\"><img class=\"list-icon\"  src=\"img/icons/pending.png\" alt=\"\"/> <span class=\"custom-dropdown-span\">Processing</span></a>";
+                                html += "<a onclick=\"ChangeOrderStatusDropdown('Complete'," + value.ID + "," + storeId + ")\"><img class=\"list-icon\"  src=\"img/icons/Complete-Icon.png\" alt=\"\"/> <span class=\"custom-dropdown-span\">Complete</span></a>";
+                                html += "<a onclick=\"ChangeOrderStatusDropdown('PickedUp'," + value.ID + "," + storeId + ")\"><img class=\"list-icon\"  src=\"img/icons/Picked-Up-Icon.png\" alt=\"\"/><span class=\"custom-dropdown-span\"> Picked Up</span></a>";
+                                html += "</div>";
+                                html += "</div>";
                             }
                             else if (value.ORDERSTATUSID.toLowerCase() == "processing") {
-                               // html += "<div class=\"order-status-icon\" id=\"carryoutstatus_" + value.ID + "\"><img class=\"list-icon\"  src=\"img/icons/pending.png\" alt=\"\"/></div>";
+                                // html += "<div class=\"order-status-icon\" id=\"carryoutstatus_" + value.ID + "\"><img class=\"list-icon\"  src=\"img/icons/pending.png\" alt=\"\"/></div>";
 
                                 html += "<div class=\"dropdown\" id=\"carryoutstatus_" + value.ID + "\">";
                                 html += "<button id=\"btnStatusChange\" onclick=\"myFunction(" + value.ID + ")\" class=\"dropbtn\"><img class=\"list-icon\"  src=\"img/icons/pending.png\" alt=\"\"/></button>";
                                 html += "<div id=\"myDropdown_" + value.ID + "\" class=\"dropdown-content\"><div onclick=\"HideStatusChangeDropdown(" + value.ID + ");\" id =\"close_status_dropdown\" class=\"close_status_dropdown\">X</div>";
-                                html += "<a disabled class=\"disabled\" onclick=\"ChangeOrderStatusDropdown('Processing'," + value.ID + "," + storeId + ")\"><img class=\"list-icon\"  src=\"img/icons/pending.png\" alt=\"\"/> <span class=\"custom-dropdown-span\">Processing</span></a>";
+                                html += "<a class=\"status-disabled\" onclick=\"HideStatusChangeDropdown(" + value.ID + ");\"><img class=\"list-icon\"  src=\"img/icons/pending.png\" alt=\"\"/> <span class=\"custom-dropdown-span\">Processing</span></a>";
                                 html += "<a onclick=\"ChangeOrderStatusDropdown('Complete'," + value.ID + "," + storeId + ")\"><img class=\"list-icon\"  src=\"img/icons/Complete-Icon.png\" alt=\"\"/> <span class=\"custom-dropdown-span\">Complete</span></a>";
                                 html += "<a  onclick=\"ChangeOrderStatusDropdown('PickedUp'," + value.ID + "," + storeId + ")\"><img class=\"list-icon\"  src=\"img/icons/Picked-Up-Icon.png\" alt=\"\"/><span class=\"custom-dropdown-span\"> Picked Up</span></a>";
-                                html +="</div>";
                                 html += "</div>";
-
-                               
-   
+                                html += "</div>";
                             }
                             else if (value.ORDERSTATUSID.toLowerCase() == "complete") {
                                 // html += "<div class=\"order-status-icon\" id=\"carryoutstatus_" + value.ID + "\"><img class=\"list-icon\"  src=\"img/icons/Complete-Icon.png\" alt=\"\"/></div>";
@@ -482,7 +487,7 @@ function CarryoutOrdersList(status, carryoutpagesize, carryoutcurrentPage, divId
                                 html += "<button id=\"btnStatusChange\" onclick=\"myFunction(" + value.ID + ")\" class=\"dropbtn\"><img class=\"list-icon\"  src=\"img/icons/Complete-Icon.png\" alt=\"\"/></button>";
                                 html += "<div id=\"myDropdown_" + value.ID + "\" class=\"dropdown-content\"><div onclick=\"HideStatusChangeDropdown(" + value.ID + ");\" id =\"close_status_dropdown\" class=\"close_status_dropdown\">X</div>";
                                 html += "<a onclick=\"ChangeOrderStatusDropdown('Processing'," + value.ID + "," + storeId + ")\"><img class=\"list-icon\"  src=\"img/icons/pending.png\" alt=\"\"/> <span class=\"custom-dropdown-span\">Processing</span></a>";
-                                html += "<a disabled class=\"disabled\" onclick=\"ChangeOrderStatusDropdown('Complete'," + value.ID + "," + storeId + ")\"><img class=\"list-icon\"  src=\"img/icons/Complete-Icon.png\" alt=\"\"/> <span class=\"custom-dropdown-span\">Complete</span></a>";
+                                html += "<a class=\"status-disabled\" onclick=\"HideStatusChangeDropdown(" + value.ID + ");\"><img class=\"list-icon\"  src=\"img/icons/Complete-Icon.png\" alt=\"\"/> <span class=\"custom-dropdown-span\">Complete</span></a>";
                                 html += "<a  onclick=\"ChangeOrderStatusDropdown('PickedUp'," + value.ID + "," + storeId + ")\"><img class=\"list-icon\"  src=\"img/icons/Picked-Up-Icon.png\" alt=\"\"/><span class=\"custom-dropdown-span\"> Picked Up</span></a>";
                                 html += "</div>";
                                 html += "</div>";
@@ -494,7 +499,7 @@ function CarryoutOrdersList(status, carryoutpagesize, carryoutcurrentPage, divId
                                 html += "<div id=\"myDropdown_" + value.ID + "\" class=\"dropdown-content\"><div onclick=\"HideStatusChangeDropdown(" + value.ID + ");\" id =\"close_status_dropdown\" class=\"close_status_dropdown\">X</div>";
                                 html += "<a onclick=\"ChangeOrderStatusDropdown('Processing'," + value.ID + "," + storeId + ")\"><img class=\"list-icon\"  src=\"img/icons/pending.png\" alt=\"\"/> <span class=\"custom-dropdown-span\">Processing</span></a>";
                                 html += "<a onclick=\"ChangeOrderStatusDropdown('Complete'," + value.ID + "," + storeId + ")\"><img class=\"list-icon\"  src=\"img/icons/Complete-Icon.png\" alt=\"\"/> <span class=\"custom-dropdown-span\">Complete</span></a>";
-                                html += "<a disabled class=\"disabled\"  onclick=\"ChangeOrderStatusDropdown('PickedUp'," + value.ID + "," + storeId + ")\"><img class=\"list-icon\"  src=\"img/icons/Picked-Up-Icon.png\" alt=\"\"/><span class=\"custom-dropdown-span\"> Picked Up</span></a>";
+                                html += "<a class=\"status-disabled\" onclick=\"HideStatusChangeDropdown(" + value.ID + ");\"><img class=\"list-icon\"  src=\"img/icons/Picked-Up-Icon.png\" alt=\"\"/><span class=\"custom-dropdown-span\"> Picked Up</span></a>";
                                 html += "</div>";
                                 html += "</div>";
                             }
@@ -503,17 +508,15 @@ function CarryoutOrdersList(status, carryoutpagesize, carryoutcurrentPage, divId
                         /*-----------------Status Icon End----------------*/
                         if (value.PICKUPTIME != undefined) {
                             var pickupdatetime = value.PICKUPTIME;
-                           
-                            if (ordertype == "Carry Out")
-                            {
+
+                            if (ordertype == "Carry Out") {
                                 if (status == '' || status == "All")
                                     html += "<div class=\"order-pickup\">" + pickupdatetime + "</div>";
                                 else
                                     html += "<div class=\"order-pickup  order-pickup-margin-top\" style=\"margin-top:22px;\">" + pickupdatetime + "</div>";
                             }
                             else {
-                                if (pickupdatetime.indexOf("@")>-1)
-                                {
+                                if (pickupdatetime.indexOf("@") > -1) {
                                     var pickupDate = pickupdatetime.split('@')[0].trim();
                                     var pickupTime = pickupdatetime.split('@')[1].trim();
                                     if (status == '' || status == "All")
@@ -551,52 +554,19 @@ function CarryoutOrdersList(status, carryoutpagesize, carryoutcurrentPage, divId
 
                             }
                             else {
-                                buttonHTML += "<a onclick=\"ConfirmationPickUpSMSSend(" + value.ID + ",'" + phone + "','Grid','" + ordertotal + "')\"  id=\"btnPickUpSMS\"><img src=\"./img/icons/pickup_sms_button.png\" style=\"width:21%;float:right;padding-right:17px;\" /></a>";
+                                buttonHTML += "<a onclick=\"ConfirmationPickUpSMSSend(" + value.ID + ",'" + phone + "','Grid','" + ordertotal + "')\"  id=\"btnPickUpSMS_" + value.ID + "\"><img id=\"imgPickUpSMS_" + value.ID + "\" src=\"./img/icons/pickup_sms_button.png\" style=\"width:21%;float:right;padding-right:17px;\" /></a>";
 
                             }
                         }
                         else {
-                            buttonHTML += "<a><img src=\"./img/icons/pickup_sms_button_active.png\" style=\"width:21%;float:right;padding-right:17px;\" /></a>";
+                            buttonHTML += "<a id=\"btnPickUpSMS_" + value.ID + "\"><img id=\"imgPickUpSMS_" + value.ID + "\" src=\"./img/icons/pickup_sms_button_active.png\" style=\"width:21%;float:right;padding-right:17px;\" /></a>";
                         }
-                        //if (value.ORDERSTATUSID == "New") {
 
-                        //    buttonHTML += "<a onclick=\"ChangeOrderStatusNew('Processing'," + value.ID + "," + storeId + ")\"  id=\"btnAccept\"><img src=\"./img/icons/accept_button.png\" style=\"width:40%;margin: 0 61px;\" /></a>";
-                        //    buttonHTML += "<a onclick=\"ChangeOrderStatusNew('New'," + value.ID + "," + storeId + ")\"  id=\"btnNew\" style=\"display:none;\"><img src=\"./img/icons/new_button.png\" /></a>";
-                        //    buttonHTML += "<a onclick=\"ChangeOrderStatusNew('Processing'," + value.ID + "," + storeId + ")\"  id=\"btnProcessing\" style=\"display:none;\"><img src=\"./img/icons/pending_button.png\"  /></a>";
-
-                        //    buttonHTML += "<a onclick=\"ChangeOrderStatusNew('Complete'," + value.ID + "," + storeId + ")\" id=\"btnComplete\" style=\"display:none;\"><img src=\"./img/icons/complete_button.png\"  /></a>";
-                        //    buttonHTML += "<a onclick=\"ChangeOrderStatusNew('PickedUp'," + value.ID + "," + storeId + ")\"  id=\"btnPickedUp\" style=\"display:none;\"><img src=\"./img/icons/picked_up_button.png\"  /></a>";
-                        //}
-                        //else if (value.ORDERSTATUSID == "Processing") {
-                        //    buttonHTML += "<a onclick=\"ChangeOrderStatusNew('Processing'," + value.ID + "," + storeId + ")\"  id=\"btnAccept\"  style=\"display:none;\"><img src=\"./img/icons/accept_button.png\"  /></a>";
-                        //    buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeOrderStatusNew('New'," + value.ID + "," + storeId + ")\"  id=\"btnNew\"><img class=\"carryout-button-set-2\" src=\"./img/icons/new_button.png\"  /></a>";
-                        //    buttonHTML += "<img class=\"carryout-button-set carryout-button\" src=\"./img/icons/pending_button_active.png\" />";
-
-                        //    buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeOrderStatusNew('Complete'," + value.ID + "," + storeId + ")\"  id=\"btnComplete\"><img class=\"carryout-button-set-2\" src=\"./img/icons/complete_button.png\" /></a>";
-                        //    buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeOrderStatusNew('PickedUp'," + value.ID + "," + storeId + ")\"  id=\"btnPickedUp\"><img class=\"carryout-button-set-2\" src=\"./img/icons/picked_up_button.png\"/></a>";
-                        //}
-                        //else if (value.ORDERSTATUSID == "Complete") {
-                        //    buttonHTML += "<a onclick=\"ChangeOrderStatusNew('Processing'," + value.ID + "," + storeId + ")\"  id=\"btnAccept\"  style=\"display:none;\"><img src=\"./img/icons/accept_button.png\" /></a>";
-                        //    buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeOrderStatusNew('New'," + value.ID + "," + storeId + ")\"  id=\"btnNew\"><img class=\"carryout-button-set-2\" src=\"./img/icons/new_button.png\" /></a>";
-                        //    buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeOrderStatusNew('Processing'," + value.ID + "," + storeId + ")\"  id=\"btnProcessing\" ><img class=\"carryout-button-set-2\" src=\"./img/icons/pending_button.png\"/></a>";
-                        //    buttonHTML += "<img class=\"carryout-button-set carryout-button\" src=\"./img/icons/complete_button_active.png\"/>";
-                        //    buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeOrderStatusNew('PickedUp'," + value.ID + "," + storeId + ")\"  id=\"btnPickedUp\"><img class=\"carryout-button-set-2\" src=\"./img/icons/picked_up_button.png\"/></a>";
-                           
-
-                        //}
-                        //else if (value.ORDERSTATUSID == "PickedUp") {
-                        //    buttonHTML += "<a onclick=\"ChangeOrderStatusNew('Processing'," + value.ID + "," + storeId + ")\"  id=\"btnAccept\"  style=\"display:none;\"><img src=\"./img/icons/accept_button.png\"  /></a>";
-                        //    buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeOrderStatusNew('New'," + value.ID + "," + storeId + ")\"  id=\"btnNew\"><img src=\"./img/icons/new_button.png\" class=\"carryout-button-set-2\"  /></a>";
-                        //    buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeOrderStatusNew('Processing'," + value.ID + "," + storeId + ")\"  id=\"btnProcessing\"><img class=\"carryout-button-set-2\" src=\"./img/icons/pending_button.png\"  /></a>";
-                        //    buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeOrderStatusNew('Complete'," + value.ID + "," + storeId + ")\"  id=\"btnComplete\"><img class=\"carryout-button-set-2\" src=\"./img/icons/complete_button.png\" /></a>";
-                        //    buttonHTML += "<img class=\"carryout-button-set carryout-button\" src=\"./img/icons/picked_up_button_active.png\"  /></a>";
-                        //}
                         html += "<div class=\"order-buttons\" id=\"dvCarryOutButtons_" + value.ID + "\">";
                         html += buttonHTML;
                         html += "</div>";
 
                         /*------------------Button Row-----------------------*/
-                        //html += "<div class=\"order-price\">" + ordertotal + "</div>";
                         html += "</div>";
                         /*------------------1st Row-----------------------*/
 
@@ -677,7 +647,6 @@ function CarryoutOrdersList(status, carryoutpagesize, carryoutcurrentPage, divId
 
 
                     });
-
                 }
                 else {
                     localStorage.setItem("OrderAvailable", "0");
@@ -823,7 +792,7 @@ function CarryoutOrdersListPagination(status, carryoutpagesize, carryoutcurrentP
                         if (value.ORDERDISCOUNT != "") {
                             discount = value.ORDERDISCOUNT;
                         }
-                  
+
                         grandTotal = value.ORDERTOTAL;
 
                         if (Number(grandTotal) != Number(subTotal)) {
@@ -887,7 +856,15 @@ function CarryoutOrdersListPagination(status, carryoutpagesize, carryoutcurrentP
                         /*------------------Status Icon--------------------*/
                         if (status == '' || status == "All") {
                             if (value.ORDERSTATUSID.toLowerCase() == "new") {
-                                html += "<div class=\"order-status-icon\" id=\"carryoutstatus_" + value.ID + "\"><img class=\"list-icon\"  src=\"img/icons/new.png\" alt=\"\"/></div>";
+                                //html += "<div class=\"order-status-icon\" id=\"carryoutstatus_" + value.ID + "\"><img class=\"list-icon\"  src=\"img/icons/new.png\" alt=\"\"/></div>";
+                                html += "<div class=\"dropdown\" id=\"carryoutstatus_" + value.ID + "\">";
+                                html += "<button id=\"btnStatusChange\" onclick=\"myFunction(" + value.ID + ")\" class=\"dropbtn\"><img class=\"list-icon\"  src=\"img/icons/new.png\" alt=\"\"/></button>";
+                                html += "<div id=\"myDropdown_" + value.ID + "\" class=\"dropdown-content\"><div onclick=\"HideStatusChangeDropdown(" + value.ID + ");\" id =\"close_status_dropdown\" class=\"close_status_dropdown\">X</div>";
+                                html += "<a onclick=\"ChangeOrderStatusDropdown('Processing'," + value.ID + "," + storeId + ")\"><img class=\"list-icon\"  src=\"img/icons/pending.png\" alt=\"\"/> <span class=\"custom-dropdown-span\">Processing</span></a>";
+                                html += "<a onclick=\"ChangeOrderStatusDropdown('Complete'," + value.ID + "," + storeId + ")\"><img class=\"list-icon\"  src=\"img/icons/Complete-Icon.png\" alt=\"\"/> <span class=\"custom-dropdown-span\">Complete</span></a>";
+                                html += "<a onclick=\"ChangeOrderStatusDropdown('PickedUp'," + value.ID + "," + storeId + ")\"><img class=\"list-icon\"  src=\"img/icons/Picked-Up-Icon.png\" alt=\"\"/><span class=\"custom-dropdown-span\"> Picked Up</span></a>";
+                                html += "</div>";
+                                html += "</div>";
                             }
                             else if (value.ORDERSTATUSID.toLowerCase() == "processing") {
                                 // html += "<div class=\"order-status-icon\" id=\"carryoutstatus_" + value.ID + "\"><img class=\"list-icon\"  src=\"img/icons/pending.png\" alt=\"\"/></div>";
@@ -895,14 +872,11 @@ function CarryoutOrdersListPagination(status, carryoutpagesize, carryoutcurrentP
                                 html += "<div class=\"dropdown\" id=\"carryoutstatus_" + value.ID + "\">";
                                 html += "<button id=\"btnStatusChange\" onclick=\"myFunction(" + value.ID + ")\" class=\"dropbtn\"><img class=\"list-icon\"  src=\"img/icons/pending.png\" alt=\"\"/></button>";
                                 html += "<div id=\"myDropdown_" + value.ID + "\" class=\"dropdown-content\"><div onclick=\"HideStatusChangeDropdown(" + value.ID + ");\" id =\"close_status_dropdown\" class=\"close_status_dropdown\">X</div>";
-                                html += "<a disabled class=\"disabled\" onclick=\"ChangeOrderStatusDropdown('Processing'," + value.ID + "," + storeId + ")\"><img class=\"list-icon\"  src=\"img/icons/pending.png\" alt=\"\"/> <span class=\"custom-dropdown-span\">Processing</span></a>";
+                                html += "<a class=\"status-disabled\" onclick=\"HideStatusChangeDropdown(" + value.ID + ");\"><img class=\"list-icon\"  src=\"img/icons/pending.png\" alt=\"\"/> <span class=\"custom-dropdown-span\">Processing</span></a>";
                                 html += "<a onclick=\"ChangeOrderStatusDropdown('Complete'," + value.ID + "," + storeId + ")\"><img class=\"list-icon\"  src=\"img/icons/Complete-Icon.png\" alt=\"\"/> <span class=\"custom-dropdown-span\">Complete</span></a>";
                                 html += "<a  onclick=\"ChangeOrderStatusDropdown('PickedUp'," + value.ID + "," + storeId + ")\"><img class=\"list-icon\"  src=\"img/icons/Picked-Up-Icon.png\" alt=\"\"/><span class=\"custom-dropdown-span\"> Picked Up</span></a>";
                                 html += "</div>";
                                 html += "</div>";
-
-
-
                             }
                             else if (value.ORDERSTATUSID.toLowerCase() == "complete") {
                                 // html += "<div class=\"order-status-icon\" id=\"carryoutstatus_" + value.ID + "\"><img class=\"list-icon\"  src=\"img/icons/Complete-Icon.png\" alt=\"\"/></div>";
@@ -910,7 +884,7 @@ function CarryoutOrdersListPagination(status, carryoutpagesize, carryoutcurrentP
                                 html += "<button id=\"btnStatusChange\" onclick=\"myFunction(" + value.ID + ")\" class=\"dropbtn\"><img class=\"list-icon\"  src=\"img/icons/Complete-Icon.png\" alt=\"\"/></button>";
                                 html += "<div id=\"myDropdown_" + value.ID + "\" class=\"dropdown-content\"><div onclick=\"HideStatusChangeDropdown(" + value.ID + ");\" id =\"close_status_dropdown\" class=\"close_status_dropdown\">X</div>";
                                 html += "<a onclick=\"ChangeOrderStatusDropdown('Processing'," + value.ID + "," + storeId + ")\"><img class=\"list-icon\"  src=\"img/icons/pending.png\" alt=\"\"/> <span class=\"custom-dropdown-span\">Processing</span></a>";
-                                html += "<a disabled class=\"disabled\" onclick=\"ChangeOrderStatusDropdown('Complete'," + value.ID + "," + storeId + ")\"><img class=\"list-icon\"  src=\"img/icons/Complete-Icon.png\" alt=\"\"/> <span class=\"custom-dropdown-span\">Complete</span></a>";
+                                html += "<a class=\"status-disabled\" onclick=\"HideStatusChangeDropdown(" + value.ID + ");\"><img class=\"list-icon\"  src=\"img/icons/Complete-Icon.png\" alt=\"\"/> <span class=\"custom-dropdown-span\">Complete</span></a>";
                                 html += "<a  onclick=\"ChangeOrderStatusDropdown('PickedUp'," + value.ID + "," + storeId + ")\"><img class=\"list-icon\"  src=\"img/icons/Picked-Up-Icon.png\" alt=\"\"/><span class=\"custom-dropdown-span\"> Picked Up</span></a>";
                                 html += "</div>";
                                 html += "</div>";
@@ -922,22 +896,10 @@ function CarryoutOrdersListPagination(status, carryoutpagesize, carryoutcurrentP
                                 html += "<div id=\"myDropdown_" + value.ID + "\" class=\"dropdown-content\"><div onclick=\"HideStatusChangeDropdown(" + value.ID + ");\" id =\"close_status_dropdown\" class=\"close_status_dropdown\">X</div>";
                                 html += "<a onclick=\"ChangeOrderStatusDropdown('Processing'," + value.ID + "," + storeId + ")\"><img class=\"list-icon\"  src=\"img/icons/pending.png\" alt=\"\"/> <span class=\"custom-dropdown-span\">Processing</span></a>";
                                 html += "<a onclick=\"ChangeOrderStatusDropdown('Complete'," + value.ID + "," + storeId + ")\"><img class=\"list-icon\"  src=\"img/icons/Complete-Icon.png\" alt=\"\"/> <span class=\"custom-dropdown-span\">Complete</span></a>";
-                                html += "<a disabled class=\"disabled\"  onclick=\"ChangeOrderStatusDropdown('PickedUp'," + value.ID + "," + storeId + ")\"><img class=\"list-icon\"  src=\"img/icons/Picked-Up-Icon.png\" alt=\"\"/><span class=\"custom-dropdown-span\"> Picked Up</span></a>";
+                                html += "<a class=\"status-disabled\" onclick=\"HideStatusChangeDropdown(" + value.ID + ");\"><img class=\"list-icon\"  src=\"img/icons/Picked-Up-Icon.png\" alt=\"\"/><span class=\"custom-dropdown-span\"> Picked Up</span></a>";
                                 html += "</div>";
                                 html += "</div>";
                             }
-                            //if (value.ORDERSTATUSID.toLowerCase() == "new") {
-                            //    html += "<div class=\"order-status-icon\" id=\"carryoutstatus_" + value.ID + "\"><img class=\"list-icon\"   src=\"img/icons/new.png\" alt=\"\"/></div>";
-                            //}
-                            //else if (value.ORDERSTATUSID.toLowerCase() == "processing") {
-                            //    html += "<div class=\"order-status-icon\" id=\"carryoutstatus_" + value.ID + "\"><img class=\"list-icon\"  src=\"img/icons/pending.png\" alt=\"\"/></div>";
-                            //}
-                            //else if (value.ORDERSTATUSID.toLowerCase() == "complete") {
-                            //    html += "<div class=\"order-status-icon\" id=\"carryoutstatus_" + value.ID + "\"><img class=\"list-icon\"  src=\"img/icons/Complete-Icon.png\" alt=\"\"/></div>";
-                            //}
-                            //else if (value.ORDERSTATUSID.toLowerCase() == "pickedup") {
-                            //    html += "<div class=\"order-status-icon\" id=\"carryoutstatus_" + value.ID + "\"><img class=\"list-icon\"  src=\"img/icons/Picked-Up-Icon.png\" alt=\"\"/></div>";
-                            //}
                         }
 
                         /*-----------------Status Icon End----------------*/
@@ -990,46 +952,14 @@ function CarryoutOrdersListPagination(status, carryoutpagesize, carryoutcurrentP
 
                             }
                             else {
-                                buttonHTML += "<a onclick=\"ConfirmationPickUpSMSSend(" + value.ID + ",'" + phone + "','Grid','" + ordertotal + "')\"  id=\"btnPickUpSMS\"><img src=\"./img/icons/pickup_sms_button.png\" style=\"width:21%;float:right;padding-right:17px;\" /></a>";
+                                buttonHTML += "<a  onclick=\"ConfirmationPickUpSMSSend(" + value.ID + ",'" + phone + "','Grid','" + ordertotal + "')\"  id=\"btnPickUpSMS_" + value.ID + "\"><img id=\"imgPickUpSMS_" + value.ID + "\" src=\"./img/icons/pickup_sms_button.png\" style=\"width:21%;float:right;padding-right:17px;\" /></a>";
 
                             }
                         }
                         else {
-                            buttonHTML += "<a><img src=\"./img/icons/pickup_sms_button_active.png\" style=\"width:21%;float:right;padding-right:17px;\" /></a>";
+                            buttonHTML += "<a id=\"btnPickUpSMS_" + value.ID + "\"><img id=\"imgPickUpSMS_" + value.ID + "\" src=\"./img/icons/pickup_sms_button_active.png\" style=\"width:21%;float:right;padding-right:17px;\" /></a>";
                         }
-                        //if (value.ORDERSTATUSID == "New") {
 
-                        //    buttonHTML += "<a onclick=\"ChangeOrderStatusNew('Processing'," + value.ID + "," + storeId + ")\"  id=\"btnAccept\"><img src=\"./img/icons/accept_button.png\" style=\"width:40%;margin: 0 61px;\" /></a>";
-                        //    buttonHTML += "<a onclick=\"ChangeOrderStatusNew('New'," + value.ID + "," + storeId + ")\"  id=\"btnNew\" style=\"display:none;\"><img src=\"./img/icons/new_button.png\" /></a>";
-                        //    buttonHTML += "<a onclick=\"ChangeOrderStatusNew('Processing'," + value.ID + "," + storeId + ")\"  id=\"btnProcessing\" style=\"display:none;\"><img src=\"./img/icons/pending_button.png\"  /></a>";
-
-                        //    buttonHTML += "<a onclick=\"ChangeOrderStatusNew('Complete'," + value.ID + "," + storeId + ")\" id=\"btnComplete\" style=\"display:none;\"><img src=\"./img/icons/complete_button.png\"  /></a>";
-                        //    buttonHTML += "<a onclick=\"ChangeOrderStatusNew('PickedUp'," + value.ID + "," + storeId + ")\"  id=\"btnPickedUp\" style=\"display:none;\"><img src=\"./img/icons/picked_up_button.png\"  /></a>";
-                        //}
-                        //else if (value.ORDERSTATUSID == "Processing") {
-                        //    buttonHTML += "<a onclick=\"ChangeOrderStatusNew('Processing'," + value.ID + "," + storeId + ")\"  id=\"btnAccept\"  style=\"display:none;\"><img src=\"./img/icons/accept_button.png\"  /></a>";
-                        //    buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeOrderStatusNew('New'," + value.ID + "," + storeId + ")\"  id=\"btnNew\"><img class=\"carryout-button-set-2\" src=\"./img/icons/new_button.png\"  /></a>";
-                        //    buttonHTML += "<img class=\"carryout-button-set carryout-button\" src=\"./img/icons/pending_button_active.png\" />";
-
-                        //    buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeOrderStatusNew('Complete'," + value.ID + "," + storeId + ")\"  id=\"btnComplete\"><img class=\"carryout-button-set-2\" src=\"./img/icons/complete_button.png\" /></a>";
-                        //    buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeOrderStatusNew('PickedUp'," + value.ID + "," + storeId + ")\"  id=\"btnPickedUp\"><img class=\"carryout-button-set-2\" src=\"./img/icons/picked_up_button.png\"/></a>";
-                        //}
-                        //else if (value.ORDERSTATUSID == "Complete") {
-                        //    buttonHTML += "<a onclick=\"ChangeOrderStatusNew('Processing'," + value.ID + "," + storeId + ")\"  id=\"btnAccept\"  style=\"display:none;\"><img src=\"./img/icons/accept_button.png\" /></a>";
-                        //    buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeOrderStatusNew('New'," + value.ID + "," + storeId + ")\"  id=\"btnNew\"><img class=\"carryout-button-set-2\" src=\"./img/icons/new_button.png\" /></a>";
-                        //    buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeOrderStatusNew('Processing'," + value.ID + "," + storeId + ")\"  id=\"btnProcessing\" ><img class=\"carryout-button-set-2\" src=\"./img/icons/pending_button.png\"/></a>";
-                        //    buttonHTML += "<img class=\"carryout-button-set carryout-button\" src=\"./img/icons/complete_button_active.png\"/>";
-                        //    buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeOrderStatusNew('PickedUp'," + value.ID + "," + storeId + ")\"  id=\"btnPickedUp\"><img class=\"carryout-button-set-2\" src=\"./img/icons/picked_up_button.png\"/></a>";
-                           
-
-                        //}
-                        //else if (value.ORDERSTATUSID == "PickedUp") {
-                        //    buttonHTML += "<a onclick=\"ChangeOrderStatusNew('Processing'," + value.ID + "," + storeId + ")\"  id=\"btnAccept\"  style=\"display:none;\"><img src=\"./img/icons/accept_button.png\"  /></a>";
-                        //    buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeOrderStatusNew('New'," + value.ID + "," + storeId + ")\"  id=\"btnNew\"><img src=\"./img/icons/new_button.png\" class=\"carryout-button-set-2\"  /></a>";
-                        //    buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeOrderStatusNew('Processing'," + value.ID + "," + storeId + ")\"  id=\"btnProcessing\"><img class=\"carryout-button-set-2\" src=\"./img/icons/pending_button.png\"  /></a>";
-                        //    buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeOrderStatusNew('Complete'," + value.ID + "," + storeId + ")\"  id=\"btnComplete\"><img class=\"carryout-button-set-2\" src=\"./img/icons/complete_button.png\" /></a>";
-                        //    buttonHTML += "<img class=\"carryout-button-set carryout-button\" src=\"./img/icons/picked_up_button_active.png\"  /></a>";
-                        //}
                         html += "<div class=\"order-buttons\" id=\"dvCarryOutButtons_" + value.ID + "\">";
                         html += buttonHTML;
                         html += "</div>";
@@ -1053,29 +983,7 @@ function CarryoutOrdersListPagination(status, carryoutpagesize, carryoutcurrentP
                         /*------------------Order Info-----------------------*/
                         html += "<div class=\"order-items-count\" style=\"width:25%;\">";
                         html += "<div class=\"customer-detail-container\" id=\"dvPickUpSMSGrid_" + value.ID + "\">";
-                        //html += "<div class=\"order-price\">" + ordertotal + "</div>";
 
-                        //if (value.ORDERSTATUSID != "New" && value.ORDERPICKUPSMSSENTON != undefined && value.ORDERPICKUPSMSSENTON != null && value.ORDERPICKUPSMSSENTON != "") {
-
-                        //    if (value.ORDERPICKUPSMSSENTON.indexOf("~") > -1) {
-                        //        var arrPickUpSMSSentDateTime = value.ORDERPICKUPSMSSENTON.split('~');
-                        //        var smsSentDate = arrPickUpSMSSentDateTime[0];
-                        //        var smsSentTime = arrPickUpSMSSentDateTime[1];
-                        //        html += "<div><div class=\"order-price order-price-one\" style=\"width: 30%;\">" + ordertotal + "</div><div class=\"order-price-text\" style=\"width: 65%;\" >Pickup SMS sent " + smsSentDate + " @ " + smsSentTime + " </div></div>";
-
-                        //    }
-                        //    else {
-                        //        html += "<div class=\"order-price\">" + ordertotal + "</div>";
-                        //    }
-                        //}
-                        //else {
-                        //    if (value.ORDERSTATUSID != "New" && phone != "") {
-                        //        html += "<div><div class=\"order-price order-price-one\">" + ordertotal + "</div><div class=\"order-price-button\"><a onclick=\"ConfirmationPickUpSMSSend(" + value.ID + ",'" + phone + "','Grid','" + ordertotal + "')\"  id=\"btnPickUpSMS\"><img style=\"width:10%;\" src=\"./img/icons/pickup_sms_button.png\"/></a></div></div>";
-                        //    }
-                        //    else {
-                        //        html += "<div class=\"order-price\">" + ordertotal + "</div>";
-                        //    }
-                        //}
                         html += "<div class=\"order-price\">" + ordertotal + "</div>";
                         if (value.NOOFITEMS == 1)
                             html += "<div>1 item ";
@@ -1185,7 +1093,7 @@ function OpenCarryoutDetails(id) {
             var orderStatus = "";
             var numberOfItems = "";
             var ordertype = "";
-           
+
             //console.log(data);
             $.each(JSON.parse(data), function (index, value) {
                 //console.log(value);
@@ -1196,8 +1104,7 @@ function OpenCarryoutDetails(id) {
                     }
                     orderDiscount = value.ORDERDISCOUNT;
                     subtotalvalue = value.SUBTOTAL;
-                    if (value.BALANCEDUE != undefined && Number(value.BALANCEDUE)>0)
-                    {
+                    if (value.BALANCEDUE != undefined && Number(value.BALANCEDUE) > 0) {
                         dueAmount = value.BALANCEDUE;
                         dueAmountValue = FormatDecimal(dueAmount);
                         grandTotal = Number(value.SUBTOTAL) - Number(value.ORDERDISCOUNT);
@@ -1219,7 +1126,7 @@ function OpenCarryoutDetails(id) {
                         grandTotal = value.ORDERTOTAL;
                         grandTotalvalue = FormatDecimal(grandTotal);
                     }
-                   
+
                     orderId = value.OID;
                     $("#hdnSelectedOrderId").val(orderId);
                     //if (value.ORDERTOTAL != "") {
@@ -1350,120 +1257,84 @@ function OpenCarryoutDetails(id) {
                 var buttonHTML = "";
                 var orderhtml = "";
                 orderhtml = "<div class=\"order-container\">";
-
-
                 /*------------------Order Row-----------------------*/
-
                 orderhtml += "<div>";
-
                 /*------------------Column 1-----------------------*/
                 /*------------------Column 1 New Start-----------------------*/
                 orderhtml += "<div class=\"order-row-container\">";
                 /*------------------Status Icon Area Start-----------------------*/
-                orderhtml += "<div class=\"order-buttons\" id=\"popUpCarryoutIcon_" + orderId + "\">";
+                orderhtml += "<div class=\"order-buttons\" id=\"popUpCarryoutIcon_" + orderId + "\" style=\"width:40%;\">";
                 if ((status == '' || status == "All")) {
-                    if (value.ORDERSTATUSID.toLowerCase() == "new") {
-                        orderhtml += "<div class=\"order-status-icon\" id=\"carryoutstatus_" + orderId + "\"><img class=\"list-icon\"  src=\"img/icons/new.png\" alt=\"\"/></div>";
+                    if (orderStatus.toLowerCase() == "new") {
+                        orderhtml += "<div class=\"dropdown\" id=\"carryoutpopstatus_" + orderId + "\">";
+                        orderhtml += "<button id=\"btnStatusChange\" onclick=\"myPopupFunction(" + orderId + ")\" class=\"dropbtn\"><img class=\"list-icon\"  src=\"img/icons/new.png\" alt=\"\"/></button>";
+                        orderhtml += "<div id=\"myPopupDropdown_" + orderId + "\" class=\"dropdown-content\"><div onclick=\"HidePopupStatusChangeDropdown(" + orderId + ");\" id =\"close_status_dropdown\" class=\"close_status_dropdown\">X</div>";
+                        orderhtml += "<a onclick=\"ChangePopupOrderStatusDropdown('Processing'," + orderId + "," + storeId + ")\"><img class=\"list-icon\"  src=\"img/icons/pending.png\" alt=\"\"/> <span class=\"custom-dropdown-span\">Processing</span></a>";
+                        orderhtml += "<a onclick=\"ChangePopupOrderStatusDropdown('Complete'," + orderId + "," + storeId + ")\"><img class=\"list-icon\"  src=\"img/icons/Complete-Icon.png\" alt=\"\"/> <span class=\"custom-dropdown-span\">Complete</span></a>";
+                        orderhtml += "<a onclick=\"ChangePopupOrderStatusDropdown('PickedUp'," + orderId + "," + storeId + ")\"><img class=\"list-icon\"  src=\"img/icons/Picked-Up-Icon.png\" alt=\"\"/><span class=\"custom-dropdown-span\">Picked Up</span></a>";
+                        orderhtml += "</div>";
+                        orderhtml += "</div>";
                     }
-                    else if (orderStatus.toLowerCase()  == "processing") {
-                        // html += "<div class=\"order-status-icon\" id=\"carryoutstatus_" + value.ID + "\"><img class=\"list-icon\"  src=\"img/icons/pending.png\" alt=\"\"/></div>";
-
+                    else if (orderStatus.toLowerCase() == "processing") {
                         orderhtml += "<div class=\"dropdown\" id=\"carryoutpopstatus_" + orderId + "\">";
                         orderhtml += "<button id=\"btnStatusChange\" onclick=\"myPopupFunction(" + orderId + ")\" class=\"dropbtn\"><img class=\"list-icon\"  src=\"img/icons/pending.png\" alt=\"\"/></button>";
                         orderhtml += "<div id=\"myPopupDropdown_" + orderId + "\" class=\"dropdown-content\"><div onclick=\"HidePopupStatusChangeDropdown(" + orderId + ");\" id =\"close_status_dropdown\" class=\"close_status_dropdown\">X</div>";
-                        orderhtml += "<a disabled class=\"disabled\" onclick=\"ChangePopupOrderStatusDropdown('Processing'," + orderId + "," + storeId + ")\"><img class=\"list-icon\"  src=\"img/icons/pending.png\" alt=\"\"/> <span class=\"custom-dropdown-span\">Processing</span></a>";
+                        orderhtml += "<a  class=\"disabled\" onclick=\"HidePopupStatusChangeDropdown(" + orderId + ");\"><img class=\"list-icon\"  src=\"img/icons/pending.png\" alt=\"\"/> <span class=\"custom-dropdown-span\">Processing</span></a>";
                         orderhtml += "<a onclick=\"ChangePopupOrderStatusDropdown('Complete'," + orderId + "," + storeId + ")\"><img class=\"list-icon\"  src=\"img/icons/Complete-Icon.png\" alt=\"\"/> <span class=\"custom-dropdown-span\">Complete</span></a>";
-                        orderhtml += "<a  onclick=\"ChangePopupOrderStatusDropdown('PickedUp'," + orderId + "," + storeId + ")\"><img class=\"list-icon\"  src=\"img/icons/Picked-Up-Icon.png\" alt=\"\"/><span class=\"custom-dropdown-span\"> Picked Up</span></a>";
+                        orderhtml += "<a  onclick=\"ChangePopupOrderStatusDropdown('PickedUp'," + orderId + "," + storeId + ")\"><img class=\"list-icon\"  src=\"img/icons/Picked-Up-Icon.png\" alt=\"\"/><span class=\"custom-dropdown-span\">Picked Up</span></a>";
                         orderhtml += "</div>";
                         orderhtml += "</div>";
-
-
-
                     }
-                    else if (orderStatus.toLowerCase()  == "complete") {
-                        // html += "<div class=\"order-status-icon\" id=\"carryoutstatus_" + value.ID + "\"><img class=\"list-icon\"  src=\"img/icons/Complete-Icon.png\" alt=\"\"/></div>";
+                    else if (orderStatus.toLowerCase() == "complete") {
                         orderhtml += "<div class=\"dropdown\" id=\"carryoutpopstatus_" + orderId + "\">";
                         orderhtml += "<button id=\"btnStatusChange\" onclick=\"myPopupFunction(" + orderId + ")\" class=\"dropbtn\"><img class=\"list-icon\"  src=\"img/icons/Complete-Icon.png\" alt=\"\"/></button>";
                         orderhtml += "<div id=\"myPopupDropdown_" + orderId + "\" class=\"dropdown-content\"><div onclick=\"HidePopupStatusChangeDropdown(" + orderId + ");\" id =\"close_status_dropdown\" class=\"close_status_dropdown\">X</div>";
                         orderhtml += "<a onclick=\"ChangePopupOrderStatusDropdown('Processing'," + orderId + "," + storeId + ")\"><img class=\"list-icon\"  src=\"img/icons/pending.png\" alt=\"\"/> <span class=\"custom-dropdown-span\">Processing</span></a>";
-                        orderhtml += "<a disabled class=\"disabled\" onclick=\"ChangePopupOrderStatusDropdown('Complete'," + orderId + "," + storeId + ")\"><img class=\"list-icon\"  src=\"img/icons/Complete-Icon.png\" alt=\"\"/> <span class=\"custom-dropdown-span\">Complete</span></a>";
-                        orderhtml += "<a  onclick=\"ChangePopupOrderStatusDropdown('PickedUp'," + orderId + "," + storeId + ")\"><img class=\"list-icon\"  src=\"img/icons/Picked-Up-Icon.png\" alt=\"\"/><span class=\"custom-dropdown-span\"> Picked Up</span></a>";
+                        orderhtml += "<a class=\"disabled\" onclick=\"HidePopupStatusChangeDropdown(" + orderId + ");\"><img class=\"list-icon\"  src=\"img/icons/Complete-Icon.png\" alt=\"\"/> <span class=\"custom-dropdown-span\">Complete</span></a>";
+                        orderhtml += "<a  onclick=\"ChangePopupOrderStatusDropdown('PickedUp'," + orderId + "," + storeId + ")\"><img class=\"list-icon\"  src=\"img/icons/Picked-Up-Icon.png\" alt=\"\"/><span class=\"custom-dropdown-span\">Picked Up</span></a>";
                         orderhtml += "</div>";
                         orderhtml += "</div>";
                     }
-                    else if (orderStatus.toLowerCase()  == "pickedup") {
-                        //html += "<div class=\"order-status-icon\" id=\"carryoutstatus_" + value.ID + "\"><img class=\"list-icon\"  src=\"img/icons/Picked-Up-Icon.png\" alt=\"\"/></div>";
+                    else if (orderStatus.toLowerCase() == "pickedup") {
                         orderhtml += "<div class=\"dropdown\" id=\"carryoutpopstatus_" + orderId + "\">";
                         orderhtml += "<button id=\"btnStatusChange\" onclick=\"myPopupFunction(" + orderId + ")\" class=\"dropbtn\"><img class=\"list-icon\"  src=\"img/icons/Picked-Up-Icon.png\" alt=\"\"/></button>";
                         orderhtml += "<div id=\"myPopupDropdown_" + orderId + "\" class=\"dropdown-content\"><div onclick=\"HidePopupStatusChangeDropdown(" + orderId + ");\" id =\"close_status_dropdown\" class=\"close_status_dropdown\">X</div>";
                         orderhtml += "<a onclick=\"ChangePopupOrderStatusDropdown('Processing'," + orderId + "," + storeId + ")\"><img class=\"list-icon\"  src=\"img/icons/pending.png\" alt=\"\"/> <span class=\"custom-dropdown-span\">Processing</span></a>";
                         orderhtml += "<a onclick=\"ChangePopupOrderStatusDropdown('Complete'," + orderId + "," + storeId + ")\"><img class=\"list-icon\"  src=\"img/icons/Complete-Icon.png\" alt=\"\"/> <span class=\"custom-dropdown-span\">Complete</span></a>";
-                        orderhtml += "<a disabled class=\"disabled\"  onclick=\"ChangePopupOrderStatusDropdown('PickedUp'," + orderId + "," + storeId + ")\"><img class=\"list-icon\"  src=\"img/icons/Picked-Up-Icon.png\" alt=\"\"/><span class=\"custom-dropdown-span\"> Picked Up</span></a>";
+                        orderhtml += "<a class=\"disabled\"  onclick=\"HidePopupStatusChangeDropdown(" + orderId + ");\"><img class=\"list-icon\"  src=\"img/icons/Picked-Up-Icon.png\" alt=\"\"/><span class=\"custom-dropdown-span\">Picked Up</span></a>";
                         orderhtml += "</div>";
                         orderhtml += "</div>";
                     }
-                    //if (orderStatus.toLowerCase() == "new") {
-                    //    orderhtml += "<img class=\"list-icon\"  src=\"img/icons/new.png\" alt=\"\"/>";
-                    //}
-                    //else if (orderStatus.toLowerCase() == "processing") {
-                    //    orderhtml += "<img class=\"list-icon\"  src=\"img/icons/pending.png\" alt=\"\"/>";
-                    //}
-                    //else if (orderStatus.toLowerCase() == "complete") {
-                    //    orderhtml += "<img class=\"list-icon\"  src=\"img/icons/Complete-Icon.png\" alt=\"\"/>";
-                    //}
-                    //else if (orderStatus.toLowerCase() == "pickedup") {
-                    //    orderhtml += "<img class=\"list-icon\"  src=\"img/icons/Picked-Up-Icon.png\" alt=\"\"/>";
-                    //}
+
                 }
                 orderhtml += "</div>";
                 /*------------------Status Icon Area End-----------------------*/
                 /*------------------Button Row Start-----------------------*/
                 if (orderStatus != "New") {
                     if (value.ORDERPICKUPSMSSENTON != undefined && value.ORDERPICKUPSMSSENTON != null && value.ORDERPICKUPSMSSENTON != "") {
-                        buttonHTML += "<a><img src=\"./img/icons/pickup_sms_button_active.png\" style=\"width:21%;float:right;padding-right:17px;\" /></a>";
+
+
+                        if (value.ORDERPICKUPSMSSENTON.indexOf("~") > -1) {
+                            var arrPickUpSMSSentDateTime = value.ORDERPICKUPSMSSENTON.split('~');
+                            var smsSentDate = arrPickUpSMSSentDateTime[0];
+                            var smsSentTime = arrPickUpSMSSentDateTime[1];
+                            buttonHTML += "<div class=\"popup-label-left\"  id=\"dvPickUpSMSSentTime\"><div>Pickup SMS sent </div><div>" + smsSentDate + " @ " + smsSentTime + "</div></div>";
+                        }
+
+                        buttonHTML += "<img src=\"./img/icons/pickup_sms_button_active.png\" class=\"popup-button-right\" />";
 
                     }
                     else {
                         if (phone != "")
-                            buttonHTML += "<a onclick=\"ConfirmationPickUpSMSSend(" + orderId + ",'" + phone + "','Popup','$0.00')\"  id=\"btnPickUpSMS\"><img src=\"./img/icons/pickup_sms_button.png\" style=\"width:21%;float:right;padding-right:17px;\" /></a>";
+                            buttonHTML += "<a id=\"aPopupSMS_" + orderId + "\" onclick=\"ConfirmationPickUpSMSSend(" + orderId + ",'" + phone + "','Popup','$0.00')\"  id=\"btnPickUpSMS\"><img id=\"imgPopupSMS_" + orderId + "\" src=\"./img/icons/pickup_sms_button.png\" style=\"width:21%;float:right;padding-right:17px;\" /></a>";
 
                     }
                 }
                 else {
-                    buttonHTML += "<a><img src=\"./img/icons/pickup_sms_button_active.png\" style=\"width:21%;float:right;padding-right:17px;\" /></a>";
+                    buttonHTML += "<a id=\"aPopupSMS_" + orderId + "\"><img id=\"imgPopupSMS_" + orderId + "\" src=\"./img/icons/pickup_sms_button_active.png\" style=\"width:21%;float:right;padding-right:17px;\" /></a>";
                 }
-                //if (orderStatus == "New") {
 
-                //    buttonHTML += "<a onclick=\"PopupChangeOrderStatusNew('New'," + orderId + "," + storeId + ")\"  id=\"btnNew\" style=\"display:none;\"><img src=\"./img/icons/new_button.png\" /></a>";
-                //    buttonHTML += "<a onclick=\"PopupChangeOrderStatusNew('Processing'," + orderId + "," + storeId + ")\"  id=\"btnAccept\"><img src=\"./img/icons/accept_button.png\" style=\"width:40%;margin: 0 61px;\" /></a>";
-                //    buttonHTML += "<a onclick=\"PopupChangeOrderStatusNew('Processing'," + orderId + "," + storeId + ")\"  id=\"btnProcessing\" style=\"display:none;\"><img src=\"./img/icons/pending_button.png\"  /></a>";
-                //    buttonHTML += "<a onclick=\"PopupChangeOrderStatusNew('Complete'," + orderId + "," + storeId + ")\" id=\"btnComplete\" style=\"display:none;\"><img src=\"./img/icons/complete_button.png\"  /></a>";
-                //    buttonHTML += "<a onclick=\"PopupChangeOrderStatusNew('PickedUp'," + orderId + "," + storeId + ")\"  id=\"btnPickedUp\" style=\"display:none;\"><img src=\"./img/icons/picked_up_button.png\"  /></a>";
-                //}
-                //else if (orderStatus == "Processing") {
-                //    buttonHTML += "<a class=\"carryout-button\" onclick=\"PopupChangeOrderStatusNew('New'," + orderId + "," + storeId + ")\"  id=\"btnNew\"><img class=\"carryout-button-set-2\" src=\"./img/icons/new_button.png\"  /></a>";
-                //    buttonHTML += "<a onclick=\"PopupChangeOrderStatusNew('Processing'," + orderId + "," + storeId + ")\"  id=\"btnAccept\"  style=\"display:none;\"><img src=\"./img/icons/accept_button.png\"  /></a>";
-                //    buttonHTML += "<img class=\"carryout-button-set carryout-button\" src=\"./img/icons/pending_button_active.png\" />";
-                //    buttonHTML += "<a class=\"carryout-button\" onclick=\"PopupChangeOrderStatusNew('Complete'," + orderId + "," + storeId + ")\"  id=\"btnComplete\"><img class=\"carryout-button-set-2\" src=\"./img/icons/complete_button.png\" /></a>";                    
-                //    buttonHTML += "<a class=\"carryout-button\" onclick=\"PopupChangeOrderStatusNew('PickedUp'," + orderId + "," + storeId + ")\"  id=\"btnPickedUp\"><img class=\"carryout-button-set-2\" src=\"./img/icons/picked_up_button.png\"/></a>";
-                //}
-                //else if (orderStatus == "Complete") {
-                //    buttonHTML += "<a class=\"carryout-button\" onclick=\"PopupChangeOrderStatusNew('New'," + orderId + "," + storeId + ")\"  id=\"btnNew\"><img class=\"carryout-button-set-2\" src=\"./img/icons/new_button.png\" /></a>";
-                //    buttonHTML += "<a onclick=\"PopupChangeOrderStatusNew('Processing'," + orderId + "," + storeId + ")\"  id=\"btnAccept\"  style=\"display:none;\"><img src=\"./img/icons/accept_button.png\" /></a>";
-                //    buttonHTML += "<a class=\"carryout-button\" onclick=\"PopupChangeOrderStatusNew('Processing'," + orderId + "," + storeId + ")\"  id=\"btnProcessing\" ><img class=\"carryout-button-set-2\" src=\"./img/icons/pending_button.png\"/></a>";
-                //    buttonHTML += "<img class=\"carryout-button-set carryout-button\" src=\"./img/icons/complete_button_active.png\"/>";
-                //    buttonHTML += "<a class=\"carryout-button\" onclick=\"PopupChangeOrderStatusNew('PickedUp'," + orderId + "," + storeId + ")\"  id=\"btnPickedUp\"><img class=\"carryout-button-set-2\" src=\"./img/icons/picked_up_button.png\"/></a>";
-                   
-
-                //}
-                //else if (orderStatus == "PickedUp") {
-                //    buttonHTML += "<a onclick=\"PopupChangeOrderStatusNew('Processing'," + orderId + "," + storeId + ")\"  id=\"btnAccept\"  style=\"display:none;\"><img src=\"./img/icons/accept_button.png\"  /></a>";
-                //    buttonHTML += "<a class=\"carryout-button\" onclick=\"PopupChangeOrderStatusNew('New'," + orderId + "," + storeId + ")\"  id=\"btnNew\"><img src=\"./img/icons/new_button.png\" class=\"carryout-button-set-2\"  /></a>";
-                //    buttonHTML += "<a class=\"carryout-button\" onclick=\"PopupChangeOrderStatusNew('Processing'," + orderId + "," + storeId + ")\"  id=\"btnProcessing\"><img class=\"carryout-button-set-2\" src=\"./img/icons/pending_button.png\"  /></a>";
-                //    buttonHTML += "<a class=\"carryout-button\" onclick=\"PopupChangeOrderStatusNew('Complete'," + orderId + "," + storeId + ")\"  id=\"btnComplete\"><img class=\"carryout-button-set-2\" src=\"./img/icons/complete_button.png\" /></a>";                    
-                //    buttonHTML += "<img class=\"carryout-button-set carryout-button\" src=\"./img/icons/picked_up_button_active.png\"  /></a>";
-                //}
-                orderhtml += "<div class=\"order-buttons\" id=\"popupCarryOutDetails_" + orderId + "\">";
+                orderhtml += "<div class=\"order-buttons\" id=\"popupCarryOutDetails_" + orderId + "\" style=\"width:60%;\">";
                 orderhtml += buttonHTML;
                 orderhtml += "</div>";
 
@@ -1474,8 +1345,7 @@ function OpenCarryoutDetails(id) {
                 /*------------------Column 2 New Start-----------------------*/
                 orderhtml += "<div class=\"order-row-container\">";
                 if (pickupTime != undefined) {
-                    if (pickupTime.indexOf("@") > -1)
-                    {
+                    if (pickupTime.indexOf("@") > -1) {
                         var pickupDateOnly = pickupTime.split('@')[0].trim();
                         var pickupTimeOnly = pickupTime.split('@')[1].trim();
                         //console.log("pickupDateOnly:" + pickupDateOnly)
@@ -1491,7 +1361,7 @@ function OpenCarryoutDetails(id) {
                             orderhtml += "<div class=\"order-details-pickup  order-pickup-margin-top\">" + pickupTime + "</div>";
                     }
 
-                    
+
 
                 }
                 else {
@@ -1501,7 +1371,7 @@ function OpenCarryoutDetails(id) {
 
                         orderhtml += "<div class=\"order-details-pickup order-pickup-margin-top\"></div>";
                 }
-                orderhtml += "<div class=\"carryout-order-number\"><span class=\"order-number\"> #" + orderId + "</span> on " + orderDate + " @ " + orderTime + "</div>";
+                orderhtml += "<div class=\"carryout-order-number\"><span class=\"order-number\" style=\"font-size:23px;\"> #" + orderId + "</span> on " + orderDate + " @ " + orderTime + "</div>";
                 orderhtml += "</div>";
                 /*------------------Column 2 New End-----------------------*/
 
@@ -1521,27 +1391,14 @@ function OpenCarryoutDetails(id) {
                 /*------------------Order Info-----------------------*/
                 orderhtml += "<div class=\"giftcard-item-count\">";
                 orderhtml += "<div class=\"giftcard-customer-detail-container\">";
-                orderhtml += "<div style=\"text-align:left;\"><div class=\"giftcard-price popup-carryout-details-one\">" + ordertotalvalue + "</div>";
-                if (orderStatus!="New" && value.ORDERPICKUPSMSSENTON != undefined && value.ORDERPICKUPSMSSENTON != null && value.ORDERPICKUPSMSSENTON != "") {
+                orderhtml += "<div><div class=\"giftcard-price popup-carryout-details-one\">" + ordertotalvalue + "</div>";
 
-                    if (value.ORDERPICKUPSMSSENTON.indexOf("~") > -1) {
-                        var arrPickUpSMSSentDateTime = value.ORDERPICKUPSMSSENTON.split('~');
-                        var smsSentDate = arrPickUpSMSSentDateTime[0];
-                        var smsSentTime = arrPickUpSMSSentDateTime[1];
-                        orderhtml += "<div class=\"display-label-wrap popup-carryout-details-three\"  id=\"dvPickUpSMSSentTime\"  style=\"color:#3b9847;font-size:15px;padding-top:5px;\">Pickup SMS sent on " + smsSentDate + " @ " + smsSentTime + "</div>";
-                    }
-                   
-                }
-                //else {
-             
-                //    if (phone != "")
-                //        orderhtml += "<div class=\"display-label-wrap popup-carryout-details-two\"><a onclick=\"ConfirmationPickUpSMSSend(" + orderId + ",'" + phone + "','Popup','$0.00')\"  id=\"btnPickUpSMS\"><img style=\"width:30%;\" src=\"./img/icons/pickup_sms_button.png\"/></a></div>";
-                //}
+
                 orderhtml += "</div>";
                 if (numberOfItems == 1)
-                    orderhtml += "<div style=\"text-align:left;\">1 item ";
+                    orderhtml += "<div>1 item ";
                 else
-                    orderhtml += "<div style=\"text-align:left;\">" + numberOfItems + " items ";
+                    orderhtml += "<div>" + numberOfItems + " items ";
                 if (paymentMethod == "Cash On Delivery") {
                     orderhtml += "<span class=\"cc-number\">Due on Pickup</span>";
                 }
@@ -1556,8 +1413,8 @@ function OpenCarryoutDetails(id) {
                     }
                 }
                 orderhtml += "</div>";
-            
-               
+
+
                 orderhtml += "</div>";
                 orderhtml += "</div>";
                 /*------------------Order Info-----------------------*/
@@ -1634,8 +1491,6 @@ function OpenCarryoutDetails(id) {
 
                     });
                 }
-
-
                 if (htmlDiscount != "" || htmlRewards != "" || htmlGiftCard != "") {
                     htmlSubTotal = " <tr>";
                     htmlSubTotal += "<td colspan=\"3\" style=\"text-align:right; font-weight: bold;\">Subtotal:</td>";
@@ -1653,16 +1508,12 @@ function OpenCarryoutDetails(id) {
                     htmlOrderTotal += "<td style=\"text-align:right;\">" + grandTotalvalue + "</td>";
                     htmlOrderTotal += "</tr>";
                 }
-                //console.log(html)
-                if (dueAmount > 0)
-                {
+                if (dueAmount > 0) {
                     $("#dvItem").html(html + htmlSubTotal + htmlDiscount + htmlRewards + htmlGiftCard + htmlOrderTotal + htmlDueAmount + "</tbody>");
                 }
                 else {
                     $("#dvItem").html(html + htmlSubTotal + htmlDiscount + htmlRewards + htmlGiftCard + htmlOrderTotal + "</tbody>");
                 }
-               // $('#dvDetailsPanel').html($('#dvCarryOutDetailsInner').html());
-
                 $('#dvDetailsPanel').html($('#carryout #dvCarryOutDetailsInner').html());
 
             });
@@ -1684,7 +1535,7 @@ function BindcarryoutTab(status) {
     if (status == "All") {
 
         $('#linkCarryoutFilterIcon').show();
-        
+
     }
     else {
         $('#linkCarryoutFilterIcon').hide();
@@ -1703,7 +1554,7 @@ function ConfirmationPickUpSMSSend(orderId, customerphone, source, orderTotal) {
     //orderId = Number($("#hdnSelectedOrderId").val());
     if (storeId > 0 && orderId > 0) {
 
-    
+
         swal({
             title: 'Would you like to send a Pickup SMS?',
             //text: "You will not be able to recover this imaginary file!",
@@ -1718,7 +1569,7 @@ function ConfirmationPickUpSMSSend(orderId, customerphone, source, orderTotal) {
             if (result.value) {
                 // handle Confirm button click
                 SendPickUpSMSToCustomer(orderId, customerphone, source, orderTotal)
-          
+
                 // result.value will contain `true` or the input value
             } else {
                 // handle dismissals
@@ -1726,13 +1577,13 @@ function ConfirmationPickUpSMSSend(orderId, customerphone, source, orderTotal) {
             }
         });
 
-      
+
     }
     else if (storeId == 0) {
         self.app.router.navigate('/login_new/', { reloadCurrent: false });
     }
 }
-function SendPickUpSMSToCustomer(orderId, customerphone,source,orderTotal) {
+function SendPickUpSMSToCustomer(orderId, customerphone, source, orderTotal) {
 
     var storeId = 0;
     var restaurantDisplayName = "";
@@ -1740,12 +1591,12 @@ function SendPickUpSMSToCustomer(orderId, customerphone,source,orderTotal) {
     //orderId = Number($("#hdnSelectedOrderId").val());
     if (storeId > 0 && orderId > 0) {
 
-        
+
         //$("#btnPickupSMS").text("Sending...");
         $("#btnPickupSMS").attr("disabled", "disabled");
         if (window.localStorage.getItem("RestaurantName") != null)
             restaurantDisplayName = window.localStorage.getItem("RestaurantName").trim();
-        if (customerphone != undefined && customerphone!=null && customerphone != "") {
+        if (customerphone != undefined && customerphone != null && customerphone != "") {
             customerphone = customerphone.trim().replace("(", "").replace(")", "").replace("-", "").replace(".", "").replace(" ", "");
         }
         $.ajax({
@@ -1766,19 +1617,26 @@ function SendPickUpSMSToCustomer(orderId, customerphone,source,orderTotal) {
                     if (data.SMSSentOn != "") {
                         if (data.SMSSentOn.indexOf("@")) {
                             var arrSMSSentTime = data.SMSSentOn.split('@');
-                            if (source.toLowerCase() == "popup")
-                            {
-                                console.log(2)
+                            if (source.toLowerCase() == "popup") {
+
+                                $("#imgPopupSMS_" + orderId).removeAttr("src");
+                                $("#imgPopupSMS_" + orderId).attr("src", "./img/icons/pickup_sms_button_active.png");
+                                $("#aPopupSMS_" + orderId).removeAttr("onclick");
+
                                 $("#hdnSelectedOrderPickUpSMSSentTime").val(arrSMSSentTime[0].trim() + "#" + arrSMSSentTime[1].trim());
-                                $("#dvPickUpSMSSentTime").show();
-                                $("#dvPickUpSMSSentTime").html("Pickup SMS sent<br/>" + data.SMSSentOn);
+                                $("#dvPickUpSMSSentTime_" + orderId).show();
+                                $("#dvPickUpSMSSentTime_" + orderId).html("Pickup SMS sent<br/>" + data.SMSSentOn);
                             }
                             else {
-                                console.log(1)
+
+
+                                $("#imgPickUpSMS_" + orderId).removeAttr("src");
+                                $("#imgPickUpSMS_" + orderId).attr("src", "./img/icons/pickup_sms_button_active.png");
+                                $("#btnPickUpSMS_" + orderId).removeAttr("onclick");
                                 var html = "<div><div class=\"order-price order-price-one\" style=\"width: 30%;\">" + orderTotal + "</div><div class=\"order-price-text\" style=\"width: 65%;\">Pickup SMS sent " + arrSMSSentTime[0].trim() + " @ " + arrSMSSentTime[1].trim() + " </div></div>";
                                 $("#dvPickUpSMSGrid_" + orderId).html(html);
                             }
-                          
+
                         }
 
                     }
@@ -1990,7 +1848,7 @@ function ChangeOrderStatusNew(status, orderId, storeId) {
 
                         //buttonHTML += "<a onclick=\"SendPickUpSMSToCustomer(" + value.ID + ")\"  id=\"btnPickupSMS\" style=\"display:none;\"><img src=\"./img/icons/pickup_sms_button.png\"  /></a>";
                     }
-                    
+
                     $("#dvCarryOutButtons_" + orderId).html(buttonHTML);
                     $("#carryoutstatus_" + orderId).html(iconHTML);
 
@@ -2007,7 +1865,7 @@ function ChangeOrderStatusNew(status, orderId, storeId) {
 }
 function ChangeOrderStatusDropdown(status, orderId, storeId) {
 
-   
+
     if (storeId > 0 && orderId > 0) {
         currentPage = 0;
         pageSize = 10;
@@ -2037,22 +1895,27 @@ function ChangeOrderStatusDropdown(status, orderId, storeId) {
                     var buttonHTML = "";
                     var iconHTML = "";
                     if (status == "New") {
-                  
+                        iconHTML += "<button id=\"btnStatusChange\" onclick=\"myFunction(" + orderId + ")\" class=\"dropbtn\"><img class=\"list-icon\"  src=\"img/icons/pending.png\" alt=\"\"/></button>";
+                        iconHTML += "<div id=\"myDropdown_" + orderId + "\" class=\"dropdown-content\"><div onclick=\"HideStatusChangeDropdown(" + orderId + ");\" id =\"close_status_dropdown\" class=\"close_status_dropdown\">X</div>";
+                        iconHTML += "<a onclick=\"ChangeOrderStatusDropdown('Processing'," + orderId + "," + storeId + ")\"><img class=\"list-icon\"  src=\"img/icons/pending.png\" alt=\"\"/> <span class=\"custom-dropdown-span\">Processing</span></a>";
+                        iconHTML += "<a onclick=\"ChangeOrderStatusDropdown('Complete'," + orderId + "," + storeId + ")\"><img class=\"list-icon\"  src=\"img/icons/Complete-Icon.png\" alt=\"\"/> <span class=\"custom-dropdown-span\">Complete</span></a>";
+                        iconHTML += "<a onclick=\"ChangeOrderStatusDropdown('PickedUp'," + orderId + "," + storeId + ")\"><img class=\"list-icon\"  src=\"img/icons/Picked-Up-Icon.png\" alt=\"\"/><span class=\"custom-dropdown-span\"> Picked Up</span></a>";
+                        iconHTML += "</div>";
                     }
                     else if (status == "Processing") {
                         iconHTML += "<button id=\"btnStatusChange\" onclick=\"myFunction(" + orderId + ")\" class=\"dropbtn\"><img class=\"list-icon\"  src=\"img/icons/pending.png\" alt=\"\"/></button>";
                         iconHTML += "<div id=\"myDropdown_" + orderId + "\" class=\"dropdown-content\"><div onclick=\"HideStatusChangeDropdown(" + orderId + ");\" id =\"close_status_dropdown\" class=\"close_status_dropdown\">X</div>";
-                        iconHTML += "<a disabled class=\"disabled\" onclick=\"ChangeOrderStatusDropdown('Processing'," + orderId + "," + storeId + ")\"><img class=\"list-icon\"  src=\"img/icons/pending.png\" alt=\"\"/> <span class=\"custom-dropdown-span\">Processing</span></a>";
+                        iconHTML += "<a  class=\"status-disabled\" onclick=\"HideStatusChangeDropdown(" + orderId + ");\"><img class=\"list-icon\"  src=\"img/icons/pending.png\" alt=\"\"/> <span class=\"custom-dropdown-span\">Processing</span></a>";
                         iconHTML += "<a onclick=\"ChangeOrderStatusDropdown('Complete'," + orderId + "," + storeId + ")\"><img class=\"list-icon\"  src=\"img/icons/Complete-Icon.png\" alt=\"\"/> <span class=\"custom-dropdown-span\">Complete</span></a>";
                         iconHTML += "<a  onclick=\"ChangeOrderStatusDropdown('PickedUp'," + orderId + "," + storeId + ")\"><img class=\"list-icon\"  src=\"img/icons/Picked-Up-Icon.png\" alt=\"\"/><span class=\"custom-dropdown-span\"> Picked Up</span></a>";
                         iconHTML += "</div>";
                     }
                     else if (status == "Complete") {
-                     
+
                         iconHTML += "<button id=\"btnStatusChange\" onclick=\"myFunction(" + orderId + ")\" class=\"dropbtn\"><img class=\"list-icon\"  src=\"img/icons/Complete-Icon.png\" alt=\"\"/></button>";
                         iconHTML += "<div id=\"myDropdown_" + orderId + "\" class=\"dropdown-content\"><div onclick=\"HideStatusChangeDropdown(" + orderId + ");\" id =\"close_status_dropdown\" class=\"close_status_dropdown\">X</div>";
                         iconHTML += "<a onclick=\"ChangeOrderStatusDropdown('Processing'," + orderId + "," + storeId + ")\"><img class=\"list-icon\"  src=\"img/icons/pending.png\" alt=\"\"/> <span class=\"custom-dropdown-span\">Processing</span></a>";
-                        iconHTML += "<a disabled class=\"disabled\" onclick=\"ChangeOrderStatusDropdown('Complete'," + orderId + "," + storeId + ")\"><img class=\"list-icon\"  src=\"img/icons/Complete-Icon.png\" alt=\"\"/> <span class=\"custom-dropdown-span\">Complete</span></a>";
+                        iconHTML += "<a  class=\"status-disabled\" onclick=\"HideStatusChangeDropdown(" + orderId + ");\"><img class=\"list-icon\"  src=\"img/icons/Complete-Icon.png\" alt=\"\"/> <span class=\"custom-dropdown-span\">Complete</span></a>";
                         iconHTML += "<a  onclick=\"ChangeOrderStatusDropdown('PickedUp'," + orderId + "," + storeId + ")\"><img class=\"list-icon\"  src=\"img/icons/Picked-Up-Icon.png\" alt=\"\"/><span class=\"custom-dropdown-span\"> Picked Up</span></a>";
                         iconHTML += "</div>";
                     }
@@ -2061,7 +1924,7 @@ function ChangeOrderStatusDropdown(status, orderId, storeId) {
                         iconHTML += "<div id=\"myDropdown_" + orderId + "\" class=\"dropdown-content\"><div onclick=\"HideStatusChangeDropdown(" + orderId + ");\" id =\"close_status_dropdown\" class=\"close_status_dropdown\">X</div>";
                         iconHTML += "<a onclick=\"ChangeOrderStatusDropdown('Processing'," + orderId + "," + storeId + ")\"><img class=\"list-icon\"  src=\"img/icons/pending.png\" alt=\"\"/> <span class=\"custom-dropdown-span\">Processing</span></a>";
                         iconHTML += "<a onclick=\"ChangeOrderStatusDropdown('Complete'," + orderId + "," + storeId + ")\"><img class=\"list-icon\"  src=\"img/icons/Complete-Icon.png\" alt=\"\"/> <span class=\"custom-dropdown-span\">Complete</span></a>";
-                        iconHTML += "<a disabled class=\"disabled\"  onclick=\"ChangeOrderStatusDropdown('PickedUp'," + orderId + "," + storeId + ")\"><img class=\"list-icon\"  src=\"img/icons/Picked-Up-Icon.png\" alt=\"\"/><span class=\"custom-dropdown-span\"> Picked Up</span></a>";
+                        iconHTML += "<a  class=\"status-disabled\"  onclick=\"HideStatusChangeDropdown(" + orderId + ");\"><img class=\"list-icon\"  src=\"img/icons/Picked-Up-Icon.png\" alt=\"\"/><span class=\"custom-dropdown-span\"> Picked Up</span></a>";
                         iconHTML += "</div>";
                     }
 
@@ -2078,8 +1941,7 @@ function ChangeOrderStatusDropdown(status, orderId, storeId) {
     }
 
 }
-function HideStatusChangeDropdown(orderId)
-{
+function HideStatusChangeDropdown(orderId) {
     $("#myDropdown_" + orderId).removeClass("show");
 }
 
@@ -2115,17 +1977,32 @@ function ChangePopupOrderStatusDropdown(status, orderId, storeId) {
                     var buttonHTML = "";
                     var iconHTML = "";
                     var iconHTML1 = "";
-                    if (status == "Processing") {
+                    if (status == "New") {
+                        iconHTML += "<button id=\"btnStatusChange\" onclick=\"myPopupFunction(" + orderId + ")\" class=\"dropbtn\"><img class=\"list-icon\"  src=\"img/icons/new.png\" alt=\"\"/></button>";
+                        iconHTML += "<div id=\"myPopupDropdown_" + orderId + "\" class=\"dropdown-content\"><div onclick=\"HidePopupStatusChangeDropdown(" + orderId + ");\" id =\"close_status_dropdown\" class=\"close_status_dropdown\">X</div>";
+                        iconHTML += "<a onclick=\"ChangePopupOrderStatusDropdown('Processing'," + orderId + "," + storeId + ")\"><img class=\"list-icon\"  src=\"img/icons/pending.png\" alt=\"\"/> <span class=\"custom-dropdown-span\">Processing</span></a>";
+                        iconHTML += "<a onclick=\"ChangePopupOrderStatusDropdown('Complete'," + orderId + "," + storeId + ")\"><img class=\"list-icon\"  src=\"img/icons/Complete-Icon.png\" alt=\"\"/> <span class=\"custom-dropdown-span\">Complete</span></a>";
+                        iconHTML += "<a onclick=\"ChangePopupOrderStatusDropdown('PickedUp'," + orderId + "," + storeId + ")\"><img class=\"list-icon\"  src=\"img/icons/Picked-Up-Icon.png\" alt=\"\"/><span class=\"custom-dropdown-span\"> Picked Up</span></a>";
+                        iconHTML += "</div>";
+
+                        iconHTML1 += "<button id=\"btnStatusChange\" onclick=\"myFunction(" + orderId + ")\" class=\"dropbtn\"><img class=\"list-icon\"  src=\"img/icons/pending.png\" alt=\"\"/></button>";
+                        iconHTML1 += "<div id=\"myDropdown_" + orderId + "\" class=\"dropdown-content\"><div onclick=\"HideStatusChangeDropdown(" + orderId + ");\" id =\"close_status_dropdown\" class=\"close_status_dropdown\">X</div>";
+                        iconHTML1 += "<a onclick=\"ChangeOrderStatusDropdown('Processing'," + orderId + "," + storeId + ")\"><img class=\"list-icon\"  src=\"img/icons/pending.png\" alt=\"\"/> <span class=\"custom-dropdown-span\">Processing</span></a>";
+                        iconHTML1 += "<a onclick=\"ChangeOrderStatusDropdown('Complete'," + orderId + "," + storeId + ")\"><img class=\"list-icon\"  src=\"img/icons/Complete-Icon.png\" alt=\"\"/> <span class=\"custom-dropdown-span\">Complete</span></a>";
+                        iconHTML1 += "<a onclick=\"ChangeOrderStatusDropdown('PickedUp'," + orderId + "," + storeId + ")\"><img class=\"list-icon\"  src=\"img/icons/Picked-Up-Icon.png\" alt=\"\"/><span class=\"custom-dropdown-span\"> Picked Up</span></a>";
+                        iconHTML1 += "</div>";
+                    }
+                    else if (status == "Processing") {
                         iconHTML += "<button id=\"btnStatusChange\" onclick=\"myPopupFunction(" + orderId + ")\" class=\"dropbtn\"><img class=\"list-icon\"  src=\"img/icons/pending.png\" alt=\"\"/></button>";
                         iconHTML += "<div id=\"myPopupDropdown_" + orderId + "\" class=\"dropdown-content\"><div onclick=\"HidePopupStatusChangeDropdown(" + orderId + ");\" id =\"close_status_dropdown\" class=\"close_status_dropdown\">X</div>";
-                        iconHTML += "<a disabled class=\"disabled\" onclick=\"ChangePopupOrderStatusDropdown('Processing'," + orderId + "," + storeId + ")\"><img class=\"list-icon\"  src=\"img/icons/pending.png\" alt=\"\"/> <span class=\"custom-dropdown-span\">Processing</span></a>";
+                        iconHTML += "<a class=\"status-disabled\" onclick=\"HidePopupStatusChangeDropdown(" + orderId + ");\"><img class=\"list-icon\"  src=\"img/icons/pending.png\" alt=\"\"/> <span class=\"custom-dropdown-span\">Processing</span></a>";
                         iconHTML += "<a onclick=\"ChangePopupOrderStatusDropdown('Complete'," + orderId + "," + storeId + ")\"><img class=\"list-icon\"  src=\"img/icons/Complete-Icon.png\" alt=\"\"/> <span class=\"custom-dropdown-span\">Complete</span></a>";
                         iconHTML += "<a  onclick=\"ChangePopupOrderStatusDropdown('PickedUp'," + orderId + "," + storeId + ")\"><img class=\"list-icon\"  src=\"img/icons/Picked-Up-Icon.png\" alt=\"\"/><span class=\"custom-dropdown-span\"> Picked Up</span></a>";
                         iconHTML += "</div>";
 
                         iconHTML1 += "<button id=\"btnStatusChange\" onclick=\"myFunction(" + orderId + ")\" class=\"dropbtn\"><img class=\"list-icon\"  src=\"img/icons/pending.png\" alt=\"\"/></button>";
                         iconHTML1 += "<div id=\"myDropdown_" + orderId + "\" class=\"dropdown-content\"><div onclick=\"HideStatusChangeDropdown(" + orderId + ");\" id =\"close_status_dropdown\" class=\"close_status_dropdown\">X</div>";
-                        iconHTML1 += "<a disabled class=\"disabled\" onclick=\"ChangeOrderStatusDropdown('Processing'," + orderId + "," + storeId + ")\"><img class=\"list-icon\"  src=\"img/icons/pending.png\" alt=\"\"/> <span class=\"custom-dropdown-span\">Processing</span></a>";
+                        iconHTML1 += "<a class=\"status-disabled\" onclick=\"HideStatusChangeDropdown(" + orderId + ");\"><img class=\"list-icon\"  src=\"img/icons/pending.png\" alt=\"\"/> <span class=\"custom-dropdown-span\">Processing</span></a>";
                         iconHTML1 += "<a onclick=\"ChangeOrderStatusDropdown('Complete'," + orderId + "," + storeId + ")\"><img class=\"list-icon\"  src=\"img/icons/Complete-Icon.png\" alt=\"\"/> <span class=\"custom-dropdown-span\">Complete</span></a>";
                         iconHTML1 += "<a  onclick=\"ChangeOrderStatusDropdown('PickedUp'," + orderId + "," + storeId + ")\"><img class=\"list-icon\"  src=\"img/icons/Picked-Up-Icon.png\" alt=\"\"/><span class=\"custom-dropdown-span\"> Picked Up</span></a>";
                         iconHTML1 += "</div>";
@@ -2135,7 +2012,7 @@ function ChangePopupOrderStatusDropdown(status, orderId, storeId) {
                         iconHTML += "<button id=\"btnStatusChange\" onclick=\"myPopupFunction(" + orderId + ")\" class=\"dropbtn\"><img class=\"list-icon\"  src=\"img/icons/Complete-Icon.png\" alt=\"\"/></button>";
                         iconHTML += "<div id=\"myPopupDropdown_" + orderId + "\" class=\"dropdown-content\"><div onclick=\"HidePopupStatusChangeDropdown(" + orderId + ");\" id =\"close_status_dropdown\" class=\"close_status_dropdown\">X</div>";
                         iconHTML += "<a onclick=\"ChangePopupOrderStatusDropdown('Processing'," + orderId + "," + storeId + ")\"><img class=\"list-icon\"  src=\"img/icons/pending.png\" alt=\"\"/> <span class=\"custom-dropdown-span\">Processing</span></a>";
-                        iconHTML += "<a disabled class=\"disabled\" onclick=\"ChangePopupOrderStatusDropdown('Complete'," + orderId + "," + storeId + ")\"><img class=\"list-icon\"  src=\"img/icons/Complete-Icon.png\" alt=\"\"/> <span class=\"custom-dropdown-span\">Complete</span></a>";
+                        iconHTML += "<a class=\"status-disabled\" onclick=\"HidePopupStatusChangeDropdown(" + orderId + ");\"><img class=\"list-icon\"  src=\"img/icons/Complete-Icon.png\" alt=\"\"/> <span class=\"custom-dropdown-span\">Complete</span></a>";
                         iconHTML += "<a  onclick=\"ChangePopupOrderStatusDropdown('PickedUp'," + orderId + "," + storeId + ")\"><img class=\"list-icon\"  src=\"img/icons/Picked-Up-Icon.png\" alt=\"\"/><span class=\"custom-dropdown-span\"> Picked Up</span></a>";
                         iconHTML += "</div>";
 
@@ -2143,7 +2020,7 @@ function ChangePopupOrderStatusDropdown(status, orderId, storeId) {
                         iconHTML1 += "<button id=\"btnStatusChange\" onclick=\"myFunction(" + orderId + ")\" class=\"dropbtn\"><img class=\"list-icon\"  src=\"img/icons/Complete-Icon.png\" alt=\"\"/></button>";
                         iconHTML1 += "<div id=\"myDropdown_" + orderId + "\" class=\"dropdown-content\"><div onclick=\"HideStatusChangeDropdown(" + orderId + ");\" id =\"close_status_dropdown\" class=\"close_status_dropdown\">X</div>";
                         iconHTML1 += "<a onclick=\"ChangeOrderStatusDropdown('Processing'," + orderId + "," + storeId + ")\"><img class=\"list-icon\"  src=\"img/icons/pending.png\" alt=\"\"/> <span class=\"custom-dropdown-span\">Processing</span></a>";
-                        iconHTML1 += "<a disabled class=\"disabled\" onclick=\"ChangeOrderStatusDropdown('Complete'," + orderId + "," + storeId + ")\"><img class=\"list-icon\"  src=\"img/icons/Complete-Icon.png\" alt=\"\"/> <span class=\"custom-dropdown-span\">Complete</span></a>";
+                        iconHTML1 += "<a class=\"status-disabled\" onclick=\"HideStatusChangeDropdown(" + orderId + ");\"><img class=\"list-icon\"  src=\"img/icons/Complete-Icon.png\" alt=\"\"/> <span class=\"custom-dropdown-span\">Complete</span></a>";
                         iconHTML1 += "<a  onclick=\"ChangeOrderStatusDropdown('PickedUp'," + orderId + "," + storeId + ")\"><img class=\"list-icon\"  src=\"img/icons/Picked-Up-Icon.png\" alt=\"\"/><span class=\"custom-dropdown-span\"> Picked Up</span></a>";
                         iconHTML1 += "</div>";
 
@@ -2153,7 +2030,7 @@ function ChangePopupOrderStatusDropdown(status, orderId, storeId) {
                         iconHTML += "<div id=\"myPopupDropdown_" + orderId + "\" class=\"dropdown-content\"><div onclick=\"HidePopupStatusChangeDropdown(" + orderId + ");\" id =\"close_status_dropdown\" class=\"close_status_dropdown\">X</div>";
                         iconHTML += "<a onclick=\"ChangePopupOrderStatusDropdown('Processing'," + orderId + "," + storeId + ")\"><img class=\"list-icon\"  src=\"img/icons/pending.png\" alt=\"\"/> <span class=\"custom-dropdown-span\">Processing</span></a>";
                         iconHTML += "<a onclick=\"ChangePopupOrderStatusDropdown('Complete'," + orderId + "," + storeId + ")\"><img class=\"list-icon\"  src=\"img/icons/Complete-Icon.png\" alt=\"\"/> <span class=\"custom-dropdown-span\">Complete</span></a>";
-                        iconHTML += "<a disabled class=\"disabled\"  onclick=\"ChangePopupOrderStatusDropdown('PickedUp'," + orderId + "," + storeId + ")\"><img class=\"list-icon\"  src=\"img/icons/Picked-Up-Icon.png\" alt=\"\"/><span class=\"custom-dropdown-span\"> Picked Up</span></a>";
+                        iconHTML += "<a class=\"status-disabled\"  onclick=\"HidePopupStatusChangeDropdown(" + orderId + ");\"><img class=\"list-icon\"  src=\"img/icons/Picked-Up-Icon.png\" alt=\"\"/><span class=\"custom-dropdown-span\"> Picked Up</span></a>";
                         iconHTML += "</div>";
 
 
@@ -2161,15 +2038,15 @@ function ChangePopupOrderStatusDropdown(status, orderId, storeId) {
                         iconHTML1 += "<div id=\"myDropdown_" + orderId + "\" class=\"dropdown-content\"><div onclick=\"HideStatusChangeDropdown(" + orderId + ");\" id =\"close_status_dropdown\" class=\"close_status_dropdown\">X</div>";
                         iconHTML1 += "<a onclick=\"ChangeOrderStatusDropdown('Processing'," + orderId + "," + storeId + ")\"><img class=\"list-icon\"  src=\"img/icons/pending.png\" alt=\"\"/> <span class=\"custom-dropdown-span\">Processing</span></a>";
                         iconHTML1 += "<a onclick=\"ChangeOrderStatusDropdown('Complete'," + orderId + "," + storeId + ")\"><img class=\"list-icon\"  src=\"img/icons/Complete-Icon.png\" alt=\"\"/> <span class=\"custom-dropdown-span\">Complete</span></a>";
-                        iconHTML1 += "<a disabled class=\"disabled\"  onclick=\"ChangeOrderStatusDropdown('PickedUp'," + orderId + "," + storeId + ")\"><img class=\"list-icon\"  src=\"img/icons/Picked-Up-Icon.png\" alt=\"\"/><span class=\"custom-dropdown-span\"> Picked Up</span></a>";
+                        iconHTML1 += "<a class=\"status-disabled\"  onclick=\"HideStatusChangeDropdown(" + orderId + ");\"><img class=\"list-icon\"  src=\"img/icons/Picked-Up-Icon.png\" alt=\"\"/><span class=\"custom-dropdown-span\"> Picked Up</span></a>";
                         iconHTML1 += "</div>";
                     }
 
                     $("#carryoutpopstatus_" + orderId).html(iconHTML);
                     $("#carryoutstatus_" + orderId).html(iconHTML);
 
-                    
-              
+
+
 
                 }
             },
@@ -2200,7 +2077,7 @@ function PopupChangeOrderStatusNew(status, orderId, storeId) {
 
 
     if (storeId > 0 && orderId > 0) {
-      
+
         $.ajax({
             url: global + 'ChangeOrderStatus?storeid=' + storeId + '&orderId=' + orderId + "&status=" + status,
             type: 'GET',
@@ -2210,8 +2087,8 @@ function PopupChangeOrderStatusNew(status, orderId, storeId) {
             async: false,
             success: function (data) {
                 var orderhtml = "";
-               
-            
+
+
 
                 var buttonHTML = "";
                 if (status == "New") {
@@ -2219,7 +2096,7 @@ function PopupChangeOrderStatusNew(status, orderId, storeId) {
                     buttonHTML += "<a onclick=\"PopupChangeOrderStatusNew('Processing'," + orderId + "," + storeId + ")\"  id=\"btnAccept\"><img src=\"./img/icons/accept_button.png\" style=\"width:40%;margin: 0 61px;\" /></a>";
                     buttonHTML += "<a onclick=\"PopupChangeOrderStatusNew('New'," + orderId + "," + storeId + ")\"  id=\"btnNew\" style=\"display:none;\"><img src=\"./img/icons/new_button.png\" /></a>";
                     buttonHTML += "<a onclick=\"PopupChangeOrderStatusNew('Processing'," + orderId + "," + storeId + ")\"  id=\"btnProcessing\" style=\"display:none;\"><img src=\"./img/icons/pending_button.png\"  /></a>";
-                    buttonHTML += "<a onclick=\"PopupChangeOrderStatusNew('Complete'," + orderId + "," + storeId + ")\" id=\"btnComplete\" style=\"display:none;\"><img src=\"./img/icons/complete_button.png\"  /></a>";                    
+                    buttonHTML += "<a onclick=\"PopupChangeOrderStatusNew('Complete'," + orderId + "," + storeId + ")\" id=\"btnComplete\" style=\"display:none;\"><img src=\"./img/icons/complete_button.png\"  /></a>";
                     buttonHTML += "<a onclick=\"PopupChangeOrderStatusNew('PickedUp'," + orderId + "," + storeId + ")\"  id=\"btnPickedUp\" style=\"display:none;\"><img src=\"./img/icons/picked_up_button.png\"  /></a>";
                     //buttonHTML += "<a onclick=\"SendPickUpSMSToCustomer(" + value.ID + ")\"  id=\"btnPickupSMS\" style=\"display:none;\"><img src=\"./img/icons/pickup_sms_button.png\" /></a>";
                 }
@@ -2228,19 +2105,19 @@ function PopupChangeOrderStatusNew(status, orderId, storeId) {
                     buttonHTML += "<a onclick=\"PopupChangeOrderStatusNew('Processing'," + orderId + "," + storeId + ")\"  id=\"btnAccept\"  style=\"display:none;\"><img src=\"./img/icons/accept_button.png\"  /></a>";
                     buttonHTML += "<a class=\"carryout-button\" onclick=\"PopupChangeOrderStatusNew('New'," + orderId + "," + storeId + ")\"  id=\"btnNew\"><img class=\"carryout-button-set-2\" src=\"./img/icons/new_button.png\"  /></a>";
                     buttonHTML += "<img class=\"carryout-button-set carryout-button\" src=\"./img/icons/pending_button_active.png\" />";
-                    buttonHTML += "<a class=\"carryout-button\" onclick=\"PopupChangeOrderStatusNew('Complete'," + orderId + "," + storeId + ")\"  id=\"btnComplete\"><img class=\"carryout-button-set-2\" src=\"./img/icons/complete_button.png\" /></a>";                    
+                    buttonHTML += "<a class=\"carryout-button\" onclick=\"PopupChangeOrderStatusNew('Complete'," + orderId + "," + storeId + ")\"  id=\"btnComplete\"><img class=\"carryout-button-set-2\" src=\"./img/icons/complete_button.png\" /></a>";
                     //buttonHTML += "<a onclick=\"ChangeOrderStatusNew('Processing'," + value.ID + "," + storeId + ")\"  id=\"btnProcessing\" style=\"display:none;\"><img src=\"./img/icons/pending_button.png\" /></a>";
                     buttonHTML += "<a class=\"carryout-button\" onclick=\"PopupChangeOrderStatusNew('PickedUp'," + orderId + "," + storeId + ")\"  id=\"btnPickedUp\"><img class=\"carryout-button-set-2\" src=\"./img/icons/picked_up_button.png\"/></a>";
                     //buttonHTML += "<a onclick=\"SendPickUpSMSToCustomer(" + value.ID + ")\"  id=\"btnPickupSMS\" style=\"display:none;\"><img src=\"./img/icons/pickup_sms_button.png\"  /></a>";
                 }
                 else if (status == "Complete") {
                     orderhtml = "<img class=\"list-icon\"  src=\"img/icons/Complete-Icon.png\" alt=\"\"/>";
-                   
+
                     buttonHTML += "<a onclick=\"PopupChangeOrderStatusNew('Processing'," + orderId + "," + storeId + ")\"  id=\"btnAccept\"  style=\"display:none;\"><img src=\"./img/icons/accept_button.png\" /></a>";
                     buttonHTML += "<a class=\"carryout-button\" onclick=\"PopupChangeOrderStatusNew('New'," + orderId + "," + storeId + ")\"  id=\"btnNew\"><img class=\"carryout-button-set-2\" src=\"./img/icons/new_button.png\" /></a>";
                     //buttonHTML += "<a onclick=\"ChangeOrderStatusNew('Complete'," + value.ID + "," + storeId + ")\"  id=\"btnComplete\" style=\"display:none;\"><img src=\"./img/icons/complete_button.png\"  /></a>";
                     buttonHTML += "<a class=\"carryout-button\" onclick=\"PopupChangeOrderStatusNew('Processing'," + orderId + "," + storeId + ")\"  id=\"btnProcessing\" ><img class=\"carryout-button-set-2\" src=\"./img/icons/pending_button.png\"/></a>";
-                    buttonHTML += "<img class=\"carryout-button-set carryout-button\" src=\"./img/icons/complete_button_active.png\"/>";                    
+                    buttonHTML += "<img class=\"carryout-button-set carryout-button\" src=\"./img/icons/complete_button_active.png\"/>";
                     buttonHTML += "<a class=\"carryout-button\" onclick=\"PopupChangeOrderStatusNew('PickedUp'," + orderId + "," + storeId + ")\"  id=\"btnPickedUp\"><img class=\"carryout-button-set-2\" src=\"./img/icons/picked_up_button.png\"/></a>";
                     //if ($("#hdnSelectedOrderPickUpSMSSentTime").val().trim() == "")
                     //    buttonHTML += "<a onclick=\"SendPickUpSMSToCustomer(" + value.ID + ")\"  id=\"btnPickupSMS\"><img src=\"./img/icons/pickup_sms_button.png\"  style=\"width:61%;margin:0 0;\"/></a>";
@@ -2253,7 +2130,7 @@ function PopupChangeOrderStatusNew(status, orderId, storeId) {
                     buttonHTML += "<a onclick=\"PopupChangeOrderStatusNew('Processing'," + orderId + "," + storeId + ")\"  id=\"btnAccept\"  style=\"display:none;\"><img src=\"./img/icons/accept_button.png\"  /></a>";
                     buttonHTML += "<a class=\"carryout-button\" onclick=\"PopupChangeOrderStatusNew('New'," + orderId + "," + storeId + ")\"  id=\"btnNew\"><img src=\"./img/icons/new_button.png\" class=\"carryout-button-set-2\"  /></a>";
                     buttonHTML += "<a class=\"carryout-button\" onclick=\"PopupChangeOrderStatusNew('Processing'," + orderId + "," + storeId + ")\"  id=\"btnProcessing\"><img class=\"carryout-button-set-2\" src=\"./img/icons/pending_button.png\"  /></a>";
-                    buttonHTML += "<a class=\"carryout-button\" onclick=\"PopupChangeOrderStatusNew('Complete'," + orderId + "," + storeId + ")\"  id=\"btnComplete\"><img class=\"carryout-button-set-2\" src=\"./img/icons/complete_button.png\" /></a>";                    
+                    buttonHTML += "<a class=\"carryout-button\" onclick=\"PopupChangeOrderStatusNew('Complete'," + orderId + "," + storeId + ")\"  id=\"btnComplete\"><img class=\"carryout-button-set-2\" src=\"./img/icons/complete_button.png\" /></a>";
                     //buttonHTML += "<a onclick=\"ChangeOrderStatusNew('PickedUp'," + value.ID + "," + storeId + ")\"  id=\"btnPickedUp\" style=\"display:none;\"><img src=\"./img/icons/pickup_sms_button.png\"  /></a>";
                     buttonHTML += "<img class=\"carryout-button-set carryout-button\" src=\"./img/icons/picked_up_button_active.png\"  /></a>";
 
@@ -2966,7 +2843,7 @@ function GoToRewardsNew() {
 
 
 function SearchGiftCard() {
-  
+
     $('#btnLoadGiftCard').addClass("disabled");
     $('#btnRedeemGiftCard').addClass("disabled");
 
@@ -2976,7 +2853,7 @@ function SearchGiftCard() {
     $("#txtLoad").val("");
     $('#btnLoadGiftCard').text("Load");
     $('#btnRedeemGiftCard').text("Redeem");
-    
+
 
     var storeId = 0;
     var params = getParams();
@@ -2985,7 +2862,7 @@ function SearchGiftCard() {
     if (storeId > 0) {
         var cardCode = $('#txtCardCodeSearch').val();
         var phone = $('#txtPhone').val();
-       
+
         if (phone == '') {
             phone = '0';
         }
@@ -2994,7 +2871,7 @@ function SearchGiftCard() {
             pin = '0';
         }
         if (cardCode != "") {
-            
+
             $("#txtCardCodeSearch").css('border-bottom', bottomBorder);
             $("#txtPhoneSearch").css('border-bottom', bottomBorder);
             $("#txtRedeem").css('border-bottom', bottomBorder);
@@ -3036,13 +2913,13 @@ function SearchGiftCard() {
                         //$('#btnLoadReward').prop("disabled", true);
                         //$('#btnRedeemReward').prop("disabled", true);
                         if (pin.trim() === '' || pin === '0') {
-                           // console.log("1");
+                            // console.log("1");
                             $('#dvInner').hide();
                             $('#dvOuter').hide();
                             $('#dvOuterText').html("");
                             $("#txtPINSearch").css('border-bottom', errorClassBorder);
                         }
-                  
+
                     }
                     else if (data.replace(/"/g, "").indexOf("Invalid PIN.") > -1) {
                         $('#dvInner').hide();
@@ -3079,7 +2956,7 @@ function SearchGiftCard() {
                             //console.log(value);
                             $('#btnRedeemGiftCard').removeClass("disabled");
                             $('#btnLoadGiftCard').removeClass("disabled");
-                          
+
                             if (value.Type == "GiftCardInfo") {
                                 var htmlHistory = "";
                                 var firstName = "";
@@ -3121,7 +2998,7 @@ function SearchGiftCard() {
                                     amount = FormatDecimal(value.AMOUNT);
                                     //amount = value.AMOUNT;
                                 }
-                               
+
                                 if (value.BALANCEAMOUNT != "") {
                                     balanceAmount = FormatDecimal(value.BALANCEAMOUNT);
                                     //balanceAmount = value.BALANCEAMOUNT;
@@ -3232,7 +3109,7 @@ function RedeemGiftCard() {
                     $("#txtRedeem").css('border-bottom', bottomBorder);
                     $("#txtPhoneSearch").css('border-bottom', bottomBorder);
 
-                   
+
                     if (data.replace(/"/g, "").indexOf("PIN is required.") > -1) {
                         $('#dvInner').hide();
                         //$('#btnLoadReward').prop("disabled", true);
@@ -3392,7 +3269,7 @@ function LoadGiftCard() {
 
         $('#btnLoadGiftCard').text("Loading...");
         try {
-            url = global + "/GiftCardLoad?storeid=" + storeId + "&giftCardCode=" + encodeURIComponent(cardCode) + "&phone=" + phone + "&amount=" + amount+"&pin="+pin;
+            url = global + "/GiftCardLoad?storeid=" + storeId + "&giftCardCode=" + encodeURIComponent(cardCode) + "&phone=" + phone + "&amount=" + amount + "&pin=" + pin;
             //alert(url);
 
             var totalHistoryAmount = 0;
@@ -3403,8 +3280,8 @@ function LoadGiftCard() {
                 $("#txtPhoneSearch").css('border-bottom', bottomBorder);
                 if (data.replace(/"/g, "").indexOf("PIN is required.") > -1) {
                     $('#dvInner').hide();
-                //$('#btnLoadReward').prop("disabled", true);
-                //$('#btnRedeemReward').prop("disabled", true);
+                    //$('#btnLoadReward').prop("disabled", true);
+                    //$('#btnRedeemReward').prop("disabled", true);
                     if (pin.trim() === '' || pin === '0') {
                         // console.log("1");
                         $('#dvInner').hide();
@@ -3412,9 +3289,9 @@ function LoadGiftCard() {
                         $('#dvOuterText').html("");
                         $("#txtPINSearch").css('border-bottom', errorClassBorder);
                     }
-                  
+
                 }
-               else if (data.replace(/"/g, "").indexOf("Invalid PIN.") > -1) {
+                else if (data.replace(/"/g, "").indexOf("Invalid PIN.") > -1) {
                     $('#dvInner').hide();
                     $('#dvOuter').hide();
                     $('#dvOuterText').html("");
@@ -3422,8 +3299,8 @@ function LoadGiftCard() {
                     callSweetAlertWarning("Invalid PIN.");
 
                 }
-                //console.log("Load: " + data);
-               else if (data.replace(/"/g, "").indexOf("Phone is not valid.") > -1) {
+                    //console.log("Load: " + data);
+                else if (data.replace(/"/g, "").indexOf("Phone is not valid.") > -1) {
                     $('#tblRedeemHistory tbody').html("");
                     $('#dvInner').hide();
                     //$('#alertHearderText').html("Message");
@@ -3777,22 +3654,72 @@ function GiftCardOrdersList(pagesize, currentPage) {
                         html += "<div class=\"order-column-one\" data-panel=\"left\" onclick=\"OpenGiftCardDetails(" + value.ID + ");\">";
                         /*------------------Status Icon--------------------*/
 
+                        //if (value.ORDERSTATUSID.toLowerCase() == "new") {
+                        //    html += "<div class=\"order-status-icon\"><img id='img_" + value.ID + "' class=\"list-icon\" src=\"img/icons/new.png\" alt=\"\"/></div>";
+                        //}
+                        //else if (value.ORDERSTATUSID.toLowerCase() == "processing") {
+                        //    html += "<div class=\"order-status-icon\"><img id='img_" + value.ID + "' class=\"list-icon\" src=\"img/icons/pending.png\" alt=\"\"/></div>";
+                        //}
+                        //else if (value.ORDERSTATUSID.toLowerCase() == "shipped") {
+                        //    html += "<div class=\"order-status-icon\"><img id='img_" + value.ID + "' class=\"list-icon\" src=\"img/icons/shipped.png\" alt=\"\"/></div>";
+                        //}
+                        //else if (value.ORDERSTATUSID.toLowerCase() == "complete") {
+                        //    html += "<div class=\"order-status-icon\"><img id='img_" + value.ID + "' class=\"list-icon\" src=\"img/icons/Complete-Icon.png\" alt=\"\"/></div>";
+                        //}
+                        //else if (value.ORDERSTATUSID.toLowerCase() == "pickedup") {
+                        //    html += "<div class=\"order-status-icon\"><img id='img_" + value.ID + "' class=\"list-icon\" src=\"img/icons/Picked-Up-Icon.png\" alt=\"\"/></div>";
+                        //}
                         if (value.ORDERSTATUSID.toLowerCase() == "new") {
-                            html += "<div class=\"order-status-icon\"><img id='img_" + value.ID + "' class=\"list-icon\" src=\"img/icons/new.png\" alt=\"\"/></div>";
+                            html += "<div class=\"order-status-icon\" id=\"carryoutstatus_" + value.ID + "\"><img class=\"list-icon\"  src=\"img/icons/new.png\" alt=\"\"/></div>";
                         }
                         else if (value.ORDERSTATUSID.toLowerCase() == "processing") {
-                            html += "<div class=\"order-status-icon\"><img id='img_" + value.ID + "' class=\"list-icon\" src=\"img/icons/pending.png\" alt=\"\"/></div>";
+                            // html += "<div class=\"order-status-icon\" id=\"carryoutstatus_" + value.ID + "\"><img class=\"list-icon\"  src=\"img/icons/pending.png\" alt=\"\"/></div>";
+
+                            html += "<div class=\"dropdown\" id=\"giftcardstatus_" + value.ID + "\">";
+                            html += "<button id=\"btnStatusChange\" onclick=\"myFunction(" + value.ID + ")\" class=\"dropbtn\"><img class=\"list-icon\"  src=\"img/icons/pending.png\" alt=\"\"/></button>";
+                            html += "<div id=\"myDropdown_" + value.ID + "\" class=\"dropdown-content\"><div onclick=\"HideStatusChangeDropdown(" + value.ID + ");\" id =\"close_status_dropdown\" class=\"close_status_dropdown\">X</div>";
+                            html += "<a disabled class=\"status-disabled\" onclick=\"ChangeGiftCardOrderStatusById('Processing'," + value.ID + "," + storeId + ")\"><img class=\"list-icon\"  src=\"img/icons/pending.png\" alt=\"\"/> <span class=\"custom-dropdown-span\">Processing</span></a>";
+                            html += "<a onclick=\"ChangeGiftCardOrderStatusById('Complete'," + value.ID + "," + storeId + ")\"><img class=\"list-icon\"  src=\"img/icons/Complete-Icon.png\" alt=\"\"/> <span class=\"custom-dropdown-span\">Complete</span></a>";
+                            html += "<a  onclick=\"ChangeGiftCardOrderStatusById('PickedUp'," + value.ID + "," + storeId + ")\"><img class=\"list-icon\"  src=\"img/icons/Picked-Up-Icon.png\" alt=\"\"/><span class=\"custom-dropdown-span\"> Picked Up</span></a>";
+                            html += "</div>";
+                            html += "</div>";
+
+
+
                         }
                         else if (value.ORDERSTATUSID.toLowerCase() == "shipped") {
-                            html += "<div class=\"order-status-icon\"><img id='img_" + value.ID + "' class=\"list-icon\" src=\"img/icons/shipped.png\" alt=\"\"/></div>";
+                            // html += "<div class=\"order-status-icon\" id=\"carryoutstatus_" + value.ID + "\"><img class=\"list-icon\"  src=\"img/icons/Complete-Icon.png\" alt=\"\"/></div>";
+                            html += "<div class=\"dropdown\" id=\"carryoutstatus_" + value.ID + "\">";
+                            html += "<button id=\"btnStatusChange\" onclick=\"myFunction(" + value.ID + ")\" class=\"dropbtn\"><img class=\"list-icon\"  src=\"img/icons/shipped.png\" alt=\"\"/></button>";
+                            html += "<div id=\"myDropdown_" + value.ID + "\" class=\"dropdown-content\"><div onclick=\"HideStatusChangeDropdown(" + value.ID + ");\" id =\"close_status_dropdown\" class=\"close_status_dropdown\">X</div>";
+                            html += "<a onclick=\"ChangeGiftCardOrderStatusById('Processing'," + value.ID + "," + storeId + ")\"><img class=\"list-icon\"  src=\"img/icons/pending.png\" alt=\"\"/> <span class=\"custom-dropdown-span\">Processing</span></a>";
+                            html += "<a disabled class=\"status-disabled\" onclick=\"ChangeGiftCardOrderStatusById('Complete'," + value.ID + "," + storeId + ")\"><img class=\"list-icon\"  src=\"img/icons/Complete-Icon.png\" alt=\"\"/> <span class=\"custom-dropdown-span\">Complete</span></a>";
+                            html += "<a  onclick=\"ChangeGiftCardOrderStatusById('PickedUp'," + value.ID + "," + storeId + ")\"><img class=\"list-icon\"  src=\"img/icons/Picked-Up-Icon.png\" alt=\"\"/><span class=\"custom-dropdown-span\"> Picked Up</span></a>";
+                            html += "</div>";
+                            html += "</div>";
                         }
                         else if (value.ORDERSTATUSID.toLowerCase() == "complete") {
-                            html += "<div class=\"order-status-icon\"><img id='img_" + value.ID + "' class=\"list-icon\" src=\"img/icons/Complete-Icon.png\" alt=\"\"/></div>";
+                            //html += "<div class=\"order-status-icon\" id=\"carryoutstatus_" + value.ID + "\"><img class=\"list-icon\"  src=\"img/icons/Picked-Up-Icon.png\" alt=\"\"/></div>";
+                            html += "<div class=\"dropdown\" id=\"carryoutstatus_" + value.ID + "\">";
+                            html += "<button id=\"btnStatusChange\" onclick=\"myFunction(" + value.ID + ")\" class=\"dropbtn\"><img class=\"list-icon\"  src=\"img/icons/Complete-Icon.png\" alt=\"\"/></button>";
+                            html += "<div id=\"myDropdown_" + value.ID + "\" class=\"dropdown-content\"><div onclick=\"ChangeGiftCardOrderStatusById(" + value.ID + ");\" id =\"close_status_dropdown\" class=\"close_status_dropdown\">X</div>";
+                            html += "<a onclick=\"ChangeGiftCardOrderStatusById('Processing'," + value.ID + "," + storeId + ")\"><img class=\"list-icon\"  src=\"img/icons/pending.png\" alt=\"\"/> <span class=\"custom-dropdown-span\">Processing</span></a>";
+                            html += "<a onclick=\"ChangeGiftCardOrderStatusById('Complete'," + value.ID + "," + storeId + ")\"><img class=\"list-icon\"  src=\"img/icons/Complete-Icon.png\" alt=\"\"/> <span class=\"custom-dropdown-span\">Complete</span></a>";
+                            html += "<a disabled class=\"status-disabled\"  onclick=\"ChangeGiftCardOrderStatusById('PickedUp'," + value.ID + "," + storeId + ")\"><img class=\"list-icon\"  src=\"img/icons/Picked-Up-Icon.png\" alt=\"\"/><span class=\"custom-dropdown-span\"> Picked Up</span></a>";
+                            html += "</div>";
+                            html += "</div>";
                         }
                         else if (value.ORDERSTATUSID.toLowerCase() == "pickedup") {
-                            html += "<div class=\"order-status-icon\"><img id='img_" + value.ID + "' class=\"list-icon\" src=\"img/icons/Picked-Up-Icon.png\" alt=\"\"/></div>";
+                            //html += "<div class=\"order-status-icon\" id=\"carryoutstatus_" + value.ID + "\"><img class=\"list-icon\"  src=\"img/icons/Picked-Up-Icon.png\" alt=\"\"/></div>";
+                            html += "<div class=\"dropdown\" id=\"carryoutstatus_" + value.ID + "\">";
+                            html += "<button id=\"btnStatusChange\" onclick=\"myFunction(" + value.ID + ")\" class=\"dropbtn\"><img class=\"list-icon\"  src=\"img/icons/Picked-Up-Icon.png\" alt=\"\"/></button>";
+                            html += "<div id=\"myDropdown_" + value.ID + "\" class=\"dropdown-content\"><div onclick=\"HideStatusChangeDropdown(" + value.ID + ");\" id =\"close_status_dropdown\" class=\"close_status_dropdown\">X</div>";
+                            html += "<a onclick=\"ChangeGiftCardOrderStatusById('Processing'," + value.ID + "," + storeId + ")\"><img class=\"list-icon\"  src=\"img/icons/pending.png\" alt=\"\"/> <span class=\"custom-dropdown-span\">Processing</span></a>";
+                            html += "<a onclick=\"ChangeGiftCardOrderStatusById('Complete'," + value.ID + "," + storeId + ")\"><img class=\"list-icon\"  src=\"img/icons/Complete-Icon.png\" alt=\"\"/> <span class=\"custom-dropdown-span\">Complete</span></a>";
+                            html += "<a disabled class=\"status-disabled\"  onclick=\"ChangeGiftCardOrderStatusById('PickedUp'," + value.ID + "," + storeId + ")\"><img class=\"list-icon\"  src=\"img/icons/Picked-Up-Icon.png\" alt=\"\"/><span class=\"custom-dropdown-span\"> Picked Up</span></a>";
+                            html += "</div>";
+                            html += "</div>";
                         }
-
                         /*-----------------Status Icon End----------------*/
                         if (value.GIFTCARDCOUPONCODE != undefined) {
                             html += "<div class=\"giftcard-order-pickup\" id=\'lbl_giftCardCode_" + value.ID + "'>" + value.GIFTCARDCOUPONCODE + "</div>";
@@ -3807,52 +3734,56 @@ function GiftCardOrdersList(pagesize, currentPage) {
                         /*------------------1st Row-----------------------*/
                         html += "<div class=\"order-row-container\">";
                         //html += "<div class=\"giftcard-order-number panel-open\" data-panel=\"left\" onclick=\"OpenGiftCardDetails(" + value.ID + ");\">#" + value.ORDERID + "<span> on </span><span>" + orderDate + " @ " + orderTime + "</span></div>";
-                        html += "<div class=\"giftcard-order-number panel-open\" data-panel=\"left\" onclick=\"OpenGiftCardDetails(" + value.ID + ");\">#" + value.ORDERID + "<span> on </span><span>" + orderDate + "</span></div>";
+                        html += "<div class=\"giftcard-order-number panel-open\" data-panel=\"left\"  style=\"width:75%;\" onclick=\"OpenGiftCardDetails(" + value.ID + ");\">#" + value.ORDERID + "<span> on </span><span>" + orderDate + "</span></div>";
                         /*------------------Button Row-----------------------*/
-                        if (value.ORDERSTATUSID == "New") {
+                        //if (value.ORDERSTATUSID == "New") {
 
-                            buttonHTML += "<img class=\"giftcard-button-set carryout-button\" src=\"./img/icons/new_button_active.png\"  />";
-                            //buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusById('Processing'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnProcessing_" + value.ID + "\"><img src=\"./img/icons/pending_button.png\" class=\"carryout-button-set-2\" /></a>";
-                            buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusById('Complete'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnComplete_" + value.ID + "\"><img src=\"./img/icons/complete_button.png\" class=\"carryout-button-set-2\"/></a>";
-                            buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusById('PickedUp'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnPickedUp_" + value.ID + "\"><img src=\"./img/icons/picked_up_button.png\"  class=\"carryout-button-set-2\"/></a>";
-                            buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusById('Shipped'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnShipped_" + value.ID + "\"><img src=\"./img/icons/shipped_button.png\" class=\"carryout-button-set-2\"/></a>";
-                            //buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusById('Processing'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnProcessing_" + value.ID + "\"><img src=\"./img/icons/pending_button.png\" class=\"carryout-button-set-2\" /></a>";
-                            //buttonHTML += "<img src=\"./img/icons/picked_up_button_active.png\" class=\"giftcard-button-set carryout-button\"/>";
-                            //buttonHTML += "<img src=\"./img/icons/shipped_button_active.png\" class=\"giftcard-button-set carryout-button\"/>";
-                            //buttonHTML += "<img src=\"./img/icons/complete_button_active.png\" class=\"giftcard-button-set carryout-button\" />";
-
-                        }
-                        //else if (value.ORDERSTATUSID == "Processing") {
-                        //    buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusById('New'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnNew_" + value.ID + "\"><img src=\"./img/icons/new_button.png\" class=\"carryout-button-set-2\" /></a>";
-                        //    //buttonHTML += "<img class=\"giftcard-button-set carryout-button\" src=\"./img/icons/pending_button_active.png\" />";
+                        //    buttonHTML += "<img class=\"giftcard-button-set carryout-button\" src=\"./img/icons/new_button_active.png\"  />";
+                        //    //buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusById('Processing'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnProcessing_" + value.ID + "\"><img src=\"./img/icons/pending_button.png\" class=\"carryout-button-set-2\" /></a>";
+                        //    buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusById('Complete'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnComplete_" + value.ID + "\"><img src=\"./img/icons/complete_button.png\" class=\"carryout-button-set-2\"/></a>";
                         //    buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusById('PickedUp'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnPickedUp_" + value.ID + "\"><img src=\"./img/icons/picked_up_button.png\"  class=\"carryout-button-set-2\"/></a>";
                         //    buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusById('Shipped'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnShipped_" + value.ID + "\"><img src=\"./img/icons/shipped_button.png\" class=\"carryout-button-set-2\"/></a>";
-                        //    buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusById('Complete'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnComplete_" + value.ID + "\"><img src=\"./img/icons/complete_button.png\" class=\"carryout-button-set-2\"/></a>";
+                        //    //buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusById('Processing'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnProcessing_" + value.ID + "\"><img src=\"./img/icons/pending_button.png\" class=\"carryout-button-set-2\" /></a>";
+                        //    //buttonHTML += "<img src=\"./img/icons/picked_up_button_active.png\" class=\"giftcard-button-set carryout-button\"/>";
+                        //    //buttonHTML += "<img src=\"./img/icons/shipped_button_active.png\" class=\"giftcard-button-set carryout-button\"/>";
+                        //    //buttonHTML += "<img src=\"./img/icons/complete_button_active.png\" class=\"giftcard-button-set carryout-button\" />";
+
                         //}
-                        else if (value.ORDERSTATUSID == "Shipped") {
-                            buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusById('New'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnNew_" + value.ID + "\"><img src=\"./img/icons/new_button.png\" class=\"carryout-button-set-2\" /></a>";
-                            buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusById('Complete'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnComplete_" + value.ID + "\"><img src=\"./img/icons/complete_button.png\" class=\"carryout-button-set-2\"/></a>";
-                            //buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusById('Processing'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnProcessing_" + value.ID + "\"><img src=\"./img/icons/pending_button.png\" class=\"carryout-button-set-2\" /></a>";
-                            buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusById('PickedUp'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnPickedUp_" + value.ID + "\"><img src=\"./img/icons/picked_up_button.png\"  class=\"carryout-button-set-2\"/></a>";
-                            buttonHTML += "<img class=\"giftcard-button-set carryout-button\"  src=\"./img/icons/shipped_button_active.png\"/>";
+                        ////else if (value.ORDERSTATUSID == "Processing") {
+                        ////    buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusById('New'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnNew_" + value.ID + "\"><img src=\"./img/icons/new_button.png\" class=\"carryout-button-set-2\" /></a>";
+                        ////    //buttonHTML += "<img class=\"giftcard-button-set carryout-button\" src=\"./img/icons/pending_button_active.png\" />";
+                        ////    buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusById('PickedUp'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnPickedUp_" + value.ID + "\"><img src=\"./img/icons/picked_up_button.png\"  class=\"carryout-button-set-2\"/></a>";
+                        ////    buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusById('Shipped'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnShipped_" + value.ID + "\"><img src=\"./img/icons/shipped_button.png\" class=\"carryout-button-set-2\"/></a>";
+                        ////    buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusById('Complete'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnComplete_" + value.ID + "\"><img src=\"./img/icons/complete_button.png\" class=\"carryout-button-set-2\"/></a>";
+                        ////}
+                        //else if (value.ORDERSTATUSID == "Shipped") {
+                        //    buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusById('New'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnNew_" + value.ID + "\"><img src=\"./img/icons/new_button.png\" class=\"carryout-button-set-2\" /></a>";
+                        //    buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusById('Complete'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnComplete_" + value.ID + "\"><img src=\"./img/icons/complete_button.png\" class=\"carryout-button-set-2\"/></a>";
+                        //    //buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusById('Processing'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnProcessing_" + value.ID + "\"><img src=\"./img/icons/pending_button.png\" class=\"carryout-button-set-2\" /></a>";
+                        //    buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusById('PickedUp'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnPickedUp_" + value.ID + "\"><img src=\"./img/icons/picked_up_button.png\"  class=\"carryout-button-set-2\"/></a>";
+                        //    buttonHTML += "<img class=\"giftcard-button-set carryout-button\"  src=\"./img/icons/shipped_button_active.png\"/>";
 
-                        }
-                        else if (value.ORDERSTATUSID == "PickedUp") {
-                            buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusById('New'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnNew_" + value.ID + "\"><img src=\"./img/icons/new_button.png\" class=\"carryout-button-set-2\" /></a>";
-                            buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusById('Complete'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnComplete_" + value.ID + "\"><img src=\"./img/icons/complete_button.png\" class=\"carryout-button-set-2\"/></a>";
-                            //buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusById('Processing'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnProcessing_" + value.ID + "\"><img src=\"./img/icons/pending_button.png\" class=\"carryout-button-set-2\" /></a>";
-                            buttonHTML += "<img src=\"./img/icons/picked_up_button_active.png\" class=\"giftcard-button-set carryout-button\"/>";
-                            buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusById('Shipped'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnShipped_" + value.ID + "\"><img src=\"./img/icons/shipped_button.png\" class=\"carryout-button-set-2\"/></a>";
-                        }
-                        else if (value.ORDERSTATUSID == "Complete") {
-                            buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusById('New'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnNew_" + value.ID + "\"><img src=\"./img/icons/new_button.png\" class=\"carryout-button-set-2\" /></a>";
-                            buttonHTML += "<img class=\"giftcard-button-set carryout-button\" src=\"./img/icons/complete_button_active.png\" />";
-                            //buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusById('Processing'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnProcessing_" + value.ID + "\"><img src=\"./img/icons/pending_button.png\"  class=\"carryout-button-set-2\" /></a>";
-                            buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusById('PickedUp'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnPickedUp_" + value.ID + "\"><img src=\"./img/icons/picked_up_button.png\" class=\"carryout-button-set-2\"/></a>";
-                            buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusById('Shipped'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnShipped_" + value.ID + "\"><img src=\"./img/icons/shipped_button.png\" class=\"carryout-button-set-2\"/></a>";
+                        //}
+                        //else if (value.ORDERSTATUSID == "PickedUp") {
+                        //    buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusById('New'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnNew_" + value.ID + "\"><img src=\"./img/icons/new_button.png\" class=\"carryout-button-set-2\" /></a>";
+                        //    buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusById('Complete'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnComplete_" + value.ID + "\"><img src=\"./img/icons/complete_button.png\" class=\"carryout-button-set-2\"/></a>";
+                        //    //buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusById('Processing'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnProcessing_" + value.ID + "\"><img src=\"./img/icons/pending_button.png\" class=\"carryout-button-set-2\" /></a>";
+                        //    buttonHTML += "<img src=\"./img/icons/picked_up_button_active.png\" class=\"giftcard-button-set carryout-button\"/>";
+                        //    buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusById('Shipped'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnShipped_" + value.ID + "\"><img src=\"./img/icons/shipped_button.png\" class=\"carryout-button-set-2\"/></a>";
+                        //}
+                        //else if (value.ORDERSTATUSID == "Complete") {
+                        //    buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusById('New'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnNew_" + value.ID + "\"><img src=\"./img/icons/new_button.png\" class=\"carryout-button-set-2\" /></a>";
+                        //    buttonHTML += "<img class=\"giftcard-button-set carryout-button\" src=\"./img/icons/complete_button_active.png\" />";
+                        //    //buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusById('Processing'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnProcessing_" + value.ID + "\"><img src=\"./img/icons/pending_button.png\"  class=\"carryout-button-set-2\" /></a>";
+                        //    buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusById('PickedUp'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnPickedUp_" + value.ID + "\"><img src=\"./img/icons/picked_up_button.png\" class=\"carryout-button-set-2\"/></a>";
+                        //    buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusById('Shipped'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnShipped_" + value.ID + "\"><img src=\"./img/icons/shipped_button.png\" class=\"carryout-button-set-2\"/></a>";
 
-                        }
-                        html += "<div class=\"giftcard-buttons\" id=\"btnSet_" + value.ID + "\">";
+                        //}
+                        html += "<div class=\"giftcard-buttons\" id=\"btnSet_" + value.ID + "\"  style=\"width:25%;\">";
+                        buttonHTML += "<div class=\"customer-detail-container\">";
+                        buttonHTML += "<div class=\"order-price\">" + giftcardBalance + "</div>";
+                        buttonHTML += "<div>" + value.GIFTCARDTYPEID + "</div>";
+                        buttonHTML += "</div>";
                         html += buttonHTML;
                         html += "</div>";
 
@@ -3874,14 +3805,14 @@ function GiftCardOrdersList(pagesize, currentPage) {
                         html += "</div>";
                         /*------------------Customer Info-----------------------*/
                         /*------------------Order Info-----------------------*/
-                        html += "<div class=\"giftcard-order-items-count\">";
-                        html += "<div class=\"customer-detail-container\">";
-                        html += "<div class=\"order-price\">" + giftcardBalance + "</div>";
+                        html += "<div class=\"giftcard-order-items-count\" >";
+                        //html += "<div class=\"customer-detail-container\">";
+                        //html += "<div class=\"order-price\">" + giftcardBalance + "</div>";
 
-                        html += "<div>" + value.GIFTCARDTYPEID + "</div>";
+                        //html += "<div>" + value.GIFTCARDTYPEID + "</div>";
 
 
-                        html += "</div>";
+                        //html += "</div>";
                         html += "</div>";
                         /*------------------Order Info-----------------------*/
 
@@ -4068,52 +3999,57 @@ function GiftCardOrdersListPagination(pagesize, currentPage) {
                         /*------------------1st Row-----------------------*/
                         html += "<div class=\"order-row-container\">";
                         //html += "<div class=\"giftcard-order-number panel-open\" data-panel=\"left\" onclick=\"OpenGiftCardDetails(" + value.ID + ");\">#" + value.ORDERID + "<span> on </span><span>" + orderDate + " @ " + orderTime + "</span></div>";
-                        html += "<div class=\"giftcard-order-number panel-open\" data-panel=\"left\" onclick=\"OpenGiftCardDetails(" + value.ID + ");\">#" + value.ORDERID + "<span> on </span><span>" + orderDate + "</span></div>";
+                        html += "<div class=\"giftcard-order-number panel-open\"  style=\"width:75%;\" data-panel=\"left\" onclick=\"OpenGiftCardDetails(" + value.ID + ");\">#" + value.ORDERID + "<span> on </span><span>" + orderDate + "</span></div>";
                         /*------------------Button Row-----------------------*/
-                        if (value.ORDERSTATUSID == "New") {
+                        //if (value.ORDERSTATUSID == "New") {
 
-                            buttonHTML += "<img class=\"giftcard-button-set carryout-button\" src=\"./img/icons/new_button_active.png\"  />";
-                            //buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusById('Processing'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnProcessing_" + value.ID + "\"><img src=\"./img/icons/pending_button.png\" class=\"carryout-button-set-2\" /></a>";
-                            buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusById('Complete'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnComplete_" + value.ID + "\"><img src=\"./img/icons/complete_button.png\" class=\"carryout-button-set-2\"/></a>";
-                            buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusById('PickedUp'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnPickedUp_" + value.ID + "\"><img src=\"./img/icons/picked_up_button.png\"  class=\"carryout-button-set-2\"/></a>";
-                            buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusById('Shipped'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnShipped_" + value.ID + "\"><img src=\"./img/icons/shipped_button.png\" class=\"carryout-button-set-2\"/></a>";
-                            //buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusById('Processing'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnProcessing_" + value.ID + "\"><img src=\"./img/icons/pending_button.png\" class=\"carryout-button-set-2\" /></a>";
-                            //buttonHTML += "<img src=\"./img/icons/picked_up_button_active.png\" class=\"giftcard-button-set carryout-button\"/>";
-                            //buttonHTML += "<img src=\"./img/icons/shipped_button_active.png\" class=\"giftcard-button-set carryout-button\"/>";
-                            //buttonHTML += "<img src=\"./img/icons/complete_button_active.png\" class=\"giftcard-button-set carryout-button\" />";
+                        //    buttonHTML += "<img class=\"giftcard-button-set carryout-button\" src=\"./img/icons/new_button_active.png\"  />";
+                        //    //buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusById('Processing'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnProcessing_" + value.ID + "\"><img src=\"./img/icons/pending_button.png\" class=\"carryout-button-set-2\" /></a>";
+                        //    buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusById('Complete'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnComplete_" + value.ID + "\"><img src=\"./img/icons/complete_button.png\" class=\"carryout-button-set-2\"/></a>";
+                        //    buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusById('PickedUp'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnPickedUp_" + value.ID + "\"><img src=\"./img/icons/picked_up_button.png\"  class=\"carryout-button-set-2\"/></a>";
+                        //    buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusById('Shipped'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnShipped_" + value.ID + "\"><img src=\"./img/icons/shipped_button.png\" class=\"carryout-button-set-2\"/></a>";
+                        //    //buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusById('Processing'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnProcessing_" + value.ID + "\"><img src=\"./img/icons/pending_button.png\" class=\"carryout-button-set-2\" /></a>";
+                        //    //buttonHTML += "<img src=\"./img/icons/picked_up_button_active.png\" class=\"giftcard-button-set carryout-button\"/>";
+                        //    //buttonHTML += "<img src=\"./img/icons/shipped_button_active.png\" class=\"giftcard-button-set carryout-button\"/>";
+                        //    //buttonHTML += "<img src=\"./img/icons/complete_button_active.png\" class=\"giftcard-button-set carryout-button\" />";
 
-                        }
-                            //else if (value.ORDERSTATUSID == "Processing") {
-                            //    buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusById('New'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnNew_" + value.ID + "\"><img src=\"./img/icons/new_button.png\" class=\"carryout-button-set-2\" /></a>";
-                            //    //buttonHTML += "<img class=\"giftcard-button-set carryout-button\" src=\"./img/icons/pending_button_active.png\" />";
-                            //    buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusById('PickedUp'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnPickedUp_" + value.ID + "\"><img src=\"./img/icons/picked_up_button.png\"  class=\"carryout-button-set-2\"/></a>";
-                            //    buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusById('Shipped'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnShipped_" + value.ID + "\"><img src=\"./img/icons/shipped_button.png\" class=\"carryout-button-set-2\"/></a>";
-                            //    buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusById('Complete'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnComplete_" + value.ID + "\"><img src=\"./img/icons/complete_button.png\" class=\"carryout-button-set-2\"/></a>";
-                            //}
-                        else if (value.ORDERSTATUSID == "Shipped") {
-                            buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusById('New'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnNew_" + value.ID + "\"><img src=\"./img/icons/new_button.png\" class=\"carryout-button-set-2\" /></a>";
-                            buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusById('Complete'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnComplete_" + value.ID + "\"><img src=\"./img/icons/complete_button.png\" class=\"carryout-button-set-2\"/></a>";
-                            //buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusById('Processing'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnProcessing_" + value.ID + "\"><img src=\"./img/icons/pending_button.png\" class=\"carryout-button-set-2\" /></a>";
-                            buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusById('PickedUp'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnPickedUp_" + value.ID + "\"><img src=\"./img/icons/picked_up_button.png\"  class=\"carryout-button-set-2\"/></a>";
-                            buttonHTML += "<img class=\"giftcard-button-set carryout-button\"  src=\"./img/icons/shipped_button_active.png\"/>";
+                        //}
+                        //    //else if (value.ORDERSTATUSID == "Processing") {
+                        //    //    buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusById('New'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnNew_" + value.ID + "\"><img src=\"./img/icons/new_button.png\" class=\"carryout-button-set-2\" /></a>";
+                        //    //    //buttonHTML += "<img class=\"giftcard-button-set carryout-button\" src=\"./img/icons/pending_button_active.png\" />";
+                        //    //    buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusById('PickedUp'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnPickedUp_" + value.ID + "\"><img src=\"./img/icons/picked_up_button.png\"  class=\"carryout-button-set-2\"/></a>";
+                        //    //    buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusById('Shipped'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnShipped_" + value.ID + "\"><img src=\"./img/icons/shipped_button.png\" class=\"carryout-button-set-2\"/></a>";
+                        //    //    buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusById('Complete'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnComplete_" + value.ID + "\"><img src=\"./img/icons/complete_button.png\" class=\"carryout-button-set-2\"/></a>";
+                        //    //}
+                        //else if (value.ORDERSTATUSID == "Shipped") {
+                        //    buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusById('New'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnNew_" + value.ID + "\"><img src=\"./img/icons/new_button.png\" class=\"carryout-button-set-2\" /></a>";
+                        //    buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusById('Complete'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnComplete_" + value.ID + "\"><img src=\"./img/icons/complete_button.png\" class=\"carryout-button-set-2\"/></a>";
+                        //    //buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusById('Processing'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnProcessing_" + value.ID + "\"><img src=\"./img/icons/pending_button.png\" class=\"carryout-button-set-2\" /></a>";
+                        //    buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusById('PickedUp'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnPickedUp_" + value.ID + "\"><img src=\"./img/icons/picked_up_button.png\"  class=\"carryout-button-set-2\"/></a>";
+                        //    buttonHTML += "<img class=\"giftcard-button-set carryout-button\"  src=\"./img/icons/shipped_button_active.png\"/>";
 
-                        }
-                        else if (value.ORDERSTATUSID == "PickedUp") {
-                            buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusById('New'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnNew_" + value.ID + "\"><img src=\"./img/icons/new_button.png\" class=\"carryout-button-set-2\" /></a>";
-                            buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusById('Complete'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnComplete_" + value.ID + "\"><img src=\"./img/icons/complete_button.png\" class=\"carryout-button-set-2\"/></a>";
-                            //buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusById('Processing'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnProcessing_" + value.ID + "\"><img src=\"./img/icons/pending_button.png\" class=\"carryout-button-set-2\" /></a>";
-                            buttonHTML += "<img src=\"./img/icons/picked_up_button_active.png\" class=\"giftcard-button-set carryout-button\"/>";
-                            buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusById('Shipped'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnShipped_" + value.ID + "\"><img src=\"./img/icons/shipped_button.png\" class=\"carryout-button-set-2\"/></a>";
-                        }
-                        else if (value.ORDERSTATUSID == "Complete") {
-                            buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusById('New'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnNew_" + value.ID + "\"><img src=\"./img/icons/new_button.png\" class=\"carryout-button-set-2\" /></a>";
-                            buttonHTML += "<img class=\"giftcard-button-set carryout-button\" src=\"./img/icons/complete_button_active.png\" />";
-                            //buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusById('Processing'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnProcessing_" + value.ID + "\"><img src=\"./img/icons/pending_button.png\"  class=\"carryout-button-set-2\" /></a>";
-                            buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusById('PickedUp'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnPickedUp_" + value.ID + "\"><img src=\"./img/icons/picked_up_button.png\" class=\"carryout-button-set-2\"/></a>";
-                            buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusById('Shipped'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnShipped_" + value.ID + "\"><img src=\"./img/icons/shipped_button.png\" class=\"carryout-button-set-2\"/></a>";
+                        //}
+                        //else if (value.ORDERSTATUSID == "PickedUp") {
+                        //    buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusById('New'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnNew_" + value.ID + "\"><img src=\"./img/icons/new_button.png\" class=\"carryout-button-set-2\" /></a>";
+                        //    buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusById('Complete'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnComplete_" + value.ID + "\"><img src=\"./img/icons/complete_button.png\" class=\"carryout-button-set-2\"/></a>";
+                        //    //buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusById('Processing'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnProcessing_" + value.ID + "\"><img src=\"./img/icons/pending_button.png\" class=\"carryout-button-set-2\" /></a>";
+                        //    buttonHTML += "<img src=\"./img/icons/picked_up_button_active.png\" class=\"giftcard-button-set carryout-button\"/>";
+                        //    buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusById('Shipped'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnShipped_" + value.ID + "\"><img src=\"./img/icons/shipped_button.png\" class=\"carryout-button-set-2\"/></a>";
+                        //}
+                        //else if (value.ORDERSTATUSID == "Complete") {
+                        //    buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusById('New'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnNew_" + value.ID + "\"><img src=\"./img/icons/new_button.png\" class=\"carryout-button-set-2\" /></a>";
+                        //    buttonHTML += "<img class=\"giftcard-button-set carryout-button\" src=\"./img/icons/complete_button_active.png\" />";
+                        //    //buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusById('Processing'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnProcessing_" + value.ID + "\"><img src=\"./img/icons/pending_button.png\"  class=\"carryout-button-set-2\" /></a>";
+                        //    buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusById('PickedUp'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnPickedUp_" + value.ID + "\"><img src=\"./img/icons/picked_up_button.png\" class=\"carryout-button-set-2\"/></a>";
+                        //    buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusById('Shipped'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnShipped_" + value.ID + "\"><img src=\"./img/icons/shipped_button.png\" class=\"carryout-button-set-2\"/></a>";
 
-                        }
-                        html += "<div class=\"giftcard-buttons\" id=\"btnSet_" + value.ID + "\">";
+                        //}
+
+                        buttonHTML += "<div class=\"customer-detail-container\">";
+                        buttonHTML += "<div class=\"order-price\">" + giftcardBalance + "</div>";
+                        buttonHTML += "<div>" + value.GIFTCARDTYPEID + "</div>";
+                        buttonHTML += "</div>";
+                        html += "<div class=\"giftcard-buttons\" id=\"btnSet_" + value.ID + "\" style=\"width:25%;\">";
                         html += buttonHTML;
                         html += "</div>";
 
@@ -4270,7 +4206,7 @@ function OpenGiftCardDetails(id) {
     //var orderId = id.split('_')[1];
     url = global + "/GetGiftCardHistory?storeid=" + storeId + "&giftcardId=" + id;
     $.getJSON(url, function (data) {
-       // console.log(data)
+        // console.log(data)
         var filtered_history = filterGiftCards(JSON.parse(data.toString()), "GiftCardHistory");
         //console.log("filtered_history: " + filtered_history)
         $.each(JSON.parse(data), function (index, value) {
@@ -4353,13 +4289,13 @@ function OpenGiftCardDetails(id) {
                     //buttonHTML += "<img src=\"./img/icons/complete_button_active.png\" class=\"giftcard-button-set carryout-button\" />";
 
                 }
-                //else if (value.ORDERSTATUSID == "Processing") {
-                //    buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusNew('New')\" id=\"btnNew_" + value.ID + "\"><img src=\"./img/icons/new_button.png\" class=\"carryout-button-set-2\" /></a>";
-                //    buttonHTML += "<img class=\"giftcard-button-set carryout-button\" src=\"./img/icons/pending_button_active.png\" />";
-                //    buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusNew('PickedUp')\" id=\"btnPickedUp_" + value.ID + "\"><img src=\"./img/icons/picked_up_button.png\"  class=\"carryout-button-set-2\"/></a>";
-                //    buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusNew('Shipped')\" id=\"btnShipped_" + value.ID + "\"><img src=\"./img/icons/shipped_button.png\" class=\"carryout-button-set-2\"/></a>";
-                //    buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusNew('Complete')\" id=\"btnComplete_" + value.ID + "\"><img src=\"./img/icons/complete_button.png\" class=\"carryout-button-set-2\"/></a>";
-                //}
+                    //else if (value.ORDERSTATUSID == "Processing") {
+                    //    buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusNew('New')\" id=\"btnNew_" + value.ID + "\"><img src=\"./img/icons/new_button.png\" class=\"carryout-button-set-2\" /></a>";
+                    //    buttonHTML += "<img class=\"giftcard-button-set carryout-button\" src=\"./img/icons/pending_button_active.png\" />";
+                    //    buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusNew('PickedUp')\" id=\"btnPickedUp_" + value.ID + "\"><img src=\"./img/icons/picked_up_button.png\"  class=\"carryout-button-set-2\"/></a>";
+                    //    buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusNew('Shipped')\" id=\"btnShipped_" + value.ID + "\"><img src=\"./img/icons/shipped_button.png\" class=\"carryout-button-set-2\"/></a>";
+                    //    buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusNew('Complete')\" id=\"btnComplete_" + value.ID + "\"><img src=\"./img/icons/complete_button.png\" class=\"carryout-button-set-2\"/></a>";
+                    //}
                 else if (value.ORDERSTATUSID == "Shipped") {
                     buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusNew('New')\" id=\"btnNew_" + value.ID + "\"><img src=\"./img/icons/new_button.png\" class=\"carryout-button-set-2\" /></a>";
                     buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusNew('Complete')\" id=\"btnComplete_" + value.ID + "\"><img src=\"./img/icons/complete_button.png\" class=\"carryout-button-set-2\"/></a>";
@@ -4485,7 +4421,7 @@ function OpenGiftCardDetails(id) {
             }
         });
 
-       
+
         if (JSON.parse(JSON.stringify(filtered_history)).length < 0) {
 
             $("#dvOrderItem").html("No record(s) found.");
@@ -4523,8 +4459,8 @@ function OpenGiftCardDetails(id) {
         $("#dvOrderItem").html(html + "</tbody>");
         $("#titleRedemptionHistory").show();
     });
-   
-   
+
+
 
     //$('#dvGiftCardDetails').html($('#dvGiftCardDetailsInner').html());
     $('#dvDetailsPanel').html($('#giftcard #dvGiftCardDetailsInner').html());
@@ -4541,7 +4477,7 @@ function ClearGiftCardDetails() {
     $('#divGiftCardDetailsPanel #dvGiftCardDetailsInner').hide();
     $('#divGiftCardDetailsPanel #dvGiftCardDetails').html("");
 
-    
+
 }
 
 function ChangeGiftCardOrderStatusById(status, id, orderId) {
@@ -4621,7 +4557,7 @@ function ChangeGiftCardOrderStatusById(status, id, orderId) {
 
                 var buttonHTML = "";
                 //if (status == "New") {
-                   
+
                 //    buttonHTML += "<img class=\"giftcard-button-set carryout-button\" src=\"./img/icons/new_button_active.png\"  />";
                 //    buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusById('Processing'," + giftCardId + ", " + orderId + ")\" id=\"btnProcessing_" + giftCardId + "\"><img src=\"./img/icons/pending_button.png\" class=\"carryout-button-set-2\" /></a>";
 
@@ -4689,14 +4625,14 @@ function ChangeGiftCardOrderStatusById(status, id, orderId) {
                     //buttonHTML += "<img src=\"./img/icons/complete_button_active.png\" class=\"giftcard-button-set carryout-button\" />";
 
                 }
-                //else if (status == "Processing") {
-                //    $("#img_" + giftCardId).attr("src", "img/icons/pending.png");
-                //    buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusById('New'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnNew_" + value.ID + "\"><img src=\"./img/icons/new_button.png\" class=\"carryout-button-set-2\" /></a>";
-                //    buttonHTML += "<img class=\"giftcard-button-set carryout-button\" src=\"./img/icons/pending_button_active.png\" />";
-                //    buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusById('PickedUp'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnPickedUp_" + value.ID + "\"><img src=\"./img/icons/picked_up_button.png\"  class=\"carryout-button-set-2\"/></a>";
-                //    buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusById('Shipped'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnShipped_" + value.ID + "\"><img src=\"./img/icons/shipped_button.png\" class=\"carryout-button-set-2\"/></a>";
-                //    buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusById('Complete'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnComplete_" + value.ID + "\"><img src=\"./img/icons/complete_button.png\" class=\"carryout-button-set-2\"/></a>";
-                //}
+                    //else if (status == "Processing") {
+                    //    $("#img_" + giftCardId).attr("src", "img/icons/pending.png");
+                    //    buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusById('New'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnNew_" + value.ID + "\"><img src=\"./img/icons/new_button.png\" class=\"carryout-button-set-2\" /></a>";
+                    //    buttonHTML += "<img class=\"giftcard-button-set carryout-button\" src=\"./img/icons/pending_button_active.png\" />";
+                    //    buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusById('PickedUp'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnPickedUp_" + value.ID + "\"><img src=\"./img/icons/picked_up_button.png\"  class=\"carryout-button-set-2\"/></a>";
+                    //    buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusById('Shipped'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnShipped_" + value.ID + "\"><img src=\"./img/icons/shipped_button.png\" class=\"carryout-button-set-2\"/></a>";
+                    //    buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusById('Complete'," + value.ID + ", " + value.ORDERID + ")\" id=\"btnComplete_" + value.ID + "\"><img src=\"./img/icons/complete_button.png\" class=\"carryout-button-set-2\"/></a>";
+                    //}
                 else if (status == "Shipped") {
                     $("#img_" + giftCardId).attr("src", "img/icons/shipped.png");
                     buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusById('New'," + giftCardId + ", " + orderId + ")\" id=\"btnNew_" + giftCardId + "\"><img src=\"./img/icons/new_button.png\" class=\"carryout-button-set-2\" /></a>";
@@ -4805,7 +4741,7 @@ function RefreshGiftCardDetails(id) {
                 //    $("#btnNew").hide();
                 //    $("#btnComplete").hide();
                 //}
-                
+
                 var buttonHTML = "";
                 if (value.ORDERSTATUSID == "New") {
 
@@ -4891,7 +4827,7 @@ function ChangeGiftCardOrderStatusNew(status) {
                     //buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusById('Processing')\" id=\"btnProcessing_" + value.ID + "\"><img src=\"./img/icons/pending_button.png\" class=\"carryout-button-set-2\" /></a>";
                     buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusNew('PickedUp')\" id=\"btnPickedUp_" + giftCardId + "\"><img src=\"./img/icons/picked_up_button.png\"  class=\"carryout-button-set-2\"/></a>";
                     buttonHTML += "<a class=\"carryout-button\" onclick=\"ChangeGiftCardOrderStatusNew('Shipped')\" id=\"btnShipped_" + giftCardId + "\"><img src=\"./img/icons/shipped_button.png\" class=\"carryout-button-set-2\"/></a>";
-                    
+
                 }
                 else if (status == "Shipped") {
                     $("#img_" + giftCardId).attr("src", "img/icons/shipped.png");
@@ -4924,7 +4860,7 @@ function ChangeGiftCardOrderStatusNew(status) {
                 }
 
                 $("#btnSet_" + giftCardId).html(buttonHTML);
-                               
+
 
             },
             error: function (xhr, textStatus, errorThrown) {
@@ -5005,7 +4941,7 @@ function ShowSearch() {
     RefreshGiftCards();
 }
 function HideSearch(tabName) {
-  
+
 
     //if(tabName=="New")
     //{
@@ -5019,11 +4955,10 @@ function HideSearch(tabName) {
     $('#ulFilterSortItem').hide();
 
 }
-function RewardsTabChange(tabName)
-{
+function RewardsTabChange(tabName) {
     $('#ulFilterSortItem').hide();
     if (tabName == "New") {
-       $("#txtMemberId_Reward").focus();
+        $("#txtMemberId_Reward").focus();
     }
     else {
         $("#txtMemberID_LoadRedeem").focus();
@@ -5058,13 +4993,13 @@ function SearchReward() {
 
     var lastName = $("#reward_LoadRedeem #txtLastName_LoadRedeem").val().trim();
     //alert('memberId: ' + memberId);
-   // alert('phone: ' + phone);
+    // alert('phone: ' + phone);
     //alert('lastName: ' + lastName);
     if (memberId != "" || (phone != "" && phone != '0') || lastName != "") {
         //alert('2');
         try {
             url = global + "/RewardSearch?storeid=" + storeId + "&rewardMemberId=" + memberId + "&phone=" + phone + "&lastName=" + encodeURIComponent(lastName);
-           
+
             $('#tblRewardHistory tbody').html("");
             $.getJSON(url, function (data) {
                 $('#tblRewardHistory tbody').html("");
@@ -5508,7 +5443,7 @@ function AddNewMemberID() {
                                     //console.log(data1);
                                     var obj = JSON.parse(data1);
                                     $.each(JSON.parse(data1), function (index, value) {
-                                        console.log("1: "+value.EMAIL.toLowerCase().indexOf("bistroux.com"))
+                                        console.log("1: " + value.EMAIL.toLowerCase().indexOf("bistroux.com"))
                                         var popuphtml = "";
                                         if (value.REWARDMEMBERID != "")
                                             popuphtml = popuphtml + "<p><span style='color:#000;'>Member ID:  </span><span class=\"main-one\">" + value.REWARDMEMBERID + "</span></p>";
@@ -5650,7 +5585,7 @@ function AddNewMemberID() {
                 //console.log(data1);
                 var obj = JSON.parse(data1);
                 $.each(JSON.parse(data1), function (index, value) {
-                  
+
                     var popuphtml = "";
                     if (value.REWARDMEMBERID != "")
                         popuphtml = popuphtml + "<p><span style='color:#000;'>Member ID:  </span><span class=\"main-one\">" + value.REWARDMEMBERID + "</span></p>";
@@ -5672,8 +5607,7 @@ function AddNewMemberID() {
 
                     }
 
-                    if (value.EMAIL != "" && value.EMAIL.toLowerCase().indexOf("bistroux.com")==-1)
-                    {
+                    if (value.EMAIL != "" && value.EMAIL.toLowerCase().indexOf("bistroux.com") == -1) {
                         popuphtml = popuphtml + "<p>" + value.EMAIL + "</p>";
                     }
 
@@ -5756,8 +5690,7 @@ function isNumber(evt) {
     }
     return true;
 }
-function ValidateReward()
-{
+function ValidateReward() {
     var email = $("#txtEmail_Reward").val().trim();
     var phone = $("input#txtPhone_Reward").val();
     var points = $("#txtPoints_Reward").val().trim();
@@ -5788,7 +5721,7 @@ function ValidateReward()
     }
     else {
         $("#txtPhone_Reward").css('border-bottom', bottomBorder);
-       
+
     }
 
     if (points == "") {
@@ -5922,7 +5855,7 @@ function GotoProfile() {
 function LoadProfileDetails() {
     var storeId = 0;
     storeId = SetStoreId();
-   // alert(storeId)
+    // alert(storeId)
     if (Number(storeId) > 0) {
 
         var url = global + "/GetStoreByStoreId?storeid=" + storeId;
@@ -5935,7 +5868,7 @@ function LoadProfileDetails() {
                 //console.log("Length: " + data);
 
                 if (JSON.parse(data).indexOf("No record(s) found") < 0) {
-                   
+
                     var count = 0;
                     $.each(JSON.parse(data), function (index, value) {
                         //console.log("LoadProfileDetails: 1");
@@ -6042,7 +5975,7 @@ function LoadProfileDetails() {
 
                 }
                 else {
-                   // console.log("LoadProfileDetails: 4");
+                    // console.log("LoadProfileDetails: 4");
                 }
             });
 
@@ -6280,7 +6213,7 @@ function ShowStoreTiming() {
                                 closingPeriod = value.CLOSINGPERIOD;
                             }
                         }
-                      
+
                         //Generate Edit Section Start//
                         var hdnCount = $('#hdnCount').val();
 
@@ -6829,7 +6762,7 @@ function DeleteSection(idCount, timingId) {
 //Carryout Items
 function CarryoutItemsList(carryoutpagesize, carryoutcurrentPage) {
 
-   
+
     var customerId = 0;
     var storeId = 0;
     currentPage = 0;
@@ -6851,17 +6784,17 @@ function CarryoutItemsList(carryoutpagesize, carryoutcurrentPage) {
     if (category == undefined) {
         category = "0";
     }
-    
+
     if (status == undefined) {
         status = "";
     }
-   
-   
+
+
     if (Number(storeId) > 0) {
 
         carryoutcurrentPage = Number(carryoutcurrentPage) * Number(carryoutpagesize);
-        url = global + "/GetAllCarryOutItems?storeid=" + storeId + "&pagesize=" + carryoutpagesize + "&currentPage=" + carryoutcurrentPage + "&name=" + name + "&category=" + category  + "&status=" + status +
-           "&sortValue=" + sortValue + "&sortByValue=" + sortByValue ;
+        url = global + "/GetAllCarryOutItems?storeid=" + storeId + "&pagesize=" + carryoutpagesize + "&currentPage=" + carryoutcurrentPage + "&name=" + name + "&category=" + category + "&status=" + status +
+           "&sortValue=" + sortValue + "&sortByValue=" + sortByValue;
 
         try {
 
@@ -6903,7 +6836,7 @@ function CarryoutItemsList(carryoutpagesize, carryoutcurrentPage) {
                         html += "</div>";
                         /*------------------Button-----------------------*/
                         html += "<div class=\"order-buttons\" style=\"width:30%\">";
-                     
+
                         html += "<div class=\"order-price\" style=\"font-size:20px;width:50%;text-align:right;\">" + itemPrice + "</div>";
 
                         html += "<div style=\"padding-left:0px;width:50%\"><a onclick=\"GoToItemEdit(" + value.ID + ");\"><img src=\"./img/icons/edit-icon.png\"></a></div>";
@@ -6958,10 +6891,10 @@ function CarryoutItemsList(carryoutpagesize, carryoutcurrentPage) {
 //Carryout Items
 function CarryoutItemsListPagination(carryoutpagesize, carryoutcurrentPage) {
     //Shorting
-  
+
     var customerId = 0;
     var storeId = 0;
-  
+
 
     storeId = SetStoreId();
     customerId = SetCustomerId();
@@ -7091,8 +7024,7 @@ function CarryoutItemsListPagination(carryoutpagesize, carryoutcurrentPage) {
 
 }
 //Filter & Sort Items
-function FilterSortItems()
-{
+function FilterSortItems() {
     var pageSize = 10;
     var currentPage = 0;
     localStorage.setItem("CurrentPage", currentPage);
@@ -7411,10 +7343,10 @@ function BindItemById(productId) {
             //  
         }
 
-       // console.log("productId: " + productId)
+        // console.log("productId: " + productId)
 
     }
- 
+
 }
 function SaveProductInfo() {
     var itemId = 0;
@@ -7461,7 +7393,7 @@ function SaveProductInfo() {
     if ($("#chkTimeSpecific").prop("checked") == true) {
         availabilityType = "Time Specific";
     }
-    
+
     var hdnCount = $("#hdnAvailTimingCount").val();
     var arrTimings = [];
     var offerDays = [];
@@ -7485,7 +7417,7 @@ function SaveProductInfo() {
             var closingPeriod = "";
             var openingTime = "";
             var closingTime = "";
-            var price="0.00";
+            var price = "0.00";
             if ($("#Avail_" + j + "_TimingId").length) {
                 valueTimingId = $("#Avail_" + j + "_TimingId").val();
             }
@@ -7494,7 +7426,7 @@ function SaveProductInfo() {
             openingMinute = $("#Avail_" + j + "_StartMinute").val();
             openingPeriod = $("#Avail_" + j + "_StartPeriod").val();
             openingTime = openingHour + ":" + openingMinute + " " + openingPeriod;
-            price=$("#Avail_" + j + "_Price").val();
+            price = $("#Avail_" + j + "_Price").val();
 
             closingHour = $("#Avail_" + j + "_EndHour").val();
             closingMinute = $("#Avail_" + j + "_EndMinute").val();
@@ -7502,20 +7434,18 @@ function SaveProductInfo() {
             closingTime = closingHour + ":" + closingMinute + " " + closingPeriod;
 
             var currentValue = { TimingId: valueTimingId, Daykey: valueDayKey, StartTime: openingTime, EndTime: closingTime, Price: price };
-            if (price != "" && price != "0.00")
-            {
+            if (price != "" && price != "0.00") {
                 arrTimings.push(currentValue);
             }
-            
+
         }
     }
 
-  
+
 
     if (Number(storeId) > 0) {
 
-        if (name != "" && categoryId != "0" && productprice != "")
-        {
+        if (name != "" && categoryId != "0" && productprice != "") {
             var model = new Object();
             model.ID = itemId;
 
@@ -7573,8 +7503,7 @@ function SaveProductInfo() {
             $.post(global + "/AddUpdateItem", model, function (data) {
                 //console.log(data.indexOf("Successful"));
                 if (data.indexOf("Successful") > -1 || data == "") {
-                    if (Number(itemId) > 0)
-                    {
+                    if (Number(itemId) > 0) {
                         swal({
                             title: "Food item updated successfully!",
                             confirmButtonText: "OK",
@@ -7606,7 +7535,7 @@ function SaveProductInfo() {
                     else {
                         callSweetAlertWarning("Food item add failed!");
                     }
-                   
+
                 }
             });
         }
@@ -7616,7 +7545,7 @@ function SaveProductInfo() {
             } else {
                 $('#txtProductName').css('border-bottom', bottomBorder);
             }
-            if (categoryId == "0" || categoryId=="") {
+            if (categoryId == "0" || categoryId == "") {
                 $('#productCategory').css('border-bottom', errorClassBorder);
             } else {
                 $('#productCategory').css('border-bottom', bottomBorder);
@@ -7656,8 +7585,8 @@ function BindCategoy(id) {
                 $('#' + id).append(data);
             }
         });
-       // $('#' + id).prop('selectedIndex', 0);
-      //  
+        // $('#' + id).prop('selectedIndex', 0);
+        //  
     }
 
 }
@@ -7790,10 +7719,10 @@ function CouponList(pagesize, currentPage) {
                         else {
                             html += "<div class=\"coupon-status-icon\"><img class=\"list-icon\" src=\"./img/icons/inactive.png\"></div>";
                         }
-                        html +="</div>";
+                        html += "</div>";
                         /*------------------Button-----------------------*/
                         html += "<div class=\"coupon-buttons\" style=\"width:15%\">";
-                       
+
                         html += "<a onclick=\"GoToCouponEdit(" + value.Id + ");\"><img src=\"./img/icons/edit-icon.png\"></a>";
                         html += "<a style=\"padding-left:10px;\" onclick=\"DeleteCoupon(" + value.Id + ");\"><img src=\"./img/icons/delete.png\"></a>";
                         html += "</div>";
@@ -8000,13 +7929,13 @@ function CouponListPagination(pagesize, currentPage) {
 }
 function DeleteCoupon(id) {
     if (id > 0) {
-        if (confirm("Are you sure want to delete this record?") ){
+        if (confirm("Are you sure want to delete this record?")) {
             $.ajax({
                 url: global + '/DeleteCouponById?couponId=' + id,
                 type: 'POST',
                 cache: false,
                 success: function (response) {
-                    if (response.indexOf("Successful" > -1) ){
+                    if (response.indexOf("Successful" > -1)) {
                         callSweetAlertSuccess("Coupon deleted successfully.");
                         CouponList(10, 0);
                     }
@@ -8032,14 +7961,14 @@ function OpenCouponListDetails(id) {
     if (id > 0) {
         $("#dvCoupon").html("");
         var url = global + "/GetCouponByDiscountId?storeId=" + storeId + "&discountId=" + id;
-      
+
         $.getJSON(url, function (data) {
             $("#dvCoupon").html("<div class=\"order-number\" style=\"font-size:20px;width:100%;padding-top:0px;text-align:center;\" id=\"dvInnerSundayTiming\">No record found</div>");
             if (data.replace(/"/g, "").indexOf("No record(s) found.") > -1) {
-               
+
             }
             else {
-            
+
                 $.each(JSON.parse(data), function (index, value) {
                     if (value.Type == "DiscountTiming") {
                         $("#dvCoupon").html("");
@@ -8526,11 +8455,10 @@ function SaveDiscount() {
 
 
             $.post(global + "/SaveDiscont", model, function (data) {
-               // console.log(data.indexOf("Successful"));
+                // console.log(data.indexOf("Successful"));
                 if (data.indexOf("Successful") > -1 || data == "") {
                     //LoadCouponEdit();
-                    if (discountId > 0)
-                    {
+                    if (discountId > 0) {
                         swal({
                             title: "Coupon updated successfully!",
                             confirmButtonText: "OK",
@@ -8554,7 +8482,7 @@ function SaveDiscount() {
                             self.app.router.navigate('/coupon_list/', { reloadCurrent: false });
                         });;
                     }
-                    
+
                 }
                 else {
                     if (discountId > 0) {
@@ -9247,8 +9175,7 @@ function DeleteAvailTimingSection(idCount, timingId) {
 
 
 //Reset functionalities
-function ResetRewardLoadRedeem()
-{
+function ResetRewardLoadRedeem() {
     //$("#txtMemberID_LoadRedeem").val("");
     //$("#txtPhone_LoadRedeem").val("");
     //$("#txtLastName_LoadRedeem").val("");
@@ -9283,7 +9210,7 @@ function ResetRewardLoadRedeem()
     $$(".input-clear-button").click();
 }
 function ResetRewardNew() {
-   
+
     $('input[type="text"]').val("");
     $('input[type="text"]').css('border-bottom', bottomBorder);
     $('input[type="number"]').val("");
@@ -9291,8 +9218,7 @@ function ResetRewardNew() {
     $$(".input-clear-button").click();
     $("#btnCreate").text("Add Member");
 }
-function ResetGiftCardNew()
-{
+function ResetGiftCardNew() {
     $('input[type="text"]').val("");
     $('input[type="text"]').css('border-bottom', bottomBorder);
     $('input[type="number"]').val("");
@@ -9311,7 +9237,7 @@ function ResetGiftCardLoadRedeem() {
 
     $('#lblCutomerName').html("");
     $("#lblCutomerPhone").html("");
-    $('#iconPhone').hide();  
+    $('#iconPhone').hide();
     $('#iconEmail').hide();
     $("#lblEmail").html("");
     $('#hdnSelectedOrderId').val(0);
@@ -9331,8 +9257,7 @@ function ResetFilters(page) {
     $('input[type="number"]').css('border-bottom', bottomBorder);
     //$$(".input-clear-button").click();
     // $('input[name=radioCarryoutSort]').attr('checked', true);
-    if (page == "carryout")
-    {
+    if (page == "carryout") {
         $("#ddlFilterCarryoutStatus")[0].selectedIndex = 0;
         $('[name="radioCarryoutSort"]')[0].checked = true;
         $('[name="radioCarryoutSortBy"]')[0].checked = true;
@@ -9363,11 +9288,11 @@ function ResetFilters(page) {
         $("#ddlFilterItemStatus")[0].selectedIndex = 0;
         //$("#filterProductCategory").val("0");
         $("#filterProductCategory")[0].selectedIndex = 0;
-       
+
         $('[name="radioItemSort"]')[0].checked = true;
         $('[name="radioItemSortBy"]')[0].checked = true;
     }
-    
+
 }
 
 
