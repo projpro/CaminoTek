@@ -351,6 +351,7 @@ h4 {
     .md .custom-toolbar.tabbar-labels a.tab-link {
         color: #757575;
         font-size: 11px;
+        background-color:#fff;
     }
 
 .page-with-toolbar {
@@ -827,17 +828,17 @@ h4 {
     margin-top: 0px !important;
 }
 #reward_new .md .list {
-    margin-top: 23px !important;
+    margin-top:0px !important;
 }
 #reward_new .mt {
-     margin-top: 23px !important;
+     margin-top: 8px !important;
     /* margin-top: 30px !important; */
 }
 #reward_LoadRedeem .md .list {
     margin-top:0px !important;
 }
 #reward_LoadRedeem .mt {
-     margin-top: 23px !important;
+     margin-top:8px !important;
     /* margin-top: 30px !important; */
 }
 
@@ -1487,7 +1488,9 @@ color: #3b9847;
     color: #08b3c7;
     text-align: center;
 }
-
+.order-pickup-time {
+    font-size: 16px;
+}
 .code {
     text-align: left;
     font-size: 20px;
@@ -1545,6 +1548,10 @@ color: #3b9847;
     color: #111111;
 }
 
+.order-payment-info {
+    width: 75%;
+ 
+}
 .order-items-count {
     width: 48%;
     font-size: 14px;
@@ -1662,6 +1669,23 @@ color: #3b9847;
 }
 
 #dvOrderInfo .list-icon {
+    display: inline-block;
+    max-width: 30%;
+    /*margin-left: 22px;*/
+}
+#dvOrderInfo .dropdown-content .list-icon {
+    display: inline-block;
+    max-width: 20%;
+    /*margin-left: 22px;*/
+}
+
+
+#dvAllList .list-icon {
+    display: inline-block;
+    max-width: 40%;
+    /*margin-left: 22px;*/
+}
+#dvAllList .dropdown-content .list-icon {
     display: inline-block;
     max-width: 20%;
     /*margin-left: 22px;*/
@@ -2017,8 +2041,103 @@ select:-moz-focusring {
 .footer-icon{
     /*height: 60%;*/
     width: 31%;
+    /*position:absolute;
+    top:0px;*/
     /*object-fit: contain;*/
 }
+/* Dropdown Button */
+.dropbtn {
+  background-color: #fff;
+  /*color: white;*/
+  /*padding: 16px;
+  font-size: 16px;*/
+  border: none;
+  cursor: pointer;
+
+}
+#divGiftCardDetailsPanel  .dropbtn {
+  background-color: #fff;
+  /*color: white;*/
+  /*padding: 16px;
+  font-size: 16px;*/
+  border: none;
+  cursor: pointer;
+   text-align: left;
+
+}
+#dvOrderInfo .dropbtn {
+  background-color: #fff;
+    /* color: white; */
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    margin-left: 20px;
+}
+/* Dropdown button on hover & focus */
+.dropbtn:hover, .dropbtn:focus {
+  background-color: #fff;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #fff;
+  min-width: 182px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+      color: black;
+    padding: 4px 16px;
+    text-decoration: none;
+    display: block;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: #ddd}
+
+/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+.show {display:block;}
+
+.custom-dropdown-span{
+    position: absolute;
+    margin: 5px 0 0 10px;
+    font-size: 19px;
+}
+#divGiftCardDetailsPanel .custom-dropdown-span {
+    position: absolute;
+    margin: 8px 0 0 10px;
+    font-size: 19px;
+}
+.close_status_dropdown
+{
+position: relative;
+    float: right;
+    /* background: red; */
+    color: white;
+    top: -14px;
+    right: -4px;
+    color: red !important;
+    font-size: 19px;
+    font-weight: 700;
+    display:none;
+
+}
+.status-disabled{
+    opacity: .55!important;
+}
+
+
 /*===============================================*/
 /* 11/A. Sudip Start					    	 */
 /*===============================================*/
@@ -2166,7 +2285,7 @@ select:-moz-focusring {
     font-weight: 400;
     color: #111111;
     text-align: right;
-    padding-right: 10px;
+    /*padding-right: 10px;*/
 }
 
 .giftcard-customer-detail-container {
@@ -2207,9 +2326,10 @@ select:-moz-focusring {
 }
 
 .btn-panel-save {
-    border: 1px solid #696b6c;
+    /*border: 1px solid #696b6c;*/
+     border: 1px solid #000;
     width: 15%;
-    color: #696b6c !important;
+    color: #000 !important;
     background: none;
     font-weight: 400;
     padding: 5px 0px;
@@ -2219,7 +2339,7 @@ select:-moz-focusring {
     font-size: 19px;
     float: right;
     margin-top: 0px !important;
-    border-radius: 4px;
+    /*border-radius: 4px;*/
 }
 
 .panel-one {
@@ -2267,19 +2387,22 @@ select:-moz-focusring {
     font-size: 18px;
     color: #111111;
     padding-top: 8px;
-    font-weight:600;
+    /*font-weight:600;*/
 }
 #divGiftCardDetailsPanel .giftcard-order-number {
     width: 60%;
     font-size: 18px;
     color: #111111;
     padding-top: 8px;
-    font-weight: 600;
+    /*font-weight: 600;*/
     text-align: right;
+}
+#divGiftCardDetailsPanel .giftcard-order-time {
+  font-size:23px;
 }
 .giftcard-order-number span {
     font-size: 13px;
-    font-weight: 400;
+    /*font-weight: 400;*/
 }
 .giftcard-order-pickup {
     margin-top: 0px;
@@ -2555,6 +2678,11 @@ select:-moz-focusring {
 .material-icons-left {
     margin-top: 12px;
 }
+.grid-small-icon{
+    width:21%;
+    float:right;
+    padding-right:17px;
+}
 /*===============================================*/
 /* 11/C. Item End  	     	 */
 /*===============================================*/
@@ -2589,11 +2717,12 @@ select:-moz-focusring {
     }
 
     .order-pickup {
-        font-size: 17px;
+        font-size: 14px;
     }
 
     .order-number {
-        font-size: 17px;
+        font-size: 14px;
+        width:100%;
     }
 
         .order-number span {
@@ -2666,6 +2795,146 @@ select:-moz-focusring {
     .giftcard-order-pickup {
         font-size: 15px;
     }
+    .grid-small-icon{
+    width:30%;
+    float:right;
+    padding-right:17px;
+}
+    .popup-label-left {
+    color: #3b9847;
+    font-size: 15px;
+    padding-top: 5px;
+    width: 70%;
+    /* text-align: right; */
+    /* margin-right: 40px; */
+    position: absolute;
+    /* float: right; */
+    /* right: -39%; */
+    padding-left: 16px;
+}
+    .custom-dropdown-span {
+    position: absolute;
+    margin: 2px 0 0 10px;
+    font-size: 15px;
+}
+
+    .md .list .item-content {
+    min-height: 48px;
+    padding-left: 17px;
+}
+    .small-button-right {
+    font-weight: 400;
+    padding: 0px 10px;
+    border-radius: 2px;
+    font-size: 19px;
+    text-transform: uppercase;
+    margin-top: 8px;
+    text-align: center;
+    display: block;
+    /* float: right; */
+    /* margin: 8px 15px 0 15px; */
+}
+    .item-content-button {
+    margin-top: 0px;
+}
+    .order-buttons {
+    /* width: 100%; */
+    display: flex;
+    /* flex-direction: column; */
+    align-items: center;
+    margin: auto;
+    width: 41%;
+}
+    .order-pickup-time {
+    font-size: 14px;
+}
+    .order-payment-info {
+    width: 72%;
+ 
+}
+    .navbar-right-icon-2 {
+    right: 95px !important;
+    top: 6px !important;
+    position: absolute;
+}
+    .menu-margin-right {
+    right: 61px;
+}
+.large-icon {
+    font-size:30px;
+}
+.custom-btn {
+    width: 96% !important;
+    font-weight: 400;
+    padding: 10px 0px;
+    border-radius: 2px;
+    font-size: 19px;
+    text-transform: uppercase;
+    margin-top: 8px;
+    text-align: center;
+    display: block;
+    /* margin: 8px 15px 0 15px; */
+}
+#tab-giftcard-loadRedeem .md .list .item-content {
+    min-height: 48px;
+    padding-left: 17px;
+}
+#tab-giftcard-loadRedeem .item-media-section {
+    width: 100%;
+}
+#divGiftCardDetailsPanel .giftcard-order-number {
+    width: 60%;
+    font-size: 14px;
+    color: #111111;
+    padding-top: 8px;
+    /* font-weight: 600; */
+    text-align: right;
+}
+#divGiftCardDetailsPanel .giftcard-order-time {
+  font-size:20px;
+}
+.btn-panel-save {
+   
+    font-size: 17px;
+   
+}
+#divGiftCardDetailsPanel .list-icon {
+    display: inline-block;
+    max-width: 40%;
+}
+#divGiftCardDetailsPanel .custom-dropdown-span {
+    position: absolute;
+    margin: 12px 0 0 10px;
+    font-size: 16px;
+}
+#divGiftCardDetailsPanel .dropdown-content .list-icon {
+    display: inline-block;
+    max-width: 26%;
+}
+#tab-giftcard-order  .dropdown-content .list-icon {
+    display: inline-block;
+    max-width: 26%;
+}
+#tab-giftcard-order  .custom-dropdown-span {
+   position: absolute;
+    margin: 8px 0 0 10px;
+    font-size: 14px;
+}
+}
+@media (min-width:768px) and (max-width:800px) {
+    .footer-icon {
+        width: 28%;
+    }
+}
+@media (min-width:801px) and (max-width:1024px) {
+    .footer-icon {
+        width: 20%;
+    }
+}
+@media (min-width:1025px) and (max-width:1280px) {
+.footer-icon{
+    width: 17%;
+}
 }
 /*===============================================*/
 /* 12. Responsive 						    	 */

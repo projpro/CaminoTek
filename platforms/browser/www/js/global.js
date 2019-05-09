@@ -1,6 +1,6 @@
 //var global = "http://www.appnotification.bistroux.com/Api/App/";
-//var global = "http://www.consumerapp.bistroux.com/Api/App/";
-var global = "http://192.168.1.6/Api/App/";
+var global = "http://www.consumerapp.bistroux.com/Api/App/";
+//var global = "http://192.168.1.6/Api/App/";
 var mediaURL = "http://appnotification.bistroux.com/Media/";
 
 var browser = true;
@@ -111,7 +111,7 @@ function Login() {
 
                             if (giftCardsEnabled != "True" && giftCardProgramEnabled != "True" && rewardEnabled != "True") {
                                 $('#lblErr').html();
-                                $('#lblErr').html("Carryout/Gift Card/Rewards are not enabled. Please contact system administrator!");
+                                $('#lblErr').html("Carryout/Gift Card/Rewards are not enabled. Please contact system administrator.");
                                 // Init App
                                 $("#btnLogin").text("Log In");
                                 //LogOut Section
@@ -538,9 +538,9 @@ function CarryoutOrdersList(status, carryoutpagesize, carryoutcurrentPage, divId
                                     var pickupDate = pickupdatetime.split('@')[0].trim();
                                     var pickupTime = pickupdatetime.split('@')[1].trim();
                                     if (status == '' || status == "All")
-                                        html += "<div class=\"order-pickup\"><div>" + pickupTime + "</div><div style=\"font-size:16px;\">" + pickupDate + "</div></div>";
+                                        html += "<div class=\"order-pickup\"><div>" + pickupTime + "</div><div class=\"order-pickup-time\">" + pickupDate + "</div></div>";
                                     else
-                                        html += "<div class=\"order-pickup  order-pickup-margin-top\" style=\"margin-top:4px;\"><div>" + pickupTime + "</div><div style=\"font-size:16px;\">" + pickupDate + "</div></div>";
+                                        html += "<div class=\"order-pickup  order-pickup-margin-top\" style=\"margin-top:4px;\"><div>" + pickupTime + "</div><div class=\"order-pickup-time\">" + pickupDate + "</div></div>";
                                 }
                                 else {
                                     if (status == '' || status == "All")
@@ -569,16 +569,16 @@ function CarryoutOrdersList(status, carryoutpagesize, carryoutcurrentPage, divId
                         if (status == '' || status == "All") {
                             if (value.ORDERSTATUSID != "New") {
                                 if (value.ORDERPICKUPSMSSENTON != undefined && value.ORDERPICKUPSMSSENTON != null && value.ORDERPICKUPSMSSENTON != "") {
-                                    buttonHTML += "<a><img src=\"./img/icons/pickup_sms_button_active.png\" style=\"width:21%;float:right;padding-right:17px;\" /></a>";
+                                    buttonHTML += "<a><img src=\"./img/icons/pickup_sms_button_active.png\" class=\"grid-small-icon\"/></a>";
 
                                 }
                                 else {
-                                    buttonHTML += "<a onclick=\"ConfirmationPickUpSMSSend(" + value.ID + ",'" + phone + "','Grid','" + ordertotal + "')\"  id=\"btnPickUpSMS_" + value.ID + "\"><img id=\"imgPickUpSMS_" + value.ID + "\" src=\"./img/icons/pickup_sms_button.png\" style=\"width:21%;float:right;padding-right:17px;\" /></a>";
+                                    buttonHTML += "<a onclick=\"ConfirmationPickUpSMSSend(" + value.ID + ",'" + phone + "','Grid','" + ordertotal + "')\"  id=\"btnPickUpSMS_" + value.ID + "\"><img id=\"imgPickUpSMS_" + value.ID + "\" src=\"./img/icons/pickup_sms_button.png\" class=\"grid-small-icon\" /></a>";
 
                                 }
                             }
                             else {
-                                buttonHTML += "<a id=\"btnPickUpSMS_" + value.ID + "\"><img id=\"imgPickUpSMS_" + value.ID + "\" src=\"./img/icons/pickup_sms_button_active.png\" style=\"width:21%;float:right;padding-right:17px;\" /></a>";
+                                buttonHTML += "<a id=\"btnPickUpSMS_" + value.ID + "\"><img id=\"imgPickUpSMS_" + value.ID + "\" src=\"./img/icons/pickup_sms_button_active.png\"  class=\"grid-small-icon\" /></a>";
                             }
 
                             html += "<div class=\"order-buttons\" id=\"dvCarryOutButtons_" + value.ID + "\">";
@@ -593,7 +593,7 @@ function CarryoutOrdersList(status, carryoutpagesize, carryoutcurrentPage, divId
                         html += "<div class=\"order-row-container\" >";
 
                         /*------------------Customer Info-----------------------*/
-                        html += "<div class=\"order-date\" style=\"width:75%;\">";
+                        html += "<div class=\"order-date order-payment-info\">";
                         html += "<div class=\"customer-detail-container panel-open\" onclick=\"OpenCarryoutDetails(" + value.ID + ");\">";
                         html += "<div class=\"customer-name\">" + firstName + " " + lastName + "</div>";
                         html += "<div>" + phone + "</div>";
@@ -915,9 +915,9 @@ function CarryoutOrdersListPagination(status, carryoutpagesize, carryoutcurrentP
                                     var pickupDate = pickupdatetime.split('@')[0].trim();
                                     var pickupTime = pickupdatetime.split('@')[1].trim();
                                     if (status == '' || status == "All")
-                                        html += "<div class=\"order-pickup\"><div>" + pickupTime + "</div><div style=\"font-size:16px;\">" + pickupDate + "</div></div>";
+                                        html += "<div class=\"order-pickup\"><div>" + pickupTime + "</div><div class=\"order-pickup-time\">" + pickupDate + "</div></div>";
                                     else
-                                        html += "<div class=\"order-pickup  order-pickup-margin-top\" style=\"margin-top:4px;\"><div>" + pickupTime + "</div><div style=\"font-size:16px;\">" + pickupDate + "</div></div>";
+                                        html += "<div class=\"order-pickup  order-pickup-margin-top\" style=\"margin-top:4px;\"><div>" + pickupTime + "</div><div class=\"order-pickup-time\">" + pickupDate + "</div></div>";
                                 }
                                 else {
                                     if (status == '' || status == "All")
@@ -946,16 +946,16 @@ function CarryoutOrdersListPagination(status, carryoutpagesize, carryoutcurrentP
                         /*------------------Button Row-----------------------*/
                         if (value.ORDERSTATUSID != "New") {
                             if (value.ORDERPICKUPSMSSENTON != undefined && value.ORDERPICKUPSMSSENTON != null && value.ORDERPICKUPSMSSENTON != "") {
-                                buttonHTML += "<a><img src=\"./img/icons/pickup_sms_button_active.png\" style=\"width:21%;float:right;padding-right:17px;\" /></a>";
+                                buttonHTML += "<a><img src=\"./img/icons/pickup_sms_button_active.png\" class=\"grid-small-icon\" /></a>";
 
                             }
                             else {
-                                buttonHTML += "<a  onclick=\"ConfirmationPickUpSMSSend(" + value.ID + ",'" + phone + "','Grid','" + ordertotal + "')\"  id=\"btnPickUpSMS_" + value.ID + "\"><img id=\"imgPickUpSMS_" + value.ID + "\" src=\"./img/icons/pickup_sms_button.png\" style=\"width:21%;float:right;padding-right:17px;\" /></a>";
+                                buttonHTML += "<a  onclick=\"ConfirmationPickUpSMSSend(" + value.ID + ",'" + phone + "','Grid','" + ordertotal + "')\"  id=\"btnPickUpSMS_" + value.ID + "\"><img id=\"imgPickUpSMS_" + value.ID + "\" src=\"./img/icons/pickup_sms_button.png\" class=\"grid-small-icon\"/></a>";
 
                             }
                         }
                         else {
-                            buttonHTML += "<a id=\"btnPickUpSMS_" + value.ID + "\"><img id=\"imgPickUpSMS_" + value.ID + "\" src=\"./img/icons/pickup_sms_button_active.png\" style=\"width:21%;float:right;padding-right:17px;\" /></a>";
+                            buttonHTML += "<a id=\"btnPickUpSMS_" + value.ID + "\"><img id=\"imgPickUpSMS_" + value.ID + "\" src=\"./img/icons/pickup_sms_button_active.png\" class=\"grid-small-icon\" /></a>";
                         }
 
                         html += "<div class=\"order-buttons\" id=\"dvCarryOutButtons_" + value.ID + "\">";
@@ -970,7 +970,7 @@ function CarryoutOrdersListPagination(status, carryoutpagesize, carryoutcurrentP
                         html += "<div class=\"order-row-container\"  >";
 
                         /*------------------Customer Info-----------------------*/
-                        html += "<div class=\"order-date\" style=\"width:75%;\">";
+                        html += "<div class=\"order-date order-payment-info\">";
                         html += "<div class=\"customer-detail-container  panel-open\" onclick=\"OpenCarryoutDetails(" + value.ID + ");\">";
                         html += "<div class=\"customer-name\">" + firstName + " " + lastName + "</div>";
                         html += "<div>" + phone + "</div>";
@@ -1608,7 +1608,7 @@ function SendPickUpSMSToCustomer(orderId, customerphone, source, orderTotal) {
                 $("#btnPickupSMS").removeAttr("disabled");
                 $("#btnPickupSMS").text("Pickup SMS");
                 var data = JSON.parse(response);
-                console.log(data)
+                //console.log(data)
                 if (data.Message.indexOf("successfully") > -1) {
 
                     $("#btnPickupSMS").hide();
@@ -1631,8 +1631,8 @@ function SendPickUpSMSToCustomer(orderId, customerphone, source, orderTotal) {
                                 $("#imgPickUpSMS_" + orderId).removeAttr("src");
                                 $("#imgPickUpSMS_" + orderId).attr("src", "./img/icons/pickup_sms_button_active.png");
                                 $("#btnPickUpSMS_" + orderId).removeAttr("onclick");
-                                var html = "<div><div class=\"order-price order-price-one\" style=\"width: 30%;\">" + orderTotal + "</div><div class=\"order-price-text\" style=\"width: 65%;\">Pickup SMS sent " + arrSMSSentTime[0].trim() + " @ " + arrSMSSentTime[1].trim() + " </div></div>";
-                                $("#dvPickUpSMSGrid_" + orderId).html(html);
+                               // var html = "<div><div class=\"order-price order-price-one\" style=\"width: 30%;\">" + orderTotal + "</div><div class=\"order-price-text\" style=\"width: 65%;\">Pickup SMS sent " + arrSMSSentTime[0].trim() + " @ " + arrSMSSentTime[1].trim() + " </div></div>";
+                                //$("#dvPickUpSMSGrid_" + orderId).html(html);
                             }
 
                         }
@@ -1659,8 +1659,6 @@ function SendPickUpSMSToCustomer(orderId, customerphone, source, orderTotal) {
         self.app.router.navigate('/login_new/', { reloadCurrent: false });
     }
 }
-
-
 //Refresh carryout
 function RefreshCarryOut() {
     var currentstatus = $("#hdnCurrentState").val();
@@ -1668,7 +1666,6 @@ function RefreshCarryOut() {
     currentPage = 0;
     CarryoutOrdersList(currentstatus, pageSize, currentPage);
 }
-
 //parameter List
 function getParams() {
 
@@ -1684,7 +1681,6 @@ function getParams() {
 
     return params;
 }
-
 
 //Change Order Status
 function ChangeOrderStatus(orderId, status, storeId) {
@@ -1717,8 +1713,6 @@ function ChangeOrderStatus(orderId, status, storeId) {
         }
     });
 }
-
-
 //Change Order Status
 function ChangeOrderStatusNew(status) {
     var params = getParams();
@@ -1958,7 +1952,7 @@ function ChangePopupOrderStatusDropdown(status, orderId, storeId) {
             crossDomain: true,
             async: false,
             success: function (data) {
-
+                console.log(data)
                 if ($('#hdnCurrentState').val() == "New") {
                     localStorage.setItem("CurrentPage", 0);
                     CarryoutOrdersList('New', 10, 0, 'dvNewList');
@@ -2041,7 +2035,7 @@ function ChangePopupOrderStatusDropdown(status, orderId, storeId) {
                     }
 
                     $("#carryoutpopstatus_" + orderId).html(iconHTML);
-                    $("#carryoutstatus_" + orderId).html(iconHTML);
+                    $("#carryoutstatus_" + orderId).html(iconHTML1);
 
 
 
@@ -2832,6 +2826,10 @@ function CheckGiftCardPermission() {
     {
         $(".custom-toolbar").hide();
     }
+    else if(count==2)
+    {
+        $(".footer-icon").css('width', '17%');
+    }
     else {
         $(".custom-toolbar").show();
     }
@@ -3489,7 +3487,7 @@ function LoadNewGiftCard() {
 
                         //callSweetAlertSuccess("Card loaded successfully.");
                         swal({
-                            title: "New Card loaded successfully!",
+                            title: "New Card loaded successfully.",
                             //html: "<p><strong>Member ID:</strong>1082</p><p><strong>Name:</strong>John Smith</p><p><strong>Phone:</strong>(614)805-5665</p><p><strong>Email:</strong>cyberv1@mail.com</p><p><strong>Points:</strong>100</p>",
                             html: popuphtml,
                             confirmButtonText: "OK",
@@ -4121,10 +4119,10 @@ function GiftCardOrdersListPagination(pagesize, currentPage) {
                         /*------------------Customer Info-----------------------*/
                         /*------------------Order Info-----------------------*/
                         html += "<div class=\"giftcard-order-items-count\">";
-                        html += "<div class=\"customer-detail-container\">";
-                        html += "<div class=\"order-price\">" + giftcardBalance + "</div>";
+                        //html += "<div class=\"customer-detail-container\">";
+                        //html += "<div class=\"order-price\">" + giftcardBalance + "</div>";
 
-                        html += "<div>" + value.GIFTCARDTYPEID + "</div>";
+                        //html += "<div>" + value.GIFTCARDTYPEID + "</div>";
 
 
                         html += "</div>";
@@ -4292,7 +4290,7 @@ function OpenGiftCardDetails(id) {
                 subtotalvalue = value.SUBTOTAL;
                 ordertotalvalue = value.ORDERTOTAL;
                 orderId = value.ID;
-                orderDateTimeHtml = "<span class=\"order-number\" style=\"font-size:23px;\"> #"+ value.ORDERID+"</span>" +" on "+ orderDate + " @ " + orderTime ;
+                orderDateTimeHtml = "<span class=\"order-number giftcard-order-time\"> #" + value.ORDERID + "</span>" + " on " + orderDate + " @ " + orderTime;
                 $("#orderNumberAndDateTime").html(orderDateTimeHtml);
                 //$("#iconEmail").show();
                 if (phone != "")
@@ -5570,7 +5568,7 @@ function AddNewMemberID() {
                         (function () {
 
                             swal({
-                                title: "New Member created successfully!",
+                                title: "New Member created successfully.",
                                 //html: "<p><strong>Member ID:</strong>1082</p><p><strong>Name:</strong>John Smith</p><p><strong>Phone:</strong>(614)805-5665</p><p><strong>Email:</strong>cyberv1@mail.com</p><p><strong>Points:</strong>100</p>",
                                 html: popuphtml,
                                 confirmButtonText: "OK",
@@ -6023,7 +6021,7 @@ function SaveStoreInfo() {
                     //LoadProfileDetails();
                     if (data.indexOf("Successful") > -1) {
                         swal({
-                            title: "Store Info saved successfully!",
+                            title: "Profile info saved successfully.",
                             confirmButtonText: "OK",
                             type: "success",
                             confirmButtonClass: 'btn btn-success',
@@ -6388,7 +6386,7 @@ function SaveStoreTiming() {
             if (data.indexOf("Successful") > -1) {
                 ShowStoreTiming();
                 swal({
-                    title: "Profile Timing saved successfully!",
+                    title: "Profile Timing saved successfully.",
                     confirmButtonText: "OK",
                     type: "success",
                     confirmButtonClass: 'btn btn-success',
@@ -7459,7 +7457,7 @@ function SaveProductInfo() {
                 if (data.indexOf("Successful") > -1 || data == "") {
                     if (Number(itemId) > 0) {
                         swal({
-                            title: "Food item updated successfully!",
+                            title: "Food item updated successfully.",
                             confirmButtonText: "OK",
                             type: "success",
                             confirmButtonClass: 'btn btn-success',
@@ -7471,7 +7469,7 @@ function SaveProductInfo() {
                     }
                     else {
                         swal({
-                            title: "Food item added successfully!",
+                            title: "Food item added successfully.",
                             confirmButtonText: "OK",
                             type: "success",
                             confirmButtonClass: 'btn btn-success',
@@ -8414,7 +8412,7 @@ function SaveDiscount() {
                     //LoadCouponEdit();
                     if (discountId > 0) {
                         swal({
-                            title: "Coupon updated successfully!",
+                            title: "Coupon updated successfully.",
                             confirmButtonText: "OK",
                             type: "success",
                             confirmButtonClass: 'btn btn-success',
@@ -8426,7 +8424,7 @@ function SaveDiscount() {
                     }
                     else {
                         swal({
-                            title: "Coupon added successfully!",
+                            title: "Coupon added successfully.",
                             confirmButtonText: "OK",
                             type: "success",
                             confirmButtonClass: 'btn btn-success',

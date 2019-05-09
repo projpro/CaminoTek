@@ -71,6 +71,11 @@ body {
 {
      font-size:18px;
 }
+
+  .md .tabbar-labels.toolbar-bottom-md a.link, .md .tabbar-labels.toolbar-bottom-md a.tab-link {
+    padding-top: 14px !important;
+    padding-bottom: 7px;
+}
 }
 /*--------------------------------------------------CYBERVATION------------------------------------------------*/
 
@@ -21997,7 +22002,7 @@ iframe#viAd {
     color:#fff;
 }
 .footer-menu-active{
-    background-color:#09c7dc !important;
+    background-color:#fff !important;
     color:#fff !important;
 }
 
