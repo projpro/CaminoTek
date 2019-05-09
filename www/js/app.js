@@ -17,7 +17,16 @@ var deviceUUID = "";
 $$(document).on('deviceready', function () {
     console.log("Device is ready!");
     var storeId = 0;
-    document.addEventListener("pause", onPause, false);
+  // document.addEventListener("pause", onPause, false);
+    setTimeout(function () {
+        cordova.plugins.backgroundMode.enableWakeUp();
+        //...
+        cordova.plugins.backgroundMode.wakeUp();
+            // Modify the currently displayed notification
+            //cordova.plugins.backgroundMode.configure({
+            //    text: 'Running in background for more than 5s now.'
+            //});
+        }, 5000);
     // Android customization
     //cordova.plugins.backgroundMode.setDefaults({ text: 'Doing heavy tasks.' });
     // Enable background mode
@@ -54,7 +63,9 @@ $$(document).on('deviceready', function () {
     //document.addEventListener("resume", onResume, false);
 });
 function onPause() {
-    alert("On pause")
+    $timeout(function () {
+        alert("Running in background for more than 5s now ...");
+    }, 5000);
 }
 // Handle the resume event
 //
