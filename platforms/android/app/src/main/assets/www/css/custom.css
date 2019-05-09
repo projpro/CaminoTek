@@ -6,6 +6,17 @@
   font-size: 16px;*/
   border: none;
   cursor: pointer;
+
+}
+#divGiftCardDetailsPanel  .dropbtn {
+  background-color: #fff;
+  /*color: white;*/
+  /*padding: 16px;
+  font-size: 16px;*/
+  border: none;
+  cursor: pointer;
+   text-align: left;
+
 }
 #dvOrderInfo .dropbtn {
   background-color: #fff;
@@ -53,7 +64,13 @@
 
 .custom-dropdown-span{
     position: absolute;
-    margin: 10px 0 0 10px;
+    margin: 5px 0 0 10px;
+    font-size: 19px;
+}
+#divGiftCardDetailsPanel .custom-dropdown-span {
+    position: absolute;
+    margin: 8px 0 0 10px;
+    font-size: 19px;
 }
 .close_status_dropdown
 {

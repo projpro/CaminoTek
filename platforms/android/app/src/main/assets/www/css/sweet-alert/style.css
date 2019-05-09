@@ -10,7 +10,7 @@
             padding: 0;
             /*color: #595959;*/
               color: #000;
-            font-size: 31px;
+            font-size: 26px;
             font-weight: 300;
             text-align: center;
             text-transform: none;
@@ -32,7 +32,7 @@
             font-weight: 400;
             line-height: normal;
             /*font-family: 'Oswald', sans-serif;*/
-            font-family: Arial Narrow,Arial,sans-serif;
+            /*font-family: Arial Narrow,Arial,sans-serif;*/
             
             word-wrap: break-word;
         }
@@ -40,9 +40,20 @@
             margin:2px 0 0 0;
         }
         .swal2-content .main-one{
-            color:#08b3c7;font-weight:400;font-size:36px;font-family: 'Oswald', sans-serif;
+            color:#08b3c7;
+            font-weight:400;
+            font-size:30px;/*font-family: 'Oswald', sans-serif;*/
         }
         .swal2-content .main-two{
-            color:#799427;font-size:30px;font-family: 'Oswald', sans-serif;
+            color:#799427;
+            font-size:30px;/*font-family: 'Oswald', sans-serif;*/
         }
 		.swal2-container{z-index: 9999 !important;}
+
+        .swal2-cancel{
+            width:100px !important;
+            padding: .625em 1em !important;
+        }
+          .swal2-confirm{
+            width:100px !important;
+        }

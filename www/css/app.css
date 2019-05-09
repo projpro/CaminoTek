@@ -740,7 +740,30 @@ h4 {
     margin: 5px 10px;
     display: inline-block;
 }
-
+#reward_LoadRedeem .small-button-right {
+    font-weight: 400;
+    padding: 00px 10px;
+    border-radius: 2px;
+    font-size: 19px;
+    text-transform: uppercase;
+    margin-top: 0px;
+    text-align: center;
+    display: block;
+    /*float:right;*/
+    /*margin:8px 15px 0 15px;*/
+}
+#reward_new .small-button-right {
+    font-weight: 400;
+    padding: 0px 10px;
+    border-radius: 2px;
+    font-size: 19px;
+    text-transform: uppercase;
+    margin-top: 0px;
+    text-align: center;
+    display: block;
+    /*float:right;*/
+    /*margin:8px 15px 0 15px;*/
+}
 .small-button-right {
     font-weight: 400;
     padding: 10px 10px;
@@ -804,17 +827,17 @@ h4 {
     margin-top: 0px !important;
 }
 #reward_new .md .list {
-    margin-top: 0px !important;
+    margin-top: 23px !important;
 }
 #reward_new .mt {
-     margin-top: 0px !important;
+     margin-top: 23px !important;
     /* margin-top: 30px !important; */
 }
 #reward_LoadRedeem .md .list {
-    margin-top: 0px !important;
+    margin-top:0px !important;
 }
 #reward_LoadRedeem .mt {
-     margin-top: 0px !important;
+     margin-top: 23px !important;
     /* margin-top: 30px !important; */
 }
 
@@ -1288,7 +1311,13 @@ h4 {
     width: 40%;
     margin: 0 14px;
 }
+#giftcard .order-column-one {
+    width: 32%;
+}
 
+#giftcard .order-column-two {
+    width: 68%;
+}
 .order-column-one {
     width: 25%;
 }
@@ -1304,7 +1333,12 @@ h4 {
 .order-container:not(:last-child) {
     border-bottom: #cecece 1px solid;
 }
-
+#tab-giftcard-new .item-content:last-child {
+    margin-top:20px;
+}
+.item-content-button {
+    margin-top:15px;
+}
 .item-content:last-child {
     /*margin-top:20px;*/
 }
@@ -1632,7 +1666,10 @@ color: #3b9847;
     max-width: 20%;
     /*margin-left: 22px;*/
 }
-
+#divGiftCardDetailsPanel .list-icon {
+    display: inline-block;
+    max-width: 20%;
+}
 .list-icon {
     display: inline-block;
     max-width: 30%;
@@ -1976,6 +2013,12 @@ select:-moz-focusring {
     font-size: 20px;
     padding-left: 10px;
 }
+
+.footer-icon{
+    /*height: 60%;*/
+    width: 31%;
+    /*object-fit: contain;*/
+}
 /*===============================================*/
 /* 11/A. Sudip Start					    	 */
 /*===============================================*/
@@ -2225,6 +2268,14 @@ select:-moz-focusring {
     color: #111111;
     padding-top: 8px;
     font-weight:600;
+}
+#divGiftCardDetailsPanel .giftcard-order-number {
+    width: 60%;
+    font-size: 18px;
+    color: #111111;
+    padding-top: 8px;
+    font-weight: 600;
+    text-align: right;
 }
 .giftcard-order-number span {
     font-size: 13px;

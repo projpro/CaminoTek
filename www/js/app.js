@@ -24,7 +24,7 @@ $$(document).on('deviceready', function () {
         if (localStorage.getItem("StoreId") != null)
             storeId = Number(localStorage.getItem("StoreId"));
         if (storeId > 0) {
-           
+
             InitPushNotification(storeId, device.manufacturer.toUpperCase(), device.uuid, device.version);
         }
     }
@@ -47,8 +47,8 @@ var app = new Framework7({
     },
     statusbar: {
         androidOverlaysWebView: true,
-        overlay:false
-},
+        overlay: false
+    },
     //pushState: true,
 });
 
@@ -94,7 +94,20 @@ $$(document).on('page:init', function (e) {
             localStorage.setItem("AppRefreshTimeInterval", appRefreshInterval);
         }
         if (storeId > 0) {
-            setTimeout(function () { self.app.router.navigate('/carryout/', { reloadCurrent: false }); }, 1000);
+            var carryOutEnabled = localStorage.getItem("CarryOutEnabled").trim();
+            var giftCardsEnabled = localStorage.getItem("GiftCardsEnabled").trim();
+            var giftCardProgramEnabled = localStorage.getItem("GiftCardProgramEnabled").trim();
+            var rewardEnabled = localStorage.getItem("RewardsEnabled").trim();
+            if (carryOutEnabled != "" && carryOutEnabled == "True") {
+                setTimeout(function () { self.app.router.navigate('/carryout/', { reloadCurrent: false }); }, 1000);
+            }
+            else if (giftCardsEnabled != "" && giftCardsEnabled == "True") {
+                setTimeout(function () { self.app.router.navigate('/giftcard/', { reloadCurrent: false }); }, 1000);
+            }
+            else if (rewardEnabled != "" && rewardEnabled == "True") {
+                setTimeout(function () { self.app.router.navigate('/new_rewards/', { reloadCurrent: false }); }, 1000);
+            }
+
 
         }
         else
@@ -104,7 +117,7 @@ $$(document).on('page:init', function (e) {
     else if (pageURL.indexOf('login_new') > -1)//Login
     {
         InitLogin();
-       
+
         $$('#loginnew #btnLogin').click(function () {
             Login();
         });
@@ -114,71 +127,70 @@ $$(document).on('page:init', function (e) {
     {
         //openacceptorderpopup();
         //CheckNewOrder();
-       $("#txtFilterOrderDateFrom").flatpickr({
-           enableTime: false,
-           dateFormat: "m/d/Y",
-           //disableMobile: true,
-           onChange: function (selectedDates, dateStr, instance) {
-               console.log("#txtFilterOrderDateFrom dateStr:" + dateStr);
-               console.log("#txtFilterOrderDateFrom selectedDates:" + selectedDates);
-               console.log("#txtFilterOrderDateFrom instance:" + instance);
-               //console.log("#txtFilterOrderDateFrom dateStr:" + dateStr);
-               if (dateStr != undefined && dateStr != null && dateStr.trim() != "")
-               {
-                   console.log("1");
-                   $$("#phFilterOrderDateFrom").hide();
-               }
-               else {
-                   console.log("2");
-                   $$("#phFilterOrderDateFrom").show();
-               }
-               
-           },
-           
-       });
-       $("#txtFilterOrderDateTo").flatpickr({
-           enableTime: false,
-           dateFormat: "m/d/Y",
-           //disableMobile: "false",
-           onChange: function (dateObj, dateStr) {
-               //console.log("#txtFilterOrderDateFrom dateObj:" + dateObj);
-               //console.log("#txtFilterOrderDateFrom dateStr:" + dateStr);
-               if (dateStr != undefined && dateStr != null && dateStr.trim() != "") {
-                   //console.log("1");
-                   $$("#phFilterOrderDateTo").hide();
-               }
-               else {
-                   //console.log("2");
-                   $$("#phFilterOrderDateTo").show();
-               }
+        $("#txtFilterOrderDateFrom").flatpickr({
+            enableTime: false,
+            dateFormat: "m/d/Y",
+            //disableMobile: true,
+            onChange: function (selectedDates, dateStr, instance) {
+                console.log("#txtFilterOrderDateFrom dateStr:" + dateStr);
+                console.log("#txtFilterOrderDateFrom selectedDates:" + selectedDates);
+                console.log("#txtFilterOrderDateFrom instance:" + instance);
+                //console.log("#txtFilterOrderDateFrom dateStr:" + dateStr);
+                if (dateStr != undefined && dateStr != null && dateStr.trim() != "") {
+                    console.log("1");
+                    $$("#phFilterOrderDateFrom").hide();
+                }
+                else {
+                    console.log("2");
+                    $$("#phFilterOrderDateFrom").show();
+                }
 
-           }
-       });
-       $('#txtFilterOrderDateFrom').change(function () {
-           var dateStr = $('#txtFilterOrderDateFrom').val();
-           if (dateStr != undefined && dateStr != null && dateStr.trim() != "") {
-               //console.log("1");
-               $$("#phFilterOrderDateFrom").hide();
-           }
-           else {
-               //console.log("2");
-               $$("#phFilterOrderDateFrom").show();
-           }
-       });
-       $('#txtFilterOrderDateTo').change(function () {
-           var dateStr = $('#txtFilterOrderDateTo').val();
-           if (dateStr != undefined && dateStr != null && dateStr.trim() != "") {
-               //console.log("1");
-               $$("#phFilterOrderDateTo").hide();
-           }
-           else {
-               //console.log("2");
-               $$("#phFilterOrderDateTo").show();
-           }
-       });
+            },
+
+        });
+        $("#txtFilterOrderDateTo").flatpickr({
+            enableTime: false,
+            dateFormat: "m/d/Y",
+            //disableMobile: "false",
+            onChange: function (dateObj, dateStr) {
+                //console.log("#txtFilterOrderDateFrom dateObj:" + dateObj);
+                //console.log("#txtFilterOrderDateFrom dateStr:" + dateStr);
+                if (dateStr != undefined && dateStr != null && dateStr.trim() != "") {
+                    //console.log("1");
+                    $$("#phFilterOrderDateTo").hide();
+                }
+                else {
+                    //console.log("2");
+                    $$("#phFilterOrderDateTo").show();
+                }
+
+            }
+        });
+        $('#txtFilterOrderDateFrom').change(function () {
+            var dateStr = $('#txtFilterOrderDateFrom').val();
+            if (dateStr != undefined && dateStr != null && dateStr.trim() != "") {
+                //console.log("1");
+                $$("#phFilterOrderDateFrom").hide();
+            }
+            else {
+                //console.log("2");
+                $$("#phFilterOrderDateFrom").show();
+            }
+        });
+        $('#txtFilterOrderDateTo').change(function () {
+            var dateStr = $('#txtFilterOrderDateTo').val();
+            if (dateStr != undefined && dateStr != null && dateStr.trim() != "") {
+                //console.log("1");
+                $$("#phFilterOrderDateTo").hide();
+            }
+            else {
+                //console.log("2");
+                $$("#phFilterOrderDateTo").show();
+            }
+        });
         $('#dvParentGiftCardDetailsPanel').html("");
         $('#dvDetailsPanel').html("");
-       // console.log(calendarModalOrderStart)
+        // console.log(calendarModalOrderStart)
         //if (calendarModalOrderStart!=undefined)
         //    calendarModalOrderStart.destroy();
         //if (calendarModalOrderEnd != undefined)
@@ -201,16 +213,16 @@ $$(document).on('page:init', function (e) {
         //    footer: true,
         //    dateFormat: 'mm/dd/yyyy',
         //});
-    
+
         CheckGiftCardPermission();
         $$("#hdnCurrentState").val('New');
 
         var pageSize = 10;
         var currentPage = 0;
-     
+
         document.addEventListener("deviceready", onDeviceReady, false);
         function onDeviceReady() {
-            
+
             var src = mediaURL + "notification.mp3";
             myMedia = new Media(src, onSuccess, onError, onStatus);
 
@@ -222,7 +234,7 @@ $$(document).on('page:init', function (e) {
                     InitPushNotification(storeId, device.manufacturer, device.uuid, device.version);
                 }
             }
-           
+
         }
 
         localStorage.setItem("CurrentPage", currentPage);
@@ -285,7 +297,7 @@ $$(document).on('page:init', function (e) {
             $('#ulFilterSortGiftCard').hide();
             $('#ulFilterSortCoupon').hide();
             $('#ulFilterSortItem').show();
-           
+
         });
 
         CheckGiftCardPermission();
@@ -351,7 +363,7 @@ $$(document).on('page:init', function (e) {
                 $('#liAvailTiming').hide();
             }
         });
-       // BindCategoy('productCategory');
+        // BindCategoy('productCategory');
         var itemId = 0;
         if (localStorage.getItem("HiddenItemId") != null) {
             itemId = localStorage.getItem("HiddenItemId").trim();
@@ -380,7 +392,7 @@ $$(document).on('page:init', function (e) {
         function blockOffScroll() {
             $$('.page').off('touchstart touchmove', preventScroll);
         }
-
+        SetUpBarCodeScanButton('scan');
         $$("#txtCardCode").focus();
         //$$("#txtCardCodeSearch").focus();
         var screen_width = document.documentElement.clientWidth;
@@ -394,6 +406,7 @@ $$(document).on('page:init', function (e) {
         CheckGiftCardPermission();
         var giftCardsEnabled = localStorage.getItem("GiftCardsEnabled").trim();
         var giftCardProgramEnabled = localStorage.getItem("GiftCardProgramEnabled").trim();
+       
         if (giftCardsEnabled != "" && giftCardsEnabled == "True") {
 
             if (giftCardProgramEnabled == "" || giftCardProgramEnabled != "True") {
@@ -530,12 +543,17 @@ $$(document).on('page:init', function (e) {
         //GiftCard Load New - Start
         $$('#linkGiftCardNew').click(function () {
             ResetGiftCardNew();
+            SetUpBarCodeScanButton('scan');
             $('#txtCardCode').focus();
             currentTab = "New";
             blockScroll();
+
+           
         });
         $$('#linkGiftCardRedeem').click(function () {
             ResetGiftCardLoadRedeem();
+            SetUpBarCodeScanButton('loadredeemscan');
+
             $('#txtCardCodeSearch').focus();
             if (currentTab == "New") {
                 //if (screen_width <= 417) {
@@ -594,7 +612,7 @@ $$(document).on('page:init', function (e) {
             RedeemGiftCard();
         });
 
-       
+
         //GiftCard Load/Redeem - End
 
         //GiftCard Orders - Start
@@ -669,6 +687,8 @@ $$(document).on('page:init', function (e) {
         $$("#txtMemberId_Reward").focus();
         //$$("#txtMemberID_LoadRedeem").focus();
         CheckGiftCardPermission();
+        SetUpBarCodeScanButton('scan');
+
         //SetMenuNavigation();
         $$('#btnCreate').click(function () {
             AddNewMemberID();
@@ -699,12 +719,13 @@ $$(document).on('page:init', function (e) {
             }
         });
         $$('#linkRewardNew').click(function () {
-           
+            SetUpBarCodeScanButton('scan');
+
             ResetRewardNew();
             $('#txtMemberId_Reward').focus();
         });
         $$('#linkRewardLoadRedeem').click(function () {
-           
+            SetUpBarCodeScanButton('loadredeemscan');
             ResetRewardLoadRedeem();
             $('#txtMemberID_LoadRedeem').focus();
         });
@@ -777,7 +798,7 @@ $$(document).on('page:init', function (e) {
             });
         }
     }
-        
+
     else if (pageURL.indexOf('profile') > -1)//Profile
     {
         var storeId = 0;
@@ -786,7 +807,7 @@ $$(document).on('page:init', function (e) {
         function onDeviceReady() {
             var src = mediaURL + "notification.mp3";
             myMedia = new Media(src, onSuccess, onError, onStatus);
-        
+
             if (device.platform != "browser") {
                 deviceUUID = device.uuid;
                 if (localStorage.getItem("StoreId") != null)
@@ -837,7 +858,7 @@ $$(document).on('page:init', function (e) {
                 }
 
             }
-           // disableMobile: "false"
+            // disableMobile: "false"
         });
         $('#txtFilterCouponStart').change(function () {
             var dateStr = $('#txtFilterCouponStart').val();
@@ -1220,13 +1241,13 @@ $$(document).on('page:init', function (e) {
         });
 
     }
-    else if(pageURL.indexOf('setup') > -1)//Setup
+    else if (pageURL.indexOf('setup') > -1)//Setup
     {
         CheckGiftCardPermission();
     }
 });
 
-function InitPushNotification(storeId,name,uuid,version) {
+function InitPushNotification(storeId, name, uuid, version) {
 
     var push = PushNotification.init({
         "android": {
@@ -1243,9 +1264,9 @@ function InitPushNotification(storeId,name,uuid,version) {
     // console.log('after init');
 
     push.on('registration', function (data) {
-       
+
         var oldRegId = localStorage.getItem('registrationId');
-      
+
         //if (oldRegId == null || oldRegId == undefined) {
         //    console.log("Save new registration ID")
         //    // Save new registration ID
@@ -1253,12 +1274,12 @@ function InitPushNotification(storeId,name,uuid,version) {
         //    RegisterToken(storeId, data.registrationId,name,uuid,version);
         //}
         //else {
-            //if (oldRegId !== data.registrationId) {
-                console.log("Save new registration ID")
-                // Save new registration ID
-                localStorage.setItem('registrationId', data.registrationId);
-                RegisterToken(storeId, data.registrationId,name,uuid,version);
-           // }
+        //if (oldRegId !== data.registrationId) {
+        console.log("Save new registration ID")
+        // Save new registration ID
+        localStorage.setItem('registrationId', data.registrationId);
+        RegisterToken(storeId, data.registrationId, name, uuid, version);
+        // }
         //}
 
 
@@ -1290,15 +1311,15 @@ function InitPushNotification(storeId,name,uuid,version) {
             //$(".link").click();
             //$("#btnAcknowledgement").click();
             //localStorage.setItem("loadcarryoutprocessing", "true");
-           // self.app.router.navigate('/carryout/', { reloadCurrent: true });
+            // self.app.router.navigate('/carryout/', { reloadCurrent: true });
             //alert(data.message)
-           
+
             //acceptOrderPopup.destroy();
-           
+
             //AcceptOrders();
-          // acceptOrderPopup.destroy();
+            // acceptOrderPopup.destroy();
             //AcceptOrders();
-          // $(".popup-close").click();
+            // $(".popup-close").click();
         }
         // alert('notification event: ' + data.message + ", " + data.title);
         //navigator.notification.alert(
@@ -1336,23 +1357,23 @@ function CheckLoggedIn() {
         }
         //console.log("StoreId: 333")
         if (Number(storeId) > 0) {
-          
+
             self.app.router.navigate('/carryout/', { reloadCurrent: false });
         }
     }
 }
 
 function CheckNewOrder() {
-   
+
     var params = getParams();
     var storeId = 0;
     storeId = SetStoreId();
     if (Number(storeId) > 0) {
-      var  url = global + "/GetLatestCarryOutOrderPopupNew?storeid=" + storeId;
+        var url = global + "/GetLatestCarryOutOrderPopupNew?storeid=" + storeId;
         try {
             $.getJSON(url, function (data) {
                 var obj = JSON.parse(data).Rows;
-              
+
                 if (data.indexOf("No order(s) found.") > -1) {
                     console.log(GetCurrentDateTime() + " - " + " No new order(s) found", browser);
                 }
@@ -1368,13 +1389,11 @@ function CheckNewOrder() {
                             else
                                 orderIds = value.ID;
                             html += "<div id=\"divAcknowledgement\">";
-                            if (value.PICKUPTIME != "")
-                            {
-                                if (value.PICKUPTIME.indexOf("@") > -1)
-                                {
-                                   var pickupdateOnly = value.PICKUPTIME.split('@')[0].trim();
-                                   var pickuptimeOnly = value.PICKUPTIME.split('@')[1].trim();
-                                  
+                            if (value.PICKUPTIME != "") {
+                                if (value.PICKUPTIME.indexOf("@") > -1) {
+                                    var pickupdateOnly = value.PICKUPTIME.split('@')[0].trim();
+                                    var pickuptimeOnly = value.PICKUPTIME.split('@')[1].trim();
+
                                     if (pickuptime.length > 0) {
                                         var pickupcount = false;
                                         var count = 0;
@@ -1434,7 +1453,7 @@ function CheckNewOrder() {
                                     html += pickuphtml;
                                     html += "</div>";
 
-                                  
+
 
                                 }
                                 else {
@@ -1449,19 +1468,19 @@ function CheckNewOrder() {
                                             }
                                             else {
                                                 if (pickupcount === true) {
-                                                        var now = new Date();
-                                                        var pickupdatetime = new Date(GetCurrentDateOnly() + " " + value.PICKUPTIME);
-                                                        var dropdownValueDateTime = new Date(GetCurrentDateOnly() + " " + value1);
-                                                        var minsDiff = Math.floor((dropdownValueDateTime.getTime() - now.getTime()) / 1000 / 60);
-                                                        var minsDiffFromPickUpTime = Math.floor((dropdownValueDateTime.getTime() - pickupdatetime.getTime()) / 1000 / 60);
-                                                        if (minsDiffFromPickUpTime <= 120) {
-                                                            if (minsDiff > 0) {
-                                                                pickuphtml += "<option value='" + value1 + "'>" + value1 + "</option>";
-                                                            }
-                                                            else {
-                                                                pickuphtml += "<option disabled value='" + value1 + "'>" + value1 + "</option>";
-                                                            }
+                                                    var now = new Date();
+                                                    var pickupdatetime = new Date(GetCurrentDateOnly() + " " + value.PICKUPTIME);
+                                                    var dropdownValueDateTime = new Date(GetCurrentDateOnly() + " " + value1);
+                                                    var minsDiff = Math.floor((dropdownValueDateTime.getTime() - now.getTime()) / 1000 / 60);
+                                                    var minsDiffFromPickUpTime = Math.floor((dropdownValueDateTime.getTime() - pickupdatetime.getTime()) / 1000 / 60);
+                                                    if (minsDiffFromPickUpTime <= 120) {
+                                                        if (minsDiff > 0) {
+                                                            pickuphtml += "<option value='" + value1 + "'>" + value1 + "</option>";
                                                         }
+                                                        else {
+                                                            pickuphtml += "<option disabled value='" + value1 + "'>" + value1 + "</option>";
+                                                        }
+                                                    }
                                                 }
 
                                             }
@@ -1538,15 +1557,15 @@ function CheckNewOrder() {
 
                             html += "</div></div></div>";
 
-                           
+
                         });
-                      
+
                         $("#hdnOrderIds").val(orderIds);
 
                         if (html != "") {
-                           // html += "<div class=\"block no-padding no-margin margin-bottom\"><div id=\"popup-picker-date-container\"></div></div>";
-                         
-                                    
+                            // html += "<div class=\"block no-padding no-margin margin-bottom\"><div id=\"popup-picker-date-container\"></div></div>";
+
+
                             //acceptOrderPopup = app.popup.create({
                             //    content: '<div class="popup">' +
                             //                '<div class="block">' +
@@ -1592,11 +1611,11 @@ function CheckNewOrder() {
                             for (var i = 0; i < inputs.length; i++) {
                                 //Check whether the INPUT element is TextBox.
                                 if (inputs[i].type == "text") {
-                                     $(inputs[i])
-                                    .putCursorAtEnd() // should be chainable
-                                    .on("focus", function () { // could be on any event
-                                        $(inputs[i]).putCursorAtEnd()
-                                    });
+                                    $(inputs[i])
+                                   .putCursorAtEnd() // should be chainable
+                                   .on("focus", function () { // could be on any event
+                                       $(inputs[i]).putCursorAtEnd()
+                                   });
                                     //Check whether Date Format Validation is required.
                                     if (inputs[i].className.indexOf("popup_date") != 1) {
 
@@ -1616,14 +1635,14 @@ function CheckNewOrder() {
                                 }
                             }
                         }
-                        console.log('isDevice 1: '+isDevice())
+                        console.log('isDevice 1: ' + isDevice())
                         if (isDevice()) {
                             // console.log('isDevice 1: ')
                             //playAudio();
                             myMedia.play();
                         }
                     }
-                   
+
 
                 }
 
@@ -1634,7 +1653,7 @@ function CheckNewOrder() {
         }
     }
 
-  //  console.log(GetCurrentDateTime() + " - " + "CheckNewOrder END", browser);
+    //  console.log(GetCurrentDateTime() + " - " + "CheckNewOrder END", browser);
 }
 
 function AcceptOrders() {
@@ -1660,9 +1679,8 @@ function AcceptOrders() {
         var oldPickUp = $("#pickuptime_" + orderId).html().trim();
         var oldpickupdate = "";
         var oldpickuptime = "";
-       // console.log(oldPickUp)
-        if (oldPickUp.indexOf("@") > -1)
-        {
+        // console.log(oldPickUp)
+        if (oldPickUp.indexOf("@") > -1) {
             var phone = $("#phone_" + orderId).html().trim().replace("(", "").replace(")", "").replace("-", "");
 
             oldpickupdate = oldPickUp.split('@')[0].trim();
@@ -1718,7 +1736,7 @@ function AcceptOrders() {
             $('#myDiv').hide();
             //acceptOrderPopup.destroy();
             $("#hdnOrderIds").val("");
-           
+
             if (giftcardchanged > 0 && carryoutchanged > 0) {
                 if (giftcardchanged > carryoutchanged) {
                     localStorage.setItem("loadgiftcardorders", "true");
@@ -1754,7 +1772,7 @@ function AcceptOrders() {
         }
     });
 
-    
+
 }
 function StopSoundOtherDevices(storeId) {
     var regId = localStorage.getItem('registrationId');
@@ -1782,7 +1800,7 @@ function StopSoundOtherDevices(storeId) {
     });
 }
 function Back() {
-   // console.log('Back')
+    // console.log('Back')
     //console.log(app.views.main.router);
     //console.log(app.views.main.router.url);
     //console.log(app.views.main.router.history);
@@ -1796,7 +1814,7 @@ function Back() {
         }
         ///console.log('secondLastPage: ' + secondLastPage);
         //console.log('thirdLastPage: ' + thirdLastPage);
-        if (secondLastPage!="" && secondLastPage != "/login_new/" && secondLastPage != "/") {
+        if (secondLastPage != "" && secondLastPage != "/login_new/" && secondLastPage != "/") {
             //console.log(1);
             app.views.main.router.back();
         }
