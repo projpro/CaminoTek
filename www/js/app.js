@@ -17,20 +17,21 @@ var deviceUUID = "";
 $$(document).on('deviceready', function () {
     console.log("Device is ready!");
     var storeId = 0;
+    document.addEventListener("pause", yourCallbackFunction, false);
     // Android customization
-    cordova.plugins.backgroundMode.setDefaults({ text: 'Doing heavy tasks.' });
+    //cordova.plugins.backgroundMode.setDefaults({ text: 'Doing heavy tasks.' });
     // Enable background mode
-    cordova.plugins.backgroundMode.enable();
+    //cordova.plugins.backgroundMode.enable();
 
     // Called when background mode has been activated
-    cordova.plugins.backgroundMode.onactivate = function () {
-        setTimeout(function () {
-            // Modify the currently displayed notification
-            cordova.plugins.backgroundMode.configure({
-                text: 'Running in background for more than 5s now.'
-            });
-        }, 5000);
-    }
+    //cordova.plugins.backgroundMode.onactivate = function () {
+    //    setTimeout(function () {
+    //        // Modify the currently displayed notification
+    //        cordova.plugins.backgroundMode.configure({
+    //            text: 'Running in background for more than 5s now.'
+    //        });
+    //    }, 5000);
+    //}
     //InitPushNotification();
     if (device.platform != "browser") {
         deviceUUID = device.uuid;
@@ -52,7 +53,9 @@ $$(document).on('deviceready', function () {
     //}, 3000);//3 seconds
     //document.addEventListener("resume", onResume, false);
 });
-
+function onPause() {
+    alert("On pause")
+}
 // Handle the resume event
 //
 function onResume() {
@@ -1844,9 +1847,9 @@ function StopSoundOtherDevices(storeId) {
 }
 function Back() {
     // console.log('Back')
-    //console.log(app.views.main.router);
-    //console.log(app.views.main.router.url);
-    //console.log(app.views.main.router.history);
+    console.log(app.views.main.router);
+    console.log(app.views.main.router.url);
+    console.log(app.views.main.router.history);
     if (app.views.main.router.history.length > 0) {
         var secondLastPage = "";
         var thirdLastPage = "";
