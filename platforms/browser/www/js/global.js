@@ -11,7 +11,6 @@ var noErrorClassBorder = 'none';
 var src = mediaURL + "notification.mp3";
 var myMedia = null;
 
-
 function InitLogin() {
     // console.log('Init Login');
     var mydate = new Date()
@@ -21,7 +20,6 @@ function InitLogin() {
     //console.log('year: ' + year);
     $(".login-footer #footerYear").html(year);
 }
-
 function RegisterToken(storeId, token, name, uuid, version) {
 
     $.ajax({
@@ -43,7 +41,6 @@ function RegisterToken(storeId, token, name, uuid, version) {
         }
     });
 }
-
 //Login
 function Login() {
     //console.log("Login");
@@ -67,7 +64,7 @@ function Login() {
                 //console.log("Login 2" + data);
                 //alert(data)
                 if (data.indexOf("No Data Found") > -1) {
-                    $('#lblErr').html("Invalid Email/Password");
+                    $('#lblErr').html("Invalid Login/Password");
                     $("#btnLogin").text("Log In");
                 }
                 else {
@@ -260,7 +257,6 @@ function isValidEmailAddress(emailAddress) {
 
     return pattern.test(emailAddress);
 };
-
 function GetStoreCarryOutTimings(storeId) {
 
     var url = global + "/GetCarryoutOrderTimings?storeid=" + storeId;
@@ -1561,6 +1557,7 @@ function ConfirmationPickUpSMSSend(orderId, customerphone, source, orderTotal) {
             confirmButtonColor: '#3b9847',
             cancelButtonColor: '#e95861',
             confirmButtonText: 'Yes',
+            cancelButtonText: "No",
             closeOnConfirm: false,
             closeOnCancel: true
         }).then(result => {
