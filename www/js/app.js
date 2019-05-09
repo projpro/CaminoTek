@@ -28,6 +28,9 @@ $$(document).on('deviceready', function () {
             InitPushNotification(storeId, device.manufacturer.toUpperCase(), device.uuid, device.version);
         }
     }
+
+    cordova.plugins.backgroundMode.enable();
+
     //cordova.plugins.backgroundMode.setEnabled(true);
     setTimeout(function () { // Turn screen on
         cordova.plugins.backgroundMode.wakeUp();
