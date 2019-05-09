@@ -17,7 +17,20 @@ var deviceUUID = "";
 $$(document).on('deviceready', function () {
     console.log("Device is ready!");
     var storeId = 0;
+    // Android customization
+    cordova.plugins.backgroundMode.setDefaults({ text: 'Doing heavy tasks.' });
+    // Enable background mode
+    cordova.plugins.backgroundMode.enable();
 
+    // Called when background mode has been activated
+    cordova.plugins.backgroundMode.onactivate = function () {
+        setTimeout(function () {
+            // Modify the currently displayed notification
+            cordova.plugins.backgroundMode.configure({
+                text: 'Running in background for more than 5s now.'
+            });
+        }, 5000);
+    }
     //InitPushNotification();
     if (device.platform != "browser") {
         deviceUUID = device.uuid;
@@ -29,15 +42,15 @@ $$(document).on('deviceready', function () {
         }
     }
 
-    cordova.plugins.backgroundMode.enable();
+   /// cordova.plugins.backgroundMode.enable();
 
     //cordova.plugins.backgroundMode.setEnabled(true);
-    setTimeout(function () { // Turn screen on
-        cordova.plugins.backgroundMode.wakeUp();
-        // Turn screen on and show app even locked
-        cordova.plugins.backgroundMode.unlock();
-    }, 3000);//3 seconds
-    document.addEventListener("resume", onResume, false);
+    //setTimeout(function () { // Turn screen on
+    //    cordova.plugins.backgroundMode.wakeUp();
+    //    // Turn screen on and show app even locked
+    //    cordova.plugins.backgroundMode.unlock();
+    //}, 3000);//3 seconds
+    //document.addEventListener("resume", onResume, false);
 });
 
 // Handle the resume event
