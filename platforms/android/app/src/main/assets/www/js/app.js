@@ -28,9 +28,12 @@ $$(document).on('deviceready', function () {
             InitPushNotification(storeId, device.manufacturer.toUpperCase(), device.uuid, device.version);
         }
     }
-
+    cordova.plugins.backgroundMode.isScreenOff(function(bool) {
+       alert("Screen is off")
+        });
     document.addEventListener("resume", onResume, false);
 });
+
 // Handle the resume event
 //
 function onResume() {
