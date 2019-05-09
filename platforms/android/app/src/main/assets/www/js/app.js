@@ -28,7 +28,12 @@ $$(document).on('deviceready', function () {
             InitPushNotification(storeId, device.manufacturer.toUpperCase(), device.uuid, device.version);
         }
     }
-    cordova.plugins.backgroundMode.setEnabled(true);
+    //cordova.plugins.backgroundMode.setEnabled(true);
+    setTimeout(function () { // Turn screen on
+        cordova.plugins.backgroundMode.wakeUp();
+        // Turn screen on and show app even locked
+        cordova.plugins.backgroundMode.unlock();
+    }, 3000);//3 seconds
     document.addEventListener("resume", onResume, false);
 });
 

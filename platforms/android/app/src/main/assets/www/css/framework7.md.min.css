@@ -651,6 +651,10 @@ html.with-statusbar.device-iphone-x .framework7-root {
     color: #fff;
     font-size: 25px
 }
+
+/*.toolbar-inner > a:not(:last-child) {
+  border-right: 1px solid rgba(0, 0, 0, .2);
+}*/
 @media (min-width: 320px) and (max-width: 480px){
 .md .navbar {
     

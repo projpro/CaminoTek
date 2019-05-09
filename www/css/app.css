@@ -2157,7 +2157,7 @@ position: relative;
 }
 
 .div-list {
-    margin: 0px auto;
+    margin: 16px auto 0;
     padding: 0px;
     width: 100%;
 }
