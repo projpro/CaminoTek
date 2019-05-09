@@ -420,7 +420,7 @@ $$(document).on('page:init', function (e) {
         //function blockOffScroll() {
         //    $$('.page').off('touchstart touchmove', preventScroll);
         //}
-        SetUpBarCodeScanButton('scan');
+        SetUpBarCodeScanButton('giftcardscan');
         $$("#txtCardCode").focus();
         //$$("#txtCardCodeSearch").focus();
         var screen_width = document.documentElement.clientWidth;
@@ -473,7 +473,7 @@ $$(document).on('page:init', function (e) {
                     InitPushNotification(storeId, device.manufacturer, device.uuid, device.version);
                 }
             }
-            $$('#scan').on('click', function () {
+            $$('#giftcardscan').on('click', function () {
 
 
 
@@ -522,7 +522,7 @@ $$(document).on('page:init', function (e) {
           }
        );
             });
-            $$('#loadredeemscan').on('click', function () {
+            $$('#giftcardloadredeemscan').on('click', function () {
                 cordova.plugins.barcodeScanner.scan(
           function (result) {
               $("#txtCardCodeSearch").val(result.text);
@@ -572,7 +572,7 @@ $$(document).on('page:init', function (e) {
         //GiftCard Load New - Start
         $$('#linkGiftCardNew').click(function () {
             ResetGiftCardNew();
-            SetUpBarCodeScanButton('scan');
+            SetUpBarCodeScanButton('giftcardscan');
             $('#txtCardCode').focus();
             currentTab = "New";
             //blockScroll();
@@ -581,7 +581,7 @@ $$(document).on('page:init', function (e) {
         });
         $$('#linkGiftCardRedeem').click(function () {
             ResetGiftCardLoadRedeem();
-            SetUpBarCodeScanButton('loadredeemscan');
+            SetUpBarCodeScanButton('giftcardloadredeemscan');
 
             $('#txtCardCodeSearch').focus();
             if (currentTab == "New") {
@@ -775,7 +775,7 @@ $$(document).on('page:init', function (e) {
                 storeId = localStorage.getItem("StoreId").trim();
             if (storeId > 0)
                 InitPushNotification(storeId, device.manufacturer, device.uuid, device.version);
-            $$('#scan').on('click', function () {
+            $$('#reward_new #scan').on('click', function () {
 
                 console.log("reward scan click")
                 cordova.plugins.barcodeScanner.scan(
@@ -804,7 +804,7 @@ $$(document).on('page:init', function (e) {
           }
        );
             });
-            $$('#loadredeemscan').on('click', function () {
+            $$('#reward_LoadRedeem #loadredeemscan').on('click', function () {
                 cordova.plugins.barcodeScanner.scan(
           function (result) {
               $("#txtMemberID_LoadRedeem").val(result.text);
