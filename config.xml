@@ -60,4 +60,5 @@
         <variable name="SENDER_ID" value="771458932582" />
     </plugin>
     <plugin name="cordova-plugin-background-mode" spec="0.7.2" />
+    <plugin name="cordova-plugin-insomnia" spec="4.3.0" />
 </widget>

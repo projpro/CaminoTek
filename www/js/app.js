@@ -16,17 +16,20 @@ var deviceUUID = "";
 // Handle Cordova Device Ready Event
 $$(document).on('deviceready', function () {
     console.log("Device is ready!");
+    // start an interval timer
+    var mainloopid = setInterval(mainloop, 1000);
+  
     var storeId = 0;
   // document.addEventListener("pause", onPause, false);
-    setTimeout(function () {
-        cordova.plugins.backgroundMode.enableWakeUp();
-        //...
-        cordova.plugins.backgroundMode.wakeUp();
-            // Modify the currently displayed notification
-            //cordova.plugins.backgroundMode.configure({
-            //    text: 'Running in background for more than 5s now.'
-            //});
-        }, 5000);
+    //setTimeout(function () {
+    //    cordova.plugins.backgroundMode.enableWakeUp();
+    //    //...
+    //    cordova.plugins.backgroundMode.wakeUp();
+    //        // Modify the currently displayed notification
+    //        //cordova.plugins.backgroundMode.configure({
+    //        //    text: 'Running in background for more than 5s now.'
+    //        //});
+    //    }, 5000);
     // Android customization
     //cordova.plugins.backgroundMode.setDefaults({ text: 'Doing heavy tasks.' });
     // Enable background mode
@@ -62,6 +65,11 @@ $$(document).on('deviceready', function () {
     //}, 3000);//3 seconds
     //document.addEventListener("resume", onResume, false);
 });
+function mainloop()
+{
+      // call the plugin every (say) one second to keep your app awake
+      window.plugins.insomnia.keepAwake();
+}
 function onPause() {
     $timeout(function () {
         alert("Running in background for more than 5s now ...");

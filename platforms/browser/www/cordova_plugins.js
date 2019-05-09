@@ -351,6 +351,22 @@ module.exports = [
         "id": "cordova-plugin-background-mode.BackgroundMode.Proxy",
         "pluginId": "cordova-plugin-background-mode",
         "runs": true
+    },
+    {
+        "file": "plugins/cordova-plugin-insomnia/www/Insomnia.js",
+        "id": "cordova-plugin-insomnia.Insomnia",
+        "pluginId": "cordova-plugin-insomnia",
+        "clobbers": [
+            "window.plugins.insomnia"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-insomnia/src/browser/Insomnia.js",
+        "id": "cordova-plugin-insomnia.InsomniaProxy",
+        "pluginId": "cordova-plugin-insomnia",
+        "merges": [
+            "window.plugins.insomnia"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -373,7 +389,8 @@ module.exports.metadata =
     "phonegap-plugin-barcodescanner": "7.0.4",
     "phonegap-plugin-multidex": "1.0.0",
     "phonegap-plugin-push": "2.2.3",
-    "cordova-plugin-background-mode": "0.7.2"
+    "cordova-plugin-background-mode": "0.7.2",
+    "cordova-plugin-insomnia": "4.3.0"
 }
 // BOTTOM OF METADATA
 });

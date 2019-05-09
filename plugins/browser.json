@@ -45,6 +45,9 @@
     },
     "cordova-plugin-background-mode": {
       "PACKAGE_NAME": "com.notification.bistroux"
+    },
+    "cordova-plugin-insomnia": {
+      "PACKAGE_NAME": "com.notification.bistroux"
     }
   },
   "dependent_plugins": {
