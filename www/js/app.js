@@ -72,7 +72,7 @@ function mainloop()
 }
 function onPause() {
     $timeout(function () {
-        alert("Running in background for more than 5s now ...");
+        console.log("Running in background for more than 5s now ...");
     }, 5000);
 }
 // Handle the resume event
