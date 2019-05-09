@@ -17,7 +17,7 @@ var deviceUUID = "";
 $$(document).on('deviceready', function () {
     console.log("Device is ready!");
     var storeId = 0;
-    document.addEventListener("pause", yourCallbackFunction, false);
+    document.addEventListener("pause", onPause, false);
     // Android customization
     //cordova.plugins.backgroundMode.setDefaults({ text: 'Doing heavy tasks.' });
     // Enable background mode
