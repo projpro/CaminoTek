@@ -99,10 +99,10 @@ $$(document).on('page:init', function (e) {
             var giftCardProgramEnabled = localStorage.getItem("GiftCardProgramEnabled").trim();
             var rewardEnabled = localStorage.getItem("RewardsEnabled").trim();
 
-            console.log('carryOutEnabled: ' + carryOutEnabled)
-            console.log('giftCardsEnabled: ' + giftCardsEnabled)
-            console.log('giftCardProgramEnabled: ' + giftCardProgramEnabled)
-            console.log('rewardEnabled: ' + rewardEnabled)
+            //console.log('carryOutEnabled: ' + carryOutEnabled)
+            //console.log('giftCardsEnabled: ' + giftCardsEnabled)
+            //console.log('giftCardProgramEnabled: ' + giftCardProgramEnabled)
+            //console.log('rewardEnabled: ' + rewardEnabled)
 
             if (carryOutEnabled != "" && carryOutEnabled == "True") {
                 setTimeout(function () { self.app.router.navigate('/carryout/', { reloadCurrent: false }); }, 1000);
@@ -412,8 +412,8 @@ $$(document).on('page:init', function (e) {
         CheckGiftCardPermission();
         var giftCardsEnabled = localStorage.getItem("GiftCardsEnabled").trim();
         var giftCardProgramEnabled = localStorage.getItem("GiftCardProgramEnabled").trim();
-        console.log('giftCardsEnabled: ' + giftCardsEnabled)
-        console.log('giftCardProgramEnabled: ' + giftCardProgramEnabled)
+        //console.log('giftCardsEnabled: ' + giftCardsEnabled)
+        //console.log('giftCardProgramEnabled: ' + giftCardProgramEnabled)
         if (giftCardsEnabled != "" && giftCardsEnabled == "True") {
 
             if (giftCardProgramEnabled == "" || giftCardProgramEnabled != "True") {
@@ -553,8 +553,8 @@ $$(document).on('page:init', function (e) {
             SetUpBarCodeScanButton('scan');
             $('#txtCardCode').focus();
             currentTab = "New";
-            blockScroll();
-
+            //blockScroll();
+            disableScrolling();
            
         });
         $$('#linkGiftCardRedeem').click(function () {
@@ -574,12 +574,14 @@ $$(document).on('page:init', function (e) {
             else {
                 //$('.tabs').css("transform", "translate3d(-100%, 0px, 0px)");
             }
-            blockOffScroll();
+            disableScrolling();
+            //blockOffScroll();
         });
         $$('#linkGiftCardOrder').click(function () {
             ResetFilters('giftcardorders');
             currentTab = "Order";
-            blockOffScroll();
+            enableScrolling();
+            //blockOffScroll();
         });
         $$('#txtCardCode').on('blur', function () {
             ClearSpecialCharacter('txtCardCode');
@@ -730,11 +732,15 @@ $$(document).on('page:init', function (e) {
 
             ResetRewardNew();
             $('#txtMemberId_Reward').focus();
+            disableScrolling();
+
         });
         $$('#linkRewardLoadRedeem').click(function () {
             SetUpBarCodeScanButton('loadredeemscan');
             ResetRewardLoadRedeem();
             $('#txtMemberID_LoadRedeem').focus();
+            disableScrolling();
+
         });
         document.addEventListener("deviceready", onDeviceReady, false);
         function onDeviceReady() {
@@ -1337,7 +1343,15 @@ function InitPushNotification(storeId, name, uuid, version) {
         //);
     });
 }
+function disableScrolling() {
+    var x = window.scrollX;
+    var y = window.scrollY;
+    window.onscroll = function () { window.scrollTo(x, y); };
+}
 
+function enableScrolling() {
+    window.onscroll = function () { };
+}
 //Check whether logged in or not
 function CheckLoggedIn() {
 

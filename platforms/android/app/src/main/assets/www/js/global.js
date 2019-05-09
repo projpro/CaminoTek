@@ -3505,9 +3505,11 @@ function LoadNewGiftCard() {
                             html: popuphtml,
                             confirmButtonText: "OK",
                             type: "success",
-                            confirmButtonClass: 'btn btn-success',
-                            buttonsStyling: false,
-                            customClass: 'swal-wide',
+                            confirmButtonColor: '#3b9847',
+                         
+                            //confirmButtonClass: 'btn btn-success',
+                            //buttonsStyling: false,
+                            //customClass: 'swal-wide',
                         });
 
                         $('#btnAddCard').text("Add Card");
