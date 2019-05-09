@@ -98,6 +98,12 @@ $$(document).on('page:init', function (e) {
             var giftCardsEnabled = localStorage.getItem("GiftCardsEnabled").trim();
             var giftCardProgramEnabled = localStorage.getItem("GiftCardProgramEnabled").trim();
             var rewardEnabled = localStorage.getItem("RewardsEnabled").trim();
+
+            console.log('carryOutEnabled: ' + carryOutEnabled)
+            console.log('giftCardsEnabled: ' + giftCardsEnabled)
+            console.log('giftCardProgramEnabled: ' + giftCardProgramEnabled)
+            console.log('rewardEnabled: ' + rewardEnabled)
+
             if (carryOutEnabled != "" && carryOutEnabled == "True") {
                 setTimeout(function () { self.app.router.navigate('/carryout/', { reloadCurrent: false }); }, 1000);
             }
@@ -381,17 +387,17 @@ $$(document).on('page:init', function (e) {
     else if (pageURL.indexOf('giftcard') > -1)//Gift Card
     {
 
-        function preventScroll(e) {
-            e.preventDefault();
-        }
+        //function preventScroll(e) {
+        //    e.preventDefault();
+        //}
 
-        // Call this func to block page scroll
-        function blockScroll() {
-            $$('.page').on('touchstart touchmove', preventScroll);
-        }
-        function blockOffScroll() {
-            $$('.page').off('touchstart touchmove', preventScroll);
-        }
+        //// Call this func to block page scroll
+        //function blockScroll() {
+        //    $$('.page').on('touchstart touchmove', preventScroll);
+        //}
+        //function blockOffScroll() {
+        //    $$('.page').off('touchstart touchmove', preventScroll);
+        //}
         SetUpBarCodeScanButton('scan');
         $$("#txtCardCode").focus();
         //$$("#txtCardCodeSearch").focus();
@@ -406,7 +412,8 @@ $$(document).on('page:init', function (e) {
         CheckGiftCardPermission();
         var giftCardsEnabled = localStorage.getItem("GiftCardsEnabled").trim();
         var giftCardProgramEnabled = localStorage.getItem("GiftCardProgramEnabled").trim();
-       
+        console.log('giftCardsEnabled: ' + giftCardsEnabled)
+        console.log('giftCardProgramEnabled: ' + giftCardProgramEnabled)
         if (giftCardsEnabled != "" && giftCardsEnabled == "True") {
 
             if (giftCardProgramEnabled == "" || giftCardProgramEnabled != "True") {
@@ -420,7 +427,7 @@ $$(document).on('page:init', function (e) {
 
             }
             else if (giftCardProgramEnabled == "True") {
-                blockScroll();
+                //blockScroll();
                 $('#txtCardCode').focus();
                 $('#linkGiftCardNew').removeClass('disabled');
                 $('#linkGiftCardRedeem').removeClass('disabled');
@@ -435,7 +442,7 @@ $$(document).on('page:init', function (e) {
         // SetMenuNavigation();
         document.addEventListener("deviceready", onDeviceReady, false);
         function onDeviceReady() {
-            console.log("deviceready")
+            //console.log("deviceready")
             if (device.platform != "browser") {
                 deviceUUID = device.uuid;
                 if (localStorage.getItem("StoreId") != null)

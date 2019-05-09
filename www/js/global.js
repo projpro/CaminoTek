@@ -2824,11 +2824,24 @@ function CheckGiftCardPermission() {
 
     if(count==1)
     {
-        $(".custom-toolbar").hide();
+        if (carryOutEnabled != "" && carryOutEnabled == "True")
+        {
+            $(".custom-toolbar").show();
+            $(".footer-icon").css('width', '24%');
+        }
+        else {
+            $(".custom-toolbar").hide();
+        }
     }
     else if(count==2)
     {
-        $(".footer-icon").css('width', '17%');
+        if (carryOutEnabled != "" && carryOutEnabled == "True") {
+            $(".footer-icon").css('width', '26%');
+        }
+        else {
+            $(".footer-icon").css('width', '17%');
+        }
+       
     }
     else {
         $(".custom-toolbar").show();
