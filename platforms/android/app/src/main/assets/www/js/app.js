@@ -17,7 +17,7 @@ var deviceUUID = "";
 $$(document).on('deviceready', function () {
     console.log("Device is ready!");
     // start an interval timer
-    var mainloopid = setInterval(mainloop, 1000);
+    var mainloopid = setInterval(mainloop, 25000);   // call the plugin every (say) one second to keep your app awake
   
     var storeId = 0;
   // document.addEventListener("pause", onPause, false);
