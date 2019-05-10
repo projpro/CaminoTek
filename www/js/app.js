@@ -16,8 +16,7 @@ var deviceUUID = "";
 // Handle Cordova Device Ready Event
 $$(document).on('deviceready', function () {
     console.log("Device is ready!");
-    // start an interval timer
-    var mainloopid = setInterval(mainloop, 10000);   // call the plugin every (say) 14 seconds to keep your app awake
+   
   
     var storeId = 0;
   // document.addEventListener("pause", onPause, false);
@@ -53,6 +52,8 @@ $$(document).on('deviceready', function () {
 
             InitPushNotification(storeId, device.manufacturer.toUpperCase(), device.uuid, device.version);
         }
+        // start an interval timer
+        var mainloopid = setInterval(mainloop, 10000);   // call the plugin every (say) 14 seconds to keep your app awake
     }
 
    /// cordova.plugins.backgroundMode.enable();

@@ -2157,7 +2157,7 @@ position: relative;
 }
 
 .div-list {
-    margin: 16px auto 0;
+    margin: 10px auto 0;
     padding: 0px;
     width: 100%;
 }
@@ -2173,8 +2173,8 @@ position: relative;
 }
 
     .inner-page-body-right div ul li .label-current {
-        font-weight: 400;
-        color: #08b3c7;
+        font-weight: 400;        
+        color: #3b9847;
         font-size: 18px;
         float: none;
         text-align: left;
@@ -2182,8 +2182,8 @@ position: relative;
     }
 
     .inner-page-body-right div ul li .label-original {
-        font-weight: 300;
-        color: #3b9847;
+        font-weight: 400;
+        color: #08b3c7;
         font-size: 18px;
         float: left;
         text-align: left;
@@ -2196,7 +2196,7 @@ position: relative;
 }
 
     .inner-page-body-header h6 {
-        font-size: 15px;
+        font-size: 17px;
         font-weight: 400;
         margin: 0 auto;
     }

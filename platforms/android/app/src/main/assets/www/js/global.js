@@ -1,6 +1,6 @@
 //var global = "http://www.appnotification.bistroux.com/Api/App/";
-var global = "http://www.consumerapp.bistroux.com/Api/App/";
-//var global = "http://192.168.1.6/Api/App/";
+//var global = "http://www.consumerapp.bistroux.com/Api/App/";
+var global = "http://192.168.1.7/Api/App/";
 var mediaURL = "http://appnotification.bistroux.com/Media/";
 
 var browser = true;
@@ -4959,7 +4959,9 @@ function SearchReward() {
     //alert('memberId: ' + memberId);
     // alert('phone: ' + phone);
     //alert('lastName: ' + lastName);
-    if (memberId != "" || (phone != "" && phone != '0') || lastName != "") {
+    if (memberId != "" || (phone != "" && phone != '0' && lastName != "")) {
+        $("#txtLastName_LoadRedeem").css('border-bottom', bottomBorder);
+        $("#txtPhone_LoadRedeem").css('border-bottom', bottomBorder);
         //alert('2');
         try {
             url = global + "/RewardSearch?storeid=" + storeId + "&rewardMemberId=" + memberId + "&phone=" + phone + "&lastName=" + encodeURIComponent(lastName);
@@ -4978,7 +4980,7 @@ function SearchReward() {
 
                         $('#dvOuter').hide();
                         $('#dvOuterText').html("");
-                    }
+                    }                    
                     else if (memberId == "") {
                         $('#dvInner_Reward').hide();
                         $("#txtMemberID_LoadRedeem").css('border', errorClassBorder);
@@ -4995,13 +4997,29 @@ function SearchReward() {
                         callSweetAlertWarning("Invalid Phone Number.");
                     }
                 }
+                else if (data.replace(/"/g, "").indexOf("Invalid Last Name.") > -1) {
+                    $('#dvInner_Reward').hide();
+                    $('#dvOuter').hide();
+
+                    callSweetAlertWarning("Invalid Last Name.");
+                    $('#btnLoadReward').addClass("disabled");
+                    $('#btnRedeemReward').addClass("disabled");
+                }
+                else if (data.replace(/"/g, "").indexOf("Last Name is not in system.") > -1) {
+                    $('#dvInner_Reward').hide();
+                    $('#dvOuter').hide();
+
+                    callSweetAlertWarning("No Last Name found.");
+                    $('#btnLoadReward').addClass("disabled");
+                    $('#btnRedeemReward').addClass("disabled");
+                }
                 else if (data.replace(/"/g, "").indexOf("Invalid Member ID.") > -1) {
                     $('#dvInner_Reward').hide();
                     $('#dvOuter').hide();
                     //$('#dvOuter').show();
                     //$('#dvOuterText').html("");
                     //$('#dvOuterText').html("Invalid Member ID.");
-                    callSweetAlertWarning("Invalid Member Number.");
+                    callSweetAlertWarning("Invalid Member ID.");
                     $('#btnLoadReward').addClass("disabled");
                     $('#btnRedeemReward').addClass("disabled");
                 }
@@ -5011,7 +5029,13 @@ function SearchReward() {
                     $('#dvOuterText').html("");
                     $('#btnLoadReward').addClass("disabled");
                     $('#btnRedeemReward').addClass("disabled");
-                    callSweetAlertWarning("No record found.");
+                    if (memberId != "") {
+                        callSweetAlertWarning("Invalid Member ID.");
+                    }
+                    else {
+                        callSweetAlertWarning("No record found.");
+                    }
+                    
                 }
                 else {
                     //$("#txtMemberID_LoadRedeem").css('border', noErrorClassBorder);
@@ -5136,10 +5160,20 @@ function SearchReward() {
         }
     }
     else {
+    
         callSweetAlertWarning("Please enter either Member ID or Phone & Name");
+        if (memberId != "" || phone != "" && phone != '0' && lastName == "")
+        {
+            $('#dvInner_Reward').hide();
+            $("#txtLastName_LoadRedeem").css('border-bottom', errorClassBorder);
+        }
+        else if (memberId != "" || lastName != "" && phone == "" || phone != '0') {
+            $('#dvInner_Reward').hide();
+            $("#txtPhone_LoadRedeem").css('border-bottom', errorClassBorder);
+        }
         //alert('3');
         $('#dvInner_Reward').hide();
-        //$("#txtMemberID_LoadRedeem").css('border-bottom', errorClassBorder);
+        //$("#txtMemberID_LoadRedeem").css('border-bottom', errorClassBorder);       
 
     }
 }
@@ -5382,7 +5416,7 @@ function AddNewMemberID() {
 
                 var dd = JSON.parse(data);
                 if (dd.Message != undefined && dd.Message != null && dd.Message.indexOf("Restaurant not found") > -1) {
-                    callSweetAlertWarning("Restaurant not found. Please login again!");
+                    callSweetAlertWarning("Restaurant not found. Please login again.");
                 }
                 else {
                     if (dd.CustomerExists.toString().toLowerCase() == "true") {
@@ -5437,7 +5471,7 @@ function AddNewMemberID() {
                                             (function () {
 
                                                 swal({
-                                                    title: "New Member created successfully!",
+                                                    title: "New Member created successfully.",
                                                     //html: "<p><strong>Member ID:</strong>1082</p><p><strong>Name:</strong>John Smith</p><p><strong>Phone:</strong>(614)805-5665</p><p><strong>Email:</strong>cyberv1@mail.com</p><p><strong>Points:</strong>100</p>",
                                                     html: popuphtml,
                                                     confirmButtonText: "OK",
@@ -5511,7 +5545,7 @@ function AddNewMemberID() {
                                     (function () {
 
                                         swal({
-                                            title: "New Member created successfully!",
+                                            title: "New Member created successfully.",
                                             //html: "<p><strong>Member ID:</strong>1082</p><p><strong>Name:</strong>John Smith</p><p><strong>Phone:</strong>(614)805-5665</p><p><strong>Email:</strong>cyberv1@mail.com</p><p><strong>Points:</strong>100</p>",
                                             html: popuphtml,
                                             confirmButtonText: "OK",
@@ -6407,7 +6441,7 @@ function SaveStoreTiming() {
                 });
             }
             else {
-                callSweetAlertWarning("Unable to save profile!");
+                callSweetAlertWarning("Unable to save profile.");
             }
         });
 
@@ -6714,7 +6748,7 @@ function DeleteSection(idCount, timingId) {
                         callSweetAlertSuccess("Timing deleted successfully.");
                     }
                     else {
-                        callSweetAlertWarning("Unable to delete timing!");
+                        callSweetAlertWarning("Unable to delete timing.");
                     }
                 }
             });
@@ -7494,10 +7528,10 @@ function SaveProductInfo() {
                 }
                 else {
                     if (Number(itemId) > 0) {
-                        callSweetAlertWarning("Food item update failed!");
+                        callSweetAlertWarning("Food item update failed.");
                     }
                     else {
-                        callSweetAlertWarning("Food item add failed!");
+                        callSweetAlertWarning("Food item add failed.");
                     }
 
                 }
@@ -7904,7 +7938,7 @@ function DeleteCoupon(id) {
                         CouponList(10, 0);
                     }
                     else {
-                        callSweetAlertWarning("Unable to delete coupon!");
+                        callSweetAlertWarning("Unable to delete coupon.");
                     }
                 }
             });
@@ -8450,10 +8484,10 @@ function SaveDiscount() {
                 }
                 else {
                     if (discountId > 0) {
-                        callSweetAlertWarning("Coupon updated failed!");
+                        callSweetAlertWarning("Coupon updated failed.");
                     }
                     else {
-                        callSweetAlertWarning("Coupon add failed!");
+                        callSweetAlertWarning("Coupon add failed.");
                     }
                 }
             });
@@ -8775,7 +8809,7 @@ function DeleteTimingSection(idCount, timingId) {
                         callSweetAlertSuccess("Timing deleted successfully.");
                     }
                     else {
-                        callSweetAlertWarning("Unable to delete timing!");
+                        callSweetAlertWarning("Unable to delete timing.");
                     }
                 }
             });
@@ -9126,7 +9160,7 @@ function DeleteAvailTimingSection(idCount, timingId) {
                         callSweetAlertSuccess("Timing deleted successfully.");
                     }
                     else {
-                        callSweetAlertWarning("Unable to delete timing!");
+                        callSweetAlertWarning("Unable to delete timing.");
                     }
                 }
             });
