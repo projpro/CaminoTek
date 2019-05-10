@@ -1,6 +1,6 @@
 //var global = "http://www.appnotification.bistroux.com/Api/App/";
-//var global = "http://www.consumerapp.bistroux.com/Api/App/";
-var global = "http://192.168.1.7/Api/App/";
+var global = "http://www.consumerapp.bistroux.com/Api/App/";
+//var global = "http://192.168.1.7/Api/App/";
 var mediaURL = "http://appnotification.bistroux.com/Media/";
 
 var browser = true;
@@ -4964,6 +4964,11 @@ function SearchReward() {
         $("#txtPhone_LoadRedeem").css('border-bottom', bottomBorder);
         //alert('2');
         try {
+            if (memberId != "") {
+                phone = "";
+                lastName = "";
+            }
+
             url = global + "/RewardSearch?storeid=" + storeId + "&rewardMemberId=" + memberId + "&phone=" + phone + "&lastName=" + encodeURIComponent(lastName);
 
             $('#tblRewardHistory tbody').html("");
