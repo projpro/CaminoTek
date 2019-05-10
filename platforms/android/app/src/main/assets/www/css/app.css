@@ -2456,6 +2456,9 @@ position: relative;
 #tab-giftcard-new .item-media-section {
     width: 100%;
 }
+#tblRewardHistory{
+    margin-right:3px;
+}
 .btn-add-card {
     width: 97%;
 }

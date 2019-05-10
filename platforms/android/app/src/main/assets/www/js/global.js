@@ -5115,7 +5115,7 @@ function SearchReward() {
 
                         }
                         else if (value.Type == "RewardHistory") {
-                            var rewardDate = value.CreatedOnUtc.replace("~", " <br/> ");
+                            var rewardDate = value.CreatedOnUtc.replace("~", " <br/>@ ");
                             htmlHistory += "<tr>";
                             htmlHistory += "<td style=\"text-align:left;vertical-align:top;padding-top: 2px;\" width=\"30%\"\">" + rewardDate + "</td>";
                             htmlHistory += "<td style=\"text-align:left;vertical-align:top;padding-top: 2px;\" width=\"45%\">" + value.STORENAME + "</td>";
@@ -5166,7 +5166,7 @@ function SearchReward() {
     }
     else {
     
-        callSweetAlertWarning("Please enter either Member ID or Phone & Name");
+        callSweetAlertWarning("Please enter either Member ID or Phone & Name.");
         if (memberId != "" || phone != "" && phone != '0' && lastName == "")
         {
             $('#dvInner_Reward').hide();
