@@ -2039,11 +2039,11 @@ select:-moz-focusring {
 }
 
 .footer-icon{
-    /*height: 60%;*/
+    height: 80%;
     width: 38%;
     /*position:absolute;
     top:0px;*/
-    /*object-fit: contain;*/
+    object-fit: contain;
 }
 /* Dropdown Button */
 .dropbtn {

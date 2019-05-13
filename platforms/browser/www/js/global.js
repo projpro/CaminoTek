@@ -1,6 +1,6 @@
 //var global = "http://www.appnotification.bistroux.com/Api/App/";
-var global = "http://www.consumerapp.bistroux.com/Api/App/";
-//var global = "http://192.168.1.7/Api/App/";
+//var global = "http://www.consumerapp.bistroux.com/Api/App/";
+var global = "http://192.168.1.6/Api/App/";
 var mediaURL = "http://appnotification.bistroux.com/Media/";
 
 var browser = true;
@@ -3286,6 +3286,7 @@ function LoadGiftCard() {
     if (amount == '')
         amount = '0';
     //&& amount != "" && amount != "0"
+    var register = $('#ddlRegister').val();
     if (cardCode != "") {
 
         var regex = /^[a-zA-Z0-9.\-_]+$/;
@@ -3299,7 +3300,7 @@ function LoadGiftCard() {
 
         $('#btnLoadGiftCard').text("Loading...");
         try {
-            url = global + "/GiftCardLoad?storeid=" + storeId + "&giftCardCode=" + encodeURIComponent(cardCode) + "&phone=" + phone + "&amount=" + amount + "&pin=" + pin;
+            url = global + "/GiftCardLoad?storeid=" + storeId + "&giftCardCode=" + encodeURIComponent(cardCode) + "&phone=" + phone + "&amount=" + amount + "&register=" + register + "&pin=" + pin;
             //alert(url);
 
             var totalHistoryAmount = 0;
