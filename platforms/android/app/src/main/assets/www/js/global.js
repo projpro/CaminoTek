@@ -1,6 +1,6 @@
 //var global = "http://www.appnotification.bistroux.com/Api/App/";
-//var global = "http://www.consumerapp.bistroux.com/Api/App/";
-var global = "http://192.168.1.6/Api/App/";
+var global = "http://www.consumerapp.bistroux.com/Api/App/";
+//var global = "http://192.168.1.6/Api/App/";
 var mediaURL = "http://appnotification.bistroux.com/Media/";
 
 var browser = true;
@@ -5000,14 +5000,14 @@ function SearchReward() {
                         //$('#dvOuter').show();
                         //$('#dvOuterText').html("");
                         //$('#dvOuterText').html("Invalid Phone Number.");
-                        callSweetAlertWarning("Invalid Phone Number.");
+                        callSweetAlertWarning("No Member found.");
                     }
                 }
                 else if (data.replace(/"/g, "").indexOf("Invalid Last Name.") > -1) {
                     $('#dvInner_Reward').hide();
                     $('#dvOuter').hide();
 
-                    callSweetAlertWarning("Invalid Last Name.");
+                    callSweetAlertWarning("No Member found.");
                     $('#btnLoadReward').addClass("disabled");
                     $('#btnRedeemReward').addClass("disabled");
                 }
@@ -5015,7 +5015,7 @@ function SearchReward() {
                     $('#dvInner_Reward').hide();
                     $('#dvOuter').hide();
 
-                    callSweetAlertWarning("No Last Name found.");
+                    callSweetAlertWarning("No Member found.");
                     $('#btnLoadReward').addClass("disabled");
                     $('#btnRedeemReward').addClass("disabled");
                 }

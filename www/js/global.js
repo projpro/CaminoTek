@@ -5011,11 +5011,11 @@ function SearchReward() {
                     $('#btnLoadReward').addClass("disabled");
                     $('#btnRedeemReward').addClass("disabled");
                 }
-                else if (data.replace(/"/g, "").indexOf("No Member found.") > -1) {
+                else if (data.replace(/"/g, "").indexOf("Last Name is not in system.") > -1) {
                     $('#dvInner_Reward').hide();
                     $('#dvOuter').hide();
 
-                    callSweetAlertWarning("No Last Name found.");
+                    callSweetAlertWarning("No Member found.");
                     $('#btnLoadReward').addClass("disabled");
                     $('#btnRedeemReward').addClass("disabled");
                 }
