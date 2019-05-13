@@ -3286,6 +3286,7 @@ function LoadGiftCard() {
     if (amount == '')
         amount = '0';
     //&& amount != "" && amount != "0"
+    var register = $('#ddlRegister').val();
     if (cardCode != "") {
 
         var regex = /^[a-zA-Z0-9.\-_]+$/;
@@ -3299,7 +3300,7 @@ function LoadGiftCard() {
 
         $('#btnLoadGiftCard').text("Loading...");
         try {
-            url = global + "/GiftCardLoad?storeid=" + storeId + "&giftCardCode=" + encodeURIComponent(cardCode) + "&phone=" + phone + "&amount=" + amount + "&pin=" + pin;
+            url = global + "/GiftCardLoad?storeid=" + storeId + "&giftCardCode=" + encodeURIComponent(cardCode) + "&phone=" + phone + "&amount=" + amount + "&register=" + register + "&pin=" + pin;
             //alert(url);
 
             var totalHistoryAmount = 0;
