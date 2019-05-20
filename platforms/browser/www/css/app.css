@@ -1443,7 +1443,7 @@ h4 {
     width: 60%;
 }
 .popup-button-right{
-    width: 13%;
+    width: 11%;
     float: right;
     padding-right: 12px;
     position: absolute;
@@ -2360,17 +2360,17 @@ position: relative;
 }
 
 .swal2-confirm {
-    background: #fff;
-    color: #000;
+    background:rgb(59, 152, 71);
+    color: #fff;
     font-weight: 400;
     padding: 10px 0px;
     border-radius: 2px;
     font-size: 22px;
-    text-transform: uppercase;
+    /*text-transform: uppercase;*/
     text-align: center;
     display: block;
     margin: 0px 0px 0 0px;
-    border: 1px solid #000;
+    border: 1px solid rgb(59, 152, 71);
     width: 125px;
 }
 

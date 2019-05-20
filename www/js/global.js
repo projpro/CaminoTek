@@ -563,8 +563,12 @@ function CarryoutOrdersList(status, carryoutpagesize, carryoutcurrentPage, divId
                         html += "<div class=\"order-number panel-open\" onclick=\"OpenCarryoutDetails(" + value.ID + ");\">#" + value.ID + "<span> on </span><span>" + orderDate + " @ " + orderTime + "</span></div>";
                         /*------------------Button Row-----------------------*/
                         if (status == '' || status == "All") {
+                          
                             if (value.ORDERSTATUSID != "New") {
-                                if (value.ORDERPICKUPSMSSENTON != undefined && value.ORDERPICKUPSMSSENTON != null && value.ORDERPICKUPSMSSENTON != "") {
+                                console.log('value.ORDERPICKUPSMSSENTON: ' + value.ORDERPICKUPSMSSENTON)
+                                if (value.ORDERPICKUPSMSSENTON != undefined && value.ORDERPICKUPSMSSENTON != null && value.ORDERPICKUPSMSSENTON.trim()!= "") {
+                                    console.log('value.ORDERPICKUPSMSSENTON: '+value.ORDERPICKUPSMSSENTON)
+                                  
                                     buttonHTML += "<a><img src=\"./img/icons/pickup_sms_button_active.png\" class=\"grid-small-icon\"/></a>";
 
                                 }
@@ -1583,12 +1587,8 @@ function SendPickUpSMSToCustomer(orderId, customerphone, source, orderTotal) {
     var storeId = 0;
     var restaurantDisplayName = "";
     storeId = SetStoreId();
-    //orderId = Number($("#hdnSelectedOrderId").val());
     if (storeId > 0 && orderId > 0) {
-
-
-        //$("#btnPickupSMS").text("Sending...");
-        $("#btnPickupSMS").attr("disabled", "disabled");
+        $("#btnPickupSMS_" + orderId).attr("disabled", "disabled");
         if (window.localStorage.getItem("RestaurantName") != null)
             restaurantDisplayName = window.localStorage.getItem("RestaurantName").trim();
         if (customerphone != undefined && customerphone != null && customerphone != "") {
@@ -1602,13 +1602,19 @@ function SendPickUpSMSToCustomer(orderId, customerphone, source, orderTotal) {
             crossDomain: true,
             async: false,
             success: function (response) {
-                $("#btnPickupSMS").removeAttr("disabled");
-                $("#btnPickupSMS").text("Pickup SMS");
+               
+                
                 var data = JSON.parse(response);
-                //console.log(data)
                 if (data.Message.indexOf("successfully") > -1) {
+                    $("#btnPickupSMS_" + orderId).removeAttr("disabled");
+                    $("#btnPickupSMS_" + orderId).removeAttr("onclick");
+                    $("#imgPickUpSMS_" + orderId).removeAttr("src");
+                    $("#imgPickUpSMS_" + orderId).attr("src", "./img/icons/pickup_sms_button_active.png");
 
-                    $("#btnPickupSMS").hide();
+                    $("#aPopupSMS_" + orderId).removeAttr("disabled");
+                    $("#aPopupSMS_" + orderId).removeAttr("onclick");
+                    $("#imgPopupSMS_" + orderId).removeAttr("src");
+                    $("#imgPopupSMS_" + orderId).attr("src", "./img/icons/pickup_sms_button_active.png");
                     if (data.SMSSentOn != "") {
                         if (data.SMSSentOn.indexOf("@")) {
                             var arrSMSSentTime = data.SMSSentOn.split('@');
@@ -1636,7 +1642,6 @@ function SendPickUpSMSToCustomer(orderId, customerphone, source, orderTotal) {
 
                     }
                     callSweetAlertSuccess(data.Message);
-
                 }
                 else {
                     callSweetAlertWarning(data.Message);
@@ -1644,11 +1649,10 @@ function SendPickUpSMSToCustomer(orderId, customerphone, source, orderTotal) {
 
             },
             error: function (xhr, textStatus, errorThrown) {
-                $("#btnPickupSMS").removeAttr("disabled");
-                $("#btnPickupSMS").text("Pickup SMS");
-                //alert(xhr.responseText);
-                //alert(textStatus);
-                //alert(errorThrown);
+                $("#btnPickupSMS_" + orderId).removeAttr("disabled");
+                $("#aPopupSMS_" + orderId).removeAttr("disabled");
+                //$("#btnPickupSMS").text("Pickup SMS");
+             
             }
         });
     }
