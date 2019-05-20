@@ -1523,7 +1523,7 @@ function CheckNewOrder() {
 
                                 }
                                 else {
-                                    var pickuphtml = "<div class=\"popup-column-two\"><input type=\"text\" class=\"popup_date\" id=\"pickupdate_" + value.ID + "\" data-dateFormat=\"n/j/Y\"/></div><div class=\"popup-column-two\"><select class=\"pickup\" id=\"pickuplist_" + value.ID + "\">";
+                                    var pickuphtml = "<div class=\"popup-column-two\"><input style=\"display:none;\" type=\"text\" class=\"popup_date\" id=\"pickupdate_" + value.ID + "\" data-dateFormat=\"n/j/Y\"/></div><div class=\"popup-column-two\"><select class=\"pickup\" id=\"pickuplist_" + value.ID + "\">";
                                     $.each(pickuptime, function (key, value1) {
 
                                         if ($.inArray(value.PICKUPTIME.trim(), pickuptime) > -1) {
@@ -1867,9 +1867,9 @@ function StopSoundOtherDevices(storeId) {
 }
 function Back() {
     // console.log('Back')
-    console.log(app.views.main.router);
-    console.log(app.views.main.router.url);
-    console.log(app.views.main.router.history);
+    //console.log(app.views.main.router);
+    //console.log(app.views.main.router.url);
+    //console.log(app.views.main.router.history);
     if (app.views.main.router.history.length > 0) {
         var secondLastPage = "";
         var thirdLastPage = "";
