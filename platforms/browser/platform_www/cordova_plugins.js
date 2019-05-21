@@ -336,37 +336,6 @@ module.exports = [
         "clobbers": [
             "PushNotification"
         ]
-    },
-    {
-        "file": "plugins/cordova-plugin-background-mode/www/background-mode.js",
-        "id": "cordova-plugin-background-mode.BackgroundMode",
-        "pluginId": "cordova-plugin-background-mode",
-        "clobbers": [
-            "cordova.plugins.backgroundMode",
-            "plugin.backgroundMode"
-        ]
-    },
-    {
-        "file": "plugins/cordova-plugin-background-mode/src/browser/BackgroundModeProxy.js",
-        "id": "cordova-plugin-background-mode.BackgroundMode.Proxy",
-        "pluginId": "cordova-plugin-background-mode",
-        "runs": true
-    },
-    {
-        "file": "plugins/cordova-plugin-insomnia/www/Insomnia.js",
-        "id": "cordova-plugin-insomnia.Insomnia",
-        "pluginId": "cordova-plugin-insomnia",
-        "clobbers": [
-            "window.plugins.insomnia"
-        ]
-    },
-    {
-        "file": "plugins/cordova-plugin-insomnia/src/browser/Insomnia.js",
-        "id": "cordova-plugin-insomnia.InsomniaProxy",
-        "pluginId": "cordova-plugin-insomnia",
-        "merges": [
-            "window.plugins.insomnia"
-        ]
     }
 ];
 module.exports.metadata = 
@@ -388,9 +357,7 @@ module.exports.metadata =
     "cordova-universal-clipboard": "0.1.0",
     "phonegap-plugin-barcodescanner": "7.0.4",
     "phonegap-plugin-multidex": "1.0.0",
-    "phonegap-plugin-push": "2.2.3",
-    "cordova-plugin-background-mode": "0.7.2",
-    "cordova-plugin-insomnia": "4.3.0"
+    "phonegap-plugin-push": "2.2.3"
 }
 // BOTTOM OF METADATA
 });

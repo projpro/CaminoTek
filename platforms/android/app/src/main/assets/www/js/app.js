@@ -19,6 +19,7 @@ $$(document).on('deviceready', function () {
    
   
     var storeId = 0;
+    //To check this first check in config.xml whether  cordova.plugins.backgroundMode has installed or not
   // document.addEventListener("pause", onPause, false);
     //setTimeout(function () {
     //    cordova.plugins.backgroundMode.enableWakeUp();
@@ -53,7 +54,8 @@ $$(document).on('deviceready', function () {
             InitPushNotification(storeId, device.manufacturer.toUpperCase(), device.uuid, device.version);
         }
         // start an interval timer
-        var mainloopid = setInterval(mainloop, 10000);   // call the plugin every (say) 10 seconds to keep your app awake
+        //To check this first check in config.xml whether  cordova-plugin-insomnia has installed or not
+       // var mainloopid = setInterval(mainloop, 10000);   // call the plugin every (say) 10 seconds to keep your app awake
     }
 
    /// cordova.plugins.backgroundMode.enable();
