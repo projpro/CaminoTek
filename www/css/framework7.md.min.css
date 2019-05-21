@@ -1221,9 +1221,11 @@ html.with-statusbar.device-iphone-x .framework7-root {
     height: 10px;
     top: auto;
     pointer-events: none;
-    background: -webkit-gradient(linear, left bottom, left top, from(rgba(0, 0, 0, .3)), color-stop(40%, rgba(0, 0, 0, .1)), color-stop(50%, rgba(0, 0, 0, .05)), color-stop(80%, rgba(0, 0, 0, 0)), to(rgba(0, 0, 0, 0)));
+    background: #fff;
+    border-top: 2px solid #f0f0f0;
+    /*background: -webkit-gradient(linear, left bottom, left top, from(rgba(0, 0, 0, .3)), color-stop(40%, rgba(0, 0, 0, .1)), color-stop(50%, rgba(0, 0, 0, .05)), color-stop(80%, rgba(0, 0, 0, 0)), to(rgba(0, 0, 0, 0)));
     background: -webkit-linear-gradient(bottom, rgba(0, 0, 0, .3) 0%, rgba(0, 0, 0, .1) 40%, rgba(0, 0, 0, .05) 50%, rgba(0, 0, 0, 0) 80%, rgba(0, 0, 0, 0) 100%);
-    background: linear-gradient(to top, rgba(0, 0, 0, .3) 0%, rgba(0, 0, 0, .1) 40%, rgba(0, 0, 0, .05) 50%, rgba(0, 0, 0, 0) 80%, rgba(0, 0, 0, 0) 100%)
+    background: linear-gradient(to top, rgba(0, 0, 0, .3) 0%, rgba(0, 0, 0, .1) 40%, rgba(0, 0, 0, .05) 50%, rgba(0, 0, 0, 0) 80%, rgba(0, 0, 0, 0) 100%)*/
 }
 
 .md .messagebar .tab-link-highlight,
