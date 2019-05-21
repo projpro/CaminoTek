@@ -264,6 +264,7 @@ $$(document).on('page:init', function (e) {
 
         localStorage.setItem("CurrentPage", currentPage);
         var loadProcessing = localStorage.getItem("loadcarryoutprocessing");
+        alert(loadProcessing)
         //console.log("loadProcessing: " + loadProcessing)
         if (loadProcessing != null && loadProcessing.toString().trim() == "true") {
             //console.log("loadProcessing 1: ")
