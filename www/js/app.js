@@ -1362,12 +1362,13 @@ function InitPushNotification(storeId, name, uuid, version) {
             CheckNewOrder();
         }
         else if (data.message == "Order accepted") {
+            $("#btnAcknowledgement").click();
             //myMedia = new Media(src, onSuccess, onError, onStatus);
             myMedia.stop();
             $('#myDiv').hide();
             //$(".popup-close").click();
             //$(".link").click();
-            //$("#btnAcknowledgement").click();
+            
             //localStorage.setItem("loadcarryoutprocessing", "true");
             // self.app.router.navigate('/carryout/', { reloadCurrent: true });
             //alert(data.message)
