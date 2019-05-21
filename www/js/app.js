@@ -1361,8 +1361,8 @@ function InitPushNotification(storeId, name, uuid, version) {
             myMedia = new Media(src, onSuccess, onError, onStatus);
             CheckNewOrder();
         }
-        else if (data.message == "Stop Audio") {
-            myMedia = new Media(src, onSuccess, onError, onStatus);
+        else if (data.message == "Order accepted") {
+            //myMedia = new Media(src, onSuccess, onError, onStatus);
             myMedia.stop();
             $('#myDiv').hide();
             //$(".popup-close").click();
