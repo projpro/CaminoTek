@@ -1356,7 +1356,7 @@ function InitPushNotification(storeId, name, uuid, version) {
         //    acceptOrderPopup.destroy();
         //    // Do something after 30 second 
         //}, 30000);
-        alert('notification event: ' + data.message);
+        console.log('notification event: ' + data.message);
         if (data.message == "A new order has been placed") {
             myMedia = new Media(src, onSuccess, onError, onStatus);
             CheckNewOrder();
