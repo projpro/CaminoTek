@@ -130,14 +130,14 @@ $$(document).on('page:init', function (e) {
         var storeId = 0;
         if (localStorage.getItem("StoreId") != null)
             storeId = localStorage.getItem("StoreId").trim();
-        if (localStorage.getItem("AppRefreshTimeInterval") != null) {
-            appRefreshInterval = localStorage.getItem("AppRefreshTimeInterval").trim();
-        }
-        if (appRefreshInterval === null || appRefreshInterval === "" || appRefreshInterval === "0") {
-        }
-        else {
-            localStorage.setItem("AppRefreshTimeInterval", appRefreshInterval);
-        }
+        //if (localStorage.getItem("AppRefreshTimeInterval") != null) {
+        //    appRefreshInterval = localStorage.getItem("AppRefreshTimeInterval").trim();
+        //}
+        //if (appRefreshInterval === null || appRefreshInterval === "" || appRefreshInterval === "0") {
+        //}
+        //else {
+        //    localStorage.setItem("AppRefreshTimeInterval", appRefreshInterval);
+        //}
         if (storeId > 0) {
             var carryOutEnabled = localStorage.getItem("CarryOutEnabled").trim();
             var giftCardsEnabled = localStorage.getItem("GiftCardsEnabled").trim();
@@ -176,8 +176,6 @@ $$(document).on('page:init', function (e) {
     }
     else if (pageURL.indexOf('carryout') > -1)//Carry Out
     {
-        //openacceptorderpopup();
-        //CheckNewOrder();
         $("#txtFilterOrderDateFrom").flatpickr({
             enableTime: false,
             dateFormat: "m/d/Y",
@@ -241,30 +239,6 @@ $$(document).on('page:init', function (e) {
         });
         $('#dvParentGiftCardDetailsPanel').html("");
         $('#dvDetailsPanel').html("");
-        // console.log(calendarModalOrderStart)
-        //if (calendarModalOrderStart!=undefined)
-        //    calendarModalOrderStart.destroy();
-        //if (calendarModalOrderEnd != undefined)
-        //    calendarModalOrderEnd.destroy();
-        //if (calendarModalCouponStart != undefined)
-        //    calendarModalCouponStart.destroy();
-        //if (calendarModalCouponEnd != undefined)
-        //    calendarModalCouponEnd.destroy();
-        //calendarModalOrderStart = app.calendar.create({
-        //    inputEl: '#txtFilterOrderDateFrom',
-        //    openIn: 'customModal',
-        //    header: true,
-        //    footer: true,
-        //    dateFormat: 'mm/dd/yyyy',
-        //});
-        //calendarModalOrderEnd = app.calendar.create({
-        //    inputEl: '#txtFilterOrderDateTo',
-        //    openIn: 'customModal',
-        //    header: true,
-        //    footer: true,
-        //    dateFormat: 'mm/dd/yyyy',
-        //});
-
         CheckGiftCardPermission();
         $$("#hdnCurrentState").val('New');
 
@@ -303,16 +277,7 @@ $$(document).on('page:init', function (e) {
         var timeout = null;
         var src = mediaURL + "notification.mp3";
         var myMedia = null;
-        var apprefreshinterval = localStorage.getItem("AppRefreshTimeInterval");
-        if (apprefreshinterval === null || apprefreshinterval === "" || apprefreshinterval === "0") {
-            apprefreshinterval = 120;
-            localStorage.setItem("AppRefreshTimeInterval", apprefreshinterval);
-
-        }
-
-        //CheckStoreTimings();
-
-        //var intervalName = setInterval(CheckStoreTimings, Number(apprefreshinterval) * 1000);
+      
         $$('.page-content').scroll(function () {
             var OrderAvailable = localStorage.getItem("OrderAvailable");
             if (OrderAvailable == "1") {
@@ -1349,14 +1314,12 @@ function InitPushNotification(storeId, name, uuid, version) {
     });
 
     push.on('notification', function (data) {
-
-
         //setTimeout(function () {
         //    stopAudio();
         //    acceptOrderPopup.destroy();
         //    // Do something after 30 second 
         //}, 30000);
-        console.log('notification event: ' + data.message);
+        //console.log('notification event: ' + data.message);
         if (data.message == "A new order has been placed") {
             myMedia = new Media(src, onSuccess, onError, onStatus);
             CheckNewOrder();
@@ -1364,8 +1327,8 @@ function InitPushNotification(storeId, name, uuid, version) {
         else if (data.message == "Order accepted") {
             $("#btnAcknowledgement").click();
             //myMedia = new Media(src, onSuccess, onError, onStatus);
-            myMedia.stop();
-            $('#myDiv').hide();
+           // myMedia.stop();
+            //$('#myDiv').hide();
             //$(".popup-close").click();
             //$(".link").click();
             
@@ -1812,7 +1775,7 @@ function AcceptOrders() {
                 }
                 else {
                     localStorage.setItem("loadcarryoutprocessing", "true");
-                    self.app.router.navigate('/carryout/', { reloadCurrent: true });
+                    self.app.router.navigate('/carryout/', { reloadCurrent: false });
 
 
                 }
@@ -1824,11 +1787,11 @@ function AcceptOrders() {
             }
             else if (carryoutchanged > 0 && giftcardchanged == 0) {
                 localStorage.setItem("loadcarryoutprocessing", "true");
-                self.app.router.navigate('/carryout/', { reloadCurrent: true });
+                self.app.router.navigate('/carryout/', { reloadCurrent: false });
             }
             else {
                 localStorage.setItem("loadcarryoutprocessing", "true");
-                self.app.router.navigate('/carryout/', { reloadCurrent: true });
+                self.app.router.navigate('/carryout/', { reloadCurrent: false });
             }
             StopSoundOtherDevices(storeId);
         },
