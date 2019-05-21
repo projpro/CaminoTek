@@ -1776,7 +1776,7 @@ function AcceptOrders() {
                 }
                 else {
                     localStorage.setItem("loadcarryoutprocessing", "true");
-                    self.app.router.navigate('/carryout/', { reloadCurrent: false });
+                    self.app.router.navigate('/carryout/', { reloadCurrent: true });
 
 
                 }
@@ -1788,11 +1788,11 @@ function AcceptOrders() {
             }
             else if (carryoutchanged > 0 && giftcardchanged == 0) {
                 localStorage.setItem("loadcarryoutprocessing", "true");
-                self.app.router.navigate('/carryout/', { reloadCurrent: false });
+                self.app.router.navigate('/carryout/', { reloadCurrent: true });
             }
             else {
                 localStorage.setItem("loadcarryoutprocessing", "true");
-                self.app.router.navigate('/carryout/', { reloadCurrent: false });
+                self.app.router.navigate('/carryout/', { reloadCurrent: true });
             }
             StopSoundOtherDevices(storeId);
         },
