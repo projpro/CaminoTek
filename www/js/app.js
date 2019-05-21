@@ -53,7 +53,7 @@ $$(document).on('deviceready', function () {
             InitPushNotification(storeId, device.manufacturer.toUpperCase(), device.uuid, device.version);
         }
         // start an interval timer
-        var mainloopid = setInterval(mainloop, 10000);   // call the plugin every (say) 14 seconds to keep your app awake
+        var mainloopid = setInterval(mainloop, 10000);   // call the plugin every (say) 10 seconds to keep your app awake
     }
 
    /// cordova.plugins.backgroundMode.enable();
@@ -1710,71 +1710,71 @@ function AcceptOrders() {
         $('#myDiv').hide();
         //acceptOrderPopup.destroy();
         $("#hdnOrderIds").val("");
-        $(".pickup").each(function (index, element) {
+        //$(".pickup").each(function (index, element) {
           
-            carryoutchanged++;
+        //    carryoutchanged++;
 
-        });
-        var group = $('input[name="giftcardorder"]');
-        //console.log(orders)
-        if (group.length > 0) {
-            group.each(function () {
+        //});
+        //var group = $('input[name="giftcardorder"]');
+        ////console.log(orders)
+        //if (group.length > 0) {
+        //    group.each(function () {
                
-                giftcardchanged++;
-            });
-        }
-        if (giftcardchanged > 0 && carryoutchanged > 0) {
-            if (giftcardchanged > carryoutchanged) {
-                localStorage.setItem("loadgiftcardorders", "true");
-                self.app.router.navigate('/giftcard/', { reloadCurrent: true });
+        //        giftcardchanged++;
+        //    });
+        //}
+        //if (giftcardchanged > 0 && carryoutchanged > 0) {
+        //    if (giftcardchanged > carryoutchanged) {
+        //        localStorage.setItem("loadgiftcardorders", "true");
+        //        self.app.router.navigate('/giftcard/', { reloadCurrent: true });
 
-            }
-            else {
-                //localStorage.setItem("loadcarryoutprocessing", "true");
-                //self.app.router.navigate('/carryout/', { reloadCurrent: true });
-                // alert(app.views.main.router.url)
-                if (app.views.main.router.url.indexOf('carryout') > -1) {
-                    app.tab.show('#2');
-                    BindcarryoutTab('Processing');
-                }
-                else {
-                    localStorage.setItem("loadcarryoutprocessing", "true");
-                    self.app.router.navigate('/carryout/', { reloadCurrent: true });
-                }
+        //    }
+        //    else {
+        //        //localStorage.setItem("loadcarryoutprocessing", "true");
+        //        //self.app.router.navigate('/carryout/', { reloadCurrent: true });
+        //        // alert(app.views.main.router.url)
+        //        if (app.views.main.router.url.indexOf('carryout') > -1) {
+        //            app.tab.show('#2');
+        //            BindcarryoutTab('Processing');
+        //        }
+        //        else {
+        //            localStorage.setItem("loadcarryoutprocessing", "true");
+        //            self.app.router.navigate('/carryout/', { reloadCurrent: true });
+        //        }
 
-            }
-        }
-        else if (giftcardchanged > 0 && carryoutchanged == 0) {
-            localStorage.setItem("loadgiftcardorders", "true");
-            self.app.router.navigate('/giftcard/', { reloadCurrent: true });
+        //    }
+        //}
+        //else if (giftcardchanged > 0 && carryoutchanged == 0) {
+        //    localStorage.setItem("loadgiftcardorders", "true");
+        //    self.app.router.navigate('/giftcard/', { reloadCurrent: true });
 
-        }
-        else if (carryoutchanged > 0 && giftcardchanged == 0) {
-            //   alert(app.views.main.router.url)
-            //localStorage.setItem("loadcarryoutprocessing", "true");
-            //self.app.router.navigate('/carryout/', { reloadCurrent: true });
-            if (app.views.main.router.url.indexOf('carryout') > -1) {
-                app.tab.show('#2');
-                BindcarryoutTab('Processing');
-            }
-            else {
-                localStorage.setItem("loadcarryoutprocessing", "true");
-                self.app.router.navigate('/carryout/', { reloadCurrent: true });
-            }
-        }
-        else {
-            // alert(app.views.main.router.url)
-            // localStorage.setItem("loadcarryoutprocessing", "true");
-            //self.app.router.navigate('/carryout/', { reloadCurrent: true });
-            if (app.views.main.router.url.indexOf('carryout') > -1) {
-                app.tab.show('#2');
-                BindcarryoutTab('Processing');
-            }
-            else {
-                localStorage.setItem("loadcarryoutprocessing", "true");
-                self.app.router.navigate('/carryout/', { reloadCurrent: true });
-            }
-        }
+        //}
+        //else if (carryoutchanged > 0 && giftcardchanged == 0) {
+        //    //   alert(app.views.main.router.url)
+        //    //localStorage.setItem("loadcarryoutprocessing", "true");
+        //    //self.app.router.navigate('/carryout/', { reloadCurrent: true });
+        //    if (app.views.main.router.url.indexOf('carryout') > -1) {
+        //        app.tab.show('#2');
+        //        BindcarryoutTab('Processing');
+        //    }
+        //    else {
+        //        localStorage.setItem("loadcarryoutprocessing", "true");
+        //        self.app.router.navigate('/carryout/', { reloadCurrent: true });
+        //    }
+        //}
+        //else {
+        //    // alert(app.views.main.router.url)
+        //    // localStorage.setItem("loadcarryoutprocessing", "true");
+        //    //self.app.router.navigate('/carryout/', { reloadCurrent: true });
+        //    if (app.views.main.router.url.indexOf('carryout') > -1) {
+        //        app.tab.show('#2');
+        //        BindcarryoutTab('Processing');
+        //    }
+        //    else {
+        //        localStorage.setItem("loadcarryoutprocessing", "true");
+        //        self.app.router.navigate('/carryout/', { reloadCurrent: true });
+        //    }
+        //}
     }
     else {
         $(".pickup").each(function (index, element) {
