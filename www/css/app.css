@@ -2045,6 +2045,13 @@ select:-moz-focusring {
     top:0px;*/
     object-fit: contain;
 }
+.footer-icon-one{
+    height: 100%;
+    width: 38%;
+    /*position:absolute;
+    top:0px;*/
+    object-fit: contain;
+}
 /* Dropdown Button */
 .dropbtn {
   background-color: #fff;

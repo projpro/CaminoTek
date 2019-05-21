@@ -1,13 +1,1 @@
-{
-  "background_color": "#FFF",
-  "display": "standalone",
-  "name": "BistroUX",
-  "short_name": "BistroUX",
-  "version": "com.notification.bistroux",
-  "description": "BistroUX",
-  "author": "Cybervation, Inc.",
-  "icons": [],
-  "orientation": "portrait",
-  "start_url": "index.html",
-  "theme_color": "#e91e63"
-}
+{"background_color":"#FFF","display":"standalone","name":"BistroUX","short_name":"BistroUX","version":"com.notification.bistroux","description":"BistroUX","author":"Cybervation, Inc.","icons":[],"orientation":"portrait","start_url":"index.html","theme_color":"#e91e63","gcm_sender_id":"996231231186"}
