@@ -1322,10 +1322,12 @@ function InitPushNotification(storeId, name, uuid, version) {
         //}, 30000);
         //console.log('notification event: ' + data.message);
         if (data.message == "A new order has been placed") {
+            localStorage.setItem("PushNotification", "Order placed");
             myMedia = new Media(src, onSuccess, onError, onStatus);
             CheckNewOrder();
         }
         else if (data.message == "Order accepted") {
+            localStorage.setItem("PushNotification", "Order accepted");
             $("#btnAcknowledgement").click();
             //myMedia = new Media(src, onSuccess, onError, onStatus);
            // myMedia.stop();
@@ -1691,6 +1693,8 @@ function AcceptOrders() {
     if (isDevice()) {
         myMedia.stop();
     }
+
+    
     var storeId = SetStoreId();
     var orderIds = $("#hdnOrderIds").val().trim();
     var orders = [];
@@ -1700,86 +1704,178 @@ function AcceptOrders() {
     var restaurantDisplayName = "";
     if (localStorage.getItem("RestaurantName") != null)
         restaurantDisplayName = localStorage.getItem("RestaurantName").trim();
-    $(".pickup").each(function (index, element) {
-        // element == this
-        var elemId = $(this).attr("id");
-        var orderId = $(this).attr("id").split('_')[1];
-        var pickupdate = $("#pickupdate_" + orderId).val();
-        //console.log('pickupdate: ' + pickupdate);
-        var pickup = $(this).val().trim();
-        var oldPickUp = $("#pickuptime_" + orderId).html().trim();
-        var oldpickupdate = "";
-        var oldpickuptime = "";
-        // console.log(oldPickUp)
-        if (oldPickUp.indexOf("@") > -1) {
-            var phone = $("#phone_" + orderId).html().trim().replace("(", "").replace(")", "").replace("-", "");
 
-            oldpickupdate = oldPickUp.split('@')[0].trim();
-            oldpickuptime = oldPickUp.split('@')[1].trim();
-            orders.push(orderId + "#" + (pickupdate + "@" + pickup));
-            if (oldpickupdate != pickupdate || oldpickuptime != pickup) {
-                customerphone.push(orderId + "#" + (pickupdate + "@" + pickup) + "#" + phone + "#changed");
+    var notification = localStorage.getItem("PushNotification").trim();
+    if (notification == "Order accepted") {
+        $('#myDiv').hide();
+        //acceptOrderPopup.destroy();
+        $("#hdnOrderIds").val("");
+        $(".pickup").each(function (index, element) {
+          
+            carryoutchanged++;
+
+        });
+        var group = $('input[name="giftcardorder"]');
+        //console.log(orders)
+        if (group.length > 0) {
+            group.each(function () {
+               
+                giftcardchanged++;
+            });
+        }
+        if (giftcardchanged > 0 && carryoutchanged > 0) {
+            if (giftcardchanged > carryoutchanged) {
+                localStorage.setItem("loadgiftcardorders", "true");
+                self.app.router.navigate('/giftcard/', { reloadCurrent: true });
+
             }
             else {
-                customerphone.push(orderId + "#" + (pickupdate + "@" + pickup) + "#" + phone + "#notchanged");
+                //localStorage.setItem("loadcarryoutprocessing", "true");
+                //self.app.router.navigate('/carryout/', { reloadCurrent: true });
+                // alert(app.views.main.router.url)
+                if (app.views.main.router.url.indexOf('carryout') > -1) {
+                    app.tab.show('#2');
+                    BindcarryoutTab('Processing');
+                }
+                else {
+                    localStorage.setItem("loadcarryoutprocessing", "true");
+                    self.app.router.navigate('/carryout/', { reloadCurrent: true });
+                }
+
+            }
+        }
+        else if (giftcardchanged > 0 && carryoutchanged == 0) {
+            localStorage.setItem("loadgiftcardorders", "true");
+            self.app.router.navigate('/giftcard/', { reloadCurrent: true });
+
+        }
+        else if (carryoutchanged > 0 && giftcardchanged == 0) {
+            //   alert(app.views.main.router.url)
+            //localStorage.setItem("loadcarryoutprocessing", "true");
+            //self.app.router.navigate('/carryout/', { reloadCurrent: true });
+            if (app.views.main.router.url.indexOf('carryout') > -1) {
+                app.tab.show('#2');
+                BindcarryoutTab('Processing');
+            }
+            else {
+                localStorage.setItem("loadcarryoutprocessing", "true");
+                self.app.router.navigate('/carryout/', { reloadCurrent: true });
             }
         }
         else {
-            var phone = $("#phone_" + orderId).html().trim().replace("(", "").replace(")", "").replace("-", "");
-
-            oldpickuptime = oldPickUp;
-            orders.push(orderId + "#" + pickup);
-            if (oldPickUp != pickup) {
-                customerphone.push(orderId + "#" + pickup + "#" + phone + "#changed");
+            // alert(app.views.main.router.url)
+            // localStorage.setItem("loadcarryoutprocessing", "true");
+            //self.app.router.navigate('/carryout/', { reloadCurrent: true });
+            if (app.views.main.router.url.indexOf('carryout') > -1) {
+                app.tab.show('#2');
+                BindcarryoutTab('Processing');
             }
             else {
-                customerphone.push(orderId + "#" + pickup + "#" + phone + "#notchanged");
+                localStorage.setItem("loadcarryoutprocessing", "true");
+                self.app.router.navigate('/carryout/', { reloadCurrent: true });
             }
         }
-        carryoutchanged++;
-
-    });
-    var group = $('input[name="giftcardorder"]');
-    //console.log(orders)
-    if (group.length > 0) {
-        group.each(function () {
-            var orderId = $(this).attr("id");
-            orders.push(orderId + "#NA");
-            giftcardchanged++;
-        });
     }
-    var currentPage = 0;
-    var pageSize = 10;
-    $.ajax({
-        url: global + 'ChangeBulkOrderStatus',
-        type: 'GET',
-        data: {
-            orderId: JSON.stringify(orders),
-            status: 'Processing',
-            restaurantDisplayName: restaurantDisplayName,
-            orderDetails: JSON.stringify(customerphone)
-        },
-        datatype: 'jsonp',
-        contenttype: "application/json",
-        crossDomain: true,
-        async: false,
-        success: function (response) {
-            $('#myDiv').hide();
-            //acceptOrderPopup.destroy();
-            $("#hdnOrderIds").val("");
+    else {
+        $(".pickup").each(function (index, element) {
+            // element == this
+            var elemId = $(this).attr("id");
+            var orderId = $(this).attr("id").split('_')[1];
+            var pickupdate = $("#pickupdate_" + orderId).val();
+            //console.log('pickupdate: ' + pickupdate);
+            var pickup = $(this).val().trim();
+            var oldPickUp = $("#pickuptime_" + orderId).html().trim();
+            var oldpickupdate = "";
+            var oldpickuptime = "";
+            // console.log(oldPickUp)
+            if (oldPickUp.indexOf("@") > -1) {
+                var phone = $("#phone_" + orderId).html().trim().replace("(", "").replace(")", "").replace("-", "");
 
-            if (giftcardchanged > 0 && carryoutchanged > 0) {
-                if (giftcardchanged > carryoutchanged) {
+                oldpickupdate = oldPickUp.split('@')[0].trim();
+                oldpickuptime = oldPickUp.split('@')[1].trim();
+                orders.push(orderId + "#" + (pickupdate + "@" + pickup));
+                if (oldpickupdate != pickupdate || oldpickuptime != pickup) {
+                    customerphone.push(orderId + "#" + (pickupdate + "@" + pickup) + "#" + phone + "#changed");
+                }
+                else {
+                    customerphone.push(orderId + "#" + (pickupdate + "@" + pickup) + "#" + phone + "#notchanged");
+                }
+            }
+            else {
+                var phone = $("#phone_" + orderId).html().trim().replace("(", "").replace(")", "").replace("-", "");
+
+                oldpickuptime = oldPickUp;
+                orders.push(orderId + "#" + pickup);
+                if (oldPickUp != pickup) {
+                    customerphone.push(orderId + "#" + pickup + "#" + phone + "#changed");
+                }
+                else {
+                    customerphone.push(orderId + "#" + pickup + "#" + phone + "#notchanged");
+                }
+            }
+            carryoutchanged++;
+
+        });
+        var group = $('input[name="giftcardorder"]');
+        //console.log(orders)
+        if (group.length > 0) {
+            group.each(function () {
+                var orderId = $(this).attr("id");
+                orders.push(orderId + "#NA");
+                giftcardchanged++;
+            });
+        }
+        var currentPage = 0;
+        var pageSize = 10;
+        $.ajax({
+            url: global + 'ChangeBulkOrderStatus',
+            type: 'GET',
+            data: {
+                orderId: JSON.stringify(orders),
+                status: 'Processing',
+                restaurantDisplayName: restaurantDisplayName,
+                orderDetails: JSON.stringify(customerphone)
+            },
+            datatype: 'jsonp',
+            contenttype: "application/json",
+            crossDomain: true,
+            async: false,
+            success: function (response) {
+                $('#myDiv').hide();
+                //acceptOrderPopup.destroy();
+                $("#hdnOrderIds").val("");
+
+                if (giftcardchanged > 0 && carryoutchanged > 0) {
+                    if (giftcardchanged > carryoutchanged) {
+                        localStorage.setItem("loadgiftcardorders", "true");
+                        self.app.router.navigate('/giftcard/', { reloadCurrent: true });
+
+                    }
+                    else {
+                        //localStorage.setItem("loadcarryoutprocessing", "true");
+                        //self.app.router.navigate('/carryout/', { reloadCurrent: true });
+                        // alert(app.views.main.router.url)
+                        if (app.views.main.router.url.indexOf('carryout') > -1) {
+                            app.tab.show('#2');
+                            BindcarryoutTab('Processing');
+                        }
+                        else {
+                            localStorage.setItem("loadcarryoutprocessing", "true");
+                            self.app.router.navigate('/carryout/', { reloadCurrent: true });
+                        }
+
+                    }
+                }
+                else if (giftcardchanged > 0 && carryoutchanged == 0) {
                     localStorage.setItem("loadgiftcardorders", "true");
                     self.app.router.navigate('/giftcard/', { reloadCurrent: true });
 
                 }
-                else {
+                else if (carryoutchanged > 0 && giftcardchanged == 0) {
+                    //   alert(app.views.main.router.url)
                     //localStorage.setItem("loadcarryoutprocessing", "true");
                     //self.app.router.navigate('/carryout/', { reloadCurrent: true });
-                    alert(app.views.main.router.url)
-                    if(app.views.main.router.url.indexOf('carryout')>-1)
-                    {
+                    if (app.views.main.router.url.indexOf('carryout') > -1) {
                         app.tab.show('#2');
                         BindcarryoutTab('Processing');
                     }
@@ -1787,48 +1883,30 @@ function AcceptOrders() {
                         localStorage.setItem("loadcarryoutprocessing", "true");
                         self.app.router.navigate('/carryout/', { reloadCurrent: true });
                     }
-
-                }
-            }
-            else if (giftcardchanged > 0 && carryoutchanged == 0) {
-                localStorage.setItem("loadgiftcardorders", "true");
-                self.app.router.navigate('/giftcard/', { reloadCurrent: true });
-
-            }
-            else if (carryoutchanged > 0 && giftcardchanged == 0) {
-                alert(app.views.main.router.url)
-                //localStorage.setItem("loadcarryoutprocessing", "true");
-                //self.app.router.navigate('/carryout/', { reloadCurrent: true });
-                if (app.views.main.router.url.indexOf('carryout') > -1) {
-                    app.tab.show('#2');
-                    BindcarryoutTab('Processing');
                 }
                 else {
-                    localStorage.setItem("loadcarryoutprocessing", "true");
-                    self.app.router.navigate('/carryout/', { reloadCurrent: true });
+                    // alert(app.views.main.router.url)
+                    // localStorage.setItem("loadcarryoutprocessing", "true");
+                    //self.app.router.navigate('/carryout/', { reloadCurrent: true });
+                    if (app.views.main.router.url.indexOf('carryout') > -1) {
+                        app.tab.show('#2');
+                        BindcarryoutTab('Processing');
+                    }
+                    else {
+                        localStorage.setItem("loadcarryoutprocessing", "true");
+                        self.app.router.navigate('/carryout/', { reloadCurrent: true });
+                    }
                 }
+                StopSoundOtherDevices(storeId);
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                //alert(xhr.responseText);
+                //alert(textStatus);
+                //alert(errorThrown);
             }
-            else {
-                alert(app.views.main.router.url)
-               // localStorage.setItem("loadcarryoutprocessing", "true");
-                //self.app.router.navigate('/carryout/', { reloadCurrent: true });
-                if (app.views.main.router.url.indexOf('carryout') > -1) {
-                    app.tab.show('#2');
-                    BindcarryoutTab('Processing');
-                }
-                else {
-                    localStorage.setItem("loadcarryoutprocessing", "true");
-                    self.app.router.navigate('/carryout/', { reloadCurrent: true });
-                }
-            }
-            StopSoundOtherDevices(storeId);
-        },
-        error: function (xhr, textStatus, errorThrown) {
-            //alert(xhr.responseText);
-            //alert(textStatus);
-            //alert(errorThrown);
-        }
-    });
+        });
+    }
+    
 
 
 }
