@@ -264,7 +264,7 @@ $$(document).on('page:init', function (e) {
 
         localStorage.setItem("CurrentPage", currentPage);
         var loadProcessing = localStorage.getItem("loadcarryoutprocessing");
-        alert(loadProcessing)
+        //alert(loadProcessing)
         //console.log("loadProcessing: " + loadProcessing)
         if (loadProcessing != null && loadProcessing.toString().trim() == "true") {
             //console.log("loadProcessing 1: ")
@@ -1775,9 +1775,17 @@ function AcceptOrders() {
 
                 }
                 else {
-                    localStorage.setItem("loadcarryoutprocessing", "true");
-                    self.app.router.navigate('/carryout/', { reloadCurrent: true });
-
+                    //localStorage.setItem("loadcarryoutprocessing", "true");
+                    //self.app.router.navigate('/carryout/', { reloadCurrent: true });
+                    if(app.views.main.router.url.indexOf('carryout')>-1)
+                    {
+                        app.tab.show('#2');
+                        BindcarryoutTab('Processing');
+                    }
+                    else {
+                        localStorage.setItem("loadcarryoutprocessing", "true");
+                        self.app.router.navigate('/carryout/', { reloadCurrent: true });
+                    }
 
                 }
             }
@@ -1787,12 +1795,28 @@ function AcceptOrders() {
 
             }
             else if (carryoutchanged > 0 && giftcardchanged == 0) {
-                localStorage.setItem("loadcarryoutprocessing", "true");
-                self.app.router.navigate('/carryout/', { reloadCurrent: true });
+                //localStorage.setItem("loadcarryoutprocessing", "true");
+                //self.app.router.navigate('/carryout/', { reloadCurrent: true });
+                if (app.views.main.router.url.indexOf('carryout') > -1) {
+                    app.tab.show('#2');
+                    BindcarryoutTab('Processing');
+                }
+                else {
+                    localStorage.setItem("loadcarryoutprocessing", "true");
+                    self.app.router.navigate('/carryout/', { reloadCurrent: true });
+                }
             }
             else {
-                localStorage.setItem("loadcarryoutprocessing", "true");
-                self.app.router.navigate('/carryout/', { reloadCurrent: true });
+               // localStorage.setItem("loadcarryoutprocessing", "true");
+                //self.app.router.navigate('/carryout/', { reloadCurrent: true });
+                if (app.views.main.router.url.indexOf('carryout') > -1) {
+                    app.tab.show('#2');
+                    BindcarryoutTab('Processing');
+                }
+                else {
+                    localStorage.setItem("loadcarryoutprocessing", "true");
+                    self.app.router.navigate('/carryout/', { reloadCurrent: true });
+                }
             }
             StopSoundOtherDevices(storeId);
         },
