@@ -1777,6 +1777,7 @@ function AcceptOrders() {
                 else {
                     //localStorage.setItem("loadcarryoutprocessing", "true");
                     //self.app.router.navigate('/carryout/', { reloadCurrent: true });
+                    alert(app.views.main.router.url)
                     if(app.views.main.router.url.indexOf('carryout')>-1)
                     {
                         app.tab.show('#2');
@@ -1795,6 +1796,7 @@ function AcceptOrders() {
 
             }
             else if (carryoutchanged > 0 && giftcardchanged == 0) {
+                alert(app.views.main.router.url)
                 //localStorage.setItem("loadcarryoutprocessing", "true");
                 //self.app.router.navigate('/carryout/', { reloadCurrent: true });
                 if (app.views.main.router.url.indexOf('carryout') > -1) {
@@ -1807,6 +1809,7 @@ function AcceptOrders() {
                 }
             }
             else {
+                alert(app.views.main.router.url)
                // localStorage.setItem("loadcarryoutprocessing", "true");
                 //self.app.router.navigate('/carryout/', { reloadCurrent: true });
                 if (app.views.main.router.url.indexOf('carryout') > -1) {
