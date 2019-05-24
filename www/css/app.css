@@ -2047,7 +2047,7 @@ select:-moz-focusring {
 }
 .footer-icon-one{
     height: 77%;
-    width: 38%;
+    /*width: 38%;*/
     /*position:absolute;
     top:0px;*/
     /*object-fit: contain;*/
