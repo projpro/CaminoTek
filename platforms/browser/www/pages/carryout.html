@@ -120,6 +120,9 @@
             <div class="page-content">
                 <div class="page-title padding-left padding-right margin-top display-flex justify-content-space-between">
                     <h2>Order Details</h2>
+                    <a class="popup-cancel-button"  onclick="OpenCancelOrderPopup();" id="aCancelOrder" style="display:none;">
+                        Cancel Order
+                    </a>
                     <a class="panel-close navbar-site-action" href="#" data-panel="right" onclick="CloseCarryOutDetails();">
                         <img src="./img/icons/close.png" alt="close" class="close-icon">
                     </a>
@@ -169,6 +172,7 @@
                                             <option value="30">Complete</option>
                                             <option value="70">Shipped</option>
                                             <option value="50">Picked Up</option>
+
                                         </select>
                                     </div>
                                 </li>
@@ -371,6 +375,7 @@
                                             <option value="20">Processing</option>
                                             <option value="30">Complete</option>
                                             <option value="50">Picked Up</option>
+                                            <option value="40">Cancelled</option>
                                         </select>
                                     </div>
                                 </li>
@@ -594,4 +599,6 @@
         
      
     </div>
+
+    
 </div>

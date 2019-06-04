@@ -1331,22 +1331,7 @@ function InitPushNotification(storeId, name, uuid, version) {
         else if (data.message == "Order accepted") {
             localStorage.setItem("PushNotification", "Order accepted");
             $("#btnAcknowledgement").click();
-            //myMedia = new Media(src, onSuccess, onError, onStatus);
-           // myMedia.stop();
-            //$('#myDiv').hide();
-            //$(".popup-close").click();
-            //$(".link").click();
-            
-            //localStorage.setItem("loadcarryoutprocessing", "true");
-            // self.app.router.navigate('/carryout/', { reloadCurrent: true });
-            //alert(data.message)
-
-            //acceptOrderPopup.destroy();
-
-            //AcceptOrders();
-            // acceptOrderPopup.destroy();
-            //AcceptOrders();
-            // $(".popup-close").click();
+           
         }
         // alert('notification event: ' + data.message + ", " + data.title);
         //navigator.notification.alert(
@@ -1670,7 +1655,7 @@ function CheckNewOrder() {
                                 }
                             }
                         }
-                        console.log('isDevice 1: ' + isDevice())
+                        //console.log('isDevice 1: ' + isDevice())
                         if (isDevice()) {
                             // console.log('isDevice 1: ')
                             //playAudio();

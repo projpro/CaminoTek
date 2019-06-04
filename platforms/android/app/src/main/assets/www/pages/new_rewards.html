@@ -123,7 +123,9 @@
                                                     <li class="item-content">
                                                         <a class="custom-btn-xl custom-bg custom-link btn-add-card" id="btnCreate">Add Member</a>
                                                     </li>
+                                                    
                                                 </ul>
+                                                <input type="hidden" id="hdnAddMemberPopupCustomerId" value="0" />
                                             </div>
                                            
                                         </div>
@@ -156,14 +158,14 @@
                                                             <li class="item-content">
                                                                 <div class="item-media item-media-section">
                                                                     <i class="material-icons">phone</i>
-                                                                    <input type="number" placeholder="Phone" id="txtPhone_LoadRedeem" onKeyDown="if(this.value.length==10) this.value = this.value.slice(0, -1);">
+                                                                    <input type="number" placeholder="Phone" id="txtPhone_LoadRedeem" onKeyDown="if(this.value.length==11) this.value = this.value.slice(0, -1);">
                                                                     <span class="input-clear-button"></span>
                                                                 </div>
                                                             </li>
                                                             <li class="item-content">
                                                                 <div class="item-media item-media-section" style="padding-bottom: 0px;">
                                                                     <i class="material-icons">account_circle</i>
-                                                                    <input type="text" placeholder="Last Name" id="txtLastName_LoadRedeem">
+                                                                    <input type="text" placeholder="Name" id="txtLastName_LoadRedeem">
                                                                     <span class="input-clear-button"></span>
                                                                 </div>
                                                             </li>
