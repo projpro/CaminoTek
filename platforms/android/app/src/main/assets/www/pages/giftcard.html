@@ -95,17 +95,13 @@
                                             <button class="small-button" id="giftcardscan" name="giftcardscan">Scan Barcode</button>
                                         </div>
                                         <div class="list media-list">
-
-
                                             <ul>
-
                                                 <li class="item-content">
                                                     <div class="item-media item-media-section">
-                                                        <i class="material-icons">credit_card</i>
+                                                        <i class="material-icons">card_giftcard</i>
                                                         <input type="text" placeholder="Card Code" id="txtCardCode" class="mandatory" onKeyDown="if(this.value.length==15) this.value = this.value.slice(0, -1);" autofocus>
+                                                        <input type="hidden" id="hdnCardType" value="" />
                                                         <span class="input-clear-button"></span>
-
-
                                                     </div>
                                                 </li>
                                                 <li class="item-content">
@@ -132,14 +128,60 @@
                                                 <li class="item-content">
                                                     <div class="item-media item-media-section">
                                                         <i class="material-icons">attach_money</i>
-                                                        <input type="number" min="1" step="any" placeholder="Amount" id="txtAmount" class="mandatory" onKeyDown="if(this.value.length==10) this.value = this.value.slice(0, -1);">
+                                                        <input type="text" min="1" step="any" placeholder="Amount" id="txtAmount" class="mandatory" onKeyDown="if(this.value.length==10) this.value = this.value.slice(0, -1);">
                                                         <span class="input-clear-button"></span>
                                                     </div>
                                                 </li>
+                                                <li class="item-content" id="liCCName" style="display:none;">
+                                                    <div class="item-media item-media-section">
+                                                        <i class="material-icons">person</i>
+                                                        <input type="text" placeholder="Name On Card" id="txtCCName" class="mandatory" maxlength="50">
+                                                        <span class="input-clear-button"></span>
+                                                    </div>
+                                                </li>
+                                                <li class="item-content item-media-section" id="liCCNo" style="display:none;">
+                                                    <div class="item-media col-45">
+
+                                                        <i class="material-icons">credit_card</i>
+                                                        <input type="number" min="1" step="any" placeholder="Card Number" id="txtCCNumber" required class="mandatory" onKeyPress="if(this.value.length==16) return false;">
+                                                        <span class="input-clear-button"></span>
+                                                    </div>
+                                                    <div class="item-media col-25">
+                                                        <i class="material-icons">fiber_pin</i>
+                                                        <!--<input type="number" placeholder="CVV" id="txtCVV" required class="mandatory" onKeyPress="if(this.value.length==4) return false;">-->
+                                                        <input type="password" placeholder="CVV" id="txtCVV" required class="mandatory" onKeyPress="if(this.value.length==4) return false;">
+                                                        <span class="input-clear-button"></span>
+                                                    </div>
+                                                    <div class="item-media col-25">
+                                                        <i class="material-icons">date_range</i>
+                                                        <select placeholder="MM" id="ddlCCMonth" required class="mandatory">
+                                                            <option value="">MM</option>
+                                                            <option value="01">01</option>
+                                                            <option value="02">02</option>
+                                                            <option value="03">03</option>
+                                                            <option value="04">04</option>
+                                                            <option value="05">05</option>
+                                                            <option value="06">06</option>
+                                                            <option value="07">07</option>
+                                                            <option value="08">08</option>
+                                                            <option value="09">09</option>
+                                                            <option value="10">10</option>
+                                                            <option value="11">11</option>
+                                                            <option value="12">12</option>
+
+                                                        </select>/
+                                                        <select placeholder="YY" id="ddlCCYear" required class="mandatory">
+                                                            <option value="">YY</option>
+                                                        </select>
+                                                    </div>
+                                                </li>
+
                                                 <li class="item-content">
                                                     <a class="custom-btn-large custom-bg custom-link btn-add-card" id="btnAddCard">Add Card</a>
                                                 </li>
+
                                             </ul>
+                                            <input type="hidden" id="hdnValidateCard" value="false" />
                                         </div>
 
                                     </div>
@@ -164,7 +206,7 @@
                                                     <ul>
                                                         <li class="item-content">
                                                             <div class="item-media item-media-section">
-                                                                <i class="material-icons">credit_card</i>
+                                                                <i class="material-icons">card_giftcard</i>
                                                                 <input type="text" placeholder="Card Code" id="txtCardCodeSearch" class="mandatory" onKeyDown="if(this.value.length==15) this.value = this.value.slice(0, -1);" autofocus>
                                                                 <span class="input-clear-button"></span>
                                                             </div>
@@ -184,6 +226,7 @@
                                                             </div>
                                                         </li>
                                                         <li class="item-content item-content-button">
+                                                            <input type="hidden" id="hdnSearchCardType" value="" />
                                                             <a href="#" id="btnGiftCardSearch" class="custom-btn custom-bg bg1 custom-link item-media-section">Search</a>
                                                         </li>
                                                         <li class="item-content">
@@ -206,6 +249,16 @@
                                                         <li class="item-content item-content-button">
                                                             <a id="btnRedeemGiftCard" class="custom-btn custom-bg bg1 custom-link item-media-section disabled">Redeem</a>
                                                         </li>
+                                                        <!--<li class="item-content">
+                                                            <div class="item-media item-media-section" style="padding-bottom: 0px;">
+                                                                <i class="material-icons">attach_money</i>
+                                                                <input type="number" placeholder="Refund" id="txtRefund" min="1" step="any" onKeyDown="if(this.value.length==10) this.value = this.value.slice(0, -1);">
+                                                                <span class="input-clear-button"></span>
+                                                            </div>
+                                                        </li>-->
+                                                        <li class="item-content item-content-button">
+                                                            <a id="btnRefundGiftCard" class="custom-btn custom-bg bg1 custom-link item-media-section disabled">Refund</a>
+                                                        </li>
                                                         <li class="item-content">
                                                             <div class="item-media item-media-section" style="padding-bottom: 0px;">
                                                                 <i class="material-icons">laptop_windows</i>
@@ -223,8 +276,8 @@
                                                                     <option value="10">10</option>
                                                                 </select>
                                                             </div>
-                                                                
-</li>
+
+                                                        </li>
                                                     </ul>
                                                 </div>
                                             </div>
@@ -332,7 +385,7 @@
                                 <div class="giftcard-order-number" id="orderNumberAndDateTime">
 
                                 </div>
-                                
+
                             </div>
                             <div class="order-row-container">
                                 <div class="giftcard-customer">

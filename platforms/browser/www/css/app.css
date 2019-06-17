@@ -1928,7 +1928,7 @@ select:-moz-focusring {
 
 :-ms-input-placeholder { /* IE 10+ */
     color: #8c8c8c !important;
-    ;
+    
 }
 
 :-moz-placeholder { /* Firefox 18- */
@@ -2153,6 +2153,16 @@ position: relative;
 .status-disabled{
     opacity: .55!important;
 }
+  #cancelOrder {
+            position: absolute;
+            top: 10%;
+            left:  10%;
+            /*width: 100vw;*/
+            height: auto;
+            background-color: #fff;
+            z-index: 9999;
+            display: none;
+        }
 .popup-cancel-button {
    border: 2px solid #e95861;
     color: #fff;
@@ -2232,6 +2242,59 @@ position: relative;
     transition: transform .3s,opacity .2s;
     transition: transform .3s,opacity .2s,-webkit-transform .3s;
 }
+.custom-modal-two{
+     width: 365px;
+    opacity: 1;
+    /* pointer-events: none; */
+    background-color: #fff;
+    text-align: center;
+    border-radius: 5px;
+    position: static;
+    margin: 20px auto;
+    display: inline-block;
+    vertical-align: middle;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    -webkit-transform-origin: 50% 50%;
+    transform-origin: 50% 50%;
+    z-index: 10001;
+    transition: opacity .2s,-webkit-transform .3s;
+    transition: transform .3s,opacity .2s;
+    transition: transform .3s,opacity .2s,-webkit-transform .3s;
+}
+.popup-input-amount{
+    width:34% !important;
+    display:inline-block !important;
+}
+.popup-input-ccnumber{
+    width:85% !important;
+    display:inline-block !important;
+}
+.popup-input-cvv{
+    width:55% !important;
+    display:inline-block !important;
+}
+.popup-input-name{
+    width:95% !important;
+    display:inline-block !important;
+}
+.popup-input-month{
+    width:38% !important;
+    display:inline-block !important;
+}
+.popup-input-divider{
+    width:10% !important;
+    display:inline-block !important;
+ 
+    color: #000 !important;
+    text-align: center;
+    font-size: 33px;
+    vertical-align: bottom;
+}
+.popup-material-icons{
+    vertical-align: top!important;
+    padding-top: 14px;
+}
 .popup-confirm {
     background: rgb(59, 152, 71);
     color: #fff;
@@ -2246,6 +2309,36 @@ position: relative;
     margin: 15px 13px 0 0px;
     border: 1px solid rgb(59, 152, 71);
     width:183px;
+}
+.popup-confirm-medium {
+    background: rgb(59, 152, 71);
+    color: #fff;
+    font-weight: 400;
+    padding: 10px 0px;
+    /*border-radius: .25em;*/
+    /*font-size: 22px;*/
+     font-size: 22px;
+    /* text-transform: uppercase; */
+    text-align: center;
+    display: inline-block;
+    margin: 15px 13px 0 0px;
+    border: 1px solid rgb(59, 152, 71);
+    width:111px;
+}
+.popup-confirm-small {
+    background: rgb(59, 152, 71);
+    color: #fff;
+    font-weight: 400;
+    padding: 10px 0px;
+    /*border-radius: .25em;*/
+    /*font-size: 22px;*/
+     font-size: 20px;
+    /* text-transform: uppercase; */
+    text-align: center;
+    display: inline-block;
+    margin: 15px 13px 0 0px;
+    border: 1px solid rgb(59, 152, 71);
+    width:60px;
 }
 .popup-no {
     /*border: 0;
@@ -2264,7 +2357,7 @@ position: relative;
     font-weight: 400;
     padding: 10px 0px;
     /*border-radius:  .25em;*/
-    font-size: 22px;
+    font-size: 20px;
     /* text-transform: uppercase; */
     text-align: center;
     display: block;
@@ -2340,19 +2433,43 @@ position: relative;
      font-size: 14px;
        color:#000;
 }
+.popup-col-4{
+    width:45%;
+    display:inline-block;
+   
+}
+.popup-col-5{
+    width:20%;
+     display:inline-block;
+   
+}
+.popup-col-6{
+    width:35%;
+     display:inline-block;
+   
+}
 .poprow-selected{
     border-bottom:4px solid #08b3c7;
 }
 .poprow-not-selected{
     border-bottom:1px solid #ddd;
 }
-@media (max-width: 500px) {
-    .custom-modal {
-        width: calc(100% - 20px);
-    }
-    .custom-modal-one {
-        width: calc(100% - 10px);
-    }
+ 
+#myDiv .popup-close {
+  position: fixed;
+  right: 32px;
+  top: 0px;
+  width: 100%;
+  opacity:unset;
+  height: 56px;
+}
+#myDiv .popup-close:before,#myDiv .popup-close:after {
+    position: absolute;
+    left: 15px;
+    content: ' ';
+    height: 33px;
+    width: 2px;
+    background: none;
 }
 .popup-close {
   position: absolute;
@@ -2395,6 +2512,78 @@ position: relative;
 .popup-content-area .close:hover 
 { color: rgb(233, 88, 97); 
 
+}
+.textarea{
+    border-bottom: 1px solid #ddd !important;
+    height: 160px !important;
+    padding: 12px 5px !important;
+    display:inline-block !important;
+    width:93% !important;
+}
+.textarea::-moz-placeholder { /* Mozilla Firefox 19+ */
+    /*line-height:160px;*/
+    vertical-align:bottom;
+}
+.textarea::-webkit-input-placeholder { /* Webkit */
+    /*line-height:160px;*/
+       vertical-align:bottom;
+}
+.textarea:-ms-input-placeholder { /* IE */
+    /*line-height:160px;*/
+       vertical-align:bottom;
+}
+.popover__wrapper {
+  position: relative;
+  margin-top: 1.5rem;
+  display: inline-block;
+}
+.popover__content {
+  opacity: 0;
+  visibility: hidden;
+  position: absolute;
+  left: -150px;
+  transform: translate(0, 10px);
+  background-color: #bfbfbf;
+  padding: 1.5rem;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+  width: auto;
+}
+.popover__content:before {
+  position: absolute;
+  z-index: -1;
+  content: "";
+  right: calc(50% - 10px);
+  top: -8px;
+  border-style: solid;
+  border-width: 0 10px 10px 10px;
+  border-color: transparent transparent #bfbfbf transparent;
+  transition-duration: 0.3s;
+  transition-property: transform;
+}
+.popover__wrapper:hover .popover__content {
+  z-index: 10;
+  opacity: 1;
+  visibility: visible;
+  transform: translate(0, -20px);
+  transition: all 0.5s cubic-bezier(0.75, -0.02, 0.2, 0.97);
+}
+.popover__message {
+  text-align: center;
+}
+.popup-highlighted-row{
+   color:#ff8080;
+    opacity: 1;
+}
+@media (max-width: 500px) {
+    .custom-modal {
+        width: calc(100% - 20px);
+    }
+    .custom-modal-one {
+        width: calc(100% - 10px);
+    }
+      .custom-modal-two {
+        width: calc(100% - 10px);
+    }
 }
 /*===============================================*/
 /* 11/A. Sudip Start					    	 */
@@ -2732,6 +2921,21 @@ position: relative;
 .width-full {
     width: 100%;
 }
+.col-45{
+    width:45%;
+}
+.col-25{
+    width:27%;
+}
+#ddlCCMonth option { color: #212121; }
+#ddlCCYear option { color: #212121; }
+#ddlPopupCCMonth option { color: #212121; }
+#ddlPopupCCYear option { color: #212121; }
+.empty { color: #ff8080 !important; }
+.custom-row{
+    display: flex;
+    flex-direction:row;
+}
 /*---Profile Section Start-*/
 .timing-flex-row-container {
     display: flex;
@@ -2962,7 +3166,7 @@ position: relative;
   ##Screen = B/w 320px to 479px
 */
 
-@media (min-width: 320px) and (max-width: 480px) {
+@media only screen and (min-width: 320px) and (max-width: 480px) {
     .order-column-one {
         /*width:100%;*/
     }
@@ -3181,11 +3385,110 @@ position: relative;
     margin: 8px 0 0 10px;
     font-size: 14px;
 }
+.col-45{
+    width:100%;
+}
+.col-25{
+    width:50%;
+}
+
+    .popup-col-4{
+    width:100%;
+    /*display:inline-block;*/
+   
+}
+.popup-col-5{
+    width:45%;
+     display:inline-block;
+   
+}
+.popup-col-6{
+    width:55%;
+     display:inline-block;
+   
+}
+.popup-input-name {
+    width: 92% !important;
+    display: inline-block !important;
+}
+.popup-input-ccnumber {
+    width: 92% !important;
+    display: inline-block !important;
+}
+.popup-input-cvv {
+    width: 68% !important;
+    display: inline-block !important;
+}
+.popup-content-area {
+    overflow-y: auto;
+    margin-top: 8px;
+    margin-left: 15px;
+    text-align: left;
+    margin-bottom: 23px;
+    margin-right: 15px;
+}
+.popup-confirm-medium {
+  
+    font-size: 19px;
+   
+}
+.popup-no{
+        font-size: 19px;
+
+}
+.popup-col-1{
+    width:47%;
+   
+}
+.popup-col-2{
+    width:18%;
+     
+}
+.popup-col-3{
+    width:35%;
+  
+}
+.popup-col-1-header{
+    width:47%;
+    
+}
+.popup-col-2-header{
+    width:18%;
+   
+}
+.popup-col-3-header{
+    width:35%;
+  
+}
+.popup-link {
+    top: 4px;
+    right: 0px;
+}
+.popup-cancel-button {
+  
+    font-size: 19px;
+ 
+}
+h2 {
+    font-size: 19px;
+}
+.page-title h2 {
+    border-bottom: 1px solid #111111;
+    margin: 4px 4px 14px 4px;
+}
+#cancelOrder {
+    left: 3%;
+}
 }
 @media (min-width:768px) and (max-width:800px) {
     .footer-icon {
         width: 28%;
     }
+    #cancelOrder {
+ 
+    left: 22%;
+   
+}
 }
 @media (min-width:801px) and (max-width:1024px) {
     .footer-icon {

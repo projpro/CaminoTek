@@ -178,14 +178,15 @@ $$(document).on('page:init', function (e) {
     }
     else if (pageURL.indexOf('carryout') > -1)//Carry Out
     {
+        //CheckNewOrder();//For Testing purpose of New Order Popup
         $("#txtFilterOrderDateFrom").flatpickr({
             enableTime: false,
             dateFormat: "m/d/Y",
             //disableMobile: true,
             onChange: function (selectedDates, dateStr, instance) {
-                console.log("#txtFilterOrderDateFrom dateStr:" + dateStr);
-                console.log("#txtFilterOrderDateFrom selectedDates:" + selectedDates);
-                console.log("#txtFilterOrderDateFrom instance:" + instance);
+                //console.log("#txtFilterOrderDateFrom dateStr:" + dateStr);
+                //console.log("#txtFilterOrderDateFrom selectedDates:" + selectedDates);
+                //console.log("#txtFilterOrderDateFrom instance:" + instance);
                 //console.log("#txtFilterOrderDateFrom dateStr:" + dateStr);
                 if (dateStr != undefined && dateStr != null && dateStr.trim() != "") {
                     console.log("1");
@@ -412,6 +413,8 @@ $$(document).on('page:init', function (e) {
         //    $$('.page').off('touchstart touchmove', preventScroll);
         //}
         SetUpBarCodeScanButton('giftcardscan');
+        BindCCYear('ddlCCYear');
+        BindCCMonth('ddlCCMonth');
         $$("#txtCardCode").focus();
         //$$("#txtCardCodeSearch").focus();
         var screen_width = document.documentElement.clientWidth;
@@ -562,7 +565,13 @@ $$(document).on('page:init', function (e) {
         //$$('.page-content').css('overflow', 'hidden');
         //GiftCard Load New - Start
         $$('#linkGiftCardNew').click(function () {
+            BindCCYear('ddlCCYear');
+            BindCCMonth('ddlCCMonth');
+            $("#liCCName").hide();
+            $("#liCCNo").hide();
             ResetGiftCardNew();
+            $("#hdnValidateCard").val(true);
+            $("#hdnCardType").val("");
             SetUpBarCodeScanButton('giftcardscan');
             $('#txtCardCode').focus();
             currentTab = "New";
@@ -573,7 +582,7 @@ $$(document).on('page:init', function (e) {
         $$('#linkGiftCardRedeem').click(function () {
             ResetGiftCardLoadRedeem();
             SetUpBarCodeScanButton('giftcardloadredeemscan');
-
+            
             $('#txtCardCodeSearch').focus();
             if (currentTab == "New") {
                 //if (screen_width <= 417) {
@@ -628,13 +637,16 @@ $$(document).on('page:init', function (e) {
             SearchGiftCard();
         });
         $$('#btnLoadGiftCard').click(function () {
+          
             LoadGiftCard();
         });
         $$('#btnRedeemGiftCard').click(function () {
             RedeemGiftCard();
         });
 
-
+        $$('#btnRefundGiftCard').click(function () {
+            OpenGiftCardRefundPopup();
+        });
         //GiftCard Load/Redeem - End
 
         //GiftCard Orders - Start
