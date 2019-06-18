@@ -1381,7 +1381,7 @@ function OpenCarryoutDetails(id) {
                     }
                     else {
                         if (phone != "")
-                            buttonHTML += "<a id=\"aPopupSMS_" + orderId + "\" onclick=\"ConfirmationPickUpSMSSend(" + orderId + ",'" + phone + "','Popup','$0.00')\"  id=\"btnPickUpSMS\"><img id=\"imgPopupSMS_" + orderId + "\" src=\"./img/icons/pickup_sms_button.png\" style=\"width:21%;float:right;padding-right:0px;\" /></a>";
+                            buttonHTML += "<a id=\"aPopupSMS_" + orderId + "\"><img onclick=\"ConfirmationPickUpSMSSend(" + orderId + ",'" + phone + "','Popup','$0.00')\" id=\"imgPopupSMS_" + orderId + "\" src=\"./img/icons/pickup_sms_button.png\" style=\"width:21%;float:right;padding-right:0px;\" /></a>";
 
                     }
                 }
@@ -1674,7 +1674,7 @@ function SendPickUpSMSToCustomer(orderId, customerphone, source, orderTotal) {
                     $("#imgPickUpSMS_" + orderId).attr("src", "./img/icons/pickup_sms_button_active.png");
 
                     $("#aPopupSMS_" + orderId).removeAttr("disabled");
-                    $("#aPopupSMS_" + orderId).removeAttr("onclick");
+                    $("#imgPopupSMS_" + orderId).removeAttr("onclick");
                     $("#imgPopupSMS_" + orderId).removeAttr("src");
                     $("#imgPopupSMS_" + orderId).attr("src", "./img/icons/pickup_sms_button_active.png");
                     if (data.SMSSentOn != "") {
@@ -1684,7 +1684,7 @@ function SendPickUpSMSToCustomer(orderId, customerphone, source, orderTotal) {
 
                                 $("#imgPopupSMS_" + orderId).removeAttr("src");
                                 $("#imgPopupSMS_" + orderId).attr("src", "./img/icons/pickup_sms_button_active.png");
-                                $("#aPopupSMS_" + orderId).removeAttr("onclick");
+                                $("#imgPopupSMS_" + orderId).removeAttr("onclick");
 
                                 $("#hdnSelectedOrderPickUpSMSSentTime").val(arrSMSSentTime[0].trim() + "#" + arrSMSSentTime[1].trim());
                                 $("#dvPickUpSMSSentTime_" + orderId).show();
