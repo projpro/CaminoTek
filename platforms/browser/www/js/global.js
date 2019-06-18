@@ -8624,7 +8624,7 @@ function BindItemById(productId) {
                                 //console.log(value); 
                                 var count = 0;
                                 if (value.Type == "ItemInfo") {
-                                    console.log("value.CATEGORYID: " + value.CATEGORYID)
+                                   // console.log("value.IsCarryout : " + value.IsCarryout)
 
                                     if (value.CategoryId != "") {
                                         // $("#food-page-content #productCategory").val(value.CATEGORYID);
@@ -8653,21 +8653,39 @@ function BindItemById(productId) {
                                     if (value.FOODSELECTIONTYPE.toLowerCase().indexOf("lunch") > -1) {
                                         $("#chkLunch").prop('checked', true);
                                     }
+                                    else {
+                                        $("#chkLunch").prop('checked', false);
+                                    }
                                     if (value.FOODSELECTIONTYPE.toLowerCase().indexOf("dinner") > -1) {
                                         $("#chkDinner").prop('checked', true);
+                                    }
+                                    else {
+                                        $("#chkDinner").prop('checked', false);
                                     }
                                     if (value.FOODSELECTIONTYPE.toLowerCase().indexOf("breakfast") > -1) {
                                         $("#chkBreakfast").prop('checked', true);
                                     }
+                                    else{
+                                        $("#chkBreakfast").prop('checked', false);
+                                    }
                                     if (value.FOODSELECTIONTYPE.toLowerCase().indexOf("branch") > -1) {
                                         $("#chkBrunch").prop('checked', true);
+                                    }
+                                    else{
+                                        $("#chkBrunch").prop('checked', false);
                                     }
 
                                     if (value.IsDineIn == 1) {
                                         $("#chkDineIn").prop('checked', true);
                                     }
+                                    else {
+                                        $("#chkDineIn").prop('checked', false);
+                                    }
                                     if (value.IsCarryout == 1) {
                                         $("#chkCarryOut").prop('checked', true);
+                                    }
+                                    else {
+                                        $("#chkCarryOut").prop('checked', false);
                                     }
                                     if (value.PUBLISHED == 1) {
                                         $("#checkItemActive").prop('checked', true);
@@ -8684,7 +8702,7 @@ function BindItemById(productId) {
                                         $("#liAvailTiming").show();
                                     }
 
-                                    console.log("value.CATEGORYID 1: ")
+                                    //console.log("value.CATEGORYID 1: ")
                                 }
                                 else if (value.Type == "ItemTiming") {
                                     var dayName = "";
@@ -8904,11 +8922,11 @@ function SaveProductInfo() {
     var storeId = SetStoreId();
     var isActive = false;
     var isLunch = true;
-    var isBreakfast = false;
-    var isDinner = true;
-    var isBrunch = false;
     var isDineIn = true;
     var isCarryOut = true;
+    var isDinner = true;
+    var isBrunch = false;
+    var isBreakfast = false;
     var foodSelectionType = "";
     var availabilityType = "Normal";
     var categoryId = $("#productCategory").val();
@@ -8921,6 +8939,11 @@ function SaveProductInfo() {
     if ($("#chkLunch").prop("checked") == true) {
         isLunch = true;
     }
+    else {
+        if (itemId > 0) {
+            isLunch = false;
+        }
+    }
     if ($("#chkBreakfast").prop("checked") == true) {
         isBreakfast = true;
 
@@ -8928,14 +8951,30 @@ function SaveProductInfo() {
     if ($("#chkDinner").prop("checked") == true) {
         isDinner = true;
     }
+    else {
+        if (itemId > 0) {
+            isDinner = false;
+        }
+    }
     if ($("#chkBrunch").prop("checked") == true) {
         isBrunch = true;
     }
     if ($("#chkDineIn").prop("checked") == true) {
         isDineIn = true;
     }
+    else {
+        if (itemId > 0) {
+            isDineIn = false;
+        }
+    }
     if ($("#chkCarryOut").prop("checked") == true) {
         isCarryOut = true;
+    }
+    else {
+        if(itemId>0)
+        {
+            isCarryOut = false;
+        }
     }
 
     if ($("#chkTimeSpecific").prop("checked") == true) {
