@@ -3189,7 +3189,15 @@ function SearchGiftCard() {
                                     $('#iconEmail').hide();
                                 else
                                     $('#iconEmail').show();
-                                $("#giftcard #lblEmail").html(email);
+                                if (email.indexOf("@bistroux.com") > -1)
+                                {
+                                    $("#giftcard #lblEmail").html("");
+                                }
+
+                                else {
+                                    $("#giftcard #lblEmail").html(email);
+                                }
+                                
                                 $('#giftcard #hdnSelectedOrderId').val(orderId);
                                 $('#giftcard #lblCurrentBalance').html(" " + balanceAmount);
                                 $('#giftcard #lblOriginalValue').html(" " + amount);
@@ -4039,7 +4047,7 @@ function RefundGiftCard() {
     var amount = $('#txtPopupRefund').val();
     if (amount == '')
         amount = '0';
-
+    var register = $('#ddlRegister').val();
     if (reason != "" && amount != "" && Number(amount) > 0) {
        
 
@@ -4055,7 +4063,7 @@ function RefundGiftCard() {
         try {
             $('#btnGCRefund').text("Refunding...");
             $('#btnGCRefund').css({ "width": "167px" })
-            url = global + "/GiftCardRefund?storeid=" + storeId + "&giftCardCode=" + encodeURIComponent(cardCode) + "&phone=" + phone + "&amount=" + amount + "&pin=" + pin + "&reason=" + encodeURIComponent(reason);
+            url = global + "/GiftCardRefund?storeid=" + storeId + "&giftCardCode=" + encodeURIComponent(cardCode) + "&phone=" + phone + "&amount=" + amount + "&pin=" + pin + "&reason=" + encodeURIComponent(reason) + "&register=" + register;
             var totalHistoryAmount = 0;
             $.getJSON(url, function (data) {
                 $('#btnGCRefund').css({ "width": "111px" })
@@ -5613,6 +5621,7 @@ function SearchReward() {
 
             $('#tblRewardHistory tbody').html("");
             $.getJSON(url, function (data) {
+                console.log('data: ' + data);
                 $('#tblRewardHistory tbody').html("");
                 
                 if (data.replace(/"/g, "").indexOf("Invalid Member ID.") > -1) {
@@ -5673,6 +5682,7 @@ function SearchReward() {
                     $('#btnRedeemReward').removeClass("disabled");
                     var relatedStoreName = "";
                     var type = JSON.parse(data)[0].Type;
+                    //console.log('type: ' + type);
                     if (type != null && type != undefined && type == "NoReward") {
 
                         var historyHTML = "";
@@ -5724,8 +5734,9 @@ function SearchReward() {
 
                     }
                     else {
+
                         $.each(JSON.parse(data), function (index, value) {
-                            //console.log(data);
+                            console.log('Rewards: '+data);
                             if (value.Type == "RewardInfo") {
                                 var htmlHistory = "";
                                 var firstName = "";
@@ -5750,15 +5761,22 @@ function SearchReward() {
                                 if (value.PHONE != "") {
                                     phoneNumber = value.PHONE;
                                 }
-                                if (value.PointsBalance != "") {
-                                    ourLocationPoint = value.PointsBalance;
+                                console.log('value.StoreID: ' + value.StoreID)
+                                console.log('value.STOREID: ' + value.STOREID)
+                                if (value.TransactionStoreId == storeId || value.TRANSACTIONSTOREID == storeId)
+                                {
+                                    if (value.PointsBalance != "") {
+                                        ourLocationPoint = value.PointsBalance;
+                                    }
+                                    if (value.BistroPointsBalance != "") {
+                                        bistroPoint = value.BistroPointsBalance;
+                                    }
+                                    if (value.RelatedStorePointsBalance != "") {
+                                        relatedStorePointsBalance = value.RelatedStorePointsBalance;
+                                    }
                                 }
-                                if (value.BistroPointsBalance != "") {
-                                    bistroPoint = value.BistroPointsBalance;
-                                }
-                                if (value.RelatedStorePointsBalance != "") {
-                                    relatedStorePointsBalance = value.RelatedStorePointsBalance;
-                                }
+
+                                
                                 if (value.RewardMemberID != "" && memberId == "") {
                                     rewardMemberId = value.RewardMemberID;
                                     $("#txtMemberID_LoadRedeem").val(rewardMemberId);
@@ -5951,14 +5969,16 @@ function CloseRewardMembersPopup(phone) {
                             if (value.PHONE != "") {
                                 phoneNumber = value.PHONE;
                             }
-                            if (value.PointsBalance != "") {
-                                ourLocationPoint = value.PointsBalance;
-                            }
-                            if (value.BistroPointsBalance != "") {
-                                bistroPoint = value.BistroPointsBalance;
-                            }
-                            if (value.RelatedStorePointsBalance != "") {
-                                relatedStorePointsBalance = value.RelatedStorePointsBalance;
+                            if (value.TransactionStoreId == storeId || value.TRANSACTIONSTOREID == storeId){
+                                if (value.PointsBalance != "") {
+                                    ourLocationPoint = value.PointsBalance;
+                                }
+                                if (value.BistroPointsBalance != "") {
+                                    bistroPoint = value.BistroPointsBalance;
+                                }
+                                if (value.RelatedStorePointsBalance != "") {
+                                    relatedStorePointsBalance = value.RelatedStorePointsBalance;
+                                }
                             }
 
                             //rewardMemberId = value.RewardMemberID;
@@ -11014,12 +11034,19 @@ function OpenOrderHistoryPopup()
                         var orderTime = arrDateTime[1];
                         historyHTML += "<div class=\"popup-col-1\">" + orderDate + " @ " + orderTime + "</div>";
                     }
-                    if (value.Status=="PickedUp")
-                        historyHTML += "<div class=\"popup-col-2\">Picked Up</div>";
-                    else if (value.Status == "Cancelled")
-                        historyHTML += "<div class=\"popup-col-2\">Canceled</div>";
-                    else
-                        historyHTML += "<div class=\"popup-col-2\">" + value.Status + "</div>";
+                    if (value.Status != undefined && value.Status != null)
+                    {
+                        if (value.Status == "PickedUp")
+                            historyHTML += "<div class=\"popup-col-2\">Picked Up</div>";
+                        else if (value.Status == "Cancelled")
+                            historyHTML += "<div class=\"popup-col-2\">Canceled</div>";
+                        else
+                            historyHTML += "<div class=\"popup-col-2\">" + value.Status + "</div>";
+                    }
+                    else {
+                        historyHTML += "<div class=\"popup-col-2\"></div>";
+                    }
+                    
                     if (value.Note != null)
                         historyHTML += "<div class=\"popup-col-3\">" + value.Note + "</div>";
                     historyHTML += "</div>";
