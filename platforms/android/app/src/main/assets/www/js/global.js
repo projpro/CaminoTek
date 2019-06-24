@@ -3704,12 +3704,12 @@ function AddNewGiftCard(exists,pin,gcamount,giftcardId,giftcardStoreId,cardType,
 {
     var storeId = 0;
     storeId = SetStoreId();
-    var cardCode = $('#txtCardCode').val();
-    var phone = $('#txtPhone').val();
+    var cardCode = $('#tab-giftcard-new #txtCardCode').val();
+    var phone = $('#tab-giftcard-new #txtPhone').val();
     if (phone == '') {
         phone = '0';
     }
-    var amount = $('#txtAmount').val().trim();
+    var amount = $('#tab-giftcard-new #txtAmount').val().trim();
     if (amount == '')
         amount = '0';
     var regex = /^[a-zA-Z0-9.\-_]+$/;
@@ -3720,7 +3720,7 @@ function AddNewGiftCard(exists,pin,gcamount,giftcardId,giftcardStoreId,cardType,
         var str = cardCode.replace(/[^0-9\-]/g, '');
         cardCode = str.substring(0, 16);
     }
-    if (isEmail("#txtEmail") == true) {
+    if (isEmail("#tab-giftcard-new #txtEmail") == true) {
         var customerId = "0";
         $('#btnAddCard').text("Adding Card...");
         try {
@@ -3728,29 +3728,29 @@ function AddNewGiftCard(exists,pin,gcamount,giftcardId,giftcardStoreId,cardType,
                 customerId = localStorage.getItem("CustomerId").trim();
             }
           
-            var email = encodeURIComponent($('#txtEmail').val());
-            var name = encodeURIComponent($('#txtName').val());
+            var email = encodeURIComponent($('#tab-giftcard-new #txtEmail').val());
+            var name = encodeURIComponent($('#tab-giftcard-new #txtName').val());
             var url = global + "/AddNewGiftCard?storeid=" + storeId + "&giftCardCode=" + encodeURIComponent(cardCode) + "&phone=" + phone + "&amount=" + amount + "&customerId="
                 + customerId + "&email=" + email + "&name=" + name + "&giftCardExists=" + exists + "&pin=" + pin + "&gcamount="
                 + gcamount + "&giftcardId=" + giftcardId + "&cardType=" + cardType + "&giftCardStoreId="
                 + giftcardStoreId+"&ccName="+ccName+"&ccNumber="+ccNumber+"&cvv="+cvv+"&expMonth="+expMonth+"&expYear="+expYear;
-
+            //console.log('name: '+name)
             var totalHistoryAmount = 0;
             $.getJSON(url, function (data) {
                 $('#btnAddCard').text("Add Card");
-                $("#txtCardCode").css('border-bottom', bottomBorder);
-                $("#txtAmount").css('border-bottom', bottomBorder);
-                $("#txtPhone").css('border-bottom', bottomBorder);
-                $("#txtName").css('border-bottom', bottomBorder);
-                $("#txtEmail").css('border-bottom', bottomBorder);
+                $("#tab-giftcard-new #txtCardCode").css('border-bottom', bottomBorder);
+                $("#tab-giftcard-new #txtAmount").css('border-bottom', bottomBorder);
+                $("#tab-giftcard-new #txtPhone").css('border-bottom', bottomBorder);
+                $("#tab-giftcard-new #txtName").css('border-bottom', bottomBorder);
+                $("#tab-giftcard-new #txtEmail").css('border-bottom', bottomBorder);
                 
               
                 
                 if (data.replace(/"/g, "").indexOf("Card is already in the system.") > -1) {
                     $('#dvOuter').hide();
                     callSweetAlertWarning("Card is already in the system.");
-                    $("#txtCardCode").val("");
-                    $("#txtCardCode").css('border-bottom', errorClassBorder);
+                    $("#tab-giftcard-new #txtCardCode").val("");
+                    $("#tab-giftcard-new #txtCardCode").css('border-bottom', errorClassBorder);
                     $('#btnAddCard').text("Add Card");
                     $("#hdnValidateCard").val(false);
                     $("#hdnCardType").val("");
@@ -3765,21 +3765,21 @@ function AddNewGiftCard(exists,pin,gcamount,giftcardId,giftcardStoreId,cardType,
                     //$('#dvOuterText').html("Card loaded successfully.");
                     //$('#dvOuterText').attr("style", "color:#3c763d !important");
 
-                    var popuphtml = "<p><span style='color:#000;'>Card Code:  </span><span class=\"main-one\">" + $("#txtCardCode").val() + "</span></p>";
+                    var popuphtml = "<p><span style='color:#000;'>Card Code:  </span><span class=\"main-one\">" + decodeURIComponent($("#txtCardCode").val()) + "</span></p>";
 
-                    if ($('#txtAmount').val() != "")
-                        popuphtml = popuphtml + "<p><span style='color:#000;'>Amount:  </span><span class=\"main-two\">" + FormatDecimal($("#txtAmount").val()) + "</span></p>";
-                    if ($('#txtName').val() != "")
-                        popuphtml = popuphtml + "<p>" + $("#txtName").val() + "</p>";
+                    if ($('#tab-giftcard-new #txtAmount').val() != "")
+                        popuphtml = popuphtml + "<p><span style='color:#000;'>Amount:  </span><span class=\"main-two\">" + FormatDecimal(amount) + "</span></p>";
+                    if ($('#tab-giftcard-new #txtName').val() != "")
+                        popuphtml = popuphtml + "<p>" + decodeURIComponent(name) + "</p>";
 
-                    if ($('#txtEmail').val() != "")
-                        popuphtml = popuphtml + "<p>" + $("#txtEmail").val() + "</p>";
+                    if ($('#tab-giftcard-new #txtEmail').val() != "")
+                        popuphtml = popuphtml + "<p>" + decodeURIComponent(email) + "</p>";
 
-                    if ($('#txtPhone').val() != "") {
-                        if ($('#txtPhone').val().length == 10)
-                            popuphtml = popuphtml + "<p>" + FormatPhoneNumber($("#txtPhone").val()) + "</p>";
+                    if ($('#tab-giftcard-new #txtPhone').val() != "") {
+                        if ($('#tab-giftcard-new #txtPhone').val().length == 10)
+                            popuphtml = popuphtml + "<p>" + FormatPhoneNumber(phone) + "</p>";
                         else
-                            popuphtml = popuphtml + "<p>" + $("#txtPhone").val() + "</p>";
+                            popuphtml = popuphtml + "<p>" + phone + "</p>";
                     }
                  
                     swal({
@@ -3792,16 +3792,16 @@ function AddNewGiftCard(exists,pin,gcamount,giftcardId,giftcardStoreId,cardType,
 
                     $('#btnAddCard').text("Add Card");
 
-                    $('#txtAmount').val("");
-                    $('#txtPhone').val("");
-                    $('#txtCardCode').val("");
-                    $('#txtEmail').val("");
-                    $('#txtName').val("");
-                    $('#txtCCName').val("");
-                    $('#txtCCNumber').val("");
-                    $('#txtCVV').val("");
-                    $('#ddlCCMonth').val("");
-                    $('#ddlCCYear').val("");
+                    $('#tab-giftcard-new #txtAmount').val("");
+                    $('#tab-giftcard-new #txtPhone').val("");
+                    $('#tab-giftcard-new #txtCardCode').val("");
+                    $('#tab-giftcard-new #txtEmail').val("");
+                    $('#tab-giftcard-new #txtName').val("");
+                    $('#tab-giftcard-new #txtCCName').val("");
+                    $('#tab-giftcard-new #txtCCNumber').val("");
+                    $('#tab-giftcard-new #txtCVV').val("");
+                    $('#tab-giftcard-new #ddlCCMonth').val("");
+                    $('#tab-giftcard-new #ddlCCYear').val("");
 
                     $("#liCCName").hide();
                     $("#liCCNo").hide();
@@ -5687,7 +5687,8 @@ function SearchReward() {
 
                         var historyHTML = "";
                         var count = 0;
-                        historyHTML += "<div class=\"popup-header-row\" ><div class=\"popup-col-1-header\" style=\"width:20%;\">Reward ID</div>" +
+                        historyHTML += "<div class=\"popup-header-row\">"+
+                            "<div class=\"popup-col-1-header\" style=\"width:20%;\">Reward ID</div>" +
                             "<div class=\"popup-col-2-header\" style=\"width:35%;\">Name</div><div class=\"popup-col-3-header\" style=\"width:45%;\">Email</div></div>";
                         $.each(JSON.parse(data), function (index, value) {
                             var firstName = "";
@@ -5719,7 +5720,7 @@ function SearchReward() {
                         if (phone.length == 10)
                             formattedPhoneNumber = formatPhoneNumber(phone);
                         var html = "<div class=\"popup-content-area\"><h2 class=\"popup-title\"><span style=\"font-size: 18px;\">Phone <span style=\"font-weight:600;font-size: 20px;\">" + formattedPhoneNumber + "</span> matches found:</span></h2>";
-
+                        html += "<div class=\"popup-close-one\" onclick=\"CloseAddRewardMemberPopup();\">X</div>";
                        html += "<h4 id=\"popuperror\" style=\"font-weight:400;color:#ff4848;display:none;\"></h4>";
                        html += historyHTML;
                        html += "<div class=\"popup-button-area\"><button style=\"width:85px;\" id=\"btnRewardMemberClose\" onclick=\"CloseRewardMembersPopup(" + phone + ");\" type=\"button\" class=\"popup-confirm swal2-styled\" aria-label=\"\" " +
@@ -6458,7 +6459,8 @@ function AddNewMemberID() {
                                     if (phone.length == 10)
                                         formattedPhoneNumber = formatPhoneNumber(phone);
                                     var html = "<div class=\"popup-content-area\"><h2 class=\"popup-title\"><span style=\"font-size: 18px;\">Phone <span style=\"font-weight:600;font-size: 20px;\">" + formattedPhoneNumber + "</span> matches found:</span><a class=\"close\" onclick=\"CloseAddRewardMemberPopup();\">X</a></h2>" +
-                                historyHTML +
+                                              "<div class=\"popup-close-one\" onclick=\"CloseAddRewardMemberPopup();\">X</div>" +
+                                                historyHTML +
                                 "<div class=\"popup-button-area\"><button style=\"width:85px;\" id=\"btnRewardMemberClose\" onclick=\"NewCloseAndUpdateRewardMembersPopup(" + phone + ");\" type=\"button\" class=\"popup-confirm swal2-styled\" aria-label=\"\" " +
                                 "style=\"background-color: rgb(59, 152, 71); border-left-color: rgb(59, 152, 71); border-right-color: rgb(59, 152, 71);\">Select</button>" +
                                 "<button style=\"width:85px;background-color: rgb(233, 88, 97); border:1px solid rgb(233, 88, 97);\" id=\"btnMemberPopupCreate\" onclick=\"NewCloseAndCreateRewardMembersPopup(" + phone + ");\" type=\"button\" class=\"popup-confirm swal2-styled\" aria-label=\"\" " +
@@ -6576,7 +6578,8 @@ function AddNewMemberID() {
                                 if (phone.length == 10)
                                     formattedPhoneNumber = formatPhoneNumber(phone);
                                 var html = "<div class=\"popup-content-area\"><h2 class=\"popup-title\"><span style=\"font-size: 18px;\">Phone <span style=\"font-weight:600;font-size: 20px;\">" + formattedPhoneNumber + "</span> matches found:</span></h2>	<a class=\"close\" onclick=\"CloseAddRewardMemberPopup();\">X</a>" +
-                                historyHTML +
+                                    "<div class=\"popup-close-one\" onclick=\"CloseAddRewardMemberPopup();\">X</div>" +
+                                    historyHTML +
                             "<div class=\"popup-button-area\"><button style=\"width:85px;\" id=\"btnRewardMemberClose\" onclick=\"NewCloseAndUpdateRewardMembersPopup(" + phone + ");\" type=\"button\" class=\"popup-confirm swal2-styled\" aria-label=\"\" " +
                             "style=\"background-color: rgb(59, 152, 71); border-left-color: rgb(59, 152, 71); border-right-color: rgb(59, 152, 71);\">Select</button>" +
                             "<button style=\"width:85px;background-color: rgb(233, 88, 97); border:1px solid rgb(233, 88, 97);\" id=\"btnMemberPopupCreate\" onclick=\"NewCloseAndCreateRewardMembersPopup(" + phone + ");\" type=\"button\" class=\"popup-confirm swal2-styled\" aria-label=\"\" " +
@@ -6760,7 +6763,8 @@ function AddNewMemberID() {
                             if (phone.length == 10)
                                 formattedPhoneNumber = formatPhoneNumber(phone);
                             var html = "<div class=\"popup-content-area\"><h2 class=\"popup-title\"><span style=\"font-size: 18px;\">Phone <span style=\"font-weight:600;font-size: 20px;\">" + formattedPhoneNumber + "</span> matches found:</span></h2>" +
-                        historyHTML +
+                                "<div class=\"popup-close-one\" onclick=\"CloseAddRewardMemberPopup();\">X</div>" +
+                                historyHTML +
                         "<div class=\"popup-button-area\"><button style=\"width:85px;\" id=\"btnRewardMemberClose\" onclick=\"NewCloseAndUpdateRewardMembersPopup(" + phone + ");\" type=\"button\" class=\"popup-confirm swal2-styled\" aria-label=\"\" " +
                         "style=\"background-color: rgb(59, 152, 71); border-left-color: rgb(59, 152, 71); border-right-color: rgb(59, 152, 71);\">Select</button>" +
                         "<button style=\"width:85px;background-color: rgb(233, 88, 97); border:1px solid rgb(233, 88, 97);\" id=\"btnMemberPopupCreate\" onclick=\"NewCloseAndCreateRewardMembersPopup(" + phone + ");\" type=\"button\" class=\"popup-confirm swal2-styled\" aria-label=\"\" " +
@@ -7142,13 +7146,10 @@ function NewCloseAndCreateRewardMembersPopup(phone) {
         var fullName = $("#fullName_" + customerId).html();
         var memberId = $("#memberId_"+customerId).html();
         var email = $("#email_" + customerId).html();
-        //console.log('MemberId: ' + memberId)
-        //console.log('email: ' + email)
-        //console.log('fullName: ' + fullName)
+       
         if (memberId != undefined && memberId!=null && memberId != "")
         {
             $("#hdnAddMemberPopupCustomerId").val(0);
-           
             $("#txtEmail_Reward").val("");
             $("#txtName_Reward").val("");
             $("#txtPhone_Reward").val("");
