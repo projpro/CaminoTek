@@ -2500,7 +2500,7 @@ position: relative;
 .popup-close-one {
   position: absolute;
   right: 25px;
-  top: 25px;
+  top: 12px;
   width: 32px;
   height: 32px;
   opacity: 1;

@@ -117,7 +117,7 @@ p {
 }
 
 .disabled {
-    opacity: .55!important;
+    opacity: .3!important;
     pointer-events: none!important
 }
 

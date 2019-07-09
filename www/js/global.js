@@ -1,6 +1,6 @@
 //var global = "http://www.appnotification.bistroux.com/Api/App/";
-var global = "http://www.consumerapp.bistroux.com/Api/App/";
-//var global = "http://192.168.1.6/Api/App/";
+//var global = "http://www.consumerapp.bistroux.com/Api/App/";
+var global = "http://192.168.1.6/Api/App/";
 var mediaURL = "http://appnotification.bistroux.com/Media/";
 
 var browser = true;
@@ -5627,9 +5627,7 @@ function SearchReward() {
                 if (data.replace(/"/g, "").indexOf("Invalid Member ID.") > -1) {
                     $('#dvInner_Reward').hide();
                     $('#dvOuter').hide();
-                    //$('#dvOuter').show();
-                    //$('#dvOuterText').html("");
-                    //$('#dvOuterText').html("Invalid Member ID.");
+                   
                     callSweetAlertWarning("Invalid Member ID.");
                     $('#btnLoadReward').addClass("disabled");
                     $('#btnRedeemReward').addClass("disabled");
@@ -5737,7 +5735,7 @@ function SearchReward() {
                     else {
 
                         $.each(JSON.parse(data), function (index, value) {
-                            console.log('Rewards: '+data);
+                            //console.log('Rewards: '+data);
                             if (value.Type == "RewardInfo") {
                                 var htmlHistory = "";
                                 var firstName = "";
@@ -5762,10 +5760,10 @@ function SearchReward() {
                                 if (value.PHONE != "") {
                                     phoneNumber = value.PHONE;
                                 }
-                                console.log('value.StoreID: ' + value.StoreID)
-                                console.log('value.STOREID: ' + value.STOREID)
-                                if (value.TransactionStoreId == storeId || value.TRANSACTIONSTOREID == storeId)
-                                {
+                               // console.log('value.StoreID: ' + value.StoreID)
+                                //console.log('value.STOREID: ' + value.STOREID)
+                                //if (value.TransactionStoreId == storeId || value.TRANSACTIONSTOREID == storeId)
+                                //{
                                     if (value.PointsBalance != "") {
                                         ourLocationPoint = value.PointsBalance;
                                     }
@@ -5775,7 +5773,9 @@ function SearchReward() {
                                     if (value.RelatedStorePointsBalance != "") {
                                         relatedStorePointsBalance = value.RelatedStorePointsBalance;
                                     }
-                                }
+                                   
+
+                                //}
 
                                 
                                 if (value.RewardMemberID != "" && memberId == "") {
@@ -5803,7 +5803,16 @@ function SearchReward() {
                                 $('#lblOurPoints').html(ourLocationPoint);
                                 $('#hdnCurrentStorePoints').val(ourLocationPoint);
                                 $('#lblBistroPoints').html(bistroPoint);
-                                $('#lblRelatedPoints').html(relatedStorePointsBalance);
+                                if (Number(relatedStorePointsBalance) > 0) {
+                                    $("#liRelatedPoints").show();
+                                    $('#lblRelatedPoints').html(relatedStorePointsBalance);
+                                }
+                                else {
+                                    $('#lblRelatedPoints').html("0");
+                                    $("#liRelatedPoints").hide();
+                                   
+                                }
+                               
 
                             }
                             else if (value.Type == "RewardHistory") {
@@ -5836,6 +5845,7 @@ function SearchReward() {
                         if (relatedStoreName != "") {
                             $('#lblRelatedStorePoint').show();
                             $('#lblRelatedPoints').show();
+                            $("#liRelatedPoints").show();
                             $('#divRelatedStoreName').show();
                             $('#lblRelatedRestauransName').html("(" + relatedStoreName + ")");
                         }
@@ -5843,6 +5853,7 @@ function SearchReward() {
                             $('#divRelatedStoreName').hide();
                             $('#lblRelatedStorePoint').hide();
                             $('#lblRelatedPoints').hide();
+                            $("#liRelatedPoints").hide();
                         }
 
                         $('#dvInner_Reward').show();
@@ -5851,7 +5862,6 @@ function SearchReward() {
                         $('#dvOuterText').html("");
                     }
                    
-                    //$('#tdTotal').html(FormatDecimal(totalHistoryAmount));
                    
                 }
             });
@@ -6006,7 +6016,15 @@ function CloseRewardMembersPopup(phone) {
                             $('#lblOurPoints').html(ourLocationPoint);
                             $('#hdnCurrentStorePoints').val(ourLocationPoint);
                             $('#lblBistroPoints').html(bistroPoint);
-                            $('#lblRelatedPoints').html(relatedStorePointsBalance);
+                            if (Number(relatedStorePointsBalance)>0) {
+                                $("#liRelatedPoints").show();
+                                $('#lblRelatedPoints').html(relatedStorePointsBalance);
+                            }
+                            else {
+                                $('#lblRelatedPoints').html("0");
+                                $("#liRelatedPoints").hide();
+                            }
+                            
 
                         }
                         else if (value.Type == "RewardHistory") {
@@ -6038,6 +6056,7 @@ function CloseRewardMembersPopup(phone) {
                     });
                     if (relatedStoreName != "") {
                         $('#lblRelatedStorePoint').show();
+                        $("#liRelatedPoints").show();
                         $('#lblRelatedPoints').show();
                         $('#divRelatedStoreName').show();
                         $('#lblRelatedRestauransName').html("(" + relatedStoreName + ")");
@@ -6045,7 +6064,9 @@ function CloseRewardMembersPopup(phone) {
                     else {
                         $('#divRelatedStoreName').hide();
                         $('#lblRelatedStorePoint').hide();
+                        $("#liRelatedPoints").hide();
                         $('#lblRelatedPoints').hide();
+                       
                     }
 
                     $('#dvInner_Reward').show();
@@ -6458,7 +6479,7 @@ function AddNewMemberID() {
                                     var formattedPhoneNumber = phone;
                                     if (phone.length == 10)
                                         formattedPhoneNumber = formatPhoneNumber(phone);
-                                    var html = "<div class=\"popup-content-area\"><h2 class=\"popup-title\"><span style=\"font-size: 18px;\">Phone <span style=\"font-weight:600;font-size: 20px;\">" + formattedPhoneNumber + "</span> matches found:</span><a class=\"close\" onclick=\"CloseAddRewardMemberPopup();\">X</a></h2>" +
+                                    var html = "<div class=\"popup-content-area\"><h2 class=\"popup-title\"><span style=\"font-size: 18px;\">Phone <span style=\"font-weight:600;font-size: 20px;\">" + formattedPhoneNumber + "</span> matches found:</span></h2>" +
                                               "<div class=\"popup-close-one\" onclick=\"CloseAddRewardMemberPopup();\">X</div>" +
                                                 historyHTML +
                                 "<div class=\"popup-button-area\"><button style=\"width:85px;\" id=\"btnRewardMemberClose\" onclick=\"NewCloseAndUpdateRewardMembersPopup(" + phone + ");\" type=\"button\" class=\"popup-confirm swal2-styled\" aria-label=\"\" " +
@@ -6577,7 +6598,7 @@ function AddNewMemberID() {
                                 var formattedPhoneNumber = phone;
                                 if (phone.length == 10)
                                     formattedPhoneNumber = formatPhoneNumber(phone);
-                                var html = "<div class=\"popup-content-area\"><h2 class=\"popup-title\"><span style=\"font-size: 18px;\">Phone <span style=\"font-weight:600;font-size: 20px;\">" + formattedPhoneNumber + "</span> matches found:</span></h2>	<a class=\"close\" onclick=\"CloseAddRewardMemberPopup();\">X</a>" +
+                                var html = "<div class=\"popup-content-area\"><h2 class=\"popup-title\"><span style=\"font-size: 18px;\">Phone <span style=\"font-weight:600;font-size: 20px;\">" + formattedPhoneNumber + "</span> matches found:</span></h2>" +
                                     "<div class=\"popup-close-one\" onclick=\"CloseAddRewardMemberPopup();\">X</div>" +
                                     historyHTML +
                             "<div class=\"popup-button-area\"><button style=\"width:85px;\" id=\"btnRewardMemberClose\" onclick=\"NewCloseAndUpdateRewardMembersPopup(" + phone + ");\" type=\"button\" class=\"popup-confirm swal2-styled\" aria-label=\"\" " +
@@ -6659,62 +6680,24 @@ function AddNewMemberID() {
                 });
             }
             else {
-                var url = global + "/CheckCustomerExistsDB?storeid=" + storeId + "&email=" + encodeURIComponent(email)
-                       + "&phone=" + phone
-                      + "&name=" + encodeURIComponent(name) + "&points=" + points + "&customerId=" + customerId;
+                console.log('hdnAlredyMemberChecked: ' + $("#hdnAlredyMemberChecked").val())
+                if ($("#hdnAlredyMemberChecked").val() == "false") {
+                    var url = global + "/CheckCustomerExistsDB?storeid=" + storeId + "&email=" + encodeURIComponent(email)
+                     + "&phone=" + phone
+                    + "&name=" + encodeURIComponent(name) + "&points=" + points + "&customerId=" + customerId;
 
-                $.getJSON(url, function (data1) {
-                    var obj1 = JSON.parse(data1);
-                    //console.log('CustomerExists:' + obj1.CustomerExists);
-                    //console.log('ID:' + obj1.ID);
-                    //console.log('CustomerList:' + obj1.CustomerList);
-                    //console.log('NewMemberId:' + obj1.NewMemberId);
-                    if (obj1.CustomerExistsInSameStore != undefined && obj1.CustomerExistsInSameStore != null &&
-                        obj1.CustomerExistsInSameStore == true) {
-                        swal({
-                            title: "Member is already in the system.",
-                            type: "warning",
-                            confirmButtonClass: "btn btn-danger",
-                            buttonsStyling: false,
-                            confirmButtonText: "OK",
-                            closeOnConfirm: false,
-                            customClass: 'swal-wide',
-                        });
-                        $$('input#txtEmail_Reward').val('');
-                        $$('input#txtPhone_Reward').val('');
-                        $$('input#txtPoints_Reward').val('');
-                        $$('input#txtName_Reward').val('');
-                        $$('input#txtMemberId_Reward').val('');
-                        $("input#txtEmail_Reward").css('border-bottom', bottomBorder);
-                        $("input#txtPhone_Reward").css('border-bottom', bottomBorder);
-                        $("input#txtPoints_Reward").css('border-bottom', bottomBorder);
-                    }
-                    else {
-                        if (obj1.NewMemberId != "") {
-                            var popuphtml = "";
-                            if (obj1.NewMemberId != "")
-                                popuphtml = popuphtml + "<p><span style='color:#000;'>Member ID:  </span><span class=\"main-one\">" + obj1.NewMemberId + "</span></p>";
-                            if (points != "")
-                                popuphtml = popuphtml + "<p><span style='color:#000;'>Points:  </span><span class=\"main-two\">" + points + "</span></p>";
-                            if (name != "") {
-                                popuphtml = popuphtml + "<p>" + name + "</p>";
-                            }
-                            if (phone != "") {
-                                if (phone.length == 10)
-                                    popuphtml = popuphtml + "<p>" + FormatPhoneNumber(phone) + "</p>";
-                                else
-                                    popuphtml = popuphtml + "<p>" + phone + "</p>";
-
-                            }
-                            if (email != "")
-                                popuphtml = popuphtml + "<p>" + email + "</p>";
+                    $.getJSON(url, function (data1) {
+                        var obj1 = JSON.parse(data1);
+                        console.log('obj1: ' + obj1)
+                        if (obj1.CustomerExistsInSameStore != undefined && obj1.CustomerExistsInSameStore != null &&
+                            obj1.CustomerExistsInSameStore == true) {
                             swal({
-                                title: "New Member created successfully.",
-                                html: popuphtml,
-                                confirmButtonText: "OK",
-                                type: "success",
-                                confirmButtonClass: 'btn btn-success',
+                                title: "Member is already in the system.",
+                                type: "warning",
+                                confirmButtonClass: "btn btn-danger",
                                 buttonsStyling: false,
+                                confirmButtonText: "OK",
+                                closeOnConfirm: false,
                                 customClass: 'swal-wide',
                             });
                             $$('input#txtEmail_Reward').val('');
@@ -6727,61 +6710,174 @@ function AddNewMemberID() {
                             $("input#txtPoints_Reward").css('border-bottom', bottomBorder);
                         }
                         else {
-
-                            var historyHTML = "";
-                            var count = 0;
-                            historyHTML += "<div class=\"popup-header-row\" ><div class=\"popup-col-1-header\" style=\"width:20%;\">Reward ID</div>" +
-                                    "<div class=\"popup-col-2-header\" style=\"width:30%;\">Name</div><div class=\"popup-col-3-header\" style=\"width:50%;\">Email</div></div>";
-                            $.each(obj1.CustomerList, function (index, value) {
-                                var firstName = "";
-                                var lastName = "";
-                                var fullName = "";
-                                if (value.FIRSTNAME != "") {
-                                    firstName = value.FIRSTNAME;
+                            if (obj1.NewMemberId != "") {
+                                var popuphtml = "";
+                                if (obj1.NewMemberId != "")
+                                    popuphtml = popuphtml + "<p><span style='color:#000;'>Member ID:  </span><span class=\"main-one\">" + obj1.NewMemberId + "</span></p>";
+                                if (points != "")
+                                    popuphtml = popuphtml + "<p><span style='color:#000;'>Points:  </span><span class=\"main-two\">" + points + "</span></p>";
+                                if (name != "") {
+                                    popuphtml = popuphtml + "<p>" + name + "</p>";
                                 }
-                                if (value.LASTNAME != "") {
-                                    lastName = value.LASTNAME;
+                                if (phone != "") {
+                                    if (phone.length == 10)
+                                        popuphtml = popuphtml + "<p>" + FormatPhoneNumber(phone) + "</p>";
+                                    else
+                                        popuphtml = popuphtml + "<p>" + phone + "</p>";
+
                                 }
-                                fullName = firstName + " " + lastName;
-                                historyHTML += "<div id=\"memberRow_" + value.ID + "\" class=\"popup-unlined-row\" style=\"\" onclick=\"SelectCustomer(" + value.ID + ");\">";
-                                if (value.REWARDMEMBERID != null)
-                                    historyHTML += "<div id=\"memberId_" + value.ID + "\" class=\"popup-col-1\" style=\"width:20%;font-size:18px;\">" + value.REWARDMEMBERID + "</div>";
-                                else
-                                    historyHTML += "<div id=\"memberId_" + value.ID + "\" class=\"popup-col-1\" style=\"width:20%;font-size:18px;\"></div>";
+                                if (email != "")
+                                    popuphtml = popuphtml + "<p>" + email + "</p>";
+                                swal({
+                                    title: "New Member created successfully.",
+                                    html: popuphtml,
+                                    confirmButtonText: "OK",
+                                    type: "success",
+                                    confirmButtonClass: 'btn btn-success',
+                                    buttonsStyling: false,
+                                    customClass: 'swal-wide',
+                                });
+                                $$('input#txtEmail_Reward').val('');
+                                $$('input#txtPhone_Reward').val('');
+                                $$('input#txtPoints_Reward').val('');
+                                $$('input#txtName_Reward').val('');
+                                $$('input#txtMemberId_Reward').val('');
+                                $("input#txtEmail_Reward").css('border-bottom', bottomBorder);
+                                $("input#txtPhone_Reward").css('border-bottom', bottomBorder);
+                                $("input#txtPoints_Reward").css('border-bottom', bottomBorder);
+                            }
+                            else {
 
-                                historyHTML += "<div id=\"fullName_" + value.ID + "\" class=\"popup-col-1\" style=\"width:30%;font-size:18px;\">" + fullName.trim() + "</div>";
-                                if (value.EMAIL != null)
-                                    historyHTML += "<div id=\"email_" + value.ID + "\" class=\"popup-col-2\" style=\"width:50%;font-size:18px;\">" + value.EMAIL + "</div>";
-                                else
-                                    historyHTML += "<div id=\"email_" + value.ID + "\" class=\"popup-col-2\" style=\"width:50%;font-size:18px;\"></div>";
+                                var historyHTML = "";
+                                var count = 0;
+                                var totalRecord = 0;
+                                historyHTML += "<div class=\"popup-header-row\" ><div class=\"popup-col-1-header\" style=\"width:20%;\">Reward ID</div>" +
+                                        "<div class=\"popup-col-2-header\" style=\"width:30%;\">Name</div><div class=\"popup-col-3-header\" style=\"width:50%;\">Email</div></div>";
+                                //console.log('obj1.CustomerList: ' + obj1.CustomerList.length)
 
-                                historyHTML += "</div>";
+                                if (obj1.CustomerList.length > 0) {
+                                    totalRecord = obj1.CustomerList.length;
+                                    $.each(obj1.CustomerList, function (index, value) {
+                                        var firstName = "";
+                                        var lastName = "";
+                                        var fullName = "";
+                                        if (value.FIRSTNAME != "") {
+                                            firstName = value.FIRSTNAME;
+                                        }
+                                        if (value.LASTNAME != "") {
+                                            lastName = value.LASTNAME;
+                                        }
+                                        fullName = firstName + " " + lastName;
+                                        historyHTML += "<div id=\"memberRow_" + value.ID + "\" class=\"popup-unlined-row\" style=\"\" onclick=\"SelectCustomer(" + value.ID + ");\">";
+                                        if (value.REWARDMEMBERID != null)
+                                            historyHTML += "<div id=\"memberId_" + value.ID + "\" class=\"popup-col-1\" style=\"width:20%;font-size:18px;\">" + value.REWARDMEMBERID + "</div>";
+                                        else
+                                            historyHTML += "<div id=\"memberId_" + value.ID + "\" class=\"popup-col-1\" style=\"width:20%;font-size:18px;\"></div>";
 
+                                        historyHTML += "<div id=\"fullName_" + value.ID + "\" class=\"popup-col-1\" style=\"width:30%;font-size:18px;\">" + fullName.trim() + "</div>";
+                                        if (value.EMAIL != null)
+                                            historyHTML += "<div id=\"email_" + value.ID + "\" class=\"popup-col-2\" style=\"width:50%;font-size:18px;\">" + value.EMAIL + "</div>";
+                                        else
+                                            historyHTML += "<div id=\"email_" + value.ID + "\" class=\"popup-col-2\" style=\"width:50%;font-size:18px;\"></div>";
 
-                            });
-                            var formattedPhoneNumber = phone;
-                            if (phone.length == 10)
-                                formattedPhoneNumber = formatPhoneNumber(phone);
-                            var html = "<div class=\"popup-content-area\"><h2 class=\"popup-title\"><span style=\"font-size: 18px;\">Phone <span style=\"font-weight:600;font-size: 20px;\">" + formattedPhoneNumber + "</span> matches found:</span></h2>" +
-                                "<div class=\"popup-close-one\" onclick=\"CloseAddRewardMemberPopup();\">X</div>" +
-                                historyHTML +
-                        "<div class=\"popup-button-area\"><button style=\"width:85px;\" id=\"btnRewardMemberClose\" onclick=\"NewCloseAndUpdateRewardMembersPopup(" + phone + ");\" type=\"button\" class=\"popup-confirm swal2-styled\" aria-label=\"\" " +
-                        "style=\"background-color: rgb(59, 152, 71); border-left-color: rgb(59, 152, 71); border-right-color: rgb(59, 152, 71);\">Select</button>" +
-                        "<button style=\"width:85px;background-color: rgb(233, 88, 97); border:1px solid rgb(233, 88, 97);\" id=\"btnMemberPopupCreate\" onclick=\"NewCloseAndCreateRewardMembersPopup(" + phone + ");\" type=\"button\" class=\"popup-confirm swal2-styled\" aria-label=\"\" " +
-                        ">Create</button>" + "<button style=\"width:166px;background-color: #4d4d4d; border:1px solid #4d4d4d;\" id=\"btnMemberPopupLoad\" onclick=\"NewGoToLoadRedeemRewardMembersPopup(" + phone + ");\" type=\"button\" class=\"popup-confirm swal2-styled\" aria-label=\"\" " +
-                        ">Load/Redeem</button>"
-                            "</div></div>";
-                            //console.log(html)
-                            html += "<input type=\"hidden\" id=\"selectedCustomerId\" value=\"0\" />";
-                            $('#rewardMultipleCustomers').html(html);
-                            $(".popup-overlay").show();
-                            $('#rewardMultipleCustomers').show();
+                                        historyHTML += "</div>";
+                                    });
+                                }
+                                else {
+                                    historyHTML += "<div  class=\"popup-col-2\" style=\"width:100%;font-size:18px;text-align:center;\">No record found.</div>";
+                                }
+                                var formattedPhoneNumber = phone;
+                                if (phone.length == 10)
+                                    formattedPhoneNumber = formatPhoneNumber(phone);
+                                var html = "<div class=\"popup-content-area\"><h2 class=\"popup-title\"><span style=\"font-size: 18px;\">Phone <span style=\"font-weight:600;font-size: 20px;\">" + formattedPhoneNumber + "</span> matches found:</span></h2>" +
+                                    "<div class=\"popup-close-one\" onclick=\"CloseAddRewardMemberPopup();\">X</div>" + historyHTML;
+                                if (totalRecord > 0) {
+                                    html += "<div class=\"popup-button-area\"><button style=\"width:85px;\" id=\"btnRewardMemberClose\" onclick=\"NewCloseAndUpdateRewardMembersPopup(" + phone + ");\" type=\"button\" class=\"popup-confirm swal2-styled\" aria-label=\"\" " +
+                          "style=\"background-color: rgb(59, 152, 71); border-left-color: rgb(59, 152, 71); border-right-color: rgb(59, 152, 71);\">Select</button>";
+                                }
+                                else {
+                                    html += "<div class=\"popup-button-area\"><button disabled style=\"width:85px;\" id=\"btnRewardMemberClose\"  type=\"button\" class=\"popup-confirm swal2-styled disabled\" aria-label=\"\" " +
+                          "style=\"background-color: rgb(59, 152, 71); border-left-color: rgb(59, 152, 71); border-right-color: rgb(59, 152, 71);\">Select</button>";
+                                }
 
+                                html += "<button style=\"width:85px;background-color: rgb(233, 88, 97); border:1px solid rgb(233, 88, 97);\" id=\"btnMemberPopupCreate\" onclick=\"NewCloseAndCreateRewardMembersPopup(" + phone + ");\" type=\"button\" class=\"popup-confirm swal2-styled\" aria-label=\"\" " +
+                            ">Create</button>";
+                                html += "<button style=\"width:166px;background-color: #4d4d4d; border:1px solid #4d4d4d;\" id=\"btnMemberPopupLoad\" onclick=\"NewGoToLoadRedeemRewardMembersPopup(" + phone + ");\" type=\"button\" class=\"popup-confirm swal2-styled\" aria-label=\"\" " +
+                            ">Load/Redeem</button></div></div>";
+
+                                //console.log(html)
+                                html += "<input type=\"hidden\" id=\"selectedCustomerId\" value=\"0\" />";
+                                $('#rewardMultipleCustomers').html(html);
+                                $(".popup-overlay").show();
+                                $('#rewardMultipleCustomers').show();
+
+                                $("#hdnAlredyMemberChecked").val("true");
+
+                            }
                         }
-                    }
 
 
-                });
+                    });
+                }
+                else {
+                    url = global + "/CreateNewMemberID?storeid=" + storeId + "&name=" + encodeURIComponent(name) + "&email=" + encodeURIComponent(email) + "&phone=" + phone + "&points=" + points + "&memberId=" + memberId + "&customerId=" + customerId;
+                    $.getJSON(url, function (data1) {
+                        //console.log(data1);
+                        var obj = JSON.parse(data1);
+                        $.each(JSON.parse(data1), function (index, value) {
+                            // console.log("1: " + value.EMAIL.toLowerCase().indexOf("bistroux.com"))
+                            var popuphtml = "";
+                            if (value.REWARDMEMBERID != "")
+                                popuphtml = popuphtml + "<p><span style='color:#000;'>Member ID:  </span><span class=\"main-one\">" + value.REWARDMEMBERID + "</span></p>";
+                            if (points != "")
+                                popuphtml = popuphtml + "<p><span style='color:#000;'>Points:  </span><span class=\"main-two\">" + points + "</span></p>";
+                            if (name != "") {
+                                popuphtml = popuphtml + "<p>" + value.FIRSTNAME + " " + value.LASTNAME + "</p>";
+                            }
+
+                            if (phone != "") {
+                                if (value.PHONE.length == 10)
+                                    popuphtml = popuphtml + "<p>" + FormatPhoneNumber(value.PHONE) + "</p>";
+                                else
+                                    popuphtml = popuphtml + "<p>" + value.PHONE + "</p>";
+
+                            }
+                            if (email != "")
+                                popuphtml = popuphtml + "<p>" + value.EMAIL + "</p>";
+
+
+                            if (value.ACTIONTYPE = "ADD") {
+                                (function () {
+
+                                    swal({
+                                        title: "New Member created successfully.",
+                                        //html: "<p><strong>Member ID:</strong>1082</p><p><strong>Name:</strong>John Smith</p><p><strong>Phone:</strong>(614)805-5665</p><p><strong>Email:</strong>cyberv1@mail.com</p><p><strong>Points:</strong>100</p>",
+                                        html: popuphtml,
+                                        confirmButtonText: "OK",
+                                        type: "success",
+                                        confirmButtonClass: 'btn btn-success',
+                                        buttonsStyling: false,
+                                        customClass: 'swal-wide',
+                                    });
+
+                                    $$('input#txtEmail_Reward').val('');
+                                    $$('input#txtPhone_Reward').val('');
+                                    $$('input#txtPoints_Reward').val('');
+                                    $$('input#txtName_Reward').val('');
+                                    $$('input#txtMemberId_Reward').val('');
+
+                                    $$(".input-clear-button").click();
+                                    $$("input#txtMemberId_Reward").focus();
+                                    $$("input#txtMemberId_Reward").addClass("input-focused");
+                                    //html: "<p><span style='color:#000;'>Member ID:  </span><span class=\"main-one\">1082</span></p><span style='color:#000;'>Points:  </span><p><span class=\"main-two\" >100</span></p><p>John Smith</p><p>(614) 805-5665</p><p>cyberv1@mail.com</p>",
+
+                                })();
+                            }
+                        });
+                        $("#btnCreate").text("Add Member");
+                    });
+                }
+              
 
 
                 $$("#btnCreate").text("Add Member");

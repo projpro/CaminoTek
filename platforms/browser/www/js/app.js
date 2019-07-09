@@ -746,6 +746,21 @@ $$(document).on('page:init', function (e) {
         $$('#txtRedeem').on('blur', function () {
             ClearSpecialCharacter('txtRedeem');
         });
+
+        $$('#txtPhone_Reward').on('input propertychange paste', function () {
+            $("#hdnAlredyMemberChecked").val("false");
+            // do your stuff
+        });
+        $$('#txtName_Reward').on('input propertychange paste', function () {
+            $("#hdnAlredyMemberChecked").val("false");
+
+            // do your stuff
+        });
+        $$('#txtEmail_Reward').on('input propertychange paste', function () {
+            $("#hdnAlredyMemberChecked").val("false");
+
+            // do your stuff
+        });
         $$('#txtMemberID_LoadRedeem').on('change', function () {
 
             if ($('#txtMemberID_LoadRedeem').val() != "") {
