@@ -3443,7 +3443,6 @@ function LoadNewGiftCard() {
         amount = '0';
     if (cardCode != "" && amount != "" && amount != "0") {
         var codeValidated = $("#hdnValidateCard").val();
-       
         if (codeValidated.toString().toUpperCase() == "TRUE")
         {
             if ($("#hdnCardType").val().toString().toUpperCase() == "BISTROUX")
@@ -3453,13 +3452,21 @@ function LoadNewGiftCard() {
                 var cvv = $("#txtCVV").val().trim();
                 var expMonth = $("#ddlCCMonth").val();
                 var expYear = $("#ddlCCYear").val();
+                var paymentType = $("#hdnSelectedPaymentType").val();
 
-                if(ccName!="" && ccNumber!="" && cvv!="" && expMonth!="" && expYear!="" )
+                if (paymentType != "" && paymentType.toUpperCase() == "CASH")
                 {
                     var cardInfo = localStorage.getItem('GiftCardDetails');
                     var obj = JSON.parse(cardInfo);
                     AddNewGiftCard(obj.GiftCardExists, obj.PIN, obj.Amount, obj.GiftCardId, obj.GiftCardStoreId,
-                        obj.CardType, ccName, ccNumber, cvv, expMonth, expYear);
+                        obj.CardType, ccName, ccNumber, cvv, expMonth, expYear, paymentType);
+                }
+                else if(ccName!="" && ccNumber!="" && cvv!="" && expMonth!="" && expYear!="" )
+                {
+                    var cardInfo = localStorage.getItem('GiftCardDetails');                    
+                    var obj = JSON.parse(cardInfo);
+                    AddNewGiftCard(obj.GiftCardExists, obj.PIN, obj.Amount, obj.GiftCardId, obj.GiftCardStoreId,
+                        obj.CardType, ccName, ccNumber, cvv, expMonth, expYear,paymentType);
                 }
                 else {
                     if (ccName == "") {
@@ -3482,7 +3489,7 @@ function LoadNewGiftCard() {
             else {
                 var cardInfo = localStorage.getItem('GiftCardDetails');
                 var obj = JSON.parse(cardInfo);
-                AddNewGiftCard(obj.GiftCardExists, obj.PIN, obj.Amount, obj.GiftCardId, obj.GiftCardStoreId, obj.CardType, "", "", "", "", "");
+                AddNewGiftCard(obj.GiftCardExists, obj.PIN, obj.Amount, obj.GiftCardId, obj.GiftCardStoreId, obj.CardType, "", "", "", "", "","");
 
             }
         }
@@ -3491,7 +3498,7 @@ function LoadNewGiftCard() {
             $.getJSON(url, function (data) {
                 console.log(data)
 
-                $("#hdnValidateCard").val(true);
+                //$("#hdnValidateCard").val(true);
                 var obj = JSON.parse(data);
                 localStorage.setItem('GiftCardDetails', data);
                 if (obj.GiftCardExists == true) {
@@ -3508,16 +3515,19 @@ function LoadNewGiftCard() {
                         }
                         else {
                             if (obj.CardType.toString().toUpperCase() == "BISTROUX") {
+                                $("#hdnValidateCard").val(true);
                                 $("#hdnCardType").val(obj.CardType);
                                 //console.log('Popup Open for payment');
+                                $("#liPaymentType").show();
                                 $("#liCCName").show();
                                 $("#liCCNo").show();
                             }
                             else {
+                                $("#liPaymentType").hide();
                                 $("#liCCName").hide();
                                 $("#liCCNo").hide();
                                 //console.log(2)
-                                AddNewGiftCard(obj.GiftCardExists, obj.PIN, obj.Amount, obj.GiftCardId, obj.GiftCardStoreId, obj.CardType, "", "", "", "", "");
+                                AddNewGiftCard(obj.GiftCardExists, obj.PIN, obj.Amount, obj.GiftCardId, obj.GiftCardStoreId, obj.CardType, "", "", "", "", "","");
                             }
                         }
                     }
@@ -3532,10 +3542,11 @@ function LoadNewGiftCard() {
                  
                 }
                 else {
+                    $("#liPaymentType").hide();
                     $("#liCCName").hide();
                     $("#liCCNo").hide();
                    // console.log(3)
-                    AddNewGiftCard(obj.GiftCardExists, obj.PIN, obj.Amount, obj.GiftCardId, obj.GiftCardStoreId, obj.CardType, "", "", "", "", "");
+                    AddNewGiftCard(obj.GiftCardExists, obj.PIN, obj.Amount, obj.GiftCardId, obj.GiftCardStoreId, obj.CardType, "", "", "", "", "","");
                 }
             });
         }
@@ -3700,7 +3711,7 @@ function RedeemGiftCard() {
 }
 
 
-function AddNewGiftCard(exists,pin,gcamount,giftcardId,giftcardStoreId,cardType,ccName,ccNumber,cvv,expMonth,expYear)
+function AddNewGiftCard(exists,pin,gcamount,giftcardId,giftcardStoreId,cardType,ccName,ccNumber,cvv,expMonth,expYear,paymentType)
 {
     var storeId = 0;
     storeId = SetStoreId();
@@ -3733,7 +3744,7 @@ function AddNewGiftCard(exists,pin,gcamount,giftcardId,giftcardStoreId,cardType,
             var url = global + "/AddNewGiftCard?storeid=" + storeId + "&giftCardCode=" + encodeURIComponent(cardCode) + "&phone=" + phone + "&amount=" + amount + "&customerId="
                 + customerId + "&email=" + email + "&name=" + name + "&giftCardExists=" + exists + "&pin=" + pin + "&gcamount="
                 + gcamount + "&giftcardId=" + giftcardId + "&cardType=" + cardType + "&giftCardStoreId="
-                + giftcardStoreId+"&ccName="+ccName+"&ccNumber="+ccNumber+"&cvv="+cvv+"&expMonth="+expMonth+"&expYear="+expYear;
+                + giftcardStoreId+"&ccName="+ccName+"&ccNumber="+ccNumber+"&cvv="+cvv+"&expMonth="+expMonth+"&expYear="+expYear+"&paymentType="+paymentType;
             //console.log('name: '+name)
             var totalHistoryAmount = 0;
             $.getJSON(url, function (data) {
@@ -3803,6 +3814,7 @@ function AddNewGiftCard(exists,pin,gcamount,giftcardId,giftcardStoreId,cardType,
                     $('#tab-giftcard-new #ddlCCMonth').val("");
                     $('#tab-giftcard-new #ddlCCYear').val("");
 
+                    $("#liPaymentType").hide();
                     $("#liCCName").hide();
                     $("#liCCNo").hide();
 
@@ -3819,6 +3831,19 @@ function AddNewGiftCard(exists,pin,gcamount,giftcardId,giftcardStoreId,cardType,
     }
 }
 
+function ChangePaymetTypePopup(type) {
+    if (type == 'CARD') {
+        $$("#divPopupPaymentArea").show();
+        $("#hdnPaymentType").val("Credit Card");
+        //$$("#txtPopupAmount").attr("placeholder", "Amount($)");
+    }
+    else if (type == 'CASH') {
+        $$("#divPopupPaymentArea").hide();
+        $("#hdnPaymentType").val("Cash");
+        //$$("#txtPopupAmount").attr("placeholder", "Cash($)");
+    }
+}
+
 function OpenGiftCardPaymentPopup() {
    var storeId = SetStoreId();
    var cardCode = $("#txtCardCodeSearch").val().trim();
@@ -3828,11 +3853,17 @@ function OpenGiftCardPaymentPopup() {
        var html = "<div class=\"popup-content-area\"><h2 class=\"popup-title\"><span style=\"font-size:18px;\">Load Gift Card - <span style=\"font-weight:600;font-size: 20px;\">" + cardCode + "</span></span></h2>";
 
        html += "<h4 id=\"popuperror\" style=\"font-weight:400;color:#ff4848;display:none;\"></h4>";
+       
+       html += "<div class=\"item-media item-media-section\">"
+       html += "<div class=\"item-media payment-area-popup\"><input type=\"radio\" id=\"paymentPopupTypeCard\" name=\"paymentPopupType\" value=\"Card\" onclick=\"ChangePaymetTypePopup('CARD');\" checked /><label for=\"paymentPopupTypeCard\" onclick=\"ChangePaymetTypePopup('CARD');\" style=\"padding-right: 10px;\" >Credit Card</label>";
+       html += "<input type=\"radio\" id=\"paymentPopupTypeCash\" name=\"paymentPopupType\" value=\"Cash\" onclick=\"ChangePaymetTypePopup('CASH');\" /><label for=\"paymentPopupTypeCash\" onclick=\"ChangePaymetTypePopup('CASH');\" >Cash</label></div>";
+       html += "<input type=\"hidden\" id=\"hdnPaymentType\" value=\"Credit Card\"/></div>";
+
        html += "<div><i class=\"material-icons popup-material-icons\">attach_money</i><input value=\"" + FormatDecimalWithoutDollar(amount) + "\" type=\"number\" min=\"1\" step=\"any\" onKeyDown=\"if(this.value.length==10) this.value = this.value.slice(0, -1);\" id=\"txtPopupAmount\" class=\"swal2-text popup-input-amount mandatory\" style=\"padding: 5px 5px;\" placeholder=\"Amount($)\"></div>";
 
+       html += "<div id=\"divPopupPaymentArea\">";
        html += "<div><i class=\"material-icons popup-material-icons\">person</i><input type=\"text\" id=\"txtPopupCCName\" class=\"swal2-text popup-input-name mandatory\" style=\"padding: 5px 5px;\" placeholder=\"Name on Card\"></div>";
        html += "<div class=\"popup-col-4\"><i class=\"material-icons popup-material-icons\">credit_card</i><input type=\"number\" min=\"1\" step=\"any\" id=\"txtPopupCCNumber\" class=\"swal2-text popup-input-ccnumber mandatory\" style=\"padding: 5px 5px;\" placeholder=\"Card Number\"  onKeyPress=\"if(this.value.length==16) return false;\"></div>";
-       html += "<div class=\"popup-col-5\"><i class=\"material-icons popup-material-icons\">fiber_pin</i><input type=\"password\" id=\"txtPopupCCCVV\" class=\"swal2-text popup-input-cvv mandatory\" style=\"padding: 5px 5px;\" placeholder=\"CVV\" onKeyPress=\"if(this.value.length==4) return false;\"></div>";
        html += "<div class=\"popup-col-6\"><i class=\"material-icons popup-material-icons\">date_range</i><select placeholder=\"MM\" id=\"ddlPopupCCMonth\" required class=\"mandatory popup-input-month\">";
        html += "<option value=\"\">MM</option>";
        html += "<option value=\"01\">01</option><option value=\"02\">02</option> <option value=\"03\">03</option>";
@@ -3841,6 +3872,10 @@ function OpenGiftCardPaymentPopup() {
        html += "<option value=\"10\">10</option><option value=\"11\">11</option> <option value=\"12\">12</option></select><div class=\"popup-input-divider\">/</div>";
 
        html += "<select placeholder=\"YY\" id=\"ddlPopupCCYear\" required class=\"mandatory popup-input-month\"><option value=\"\">YY</option></select></div>";
+       html += "<div class=\"popup-col-5\"><i class=\"material-icons popup-material-icons\">fiber_pin</i><input type=\"password\" id=\"txtPopupCCCVV\" class=\"swal2-text popup-input-cvv mandatory\" style=\"padding: 5px 5px;\" placeholder=\"CVV\" onKeyPress=\"if(this.value.length==4) return false;\"></div>";
+       
+       
+       html += "</div>";
 
 
        html += "<div class=\"popup-button-area\"><button id=\"btnGCReLoad\" onclick=\"GiftCardPayment('" + cardCode + "'," + storeId + ");\" type=\"button\" class=\"popup-confirm-medium swal2-styled\" aria-label=\"\" ";
@@ -3865,11 +3900,22 @@ function GiftCardPayment(cardCode, storeId) {
     var phone = $('#txtPhone').val();
     var register = $('#ddlRegister').val();
     var pin = $("#txtPINSearch").val();
+    var paymentType = $("#hdnPaymentType").val();
+
     if (pin == '') {
         pin = '0';
     }
     var validated = false;
-    if (amount > 0 && ccName != "" && ccNumber != "" && cvv != "" && expMonth != "" && expYear != "")
+    if (paymentType != "" && paymentType != "undefined" && paymentType.toUpperCase() == "CASH") {
+        if (amount == "") {
+            $("#txtPopupAmount").css('border-bottom', errorClassBorder);
+            validated = false;
+        }
+        else if (amount > 0) {
+            validated = true;
+        }
+    }
+   else if (amount > 0 && ccName != "" && ccNumber != "" && cvv != "" && expMonth != "" && expYear != "")
     {
         validated = true;
     }
@@ -3898,7 +3944,7 @@ function GiftCardPayment(cardCode, storeId) {
     {
         $('#btnGCReLoad').text("Loading...");
       var  url = global + "/GiftCardLoadWithPayment?storeid=" + storeId + "&giftCardCode=" + encodeURIComponent(cardCode) + "&phone="
-            + phone + "&amount=" + amount + "&register=" + register + "&pin=" + pin + "&ccName=" + ccName + "&ccNumber=" + ccNumber + "&cvv=" + cvv + "&expMonth=" + expMonth + "&expYear=" + expYear;
+            + phone + "&amount=" + amount + "&register=" + register + "&pin=" + pin + "&ccName=" + ccName + "&ccNumber=" + ccNumber + "&cvv=" + cvv + "&expMonth=" + expMonth + "&expYear=" + expYear + "&paymentType=" + paymentType;
         var totalHistoryAmount = 0;
         $.getJSON(url, function (data) {
             $('#btnGCReLoad').text("Load");

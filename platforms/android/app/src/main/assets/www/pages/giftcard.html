@@ -132,6 +132,13 @@
                                                         <span class="input-clear-button"></span>
                                                     </div>
                                                 </li>
+                                                <li class="item-content" id="liPaymentType" style="display:none;">
+                                                    <input type="hidden" id="hdnSelectedPaymentType" value="Credit Card"/>
+                                                    <div class="item-media item-media-section">
+                                                        <div class="item-media col-25 payment-area"><input type="radio" id="paymentTypeCard" name="paymentType" value="Card" checked /><label for="paymentTypeCard">Credit Card</label></div>
+                                                        <div class="item-media col-25 payment-area"><input type="radio" id="paymentTypeCash" name="paymentType" value="Cash" /><label for="paymentTypeCash">Cash</label></div>
+                                                    </div>
+                                                </li>
                                                 <li class="item-content" id="liCCName" style="display:none;">
                                                     <div class="item-media item-media-section">
                                                         <i class="material-icons">person</i>
@@ -139,17 +146,11 @@
                                                         <span class="input-clear-button"></span>
                                                     </div>
                                                 </li>
-                                                <li class="item-content item-media-section" id="liCCNo" style="display:none;">
+                                                <li class="item-content item-media-section" id="liCCNo" style="display:none;">                                                    
                                                     <div class="item-media col-45">
 
                                                         <i class="material-icons">credit_card</i>
                                                         <input type="number" min="1" step="any" placeholder="Card Number" id="txtCCNumber" required class="mandatory" onKeyPress="if(this.value.length==16) return false;">
-                                                        <span class="input-clear-button"></span>
-                                                    </div>
-                                                    <div class="item-media col-25">
-                                                        <i class="material-icons">fiber_pin</i>
-                                                        <!--<input type="number" placeholder="CVV" id="txtCVV" required class="mandatory" onKeyPress="if(this.value.length==4) return false;">-->
-                                                        <input type="password" placeholder="CVV" id="txtCVV" required class="mandatory" onKeyPress="if(this.value.length==4) return false;">
                                                         <span class="input-clear-button"></span>
                                                     </div>
                                                     <div class="item-media col-25">
@@ -174,6 +175,12 @@
                                                             <option value="">YY</option>
                                                         </select>
                                                     </div>
+                                                    <div class="item-media col-25">
+                                                        <i class="material-icons">fiber_pin</i>
+                                                        <!--<input type="number" placeholder="CVV" id="txtCVV" required class="mandatory" onKeyPress="if(this.value.length==4) return false;">-->
+                                                        <input type="password" placeholder="CVV" id="txtCVV" required class="mandatory" onKeyPress="if(this.value.length==4) return false;">
+                                                        <span class="input-clear-button"></span>
+                                                    </div>                                                    
                                                 </li>
 
                                                 <li class="item-content">

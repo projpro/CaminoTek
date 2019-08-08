@@ -567,10 +567,11 @@ $$(document).on('page:init', function (e) {
         $$('#linkGiftCardNew').click(function () {
             BindCCYear('ddlCCYear');
             BindCCMonth('ddlCCMonth');
+            $("#liPaymentType").hide();
             $("#liCCName").hide();
             $("#liCCNo").hide();
             ResetGiftCardNew();
-            $("#hdnValidateCard").val(true);
+            $("#hdnValidateCard").val(false);
             $("#hdnCardType").val("");
             SetUpBarCodeScanButton('giftcardscan');
             $('#txtCardCode').focus();
@@ -647,6 +648,32 @@ $$(document).on('page:init', function (e) {
         $$('#btnRefundGiftCard').click(function () {
             OpenGiftCardRefundPopup();
         });
+        $$('input[type=radio][name=paymentType]').change(function () {
+            if (this.value.toUpperCase() == 'CARD') {
+                //$$("#liPaymentType").show();
+                $$("#liCCName").show();
+                $$("#liCCNo").show();
+                $$("#hdnSelectedPaymentType").val("Credit Card");
+            }
+            else if (this.value.toUpperCase() == 'CASH') {
+                //$$("#liPaymentType").hide();
+                $$("#liCCName").hide();
+                $$("#liCCNo").hide();
+                $$("#hdnSelectedPaymentType").val("Cash");
+            }
+        });
+
+        //$$('input[type=radio][name=paymentPopupType]').change(function () {
+        //    alert("hello");
+        //    if (this.value.toUpperCase() == 'CARD') {
+        //        $$("#divPopupPaymentArea").show();
+        //        //$$("#txtPopupAmount").attr("placeholder", "Amount($)");
+        //    }
+        //    else if (this.value.toUpperCase() == 'CASH') {
+        //        $$("#divPopupPaymentArea").hide();
+        //        //$$("#txtPopupAmount").attr("placeholder", "Cash($)");
+        //    }
+        //});
         //GiftCard Load/Redeem - End
 
         //GiftCard Orders - Start

@@ -59,6 +59,31 @@ body {
      font-size:22px;
      padding-top:10px;
 }
+
+.payment-area input{
+    font-size:19px;
+    width: 33px;
+    height: 25px;
+ 
+}
+.payment-area label {
+     font-size:19px;
+}
+.payment-area-popup{
+    float: left;
+    width: 100%;
+}
+.payment-area-popup input{
+    font-size:19px;
+    width: 22px;
+    height: 20px;
+    float: left;
+}
+.payment-area-popup label {
+     font-size:19px;
+     float: left;
+}
+
 /*--------------------------------------------------CYBERVATION------------------------------------------------*/
 /* 
   ##Device = Most of the Smartphones Mobiles (Portrait)
