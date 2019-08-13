@@ -1,5 +1,5 @@
-var global = "http://www.appnotification.bistroux.com/Api/App/";
-//var global = "http://www.consumerapp.bistroux.com/Api/App/";
+//var global = "http://www.appnotification.bistroux.com/Api/App/";
+var global = "http://www.consumerapp.bistroux.com/Api/App/";
 //var global = "http://192.168.1.6/Api/App/";
 var mediaURL = "http://appnotification.bistroux.com/Media/";
 
@@ -539,6 +539,13 @@ function CarryoutOrdersList(status, carryoutpagesize, carryoutcurrentPage, divId
                                 else
                                     html += "<div class=\"order-pickup  order-pickup-margin-top\" style=\"margin-top:22px;\">" + pickupdatetime + "</div>";
                             }
+                                //For Delivery Orders - Start//
+                            else if (ordertype == "Delivery") { 
+                                if (status == '' || status == "All")
+                                    html += "<div class=\"order-pickup\" style=\"color: #e95861;\">" + pickupdatetime + "</div>";
+                                else
+                                    html += "<div class=\"order-pickup  order-pickup-margin-top\" style=\"margin-top:22px; color: #e95861;\">" + pickupdatetime + "</div>";
+                            }//For Delivery Orders - End//
                             else {
                                 if (pickupdatetime.indexOf("@") > -1) {
                                     var pickupDate = pickupdatetime.split('@')[0].trim();
@@ -1133,6 +1140,9 @@ function OpenCarryoutDetails(id) {
                     if (value.ORDERTYPE != "") {
                         ordertype = value.ORDERTYPE;
                     }
+                    if (ordertype != "" && ordertype == "Delivery") {
+                        $('#spanOrderDetailsOrderType').html(ordertype);
+                    }
                     orderDiscount = value.ORDERDISCOUNT;
                     subtotalvalue = value.SUBTOTAL;
                     if (value.BALANCEDUE != undefined && Number(value.BALANCEDUE) > 0) {
@@ -1410,10 +1420,18 @@ function OpenCarryoutDetails(id) {
                             orderhtml += "<div class=\"order-details-pickup  order-pickup-margin-top\">" + pickupTimeOnly + "</br><span style=\"font-size:16px;\">" + pickupDateOnly + "</span>" + "</div>";
                     }
                     else {
-                        if (status == '' || status == "All")
-                            orderhtml += "<div class=\"order-details-pickup\">" + pickupTime + "</div>";
-                        else
-                            orderhtml += "<div class=\"order-details-pickup  order-pickup-margin-top\">" + pickupTime + "</div>";
+                        if (ordertype != '' && ordertype == "Delivery") {
+                            if (status == '' || status == "All")
+                                orderhtml += "<div class=\"order-details-pickup\" style=\"color: #e95861;\">" + pickupTime + "</div>";
+                            else
+                                orderhtml += "<div class=\"order-details-pickup  order-pickup-margin-top\" style=\"color: #e95861;\">" + pickupTime + "</div>";
+                        }
+                        else {
+                            if (status == '' || status == "All")
+                                orderhtml += "<div class=\"order-details-pickup\">" + pickupTime + "</div>";
+                            else
+                                orderhtml += "<div class=\"order-details-pickup  order-pickup-margin-top\">" + pickupTime + "</div>";
+                        }                        
                     }
 
                 }
@@ -3864,7 +3882,7 @@ function OpenGiftCardPaymentPopup() {
        html += "<div id=\"divPopupPaymentArea\">";
        html += "<div><i class=\"material-icons popup-material-icons\">person</i><input type=\"text\" id=\"txtPopupCCName\" class=\"swal2-text popup-input-name mandatory\" style=\"padding: 5px 5px;\" placeholder=\"Name on Card\"></div>";
        html += "<div class=\"popup-col-4\"><i class=\"material-icons popup-material-icons\">credit_card</i><input type=\"number\" min=\"1\" step=\"any\" id=\"txtPopupCCNumber\" class=\"swal2-text popup-input-ccnumber mandatory\" style=\"padding: 5px 5px;\" placeholder=\"Card Number\"  onKeyPress=\"if(this.value.length==16) return false;\"></div>";
-       html += "<div class=\"popup-col-6\"><i class=\"material-icons popup-material-icons\">date_range</i><select placeholder=\"MM\" id=\"ddlPopupCCMonth\" required class=\"mandatory popup-input-month\" style\"padding-left: 10px !important;\">";
+       html += "<div class=\"popup-col-6\"><i class=\"material-icons popup-material-icons\">date_range</i><select placeholder=\"MM\" id=\"ddlPopupCCMonth\" required class=\"mandatory popup-input-month\" style=\"padding-left: 10px !important;\">";
        html += "<option value=\"\">MM</option>";
        html += "<option value=\"01\">01</option><option value=\"02\">02</option> <option value=\"03\">03</option>";
        html += "<option value=\"04\">04</option><option value=\"05\">05</option><option value=\"06\">06</option>";
