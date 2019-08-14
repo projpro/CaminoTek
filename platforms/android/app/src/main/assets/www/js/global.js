@@ -1143,6 +1143,9 @@ function OpenCarryoutDetails(id) {
                     if (ordertype != "" && ordertype == "Delivery") {
                         $('#spanOrderDetailsOrderType').html(ordertype);
                     }
+                    else {
+                        $('#spanOrderDetailsOrderType').html("");
+                    }
                     orderDiscount = value.ORDERDISCOUNT;
                     subtotalvalue = value.SUBTOTAL;
                     if (value.BALANCEDUE != undefined && Number(value.BALANCEDUE) > 0) {
