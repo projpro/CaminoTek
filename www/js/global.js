@@ -938,6 +938,13 @@ function CarryoutOrdersListPagination(status, carryoutpagesize, carryoutcurrentP
                                 else
                                     html += "<div class=\"order-pickup  order-pickup-margin-top\" style=\"margin-top:22px;\">" + pickupdatetime + "</div>";
                             }
+                            //For Delivery Orders - Start//
+                            else if (ordertype == "Delivery") {
+                                if (status == '' || status == "All")
+                                    html += "<div class=\"order-pickup\" style=\"color: #e95861;\">" + pickupdatetime + "</div>";
+                                else
+                                    html += "<div class=\"order-pickup  order-pickup-margin-top\" style=\"margin-top:22px; color: #e95861;\">" + pickupdatetime + "</div>";
+                            }//For Delivery Orders - End//
                             else {
                                 if (pickupdatetime.indexOf("@") > -1) {
                                     var pickupDate = pickupdatetime.split('@')[0].trim();
