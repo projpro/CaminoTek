@@ -1124,6 +1124,11 @@ function OpenCarryoutDetails(id) {
             var lastName = "";
             var email = "";
             var phone = "";
+            var address1 = "";
+            var address2 = "";
+            var city = "";
+            var state = "";
+            var zip = "";
             var paymentMethod = "";
             var cardNumber = "";
             var ordertotal = "";
@@ -1267,6 +1272,23 @@ function OpenCarryoutDetails(id) {
 
                     if (phone != "" && phone != undefined && phone.length == 10)
                         phone = FormatPhoneNumber(phone);
+                    
+                    if (value.BILLINGADDRESS1 != "") {
+                        address1 = value.BILLINGADDRESS1;
+                    }
+                    if (value.BILLINGADDRESS2) {
+                        address2 = value.BILLINGADDRESS2;
+                    }
+                    if (value.BILLINGADDRESSCITY) {
+                        city = value.BILLINGADDRESSCITY;
+                    }
+                    if (value.BILLINGADDRESSSTATE) {
+                        state = value.BILLINGADDRESSSTATE;
+                    }
+                    if (value.BILLINGADDRESSZIP) {
+                        zip = value.BILLINGADDRESSZIP;
+                    }
+                    
                     if (value.PAYMENTMETHOD != "" && value.PAYMENTMETHOD != undefined) {
                         paymentMethod = value.PAYMENTMETHOD;
                     }
@@ -1466,6 +1488,44 @@ function OpenCarryoutDetails(id) {
                 orderhtml += "<div id=\"popupCustomerName_" + orderId + "\">" + firstName + " " + lastName + "</div>";
                 orderhtml += "<div>" + phone + "</div>";
                 orderhtml += "<div id=\"popupCustomerEmail_" + orderId + "\" class=\"display-label-wrap\">" + email + "</div>";
+                
+                //Delivery Address
+                if (ordertype == "Delivery") {
+                    if (address1 != "") {
+                        orderhtml += "<div class=\"display-label-wrap\" style=\"padding-top:5px;\">" + address1 + "</div>";
+                    }
+                    if (address2 != "") {
+                        orderhtml += "<div class=\"display-label-wrap\">" + address2 + "</div>";
+                    }
+                    //if (city != "") {
+                    //    orderhtml += "<div class=\"display-label-wrap\">" + city + "</div>";
+                    //}
+                    if (state != "" && zip != "") {
+                        if (city != "") {
+                            orderhtml += "<div class=\"display-label-wrap\">" + city + ", " + state + " " + zip + "</div>";
+                        }
+                        else {
+                            orderhtml += "<div class=\"display-label-wrap\">" + state + " " + zip + "</div>";
+                        }                        
+                    }
+                    else if (state != "" && zip == "") {
+                        if (city != "") {
+                            orderhtml += "<div class=\"display-label-wrap\">" + city + ", " + state + "</div>";
+                        }
+                        else {
+                            orderhtml += "<div class=\"display-label-wrap\">" + state + "</div>";
+                        }
+                    }
+                    else if (state == "" && zip != "") {
+                        if (city != "") {
+                            orderhtml += "<div class=\"display-label-wrap\">" + city + ", " + zip + "</div>";
+                        }
+                        else {
+                            orderhtml += "<div class=\"display-label-wrap\">" + zip + "</div>";
+                        }
+                    }
+                }
+                
                 orderhtml += "</div>";
                 orderhtml += "</div>";
                 /*------------------Customer Info-----------------------*/
