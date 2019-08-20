@@ -63,8 +63,8 @@
             </div>
             <div class="center ul-media-list-li">Profile</div>
             <!--<div class="right">-->
-                <a class="icon-only navbar-right-single-icon menu-margin-right" href="/profile/"><i class="material-icons large-icon">account_circle</i></a>
-                <a class="icon-only navbar-right-single-icon" onclick="Logout();"><i class="material-icons large-icon">exit_to_app</i></a>
+            <a class="icon-only navbar-right-single-icon" href="/profile/"><i class="material-icons large-icon">account_circle</i></a>
+                <!--<a class="icon-only navbar-right-single-icon" onclick="Logout();"><i class="material-icons large-icon">exit_to_app</i></a>-->
             <!--</div>-->
         </div>
     </div>
@@ -272,7 +272,10 @@
                                                         </div>
                                                     </li>
                                                     <li class="item-content">
-                                                        <a class="custom-btn custom-bg custom-link item-media-section" id="btnUpdateProfile"onclick="SaveStoreInfo();">Save</a>
+                                                        <a class="custom-btn-save custom-bg custom-link item-media-section" id="btnUpdateProfile"onclick="SaveStoreInfo();">Save</a>
+                                                    </li>
+                                                    <li class="item-content">
+                                                        <a class="custom-btn-save custom-bg custom-link item-media-section" style="background:#e95861 !important;" onclick="Logout();">Logout</a>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -1771,8 +1774,9 @@
                                                                     </div>
                                                                 </div>                                                                
                                                             </li>
+
                                                             <li class="item-content">
-                                                                <a class="custom-btn custom-bg custom-link item-media-section" id="btnSaveStoreTiming" onclick="SaveStoreTiming();">Save</a>
+                                                                <a class="custom-btn-save custom-bg custom-link item-media-section" id="btnSaveStoreTiming" style="width: 100% !important;" onclick="SaveStoreTiming();">Save</a>
                                                             </li>
                                                         </ul>
                                                     </div>
