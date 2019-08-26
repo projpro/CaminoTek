@@ -62,13 +62,13 @@ function Login() {
             success: function (data) {
                 //console.log("data: " + data);
                 //console.log("Login 2" + data);
-                alert(data)
+                //alert(data)
                 if (data.indexOf("No Data Found") > -1) {
                     $('#lblErr').html("Invalid Login/Password");
                     $("#btnLogin").text("Log In");
                 }
                 else {
-                    alert("Hello");
+                    //alert("Hello");
                     var customerId = data.split("#")[0].replace("\"", "");
                     var storeId = data.split("#")[1].replace("\"", "");
                     var apprefreshinterval = data.split("#")[2].replace("\"", "");
