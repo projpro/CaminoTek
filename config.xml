@@ -61,4 +61,9 @@
         <variable name="FCM_VERSION" value="15.0.0" />
         <variable name="SENDER_ID" value="771458932582" />
     </plugin>
+    <config-file target="AndroidManifest.xml" parent="/*" mode="merge">
+        <uses-permission android:name="android.permission.CAMERA" />
+        <uses-feature android:name="android.hardware.camera" />
+        <uses-feature android:name="android.hardware.camera.autofocus" />
+    </config-file>
 </widget>
