@@ -485,7 +485,7 @@ $$(document).on('page:init', function (e) {
          {
              preferFrontCamera: false, // iOS and Android
              showFlipCameraButton: true, // iOS and Android
-             formats: "CODE_128,CODE_39,CODE_93,CODABAR"
+             formats: "CODE_128"
          }
 
          );
