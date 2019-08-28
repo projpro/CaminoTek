@@ -483,7 +483,7 @@ $$(document).on('page:init', function (e) {
              console.log("Scanning failed: " + error);
          },
          {
-             preferFrontCamera: true, // iOS and Android
+             preferFrontCamera: false, // iOS and Android
              showFlipCameraButton: true, // iOS and Android
              formats: "CODE_128"
          }
@@ -502,7 +502,7 @@ $$(document).on('page:init', function (e) {
               console.log("Scanning failed: " + error);
           },
           {
-              preferFrontCamera: true, // iOS and Android
+              preferFrontCamera: false, // iOS and Android
               showFlipCameraButton: true, // iOS and Android
               showTorchButton: false, // iOS and Android
               torchOn: false, // Android, launch with the torch switched on (if available)
@@ -529,7 +529,7 @@ $$(document).on('page:init', function (e) {
               console.log("Scanning failed: " + error);
           },
           {
-              preferFrontCamera: true, // iOS and Android
+              preferFrontCamera: false, // iOS and Android
               showFlipCameraButton: true, // iOS and Android
               showTorchButton: false, // iOS and Android
               torchOn: false, // Android, launch with the torch switched on (if available)
@@ -835,7 +835,7 @@ $$(document).on('page:init', function (e) {
               console.log("Scanning failed: " + error);
           },
           {
-              preferFrontCamera: true, // iOS and Android
+              preferFrontCamera: false, // iOS and Android
               showFlipCameraButton: true, // iOS and Android
               showTorchButton: false, // iOS and Android
               torchOn: false, // Android, launch with the torch switched on (if available)
@@ -862,7 +862,7 @@ $$(document).on('page:init', function (e) {
               console.log("Scanning failed: " + error);
           },
           {
-              preferFrontCamera: true, // iOS and Android
+              preferFrontCamera: false, // iOS and Android
               showFlipCameraButton: true, // iOS and Android
               showTorchButton: false, // iOS and Android
               torchOn: false, // Android, launch with the torch switched on (if available)
