@@ -508,7 +508,7 @@ $$(document).on('page:init', function (e) {
               torchOn: false, // Android, launch with the torch switched on (if available)
               saveHistory: true, // Android, save scan history (default false)
               prompt: "Place a barcode inside the scan area", // Android
-              resultDisplayDuration: 1500, // Android, display scanned text for X ms. 0 suppresses it entirely, default 1500
+              resultDisplayDuration: 500, // Android, display scanned text for X ms. 0 suppresses it entirely, default 1500
               //formats: "QR_CODE,PDF_417,CODABAR,CODE_128,CODE_93,CODE_39", // default: all but PDF_417 and RSS_EXPANDED
               orientation: "portrait", // Android only (portrait|landscape), default unset so it rotates with the device
               disableAnimations: true, // iOS
@@ -535,7 +535,7 @@ $$(document).on('page:init', function (e) {
               torchOn: false, // Android, launch with the torch switched on (if available)
               saveHistory: true, // Android, save scan history (default false)
               prompt: "Place a barcode inside the scan area", // Android
-              resultDisplayDuration: 1500, // Android, display scanned text for X ms. 0 suppresses it entirely, default 1500
+              resultDisplayDuration: 500, // Android, display scanned text for X ms. 0 suppresses it entirely, default 1500
               //formats: "QR_CODE,PDF_417,CODABAR,CODE_128,CODE_93,CODE_39", // default: all but PDF_417 and RSS_EXPANDED
               orientation: "portrait", // Android only (portrait|landscape), default unset so it rotates with the device
               disableAnimations: true, // iOS
