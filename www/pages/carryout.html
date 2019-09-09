@@ -4,27 +4,27 @@
     <div class="toolbar tabbar tabbar-labels toolbar-bottom-md custom-toolbar">
         <div class="toolbar-inner">
             <a href="/carryout/" class="tab-link menuCarryout tab-link-active footer-menu-active">
-                <img src="./img/icons/carry-out-active.png" alt="carry-out" class="footer-icon" id="footer_carryout"/>
+                <img src="./img/icons/carry-out-active.png" alt="carry-out" class="footer-icon" id="footer_carryout" />
                 <!--<i class="material-icons menu-icon-active">shopping_basket</i>-->
                 <!--<span class="tabbar-label">Carry Out</span>-->
             </a>
             <a href="/giftcard/" class="tab-link menuGiftcard">
-                <img src="./img/icons/giftcard.png" alt="giftcard" class="footer-icon-one" id="footer_giftcard"/>
+                <img src="./img/icons/giftcard.png" alt="giftcard" class="footer-icon-one" id="footer_giftcard" />
                 <!--<i class="material-icons menu-icon">card_giftcard</i>-->
                 <!--<span class="tabbar-label">Gift Card</span>-->
             </a>
             <a href="/new_rewards/" class="tab-link menuReward">
-                <img src="./img/icons/rewards.png" alt="rewards" class="footer-icon-two" id="footer_reward"/>
+                <img src="./img/icons/rewards.png" alt="rewards" class="footer-icon-two" id="footer_reward" />
                 <!--<i class="material-icons menu-icon">card_membership</i>-->
                 <!--<span class="tabbar-label">Reward</span>-->
             </a>
             <a href="/setup/" class="tab-link menuSettings">
-                <img src="./img/icons/setting.png" alt="setting" class="footer-icon" id="footer_setup"/>
+                <img src="./img/icons/setting.png" alt="setting" class="footer-icon" id="footer_setup" />
                 <!--<i class="material-icons menu-icon">settings</i>-->
                 <!--<span class="tabbar-label">Setup</span>-->
             </a>
             <a href="/manageservice/" class="tab-link menuStartStop">
-                <img src="./img/icons/start-stop.png" alt="start-stop" class="footer-icon" id="footer_startstop"/>
+                <img src="./img/icons/start-stop.png" alt="start-stop" class="footer-icon" id="footer_startstop" />
                 <!--<i class="material-icons menu-icon">power_settings_new</i>-->
                 <!--<span class="tabbar-label">Start/Stop</span>-->
             </a>
@@ -44,10 +44,9 @@
             <div class="center ul-media-list-li">Carry Out</div>
             <a class="fab fab-right-top panel-open navbar-site-action icon-only searchbar-enable navbar-right-icon-2" id="linkCarryoutFilterIcon" data-panel="right" style="display:none;"><i class="material-icons large-icon">filter_list</i></a>
             <!--<div class="right">-->
-                <a class="icon-only navbar-right-single-icon" href="/profile/"><i class="material-icons large-icon">account_circle</i></a>
+            <a class="icon-only navbar-right-single-icon" href="/profile/"><i class="material-icons large-icon">account_circle</i></a>
             <!--<a class="icon-only navbar-right-single-icon menu-margin-right" href="/profile/"><i class="material-icons large-icon">account_circle</i></a>-->
-                <!--<a class="icon-only navbar-right-single-icon" onclick="Logout();"><i class="material-icons large-icon">exit_to_app</i></a>-->
-
+            <!--<a class="icon-only navbar-right-single-icon" onclick="Logout();"><i class="material-icons large-icon">exit_to_app</i></a>-->
             <!--</div>-->
         </div>
 
@@ -58,98 +57,132 @@
             <div class="section-content">
                 <input type="hidden" value="" id="hdnCurrentState" />
                 <div class="custom-tabs display-flex justify-content-space-between align-items-center tab-margin-top fixed-tab-header">
-                    <div class="custom-tab custom-tab-carryout">
+                    <div class="custom-tab custom-tab-carryout-new">
                         <a href="#1" class="tab-link tab-link-active" onclick="BindcarryoutTab('New')" id="carryOutNew">
-                            <div class="tab-right-text">New</div>
+                            <div class="tab-right-text">Current</div>
                             <div class="border-tab"></div>
                         </a>
                     </div>
-                    <div class="custom-tab custom-tab-carryout">
+                    <!--<div class="custom-tab custom-tab-carryout">
                         <a href="#2" class="tab-link" onclick="BindcarryoutTab('Processing')" id="carryOutProcessing">
                             <div class="tab-right-text">Processing</div>
                             <div class="border-tab"></div>
                         </a>
-                    </div>
-                    <div class="custom-tab custom-tab-carryout">
+                    </div>-->
+                    <div class="custom-tab custom-tab-carryout-new">
                         <a href="#3" class="tab-link" onclick="BindcarryoutTab('All')" id="carryOutAll">
                             <div class="tab-right-text">All</div>
                             <div class="border-tab"></div>
                         </a>
                     </div>
                 </div>
+
+                <div class="col"></div>
                 <div class="tabs tabs-animated-wrap-margin-top">
                     <div class="tabs">
                         <div id="1" class="page-content tab tab-active">
                             <div class="section mt">
                                 <div class="section-content">
-                                    <div class="order-flex-container infinite-scroll" id="dvNewList">
-                                      
+                                    <div class="col">
+                                        <div class="page-content left-side-area col-25">
+                                            <div class="order-flex-container infinite-scroll" id="dvNewList">
+                                            </div>                                            
+                                        </div>
+                                        <div class="col-65" id="divTabCurrentDetails">
 
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div id="2" class="page-content tab">
+                        <!--<div id="2" class="page-content tab">
                             <div class="section mt">
                                 <div class="section-content">
-                                    <div class="order-flex-container infinite-scroll" id="dvProcessingList">
+                                    <div class="col">
+                                        <div class="col-30">
+                                            <div class="order-flex-container infinite-scroll" id="dvProcessingList">
+                                            </div>
+                                            <div class="col-65">
 
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-
-                        <div id="3" class="page-content tab">
+                        </div>-->
+                        <!--overflow-x:hidden !important;-->
+                        <div id="3" class="page-content tab" style="overflow:hidden;">
                             <div class="section mt">
                                 <div class="section-content">
-                                    <div class="order-flex-container infinite-scroll" id="dvAllList">
+                                    <div class="col">
+                                        <div class="page-content left-side-area col-25">
+                                            <div class="order-flex-container infinite-scroll" id="dvAllList">
+                                            </div>
+                                        </div>
+                                        <div class="col-65" id="divTabAllDetails">
+                                            
+                                            <!--Order Details Start-->
+                                            <!--<div id="divTabAllDetails"></div>-->
+                                            <!--Order Details End-->
+                                            
+                                        </div>
+                                       
                                     </div>
                                 </div>
                             </div>
+
                         </div>
 
                     </div>
                 </div>
-              
+
             </div>
         </div>
         <div class="mt pd"></div>
 
-     
-        <div class="page" id="dvCarryOutDetailsInner" style="display:none;">
+        <!--Carryout Details Div-->
+
+        <div class="page" id="dvCarryOutDetailsInner" style="display:block;">
             <div class="page-content">
-                <div class="page-title padding-left padding-right margin-top display-flex justify-content-space-between">
-                    <h2>Order Details</h2>
-                    <a class="popup-cancel-button"  onclick="OpenCancelOrderPopup();" id="aCancelOrder" style="display:none;">
-                        Cancel Order
-                    </a>
-                    <a class="panel-close navbar-site-action" href="#" data-panel="right" onclick="CloseCarryOutDetails();">
-                        <img src="./img/icons/close.png" alt="close" class="close-icon">
-                    </a>
-                </div>
-                <div class="block">
-                    <div style="color: #e95861;text-align: center;font-size: 30px;"><span id="spanOrderDetailsOrderType"></span></div>
-                    <!--order-list-->
-                    <div class="">
-                        <div>
-                            <input type="hidden" id="hdnSelectedOrderId" value="0" />
-                            <input type="hidden" id="hdnSelectedOrderDateTime" value="" />
-                            <input type="hidden" id="hdnSelectedOrderOrderPrice" value="0.00" />
-                            <input type="hidden" id="hdnSelectedOrderPickUpTime" value="" />
-                            <input type="hidden" id="hdnSelectedOrderPickUpSMSSentTime" value="" />
-
-                          
-                        </div>
-                        <div id="dvOrderInfo"></div>
-                        <div class="item-container">
-                            <div id="dvItem"></div>
-                        </div>
+                <div class="block right-side-area right-details-area">
+                    <div id="divUpperButtonArea">
+                        <!--<a class="custom-btn-two custom-bg custom-link item-media-section-two" style="background:#5cb95a !important;" onclick="Logout();">Accept</a>
+                    <a class="custom-btn-three custom-bg custom-link item-media-section-two" style="background:#303030 !important;" onclick="Logout();">SMS to Customer</a>-->
                     </div>
+                    <div style="text-align: center;font-size: 35px;">
+                        <span id="spanOrderDetailsOrderType"></span>
+                        <!--Change-->
+                        <div id="divOrderDetailsPickupTime"></div>
+                        <!--Change-->
+                    </div>
+                    <div class="">
+                        <div style="color: #e95861;text-align: center;font-size: 30px;"><span id="spanOrderDetailsOrderType"></span></div>
+                        <!--order-list-->
+                        <div class="">
+                            <div>
+                                <input type="hidden" id="hdnSelectedOrderId" value="0" />
+                                <input type="hidden" id="hdnSelectedOrderDateTime" value="" />
+                                <input type="hidden" id="hdnSelectedOrderOrderPrice" value="0.00" />
+                                <input type="hidden" id="hdnSelectedOrderPickUpTime" value="" />
+                                <input type="hidden" id="hdnSelectedOrderPickUpSMSSentTime" value="" />
 
+
+                            </div>
+                            <div id="dvOrderInfo"></div>
+                            <div class="item-container">
+                                <div id="dvItem"></div>
+                                <div id="divLowerCancelButtonArea" style="display:none;">
+                                    <a class="custom-btn-one custom-bg custom-link item-media-section-one" style="background:#e95861 !important;" onclick="OpenCancelOrderPopup();">Cancel Order</a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
             </div>
         </div>
+
 
         <!--Right Side Filter Sorting Panel-->
         <div class="panel panel-right panel-cover panel-menu" style="display: none;">
@@ -598,8 +631,8 @@
                 </div>
             </div>
         </div>
-        
-     
+
+
     </div>
 
 </div>
