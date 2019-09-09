@@ -44,6 +44,9 @@ body {
 .custom-tab-carryout{
     width:33.33%;
 }
+.custom-tab-carryout-new{
+    width:50%;
+}
 .tab-left
 {
     display:inline-block;
@@ -6499,7 +6502,7 @@ html.with-modal-preloader .page-content {
     display: inline-block;
     width: 20px;
     height: 20px;
-    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg%20viewBox%3D'0%200%20120%20120'%20x…%3D'.85'%20transform%3D'rotate(330%2060%2C60)'%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg%20viewBox%3D'0%200%20120%20120'%20xâ€¦%3D'.85'%20transform%3D'rotate(330%2060%2C60)'%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
     background-position: 50%;
     background-size: 100%;
     background-repeat: no-repeat;
