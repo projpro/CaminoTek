@@ -38,6 +38,24 @@ Template:		Vanille - Restaurant Reservations & Food Delivery Mobile Template
     font-size: 14px;
 }
 
+.right-side-area {
+	width:75%;
+	float:right;
+	height: 1280px;
+	
+}
+
+.left-side-area {
+	height: 2000px;
+	
+}
+
+.right-details-area{
+        position: absolute;
+    left: 25%;
+    overflow: scroll;
+    height: 710px;
+}
 
 img {
     display: block;
@@ -371,7 +389,16 @@ h4 {
 }
 
 /*===============================================*/
-/* 02. HOMEPAGE	 						    	 */
+.col-100 {width: 100%;}
+.col-75 {width: 75%;}
+.col-70 {width: 70%;}
+.col-65 {width: 65%;}
+.col-30 {width: 30%;}
+.col-20 {width: 20%;}
+
+
+					    
+						
 /*===============================================*/
 
 /** Navbar **/
@@ -789,6 +816,36 @@ h4 {
     text-align: center;
     display: block;
     /*margin:8px 15px 0 15px;*/
+}
+.custom-btn-one {
+    font-weight: 400;
+    padding: 10px 0px;
+    border-radius: 2px;
+    font-size: 21px;
+    text-transform: uppercase;
+    text-align: center;
+    display: block;
+	margin:0 0 0 130px;
+}
+
+.custom-btn-two {
+    font-weight: 400;
+    padding: 10px 0px;
+    border-radius: 2px;
+    font-size: 21px;
+    text-transform: uppercase;
+    text-align: center;
+    display: block;
+}
+.custom-btn-three {
+    font-weight: 400;
+    padding: 10px 0px;
+    border-radius: 2px;
+    font-size: 21px;
+    text-transform: uppercase;
+    text-align: center;
+    display: block;
+	margin: 30px 0 30px 0;
 }
 
 .custom-btn {
@@ -1236,11 +1293,12 @@ h4 {
     width: 100%;
 }
 
+
     .order-row-container:not(:first-child) {
         display: flex;
         /*flex-direction: column;*/
         width: 100%;
-        padding: 7px 0 0 0;
+        padding: 7px 0 30px 0;
     }
 
     .order-row-container:last-child {
@@ -1409,6 +1467,15 @@ h4 {
     color: #111111;
 }
 
+
+.order-number-carryout {
+   text-align:center;
+    /*width:33.33%;*/
+    font-weight: 600;
+    font-size: 22px;
+    color: #111111;
+}
+
 .order-status-icon {
     margin-top: 5px;
     font-weight: 400;
@@ -1438,6 +1505,13 @@ h4 {
     font-size: 13px;
     /*position: absolute;
     padding: 0 0 0 13px;*/
+}
+
+.popup-carryout-details-long {
+    display: inline-block;
+    width: 100%;
+    vertical-align: top;
+    padding-top: 5px;
 }
 
 .popup-carryout-details-one {
@@ -1477,6 +1551,18 @@ color: #3b9847;
     /* right: -39%; */
     padding-left: 61px;
 }
+.popup-label-left-new{
+color: #3b9847;
+    font-size: 15px;
+    padding-top: 80px;
+    width: 87%;
+    /* text-align: right; */
+    /* margin-right: 40px; */
+    position: absolute;
+    /* float: right; */
+    /* right: -39%; */
+    padding-left: 61px;
+}
 #coupon_list .order-pickup {
     margin-top: 0px;
     font-weight: 400;
@@ -1500,7 +1586,7 @@ color: #3b9847;
 .order-pickup {
     margin-top: 0px;
     font-weight: 400;
-    font-size: 26px;
+    font-size: 20px;
     color: #08b3c7;
     text-align: center;
 }
@@ -1513,6 +1599,13 @@ color: #3b9847;
     /*width:60%;*/
     display: inline-block;
     margin-top: 6px;
+}
+.order-pickup-new{
+    margin-top: 0px;
+    font-weight: 400;
+    font-size: 25px;
+    color: #08b3c7;
+    text-align: center;
 }
 
 #food_list .coupon-status-icon {
@@ -1530,18 +1623,19 @@ color: #3b9847;
 .order-details-pickup {
     margin-top: 0px;
     font-weight: 400;
-    font-size: 26px;
+    font-size: 35px;
     color: #08b3c7;
-    text-align: left;
-    width: 40%;
+    text-align: center;
+    width:100%;
 }
 
 .carryout-order-number {
-    width: 60%;
-    font-size: 18px;
+    width: 100%;
+    font-size: 19px;
     color: #111111;
     text-align: right;
     padding-right: 10px;
+	    margin: -70px 0 0 0;
 }
 
 .order-pickup-margin-top {
@@ -1628,6 +1722,11 @@ color: #3b9847;
     font-weight: 400;
 }
 
+.order-number-carryout span {
+    font-size: 13px;
+    font-weight: 400;
+}
+
 ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
     color: #212121;
     opacity: 1; /* Firefox */
@@ -1687,6 +1786,7 @@ color: #3b9847;
 #dvOrderInfo .list-icon {
     display: inline-block;
     max-width: 30%;
+	margin: -35px 0 0 0;
     /*margin-left: 22px;*/
 }
 #dvOrderInfo .dropdown-content .list-icon {
@@ -2026,7 +2126,7 @@ select:-moz-focusring {
     }
 
     #dvItem table td {
-        font-size: 16px;
+        font-size: 14px;
     }
 
 .menu-margin-right {
@@ -2101,7 +2201,7 @@ select:-moz-focusring {
     border: none;
     cursor: pointer;
     text-align: left;
-    margin-left: 20px;
+    margin-left: 0px;
 }
 /* Dropdown button on hover & focus */
 .dropbtn:hover, .dropbtn:focus {
@@ -2184,15 +2284,18 @@ position: relative;
     padding: 10px;
     display: inline-block;
 }
+
 .popup-link{
+
     display: inline-block;
     position: absolute;
-    top: 19px;
+    top: 17px;
     color: #000;
-    right: 47px;
+    right: 150px;
     font-size: 18px;
     /* text-decoration: underline; */
     border-bottom: 1px solid #000;
+	    margin: 15px 0 0 0;
 }
 
 .overlay {
@@ -2743,6 +2846,13 @@ position: relative;
     color: #111111;
 }
 
+#dvOrderInfo .giftcard-customer-new {
+    width: 60%;
+    font-size: 14px;
+    font-weight: 400;
+    color: #111111;
+}
+
 .giftcard-customer {
     width: 65%;
     font-size: 14px;
@@ -2751,13 +2861,22 @@ position: relative;
 }
 
 .giftcard-price {
-    font-size: 22px;
+    font-size: 30px;
     font-weight: 500;
     color: #3b9847;
 }
 
 #dvOrderInfo .giftcard-item-count {
     width: 50%;
+    font-size: 14px;
+    font-weight: 400;
+    color: #111111;
+    text-align: right;
+    padding-right: 10px;
+}
+
+#dvOrderInfo .giftcard-item-count-new {
+    width: 40%;
     font-size: 14px;
     font-weight: 400;
     color: #111111;
@@ -2936,6 +3055,10 @@ position: relative;
 .item-media-section {
     width: 96%;
 }
+.item-media-section-one {
+	width: 50%;
+}
+
 #reward_new .item-media-section {
     width: 100%;
 }
@@ -2964,7 +3087,7 @@ position: relative;
     width:45%;
 }
 .col-25{
-    width:30%;
+    width:25%;
 }
 #ddlCCMonth option { color: #212121; }
 #ddlCCYear option { color: #212121; }
@@ -3228,8 +3351,17 @@ position: relative;
         font-size: 14px;
         width:100%;
     }
-
+    
         .order-number span {
+            font-size: 12px;
+        }
+                
+    .order-number-carryout {
+        font-size: 14px;
+        width:100%;
+    }
+    
+    .order-number-carryout span {
             font-size: 12px;
         }
 
@@ -3528,6 +3660,17 @@ h2 {
     left: 22%;
    
 }
+}
+
+@media (max-width:601px) {
+    .popup-link {right: 107px;margin: 0px 0 0 0;}
+}
+
+@media (max-width:539px) {
+	.order-details-pickup {
+		font-size:20px;
+	}
+	.popup-link {right: 90px;margin: 0px 0 0 0;}
 }
 @media (min-width:801px) and (max-width:1024px) {
     .footer-icon {
