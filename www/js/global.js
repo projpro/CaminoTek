@@ -1,6 +1,6 @@
 //var global = "http://www.appnotification.bistroux.com/Api/App/";
-var global = "http://www.consumerapp.bistroux.com/Api/App/";
-//var global = "http://192.168.1.6/Api/App/";
+//var global = "http://www.consumerapp.bistroux.com/Api/App/";
+var global = "http://192.168.1.6/Api/App/";
 var mediaURL = "http://appnotification.bistroux.com/Media/";
 
 var browser = true;
@@ -1810,11 +1810,12 @@ function OpenCarryoutDetails(id) {
                 ////$('#dvDetailsPanel').html($('#carryout #dvCarryOutDetailsInner').html());
 
             });
-            if (currentTabId == 1) {
+            var currentOpenTabId = $("#carryout .tab-active").attr('id');
+            if (currentOpenTabId == 1) {
                 var divDetails = $('#dvCarryOutDetailsInner').detach();
                 divDetails.appendTo('#divTabCurrentDetails');
 
-            } else if (currentTabId == 3) {
+            } else if (currentOpenTabId == 3) {
                 //$("#divTabAllDetails").html($("#dvCarryOutDetailsInner").html());
                 var divDetails = $('#dvCarryOutDetailsInner').detach();
                 divDetails.appendTo('#divTabAllDetails');
