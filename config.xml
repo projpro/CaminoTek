@@ -50,7 +50,7 @@
     <variable name="API_KEY_FOR_ANDROID" value="AIzaSyBJZvmtBkzgIFt4YKxn9YaFgFzow9wkTOk" />
     <variable name="API_KEY_FOR_IOS" value="AIzaSyBFxZQaz73onx2qvWPDLq0asFflKiuPb-s" />
     <variable name="PLAY_SERVICES_VERSION" value="11.8.0" />
-    <plugin source="git" spec="https://github.com/floatinghotpot/cordova-admob-pro" />
+    
     <plugin name="cordova-plugin-network-information" source="npm" />
     <plugin name="cordova-universal-clipboard" source="npm" />
     <plugin name="cordova-plugin-x-toast" />
