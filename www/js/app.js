@@ -288,7 +288,14 @@ $$(document).on('page:init', function (e) {
                 currentPage = localStorage.getItem("CurrentPage");
                 currentPage = Number(currentPage) + 1;
                 // console.log("currentPage: " + currentPage);
-                CarryoutOrdersListPagination('New', pageSize, currentPage, 'dvAllList');
+                var currenttab = $$("#hdnCurrentState").val();
+                //alert(currenttab);
+                if (currenttab == "New") {
+                    CarryoutOrdersListPaginationCurrent('New', pageSize, currentPage, 'dvNewList');
+                }
+                else {
+                    CarryoutOrdersListPagination('New', pageSize, currentPage, 'dvAllList');
+                }                
                 localStorage.setItem("CurrentPage", currentPage);
             }
             else {
@@ -483,7 +490,7 @@ $$(document).on('page:init', function (e) {
              console.log("Scanning failed: " + error);
          },
          {
-             preferFrontCamera: false, // iOS and Android
+             preferFrontCamera: true, // iOS and Android
              showFlipCameraButton: true, // iOS and Android
              formats: "CODE_128"
          }
@@ -502,15 +509,15 @@ $$(document).on('page:init', function (e) {
               console.log("Scanning failed: " + error);
           },
           {
-              preferFrontCamera: false, // iOS and Android
+              preferFrontCamera: true, // iOS and Android
               showFlipCameraButton: true, // iOS and Android
-              showTorchButton: true, // iOS and Android
+              showTorchButton: false, // iOS and Android
               torchOn: false, // Android, launch with the torch switched on (if available)
               saveHistory: true, // Android, save scan history (default false)
               prompt: "Place a barcode inside the scan area", // Android
               resultDisplayDuration: 500, // Android, display scanned text for X ms. 0 suppresses it entirely, default 1500
               //formats: "QR_CODE,PDF_417,CODABAR,CODE_128,CODE_93,CODE_39", // default: all but PDF_417 and RSS_EXPANDED
-              //orientation: "portrait", // Android only (portrait|landscape), default unset so it rotates with the device
+              orientation: "portrait", // Android only (portrait|landscape), default unset so it rotates with the device
               disableAnimations: true, // iOS
               disableSuccessBeep: false // iOS and Android
           }
@@ -529,15 +536,15 @@ $$(document).on('page:init', function (e) {
               console.log("Scanning failed: " + error);
           },
           {
-              preferFrontCamera: false, // iOS and Android
+              preferFrontCamera: true, // iOS and Android
               showFlipCameraButton: true, // iOS and Android
-              showTorchButton: true, // iOS and Android
+              showTorchButton: false, // iOS and Android
               torchOn: false, // Android, launch with the torch switched on (if available)
               saveHistory: true, // Android, save scan history (default false)
               prompt: "Place a barcode inside the scan area", // Android
               resultDisplayDuration: 500, // Android, display scanned text for X ms. 0 suppresses it entirely, default 1500
               //formats: "QR_CODE,PDF_417,CODABAR,CODE_128,CODE_93,CODE_39", // default: all but PDF_417 and RSS_EXPANDED
-              //orientation: "portrait", // Android only (portrait|landscape), default unset so it rotates with the device
+              orientation: "portrait", // Android only (portrait|landscape), default unset so it rotates with the device
               disableAnimations: true, // iOS
               disableSuccessBeep: false // iOS and Android
           }
@@ -835,15 +842,15 @@ $$(document).on('page:init', function (e) {
               console.log("Scanning failed: " + error);
           },
           {
-              preferFrontCamera: false, // iOS and Android
+              preferFrontCamera: true, // iOS and Android
               showFlipCameraButton: true, // iOS and Android
-              showTorchButton: true, // iOS and Android
+              showTorchButton: false, // iOS and Android
               torchOn: false, // Android, launch with the torch switched on (if available)
               saveHistory: true, // Android, save scan history (default false)
               prompt: "Place a barcode inside the scan area", // Android
               resultDisplayDuration: 500, // Android, display scanned text for X ms. 0 suppresses it entirely, default 1500
               //formats: "QR_CODE,PDF_417,CODABAR,CODE_128,CODE_93,CODE_39", // default: all but PDF_417 and RSS_EXPANDED
-              //orientation: "portrait", // Android only (portrait|landscape), default unset so it rotates with the device
+              orientation: "portrait", // Android only (portrait|landscape), default unset so it rotates with the device
               disableAnimations: true, // iOS
               disableSuccessBeep: false // iOS and Android
           }
@@ -862,15 +869,15 @@ $$(document).on('page:init', function (e) {
               console.log("Scanning failed: " + error);
           },
           {
-              preferFrontCamera: false, // iOS and Android
+              preferFrontCamera: true, // iOS and Android
               showFlipCameraButton: true, // iOS and Android
-              showTorchButton: true, // iOS and Android
+              showTorchButton: false, // iOS and Android
               torchOn: false, // Android, launch with the torch switched on (if available)
               saveHistory: true, // Android, save scan history (default false)
               prompt: "Place a barcode inside the scan area", // Android
               resultDisplayDuration: 500, // Android, display scanned text for X ms. 0 suppresses it entirely, default 1500
               //formats: "QR_CODE,PDF_417,CODABAR,CODE_128,CODE_93,CODE_39", // default: all but PDF_417 and RSS_EXPANDED
-              //orientation: "portrait", // Android only (portrait|landscape), default unset so it rotates with the device
+              orientation: "portrait", // Android only (portrait|landscape), default unset so it rotates with the device
               disableAnimations: true, // iOS
               disableSuccessBeep: false // iOS and Android
           }
