@@ -536,7 +536,7 @@ function CarryoutOrdersList(status, carryoutpagesize, carryoutcurrentPage, divId
                         /*-----------------Status Icon End----------------*/
 
                         //html += "<div class=\"order-number-carryout panel-open\" onclick=\"OpenCarryoutDetails(" + value.ID + ");\">#" + value.ID + "<span></div>";
-                        html += "<div class=\"order-number-carryout\" onclick=\"OpenCarryoutDetails(" + value.ID + ");\" style=\"font-size: 18px; white-space: nowrap;\">" + firstName + " " + lastName + "</div>";
+                        html += "<div class=\"order-number-carryout\" onclick=\"OpenCarryoutDetails(" + value.ID + ");\" style=\"white-space: nowrap;\">" + firstName + " " + lastName + "</div>";
 
                         if (value.PICKUPTIME != undefined) {
                             var pickupdatetime = value.PICKUPTIME;
@@ -942,7 +942,7 @@ function CarryoutOrdersListPagination(status, carryoutpagesize, carryoutcurrentP
                         /*-----------------Status Icon End----------------*/
 
                         //html += "<div class=\"order-number-carryout panel-open\" onclick=\"OpenCarryoutDetails(" + value.ID + ");\">#" + value.ID + "<span></div>";
-                        html += "<div class=\"order-number-carryout\" onclick=\"OpenCarryoutDetails(" + value.ID + ");\" style=\"font-size: 18px; white-space: nowrap;\">" + firstName + " " + lastName + "</div>";
+                        html += "<div class=\"order-number-carryout\" onclick=\"OpenCarryoutDetails(" + value.ID + ");\" style=\"white-space: nowrap;\">" + firstName + " " + lastName + "</div>";
 
                         if (value.PICKUPTIME != undefined) {
                             var pickupdatetime = value.PICKUPTIME;
@@ -1522,7 +1522,7 @@ function OpenCarryoutDetails(id) {
                 $("#divOrderDetailsPickupTime").html("");
                 $("#divOrderDetailsPickupTime").html(orderPickupTimeHtml);
 
-                orderhtml += "<div class=\"carryout-order-number\"><span class=\"order-number\" style=\"font-size:30px;\"> #" + orderId + "</span><br/> " + orderDate + " @ " + orderTime + "</div>";
+                orderhtml += "<div class=\"carryout-order-number\"><span class=\"order-number\"> #" + orderId + "</span><br/> " + orderDate + " @ " + orderTime + "</div>";
                 orderhtml += "</div>";
                 /*------------------Column 2 New End-----------------------*/
 
@@ -2102,7 +2102,7 @@ function CarryoutOrdersListCurrent(status, carryoutpagesize, carryoutcurrentPage
                         /*-----------------Status Icon End----------------*/
 
                         //html += "<div class=\"order-number-carryout panel-open\" onclick=\"OpenCarryoutDetails(" + value.ID + ");\">#" + value.ID + "<span></div>";
-                        html += "<div class=\"order-number-carryout\" onclick=\"OpenCarryoutDetails(" + value.ID + ");\" style=\"font-size: 18px; white-space: nowrap;\">" + firstName + " " + lastName + "</div>";
+                        html += "<div class=\"order-number-carryout\" onclick=\"OpenCarryoutDetails(" + value.ID + ");\" style=\"white-space: nowrap;\">" + firstName + " " + lastName + "</div>";
 
                         if (value.PICKUPTIME != undefined) {
                             var pickupdatetime = value.PICKUPTIME;
@@ -2508,7 +2508,7 @@ function CarryoutOrdersListPaginationCurrent(status, carryoutpagesize, carryoutc
                         /*-----------------Status Icon End----------------*/
 
                         //html += "<div class=\"order-number-carryout panel-open\" onclick=\"OpenCarryoutDetails(" + value.ID + ");\">#" + value.ID + "<span></div>";
-                        html += "<div class=\"order-number-carryout\" onclick=\"OpenCarryoutDetails(" + value.ID + ");\" style=\"font-size: 18px; white-space: nowrap;\">" + firstName + " " + lastName + "</div>";
+                        html += "<div class=\"order-number-carryout\" onclick=\"OpenCarryoutDetails(" + value.ID + ");\" style=\"white-space: nowrap;\">" + firstName + " " + lastName + "</div>";
 
                         if (value.PICKUPTIME != undefined) {
                             var pickupdatetime = value.PICKUPTIME;
@@ -4399,7 +4399,7 @@ function LoadGiftCard() {
 
        
         try {
-            if ($('#hdnSearchCardType').val().toUpperCase() == "BISTROUX")
+            if ($('#hdnSearchCardType').val().toUpperCase() != "STORE")
             {
                 OpenGiftCardPaymentPopup();
             }
@@ -4741,6 +4741,8 @@ function LoadNewGiftCard() {
 function AddUpdateGiftCardRecord(exists, gcamount, giftcardId, cardcode, cardType, ccName, ccNumber, cvv, expMonth, expYear, paymentType) {
     var storeId = 0;
     storeId = SetStoreId();
+    var loggedInUserId = 0;
+    loggedInUserId = window.localStorage.getItem("CustomerId");
     var cardCode = $('#tab-giftcard-new #txtCardCode').val();
     var phone = $('#tab-giftcard-new #txtPhone').val();
     if (phone == '') {
@@ -4769,7 +4771,7 @@ function AddUpdateGiftCardRecord(exists, gcamount, giftcardId, cardcode, cardTyp
             var name = encodeURIComponent($('#tab-giftcard-new #txtName').val());
             var url = global + "/AddUpdateGiftCardRecord?storeid=" + storeId + "&giftCardCode=" + encodeURIComponent(cardCode) + "&giftcardId=" + giftcardId + "&phone=" + phone + "&amount=" + amount
                 + "&email=" + email + "&name=" + name + "&giftCardExists=" + exists + "&gcamount=" + gcamount + "&cardType=" + cardType +
-                "&ccName=" + ccName + "&ccNumber=" + ccNumber + "&cvv=" + cvv + "&expMonth=" + expMonth + "&expYear=" + expYear + "&paymentType=" + paymentType;
+                "&ccName=" + ccName + "&ccNumber=" + ccNumber + "&cvv=" + cvv + "&expMonth=" + expMonth + "&expYear=" + expYear + "&paymentType=" + paymentType + "&loggedInUserId=" + loggedInUserId;
             //console.log('name: '+name)
             var totalHistoryAmount = 0;
             $.getJSON(url, function (data) {
