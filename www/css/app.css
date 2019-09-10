@@ -1463,7 +1463,7 @@ h4 {
     /*text-align:center;*/
     /*width:33.33%;*/
     font-weight: 600;
-    font-size: 18px;
+    font-size: 30px;
     color: #111111;
 }
 
@@ -1472,7 +1472,7 @@ h4 {
    text-align:center;
     /*width:33.33%;*/
     font-weight: 600;
-    font-size: 22px;
+    font-size: 18px;
     color: #111111;
 }
 
@@ -3348,7 +3348,7 @@ position: relative;
     }
 
     .order-number {
-        font-size: 14px;
+        font-size: 18px;
         width:100%;
     }
     
@@ -3559,9 +3559,9 @@ position: relative;
 .col-45{
     width:100%;
 }
-.col-25{
-    width:50%;
-}
+    .order-pickup-new {
+        font-size: 18px;
+    }
 
     .popup-col-4{
     width:100%;
@@ -3634,6 +3634,7 @@ position: relative;
 .popup-link {
     top: 4px;
     right: 0px;
+    margin: 10px -40px 0 0 !important;
 }
 .popup-cancel-button {
   
@@ -3650,6 +3651,19 @@ h2 {
 #cancelOrder {
     left: 3%;
 }
+    .item-media-section-one {
+        width: 75%;
+    }
+    .custom-btn-one {
+            margin: 0 0 0 50px;
+    }
+    #dvOrderInfo .dropbtn {
+            background: none;
+    }
+    .carryout-order-number {
+            margin: -58px 0 0 0;
+    }
+
 }
 @media (min-width:768px) and (max-width:800px) {
     .footer-icon {
@@ -3661,7 +3675,9 @@ h2 {
    
 }
 }
-
+@media (max-width:610px) {
+    .popup-link {right: 107px;margin: 0px 0 0 0;}
+}
 @media (max-width:601px) {
     .popup-link {right: 107px;margin: 0px 0 0 0;}
 }
