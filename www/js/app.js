@@ -670,6 +670,7 @@ $$(document).on('page:init', function (e) {
             }
         });
 
+
         //$$('input[type=radio][name=paymentPopupType]').change(function () {
         //    alert("hello");
         //    if (this.value.toUpperCase() == 'CARD') {
