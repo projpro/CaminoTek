@@ -4136,6 +4136,7 @@ function SearchGiftCard() {
                 $('#tblRedeemHistory tbody').html("");
                 var totalHistoryAmount = 0;
                 $.getJSON(url, function (data) {
+                    console.log(data);
                     $('#tblRedeemHistory tbody').html("");
                     //console.log(data);
                     //console.log(data.replace(/"/g, "").indexOf("Invalid Card Code."));
@@ -4559,6 +4560,20 @@ function LoadNewGiftCard() {
                         }
                         else {
                             if (obj.CardType.toUpperCase() != "STORE") {
+                                $("#liPaymentType").show();
+                                var checkedPaymentType = $("input[name='paymentType']:checked").val();
+                                if (checkedPaymentType.toUpperCase() == 'CARD') {
+                                    //$("#paymentTypeCard").prop("checked", true);
+                                    $$("#liCCName").show();
+                                    $$("#liCCNo").show();
+                                    $$("#hdnSelectedPaymentType").val("Credit Card");
+                                }
+                                else if (checkedPaymentType.toUpperCase() == 'CASH') {
+                                    $$("#liCCName").hide();
+                                    $$("#liCCNo").hide();
+                                    $$("#hdnSelectedPaymentType").val("Cash");
+                                }
+                                
                                 var ccName = $("#txtCCName").val().trim();
                                 var ccNumber = $("#txtCCNumber").val().trim();
                                 var cvv = $("#txtCVV").val().trim();
