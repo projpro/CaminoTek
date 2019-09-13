@@ -300,6 +300,25 @@ $$(document).on('page:init', function (e) {
             }
             else {
                 // $('#loader_msg').html("");
+                var currentPageCount = localStorage.getItem("CurrentPage");
+                console.log("Storage CurrentPage: " + currentPageCount + " CurrentPage: " + currentPage);
+                if (currentPageCount == currentPage) {
+                    var isLoaded = false;
+                    $('#dvAllList').each(function () {
+                        if ($(this).children('#divAfterEndScroll').length) {
+                            isLoaded = true;
+                            //alert("Loded");
+                        }
+
+                    });
+                    if (!isLoaded)
+                    {
+                        localStorage.setItem("IsLoaded", "True");
+                        for (var c = 0; c <= 15; c++) {
+                            $('#dvAllList').append("<div class=\"order-container\" style=\"height:75px;border-bottom: none !important;\" id=\"divAfterEndScroll\"><div class=\"order-list-carryout\" data-popup=\".popup-details\"><div class=\"order-number-carryout\" style=\"white-space: nowrap;\"></div><div class=\"order-pickup-new\"></div></div></div>");
+                        }
+                    }                    
+                }                                
             }
 
         });
