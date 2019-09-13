@@ -1,5 +1,5 @@
-//var global = "http://www.appnotification.bistroux.com/Api/App/";
-var global = "http://www.consumerapp.bistroux.com/Api/App/";
+var global = "http://www.appnotification.bistroux.com/Api/App/";
+//var global = "http://www.consumerapp.bistroux.com/Api/App/";
 //var global = "http://192.168.1.6/Api/App/";
 var mediaURL = "http://appnotification.bistroux.com/Media/";
 
@@ -378,6 +378,8 @@ function CarryoutOrdersList(status, carryoutpagesize, carryoutcurrentPage, divId
                         if (index == 0) {
                             firstOrderId = value.ID;
                             OpenCarryoutDetails(firstOrderId);
+                            $('.order-container').removeClass("selected-order-background");
+                            $('#li_' + firstOrderId).addClass("selected-order-background");
                         }
                         var orderDate = "";
                         var orderTime = "";
@@ -676,12 +678,33 @@ function CarryoutOrdersList(status, carryoutpagesize, carryoutcurrentPage, divId
                         //console.log(html)
                         $("#" + divId).append(html);
 
+                        if (value.ORDERSTATUSID.toLowerCase() == "new") {
+                            $("#li_" + value.ID + "").css("background-color", "#ffecf2");
+                        }
+                        else if (value.ORDERSTATUSID.toLowerCase() == "processing") {
+                            $("#li_" + value.ID + "").css("background-color", "#e9feff");
+                        }
+                        else if (value.ORDERSTATUSID.toLowerCase() == "complete") {
+                            $("#li_" + value.ID + "").css("background-color", "#ebffef");
+                        }
+                        else if (value.ORDERSTATUSID.toLowerCase() == "pickedup") {
+                            $("#li_" + value.ID + "").css("background-color", "#fff7e9");
+                        }
+                        else if (value.ORDERSTATUSID.toLowerCase() == "cancelled") {
+                            $("#li_" + value.ID + "").css("background-color", "#ffecf2");
+                        }
 
                     });
+                    //if (index == 0) {
+                    //    firstOrderId = value.ID;
+                    //    OpenCarryoutDetails(firstOrderId);
+                        $('.order-container').removeClass("selected-order-background");
+                        $('#li_' + firstOrderId).addClass("selected-order-background");
+                    //}
                 }
                 else {
                     localStorage.setItem("OrderAvailable", "0");
-                    var html = "<div class=\"order-list list-empty-label-text\">No Orders</div>";
+                    var html = "<div class=\"order-list list-empty-label-text\" style=\"font-size: 30px; z-index: 999999; left: 38%; position: fixed;\">No Orders</div>";
 
                     $("#" + divId).html(html);
 
@@ -1082,6 +1105,21 @@ function CarryoutOrdersListPagination(status, carryoutpagesize, carryoutcurrentP
 
                         $("#" + divId).append(html);
 
+                        if (value.ORDERSTATUSID.toLowerCase() == "new") {
+                            $("#li_" + value.ID + "").css("background-color", "#ffecf2");
+                        }
+                        else if (value.ORDERSTATUSID.toLowerCase() == "processing") {
+                            $("#li_" + value.ID + "").css("background-color", "#e9feff");
+                        }
+                        else if (value.ORDERSTATUSID.toLowerCase() == "complete") {
+                            $("#li_" + value.ID + "").css("background-color", "#ebffef");
+                        }
+                        else if (value.ORDERSTATUSID.toLowerCase() == "pickedup") {
+                            $("#li_" + value.ID + "").css("background-color", "#fff7e9");
+                        }
+                        else if (value.ORDERSTATUSID.toLowerCase() == "cancelled") {
+                            $("#li_" + value.ID + "").css("background-color", "#ffecf2");
+                        }
 
                     });
 
@@ -1089,7 +1127,9 @@ function CarryoutOrdersListPagination(status, carryoutpagesize, carryoutcurrentP
                 }
                 else {
                     localStorage.setItem("OrderAvailable", "0");
+                    //var html = "<div class=\"order-list list-empty-label-text\" style=\"font-size: 30px; z-index: 999999; left: 38%; position: fixed;\">No Orders</div>";
 
+                    //$("#" + divId).html(html);
                 }
 
 
@@ -1107,6 +1147,8 @@ function CarryoutOrdersListPagination(status, carryoutpagesize, carryoutcurrentP
 }
 //Carryout Details
 function OpenCarryoutDetails(id) {
+    $('.order-container').removeClass("selected-order-background");
+    $('#li_' + id).addClass("selected-order-background");
     var currentTabId = $(".tab-active").attr('id');
     $("#dvCarryOutDetailsInner #hdnSelectedOrderId").val(id);
     var storeId = SetStoreId();
@@ -1379,7 +1421,7 @@ function OpenCarryoutDetails(id) {
                         orderhtml += "<div id=\"myPopupDropdown_" + orderId + "\" class=\"dropdown-content\"><div onclick=\"HidePopupStatusChangeDropdown(" + orderId + ");\" id =\"close_status_dropdown\" class=\"close_status_dropdown\">X</div>";
                         orderhtml += "<a onclick=\"ChangePopupOrderStatusDropdown('Processing'," + orderId + "," + storeId + ")\"><img class=\"list-icon\"  src=\"img/icons/pending.png\" alt=\"\"/> <span class=\"custom-dropdown-span\">Processing</span></a>";
                         orderhtml += "<a onclick=\"ChangePopupOrderStatusDropdown('Complete'," + orderId + "," + storeId + ")\"><img class=\"list-icon\"  src=\"img/icons/Complete-Icon.png\" alt=\"\"/> <span class=\"custom-dropdown-span\">Complete</span></a>";
-                        orderhtml += "<a onclick=\"ChangePopupOrderStatusDropdown('PickedUp'," + orderId + "," + storeId + ")\"><img class=\"list-icon\"  src=\"img/icons/Picked-Up-Icon.png\" alt=\"\"/><span class=\"custom-dropdown-span\">Picked Up</span></a>";
+                        orderhtml += "<a onclick=\"ChangePopupOrderStatusDropdown('PickedUp'," + orderId + "," + storeId + ")\"><img class=\"list-icon\"  src=\"img/icons/Picked-Up-Icon.png\" alt=\"\"/><span class=\"custom-dropdown-span\">Pick Up</span></a>";
                         orderhtml += "</div>";
                         orderhtml += "</div>";
 
@@ -1395,7 +1437,7 @@ function OpenCarryoutDetails(id) {
                         orderhtml += "<div id=\"myPopupDropdown_" + orderId + "\" class=\"dropdown-content\"><div onclick=\"HidePopupStatusChangeDropdown(" + orderId + ");\" id =\"close_status_dropdown\" class=\"close_status_dropdown\">X</div>";
                         orderhtml += "<a  class=\"status-disabled\" onclick=\"HidePopupStatusChangeDropdown(" + orderId + ");\"><img class=\"list-icon\"  src=\"img/icons/pending.png\" alt=\"\"/> <span class=\"custom-dropdown-span\">Processing</span></a>";
                         orderhtml += "<a onclick=\"ChangePopupOrderStatusDropdown('Complete'," + orderId + "," + storeId + ")\"><img class=\"list-icon\"  src=\"img/icons/Complete-Icon.png\" alt=\"\"/> <span class=\"custom-dropdown-span\">Complete</span></a>";
-                        orderhtml += "<a  onclick=\"ChangePopupOrderStatusDropdown('PickedUp'," + orderId + "," + storeId + ")\"><img class=\"list-icon\"  src=\"img/icons/Picked-Up-Icon.png\" alt=\"\"/><span class=\"custom-dropdown-span\">Picked Up</span></a>";
+                        orderhtml += "<a  onclick=\"ChangePopupOrderStatusDropdown('PickedUp'," + orderId + "," + storeId + ")\"><img class=\"list-icon\"  src=\"img/icons/Picked-Up-Icon.png\" alt=\"\"/><span class=\"custom-dropdown-span\">Pick Up</span></a>";
                         orderhtml += "</div>";
                         orderhtml += "</div>";
 
@@ -1410,12 +1452,12 @@ function OpenCarryoutDetails(id) {
                         orderhtml += "<div id=\"myPopupDropdown_" + orderId + "\" class=\"dropdown-content\"><div onclick=\"HidePopupStatusChangeDropdown(" + orderId + ");\" id =\"close_status_dropdown\" class=\"close_status_dropdown\">X</div>";
                         orderhtml += "<a onclick=\"ChangePopupOrderStatusDropdown('Processing'," + orderId + "," + storeId + ")\"><img class=\"list-icon\"  src=\"img/icons/pending.png\" alt=\"\"/> <span class=\"custom-dropdown-span\">Processing</span></a>";
                         orderhtml += "<a class=\"status-disabled\" onclick=\"HidePopupStatusChangeDropdown(" + orderId + ");\"><img class=\"list-icon\"  src=\"img/icons/Complete-Icon.png\" alt=\"\"/> <span class=\"custom-dropdown-span\">Complete</span></a>";
-                        orderhtml += "<a  onclick=\"ChangePopupOrderStatusDropdown('PickedUp'," + orderId + "," + storeId + ")\"><img class=\"list-icon\"  src=\"img/icons/Picked-Up-Icon.png\" alt=\"\"/><span class=\"custom-dropdown-span\">Picked Up</span></a>";
+                        orderhtml += "<a  onclick=\"ChangePopupOrderStatusDropdown('PickedUp'," + orderId + "," + storeId + ")\"><img class=\"list-icon\"  src=\"img/icons/Picked-Up-Icon.png\" alt=\"\"/><span class=\"custom-dropdown-span\">Pick Up</span></a>";
                         orderhtml += "</div>";
                         orderhtml += "</div>";
 
                         //Set Details Upper Button
-                        upperButtonHtml = "<a class=\"custom-btn-two custom-bg custom-link item-media-section-two\" style=\"background:#f7952c !important;\" onclick=\"ChangePopupOrderStatusDropdown('PickedUp'," + orderId + "," + storeId + ")\">PickedUp</a>";
+                        upperButtonHtml = "<a class=\"custom-btn-two custom-bg custom-link item-media-section-two\" style=\"background:#f7952c !important;\" onclick=\"ChangePopupOrderStatusDropdown('PickedUp'," + orderId + "," + storeId + ")\">Pick Up</a>";
                         //Send SMS Button
                         upperButtonHtml += "<a id=\"aPopupSMS_" + orderId + "\" class=\"custom-btn-three custom-bg custom-link item-media-section-two\" style=\"background:#303030 !important;\" onclick=\"ConfirmationPickUpSMSSend(" + orderId + ",'" + phone + "','Popup','$0.00')\">SMS to Customer</a>";
                         $("#divUpperButtonArea").html(upperButtonHtml);
@@ -1427,7 +1469,7 @@ function OpenCarryoutDetails(id) {
                         orderhtml += "<div id=\"myPopupDropdown_" + orderId + "\" class=\"dropdown-content\"><div onclick=\"HidePopupStatusChangeDropdown(" + orderId + ");\" id =\"close_status_dropdown\" class=\"close_status_dropdown\">X</div>";
                         orderhtml += "<a onclick=\"ChangePopupOrderStatusDropdown('Processing'," + orderId + "," + storeId + ")\"><img class=\"list-icon\"  src=\"img/icons/pending.png\" alt=\"\"/> <span class=\"custom-dropdown-span\">Processing</span></a>";
                         orderhtml += "<a onclick=\"ChangePopupOrderStatusDropdown('Complete'," + orderId + "," + storeId + ")\"><img class=\"list-icon\"  src=\"img/icons/Complete-Icon.png\" alt=\"\"/> <span class=\"custom-dropdown-span\">Complete</span></a>";
-                        orderhtml += "<a class=\"status-disabled\"  onclick=\"HidePopupStatusChangeDropdown(" + orderId + ");\"><img class=\"list-icon\"  src=\"img/icons/Picked-Up-Icon.png\" alt=\"\"/><span class=\"custom-dropdown-span\">Picked Up</span></a>";
+                        orderhtml += "<a class=\"status-disabled\"  onclick=\"HidePopupStatusChangeDropdown(" + orderId + ");\"><img class=\"list-icon\"  src=\"img/icons/Picked-Up-Icon.png\" alt=\"\"/><span class=\"custom-dropdown-span\">Pick Up</span></a>";
                         orderhtml += "</div>";
                         orderhtml += "</div>";
 
@@ -1697,7 +1739,12 @@ function OpenCarryoutDetails(id) {
                             ////orderhtml += "<div class=\"display-label-wrap\">" + zip + "</div>";
                         }
                     }
-                    orderhtml += "<div class=\"display-label-wrap\">" + customerFinalAddress + "</div>";
+                    if (customerFinalAddress != "" && customerFinalAddress != "undefined") {
+                        orderhtml += "<div class=\"display-label-wrap\">" + customerFinalAddress + "</div>";
+                    }
+                    else {
+                        orderhtml += "<div class=\"display-label-wrap\"></div>";
+                    }
                 }
 
                 orderhtml += "</div>";
@@ -1931,7 +1978,6 @@ function CarryoutOrdersListCurrent(status, carryoutpagesize, carryoutcurrentPage
             "&filterStatus=" + filterStatus + "&orderNoFrom=" + orderNoFrom + "&orderNoTo=" + orderNoTo + "&phone=" + phone + "&orderDateFrom=" + orderDateFrom + "&orderDateTo=" + orderDateTo;
 
         try {
-
             $.getJSON(url, function (data) {
                 $('#loader_msg').html("");
                 var obj = JSON.parse(data);
@@ -2247,7 +2293,7 @@ function CarryoutOrdersListCurrent(status, carryoutpagesize, carryoutcurrentPage
                 }
                 else {
                     localStorage.setItem("OrderAvailable", "0");
-                    var html = "<div class=\"order-list list-empty-label-text\">No Orders</div>";
+                    var html = "<div class=\"order-list list-empty-label-text\" style=\"font-size: 30px; z-index: 999999; left: 38%; position: fixed;\">No Orders</div>";
 
                     $("#" + divId).html(html);
 
@@ -4173,7 +4219,7 @@ function SearchGiftCard() {
                         $('#dvOuter').hide();
                         $('#dvOuterText').html("");
                         $("#txtPINSearch").val("");
-                        callSweetAlertWarning("Multiline text", "Gift Card was used, \n Please use New screen to create the new Card.".replace("\n", '<br>'));
+                        callSweetAlertWarning("Gift Card was never used, Please use New screen to create the new Card.");
                     }
                     else if (data.replace(/"/g, "").indexOf("Invalid Card Code.") > -1) {
                         //$('#btnLoadReward').prop("disabled", true);
@@ -4541,7 +4587,7 @@ function LoadNewGiftCard() {
                             callSweetAlertWarning("Gift Card is NOT Active. Please call (614)356-8000 to activate the Card.");                            
                         }
                         else {
-                            callSweetAlertWarning("Gift Card Balance = $" + obj.Amount + "\n Please use Load screen to load additional amounts.");
+                            callSweetAlertWarning("Gift Card Balance = $" + obj.Amount + " Please use Load screen to load additional amounts.");
                         }
                         $("#txtCardCode").val("");
                         $("#txtCardCode").css('border-bottom', errorClassBorder);
@@ -4551,7 +4597,7 @@ function LoadNewGiftCard() {
                     }
                     else {
                         if (obj.IsGiftCardActivated != undefined && obj.IsGiftCardActivated == true) {
-                            callSweetAlertWarning("Gift Card was used before, current Balance = $0. \n Please use Load screen to load additional amounts.");
+                            callSweetAlertWarning("Gift Card was used before, current Balance = $0. Please use Load screen to load additional amounts.");
                             $("#txtCardCode").val("");
                             $("#txtCardCode").css('border-bottom', errorClassBorder);
                             $('#btnAddCard').text("Add Card");
@@ -4762,6 +4808,7 @@ function AddUpdateGiftCardRecord(exists, gcamount, giftcardId, cardcode, cardTyp
     if (isEmail("#tab-giftcard-new #txtEmail") == true) {
         var customerId = "0";
         $('#btnAddCard').text("Adding Card...");
+        $("#btnAddCard").attr("disabled", true);
         try {
             if (localStorage.getItem("CustomerId") != null) {
                 customerId = localStorage.getItem("CustomerId").trim();
@@ -4776,6 +4823,7 @@ function AddUpdateGiftCardRecord(exists, gcamount, giftcardId, cardcode, cardTyp
             var totalHistoryAmount = 0;
             $.getJSON(url, function (data) {
                 $('#btnAddCard').text("Add Card");
+                $("#btnAddCard").attr("disabled", false);
                 $("#tab-giftcard-new #txtCardCode").css('border-bottom', bottomBorder);
                 $("#tab-giftcard-new #txtAmount").css('border-bottom', bottomBorder);
                 $("#tab-giftcard-new #txtPhone").css('border-bottom', bottomBorder);
@@ -6922,13 +6970,7 @@ function RewardsTabChange(tabName) {
 //Reward Start
 //Reward Start
 function SearchReward() {
-
-    //alert('SearchReward');
-    //$('#btnRedeemReward').removeClass("search-button");
-    //$('#btnRedeemReward').addClass("search-button-one");
-    //$('#btnLoadReward').removeClass("search-button");
-    //$('#btnLoadReward').addClass("search-button-one");
-
+        
     $("#reward_LoadRedeem #txtLoad_LoadRedeem").css('border-bottom', bottomBorder);
     $("#reward_LoadRedeem #txtRedeem_LoadRedeem").css('border-bottom', bottomBorder);
     $('#reward_LoadRedeem #btnLoadReward').text("Load");
@@ -6939,22 +6981,22 @@ function SearchReward() {
     var storeId = 0;
     storeId = SetStoreId();
     var memberId = $('#reward_LoadRedeem #txtMemberID_LoadRedeem').val().trim();
-
     var phone = $('#reward_LoadRedeem #txtPhone_LoadRedeem').val().trim();
-
-    var lastName = $("#reward_LoadRedeem #txtLastName_LoadRedeem").val().trim();
+    var name = $("#reward_LoadRedeem #txtLastName_LoadRedeem").val().trim();
+    var pin = $("#reward_LoadRedeem #txtPIN_LoadRedeem").val().trim();
    
     if (memberId != "" || (phone != "" && phone != '0' )) {
         $("#txtLastName_LoadRedeem").css('border-bottom', bottomBorder);
         $("#txtPhone_LoadRedeem").css('border-bottom', bottomBorder);
+        $("#reward_LoadRedeem #txtPIN_LoadRedeem").css('border-bottom', bottomBorder);
         //alert('2');
         try {
-            if (memberId != "") {
-                phone = "";
-                lastName = "";
-            }
+            //if (memberId != "") {
+            //    phone = "";
+            //    lastName = "";
+            //}
 
-            url = global + "/RewardSearchNew?storeid=" + storeId + "&rewardMemberId=" + memberId + "&phone=" + phone + "&lastName=" + encodeURIComponent(lastName);
+            url = global + "/SearchRewardPoint?storeid=" + storeId + "&memberId=" + memberId + "&pin=" + pin + "&phone=" + phone + "&name=" + encodeURIComponent(name);
 
             $('#tblRewardHistory tbody').html("");
             $.getJSON(url, function (data) {
@@ -6965,7 +7007,51 @@ function SearchReward() {
                     $('#dvInner_Reward').hide();
                     $('#dvOuter').hide();
                    
-                    callSweetAlertWarning("Invalid Member ID.");
+                    callSweetAlertWarning("Reward Member not found.");
+                    $('#btnLoadReward').addClass("disabled");
+                    $('#btnRedeemReward').addClass("disabled");
+                }
+                else if (data.replace(/"/g, "").indexOf("Reward Member is not active.") > -1) {
+                    $('#dvInner_Reward').hide();
+                    $('#dvOuter').hide();
+
+                    callSweetAlertWarning("Reward Member is inactive. Please call (614)356-8000 for support.");
+                    $('#btnLoadReward').addClass("disabled");
+                    $('#btnRedeemReward').addClass("disabled");
+                }
+                else if (data.replace(/"/g, "").indexOf("Invalid PIN.") > -1) {
+                    $('#dvInner_Reward').hide();
+                    $('#dvOuter').hide();
+
+                    $("#reward_LoadRedeem #txtPIN_LoadRedeem").css('border-bottom', errorClassBorder);
+                    callSweetAlertWarning("Reward Member ID and PIN do not match.");
+                    $('#btnLoadReward').addClass("disabled");
+                    $('#btnRedeemReward').addClass("disabled");
+                }
+                else if (data.replace(/"/g, "").indexOf("PIN is required.") > -1) {
+                    $('#dvInner_Reward').hide();
+                    $('#dvOuter').hide();
+
+                    $("#reward_LoadRedeem #txtPIN_LoadRedeem").css('border-bottom', errorClassBorder);
+                    //callSweetAlertWarning("Reward Member ID and PIN do not match.");
+                    $('#btnLoadReward').addClass("disabled");
+                    $('#btnRedeemReward').addClass("disabled");
+                }
+                else if (data.replace(/"/g, "").indexOf("Invalid Phone.") > -1) {
+                    $('#dvInner_Reward').hide();
+                    $('#dvOuter').hide();
+
+                    $("#reward_LoadRedeem #txtPhone_LoadRedeem").css('border-bottom', errorClassBorder);
+                    callSweetAlertWarning("Reward Member ID and Phone do not match.");
+                    $('#btnLoadReward').addClass("disabled");
+                    $('#btnRedeemReward').addClass("disabled");
+                }
+                else if (data.replace(/"/g, "").indexOf("Phone is required.") > -1) {
+                    $('#dvInner_Reward').hide();
+                    $('#dvOuter').hide();
+
+                    $("#reward_LoadRedeem #txtPhone_LoadRedeem").css('border-bottom', errorClassBorder);
+                    //callSweetAlertWarning("Reward Member ID and PIN do not match.");
                     $('#btnLoadReward').addClass("disabled");
                     $('#btnRedeemReward').addClass("disabled");
                 }
@@ -7083,19 +7169,19 @@ function SearchReward() {
                                 var bistroPoint = "0";
                                 var relatedStorePointsBalance = "0";
                                 var rewardMemberId = "";
-                                if (value.FIRSTNAME != "") {
-                                    firstName = value.FIRSTNAME;
+                                if (value.CustomerName != "") {
+                                    firstName = value.CustomerName;
                                 }
-                                if (value.LASTNAME != "") {
-                                    lastName = value.LASTNAME;
-                                }
-                                if (value.EMAIL != "") {
-                                    if (value.EMAIL.indexOf('@bistroux.com') < 0) {
-                                        email = value.EMAIL;
+                                //if (value.LASTNAME != "") {
+                                //    lastName = value.LASTNAME;
+                                //}
+                                if (value.CustomerEmail != "") {
+                                    if (value.CustomerEmail.indexOf('@bistroux.com') < 0) {
+                                        email = value.CustomerEmail;
                                     }
                                 }
-                                if (value.PHONE != "") {
-                                    phoneNumber = value.PHONE;
+                                if (value.CustomerPhone != "") {
+                                    phoneNumber = value.CustomerPhone;
                                 }
                                // console.log('value.StoreID: ' + value.StoreID)
                                 //console.log('value.STOREID: ' + value.STOREID)
@@ -7120,11 +7206,11 @@ function SearchReward() {
                                     $("#txtMemberID_LoadRedeem").val(rewardMemberId);
                                 }
                                 else if (phoneNumber != "") {
-                                    $("#txtPhone_LoadRedeem").val(phoneNumber);
+                                    //$("#txtPhone_LoadRedeem").val(phoneNumber);
                                 }
-                                $("#txtLastName_LoadRedeem").val(firstName + " " + lastName);
+                                $("#txtLastName_LoadRedeem").val(firstName);
                                 
-                                $('#lblName').html(firstName + " " + lastName);
+                                $('#lblName').html(firstName);
                                 if (phoneNumber.length == 10)
                                     $("#lblPhone").html(formatPhoneNumber(phoneNumber));
                                 else
@@ -7469,6 +7555,8 @@ function GoToCreateMember(phone) {
 function LoadReward() {
     var storeId = 0;
     storeId = SetStoreId();
+    var loggedInUserId = 0;
+    loggedInUserId = window.localStorage.getItem("CustomerId");
     var memberId = $('#txtMemberID_LoadRedeem').val();
     var phone = $('#txtPhone_LoadRedeem').val();
     if (phone == '') {
@@ -7478,51 +7566,82 @@ function LoadReward() {
     loadPoint = Math.abs(loadPoint);
     if (loadPoint == '')
         loadPoint = '0';
+    var pin = $("#reward_LoadRedeem #txtPIN_LoadRedeem").val().trim();
+
     if (memberId != "" && loadPoint != "" && loadPoint != "0") {
         $('#btnLoadReward').text("Loading...");
         //$("#txtMemberID_LoadRedeem").css('border-bottom', bottomBorder);
         $("#txtLoad_LoadRedeem").css('border-bottom', bottomBorder);
         $("#txtRedeem_LoadRedeem").css('border-bottom', bottomBorder);
-
+        
         try {
-            url = global + "/RewardLoad?storeid=" + storeId + "&rewardMemberId=" + memberId + "&phone=" + phone + "&loadPoint=" + loadPoint;
+            //url = global + "/RewardLoad?storeid=" + storeId + "&rewardMemberId=" + memberId + "&phone=" + phone + "&loadPoint=" + loadPoint;
+            url = global + "/RewardLoadRedeem?storeid=" + storeId + "&memberId=" + memberId + "&pin=" + pin + "&phone=" + phone + "&loadPoint=" + loadPoint + "&type=Load" + "&createdBy=" + loggedInUserId;
             //alert(url);
             $.getJSON(url, function (data) {
                 $('#btnLoadReward').text("Load");
                 //alert(data);
-                if (data.replace(/"/g, "").indexOf("Phone is not valid.") > -1) {
-                    $('#dvInner_Reward').hide();
-                    if (phone == '' || phone == '0') {
-                        $('#dvInner_Reward').hide();
-                        //$('#dvOuter').show();
-                        //$('#dvOuterText').html("");
-                        //$('#dvOuterText').html("Phone Number is required.");
-                        $("#txtPhone_LoadRedeem").css('border-bottom', bottomBorder);
-                    }
-                    else {
-                        $("#txtPhone_LoadRedeem").css('border-bottom', bottomBorder);
-                        $('#dvInner_Reward').hide();
-                        $('#dvOuter').hide();
-                        //$('#dvOuter').show();
-                        //$('#dvOuterText').html("");
-                        //$('#dvOuterText').html("Invalid Phone Number.");
-                        callSweetAlertWarning("Invalid Phone Number.");
-                    }
-                }
-                else if (data.replace(/"/g, "").indexOf("Invalid Member ID.") > -1) {
+                if (data.replace(/"/g, "").indexOf("Invalid Member ID.") > -1) {
                     $('#dvInner_Reward').hide();
                     $('#dvOuter').hide();
-                    //$('#dvOuter').show();
-                    //$('#dvOuterText').html("");
-                    //$('#dvOuterText').html("Invalid Member ID.");
-                    callSweetAlertWarning("Invalid Member ID.");
+
+                    callSweetAlertWarning("Reward Member not found.");
+                    $('#btnLoadReward').addClass("disabled");
+                    $('#btnRedeemReward').addClass("disabled");
+                }
+                else if (data.replace(/"/g, "").indexOf("Reward Member is not active.") > -1) {
+                    $('#dvInner_Reward').hide();
+                    $('#dvOuter').hide();
+
+                    callSweetAlertWarning("Reward Member is inactive. Please call (614)356-8000 for support.");
+                    $('#btnLoadReward').addClass("disabled");
+                    $('#btnRedeemReward').addClass("disabled");
+                }
+                else if (data.replace(/"/g, "").indexOf("Invalid PIN.") > -1) {
+                    $('#dvInner_Reward').hide();
+                    $('#dvOuter').hide();
+
+                    $("#reward_LoadRedeem #txtPIN_LoadRedeem").css('border-bottom', errorClassBorder);
+                    callSweetAlertWarning("Reward Member ID and PIN do not match.");
+                    $('#btnLoadReward').addClass("disabled");
+                    $('#btnRedeemReward').addClass("disabled");
+                }
+                else if (data.replace(/"/g, "").indexOf("PIN is required.") > -1) {
+                    $('#dvInner_Reward').hide();
+                    $('#dvOuter').hide();
+
+                    $("#reward_LoadRedeem #txtPIN_LoadRedeem").css('border-bottom', errorClassBorder);
+                    //callSweetAlertWarning("Reward Member ID and PIN do not match.");
+                    $('#btnLoadReward').addClass("disabled");
+                    $('#btnRedeemReward').addClass("disabled");
+                }
+                else if (data.replace(/"/g, "").indexOf("Invalid Phone.") > -1) {
+                    $('#dvInner_Reward').hide();
+                    $('#dvOuter').hide();
+
+                    $("#reward_LoadRedeem #txtPhone_LoadRedeem").css('border-bottom', errorClassBorder);
+                    callSweetAlertWarning("Reward Member ID and Phone do not match.");
+                    $('#btnLoadReward').addClass("disabled");
+                    $('#btnRedeemReward').addClass("disabled");
+                }
+                else if (data.replace(/"/g, "").indexOf("Phone is required.") > -1) {
+                    $('#dvInner_Reward').hide();
+                    $('#dvOuter').hide();
+
+                    $("#reward_LoadRedeem #txtPhone_LoadRedeem").css('border-bottom', errorClassBorder);
+                    //callSweetAlertWarning("Reward Member ID and PIN do not match.");
+                    $('#btnLoadReward').addClass("disabled");
+                    $('#btnRedeemReward').addClass("disabled");
                 }
                 else if (data.replace(/"/g, "").indexOf("No record(s) found.") > -1) {
                     $('#dvInner_Reward').hide();
                     $('#dvOuter').show();
                     $('#dvOuterText').html("");
-                    $('#dvOuterText').html("No records found.");
-                    //WriteLog(SearchGiftCard() + " - " + " No order(s) found.", browser);
+                    $('#btnLoadReward').addClass("disabled");
+                    $('#btnRedeemReward').addClass("disabled");
+                    if (memberId != "") {
+                        callSweetAlertWarning("Invalid Member ID.");
+                    }
                 }
                 else {
                     //$("#txtMemberID_LoadRedeem").css('border-bottom', bottomBorder);
@@ -7541,7 +7660,6 @@ function LoadReward() {
             });
         }
         catch (e) {
-
         }
     }
     else {
@@ -7564,6 +7682,8 @@ function RedeemReward() {
     $("#txtRedeem_LoadRedeem").css('border-bottom', bottomBorder);
     var storeId = 0;
     storeId = SetStoreId();
+    var loggedInUserId = 0;
+    loggedInUserId = window.localStorage.getItem("CustomerId");
     var memberId = $('#txtMemberID_LoadRedeem').val();
     var phone = $('#txtPhone_LoadRedeem').val();
     if (phone == '') {
@@ -7573,6 +7693,8 @@ function RedeemReward() {
     redeemPoint = Math.abs(redeemPoint);
     if (redeemPoint == '')
         redeemPoint = '0';
+    var pin = $("#reward_LoadRedeem #txtPIN_LoadRedeem").val().trim();
+
     if (memberId != "" && redeemPoint != "" && redeemPoint != "0") {
         var hdnCurrentStorePoints = $('#hdnCurrentStorePoints').val();
         //alert(hdnCurrentStorePoints);
@@ -7582,46 +7704,74 @@ function RedeemReward() {
             $('#btnRedeemReward').text("Redeeming...");
             //$('#btnRedeemReward').css("font-size", "22px");
             try {
-                url = global + "/RewardRedeem?storeid=" + storeId + "&rewardMemberId=" + memberId + "&phone=" + phone + "&redeemPoint=" + redeemPoint;
+                //url = global + "/RewardRedeem?storeid=" + storeId + "&rewardMemberId=" + memberId + "&phone=" + phone + "&redeemPoint=" + redeemPoint;
+                url = global + "/RewardLoadRedeem?storeid=" + storeId + "&memberId=" + memberId + "&pin=" + pin + "&phone=" + phone + "&loadPoint=" + redeemPoint + "&type=Redeem" + "&createdBy=" + loggedInUserId;
                 //alert(url);
                 $.getJSON(url, function (data) {
                     $('#btnRedeemReward').text("Redeem");
                     //$('#btnRedeemReward').css("font-size", "24px");
                     //alert(data);
-                    if (data.replace(/"/g, "").indexOf("Phone is not valid.") > -1) {
-                        $('#dvInner_Reward').hide();
-                        if (phone == '' || phone == '0') {
-                            $('#dvInner_Reward').hide();
-                            //$('#dvOuter').show();
-                            //$('#dvOuterText').html("");
-                            //$('#dvOuterText').html("Phone Number is required.");
-                            $("#txtPhone_LoadRedeem").css('border-bottom', errorClassBorder);
-
-                        }
-                        else {
-                            $("#txtPhone_LoadRedeem").css('border-bottom', errorClassBorder);
-                            $('#dvInner_Reward').hide();
-                            $('#dvOuter').hide();
-                            //$('#dvOuter').show();
-                            //$('#dvOuterText').html("");
-                            //$('#dvOuterText').html("Invalid Phone Number.");
-                            callSweetAlertWarning("Invalid Phone Number.");
-                        }
-                    }
-                    else if (data.replace(/"/g, "").indexOf("Invalid Member ID.") > -1) {
+                    if (data.replace(/"/g, "").indexOf("Invalid Member ID.") > -1) {
                         $('#dvInner_Reward').hide();
                         $('#dvOuter').hide();
-                        //$('#dvOuter').show();
-                        //$('#dvOuterText').html("");
-                        //$('#dvOuterText').html("Invalid Member ID.");
-                        callSweetAlertWarning("Invalid Member ID.");
+
+                        callSweetAlertWarning("Reward Member not found.");
+                        $('#btnLoadReward').addClass("disabled");
+                        $('#btnRedeemReward').addClass("disabled");
+                    }
+                    else if (data.replace(/"/g, "").indexOf("Reward Member is not active.") > -1) {
+                        $('#dvInner_Reward').hide();
+                        $('#dvOuter').hide();
+
+                        callSweetAlertWarning("Reward Member is inactive. Please call (614)356-8000 for support.");
+                        $('#btnLoadReward').addClass("disabled");
+                        $('#btnRedeemReward').addClass("disabled");
+                    }
+                    else if (data.replace(/"/g, "").indexOf("Invalid PIN.") > -1) {
+                        $('#dvInner_Reward').hide();
+                        $('#dvOuter').hide();
+
+                        $("#reward_LoadRedeem #txtPIN_LoadRedeem").css('border-bottom', errorClassBorder);
+                        callSweetAlertWarning("Reward Member ID and PIN do not match.");
+                        $('#btnLoadReward').addClass("disabled");
+                        $('#btnRedeemReward').addClass("disabled");
+                    }
+                    else if (data.replace(/"/g, "").indexOf("PIN is required.") > -1) {
+                        $('#dvInner_Reward').hide();
+                        $('#dvOuter').hide();
+
+                        $("#reward_LoadRedeem #txtPIN_LoadRedeem").css('border-bottom', errorClassBorder);
+                        //callSweetAlertWarning("Reward Member ID and PIN do not match.");
+                        $('#btnLoadReward').addClass("disabled");
+                        $('#btnRedeemReward').addClass("disabled");
+                    }
+                    else if (data.replace(/"/g, "").indexOf("Invalid Phone.") > -1) {
+                        $('#dvInner_Reward').hide();
+                        $('#dvOuter').hide();
+
+                        $("#reward_LoadRedeem #txtPhone_LoadRedeem").css('border-bottom', errorClassBorder);
+                        callSweetAlertWarning("Reward Member ID and Phone do not match.");
+                        $('#btnLoadReward').addClass("disabled");
+                        $('#btnRedeemReward').addClass("disabled");
+                    }
+                    else if (data.replace(/"/g, "").indexOf("Phone is required.") > -1) {
+                        $('#dvInner_Reward').hide();
+                        $('#dvOuter').hide();
+
+                        $("#reward_LoadRedeem #txtPhone_LoadRedeem").css('border-bottom', errorClassBorder);
+                        //callSweetAlertWarning("Reward Member ID and PIN do not match.");
+                        $('#btnLoadReward').addClass("disabled");
+                        $('#btnRedeemReward').addClass("disabled");
                     }
                     else if (data.replace(/"/g, "").indexOf("No record(s) found.") > -1) {
                         $('#dvInner_Reward').hide();
                         $('#dvOuter').show();
                         $('#dvOuterText').html("");
-                        $('#dvOuterText').html("No records found.");
-                        //WriteLog(SearchGiftCard() + " - " + " No order(s) found.", browser);
+                        $('#btnLoadReward').addClass("disabled");
+                        $('#btnRedeemReward').addClass("disabled");
+                        if (memberId != "") {
+                            callSweetAlertWarning("Invalid Member ID.");
+                        }
                     }
                     else {
                         //$("#txtMemberID_LoadRedeem").css('border-bottom', bottomBorder);
@@ -7641,7 +7791,7 @@ function RedeemReward() {
                 });
             }
             catch (e) {
-
+                alert(e);
             }
         }
         else {
@@ -7677,6 +7827,8 @@ function RedeemReward() {
 
 function AddNewMemberID() {
     var $$ = Dom7;
+    var loggedInUserId = 0;
+    loggedInUserId = window.localStorage.getItem("CustomerId");
     $("#txtPhone").css('border-bottom', bottomBorder);
     $("#txtPoints").css('border-bottom', bottomBorder);
 
@@ -7691,539 +7843,80 @@ function AddNewMemberID() {
     var storeId = 0;
     storeId = SetStoreId();
     var valid = true;
-    if ($("#btnCreate").text() == "Update Member")
-    {
-        var customerId = Number($("#hdnAddMemberPopupCustomerId").val());
-        if (ValidateReward() == true) {
-            $("#hdnAddMemberPopupCustomerId").val(0);
-            $("#btnCreate").text("Updating Member...");
-            if(customerId>0)
-            {
-                url = global + "/UpdateCustomerInfo?storeid=" + storeId + "&name=" + encodeURIComponent(name)
-                    + "&email=" + encodeURIComponent(email) + "&phone=" + phone + "&id=" + customerId;
-                $.getJSON(url, function (data1) {
-                    //console.log(data1);
-                    var obj = JSON.parse(data1);
-                    $.each(JSON.parse(data1), function (index, value) {
-                        // console.log("1: " + value.EMAIL.toLowerCase().indexOf("bistroux.com"))
-                        var popuphtml = "";
-                        if (value.REWARDMEMBERID != "")
-                            popuphtml = popuphtml + "<p><span style='color:#000;'>Member ID:  </span><span class=\"main-one\">" + value.REWARDMEMBERID + "</span></p>";
-                       
-                        if (name != "") {
-                            if (value.FIRSTNAME != "" && value.FIRSTNAME != "Customer")
-                                popuphtml = popuphtml + "<p>" + value.FIRSTNAME;
-                            if (value.LASTNAME != "" && value.LASTNAME != "Customer")
-                                popuphtml = popuphtml + " " + value.LASTNAME;
-                            popuphtml = popuphtml + "</p>";
-                        }
-
-                        if (value.PHONE != "") {
-                            if (value.PHONE.length == 10)
-                                popuphtml = popuphtml + "<p>" + FormatPhoneNumber(value.PHONE) + "</p>";
-                            else
-                                popuphtml = popuphtml + "<p>" + value.PHONE + "</p>";
-
-                        }
-
-                        if (email!="")
-                            popuphtml = popuphtml + "<p>" + value.EMAIL + "</p>";
-                            (function () {
-
-                                swal({
-                                    title: "Member updated successfully.",
-                                    //html: "<p><strong>Member ID:</strong>1082</p><p><strong>Name:</strong>John Smith</p><p><strong>Phone:</strong>(614)805-5665</p><p><strong>Email:</strong>cyberv1@mail.com</p><p><strong>Points:</strong>100</p>",
-                                    html: popuphtml,
-                                    confirmButtonText: "OK",
-                                    type: "success",
-                                    confirmButtonClass: 'btn btn-success',
-                                    buttonsStyling: false,
-                                    customClass: 'swal-wide',
-                                });
-
-                                $$('input#txtEmail_Reward').val('');
-                                $$('input#txtPhone_Reward').val('');
-                                $$('input#txtPoints_Reward').val('');
-                                $$('input#txtName_Reward').val('');
-                                $$('input#txtMemberId_Reward').val('');
-                                $("input#txtPhone_Reward").removeAttr("disabled");
-                                $("input#txtMemberId_Reward").removeAttr("disabled");
-                                $("input#txtPoints_Reward").removeAttr("disabled");
-                                //html: "<p><span style='color:#000;'>Member ID:  </span><span class=\"main-one\">1082</span></p><span style='color:#000;'>Points:  </span><p><span class=\"main-two\" >100</span></p><p>John Smith</p><p>(614) 805-5665</p><p>cyberv1@mail.com</p>",
-
-                            })();
-                       
-                    });
-                    $("#btnCreate").text("Add Member");
-                });
-            }
-        }
-    }
-    else {
 
         if (ValidateReward() == true) {
             var customerId = Number($("#hdnAddMemberPopupCustomerId").val());
             $("#hdnAddMemberPopupCustomerId").val(0)
             $("#btnCreate").text("Adding Member...");
-            if (memberId != "") {
-                var url = global + "/CheckCustomerExistsNew?storeid=" + storeId + "&email=" + encodeURIComponent(email) + "&phone=" + phone + "&memberId=" + memberId;
-                $.getJSON(url, function (data) {
-                    var dd = JSON.parse(data);
-                    console.log(dd);
-                    if (dd.Message != undefined && dd.Message != null && dd.Message.indexOf("Restaurant not found") > -1) {
-                        callSweetAlertWarning("Restaurant not found. Please login again.");
-                    }
-                    else {
-                        if (dd.CustomerExists.toString().toLowerCase() == "true") {
-                            if (Number(dd.Pin) > 0) {
-                                if (Number(dd.Points) > 0) {
-                                    //swal({
-                                    //    title: "Member is already in the system.",
-                                    //    type: "warning",
-                                    //    confirmButtonClass: "btn btn-danger",
-                                    //    buttonsStyling: false,
-                                    //    confirmButtonText: "OK",
-                                    //    closeOnConfirm: false,
-                                    //    customClass: 'swal-wide',
-                                    //});
-                                    var historyHTML = "";
-                                    var count = 0;
-                                    historyHTML += "<div class=\"popup-header-row\" ><div class=\"popup-col-1-header\" style=\"width:20%;\">Reward ID</div>" +
-                                            "<div class=\"popup-col-2-header\" style=\"width:30%;\">Name</div><div class=\"popup-col-3-header\" style=\"width:50%;\">Email</div></div>";
-                                   
-                                        var firstName = "";
-                                        var lastName = "";
-                                        var fullName = "";
-                                        if (dd.CustomerName !=undefined && dd.CustomerName != "") {
-                                            fullName = dd.CustomerName;
-                                        }
-                                        if (dd.CustomerEmail != undefined && dd.CustomerEmail != "") {
-                                            lastName = value.LASTNAME;
-                                        }
-                                        email = dd.CustomerEmail;
-                                        phone = dd.CustomerPhone;
-                                        historyHTML += "<div id=\"memberRow_" + dd.CustomerId + "\" class=\"popup-unlined-row\" style=\"\" onclick=\"SelectCustomer(" + dd.CustomerId + ");\">";
-                                        if (dd.MemberId != undefined && dd.MemberId != null)
-                                            historyHTML += "<div id=\"memberId_" + dd.CustomerId + "\" class=\"popup-col-1\" style=\"width:20%;font-size:18px;\">" + dd.MemberId + "</div>";
-                                        else
-                                            historyHTML += "<div id=\"memberId_" + dd.CustomerId + "\" class=\"popup-col-1\" style=\"width:20%;font-size:18px;\"></div>";
+            $("#btnCreate").attr("disabled", true);
 
-                                        historyHTML += "<div id=\"fullName_" + dd.CustomerId + "\" class=\"popup-col-1\" style=\"width:30%;font-size:18px;\">" + fullName.trim() + "</div>";
-                                        if (email != null && email.indexOf("@bistroux.com") == -1)
-                                            historyHTML += "<div id=\"email_" + dd.CustomerId + "\" class=\"popup-col-2\" style=\"width:50%;font-size:18px;\">" + email + "</div>";
-                                        else
-                                            historyHTML += "<div id=\"email_" + dd.CustomerId + "\" class=\"popup-col-2\" style=\"width:50%;font-size:18px;\"></div>";
-                                    var formattedPhoneNumber = phone;
-                                    if (phone.length == 10)
-                                        formattedPhoneNumber = formatPhoneNumber(phone);
-                                    var html = "<div class=\"popup-content-area\"><h2 class=\"popup-title\"><span style=\"font-size: 18px;\">Phone <span style=\"font-weight:600;font-size: 20px;\">" + formattedPhoneNumber + "</span> matches found:</span></h2>" +
-                                              "<div class=\"popup-close-one\" onclick=\"CloseAddRewardMemberPopup();\">X</div>" +
-                                                historyHTML +
-                                "<div class=\"popup-button-area\"><button style=\"width:85px;\" id=\"btnRewardMemberClose\" onclick=\"NewCloseAndUpdateRewardMembersPopup(" + phone + ");\" type=\"button\" class=\"popup-confirm swal2-styled\" aria-label=\"\" " +
-                                "style=\"background-color: rgb(59, 152, 71); border-left-color: rgb(59, 152, 71); border-right-color: rgb(59, 152, 71);\">Select</button>" +
-                                "<button style=\"width:85px;background-color: rgb(233, 88, 97); border:1px solid rgb(233, 88, 97);\" id=\"btnMemberPopupCreate\" onclick=\"NewCloseAndCreateRewardMembersPopup(" + phone + ");\" type=\"button\" class=\"popup-confirm swal2-styled\" aria-label=\"\" " +
-                                ">Create</button>" + "<button style=\"width:166px;background-color: #4d4d4d; border:1px solid #4d4d4d;\" id=\"btnMemberPopupLoad\" onclick=\"NewGoToLoadRedeemRewardMembersPopup(" + phone + ");\" type=\"button\" class=\"popup-confirm swal2-styled\" aria-label=\"\" " +
-                                ">Load/Redeem</button>"
-                                    "</div></div>";
-                                    //console.log(html)
-                                    html += "<input type=\"hidden\" id=\"selectedCustomerId\" value=\"0\" />";
-                                    $('#rewardMultipleCustomers').html(html);
-                                    $(".popup-overlay").show();
-                                    $('#rewardMultipleCustomers').show();
-                                    $$('input#txtMemberId_Reward').val('');
-                                    $("#btnCreate").text("Add Member");
-                                }
-                                else {
-                                    var id = dd.ID;
-                                    url = global + "/UpdateMemberInfo?storeid=" + storeId + "&name=" + encodeURIComponent(name) + "&email=" + encodeURIComponent(email) + "&phone=" + phone + "&points=" + points + "&memberId=" + memberId + "&id=" + id;
-                                    $.getJSON(url, function (data1) {
-                                        //console.log(data1);
-                                        var obj = JSON.parse(data1);
-                                        $.each(JSON.parse(data1), function (index, value) {
-                                            // console.log("1: " + value.EMAIL.toLowerCase().indexOf("bistroux.com"))
-                                            var popuphtml = "";
-                                            if (value.REWARDMEMBERID != "")
-                                                popuphtml = popuphtml + "<p><span style='color:#000;'>Member ID:  </span><span class=\"main-one\">" + value.REWARDMEMBERID + "</span></p>";
-                                            if (value.POINTS != "")
-                                                popuphtml = popuphtml + "<p><span style='color:#000;'>Points:  </span><span class=\"main-two\">" + value.POINTS + "</span></p>";
-                                            if (value.FIRSTNAME != "" || value.LASTNAME != "") {
-                                                if (value.FIRSTNAME != "" && value.FIRSTNAME != "Customer")
-                                                    popuphtml = popuphtml + "<p>" + value.FIRSTNAME;
-                                                if (value.LASTNAME != "" && value.LASTNAME != "Customer")
-                                                    popuphtml = popuphtml + " " + value.LASTNAME;
-                                                popuphtml = popuphtml + "</p>";
-                                            }
-
-                                            if (value.PHONE != "") {
-                                                if (value.PHONE.length == 10)
-                                                    popuphtml = popuphtml + "<p>" + FormatPhoneNumber(value.PHONE) + "</p>";
-                                                else
-                                                    popuphtml = popuphtml + "<p>" + value.PHONE + "</p>";
-
-                                            }
-
-                                            if (value.EMAIL != "" && value.EMAIL.toLowerCase().indexOf("bistroux.com") == -1)
-                                                popuphtml = popuphtml + "<p>" + value.EMAIL + "</p>";
-
-
-                                            if (value.ACTIONTYPE = "ADD") {
-                                                (function () {
-
-                                                    swal({
-                                                        title: "New Member created successfully.",
-                                                        //html: "<p><strong>Member ID:</strong>1082</p><p><strong>Name:</strong>John Smith</p><p><strong>Phone:</strong>(614)805-5665</p><p><strong>Email:</strong>cyberv1@mail.com</p><p><strong>Points:</strong>100</p>",
-                                                        html: popuphtml,
-                                                        confirmButtonText: "OK",
-                                                        type: "success",
-                                                        confirmButtonClass: 'btn btn-success',
-                                                        buttonsStyling: false,
-                                                        customClass: 'swal-wide',
-                                                    });
-
-                                                    $$('input#txtEmail_Reward').val('');
-                                                    $$('input#txtPhone_Reward').val('');
-                                                    $$('input#txtPoints_Reward').val('');
-                                                    $$('input#txtName_Reward').val('');
-                                                    $$('input#txtMemberId_Reward').val('');
-                                                    //html: "<p><span style='color:#000;'>Member ID:  </span><span class=\"main-one\">1082</span></p><span style='color:#000;'>Points:  </span><p><span class=\"main-two\" >100</span></p><p>John Smith</p><p>(614) 805-5665</p><p>cyberv1@mail.com</p>",
-
-                                                })();
-                                            }
-                                        });
-                                        $("#btnCreate").text("Add Member");
-                                    });
-                                }
-                            }
-                            else {
-                                //swal({
-                                //    title: "Member is already in the system.",
-                                //    type: "warning",
-                                //    confirmButtonClass: "btn btn-danger",
-                                //    buttonsStyling: false,
-                                //    confirmButtonText: "OK",
-                                //    closeOnConfirm: false,
-                                //    customClass: 'swal-wide',
-                                //});
-                                var historyHTML = "";
-                                var count = 0;
-                                historyHTML += "<div class=\"popup-header-row\" ><div class=\"popup-col-1-header\" style=\"width:20%;\">Reward ID</div>" +
-                                        "<div class=\"popup-col-2-header\" style=\"width:30%;\">Name</div><div class=\"popup-col-3-header\" style=\"width:50%;\">Email</div></div>";
-
-                                var firstName = "";
-                                var lastName = "";
-                                var fullName = "";
-                                if (dd.CustomerName != undefined && dd.CustomerName != "") {
-                                    fullName = dd.CustomerName;
-                                }
-                                if (dd.CustomerEmail != undefined && dd.CustomerEmail != "") {
-                                    email = dd.CustomerEmail;
-                                }
-                                phone = dd.CustomerPhone;
-                                historyHTML += "<div id=\"memberRow_" + dd.CustomerId + "\" class=\"popup-unlined-row\" style=\"\" onclick=\"SelectCustomer(" + dd.CustomerId + ");\">";
-                                if (dd.MemberId != undefined && dd.MemberId != null)
-                                    historyHTML += "<div id=\"memberId_" + dd.CustomerId + "\" class=\"popup-col-1\" style=\"width:20%;font-size:18px;\">" + dd.MemberId + "</div>";
-                                else
-                                    historyHTML += "<div id=\"memberId_" + dd.CustomerId + "\" class=\"popup-col-1\" style=\"width:20%;font-size:18px;\"></div>";
-
-                                historyHTML += "<div id=\"fullName_" + dd.CustomerId + "\" class=\"popup-col-1\" style=\"width:30%;font-size:18px;\">" + fullName.trim() + "</div>";
-                                if (email != null && email.indexOf("@bistroux.com")==-1)
-                                    historyHTML += "<div id=\"email_" + dd.CustomerId + "\" class=\"popup-col-2\" style=\"width:50%;font-size:18px;\">" + email + "</div>";
-                                else
-                                    historyHTML += "<div id=\"email_" + dd.CustomerId + "\" class=\"popup-col-2\" style=\"width:50%;font-size:18px;\"></div>";
-
-                                historyHTML += "</div>";
-                                var formattedPhoneNumber = phone;
-                                if (phone.length == 10)
-                                    formattedPhoneNumber = formatPhoneNumber(phone);
-                                var html = "<div class=\"popup-content-area\"><h2 class=\"popup-title\"><span style=\"font-size: 18px;\">Phone <span style=\"font-weight:600;font-size: 20px;\">" + formattedPhoneNumber + "</span> matches found:</span></h2>" +
-                                    "<div class=\"popup-close-one\" onclick=\"CloseAddRewardMemberPopup();\">X</div>" +
-                                    historyHTML +
-                            "<div class=\"popup-button-area\"><button style=\"width:85px;\" id=\"btnRewardMemberClose\" onclick=\"NewCloseAndUpdateRewardMembersPopup(" + phone + ");\" type=\"button\" class=\"popup-confirm swal2-styled\" aria-label=\"\" " +
-                            "style=\"background-color: rgb(59, 152, 71); border-left-color: rgb(59, 152, 71); border-right-color: rgb(59, 152, 71);\">Select</button>" +
-                            "<button style=\"width:85px;background-color: rgb(233, 88, 97); border:1px solid rgb(233, 88, 97);\" id=\"btnMemberPopupCreate\" onclick=\"NewCloseAndCreateRewardMembersPopup(" + phone + ");\" type=\"button\" class=\"popup-confirm swal2-styled\" aria-label=\"\" " +
-                            ">Create</button>" + "<button style=\"width:166px;background-color: #4d4d4d; border:1px solid #4d4d4d;\" id=\"btnMemberPopupLoad\" onclick=\"NewGoToLoadRedeemRewardMembersPopup(" + phone + ");\" type=\"button\" class=\"popup-confirm swal2-styled\" aria-label=\"\" " +
-                            ">Load/Redeem</button>"
-                                "</div></div>";
-                                //console.log(html)
-                                html += "<input type=\"hidden\" id=\"selectedCustomerId\" value=\"0\" />";
-                                $('#rewardMultipleCustomers').html(html);
-                                $(".popup-overlay").show();
-                                $('#rewardMultipleCustomers').show();
-                                $("#btnCreate").text("Add Member");
-                            }
-                        }
-                        else {
-                            var customerId = dd.CustomerId;
-                            url = global + "/CreateNewMemberID?storeid=" + storeId + "&name=" + encodeURIComponent(name) + "&email=" + encodeURIComponent(email) + "&phone=" + phone + "&points=" + points + "&memberId=" + memberId + "&customerId=" + customerId;
-                            $.getJSON(url, function (data1) {
-                                //console.log(data1);
-                                var obj = JSON.parse(data1);
-                                $.each(JSON.parse(data1), function (index, value) {
-                                    // console.log("1: " + value.EMAIL.toLowerCase().indexOf("bistroux.com"))
-                                    var popuphtml = "";
-                                    if (value.REWARDMEMBERID != "")
-                                        popuphtml = popuphtml + "<p><span style='color:#000;'>Member ID:  </span><span class=\"main-one\">" + value.REWARDMEMBERID + "</span></p>";
-                                    if (points != "")
-                                        popuphtml = popuphtml + "<p><span style='color:#000;'>Points:  </span><span class=\"main-two\">" + points + "</span></p>";
-                                    if (name != "") {
-                                        popuphtml = popuphtml + "<p>" + value.FIRSTNAME + " " + value.LASTNAME + "</p>";
-                                    }
-
-                                    if (phone != "") {
-                                        if (value.PHONE.length == 10)
-                                            popuphtml = popuphtml + "<p>" + FormatPhoneNumber(value.PHONE) + "</p>";
-                                        else
-                                            popuphtml = popuphtml + "<p>" + value.PHONE + "</p>";
-
-                                    }
-                                    if (email != "")
-                                        popuphtml = popuphtml + "<p>" + value.EMAIL + "</p>";
-
-
-                                    if (value.ACTIONTYPE = "ADD") {
-                                        (function () {
-
-                                            swal({
-                                                title: "New Member created successfully.",
-                                                //html: "<p><strong>Member ID:</strong>1082</p><p><strong>Name:</strong>John Smith</p><p><strong>Phone:</strong>(614)805-5665</p><p><strong>Email:</strong>cyberv1@mail.com</p><p><strong>Points:</strong>100</p>",
-                                                html: popuphtml,
-                                                confirmButtonText: "OK",
-                                                type: "success",
-                                                confirmButtonClass: 'btn btn-success',
-                                                buttonsStyling: false,
-                                                customClass: 'swal-wide',
-                                            });
-
-                                            $$('input#txtEmail_Reward').val('');
-                                            $$('input#txtPhone_Reward').val('');
-                                            $$('input#txtPoints_Reward').val('');
-                                            $$('input#txtName_Reward').val('');
-                                            $$('input#txtMemberId_Reward').val('');
-
-                                            $$(".input-clear-button").click();
-                                            $$("input#txtMemberId_Reward").focus();
-                                            $$("input#txtMemberId_Reward").addClass("input-focused");
-                                            //html: "<p><span style='color:#000;'>Member ID:  </span><span class=\"main-one\">1082</span></p><span style='color:#000;'>Points:  </span><p><span class=\"main-two\" >100</span></p><p>John Smith</p><p>(614) 805-5665</p><p>cyberv1@mail.com</p>",
-
-                                        })();
-                                    }
-                                });
-                                $("#btnCreate").text("Add Member");
-                            });
-                        }
-                    }
-
-
-                });
-            }
-            else {
-                console.log('hdnAlredyMemberChecked: ' + $("#hdnAlredyMemberChecked").val())
-                if ($("#hdnAlredyMemberChecked").val() == "false") {
-                    var url = global + "/CheckCustomerExistsDB?storeid=" + storeId + "&email=" + encodeURIComponent(email)
-                     + "&phone=" + phone
-                    + "&name=" + encodeURIComponent(name) + "&points=" + points + "&customerId=" + customerId;
-
-                    $.getJSON(url, function (data1) {
-                        var obj1 = JSON.parse(data1);
-                        console.log('obj1: ' + obj1)
-                        if (obj1.CustomerExistsInSameStore != undefined && obj1.CustomerExistsInSameStore != null &&
-                            obj1.CustomerExistsInSameStore == true) {
-                            swal({
-                                title: "Member is already in the system.",
-                                type: "warning",
-                                confirmButtonClass: "btn btn-danger",
-                                buttonsStyling: false,
-                                confirmButtonText: "OK",
-                                closeOnConfirm: false,
-                                customClass: 'swal-wide',
-                            });
-                            $$('input#txtEmail_Reward').val('');
-                            $$('input#txtPhone_Reward').val('');
-                            $$('input#txtPoints_Reward').val('');
-                            $$('input#txtName_Reward').val('');
-                            $$('input#txtMemberId_Reward').val('');
-                            $("input#txtEmail_Reward").css('border-bottom', bottomBorder);
-                            $("input#txtPhone_Reward").css('border-bottom', bottomBorder);
-                            $("input#txtPoints_Reward").css('border-bottom', bottomBorder);
-                        }
-                        else {
-                            if (obj1.NewMemberId != "") {
-                                var popuphtml = "";
-                                if (obj1.NewMemberId != "")
-                                    popuphtml = popuphtml + "<p><span style='color:#000;'>Member ID:  </span><span class=\"main-one\">" + obj1.NewMemberId + "</span></p>";
-                                if (points != "")
-                                    popuphtml = popuphtml + "<p><span style='color:#000;'>Points:  </span><span class=\"main-two\">" + points + "</span></p>";
-                                if (name != "") {
-                                    popuphtml = popuphtml + "<p>" + name + "</p>";
-                                }
-                                if (phone != "") {
-                                    if (phone.length == 10)
-                                        popuphtml = popuphtml + "<p>" + FormatPhoneNumber(phone) + "</p>";
-                                    else
-                                        popuphtml = popuphtml + "<p>" + phone + "</p>";
-
-                                }
-                                if (email != "")
-                                    popuphtml = popuphtml + "<p>" + email + "</p>";
-                                swal({
-                                    title: "New Member created successfully.",
-                                    html: popuphtml,
-                                    confirmButtonText: "OK",
-                                    type: "success",
-                                    confirmButtonClass: 'btn btn-success',
-                                    buttonsStyling: false,
-                                    customClass: 'swal-wide',
-                                });
-                                $$('input#txtEmail_Reward').val('');
-                                $$('input#txtPhone_Reward').val('');
-                                $$('input#txtPoints_Reward').val('');
-                                $$('input#txtName_Reward').val('');
-                                $$('input#txtMemberId_Reward').val('');
-                                $("input#txtEmail_Reward").css('border-bottom', bottomBorder);
-                                $("input#txtPhone_Reward").css('border-bottom', bottomBorder);
-                                $("input#txtPoints_Reward").css('border-bottom', bottomBorder);
-                            }
-                            else {
-
-                                var historyHTML = "";
-                                var count = 0;
-                                var totalRecord = 0;
-                                historyHTML += "<div class=\"popup-header-row\" ><div class=\"popup-col-1-header\" style=\"width:20%;\">Reward ID</div>" +
-                                        "<div class=\"popup-col-2-header\" style=\"width:30%;\">Name</div><div class=\"popup-col-3-header\" style=\"width:50%;\">Email</div></div>";
-                                //console.log('obj1.CustomerList: ' + obj1.CustomerList.length)
-
-                                if (obj1.CustomerList.length > 0) {
-                                    totalRecord = obj1.CustomerList.length;
-                                    $.each(obj1.CustomerList, function (index, value) {
-                                        var firstName = "";
-                                        var lastName = "";
-                                        var fullName = "";
-                                        if (value.FIRSTNAME != "") {
-                                            firstName = value.FIRSTNAME;
-                                        }
-                                        if (value.LASTNAME != "") {
-                                            lastName = value.LASTNAME;
-                                        }
-                                        fullName = firstName + " " + lastName;
-                                        historyHTML += "<div id=\"memberRow_" + value.ID + "\" class=\"popup-unlined-row\" style=\"\" onclick=\"SelectCustomer(" + value.ID + ");\">";
-                                        if (value.REWARDMEMBERID != null)
-                                            historyHTML += "<div id=\"memberId_" + value.ID + "\" class=\"popup-col-1\" style=\"width:20%;font-size:18px;\">" + value.REWARDMEMBERID + "</div>";
-                                        else
-                                            historyHTML += "<div id=\"memberId_" + value.ID + "\" class=\"popup-col-1\" style=\"width:20%;font-size:18px;\"></div>";
-
-                                        historyHTML += "<div id=\"fullName_" + value.ID + "\" class=\"popup-col-1\" style=\"width:30%;font-size:18px;\">" + fullName.trim() + "</div>";
-                                        if (value.EMAIL != null)
-                                            historyHTML += "<div id=\"email_" + value.ID + "\" class=\"popup-col-2\" style=\"width:50%;font-size:18px;\">" + value.EMAIL + "</div>";
-                                        else
-                                            historyHTML += "<div id=\"email_" + value.ID + "\" class=\"popup-col-2\" style=\"width:50%;font-size:18px;\"></div>";
-
-                                        historyHTML += "</div>";
-                                    });
-                                }
-                                else {
-                                    historyHTML += "<div  class=\"popup-col-2\" style=\"width:100%;font-size:18px;text-align:center;\">No record found.</div>";
-                                }
-                                var formattedPhoneNumber = phone;
-                                if (phone.length == 10)
-                                    formattedPhoneNumber = formatPhoneNumber(phone);
-                                var html = "<div class=\"popup-content-area\"><h2 class=\"popup-title\"><span style=\"font-size: 18px;\">Phone <span style=\"font-weight:600;font-size: 20px;\">" + formattedPhoneNumber + "</span> matches found:</span></h2>" +
-                                    "<div class=\"popup-close-one\" onclick=\"CloseAddRewardMemberPopup();\">X</div>" + historyHTML;
-                                if (totalRecord > 0) {
-                                    html += "<div class=\"popup-button-area\"><button style=\"width:85px;\" id=\"btnRewardMemberClose\" onclick=\"NewCloseAndUpdateRewardMembersPopup(" + phone + ");\" type=\"button\" class=\"popup-confirm swal2-styled\" aria-label=\"\" " +
-                          "style=\"background-color: rgb(59, 152, 71); border-left-color: rgb(59, 152, 71); border-right-color: rgb(59, 152, 71);\">Select</button>";
-                                }
-                                else {
-                                    html += "<div class=\"popup-button-area\"><button disabled style=\"width:85px;\" id=\"btnRewardMemberClose\"  type=\"button\" class=\"popup-confirm swal2-styled disabled\" aria-label=\"\" " +
-                          "style=\"background-color: rgb(59, 152, 71); border-left-color: rgb(59, 152, 71); border-right-color: rgb(59, 152, 71);\">Select</button>";
-                                }
-
-                                html += "<button style=\"width:85px;background-color: rgb(233, 88, 97); border:1px solid rgb(233, 88, 97);\" id=\"btnMemberPopupCreate\" onclick=\"NewCloseAndCreateRewardMembersPopup(" + phone + ");\" type=\"button\" class=\"popup-confirm swal2-styled\" aria-label=\"\" " +
-                            ">Create</button>";
-                                html += "<button style=\"width:166px;background-color: #4d4d4d; border:1px solid #4d4d4d;\" id=\"btnMemberPopupLoad\" onclick=\"NewGoToLoadRedeemRewardMembersPopup(" + phone + ");\" type=\"button\" class=\"popup-confirm swal2-styled\" aria-label=\"\" " +
-                            ">Load/Redeem</button></div></div>";
-
-                                //console.log(html)
-                                html += "<input type=\"hidden\" id=\"selectedCustomerId\" value=\"0\" />";
-                                $('#rewardMultipleCustomers').html(html);
-                                $(".popup-overlay").show();
-                                $('#rewardMultipleCustomers').show();
-
-                                $("#hdnAlredyMemberChecked").val("true");
-
-                            }
-                        }
-
-
-                    });
+            url = global + "/AddMemberID?storeid=" + storeId + "&name=" + encodeURIComponent(name) + "&email=" + encodeURIComponent(email) + "&phone=" + phone + "&points=" + points + "&memberId=" + memberId + "&createdBy=" + loggedInUserId;
+            $.getJSON(url, function (data1) {
+                console.log(data1);
+                if (data1.replace(/"/g, "").indexOf("Reward Member is not active.") > -1) {
+                    callSweetAlertWarning("Reward Member is NOT Active. Please call (614)356-8000 for support");
+                    $("#btnCreate").text("Add Member");
+                    $("#btnCreate").attr("disabled", false);
+                }
+                else if (data1.replace(/"/g, "").indexOf("Reward Member is active.") > -1) {
+                    var messageDisplay = data1.replace(/"/g, "");
+                    messageDisplay = messageDisplay.replace("Reward Member is active.", "");
+                    callSweetAlertWarning(messageDisplay+".");
+                    $("#btnCreate").text("Add Member");
+                    $("#btnCreate").attr("disabled", false);
                 }
                 else {
-                    url = global + "/CreateNewMemberID?storeid=" + storeId + "&name=" + encodeURIComponent(name) + "&email=" + encodeURIComponent(email) + "&phone=" + phone + "&points=" + points + "&memberId=" + memberId + "&customerId=" + customerId;
-                    $.getJSON(url, function (data1) {
-                        //console.log(data1);
-                        var obj = JSON.parse(data1);
-                        $.each(JSON.parse(data1), function (index, value) {
-                            // console.log("1: " + value.EMAIL.toLowerCase().indexOf("bistroux.com"))
-                            var popuphtml = "";
-                            if (value.REWARDMEMBERID != "")
-                                popuphtml = popuphtml + "<p><span style='color:#000;'>Member ID:  </span><span class=\"main-one\">" + value.REWARDMEMBERID + "</span></p>";
-                            if (points != "")
-                                popuphtml = popuphtml + "<p><span style='color:#000;'>Points:  </span><span class=\"main-two\">" + points + "</span></p>";
-                            if (name != "") {
-                                popuphtml = popuphtml + "<p>" + value.FIRSTNAME + " " + value.LASTNAME + "</p>";
-                            }
+                    var obj = JSON.parse(data1);
+                    $.each(JSON.parse(data1), function (index, value) {
+                        // console.log("1: " + value.EMAIL.toLowerCase().indexOf("bistroux.com"))
+                        var popuphtml = "";
+                        if (value.MemberId != "")
+                            popuphtml = popuphtml + "<p><span style='color:#000;'>Member ID:  </span><span class=\"main-one\">" + value.MemberId + "</span></p>";
+                        if (points != "")
+                            popuphtml = popuphtml + "<p><span style='color:#000;'>Points:  </span><span class=\"main-two\">" + points + "</span></p>";
+                        if (name != "") {
+                            popuphtml = popuphtml + "<p>" + value.CustomerName + "</p>";
+                        }
+                        if (phone != "") {
+                            if (value.CustomerPhone.length == 10)
+                                popuphtml = popuphtml + "<p>" + FormatPhoneNumber(value.CustomerPhone) + "</p>";
+                            else
+                                popuphtml = popuphtml + "<p>" + value.CustomerPhone + "</p>";
+                        }
+                        if (email != "")
+                            popuphtml = popuphtml + "<p>" + value.CustomerEmail + "</p>";
 
-                            if (phone != "") {
-                                if (value.PHONE.length == 10)
-                                    popuphtml = popuphtml + "<p>" + FormatPhoneNumber(value.PHONE) + "</p>";
-                                else
-                                    popuphtml = popuphtml + "<p>" + value.PHONE + "</p>";
-
-                            }
-                            if (email != "")
-                                popuphtml = popuphtml + "<p>" + value.EMAIL + "</p>";
-
-
-                            if (value.ACTIONTYPE = "ADD") {
-                                (function () {
-
-                                    swal({
-                                        title: "New Member created successfully.",
-                                        //html: "<p><strong>Member ID:</strong>1082</p><p><strong>Name:</strong>John Smith</p><p><strong>Phone:</strong>(614)805-5665</p><p><strong>Email:</strong>cyberv1@mail.com</p><p><strong>Points:</strong>100</p>",
-                                        html: popuphtml,
-                                        confirmButtonText: "OK",
-                                        type: "success",
-                                        confirmButtonClass: 'btn btn-success',
-                                        buttonsStyling: false,
-                                        customClass: 'swal-wide',
-                                    });
-
-                                    $$('input#txtEmail_Reward').val('');
-                                    $$('input#txtPhone_Reward').val('');
-                                    $$('input#txtPoints_Reward').val('');
-                                    $$('input#txtName_Reward').val('');
-                                    $$('input#txtMemberId_Reward').val('');
-
-                                    $$(".input-clear-button").click();
-                                    $$("input#txtMemberId_Reward").focus();
-                                    $$("input#txtMemberId_Reward").addClass("input-focused");
-                                    //html: "<p><span style='color:#000;'>Member ID:  </span><span class=\"main-one\">1082</span></p><span style='color:#000;'>Points:  </span><p><span class=\"main-two\" >100</span></p><p>John Smith</p><p>(614) 805-5665</p><p>cyberv1@mail.com</p>",
-
-                                })();
-                            }
+                        swal({
+                            title: "New Member created successfully.",
+                            //html: "<p><strong>Member ID:</strong>1082</p><p><strong>Name:</strong>John Smith</p><p><strong>Phone:</strong>(614)805-5665</p><p><strong>Email:</strong>cyberv1@mail.com</p><p><strong>Points:</strong>100</p>",
+                            html: popuphtml,
+                            confirmButtonText: "OK",
+                            type: "success",
+                            confirmButtonClass: 'btn btn-success',
+                            buttonsStyling: false,
+                            customClass: 'swal-wide',
                         });
+
+                        $$('input#txtEmail_Reward').val('');
+                        $$('input#txtPhone_Reward').val('');
+                        $$('input#txtPoints_Reward').val('');
+                        $$('input#txtName_Reward').val('');
+                        $$('input#txtMemberId_Reward').val('');
+
+                        $$(".input-clear-button").click();
+                        $$("input#txtMemberId_Reward").focus();
+                        $$("input#txtMemberId_Reward").addClass("input-focused");
+                        //html: "<p><span style='color:#000;'>Member ID:  </span><span class=\"main-one\">1082</span></p><span style='color:#000;'>Points:  </span><p><span class=\"main-two\" >100</span></p><p>John Smith</p><p>(614) 805-5665</p><p>cyberv1@mail.com</p>",
+                        return false;
+
                         $("#btnCreate").text("Add Member");
+                        $("#btnCreate").attr("disabled", false);
                     });
-                }
-              
-
-
-                $$("#btnCreate").text("Add Member");
-            }
-
+                }                
+                $("#btnCreate").text("Add Member");
+                $("#btnCreate").attr("disabled", false);
+            });
         }
-    }
-
-
 }
 function UpdateMemberInfo() {
 
