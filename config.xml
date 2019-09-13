@@ -33,7 +33,7 @@
     </platform>
     
     <preference name="DisallowOverscroll" value="true" />
-    <preference name="orientation" value="portrait" />
+    
     <preference name="android-windowSoftInputMode" value="adjustResize" />
     <preference name="fullscreen" value="false" />
     <preference name="KeepRunning" value="true" />
