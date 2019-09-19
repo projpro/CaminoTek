@@ -678,6 +678,7 @@ function CarryoutOrdersList(status, carryoutpagesize, carryoutcurrentPage, divId
                         //console.log(html)
                         $("#" + divId).append(html);
 
+                        
                         if (value.ORDERSTATUSID.toLowerCase() == "new") {
                             //$("#li_" + value.ID).css("background-color", "#ffecf2");
                         }
@@ -1104,7 +1105,7 @@ function CarryoutOrdersListPagination(status, carryoutpagesize, carryoutcurrentP
                         count++;
 
                         $("#" + divId).append(html);
-
+                        
                         if (value.ORDERSTATUSID.toLowerCase() == "new") {
                             //$("#li_" + value.ID).css("background-color", "#ffecf2");
                         }
@@ -1780,7 +1781,7 @@ function OpenCarryoutDetails(id) {
             });
             url = global + "/GetCarryOutOrderItemDetails?orderid=" + id;
             $.getJSON(url, function (data) {
-                console.log("Histor: " + data);
+                //console.log("Histor: " + data);
                 if (data.indexOf("No record(s) found.") > -1) {
                     $("#dvItem").html("No record(s) found.");
 
@@ -2966,15 +2967,15 @@ function ChangeOrderStatusNew(status, orderId, storeId) {
 
                 if ($('#hdnCurrentState').val() == "New") {
                     localStorage.setItem("CurrentPage", 0);
-                    if (status == "Processing")
-                    {
-                        app.tab.show('#2');
-                        BindcarryoutTab('Processing');
-                        //CarryoutOrdersList('Processing', 10, 0, 'dvProcessingList');
-                    }
-                    else {
+                    //if (status == "Processing")
+                    //{
+                    //    app.tab.show('#2');
+                    //    BindcarryoutTab('Processing');
+                    //    //CarryoutOrdersList('Processing', 10, 0, 'dvProcessingList');
+                    //}
+                    //else {
                         CarryoutOrdersList('New', 10, 0, 'dvNewList');
-                    }
+                    //}
                    
                 }
                 else if ($('#hdnCurrentState').val() == "Processing") {
@@ -3929,7 +3930,7 @@ function AcceptOrdersOtherPage() {
                     window.location.href = "giftcardsorders.html?StoreId=" + storeId;
                 }
                 else {
-                    window.location.href = "carryout.html?StoreId=" + storeId + "&status=Processing";
+                    window.location.href = "carryout.html?StoreId=" + storeId + "&status=New";
 
                 }
             }
@@ -3937,7 +3938,7 @@ function AcceptOrdersOtherPage() {
                 window.location.href = "giftcardsorders.html?StoreId=" + storeId;
             }
             else if (carryoutchanged > 0 && giftcardchanged == 0) {
-                window.location.href = "carryout.html?StoreId=" + storeId + "&status=Processing";
+                window.location.href = "carryout.html?StoreId=" + storeId + "&status=New";
             }
         },
         error: function (xhr, textStatus, errorThrown) {
@@ -7900,6 +7901,7 @@ function AddNewMemberID() {
             $("#btnCreate").attr("disabled", true);
 
             url = global + "/AddMemberID?storeid=" + storeId + "&name=" + encodeURIComponent(name) + "&email=" + encodeURIComponent(email) + "&phone=" + phone + "&points=" + points + "&memberId=" + memberId + "&createdBy=" + loggedInUserId;
+            
             $.getJSON(url, function (data1) {
                 console.log(data1);
                 if (data1.replace(/"/g, "").indexOf("Reward Member is not active.") > -1) {
