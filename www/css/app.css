@@ -836,6 +836,7 @@ h4 {
     text-transform: uppercase;
     text-align: center;
     display: block;
+	margin:20px 0 0 0;
 }
 .custom-btn-three {
     font-weight: 400;
@@ -1301,7 +1302,7 @@ h4 {
         display: flex;
         /*flex-direction: column;*/
         width: 100%;
-        padding: 7px 0 30px 0;
+        padding: 7px 0 0px 0;
     }
 
     .order-row-container:last-child {
@@ -1466,7 +1467,7 @@ h4 {
     /*text-align:center;*/
     /*width:33.33%;*/
     font-weight: 600;
-    font-size: 30px;
+    font-size: 22px;
     color: #111111;
 }
 
@@ -1475,8 +1476,10 @@ h4 {
    text-align:center;
     /*width:33.33%;*/
     font-weight: 600;
-    font-size: 18px;
+    font-size: 16px;
     color: #111111;
+	/*margin: 12px 0 0 0;*/
+    line-height: 20px;
 }
 
 .order-status-icon {
@@ -1514,7 +1517,7 @@ h4 {
     display: inline-block;
     width: 100%;
     vertical-align: top;
-    padding-top: 5px;
+    padding-top: 0px;
 }
 
 .popup-carryout-details-one {
@@ -1624,21 +1627,20 @@ color: #3b9847;
 }
 
 .order-details-pickup {
-    margin-top: 0px;
+    margin-top: -30px;
     font-weight: 400;
-    font-size: 35px;
+    font-size: 22px;
     color: #08b3c7;
-    text-align: center;
+    text-align: right;
     width:100%;
 }
 
 .carryout-order-number {
     width: 100%;
-    font-size: 19px;
+    font-size: 16px;
     color: #111111;
     text-align: right;
-    padding-right: 10px;
-	    margin: -70px 0 0 0;
+	    margin: -30px 0 0 0;
 }
 
 .order-pickup-margin-top {
@@ -2865,7 +2867,7 @@ position: relative;
 }
 
 .giftcard-price {
-    font-size: 30px;
+    font-size: 22px;
     font-weight: 500;
     color: #3b9847;
 }
@@ -2885,7 +2887,7 @@ position: relative;
     font-weight: 400;
     color: #111111;
     text-align: right;
-    padding-right: 10px;
+    margin: -10px 0 0 0;
 }
 
 .giftcard-item-count {
@@ -2901,7 +2903,7 @@ position: relative;
     display: flex;
     flex-direction: column;
     color: #000;
-    font-size: 18px;
+    font-size: 14px;
 }
 
 .giftcard-detail-customer-name {
@@ -3683,7 +3685,7 @@ h2 {
     .popup-link {right: 107px;margin: 0px 0 0 0;}
 }
 @media (max-width:601px) {
-    .popup-link {right: 107px;margin: 0px 0 0 0;}
+    .popup-link {right: 100px;margin: 6px 0 0 0;}
 }
 
 @media (max-width:539px) {
