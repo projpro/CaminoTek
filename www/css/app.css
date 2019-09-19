@@ -1790,7 +1790,7 @@ color: #3b9847;
 
 #dvOrderInfo .list-icon {
     display: inline-block;
-    max-width: 30%;
+    max-width: 18%;
 	margin: -35px 0 0 0;
     /*margin-left: 22px;*/
 }
@@ -1923,7 +1923,7 @@ td {
     border-radius: 0px;
     position: fixed;
     left: 0;
-    top: 0;
+    top: 5px;
 }
 
 .overlay-button-area {
@@ -2887,7 +2887,7 @@ position: relative;
     font-weight: 400;
     color: #111111;
     text-align: right;
-    margin: -10px 0 0 0;
+
 }
 
 .giftcard-item-count {
@@ -3680,12 +3680,21 @@ h2 {
     left: 22%;
    
 }
+    .popup-link {
+            right: 170px;
+                margin: 5px 0 0 0;
+    }
+    
 }
 @media (max-width:610px) {
     .popup-link {right: 107px;margin: 0px 0 0 0;}
+    #dvOrderInfo .list-icon {
+        max-width: 30%;
+    }
+    
 }
 @media (max-width:601px) {
-    .popup-link {right: 100px;margin: 6px 0 0 0;}
+    .popup-link {right: 104px;margin: 6px 0 0 0;}
 }
 
 @media (max-width:539px) {
@@ -3698,11 +3707,19 @@ h2 {
     .footer-icon {
         width: 20%;
     }
+    .popup-link {
+            right: 204px;
+                margin: 5px 0 0 0;
+    }
 }
 @media (min-width:1025px) and (max-width:1280px) {
 .footer-icon{
     width: 17%;
 }
+.popup-link {
+            right: 308px;
+                margin: 16px 0 0 0;
+    }
 }
 /*===============================================*/
 /* 12. Responsive 						    	 */
