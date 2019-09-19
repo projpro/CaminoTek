@@ -1957,7 +1957,7 @@ function BindcarryoutTab(status) {
     localStorage.setItem("CurrentPage", 0);
     $('#hdnCurrentState').val(status);
     if (status == "New") {
-        $('#divTabCurrentDetails').html("");
+        //$('#divTabCurrentDetails').html("");
         CarryoutOrdersList(status, 10, 0, '');
     }
     else {
@@ -12208,7 +12208,7 @@ function CancelOrder(orderId)
                 //async: false,
                 success: function (data) {
                     $("#btnCancelSave").html("Cancel Order");
-                    //console.log(data)
+                    console.log(data)
                     if (data.replace(/"/g, "").indexOf("failed") > -1)
                     {
                         $('#cancelOrder').html("");
