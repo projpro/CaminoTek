@@ -1958,7 +1958,7 @@ function BindcarryoutTab(status) {
     $('#hdnCurrentState').val(status);
     if (status == "New") {
         //$('#divTabCurrentDetails').html("");
-        CarryoutOrdersList(status, 10, 0, '');
+        CarryoutOrdersList(status, 10, 0, 'dvNewList');
     }
     else {
         CarryoutOrdersList(status, 10, 0, '');
