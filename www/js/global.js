@@ -538,7 +538,7 @@ function CarryoutOrdersList(status, carryoutpagesize, carryoutcurrentPage, divId
                         /*-----------------Status Icon End----------------*/
 
                         //html += "<div class=\"order-number-carryout panel-open\" onclick=\"OpenCarryoutDetails(" + value.ID + ");\">#" + value.ID + "<span></div>";
-                        html += "<div class=\"order-number-carryout\" onclick=\"OpenCarryoutDetails(" + value.ID + ");\" style=\"white-space: nowrap;\">" + firstName + " " + lastName + "</div>";
+                        html += "<div class=\"order-number-carryout\" onclick=\"OpenCarryoutDetails(" + value.ID + ");\" style=\"white-space: wrap;\">" + firstName + " " + lastName + "</div>";
 
                         if (value.PICKUPTIME != undefined) {
                             var pickupdatetime = value.PICKUPTIME;
@@ -965,7 +965,7 @@ function CarryoutOrdersListPagination(status, carryoutpagesize, carryoutcurrentP
                         /*-----------------Status Icon End----------------*/
 
                         //html += "<div class=\"order-number-carryout panel-open\" onclick=\"OpenCarryoutDetails(" + value.ID + ");\">#" + value.ID + "<span></div>";
-                        html += "<div class=\"order-number-carryout\" onclick=\"OpenCarryoutDetails(" + value.ID + ");\" style=\"white-space: nowrap;\">" + firstName + " " + lastName + "</div>";
+                        html += "<div class=\"order-number-carryout\" onclick=\"OpenCarryoutDetails(" + value.ID + ");\" style=\"white-space: wrap;\">" + firstName + " " + lastName + "</div>";
 
                         if (value.PICKUPTIME != undefined) {
                             var pickupdatetime = value.PICKUPTIME;
@@ -1273,6 +1273,10 @@ function OpenCarryoutDetails(id) {
                     if (value.PICKUPTIME != undefined) {
                         $("#hdnSelectedOrderPickUpTime").val(value.PICKUPTIME);
                         pickupTime = value.PICKUPTIME;
+                        if (pickupTime.charAt(0) === '0')
+                        {
+                            pickupTime = pickupTime.substr(1);
+                        }
                     }
                     //console.log("1:"+pickupTime)
                     //console.log('value.ORDERPICKUPSMSSENTON: ' + value.ORDERPICKUPSMSSENTON)
@@ -1395,11 +1399,11 @@ function OpenCarryoutDetails(id) {
                     htmlGiftCard += "</tr>";
                 }
                 if (orderStatus.toLowerCase() != "cancelled") {
-                    $("#aCancelOrder").show();
+                    $("#divLowerCancelButtonArea").show();
                 }
                 else
                 {
-                    $("#aCancelOrder").hide();
+                    $("#divLowerCancelButtonArea").hide();
                 }
                 /*------------------Order Area-----------------------*/
                 var buttonHTML = "";
@@ -1442,7 +1446,7 @@ function OpenCarryoutDetails(id) {
                         orderhtml += "</div>";
 
                         //Set Details Upper Button
-                        upperButtonHtml = "<a class=\"custom-btn-two custom-bg custom-link item-media-section-two\" style=\"background:#74ddff !important;\" onclick=\"ChangePopupOrderStatusDropdown('Complete'," + orderId + "," + storeId + ")\">Complete</a>";
+                        upperButtonHtml = "<a class=\"custom-btn-two custom-bg custom-link item-media-section-two\" style=\"background:#3b9847 !important;\" onclick=\"ChangePopupOrderStatusDropdown('Complete'," + orderId + "," + storeId + ")\">Complete</a>";
                         $("#divUpperButtonArea").html(upperButtonHtml);
                     }
                     else if (orderStatus.toLowerCase() == "complete") {
@@ -1577,7 +1581,7 @@ function OpenCarryoutDetails(id) {
                 orderhtml += "<div class=\"giftcard-customer-detail-container\">";
                 orderhtml += "<div id=\"popupCustomerName_" + orderId + "\">" + firstName + " " + lastName + "</div>";
                 orderhtml += "<div>" + phone + "</div>";
-                orderhtml += "<div id=\"popupCustomerEmail_" + orderId + "\" class=\"display-label-wrap\">" + email + "</div>";
+                //orderhtml += "<div id=\"popupCustomerEmail_" + orderId + "\" class=\"display-label-wrap\">" + email + "</div>";
                 
                 //////Delivery Address
                 ////if (ordertype == "Delivery") {
@@ -1659,7 +1663,7 @@ function OpenCarryoutDetails(id) {
                 orderhtml += "<div class=\"order-row-container\">";
                 orderhtml += "<div class=\"giftcard-customer\" style=\"width:100%;\">";
                 orderhtml += "<div class=\"giftcard-customer-detail-container\">";
-                                
+                orderhtml += "<div id=\"popupCustomerEmail_" + orderId + "\" class=\"display-label-wrap\">" + email + "</div>";
                 //Delivery Address
                 if (ordertype == "Delivery") {
                     var customerFinalAddress = "";
@@ -1776,7 +1780,7 @@ function OpenCarryoutDetails(id) {
             });
             url = global + "/GetCarryOutOrderItemDetails?orderid=" + id;
             $.getJSON(url, function (data) {
-
+                console.log("Histor: " + data);
                 if (data.indexOf("No record(s) found.") > -1) {
                     $("#dvItem").html("No record(s) found.");
 
@@ -1846,10 +1850,10 @@ function OpenCarryoutDetails(id) {
                     htmlOrderTotal += "</tr>";
                 }
                 if (dueAmount > 0) {
-                    $("#dvItem").html(html + htmlSubTotal + htmlDiscount + htmlRewards + htmlGiftCard + htmlOrderTotal + htmlDueAmount + "</tbody>");
+                    $("#carryout #dvItem").html(html + htmlSubTotal + htmlDiscount + htmlRewards + htmlGiftCard + htmlOrderTotal + htmlDueAmount + "</tbody>");
                 }
                 else {
-                    $("#dvItem").html(html + htmlSubTotal + htmlDiscount + htmlRewards + htmlGiftCard + htmlOrderTotal + "</tbody>");
+                    $("#carryout #dvItem").html(html + htmlSubTotal + htmlDiscount + htmlRewards + htmlGiftCard + htmlOrderTotal + "</tbody>");
                 }
                 //console.log($("#dvItem").html());
                 //alert($("#dvCarryOutDetailsInner").html());
@@ -1867,7 +1871,7 @@ function OpenCarryoutDetails(id) {
                 var divDetails = $('#dvCarryOutDetailsInner').detach();
                 divDetails.appendTo('#divTabAllDetails');
             }
-            $("#divLowerCancelButtonArea").show();
+            //$("#divLowerCancelButtonArea").show();
 
         });
 
@@ -1895,7 +1899,8 @@ function BindcarryoutTab(status) {
     localStorage.setItem("CurrentPage", 0);
     $('#hdnCurrentState').val(status);
     if (status == "New") {
-        CarryoutOrdersListCurrent(status, 10, 0, '');
+        $('#divTabCurrentDetails').html("");
+        CarryoutOrdersList(status, 10, 0, '');
     }
     else {
         CarryoutOrdersList(status, 10, 0, '');
@@ -3248,7 +3253,7 @@ function ChangePopupOrderStatusDropdown(status, orderId, storeId) {
 
 
                     //Set Details Upper Button
-                    upperButtonHtml = "<a class=\"custom-btn-two custom-bg custom-link item-media-section-two\" style=\"background:#74ddff !important;\" onclick=\"ChangePopupOrderStatusDropdown('Complete'," + orderId + "," + storeId + ")\">Complete</a>";
+                    upperButtonHtml = "<a class=\"custom-btn-two custom-bg custom-link item-media-section-two\" style=\"background:#3b9847 !important;\" onclick=\"ChangePopupOrderStatusDropdown('Complete'," + orderId + "," + storeId + ")\">Complete</a>";
                     $("#divUpperButtonArea").html(upperButtonHtml);
                     $("#li_" + orderId).css("border-left", "#2cbcf2 10px solid");
                 }
@@ -4190,12 +4195,14 @@ function SearchGiftCard() {
                     $('#tblRedeemHistory tbody').html("");
                     //console.log(data);
                     //console.log(data.replace(/"/g, "").indexOf("Invalid Card Code."));
-                    if (data.replace(/"/g, "").indexOf("Card is not active.") > -1) {
+                    if (data.replace(/"/g, "").indexOf("Message:") > -1) {
                         $('#dvInner').hide();
                         $('#dvOuter').hide();
                         $('#dvOuterText').html("");
                         $("#txtPINSearch").val("");
-                        callSweetAlertWarning("Gift Card is NOT Active. Please call (614)356-8000 to activate the Card.");
+                        var message = (data.replace(/"/g, "").replace("Message: ",""));
+                        callSweetAlertWarning(message);
+                        //callSweetAlertWarning("Gift Card is NOT Active. Please call (614)356-8000 to activate the Card.");
                     }
                    else if (data.replace(/"/g, "").indexOf("PIN is required.") > -1) {
                         $('#dvInner').hide();
@@ -4215,16 +4222,16 @@ function SearchGiftCard() {
                         $('#dvOuter').hide();
                         $('#dvOuterText').html("");
                         $("#txtPINSearch").val("");
-                        callSweetAlertWarning("GiftCard Code and PIN do not match.");
+                        callSweetAlertWarning("Gift Card Code and PIN do not match.");
 
                     }
-                    else if (data.replace(/"/g, "").indexOf("Gift Card was never used.") > -1) {
-                        $('#dvInner').hide();
-                        $('#dvOuter').hide();
-                        $('#dvOuterText').html("");
-                        $("#txtPINSearch").val("");
-                        callSweetAlertWarning("Gift Card was never used, Please use New screen to create the new Card.");
-                    }
+                    //else if (data.replace(/"/g, "").indexOf("Gift Card was never used.") > -1) {
+                    //    $('#dvInner').hide();
+                    //    $('#dvOuter').hide();
+                    //    $('#dvOuterText').html("");
+                    //    $("#txtPINSearch").val("");
+                    //    callSweetAlertWarning("Gift Card was never used, Please use New screen to create the new Card.");
+                    //}
                     else if (data.replace(/"/g, "").indexOf("Invalid Card Code.") > -1) {
                         //$('#btnLoadReward').prop("disabled", true);
                         //$('#btnRedeemReward').prop("disabled", true);
@@ -4480,7 +4487,7 @@ function LoadGiftCard() {
                         $('#dvOuter').hide();
                         $('#dvOuterText').html("");
                         $("#txtPINSearch").val("");
-                        callSweetAlertWarning("Invalid PIN.");
+                        callSweetAlertWarning("Gift Card Code and PIN do not match.");
 
                     }
                         //console.log("Load: " + data);
@@ -4591,7 +4598,7 @@ function LoadNewGiftCard() {
                             callSweetAlertWarning("Gift Card is NOT Active. Please call (614)356-8000 to activate the Card.");                            
                         }
                         else {
-                            callSweetAlertWarning("Gift Card Balance = $" + obj.Amount + " Please use Load screen to load additional amounts.");
+                            callSweetAlertWarning("Gift Card Balance = $" + obj.Amount + ". Please use Load screen to load additional amounts.");
                         }
                         $("#txtCardCode").val("");
                         $("#txtCardCode").css('border-bottom', errorClassBorder);
@@ -5460,7 +5467,17 @@ function RefundGiftCard() {
                 $("#txtCardCodeSearch").css('border-bottom', bottomBorder);
                 $("#txtPopupRefund").css('border-bottom', bottomBorder);
                 $("#txtPhoneSearch").css('border-bottom', bottomBorder);
-                if (data.replace(/"/g, "").indexOf("PIN is required.") > -1) {
+                if (data.replace(/"/g, "").indexOf("Message:") > -1) {
+                    $('#tblRedeemHistory tbody').html("");
+                    $('#dvInner').hide();
+                    $('#dvOuter').hide();
+                    $("#popuperror").show();
+                    var message = (data.replace(/"/g, "").replace("Message: ", ""));
+                    callSweetAlertWarning(message);
+                    CloseRefundGiftCardPopup();
+                    //callSweetAlertWarning("Gift Card is NOT Active. Please call (614)356-8000 to activate the Card.");
+                }
+               else if (data.replace(/"/g, "").indexOf("PIN is required.") > -1) {
                     $('#dvInner').hide();
                     //$('#btnLoadReward').prop("disabled", true);
                     //$('#btnRedeemReward').prop("disabled", true);
@@ -7015,6 +7032,15 @@ function SearchReward() {
                     $('#btnLoadReward').addClass("disabled");
                     $('#btnRedeemReward').addClass("disabled");
                 }
+                else if (data.replace(/"/g, "").indexOf("Message:") > -1) {
+                    $('#dvInner_Reward').hide();
+                    $('#dvOuter').hide();
+                    var message = (data.replace(/"/g, "").replace("Message: ", ""));
+                    callSweetAlertWarning(message);
+                    //callSweetAlertWarning("Gift Card is NOT Active. Please call (614)356-8000 to activate the Card.");
+                    $('#btnLoadReward').addClass("disabled");
+                    $('#btnRedeemReward').addClass("disabled");
+                }
                 else if (data.replace(/"/g, "").indexOf("Reward Member is not active.") > -1) {
                     $('#dvInner_Reward').hide();
                     $('#dvOuter').hide();
@@ -7299,7 +7325,7 @@ function SearchReward() {
     }
     else {
     
-        callSweetAlertWarning("Please enter either Member ID or Phone & Name.");
+        callSweetAlertWarning("Please enter Member ID with Phone or PIN.");
         if (memberId != "" || phone != "" && phone != '0' && lastName == "")
         {
             $('#dvInner_Reward').hide();
@@ -7593,6 +7619,15 @@ function LoadReward() {
                     $('#btnLoadReward').addClass("disabled");
                     $('#btnRedeemReward').addClass("disabled");
                 }
+                if (data.replace(/"/g, "").indexOf("Message:") > -1) {
+                    $('#dvInner_Reward').hide();
+                    $('#dvOuter').hide();
+                    var message = (data.replace(/"/g, "").replace("Message: ", ""));
+                    callSweetAlertWarning(message);
+                    //callSweetAlertWarning("Gift Card is NOT Active. Please call (614)356-8000 to activate the Card.");
+                    $('#btnLoadReward').addClass("disabled");
+                    $('#btnRedeemReward').addClass("disabled");
+                }
                 else if (data.replace(/"/g, "").indexOf("Reward Member is not active.") > -1) {
                     $('#dvInner_Reward').hide();
                     $('#dvOuter').hide();
@@ -7722,6 +7757,16 @@ function RedeemReward() {
                         callSweetAlertWarning("Reward Member not found.");
                         $('#btnLoadReward').addClass("disabled");
                         $('#btnRedeemReward').addClass("disabled");
+                    }
+                    else if (data.replace(/"/g, "").indexOf("Message:") > -1) {
+                        $('#dvInner_Reward').hide();
+                        $('#dvOuter').hide();
+                        var message = (data.replace(/"/g, "").replace("Message: ", ""));
+                        callSweetAlertWarning(message);
+                        $('#reward_LoadRedeem #btnLoadReward').addClass("disabled");
+                        $('#reward_LoadRedeem #btnRedeemReward').addClass("disabled");
+                        $("#txtLoad_LoadRedeem").css('border-bottom', bottomBorder);
+                        $("#txtRedeem_LoadRedeem").css('border-bottom', bottomBorder);
                     }
                     else if (data.replace(/"/g, "").indexOf("Reward Member is not active.") > -1) {
                         $('#dvInner_Reward').hide();
@@ -11983,7 +12028,13 @@ function ResetGiftCardLoadRedeem() {
     $('#tblRedeemHistory tbody').html("");
     $('#dvInner').hide();
 
-    $('#btnRedeemGiftCard').text("Redeem");
+    $('#btnRedeemGiftCard').text("Redeem"); 
+    $('#tab-giftcard-loadRedeem #btnLoadGiftCard').attr("disabled", true);
+    $('#tab-giftcard-loadRedeem #btnLoadGiftCard').addClass("disabled");
+    $("#tab-giftcard-loadRedeem #btnRedeemGiftCard").attr("disabled", true);
+    $('#tab-giftcard-loadRedeem #btnRedeemGiftCard').addClass("disabled");
+    $("#tab-giftcard-loadRedeem #btnRefundGiftCard").attr("disabled", true);
+    $('#tab-giftcard-loadRedeem #btnRefundGiftCard').addClass("disabled");
 
 }
 function ResetFilters(page) {
