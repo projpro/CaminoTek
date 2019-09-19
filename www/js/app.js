@@ -1710,7 +1710,7 @@ function CheckNewOrder() {
                             $('#myDiv').html('<div class="block">' +
                                              //<button type="button" id="btnAcknowledgement" name="btnAcknowledgement" onclick="AcceptOrders();" class="modal-accept-button">ACCEPT</button>
                                              '<a href="#" class="link popup-close modal-accept-button"  id="btnAcknowledgement" onclick="AcceptOrders();">ACCEPT</a>' +
-                                             '<div class="overlay-button-area" id="dvPopOrders" style=\"top: 10px;\">' +
+                                             '<div class="overlay-button-area" id="dvPopOrders" style=\"top: 20px;\">' +
                                               html +
                                                '</div>' +
                                               //'</div><p><a href="#" class="link popup-close">Close me</a></p>' +
