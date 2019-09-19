@@ -851,6 +851,7 @@ $$(document).on('page:init', function (e) {
                 console.log("reward scan click")
                 cordova.plugins.barcodeScanner.scan(
           function (result) {
+              alert(result.text);
               $("#txtMemberId_Reward").val(result.text);
               console.log("We got a barcode\n" +
                     "Result: " + result.text + "\n" +
