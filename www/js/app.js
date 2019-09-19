@@ -1632,7 +1632,7 @@ function CheckNewOrder() {
                             html += "<div class=\"popup-row\"><div class=\"popup-column-one\" style=\"margin:10px 0 10px 0;\">";
 
                             html += "<table width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\" id=\"popUpItems\"> <tbody>";
-                            html += "<tr><td align=\"left\" style=\"font-size:17px;font-weight:bold;border-bottom:1px solid #000;\" width=\"60%\">Items</td><td style=\"font-size:17px;font-weight:bold;border-bottom:1px solid #000;\" align=\"center\" width=\"20%\">Quantity</td> <td style=\"font-size:17px;font-weight:bold;border-bottom:1px solid #000;\" align=\"right\" width=\"20%\">Price</td></tr>";
+                            html += "<tr><td align=\"left\" style=\"font-size:17px;font-weight:bold;border-bottom:1px solid #000;\" width=\"55%\">Items</td><td style=\"font-size:17px;font-weight:bold;border-bottom:1px solid #000;\" align=\"center\" width=\"15%\">Quantity</td> <td style=\"font-size:17px;font-weight:bold;border-bottom:1px solid #000;\" align=\"right\" width=\"15%\">Price</td> <td style=\"font-size:17px;font-weight:bold;border-bottom:1px solid #000;\" align=\"right\" width=\"15%\">Amount</td></tr>";
                             if (value.OrderItems.indexOf("#") > -1) {
                                 var arrItemRows = value.OrderItems.split('#');
                                 var i;
@@ -1647,6 +1647,9 @@ function CheckNewOrder() {
                                         var qty = arrColumn[1];
                                         var price = arrColumn[2];
                                         var notes = unescape(arrColumn[3]);
+
+                                        var amount = parseFloat(price) * parseFloat(qty);
+
                                         if (notes != "") {
                                             html += "<td align=\"left\" style=\"font-size:17px;\">" + name + "(" + decode_str(notes) + ")</td>";
                                         }
@@ -1656,6 +1659,7 @@ function CheckNewOrder() {
 
                                         html += "<td align=\"center\" style=\"font-size:17px;\">" + qty + "</td>";
                                         html += "<td align=\"right\" style=\"font-size:17px;\">" + FormatDecimal(price) + "</td>";
+                                        html += "<td align=\"righy\" style=\"font-size:17px;\">" + FormatDecimal(amount) + "</td>";
 
                                     }
                                     html += "</tr>";
@@ -1934,8 +1938,8 @@ function AcceptOrders() {
                         //self.app.router.navigate('/carryout/', { reloadCurrent: true });
                         // alert(app.views.main.router.url)
                         if (app.views.main.router.url.indexOf('carryout') > -1) {
-                            app.tab.show('#2');
-                            BindcarryoutTab('Processing');
+                            app.tab.show('#1');
+                            BindcarryoutTab('New');
                         }
                         else {
                             localStorage.setItem("loadcarryoutprocessing", "true");
