@@ -308,7 +308,7 @@ function CarryoutOrdersList(status, carryoutpagesize, carryoutcurrentPage, divId
         divId = 'dvNewList';
     }
     else if (status == "Processing") {
-        divId = 'dvProcessingList';
+        divId = 'dvNewList';
     }
     else {
         divId = 'dvAllList';
@@ -683,24 +683,51 @@ function CarryoutOrdersList(status, carryoutpagesize, carryoutcurrentPage, divId
                             //$("#li_" + value.ID).css("background-color", "#ffecf2");
                         }
                         else if (value.ORDERSTATUSID.toLowerCase() == "processing") {
-                            $("#li_" + value.ID).css("border-left", "#2cbcf2 10px solid");
+                            if (status == "New" || status == "Processing") {
+                                $("#dvNewList #li_" + value.ID).css("border-left", "#2cbcf2 10px solid");
+                            }
+                            else {
+                                $("#dvAllList #li_" + value.ID).css("border-left", "#2cbcf2 10px solid");
+                            }
+                            
                         }
                         else if (value.ORDERSTATUSID.toLowerCase() == "complete") {
-                            $("#li_" + value.ID).css("border-left", "#5cb95a 10px solid");
+                            if (status == "New" || status == "Processing") {
+                                $("#dvNewList #li_" + value.ID).css("border-left", "#5cb95a 10px solid");
+                            }
+                            else {
+                                $("#dvAllList #li_" + value.ID).css("border-left", "#5cb95a 10px solid");
+                            }
                         }
                         else if (value.ORDERSTATUSID.toLowerCase() == "pickedup") {
-                            $("#li_" + value.ID).css("border-left", "#f7952c 10px solid");
+                            if (status == "New" || status == "Processing") {
+                                $("#dvNewList #li_" + value.ID).css("border-left", "#f7952c 10px solid");
+                            }
+                            else {
+                                $("#dvAllList #li_" + value.ID).css("border-left", "#f7952c 10px solid");
+                            }
                         }
                         else if (value.ORDERSTATUSID.toLowerCase() == "cancelled") {
-                            $("#li_" + value.ID).css("border-left", "#e95861 10px solid");
+                            if (status == "New" || status == "Processing") {
+                                $("#dvNewList #li_" + value.ID).css("border-left", "#e95861 10px solid");
+                            }
+                            else {
+                                $("#dvAllList #li_" + value.ID).css("border-left", "#e95861 10px solid");
+                            }
                         }
 
                     });
                     //if (index == 0) {
                     //    firstOrderId = value.ID;
                     //    OpenCarryoutDetails(firstOrderId);
-                        $('.order-container').removeClass("selected-order-background");
-                        $('#li_' + firstOrderId).addClass("selected-order-background");
+                    $('.order-container').removeClass("selected-order-background");
+                    if (status == "New" || status == "Processing") {
+                        $("#dvNewList #li_" + firstOrderId).addClass("selected-order-background");
+                    }
+                    else {
+                        $("#dvAllList #li_" + firstOrderId).addClass("selected-order-background");
+                    }
+                        //$('#li_' + firstOrderId).addClass("selected-order-background");
                     //}
                 }
                 else {
@@ -708,6 +735,15 @@ function CarryoutOrdersList(status, carryoutpagesize, carryoutcurrentPage, divId
                     var html = "<div class=\"order-list list-empty-label-text\" style=\"font-size: 30px; z-index: 999999; left: 38%; position: fixed;\">No Orders</div>";
 
                     $("#" + divId).html(html);
+
+                    if (divId == "dvNewList") {
+                        var divDetails = $('#dvCarryOutDetailsInner').detach();
+                        divDetails.appendTo('#divTabAllDetails');
+                    }
+                    else {
+                        var divDetails = $('#dvCarryOutDetailsInner').detach();
+                        divDetails.appendTo('#divTabCurrentDetails');
+                    }
 
                 }
             });
@@ -742,7 +778,7 @@ function CarryoutOrdersListPagination(status, carryoutpagesize, carryoutcurrentP
         divId = 'dvNewList';
     }
     else if (status == "Processing") {
-        divId = 'dvProcessingList';
+        divId = 'dvNewList';
     }
     else {
         divId = 'dvAllList';
@@ -793,21 +829,21 @@ function CarryoutOrdersListPagination(status, carryoutpagesize, carryoutcurrentP
         if (status.toLowerCase().trim() == "new") {
 
             $("#dvNew").attr("class", "active");
-            $("#dvPending").removeAttr("class");
+            //$("#dvPending").removeAttr("class");
             $("#dvAll").removeAttr("class");
 
 
         }
         else if (status.toLowerCase().trim() == "processing") {
 
-            $("#dvPending").attr("class", "active");
-            $("#dvNew").removeAttr("class");
+            //$("#dvPending").attr("class", "active");
+            $("#dvNew").attr("class","active");
             $("#dvAll").removeAttr("class");
         }
         else {
 
             $("#dvAll").attr("class", "active");
-            $("#dvPending").removeAttr("class");
+            //$("#dvPending").removeAttr("class");
             $("#dvNew").removeAttr("class");
 
         }
@@ -1110,16 +1146,37 @@ function CarryoutOrdersListPagination(status, carryoutpagesize, carryoutcurrentP
                             //$("#li_" + value.ID).css("background-color", "#ffecf2");
                         }
                         else if (value.ORDERSTATUSID.toLowerCase() == "processing") {
-                            $("#li_" + value.ID).css("border-left", "#2cbcf2 10px solid");
+                            if (status == "New" || status == "Processing") {
+                                $("#dvNewList #li_" + value.ID).css("border-left", "#2cbcf2 10px solid");
+                            }
+                            else {
+                                $("#dvAllList #li_" + value.ID).css("border-left", "#2cbcf2 10px solid");
+                            }
+
                         }
                         else if (value.ORDERSTATUSID.toLowerCase() == "complete") {
-                            $("#li_" + value.ID).css("border-left", "#5cb95a 10px solid");
+                            if (status == "New" || status == "Processing") {
+                                $("#dvNewList #li_" + value.ID).css("border-left", "#5cb95a 10px solid");
+                            }
+                            else {
+                                $("#dvAllList #li_" + value.ID).css("border-left", "#5cb95a 10px solid");
+                            }
                         }
                         else if (value.ORDERSTATUSID.toLowerCase() == "pickedup") {
-                            $("#li_" + value.ID).css("border-left", "#f7952c 10px solid");
+                            if (status == "New" || status == "Processing") {
+                                $("#dvNewList #li_" + value.ID).css("border-left", "#f7952c 10px solid");
+                            }
+                            else {
+                                $("#dvAllList #li_" + value.ID).css("border-left", "#f7952c 10px solid");
+                            }
                         }
                         else if (value.ORDERSTATUSID.toLowerCase() == "cancelled") {
-                            $("#li_" + value.ID).css("border-left", "#e95861 10px solid");
+                            if (status == "New" || status == "Processing") {
+                                $("#dvNewList #li_" + value.ID).css("border-left", "#e95861 10px solid");
+                            }
+                            else {
+                                $("#dvAllList #li_" + value.ID).css("border-left", "#e95861 10px solid");
+                            }
                         }
 
                     });
@@ -2303,6 +2360,14 @@ function CarryoutOrdersListCurrent(status, carryoutpagesize, carryoutcurrentPage
 
                     $("#" + divId).html(html);
 
+                    if (divId == "dvNewList") {
+                        var divDetails = $('#dvCarryOutDetailsInner').detach();
+                        divDetails.appendTo('#divTabAllDetails');
+                    }
+                    else {
+                        var divDetails = $('#dvCarryOutDetailsInner').detach();
+                        divDetails.appendTo('#divTabCurrentDetails');
+                    }
                 }
             });
 
@@ -2981,7 +3046,7 @@ function ChangeOrderStatusNew(status, orderId, storeId) {
                 else if ($('#hdnCurrentState').val() == "Processing") {
 
                     localStorage.setItem("CurrentPage", 0);
-                    CarryoutOrdersList('Processing', 10, 0, 'dvProcessingList');
+                    CarryoutOrdersList('New', 10, 0, 'dvNewList');
                 }
                 else {
 
@@ -3117,7 +3182,7 @@ function ChangeOrderStatusDropdown(status, orderId, storeId) {
                 else if ($('#hdnCurrentState').val() == "Processing") {
 
                     localStorage.setItem("CurrentPage", 0);
-                    CarryoutOrdersList('Processing', 10, 0, 'dvProcessingList');
+                    CarryoutOrdersList('New', 10, 0, 'dvNewList');
                 }
                 else {
 
@@ -3201,7 +3266,7 @@ function ChangePopupOrderStatusDropdown(status, orderId, storeId) {
                 else if ($('#hdnCurrentState').val() == "Processing") {
 
                     localStorage.setItem("CurrentPage", 0);
-                    CarryoutOrdersList('Processing', 10, 0, 'dvProcessingList');
+                    CarryoutOrdersList('New', 10, 0, 'dvNewList');
                 }
                 else {
 
