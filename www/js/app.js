@@ -291,7 +291,8 @@ $$(document).on('page:init', function (e) {
                 var currenttab = $$("#hdnCurrentState").val();
                 //alert(currenttab);
                 if (currenttab == "New") {
-                    CarryoutOrdersListPaginationCurrent('New', pageSize, currentPage, 'dvNewList');
+                    //CarryoutOrdersListPaginationCurrent('New', pageSize, currentPage, 'dvNewList');
+                    CarryoutOrdersListPagination('New', pageSize, currentPage, 'dvNewList');
                 }
                 else {
                     CarryoutOrdersListPagination('New', pageSize, currentPage, 'dvAllList');
@@ -509,7 +510,7 @@ $$(document).on('page:init', function (e) {
              console.log("Scanning failed: " + error);
          },
          {
-             preferFrontCamera: true, // iOS and Android
+             preferFrontCamera: false, // iOS and Android
              showFlipCameraButton: true, // iOS and Android
              formats: "CODE_128"
          }
@@ -528,7 +529,7 @@ $$(document).on('page:init', function (e) {
               console.log("Scanning failed: " + error);
           },
           {
-              preferFrontCamera: true, // iOS and Android
+              preferFrontCamera: false, // iOS and Android
               showFlipCameraButton: true, // iOS and Android
               showTorchButton: false, // iOS and Android
               torchOn: false, // Android, launch with the torch switched on (if available)
@@ -555,7 +556,7 @@ $$(document).on('page:init', function (e) {
               console.log("Scanning failed: " + error);
           },
           {
-              preferFrontCamera: true, // iOS and Android
+              preferFrontCamera: false, // iOS and Android
               showFlipCameraButton: true, // iOS and Android
               showTorchButton: false, // iOS and Android
               torchOn: false, // Android, launch with the torch switched on (if available)
@@ -776,6 +777,7 @@ $$(document).on('page:init', function (e) {
         //$$("#txtMemberID_LoadRedeem").focus();
         CheckGiftCardPermission();
         SetUpBarCodeScanButton('scan');
+        $('#rewards #txtMemberId_Reward').focus();
 
         //SetMenuNavigation();
         $$('#btnCreate').click(function () {
@@ -830,9 +832,9 @@ $$(document).on('page:init', function (e) {
 
         });
         $$('#linkRewardLoadRedeem').click(function () {
-            SetUpBarCodeScanButton('loadredeemscan');
             ResetRewardLoadRedeem();
-            $('#txtMemberID_LoadRedeem').focus();
+            SetUpBarCodeScanButton('loadredeemscan');
+            $('#rewards #txtMemberID_LoadRedeem').focus();
             disableScrolling();
 
         });
@@ -862,7 +864,7 @@ $$(document).on('page:init', function (e) {
               console.log("Scanning failed: " + error);
           },
           {
-              preferFrontCamera: true, // iOS and Android
+              preferFrontCamera: false, // iOS and Android
               showFlipCameraButton: true, // iOS and Android
               showTorchButton: false, // iOS and Android
               torchOn: false, // Android, launch with the torch switched on (if available)
@@ -889,7 +891,7 @@ $$(document).on('page:init', function (e) {
               console.log("Scanning failed: " + error);
           },
           {
-              preferFrontCamera: true, // iOS and Android
+              preferFrontCamera: false, // iOS and Android
               showFlipCameraButton: true, // iOS and Android
               showTorchButton: false, // iOS and Android
               torchOn: false, // Android, launch with the torch switched on (if available)
