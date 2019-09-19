@@ -1958,8 +1958,8 @@ function AcceptOrders() {
                     //localStorage.setItem("loadcarryoutprocessing", "true");
                     //self.app.router.navigate('/carryout/', { reloadCurrent: true });
                     if (app.views.main.router.url.indexOf('carryout') > -1) {
-                        app.tab.show('#2');
-                        BindcarryoutTab('Processing');
+                        app.tab.show('#1');
+                        BindcarryoutTab('New');
                     }
                     else {
                         localStorage.setItem("loadcarryoutprocessing", "true");
@@ -1971,8 +1971,8 @@ function AcceptOrders() {
                     // localStorage.setItem("loadcarryoutprocessing", "true");
                     //self.app.router.navigate('/carryout/', { reloadCurrent: true });
                     if (app.views.main.router.url.indexOf('carryout') > -1) {
-                        app.tab.show('#2');
-                        BindcarryoutTab('Processing');
+                        app.tab.show('#1');
+                        BindcarryoutTab('New');
                     }
                     else {
                         localStorage.setItem("loadcarryoutprocessing", "true");
