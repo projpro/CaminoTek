@@ -777,7 +777,7 @@ $$(document).on('page:init', function (e) {
         //$$("#txtMemberID_LoadRedeem").focus();
         CheckGiftCardPermission();
         SetUpBarCodeScanButton('scan');
-        $('#rewards #txtMemberId_Reward').focus();
+        $$('#rewards #txtMemberId_Reward').focus();
 
         //SetMenuNavigation();
         $$('#btnCreate').click(function () {
@@ -824,10 +824,9 @@ $$(document).on('page:init', function (e) {
             }
         });
         $$('#linkRewardNew').click(function () {
-            SetUpBarCodeScanButton('scan');
-
             ResetRewardNew();
-            $('#txtMemberId_Reward').focus();
+            SetUpBarCodeScanButton('scan');
+            $('#rewards #txtMemberId_Reward').focus();
             disableScrolling();
 
         });
@@ -847,8 +846,6 @@ $$(document).on('page:init', function (e) {
             var storeId = 0;
             if (localStorage.getItem("StoreId") != null)
                 storeId = localStorage.getItem("StoreId").trim();
-            if (storeId > 0)
-                InitPushNotification(storeId, device.manufacturer, device.uuid, device.version);
             $$('#reward_new #scan').on('click', function () {
 
                 console.log("reward scan click")
@@ -863,6 +860,11 @@ $$(document).on('page:init', function (e) {
           function (error) {
               console.log("Scanning failed: " + error);
           },
+         {
+             preferFrontCamera: false, // iOS and Android
+             showFlipCameraButton: true, // iOS and Android
+             formats: "CODE_128"
+         },
           {
               preferFrontCamera: false, // iOS and Android
               showFlipCameraButton: true, // iOS and Android
@@ -878,6 +880,8 @@ $$(document).on('page:init', function (e) {
           }
        );
             });
+
+
             $$('#reward_LoadRedeem #loadredeemscan').on('click', function () {
                 cordova.plugins.barcodeScanner.scan(
           function (result) {
@@ -905,6 +909,10 @@ $$(document).on('page:init', function (e) {
           }
        );
             });
+
+
+            if (storeId > 0)
+                InitPushNotification(storeId, device.manufacturer, device.uuid, device.version);
         }
     }
 
