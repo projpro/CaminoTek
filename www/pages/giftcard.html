@@ -97,17 +97,17 @@
                                         <div class="list media-list">
                                             <ul>
                                                 <li class="item-content">
+                                                    <input type="hidden" id="hdnCardType" value="" />
                                                     <div class="item-media item-media-section">
                                                         <i class="material-icons">card_giftcard</i>
-                                                        <input type="text" placeholder="Card Code" id="txtCardCode" class="mandatory" onKeyDown="if(this.value.length==15) this.value = this.value.slice(0, -1);" autofocus>
-                                                        <input type="hidden" id="hdnCardType" value="" />
+                                                        <input type="text" placeholder="Card Code" id="txtCardCode" class="mandatory" onKeyDown="if(this.value.length==16) this.value = this.value.slice(0, -1);" autofocus>                                                        
                                                         <span class="input-clear-button"></span>
                                                     </div>
                                                 </li>
                                                 <li class="item-content">
                                                     <div class="item-media item-media-section">
                                                         <i class="material-icons">phone</i>
-                                                        <input type="number" placeholder="Phone" id="txtPhone" onKeyDown="if(this.value.length==10) this.value = this.value.slice(0, -1);">
+                                                        <input type="number" placeholder="Phone" id="txtPhone" onKeyDown="if(this.value.length==11) this.value = this.value.slice(0, -1);">
                                                         <span class="input-clear-button"></span>
                                                     </div>
                                                 </li>
@@ -214,21 +214,21 @@
                                                         <li class="item-content">
                                                             <div class="item-media item-media-section">
                                                                 <i class="material-icons">card_giftcard</i>
-                                                                <input type="text" placeholder="Card Code" id="txtCardCodeSearch" class="mandatory" onKeyDown="if(this.value.length==15) this.value = this.value.slice(0, -1);" autofocus>
+                                                                <input type="text" placeholder="Card Code" id="txtCardCodeSearch" class="mandatory" onKeyDown="if(this.value.length==16) this.value = this.value.slice(0, -1);" autofocus>
                                                                 <span class="input-clear-button"></span>
                                                             </div>
                                                         </li>
                                                         <li class="item-content">
                                                             <div class="item-media item-media-section">
                                                                 <i class="material-icons">fiber_pin</i>
-                                                                <input type="text" placeholder="PIN" id="txtPINSearch" onKeyDown="if(this.value.length==15) this.value = this.value.slice(0, -1);" autofocus>
+                                                                <input type="text" placeholder="PIN" id="txtPINSearch" onKeyDown="if(this.value.length==16) this.value = this.value.slice(0, -1);" autofocus>
                                                                 <span class="input-clear-button"></span>
                                                             </div>
                                                         </li>
                                                         <li class="item-content" style="display:none;">
                                                             <div class="item-media item-media-section" style="padding-bottom: 0px;">
                                                                 <i class="material-icons">phone</i>
-                                                                <input type="number" placeholder="Phone" id="txtPhoneSearch" onKeyDown="if(this.value.length==10) this.value = this.value.slice(0, -1);">
+                                                                <input type="number" placeholder="Phone" id="txtPhoneSearch" onKeyDown="if(this.value.length==11) this.value = this.value.slice(0, -1);">
                                                                 <span class="input-clear-button"></span>
                                                             </div>
                                                         </li>
