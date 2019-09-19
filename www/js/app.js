@@ -1499,7 +1499,7 @@ function CheckNewOrder() {
                                 orderIds = orderIds + "," + value.ID;
                             else
                                 orderIds = value.ID;
-                            html += "<div id=\"divAcknowledgement\">";
+                            html += "<div id=\"divAcknowledgement\" style=\"top:5px;\">";
                             if (value.PICKUPTIME != "") {
                                 if (value.PICKUPTIME.indexOf("@") > -1) {
                                     var pickupdateOnly = value.PICKUPTIME.split('@')[0].trim();
