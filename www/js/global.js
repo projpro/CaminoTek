@@ -2967,15 +2967,15 @@ function ChangeOrderStatusNew(status, orderId, storeId) {
 
                 if ($('#hdnCurrentState').val() == "New") {
                     localStorage.setItem("CurrentPage", 0);
-                    //if (status == "Processing")
-                    //{
-                    //    app.tab.show('#2');
-                    //    BindcarryoutTab('Processing');
-                    //    //CarryoutOrdersList('Processing', 10, 0, 'dvProcessingList');
-                    //}
-                    //else {
+                    if (status == "Processing")
+                    {
+                        app.tab.show('#1');
+                        BindcarryoutTab('New');
+                        //CarryoutOrdersList('Processing', 10, 0, 'dvProcessingList');
+                    }
+                    else {
                         CarryoutOrdersList('New', 10, 0, 'dvNewList');
-                    //}
+                    }
                    
                 }
                 else if ($('#hdnCurrentState').val() == "Processing") {
