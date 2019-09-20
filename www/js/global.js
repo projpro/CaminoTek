@@ -677,7 +677,7 @@ function CarryoutOrdersList(status, carryoutpagesize, carryoutcurrentPage, divId
                         count++;
                         //console.log(html)
                         $("#" + divId).append(html);
-
+                        alert(html);//////////
                         
                         if (value.ORDERSTATUSID.toLowerCase() == "new") {
                             //$("#li_" + value.ID).css("background-color", "#ffecf2");
@@ -1958,7 +1958,7 @@ function BindcarryoutTab(status) {
     $('#hdnCurrentState').val(status);
     if (status == "New") {
         //$('#divTabCurrentDetails').html("");
-        CarryoutOrdersList(status, 10, 0, 'dvNewList');
+        CarryoutOrdersList(status, 10, 0, '');
     }
     else {
         CarryoutOrdersList(status, 10, 0, '');
