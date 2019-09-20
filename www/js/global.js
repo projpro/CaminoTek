@@ -303,7 +303,7 @@ function CarryoutOrdersList(status, carryoutpagesize, carryoutcurrentPage, divId
     var orderDateFrom = "";
     var orderDateTo = "";
     //Shorting
-    status = $('#hdnCurrentState').val();
+    status = $('#carryout #hdnCurrentState').val();
     if (status == "New") {
         divId = 'dvNewList';
     }
@@ -315,12 +315,12 @@ function CarryoutOrdersList(status, carryoutpagesize, carryoutcurrentPage, divId
         sortValue = $("input[name='radioCarryoutSort']:checked").val();
         sortByValue = $("input[name='radioCarryoutSortBy']:checked").val();
 
-        filterStatus = $("#ddlFilterCarryoutStatus").val();
-        orderNoFrom = $("#txtFilterOrderNumberFrom").val();
-        orderNoTo = $("#txtFilterOrderNumberTo").val();
-        phone = $("#txtFilterPhone").val();
-        orderDateFrom = $("#txtFilterOrderDateFrom").val();
-        orderDateTo = $("#txtFilterOrderDateTo").val();
+        filterStatus = $("#carryout #ddlFilterCarryoutStatus").val();
+        orderNoFrom = $("#carryout #txtFilterOrderNumberFrom").val();
+        orderNoTo = $("#carryout #txtFilterOrderNumberTo").val();
+        phone = $("#carryout #txtFilterPhone").val();
+        orderDateFrom = $("#carryout #txtFilterOrderDateFrom").val();
+        orderDateTo = $("#carryout #txtFilterOrderDateTo").val();
         //console.log("orderDateFrom: " + orderDateFrom)
         //console.log("orderDateTo: " + orderDateTo)
         //console.log("Sort: "+ sortValue + " By: " + sortByValue + " filter: " + filterStatus + " orderNofrom: " + orderNoFrom + " orderNoTo: " + orderNoTo + " phone: " + phone + " orderDateFrom: "+ orderDateFrom + " dateTo: " + orderDateTo);
@@ -352,7 +352,7 @@ function CarryoutOrdersList(status, carryoutpagesize, carryoutcurrentPage, divId
     var customerId = 0;
     var storeId = 0;
     currentPage = 0;
-    $("#" + divId).html("");
+    $("#carryout #" + divId).html("");
     storeId = SetStoreId();
     customerId = SetCustomerId();
     var firstOrderId = 0;
@@ -735,15 +735,15 @@ function CarryoutOrdersList(status, carryoutpagesize, carryoutcurrentPage, divId
                     localStorage.setItem("OrderAvailable", "0");
                     var html = "<div class=\"order-list list-empty-label-text\" style=\"font-size: 30px; z-index: 999999; left: 38%; position: fixed;\">No Orders</div>";
 
-                    $("#" + divId).html(html);
+                    $("#carryout #" + divId).html(html);
 
                     if (divId == "dvNewList") {
-                        var divDetails = $('#dvCarryOutDetailsInner').detach();
-                        divDetails.appendTo('#divTabAllDetails');
+                        var divDetails = $('#carryout #dvCarryOutDetailsInner').detach();
+                        divDetails.appendTo('#carryout #divTabAllDetails');
                     }
                     else {
-                        var divDetails = $('#dvCarryOutDetailsInner').detach();
-                        divDetails.appendTo('#divTabCurrentDetails');
+                        var divDetails = $('#carryout #dvCarryOutDetailsInner').detach();
+                        divDetails.appendTo('#carryout #divTabCurrentDetails');
                     }
 
                 }
@@ -829,23 +829,23 @@ function CarryoutOrdersListPagination(status, carryoutpagesize, carryoutcurrentP
             "&filterStatus=" + filterStatus + "&orderNoFrom=" + orderNoFrom + "&orderNoTo=" + orderNoTo + "&phone=" + phone + "&orderDateFrom=" + orderDateFrom + "&orderDateTo=" + orderDateTo;
         if (status.toLowerCase().trim() == "new") {
 
-            $("#dvNew").attr("class", "active");
+            $("#carryout #dvNew").attr("class", "active");
             //$("#dvPending").removeAttr("class");
-            $("#dvAll").removeAttr("class");
+            $("#carryout #dvAll").removeAttr("class");
 
 
         }
         else if (status.toLowerCase().trim() == "processing") {
 
             //$("#dvPending").attr("class", "active");
-            $("#dvNew").attr("class","active");
-            $("#dvAll").removeAttr("class");
+            $("#carryout #dvNew").attr("class", "active");
+            $("#carryout #dvAll").removeAttr("class");
         }
         else {
 
-            $("#dvAll").attr("class", "active");
+            $("#carryout #dvAll").attr("class", "active");
             //$("#dvPending").removeAttr("class");
-            $("#dvNew").removeAttr("class");
+            $("#carryout #dvNew").removeAttr("class");
 
         }
         try {
@@ -1141,7 +1141,7 @@ function CarryoutOrdersListPagination(status, carryoutpagesize, carryoutcurrentP
 
                         count++;
 
-                        $("#" + divId).append(html);
+                        $("#carryout #" + divId).append(html);
                         
                         if (value.ORDERSTATUSID.toLowerCase() == "new") {
                             //$("#li_" + value.ID).css("background-color", "#ffecf2");
