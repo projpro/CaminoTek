@@ -1653,7 +1653,7 @@ function CheckNewOrder() {
 
                                         html += "<td align=\"center\" style=\"font-size:17px;\">" + qty + "</td>";
                                         html += "<td align=\"right\" style=\"font-size:17px;\">" + FormatDecimal(price) + "</td>";
-                                        html += "<td align=\"righy\" style=\"font-size:17px;\">" + FormatDecimal(amount) + "</td>";
+                                        html += "<td align=\"right\" style=\"font-size:17px;\">" + FormatDecimal(amount) + "</td>";
 
                                     }
                                     html += "</tr>";
