@@ -1928,7 +1928,7 @@ function AcceptOrders() {
                     //alert("GiftcardChanged > 0 & CarryoutChanged > 0");//////////
                     if (giftcardchanged > carryoutchanged) {
                         localStorage.setItem("loadgiftcardorders", "true");
-                        self.app.router.navigate('/giftcard/', { reloadCurrent: true });
+                        ////self.app.router.navigate('/giftcard/', { reloadCurrent: true });//Commented For Stop Auto Redirect - 09.20.2019
 
                     }
                     else {
@@ -1937,15 +1937,14 @@ function AcceptOrders() {
                         //self.app.router.navigate('/carryout/', { reloadCurrent: true });
                         // alert(app.views.main.router.url)
                         if (app.views.main.router.url.indexOf('carryout') > -1) {
-                            alert("carryout 1");//////////
-                            app.tab.show('#1');
-                            BindcarryoutTab('New');
+                            //alert("carryout 1");//////////
+                            ////app.tab.show('#1');//Commented For Stop Auto Redirect - 09.20.2019
+                            ////BindcarryoutTab('New');//Commented For Stop Auto Redirect - 09.20.2019
                         }
                         else {
-                            alert("carryout 1 else");//////////
+                            //alert("carryout 1 else");//////////
                             localStorage.setItem("loadcarryoutprocessing", "true");
-                            //self.app.router.navigate('/carryout/', { reloadCurrent: true });
-                            $('.menuCarryout').trigger('click');
+                            ////self.app.router.navigate('/carryout/', { reloadCurrent: true });//Commented For Stop Auto Redirect - 09.20.2019
                         }
 
                     }
@@ -1953,41 +1952,39 @@ function AcceptOrders() {
                 else if (giftcardchanged > 0 && carryoutchanged == 0) {
                     //alert("GiftcardChanged > 0 & CarryoutChanged == 0");//////////
                     localStorage.setItem("loadgiftcardorders", "true");
-                    self.app.router.navigate('/giftcard/', { reloadCurrent: true });
+                    ////self.app.router.navigate('/giftcard/', { reloadCurrent: true });//Commented For Stop Auto Redirect - 09.20.2019
 
                 }
                 else if (carryoutchanged > 0 && giftcardchanged == 0) {
-                    alert("carryoutchanged > 0 & giftcardChanged == 0");//////////
+                    //alert("carryoutchanged > 0 & giftcardChanged == 0");//////////
                     //   alert(app.views.main.router.url)
                     //localStorage.setItem("loadcarryoutprocessing", "true");
                     //self.app.router.navigate('/carryout/', { reloadCurrent: true });
                     if (app.views.main.router.url.indexOf('carryout') > -1) {
-                        alert("carryout 2");//////////
-                        app.tab.show('#1');
-                        BindcarryoutTab('New');
+                        //alert("carryout 2");//////////
+                        ////app.tab.show('#1');//Commented For Stop Auto Redirect - 09.20.2019
+                        ////BindcarryoutTab('New');//Commented For Stop Auto Redirect - 09.20.2019
                     }
                     else {
-                        alert("carryout 1 else");//////////
+                        //alert("carryout 2 else");//////////
                         localStorage.setItem("loadcarryoutprocessing", "true");
-                        //self.app.router.navigate('/carryout/', { reloadCurrent: true });
-                        $('.menuCarryout').trigger('click');
+                        ////self.app.router.navigate('/carryout/', { reloadCurrent: true });//Commented For Stop Auto Redirect - 09.20.2019
                     }
                 }
                 else {
-                    alert("else");//////////
+                    //alert("else");//////////
                     // alert(app.views.main.router.url)
                     // localStorage.setItem("loadcarryoutprocessing", "true");
                     //self.app.router.navigate('/carryout/', { reloadCurrent: true });
                     if (app.views.main.router.url.indexOf('carryout') > -1) {
-                        alert("carryout 3");//////////
-                        app.tab.show('#1');
-                        BindcarryoutTab('New');
+                        //alert("carryout 3");//////////
+                        ////app.tab.show('#1');//Commented For Stop Auto Redirect - 09.20.2019
+                        ////BindcarryoutTab('New');//Commented For Stop Auto Redirect - 09.20.2019
                     }
                     else {
-                        alert("carryout 3 else");//////////
+                        //alert("carryout 3 else");//////////
                         localStorage.setItem("loadcarryoutprocessing", "true");
-                        //self.app.router.navigate('/carryout/', { reloadCurrent: true });
-                        $('.menuCarryout').trigger('click');
+                        ////self.app.router.navigate('/carryout/', { reloadCurrent: true });//Commented For Stop Auto Redirect - 09.20.2019
                     }
                 }
                 StopSoundOtherDevices(storeId);
