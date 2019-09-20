@@ -1923,25 +1923,32 @@ function AcceptOrders() {
             crossDomain: true,
             async: false,
             success: function (response) {
+
+                alert(response);//////////
+
                 $('#myDiv').hide();
                 //acceptOrderPopup.destroy();
                 $("#hdnOrderIds").val("");
 
                 if (giftcardchanged > 0 && carryoutchanged > 0) {
+                    alert("GiftcardChanged > 0 & CarryoutChanged > 0");//////////
                     if (giftcardchanged > carryoutchanged) {
                         localStorage.setItem("loadgiftcardorders", "true");
                         self.app.router.navigate('/giftcard/', { reloadCurrent: true });
 
                     }
                     else {
+                        alert("giftcardchanged > carryoutchanged else");//////////
                         //localStorage.setItem("loadcarryoutprocessing", "true");
                         //self.app.router.navigate('/carryout/', { reloadCurrent: true });
                         // alert(app.views.main.router.url)
                         if (app.views.main.router.url.indexOf('carryout') > -1) {
+                            alert("carryout 1");//////////
                             app.tab.show('#1');
                             BindcarryoutTab('New');
                         }
                         else {
+                            alert("carryout 1 else");//////////
                             localStorage.setItem("loadcarryoutprocessing", "true");
                             self.app.router.navigate('/carryout/', { reloadCurrent: true });
                         }
@@ -1949,32 +1956,39 @@ function AcceptOrders() {
                     }
                 }
                 else if (giftcardchanged > 0 && carryoutchanged == 0) {
+                    alert("GiftcardChanged > 0 & CarryoutChanged == 0");//////////
                     localStorage.setItem("loadgiftcardorders", "true");
                     self.app.router.navigate('/giftcard/', { reloadCurrent: true });
 
                 }
                 else if (carryoutchanged > 0 && giftcardchanged == 0) {
+                    alert("carryoutchanged > 0 & giftcardChanged == 0");//////////
                     //   alert(app.views.main.router.url)
                     //localStorage.setItem("loadcarryoutprocessing", "true");
                     //self.app.router.navigate('/carryout/', { reloadCurrent: true });
                     if (app.views.main.router.url.indexOf('carryout') > -1) {
+                        alert("carryout 2");//////////
                         app.tab.show('#1');
                         BindcarryoutTab('New');
                     }
                     else {
+                        alert("carryout 1 else");//////////
                         localStorage.setItem("loadcarryoutprocessing", "true");
                         self.app.router.navigate('/carryout/', { reloadCurrent: true });
                     }
                 }
                 else {
+                    alert("else");//////////
                     // alert(app.views.main.router.url)
                     // localStorage.setItem("loadcarryoutprocessing", "true");
                     //self.app.router.navigate('/carryout/', { reloadCurrent: true });
                     if (app.views.main.router.url.indexOf('carryout') > -1) {
+                        alert("carryout 3");//////////
                         app.tab.show('#1');
                         BindcarryoutTab('New');
                     }
                     else {
+                        alert("carryout 3 else");//////////
                         localStorage.setItem("loadcarryoutprocessing", "true");
                         self.app.router.navigate('/carryout/', { reloadCurrent: true });
                     }
