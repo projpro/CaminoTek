@@ -1937,7 +1937,7 @@ function AcceptOrders() {
                         //self.app.router.navigate('/carryout/', { reloadCurrent: true });
                         // alert(app.views.main.router.url)
                         if (app.views.main.router.url.indexOf('carryout') > -1) {
-                            //alert("carryout 1");//////////
+                            alert("carryout 1");//////////
                             app.tab.show('#1');
                             BindcarryoutTab('New');
                         }
@@ -1957,35 +1957,37 @@ function AcceptOrders() {
 
                 }
                 else if (carryoutchanged > 0 && giftcardchanged == 0) {
-                    //alert("carryoutchanged > 0 & giftcardChanged == 0");//////////
+                    alert("carryoutchanged > 0 & giftcardChanged == 0");//////////
                     //   alert(app.views.main.router.url)
                     //localStorage.setItem("loadcarryoutprocessing", "true");
                     //self.app.router.navigate('/carryout/', { reloadCurrent: true });
                     if (app.views.main.router.url.indexOf('carryout') > -1) {
-                        //alert("carryout 2");//////////
+                        alert("carryout 2");//////////
                         app.tab.show('#1');
                         BindcarryoutTab('New');
                     }
                     else {
-                        //alert("carryout 1 else");//////////
+                        alert("carryout 1 else");//////////
                         localStorage.setItem("loadcarryoutprocessing", "true");
-                        self.app.router.navigate('/carryout/', { reloadCurrent: true });
+                        //self.app.router.navigate('/carryout/', { reloadCurrent: true });
+                        $('.menuCarryout').trigger('click');
                     }
                 }
                 else {
-                    //alert("else");//////////
+                    alert("else");//////////
                     // alert(app.views.main.router.url)
                     // localStorage.setItem("loadcarryoutprocessing", "true");
                     //self.app.router.navigate('/carryout/', { reloadCurrent: true });
                     if (app.views.main.router.url.indexOf('carryout') > -1) {
-                        //alert("carryout 3");//////////
+                        alert("carryout 3");//////////
                         app.tab.show('#1');
                         BindcarryoutTab('New');
                     }
                     else {
-                        //alert("carryout 3 else");//////////
+                        alert("carryout 3 else");//////////
                         localStorage.setItem("loadcarryoutprocessing", "true");
-                        self.app.router.navigate('/carryout/', { reloadCurrent: true });
+                        //self.app.router.navigate('/carryout/', { reloadCurrent: true });
+                        $('.menuCarryout').trigger('click');
                     }
                 }
                 StopSoundOtherDevices(storeId);
