@@ -1942,7 +1942,7 @@ function AcceptOrders() {
                             BindcarryoutTab('New');
                         }
                         else {
-                            //alert("carryout 1 else");//////////
+                            alert("carryout 1 else");//////////
                             localStorage.setItem("loadcarryoutprocessing", "true");
                             //self.app.router.navigate('/carryout/', { reloadCurrent: true });
                             $('.menuCarryout').trigger('click');
