@@ -1321,7 +1321,7 @@ function OpenCarryoutDetails(id) {
                     else {
                         ordertotalvalue = FormatDecimal(grandTotal);
                     }
-                    $("#hdnSelectedOrderOrderPrice").val(ordertotalvalue);
+                    $("#carryout #hdnSelectedOrderOrderPrice").val(ordertotalvalue);
                     if (value.CREATEDONUTC != null && value.CREATEDONUTC != undefined) {
                         var arrDateTime = value.CREATEDONUTC.split('~');
                         orderDate = arrDateTime[0];
@@ -1695,7 +1695,7 @@ function OpenCarryoutDetails(id) {
                 }
                 else {
                     if (cardNumber != "") {
-                        $("#lblPaymentValue").html("PAID, CC ending in " + cardNumber);
+                        $("#carryout #lblPaymentValue").html("PAID, CC ending in " + cardNumber);
                         orderhtml += "<span class=\"cc-number\">PAID, ";
                         orderhtml += "<span class=\"cc-number\"> CC " + cardNumber + "</span></span>";
                     }
@@ -3056,7 +3056,7 @@ function ChangeOrderStatusNew(status, orderId, storeId) {
                     var buttonHTML = "";
                     var iconHTML = "";
                     if (status == "New") {
-                        iconHTML += "<button id=\"btnStatusChange\" onclick=\"myFunction(" + orderId + ")\" class=\"dropbtn\"><img class=\"list-icon\"  src=\"img/icons/pending.png\" alt=\"\"/></button>";
+                        iconHTML += "<button id=\"btnStatusChange\" onclick=\"myPopupFunction(" + orderId + ")\" class=\"dropbtn\"><img class=\"list-icon\"  src=\"img/icons/pending.png\" alt=\"\"/></button>";
                         iconHTML += "<div id=\"myDropdown_" + orderId + "\" class=\"dropdown-content\"><div onclick=\"HideStatusChangeDropdown(" + orderId + ");\" id =\"close_status_dropdown\" class=\"close_status_dropdown\">X</div>";
                         iconHTML += "<a onclick=\"ChangeOrderStatusDropdown('Processing'," + orderId + "," + storeId + ")\"><img class=\"list-icon\"  src=\"img/icons/pending.png\" alt=\"\"/> <span class=\"custom-dropdown-span\">Processing</span></a>";
                         iconHTML += "<a onclick=\"ChangeOrderStatusDropdown('Complete'," + orderId + "," + storeId + ")\"><img class=\"list-icon\"  src=\"img/icons/Complete-Icon.png\" alt=\"\"/> <span class=\"custom-dropdown-span\">Complete</span></a>";
@@ -3064,7 +3064,7 @@ function ChangeOrderStatusNew(status, orderId, storeId) {
                         iconHTML += "</div>";
                     }
                     else if (status == "Processing") {
-                        iconHTML += "<button id=\"btnStatusChange\" onclick=\"myFunction(" + orderId + ")\" class=\"dropbtn\"><img class=\"list-icon\"  src=\"img/icons/pending.png\" alt=\"\"/></button>";
+                        iconHTML += "<button id=\"btnStatusChange\" onclick=\"myPopupFunction(" + orderId + ")\" class=\"dropbtn\"><img class=\"list-icon\"  src=\"img/icons/pending.png\" alt=\"\"/></button>";
                         iconHTML += "<div id=\"myDropdown_" + orderId + "\" class=\"dropdown-content\"><div onclick=\"HideStatusChangeDropdown(" + orderId + ");\" id =\"close_status_dropdown\" class=\"close_status_dropdown\">X</div>";
                         iconHTML += "<a  class=\"status-disabled\" onclick=\"HideStatusChangeDropdown(" + orderId + ");\"><img class=\"list-icon\"  src=\"img/icons/pending.png\" alt=\"\"/> <span class=\"custom-dropdown-span\">Processing</span></a>";
                         iconHTML += "<a onclick=\"ChangeOrderStatusDropdown('Complete'," + orderId + "," + storeId + ")\"><img class=\"list-icon\"  src=\"img/icons/Complete-Icon.png\" alt=\"\"/> <span class=\"custom-dropdown-span\">Complete</span></a>";
@@ -3082,7 +3082,7 @@ function ChangeOrderStatusNew(status, orderId, storeId) {
                     }
                     else if (status == "Complete") {
 
-                        iconHTML += "<button id=\"btnStatusChange\" onclick=\"myFunction(" + orderId + ")\" class=\"dropbtn\"><img class=\"list-icon\"  src=\"img/icons/Complete-Icon.png\" alt=\"\"/></button>";
+                        iconHTML += "<button id=\"btnStatusChange\" onclick=\"myPopupFunction(" + orderId + ")\" class=\"dropbtn\"><img class=\"list-icon\"  src=\"img/icons/Complete-Icon.png\" alt=\"\"/></button>";
                         iconHTML += "<div id=\"myDropdown_" + orderId + "\" class=\"dropdown-content\"><div onclick=\"HideStatusChangeDropdown(" + orderId + ");\" id =\"close_status_dropdown\" class=\"close_status_dropdown\">X</div>";
                         iconHTML += "<a onclick=\"ChangeOrderStatusDropdown('Processing'," + orderId + "," + storeId + ")\"><img class=\"list-icon\"  src=\"img/icons/pending.png\" alt=\"\"/> <span class=\"custom-dropdown-span\">Processing</span></a>";
                         iconHTML += "<a  class=\"status-disabled\" onclick=\"HideStatusChangeDropdown(" + orderId + ");\"><img class=\"list-icon\"  src=\"img/icons/Complete-Icon.png\" alt=\"\"/> <span class=\"custom-dropdown-span\">Complete</span></a>";
@@ -3090,7 +3090,7 @@ function ChangeOrderStatusNew(status, orderId, storeId) {
                         iconHTML += "</div>";
                     }
                     else if (status == "PickedUp") {
-                        iconHTML += "<button id=\"btnStatusChange\" onclick=\"myFunction(" + orderId + ")\" class=\"dropbtn\"><img class=\"list-icon\"  src=\"img/icons/Picked-Up-Icon.png\" alt=\"\"/></button>";
+                        iconHTML += "<button id=\"btnStatusChange\" onclick=\"myPopupFunction(" + orderId + ")\" class=\"dropbtn\"><img class=\"list-icon\"  src=\"img/icons/Picked-Up-Icon.png\" alt=\"\"/></button>";
                         iconHTML += "<div id=\"myDropdown_" + orderId + "\" class=\"dropdown-content\"><div onclick=\"HideStatusChangeDropdown(" + orderId + ");\" id =\"close_status_dropdown\" class=\"close_status_dropdown\">X</div>";
                         iconHTML += "<a onclick=\"ChangeOrderStatusDropdown('Processing'," + orderId + "," + storeId + ")\"><img class=\"list-icon\"  src=\"img/icons/pending.png\" alt=\"\"/> <span class=\"custom-dropdown-span\">Processing</span></a>";
                         iconHTML += "<a onclick=\"ChangeOrderStatusDropdown('Complete'," + orderId + "," + storeId + ")\"><img class=\"list-icon\"  src=\"img/icons/Complete-Icon.png\" alt=\"\"/> <span class=\"custom-dropdown-span\">Complete</span></a>";
@@ -3098,7 +3098,7 @@ function ChangeOrderStatusNew(status, orderId, storeId) {
                         iconHTML += "</div>";
                     }
 
-                    $("#carryoutstatus_" + orderId).html(iconHTML);
+                    $("#carryout #carryoutstatus_" + orderId).html(iconHTML);
                     //var iconHTML = "";
                     //if (status == "New") {
                     //    iconHTML = "<img class=\"list-icon\" src=\"img/icons/new.png\" alt=\"\"/>";
@@ -3396,7 +3396,7 @@ function myFunction(id) {
 }
 function myPopupFunction(id) {
     $(".show").removeClass("show");
-    $("#myPopupDropdown_" + id).addClass("show");
+    $("#carryout #myPopupDropdown_" + id).addClass("show");
 }
 //Change Order Status
 function PopupChangeOrderStatusNew(status, orderId, storeId) {
