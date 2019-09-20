@@ -271,6 +271,7 @@ $$(document).on('page:init', function (e) {
         //console.log("loadProcessing: " + loadProcessing)
         if (loadProcessing != null && loadProcessing.toString().trim() == "true") {
             //console.log("loadProcessing 1: ")
+            alert("loadProcessing == true");
             app.tab.show('#1');
             BindcarryoutTab('New');
             localStorage.setItem("loadcarryoutprocessing", null);
@@ -292,7 +293,7 @@ $$(document).on('page:init', function (e) {
                 //alert(currenttab);
                 if (currenttab == "New") {
                     //CarryoutOrdersListPaginationCurrent('New', pageSize, currentPage, 'dvNewList');
-                    CarryoutOrdersListPagination('New', pageSize, currentPage, '');
+                    CarryoutOrdersListPagination('New', pageSize, currentPage, 'dvNewList');
                 }
                 else {
                     CarryoutOrdersListPagination('New', pageSize, currentPage, 'dvAllList');
