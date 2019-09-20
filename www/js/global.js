@@ -677,7 +677,7 @@ function CarryoutOrdersList(status, carryoutpagesize, carryoutcurrentPage, divId
                         count++;
                         //console.log(html)
                         $("#carryout #" + divId).append(html);
-                        alert(divId);//////////
+                        ////alert(divId);//////////
                         ////alert($("#carryout #" + divId).html());
                         
                         if (value.ORDERSTATUSID.toLowerCase() == "new") {
@@ -12357,3 +12357,4 @@ function BindCCMonth(id) {
     });
     $('#' + id).change();
 }
+
