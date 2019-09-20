@@ -1209,16 +1209,16 @@ function OpenCarryoutDetails(id) {
     $('.order-container').removeClass("selected-order-background");
     $('#li_' + id).addClass("selected-order-background");
     var currentTabId = $(".tab-active").attr('id');
-    $("#dvCarryOutDetailsInner #hdnSelectedOrderId").val(id);
+    $("#carryout #dvCarryOutDetailsInner #hdnSelectedOrderId").val(id);
     var storeId = SetStoreId();
     if (id > 0) {
         url = global + "/GetCarryOutOrderDetailsWithAllInfo?orderid=" + id;
         $.getJSON(url, function (data) {
             ////$('#dvDetailsPanel').html("");
-            $("#dvOrderInfo").html("");
-            $("#dvItem").html("");
-            $("#divUpperButtonArea").html("");
-            $("#divOrderDetailsPickupTime").html("");
+            $("#carryout #dvOrderInfo").html("");
+            $("#carryout #dvItem").html("");
+            $("#carryout #divUpperButtonArea").html("");
+            $("#carryout #divOrderDetailsPickupTime").html("");
             var html = "";
             var htmlDiscount = "";
             var htmlRewards = "";
@@ -1272,14 +1272,14 @@ function OpenCarryoutDetails(id) {
                         ordertype = value.ORDERTYPE;
                     }
                     if (ordertype != "" && ordertype == "Delivery") {
-                        $('#spanOrderDetailsOrderType').html("");
-                        $('#spanOrderDetailsOrderType').html(ordertype);
-                        $('#spanOrderDetailsOrderType').css('color', '#e95861');
+                        $('#carryout #spanOrderDetailsOrderType').html("");
+                        $('#carryout #spanOrderDetailsOrderType').html(ordertype);
+                        $('#carryout #spanOrderDetailsOrderType').css('color', '#e95861');
                     }
                     else {
-                        $('#spanOrderDetailsOrderType').html("");
-                        $('#spanOrderDetailsOrderType').html("Carry Out");
-                        $('#spanOrderDetailsOrderType').css('color', '#08b3c7');
+                        $('#carryout #spanOrderDetailsOrderType').html("");
+                        $('#carryout #spanOrderDetailsOrderType').html("Carry Out");
+                        $('#carryout #spanOrderDetailsOrderType').css('color', '#08b3c7');
                     }
                     orderDiscount = value.ORDERDISCOUNT;
                     subtotalvalue = value.SUBTOTAL;
@@ -1307,7 +1307,7 @@ function OpenCarryoutDetails(id) {
                     }
                     console.log('value.OID: ' + value.OID)
                     orderId = value.OID;
-                    $("#dvCarryOutDetailsInner #hdnSelectedOrderId").val(orderId);
+                    $("#carryout #dvCarryOutDetailsInner #hdnSelectedOrderId").val(orderId);
                     //if (value.ORDERTOTAL != "") {
                     //    $("#hdnSelectedOrderOrderPrice").val(FormatDecimal(value.ORDERTOTAL));
                     //    ordertotalvalue = FormatDecimal(value.ORDERTOTAL);
@@ -1326,11 +1326,11 @@ function OpenCarryoutDetails(id) {
                         var arrDateTime = value.CREATEDONUTC.split('~');
                         orderDate = arrDateTime[0];
                         orderTime = arrDateTime[1];
-                        $("#hdnSelectedOrderDateTime").val(orderDate + "#" + orderTime);
+                        $("#carryout #hdnSelectedOrderDateTime").val(orderDate + "#" + orderTime);
                     }
                     //console.log(value.PICKUPTIME)
                     if (value.PICKUPTIME != undefined) {
-                        $("#hdnSelectedOrderPickUpTime").val(value.PICKUPTIME);
+                        $("#carryout #hdnSelectedOrderPickUpTime").val(value.PICKUPTIME);
                         pickupTime = value.PICKUPTIME;
                         if (pickupTime.charAt(0) === '0')
                         {
@@ -1345,23 +1345,23 @@ function OpenCarryoutDetails(id) {
                             var arrPickUpSMSSentDateTime = value.ORDERPICKUPSMSSENTON.split('~');
                             var smsSentDate = arrPickUpSMSSentDateTime[0];
                             var smsSentTime = arrPickUpSMSSentDateTime[1];
-                            $("#hdnSelectedOrderPickUpSMSSentTime").val(smsSentDate + "#" + smsSentTime);
-                            $("#dvPickUpSMSSentTime").show();
-                            $("#dvPickUpSMSSentTime").html("Pickup SMS sent<br/>" + smsSentDate + " @ " + smsSentTime);
-                            $("#btnPickupSMS").hide();
+                            $("#carryout #hdnSelectedOrderPickUpSMSSentTime").val(smsSentDate + "#" + smsSentTime);
+                            $("#carryout #dvPickUpSMSSentTime").show();
+                            $("#carryout #dvPickUpSMSSentTime").html("Pickup SMS sent<br/>" + smsSentDate + " @ " + smsSentTime);
+                            $("#carryout #btnPickupSMS").hide();
                         }
                         else {
-                            $("#dvPickUpSMSSentTime").hide();
-                            $("#dvPickUpSMSSentTime").html("");
-                            $("#hdnSelectedOrderPickUpSMSSentTime").val("");
+                            $("#carryout #dvPickUpSMSSentTime").hide();
+                            $("#carryout #dvPickUpSMSSentTime").html("");
+                            $("#carryout #hdnSelectedOrderPickUpSMSSentTime").val("");
                         }
 
                     }
                     else {
-                        $("#dvPickUpSMSSentTime").hide();
-                        $("#dvPickUpSMSSentTime").html("");
-                        $("#btnPickupSMS").show();
-                        $("#hdnSelectedOrderPickUpSMSSentTime").val("");
+                        $("#carryout #dvPickUpSMSSentTime").hide();
+                        $("#carryout #dvPickUpSMSSentTime").html("");
+                        $("#carryout #btnPickupSMS").show();
+                        $("#carryout #hdnSelectedOrderPickUpSMSSentTime").val("");
                     }
 
                     if (value.CREATEDONUTC != null && value.CREATEDONUTC != undefined) {
@@ -1458,11 +1458,11 @@ function OpenCarryoutDetails(id) {
                     htmlGiftCard += "</tr>";
                 }
                 if (orderStatus.toLowerCase() != "cancelled") {
-                    $("#divLowerCancelButtonArea").show();
+                    $("#carryout #divLowerCancelButtonArea").show();
                 }
                 else
                 {
-                    $("#divLowerCancelButtonArea").hide();
+                    $("#carryout #divLowerCancelButtonArea").hide();
                 }
                 /*------------------Order Area-----------------------*/
                 var buttonHTML = "";
@@ -1490,7 +1490,7 @@ function OpenCarryoutDetails(id) {
 
                         //Set Details Upper Button
                         upperButtonHtml = "<a class=\"custom-btn-two custom-bg custom-link item-media-section-two\" style=\"background:#5cb95a !important;\" onclick=\"ChangePopupOrderStatusDropdown('Processing'," + orderId + "," + storeId + ")\">Accept</a>";
-                        $("#divUpperButtonArea").html(upperButtonHtml);
+                        $("#carryout #divUpperButtonArea").html(upperButtonHtml);
                                                 
                     }
                     else if (orderStatus.toLowerCase() == "processing") {
@@ -1506,7 +1506,7 @@ function OpenCarryoutDetails(id) {
 
                         //Set Details Upper Button
                         upperButtonHtml = "<a class=\"custom-btn-two custom-bg custom-link item-media-section-two\" style=\"background:#3b9847 !important;\" onclick=\"ChangePopupOrderStatusDropdown('Complete'," + orderId + "," + storeId + ")\">Complete</a>";
-                        $("#divUpperButtonArea").html(upperButtonHtml);
+                        $("#carryout #divUpperButtonArea").html(upperButtonHtml);
                     }
                     else if (orderStatus.toLowerCase() == "complete") {
                         orderhtml += "<div class=\"dropdown\" id=\"carryoutpopstatus_" + orderId + "\">";
@@ -1523,7 +1523,7 @@ function OpenCarryoutDetails(id) {
                         upperButtonHtml = "<a class=\"custom-btn-two custom-bg custom-link item-media-section-two\" style=\"background:#f7952c !important;\" onclick=\"ChangePopupOrderStatusDropdown('PickedUp'," + orderId + "," + storeId + ")\">Pick Up</a>";
                         //Send SMS Button
                         upperButtonHtml += "<a id=\"aPopupSMS_" + orderId + "\" class=\"custom-btn-three custom-bg custom-link item-media-section-two\" style=\"background:#303030 !important;\" onclick=\"ConfirmationPickUpSMSSend(" + orderId + ",'" + phone + "','Popup','$0.00')\">SMS to Customer</a>";
-                        $("#divUpperButtonArea").html(upperButtonHtml);
+                        $("#carryout #divUpperButtonArea").html(upperButtonHtml);
                     }
                     else if (orderStatus.toLowerCase() == "pickedup") {
                         orderhtml += "<div class=\"dropdown\" id=\"carryoutpopstatus_" + orderId + "\">";
@@ -1536,7 +1536,7 @@ function OpenCarryoutDetails(id) {
                         orderhtml += "</div>";
                         orderhtml += "</div>";
 
-                        $("#divUpperButtonArea").html("");
+                        $("#carryout #divUpperButtonArea").html("");
                     }
                     else if (orderStatus.toLowerCase() == "cancelled") {
                         //html += "<div class=\"order-status-icon\" id=\"carryoutstatus_" + value.ID + "\"><img class=\"list-icon\"  src=\"img/icons/Picked-Up-Icon.png\" alt=\"\"/></div>";
@@ -1546,7 +1546,7 @@ function OpenCarryoutDetails(id) {
 
                         orderhtml += "</div>";
 
-                        $("#divUpperButtonArea").html("");
+                        $("#carryout #divUpperButtonArea").html("");
                     }
                 }
 
@@ -1624,8 +1624,8 @@ function OpenCarryoutDetails(id) {
                         orderPickupTimeHtml += "<div class=\"order-details-pickup order-pickup-margin-top\"></div>";
                 }
                 //Bind Order Pickup Time
-                $("#divOrderDetailsPickupTime").html("");
-                $("#divOrderDetailsPickupTime").html(orderPickupTimeHtml);
+                $("#carryout #divOrderDetailsPickupTime").html("");
+                $("#carryout #divOrderDetailsPickupTime").html(orderPickupTimeHtml);
 
                 orderhtml += "<div class=\"carryout-order-number\"><span class=\"order-number\"> #" + orderId + "</span><br/> " + orderDate + " @ " + orderTime + "</div>";
                 orderhtml += "</div>";
@@ -1841,7 +1841,7 @@ function OpenCarryoutDetails(id) {
             $.getJSON(url, function (data) {
                 //console.log("Histor: " + data);
                 if (data.indexOf("No record(s) found.") > -1) {
-                    $("#dvItem").html("No record(s) found.");
+                    $("#carryout #dvItem").html("No record(s) found.");
 
                 }
                 else {
@@ -1922,13 +1922,13 @@ function OpenCarryoutDetails(id) {
             });
             var currentOpenTabId = $("#carryout .tab-active").attr('id');
             if (currentOpenTabId == 1) {
-                var divDetails = $('#dvCarryOutDetailsInner').detach();
-                divDetails.appendTo('#divTabCurrentDetails');
+                var divDetails = $('#carryout #dvCarryOutDetailsInner').detach();
+                divDetails.appendTo('#carryout #divTabCurrentDetails');
 
             } else if (currentOpenTabId == 3) {
                 //$("#divTabAllDetails").html($("#dvCarryOutDetailsInner").html());
-                var divDetails = $('#dvCarryOutDetailsInner').detach();
-                divDetails.appendTo('#divTabAllDetails');
+                var divDetails = $('#carryout #dvCarryOutDetailsInner').detach();
+                divDetails.appendTo('#carryout #divTabAllDetails');
             }
             //$("#divLowerCancelButtonArea").show();
 
