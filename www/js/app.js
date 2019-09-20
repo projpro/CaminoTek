@@ -291,8 +291,8 @@ $$(document).on('page:init', function (e) {
                 var currenttab = $$("#hdnCurrentState").val();
                 //alert(currenttab);
                 if (currenttab == "New") {
-                    CarryoutOrdersListPaginationCurrent('New', pageSize, currentPage, 'dvNewList');
-                    //CarryoutOrdersListPagination('New', pageSize, currentPage, 'dvNewList');
+                    //CarryoutOrdersListPaginationCurrent('New', pageSize, currentPage, 'dvNewList');
+                    CarryoutOrdersListPagination('New', pageSize, currentPage, '');
                 }
                 else {
                     CarryoutOrdersListPagination('New', pageSize, currentPage, 'dvAllList');
