@@ -267,16 +267,14 @@ $$(document).on('page:init', function (e) {
 
         localStorage.setItem("CurrentPage", currentPage);
         var loadProcessing = localStorage.getItem("loadcarryoutprocessing");
-        //alert(loadProcessing)
-        //console.log("loadProcessing: " + loadProcessing)
-        if (loadProcessing != null && loadProcessing.toString().trim() == "true") {
-            //console.log("loadProcessing 1: ")
-            alert("loadProcessing == true");
-            app.tab.show('#1');
-            BindcarryoutTab('New');
-            localStorage.setItem("loadcarryoutprocessing", null);
+        //Commented on 09.20.2019 -  Fir Double Loading
+        ////if (loadProcessing != null && loadProcessing.toString().trim() == "true") {
+        ////    //console.log("loadProcessing 1: ")
+        ////    app.tab.show('#1');
+        ////    BindcarryoutTab('New');
+        ////    localStorage.setItem("loadcarryoutprocessing", null);
 
-        }
+        ////}
 
         CarryoutOrdersList('New', 10, 0, 'dvNewList');
         var timeout = null;
