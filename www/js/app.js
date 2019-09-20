@@ -1944,7 +1944,8 @@ function AcceptOrders() {
                         else {
                             //alert("carryout 1 else");//////////
                             localStorage.setItem("loadcarryoutprocessing", "true");
-                            self.app.router.navigate('/carryout/', { reloadCurrent: true });
+                            //self.app.router.navigate('/carryout/', { reloadCurrent: true });
+                            $('.menuCarryout').trigger('click');
                         }
 
                     }
@@ -2166,5 +2167,11 @@ $.fn.putCursorAtEnd = function () {
     });
 
 };
+
+
+
+
+
+
 
 
