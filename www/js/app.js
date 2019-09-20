@@ -271,8 +271,8 @@ $$(document).on('page:init', function (e) {
         //console.log("loadProcessing: " + loadProcessing)
         if (loadProcessing != null && loadProcessing.toString().trim() == "true") {
             //console.log("loadProcessing 1: ")
-            app.tab.show('#2');
-            BindcarryoutTab('Processing');
+            app.tab.show('#1');
+            BindcarryoutTab('New');
             localStorage.setItem("loadcarryoutprocessing", null);
 
         }
@@ -860,11 +860,6 @@ $$(document).on('page:init', function (e) {
           function (error) {
               console.log("Scanning failed: " + error);
           },
-         {
-             preferFrontCamera: false, // iOS and Android
-             showFlipCameraButton: true, // iOS and Android
-             formats: "CODE_128"
-         },
           {
               preferFrontCamera: false, // iOS and Android
               showFlipCameraButton: true, // iOS and Android
