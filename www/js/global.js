@@ -677,7 +677,7 @@ function CarryoutOrdersList(status, carryoutpagesize, carryoutcurrentPage, divId
                         count++;
                         //console.log(html)
                         $("#carryout #" + divId).append(html);
-                        ////alert(divId);//////////
+                        alert(divId);//////////
                         ////alert($("#carryout #" + divId).html());
                         
                         if (value.ORDERSTATUSID.toLowerCase() == "new") {
@@ -829,23 +829,23 @@ function CarryoutOrdersListPagination(status, carryoutpagesize, carryoutcurrentP
             "&filterStatus=" + filterStatus + "&orderNoFrom=" + orderNoFrom + "&orderNoTo=" + orderNoTo + "&phone=" + phone + "&orderDateFrom=" + orderDateFrom + "&orderDateTo=" + orderDateTo;
         if (status.toLowerCase().trim() == "new") {
 
-            $("#carryout #dvNew").attr("class", "active");
+            $("#carryout #dvNewList").attr("class", "active");
             //$("#dvPending").removeAttr("class");
-            $("#carryout #dvAll").removeAttr("class");
+            $("#carryout #dvAllList").removeAttr("class");
 
 
         }
         else if (status.toLowerCase().trim() == "processing") {
 
             //$("#dvPending").attr("class", "active");
-            $("#carryout #dvNew").attr("class", "active");
-            $("#carryout #dvAll").removeAttr("class");
+            $("#carryout #dvNewList").attr("class", "active");
+            $("#carryout #dvAllList").removeAttr("class");
         }
         else {
 
-            $("#carryout #dvAll").attr("class", "active");
+            $("#carryout #dvAllList").attr("class", "active");
             //$("#dvPending").removeAttr("class");
-            $("#carryout #dvNew").removeAttr("class");
+            $("#carryout #dvNewList").removeAttr("class");
 
         }
         try {
