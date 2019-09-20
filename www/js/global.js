@@ -1956,7 +1956,7 @@ function BindcarryoutTab(status) {
         $('#linkCarryoutFilterIcon').hide();
     }
     localStorage.setItem("CurrentPage", 0);
-    $('#hdnCurrentState').val(status);
+    $('#carryout #hdnCurrentState').val(status);
     if (status == "New") {
         //$('#divTabCurrentDetails').html("");
         CarryoutOrdersList(status, 10, 0, '');
@@ -1985,7 +1985,7 @@ function CarryoutOrdersListCurrent(status, carryoutpagesize, carryoutcurrentPage
         divId = 'dvNewList';
     }
     else if (status == "Processing") {
-        divId = 'dvProcessingList';
+        divId = 'dvNewList';
     }
     else {
         divId = 'dvAllList';
@@ -2350,7 +2350,7 @@ function CarryoutOrdersListCurrent(status, carryoutpagesize, carryoutcurrentPage
 
                         count++;
                         //console.log(html)
-                        $("#" + divId).append(html);
+                        $("#carryout #" + divId).append(html);
 
 
                     });
@@ -2402,7 +2402,7 @@ function CarryoutOrdersListPaginationCurrent(status, carryoutpagesize, carryoutc
         divId = 'dvNewList';
     }
     else if (status == "Processing") {
-        divId = 'dvProcessingList';
+        divId = 'dvNewList';
     }
     else {
         divId = 'dvAllList';
@@ -2452,23 +2452,23 @@ function CarryoutOrdersListPaginationCurrent(status, carryoutpagesize, carryoutc
             "&filterStatus=" + filterStatus + "&orderNoFrom=" + orderNoFrom + "&orderNoTo=" + orderNoTo + "&phone=" + phone + "&orderDateFrom=" + orderDateFrom + "&orderDateTo=" + orderDateTo;
         if (status.toLowerCase().trim() == "new") {
 
-            $("#dvNew").attr("class", "active");
-            $("#dvPending").removeAttr("class");
-            $("#dvAll").removeAttr("class");
+            $("#dvNewList").attr("class", "active");
+            //$("#dvPending").removeAttr("class");
+            $("#dvAllList").removeAttr("class");
 
 
         }
         else if (status.toLowerCase().trim() == "processing") {
 
-            $("#dvPending").attr("class", "active");
-            $("#dvNew").removeAttr("class");
-            $("#dvAll").removeAttr("class");
+            //$("#dvPending").attr("class", "active");
+            $("#dvNewList").attr("class", "active");
+            $("#dvAllList").removeAttr("class");
         }
         else {
 
-            $("#dvAll").attr("class", "active");
-            $("#dvPending").removeAttr("class");
-            $("#dvNew").removeAttr("class");
+            $("#dvAllList").attr("class", "active");
+            //$("#dvPending").removeAttr("class");
+            $("#dvNewList").removeAttr("class");
 
         }
         try {
@@ -2764,7 +2764,7 @@ function CarryoutOrdersListPaginationCurrent(status, carryoutpagesize, carryoutc
 
                         count++;
 
-                        $("#" + divId).append(html);
+                        $("#carryout #" + divId).append(html);
 
 
                     });
