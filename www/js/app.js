@@ -1938,8 +1938,8 @@ function AcceptOrders() {
                         // alert(app.views.main.router.url)
                         if (app.views.main.router.url.indexOf('carryout') > -1) {
                             //alert("carryout 1");//////////
-                            ////app.tab.show('#1');//Commented For Stop Auto Redirect - 09.20.2019
-                            ////BindcarryoutTab('New');//Commented For Stop Auto Redirect - 09.20.2019
+                            app.tab.show('#1');//Commented For Stop Auto Redirect - 09.20.2019
+                            BindcarryoutTab('New');//Commented For Stop Auto Redirect - 09.20.2019
                         }
                         else {
                             //alert("carryout 1 else");//////////
@@ -1962,8 +1962,8 @@ function AcceptOrders() {
                     //self.app.router.navigate('/carryout/', { reloadCurrent: true });
                     if (app.views.main.router.url.indexOf('carryout') > -1) {
                         //alert("carryout 2");//////////
-                        ////app.tab.show('#1');//Commented For Stop Auto Redirect - 09.20.2019
-                        ////BindcarryoutTab('New');//Commented For Stop Auto Redirect - 09.20.2019
+                        app.tab.show('#1');//Commented For Stop Auto Redirect - 09.20.2019
+                        BindcarryoutTab('New');//Commented For Stop Auto Redirect - 09.20.2019
                     }
                     else {
                         //alert("carryout 2 else");//////////
@@ -1978,8 +1978,8 @@ function AcceptOrders() {
                     //self.app.router.navigate('/carryout/', { reloadCurrent: true });
                     if (app.views.main.router.url.indexOf('carryout') > -1) {
                         //alert("carryout 3");//////////
-                        ////app.tab.show('#1');//Commented For Stop Auto Redirect - 09.20.2019
-                        ////BindcarryoutTab('New');//Commented For Stop Auto Redirect - 09.20.2019
+                        app.tab.show('#1');//Commented For Stop Auto Redirect - 09.20.2019
+                        BindcarryoutTab('New');//Commented For Stop Auto Redirect - 09.20.2019
                     }
                     else {
                         //alert("carryout 3 else");//////////
