@@ -1478,8 +1478,8 @@ h4 {
     font-weight: 600;
     font-size: 16px;
     color: #111111;
-	/*margin: 12px 0 0 0;*/
-    line-height: 20px;
+	margin: 19px 0 0 0;
+    line-height: 15px;
 }
 
 .order-status-icon {
@@ -3661,13 +3661,13 @@ h2 {
         width: 75%;
     }
     .custom-btn-one {
-            margin: 0 0 0 50px;
+            margin: 0 0 0 35px;
     }
     #dvOrderInfo .dropbtn {
             background: none;
     }
     .carryout-order-number {
-            margin: -58px 0 0 0;
+            margin: -33px 0 0 0;
     }
 
 }
