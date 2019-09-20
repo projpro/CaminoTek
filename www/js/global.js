@@ -677,8 +677,8 @@ function CarryoutOrdersList(status, carryoutpagesize, carryoutcurrentPage, divId
                         count++;
                         //console.log(html)
                         $("#carryout #" + divId).append(html);
-                        alert(divId);//////////
-                        alert($("#carryout #" + divId).html());
+                        ////alert(divId);//////////
+                        ////alert($("#carryout #" + divId).html());
                         
                         if (value.ORDERSTATUSID.toLowerCase() == "new") {
                             //$("#li_" + value.ID).css("background-color", "#ffecf2");
@@ -1833,7 +1833,7 @@ function OpenCarryoutDetails(id) {
                     orderhtml += "<input type=\"hidden\" id=\"hdnPaymentmethod_" + id + "\" value=\"" + paymentMethod + "\"/>";
                 /*------------------Order Area-----------------------*/
 
-                $("#dvOrderInfo").html(orderhtml);
+                $("#carryout #dvOrderInfo").html(orderhtml);
                 //console.log(orderhtml);
 
             });
