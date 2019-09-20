@@ -291,8 +291,8 @@ $$(document).on('page:init', function (e) {
                 var currenttab = $$("#hdnCurrentState").val();
                 //alert(currenttab);
                 if (currenttab == "New") {
-                    //CarryoutOrdersListPaginationCurrent('New', pageSize, currentPage, 'dvNewList');
-                    CarryoutOrdersListPagination('New', pageSize, currentPage, 'dvNewList');
+                    CarryoutOrdersListPaginationCurrent('New', pageSize, currentPage, 'dvNewList');
+                    //CarryoutOrdersListPagination('New', pageSize, currentPage, 'dvNewList');
                 }
                 else {
                     CarryoutOrdersListPagination('New', pageSize, currentPage, 'dvAllList');
@@ -1705,7 +1705,7 @@ function CheckNewOrder() {
                             $('#myDiv').html('<div class="block">' +
                                              //<button type="button" id="btnAcknowledgement" name="btnAcknowledgement" onclick="AcceptOrders();" class="modal-accept-button">ACCEPT</button>
                                              '<a href="#" class="link popup-close modal-accept-button"  id="btnAcknowledgement" onclick="AcceptOrders();">ACCEPT</a>' +
-                                             '<div class="overlay-button-area" id="dvPopOrders" style=\"top: 20px;\">' +
+                                             '<div class="overlay-button-area" id="dvPopOrders" style=\"top: 30px !important;\">' +
                                               html +
                                                '</div>' +
                                               //'</div><p><a href="#" class="link popup-close">Close me</a></p>' +
