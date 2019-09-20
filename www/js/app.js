@@ -2168,9 +2168,3 @@ $.fn.putCursorAtEnd = function () {
 };
 
 
-
-
-
-
-
-
