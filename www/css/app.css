@@ -186,6 +186,10 @@ img {
 	background-image: none;
 }*/
 
+#divAcknowledgement{margin-top:20px;}
+
+#divLowerCancelButtonArea .custom-btn-one{margin-left:100px !important;}
+
 .form-item-content .item-checkbox-group:first-child {
     margin-top: 0px;
 }
