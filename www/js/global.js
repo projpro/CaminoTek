@@ -8003,7 +8003,14 @@ function AddNewMemberID() {
             
             $.getJSON(url, function (data1) {
                 console.log(data1);
-                if (data1.replace(/"/g, "").indexOf("Reward Member is not active.") > -1) {
+                if (data.replace(/"/g, "").indexOf("Message:") > -1) {
+                    $("#btnCreate").text("Add Member");
+                    $("#btnCreate").attr("disabled", false);
+                    var message = (data.replace(/"/g, "").replace("Message: ", ""));
+                    callSweetAlertWarning(message);
+                    //callSweetAlertWarning("Gift Card is NOT Active. Please call (614)356-8000 to activate the Card.");
+                }
+                else if (data1.replace(/"/g, "").indexOf("Reward Member is not active.") > -1) {
                     callSweetAlertWarning("Reward Member is NOT Active. Please call (614)356-8000 for support");
                     $("#btnCreate").text("Add Member");
                     $("#btnCreate").attr("disabled", false);
@@ -8011,7 +8018,7 @@ function AddNewMemberID() {
                 else if (data1.replace(/"/g, "").indexOf("Reward Member is active.") > -1) {
                     var messageDisplay = data1.replace(/"/g, "");
                     messageDisplay = messageDisplay.replace("Reward Member is active.", "");
-                    callSweetAlertWarning(messageDisplay+".");
+                    callSweetAlertWarning(messageDisplay);
                     $("#btnCreate").text("Add Member");
                     $("#btnCreate").attr("disabled", false);
                 }
