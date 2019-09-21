@@ -1,6 +1,6 @@
-var global = "http://www.appnotification.bistroux.com/Api/App/";
+//var global = "http://www.appnotification.bistroux.com/Api/App/";
 //var global = "http://www.consumerapp.bistroux.com/Api/App/";
-//var global = "http://192.168.1.6/Api/App/";
+var global = "http://192.168.1.6/Api/App/";
 var mediaURL = "http://appnotification.bistroux.com/Media/";
 
 var browser = true;
@@ -4391,9 +4391,10 @@ function SearchGiftCard() {
 
                                 if (value.CARDTYPE!=null &&  value.CARDTYPE != "") {
                                     cardType = value.CARDTYPE;
+                                    
+                                    $('#giftcard #hdnSearchCardType').val(cardType);
                                 }
                                 
-                                $('#hdnSearchCardType').val(cardType);
                                 //console.log("Card Balance: " + balanceAmount);
                                 $('#lblCutomerName').html(firstName + " " + lastName);
                                 if (phoneNumber.length == 10)
@@ -4543,7 +4544,7 @@ function LoadGiftCard() {
 
        
         try {
-            if ($('#hdnSearchCardType').val().toUpperCase() != "STORE")
+            if ($('#giftcard #hdnSearchCardType').val().toUpperCase() != "STORE")
             {
                 OpenGiftCardPaymentPopup();
             }
@@ -4677,139 +4678,151 @@ function LoadNewGiftCard() {
                 console.log(data)
 
                 //$("#hdnValidateCard").val(true);
-                var obj = JSON.parse(data);
-                localStorage.setItem('GiftCardDetails', data);
-                if (obj.GiftCardExists == true) {
-                    if (obj.Amount != undefined && obj.Amount != null && Number(obj.Amount) > 0) {                        
-                        if (obj.IsGiftCardActivated != undefined && obj.IsGiftCardActivated == false) {
-                            callSweetAlertWarning("Gift Card is NOT Active. Please call (614)356-8000 to activate the Card.");                            
-                        }
-                        else {
-                            callSweetAlertWarning("Gift Card Balance = $" + obj.Amount + ". Please use Load screen to load additional amounts.");
-                        }
-                        $("#txtCardCode").val("");
-                        $("#txtCardCode").css('border-bottom', errorClassBorder);
-                        $('#btnAddCard').text("Add Card");
-                        $("#hdnValidateCard").val(false);
-                        $("#hdnCardType").val("");                        
-                    }
-                    else {
-                        if (obj.IsGiftCardActivated != undefined && obj.IsGiftCardActivated == true) {
-                            callSweetAlertWarning("Gift Card was used before, current Balance = $0. Please use Load screen to load additional amounts.");
-                            $("#txtCardCode").val("");
-                            $("#txtCardCode").css('border-bottom', errorClassBorder);
-                            $('#btnAddCard').text("Add Card");
-                            $("#hdnValidateCard").val(false);
-                            $("#hdnCardType").val("");
-                        }
-                        else {
-                            if (obj.CardType.toUpperCase() != "STORE") {
-                                $("#liPaymentType").show();
-                                var checkedPaymentType = $("input[name='paymentType']:checked").val();
-                                if (checkedPaymentType.toUpperCase() == 'CARD') {
-                                    //$("#paymentTypeCard").prop("checked", true);
-                                    $$("#liCCName").show();
-                                    $$("#liCCNo").show();
-                                    $$("#hdnSelectedPaymentType").val("Credit Card");
-                                }
-                                else if (checkedPaymentType.toUpperCase() == 'CASH') {
-                                    $$("#liCCName").hide();
-                                    $$("#liCCNo").hide();
-                                    $$("#hdnSelectedPaymentType").val("Cash");
-                                }
-                                
-                                var ccName = $("#txtCCName").val().trim();
-                                var ccNumber = $("#txtCCNumber").val().trim();
-                                var cvv = $("#txtCVV").val().trim();
-                                var expMonth = $("#ddlCCMonth").val();
-                                var expYear = $("#ddlCCYear").val();
-                                var paymentType = $("#hdnSelectedPaymentType").val();
+                if (data.replace(/"/g, "").indexOf("Message:") > -1) {
+                    $("#txtCardCode").val("");
+                    $("#txtCardCode").css('border-bottom', errorClassBorder);
+                    $('#btnAddCard').text("Add Card");
+                    $("#hdnValidateCard").val(false);
+                    $("#hdnCardType").val("");
 
-                                if (paymentType != "" && paymentType.toUpperCase() == "CASH") {
-                                    var cardInfo = localStorage.getItem('GiftCardDetails');
-                                    var obj = JSON.parse(cardInfo);
-                                    //AddNewGiftCard(obj.GiftCardExists, obj.PIN, obj.Amount, obj.GiftCardId, obj.GiftCardStoreId,
-                                    //    obj.CardType, ccName, ccNumber, cvv, expMonth, expYear, paymentType);
-                                    AddUpdateGiftCardRecord(obj.GiftCardExists, obj.Amount, obj.GiftCardId, cardCode, obj.CardType, ccName, ccNumber, cvv, expMonth, expYear, paymentType);
-                                }
-                                else if (ccName != "" && ccNumber != "" && cvv != "" && expMonth != "" && expYear != "") {
-                                    var cardInfo = localStorage.getItem('GiftCardDetails');
-                                    var obj = JSON.parse(cardInfo);
-                                    ////AddNewGiftCard(obj.GiftCardExists, obj.PIN, obj.Amount, obj.GiftCardId, obj.GiftCardStoreId,
-                                    ////    obj.CardType, ccName, ccNumber, cvv, expMonth, expYear, paymentType);
-                                    AddUpdateGiftCardRecord(obj.GiftCardExists, obj.Amount, obj.GiftCardId, cardCode, obj.CardType, ccName, ccNumber, cvv, expMonth, expYear, paymentType);
-                                }
-                                else {
-                                    if (ccName == "") {
-                                        $("#txtCCName").css('border-bottom', errorClassBorder);
-                                    }
-                                    if (ccNumber == "" || ccNumber == "0") {
-                                        $("#txtCCNumber").css('border-bottom', errorClassBorder);
-                                    }
-                                    if (cvv == "" || cvv == "0") {
-                                        $("#txtCVV").css('border-bottom', errorClassBorder);
-                                    }
-                                    if (expMonth == "") {
-                                        $("#ddlCCMonth").css('border-bottom', errorClassBorder);
-                                    }
-                                    if (expYear == "") {
-                                        $("#ddlCCYear").css('border-bottom', errorClassBorder);
-                                    }
-                                }
-                            }
-                            else {
-                                var cardInfo = localStorage.getItem('GiftCardDetails');
-                                var obj = JSON.parse(cardInfo);
-                                AddUpdateGiftCardRecord(obj.GiftCardExists, obj.Amount, obj.GiftCardId, cardCode, obj.CardType, "", "", "", "", "", "");
-
-                            }
-                        }
-                    }
-
-                    ////if (obj.PIN != undefined && obj.PIN != null && Number(obj.PIN) > 0) {
-                    ////    if (obj.Amount != undefined && obj.Amount != null && Number(obj.Amount) > 0) {
-                    ////        callSweetAlertWarning("Card is already in the system.");
-                    ////        $("#txtCardCode").val("");
-                    ////        $("#txtCardCode").css('border-bottom', errorClassBorder);
-                    ////        $('#btnAddCard').text("Add Card");
-                    ////        $("#hdnValidateCard").val(false);
-                    ////        $("#hdnCardType").val("");
-                    ////    }
-                    ////    else {
-                    ////        if (obj.CardType.toString().toUpperCase() == "BISTROUX") {
-                    ////            $("#hdnValidateCard").val(true);
-                    ////            $("#hdnCardType").val(obj.CardType);
-                    ////            //console.log('Popup Open for payment');
-                    ////            $("#liPaymentType").show();
-                    ////            $("#liCCName").show();
-                    ////            $("#liCCNo").show();
-                    ////        }
-                    ////        else {
-                    ////            $("#liPaymentType").hide();
-                    ////            $("#liCCName").hide();
-                    ////            $("#liCCNo").hide();
-                    ////            //console.log(2)
-                    ////            AddNewGiftCard(obj.GiftCardExists, obj.PIN, obj.Amount, obj.GiftCardId, obj.GiftCardStoreId, obj.CardType, "", "", "", "", "", "");
-                    ////        }
-                    ////    }
-                    ////}
-                    ////else {
-                    ////    callSweetAlertWarning("Card is already in the system.");
-                    ////    $("#txtCardCode").val("");
-                    ////    $("#txtCardCode").css('border-bottom', errorClassBorder);
-                    ////    $('#btnAddCard').text("Add Card");
-                    ////    $("#hdnValidateCard").val(false);
-                    ////    $("#hdnCardType").val("");
-                    ////}
-
+                    var message = (data.replace(/"/g, "").replace("Message: ", ""));
+                    callSweetAlertWarning(message);                    
                 }
                 else {
-                    $("#liPaymentType").hide();
-                    $("#liCCName").hide();
-                    $("#liCCNo").hide();
-                    // console.log(3)
-                    AddUpdateGiftCardRecord(obj.GiftCardExists, obj.Amount, obj.GiftCardId, cardCode, obj.CardType, "", "", "", "", "", "");
-                }
+                    var obj = JSON.parse(data);
+                    localStorage.setItem('GiftCardDetails', data);
+                    if (obj.GiftCardExists == true) {
+                        ////if (obj.Amount != undefined && obj.Amount != null && Number(obj.Amount) > 0) {--Commented - 09.21.2019
+                        ////    if (obj.IsGiftCardActivated != undefined && obj.IsGiftCardActivated == false) {
+                        ////        callSweetAlertWarning("Gift Card is NOT Active. Please call (614)356-8000 to activate the Card.");
+                        ////    }
+                        ////    else {
+                        ////        callSweetAlertWarning("Gift Card Balance = $" + obj.Amount + ". Please use Load screen to load additional amounts.");
+                        ////    }
+                        ////    $("#txtCardCode").val("");
+                        ////    $("#txtCardCode").css('border-bottom', errorClassBorder);
+                        ////    $('#btnAddCard').text("Add Card");
+                        ////    $("#hdnValidateCard").val(false);
+                        ////    $("#hdnCardType").val("");
+                        ////}
+                        ////else {--Commented - 09.21.2019
+                        ////if (obj.IsGiftCardActivated != undefined && obj.IsGiftCardActivated == true) {--Commented - 09.21.2019
+                            ////    callSweetAlertWarning("Gift Card was used before, current Balance = $0. Please use Load screen to load additional amounts.");
+                            ////    $("#txtCardCode").val("");
+                            ////    $("#txtCardCode").css('border-bottom', errorClassBorder);
+                            ////    $('#btnAddCard').text("Add Card");
+                            ////    $("#hdnValidateCard").val(false);
+                            ////    $("#hdnCardType").val("");
+                            ////}
+                        ////else {--Commented - 09.21.2019
+                                if (obj.CardType.toUpperCase() != "STORE") {
+                                    $("#liPaymentType").show();
+                                    var checkedPaymentType = $("input[name='paymentType']:checked").val();
+                                    if (checkedPaymentType.toUpperCase() == 'CARD') {
+                                        //$("#paymentTypeCard").prop("checked", true);
+                                        $$("#liCCName").show();
+                                        $$("#liCCNo").show();
+                                        $$("#hdnSelectedPaymentType").val("Credit Card");
+                                    }
+                                    else if (checkedPaymentType.toUpperCase() == 'CASH') {
+                                        $$("#liCCName").hide();
+                                        $$("#liCCNo").hide();
+                                        $$("#hdnSelectedPaymentType").val("Cash");
+                                    }
+
+                                    var ccName = $("#txtCCName").val().trim();
+                                    var ccNumber = $("#txtCCNumber").val().trim();
+                                    var cvv = $("#txtCVV").val().trim();
+                                    var expMonth = $("#ddlCCMonth").val();
+                                    var expYear = $("#ddlCCYear").val();
+                                    var paymentType = $("#hdnSelectedPaymentType").val();
+
+                                    if (paymentType != "" && paymentType.toUpperCase() == "CASH") {
+                                        var cardInfo = localStorage.getItem('GiftCardDetails');
+                                        var obj = JSON.parse(cardInfo);
+                                        //AddNewGiftCard(obj.GiftCardExists, obj.PIN, obj.Amount, obj.GiftCardId, obj.GiftCardStoreId,
+                                        //    obj.CardType, ccName, ccNumber, cvv, expMonth, expYear, paymentType);
+                                        AddUpdateGiftCardRecord(obj.GiftCardExists, obj.Amount, obj.GiftCardId, cardCode, obj.CardType, ccName, ccNumber, cvv, expMonth, expYear, paymentType);
+                                    }
+                                    else if (ccName != "" && ccNumber != "" && cvv != "" && expMonth != "" && expYear != "") {
+                                        var cardInfo = localStorage.getItem('GiftCardDetails');
+                                        var obj = JSON.parse(cardInfo);
+                                        ////AddNewGiftCard(obj.GiftCardExists, obj.PIN, obj.Amount, obj.GiftCardId, obj.GiftCardStoreId,
+                                        ////    obj.CardType, ccName, ccNumber, cvv, expMonth, expYear, paymentType);
+                                        AddUpdateGiftCardRecord(obj.GiftCardExists, obj.Amount, obj.GiftCardId, cardCode, obj.CardType, ccName, ccNumber, cvv, expMonth, expYear, paymentType);
+                                    }
+                                    else {
+                                        if (ccName == "") {
+                                            $("#txtCCName").css('border-bottom', errorClassBorder);
+                                        }
+                                        if (ccNumber == "" || ccNumber == "0") {
+                                            $("#txtCCNumber").css('border-bottom', errorClassBorder);
+                                        }
+                                        if (cvv == "" || cvv == "0") {
+                                            $("#txtCVV").css('border-bottom', errorClassBorder);
+                                        }
+                                        if (expMonth == "") {
+                                            $("#ddlCCMonth").css('border-bottom', errorClassBorder);
+                                        }
+                                        if (expYear == "") {
+                                            $("#ddlCCYear").css('border-bottom', errorClassBorder);
+                                        }
+                                    }
+                                }
+                                else {
+                                    var cardInfo = localStorage.getItem('GiftCardDetails');
+                                    var obj = JSON.parse(cardInfo);
+                                    AddUpdateGiftCardRecord(obj.GiftCardExists, obj.Amount, obj.GiftCardId, cardCode, obj.CardType, "", "", "", "", "", "");
+
+                                }
+                                ////}--Commented - 09.21.2019
+                        ////}--Commented - 09.21.2019
+
+                        ////if (obj.PIN != undefined && obj.PIN != null && Number(obj.PIN) > 0) {
+                        ////    if (obj.Amount != undefined && obj.Amount != null && Number(obj.Amount) > 0) {
+                        ////        callSweetAlertWarning("Card is already in the system.");
+                        ////        $("#txtCardCode").val("");
+                        ////        $("#txtCardCode").css('border-bottom', errorClassBorder);
+                        ////        $('#btnAddCard').text("Add Card");
+                        ////        $("#hdnValidateCard").val(false);
+                        ////        $("#hdnCardType").val("");
+                        ////    }
+                        ////    else {
+                        ////        if (obj.CardType.toString().toUpperCase() == "BISTROUX") {
+                        ////            $("#hdnValidateCard").val(true);
+                        ////            $("#hdnCardType").val(obj.CardType);
+                        ////            //console.log('Popup Open for payment');
+                        ////            $("#liPaymentType").show();
+                        ////            $("#liCCName").show();
+                        ////            $("#liCCNo").show();
+                        ////        }
+                        ////        else {
+                        ////            $("#liPaymentType").hide();
+                        ////            $("#liCCName").hide();
+                        ////            $("#liCCNo").hide();
+                        ////            //console.log(2)
+                        ////            AddNewGiftCard(obj.GiftCardExists, obj.PIN, obj.Amount, obj.GiftCardId, obj.GiftCardStoreId, obj.CardType, "", "", "", "", "", "");
+                        ////        }
+                        ////    }
+                        ////}
+                        ////else {
+                        ////    callSweetAlertWarning("Card is already in the system.");
+                        ////    $("#txtCardCode").val("");
+                        ////    $("#txtCardCode").css('border-bottom', errorClassBorder);
+                        ////    $('#btnAddCard').text("Add Card");
+                        ////    $("#hdnValidateCard").val(false);
+                        ////    $("#hdnCardType").val("");
+                        ////}
+
+                    }
+                    else {
+                        $("#liPaymentType").hide();
+                        $("#liCCName").hide();
+                        $("#liCCNo").hide();
+                        // console.log(3)
+                        AddUpdateGiftCardRecord(obj.GiftCardExists, obj.Amount, obj.GiftCardId, cardCode, obj.CardType, "", "", "", "", "", "");
+                    }
+                }                
             });
         
 
@@ -5037,8 +5050,14 @@ function RedeemGiftCard() {
                     $("#txtRedeem").css('border-bottom', bottomBorder);
                     $("#txtPhoneSearch").css('border-bottom', bottomBorder);
 
-
-                    if (data.replace(/"/g, "").indexOf("PIN is required.") > -1) {
+                    
+                    if (data.replace(/"/g, "").indexOf("Message:") > -1) {
+                        $('#dvInner').show();
+                        SearchGiftCard();
+                        var message = (data.replace(/"/g, "").replace("Message: ", ""));
+                        callSweetAlertWarning(message);
+                    }
+                    else if (data.replace(/"/g, "").indexOf("PIN is required.") > -1) {
                         $('#dvInner').hide();
                         //$('#btnLoadReward').prop("disabled", true);
                         //$('#btnRedeemReward').prop("disabled", true);
@@ -5086,12 +5105,6 @@ function RedeemGiftCard() {
                         $('#dvOuter').show();
                         $('#dvOuterText').html("");
                         $('#dvOuterText').html("No records found.");
-                    }
-                    else if (data.replace(/"/g, "").indexOf("Amount exceeds available Balance.") > -1) {
-                        $('#dvInner').show();
-                        SearchGiftCard();
-
-                        callSweetAlertWarning("Amount exceeds available Balance.");
                     }
                     else {
 
