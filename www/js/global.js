@@ -4442,6 +4442,10 @@ function SearchGiftCard() {
                                         htmlHistory += "<td class=\"popup-highlighted-row\" style=\"text-align:right;\"> +" + FormatDecimal(value.USEDVALUE) + "</td>";
                                         totalHistoryAmount = parseFloat(totalHistoryAmount) + parseFloat(value.USEDVALUE);
                                     }
+                                    else if (value.USEDTYPE == "Refund" && value.USEDVALUE != "") {
+                                        htmlHistory += "<td class=\"popup-highlighted-row\" style=\"text-align:right;\"> (+)" + FormatDecimal(value.USEDVALUE) + "</td>";
+                                        totalHistoryAmount = parseFloat(totalHistoryAmount) + parseFloat(value.USEDVALUE);
+                                    }
                                     else if (value.USEDVALUE != "") {
                                         htmlHistory += "<td class=\"popup-highlighted-row\" style=\"text-align:right;\">-" + FormatDecimal(value.USEDVALUE) + "</td>";
                                         //totalHistoryAmount = parseFloat(totalHistoryAmount) + parseFloat(value.USEDVALUE);
@@ -4458,6 +4462,10 @@ function SearchGiftCard() {
                                     //console.log("NOTES: " + value.NOTES + " Used Value: " + value.USEDVALUE);
                                     if (value.USEDTYPE == "Load" && value.USEDVALUE != "") {
                                         htmlHistory += "<td style=\"text-align:right;\"> +" + FormatDecimal(value.USEDVALUE) + "</td>";
+                                        totalHistoryAmount = parseFloat(totalHistoryAmount) + parseFloat(value.USEDVALUE);
+                                    }
+                                    else if (value.USEDTYPE == "Refund" && value.USEDVALUE != "") {
+                                        htmlHistory += "<td style=\"text-align:right;\"> (+)" + FormatDecimal(value.USEDVALUE) + "</td>";
                                         totalHistoryAmount = parseFloat(totalHistoryAmount) + parseFloat(value.USEDVALUE);
                                     }
                                     else if (value.USEDVALUE != "") {
