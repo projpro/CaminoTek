@@ -1,6 +1,6 @@
-//var global = "http://www.appnotification.bistroux.com/Api/App/";
+var global = "http://www.appnotification.bistroux.com/Api/App/";
 //var global = "http://www.consumerapp.bistroux.com/Api/App/";
-var global = "http://192.168.1.6/Api/App/";
+//var global = "http://192.168.1.6/Api/App/";
 var mediaURL = "http://appnotification.bistroux.com/Media/";
 
 var browser = true;
