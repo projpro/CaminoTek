@@ -8006,7 +8006,7 @@ function AddNewMemberID() {
                 if (data1.replace(/"/g, "").indexOf("Message:") > -1) {
                     $("#btnCreate").text("Add Member");
                     $("#btnCreate").attr("disabled", false);
-                    var message = (data.replace(/"/g, "").replace("Message: ", ""));
+                    var message = (data1.replace(/"/g, "").replace("Message: ", ""));
                     callSweetAlertWarning(message);
                     //callSweetAlertWarning("Gift Card is NOT Active. Please call (614)356-8000 to activate the Card.");
                 }
