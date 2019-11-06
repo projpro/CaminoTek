@@ -12258,7 +12258,7 @@ function CancelOrder(orderId)
                         callSweetAlertWarning(data.replace(/"/g, ""));
                     }
                     else {
-
+OpenCarryoutDetails(orderId);
                         callSweetAlertSuccess(data.replace(/"/g, ""));
                         var orderhtml = "<div class=\"dropdown\" id=\"carryoutstatus_" + orderId + "\">";
                         orderhtml += "<button id=\"btnStatusChange\" class=\"dropbtn\"><img class=\"list-icon\"  src=\"img/icons/cancel.png\" alt=\"\"/></button>";
