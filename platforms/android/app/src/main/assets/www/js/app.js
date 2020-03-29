@@ -1411,6 +1411,13 @@ function InitPushNotification(storeId, name, uuid, version) {
         //);
     });
 }
+
+function StopSound() {
+    if (isDevice()) {
+        myMedia.stop();
+    }
+}
+
 function disableScrolling() {
     var x = window.scrollX;
     var y = window.scrollY;
