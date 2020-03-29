@@ -1371,6 +1371,7 @@ function InitPushNotification(storeId, name, uuid, version) {
     });
 
     push.on('notification', function (data) {
+        alert(data.messag);
         //setTimeout(function () {
         //    stopAudio();
         //    acceptOrderPopup.destroy();
