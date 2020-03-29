@@ -1387,6 +1387,21 @@ function InitPushNotification(storeId, name, uuid, version) {
             $("#btnAcknowledgement").click();
            
         }
+        else if (data.message == "Device Ping") {
+            $('#myDiv').html('<div class="block">' +
+                                             //<button type="button" id="btnAcknowledgement" name="btnAcknowledgement" onclick="AcceptOrders();" class="modal-accept-button">ACCEPT</button>
+                                             '<a href="#" class="link popup-close modal-accept-button"  id="btnAcknowledgement" onclick="StopSound();">Click To Stop Sound</a>' +
+                                             '<div class="overlay-button-area" id="dvPopOrders" style=\"top: 30px !important;\">' +
+                                               '</div>' +
+                                              //'</div><p><a href="#" class="link popup-close">Close me</a></p>' +
+                                            '</div>');
+            $('#myDiv').show();
+            if (isDevice()) {
+                // console.log('isDevice 1: ')
+                //playAudio();
+                myMedia.play();
+            }
+        }
         // alert('notification event: ' + data.message + ", " + data.title);
         //navigator.notification.alert(
         //    data.message,         // message
