@@ -1371,7 +1371,6 @@ function InitPushNotification(storeId, name, uuid, version) {
     });
 
     push.on('notification', function (data) {
-        alert(data.messag);
         //setTimeout(function () {
         //    stopAudio();
         //    acceptOrderPopup.destroy();
@@ -1389,47 +1388,13 @@ function InitPushNotification(storeId, name, uuid, version) {
            
         }
         else if (data.message == "Device Ping") {
-            alert("Ping");
+            myMedia = new Media(src, onSuccess, onError, onStatus);
             $('#myDiv').html('<div class="block">' +
                                              '<a href="#" class="link popup-close modal-accept-button"  id="btnAcknowledgement" onclick="StopSound();">Click To Stop Sound</a>' +
                                              '<div class="overlay-button-area" id="dvPopOrders" style=\"top: 30px !important;\">' +
                                              '</div>' +
                                             '</div>');
             $('#myDiv').show();
-
-            //Reference the Table.
-            var tblForm = document.getElementById("dvPopOrders");
-
-            //Reference all INPUT elements in the Table.
-            var inputs = document.getElementsByTagName("input");
-
-            //Loop through all INPUT elements.
-            for (var i = 0; i < inputs.length; i++) {
-                //Check whether the INPUT element is TextBox.
-                if (inputs[i].type == "text") {
-                    $(inputs[i])
-                   .putCursorAtEnd() // should be chainable
-                   .on("focus", function () { // could be on any event
-                       $(inputs[i]).putCursorAtEnd()
-                   });
-                    //Check whether Date Format Validation is required.
-                    if (inputs[i].className.indexOf("popup_date") != 1) {
-
-                        //Set Max Length.
-                        inputs[i].setAttribute("maxlength", 10);
-
-                        //Only allow Numeric Keys.
-                        inputs[i].onkeydown = function (e) {
-                            return IsNumeric(this, e.keyCode);
-                        };
-
-                        //Validate Date as User types.
-                        inputs[i].onkeyup = function (e) {
-                            ValidateDateFormat(this, e.keyCode);
-                        };
-                    }
-                }
-            }
 
             if (isDevice()) {
                 // console.log('isDevice 1: ')
