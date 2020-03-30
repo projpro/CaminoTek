@@ -12206,7 +12206,7 @@ function OpenCancelOrderPopup() {
         var html = "<div class=\"popup-content-area\"><h2 class=\"popup-title\"><span style=\"font-size:18px;\">Refund Order - <span style=\"font-weight:600;font-size: 20px;\">#" + orderId + "</span></span></h2>";
         if (paymentMethod.toLowerCase().indexOf("cash") === -1)
         {
-            html += "<h4 style=\"font-weight:600;\">The FULL Order Amount will be refunded to the Customer.</h4>";
+            html += "<h4 style=\"font-weight:600;\" id=\"divRefundText\">Select the type of Refund.</h4>";
         }
         
         html += "<div class=\"popup-button-area\" id=\"divUpperRefundButtonArea\">";
@@ -12235,6 +12235,7 @@ function ShowFullRefund(orderId) {
     $('#txtcancelReason_' + orderId).show();
     $('#txtRefundAmount_' + orderId).hide();
     $('#btnCancelSave').show();
+    $('#divRefundText').html("The FULL Order Amount will be refunded to the Customer.");
 }
 function ShowPartialRefund(orderId) {
     $('#divUpperRefundButtonArea').hide();
@@ -12242,6 +12243,7 @@ function ShowPartialRefund(orderId) {
     $('#txtRefundAmount_' + orderId).show();
     $('#txtcancelReason_' + orderId).show();
     $('#btnCancelSave').show();
+    $('#divRefundText').html("Enter the Amount that will be refunded to the Customer.");
 }
 
 function CancelOrder(orderId)
