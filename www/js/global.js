@@ -12243,6 +12243,7 @@ function ShowPartialRefund(orderId) {
     $('#txtcancelReason_' + orderId).show();
     $('#btnCancelSave').show();
 }
+
 function CancelOrder(orderId)
 {
     $('#lblRefundAmoutError').hide();
@@ -12270,9 +12271,9 @@ function CancelOrder(orderId)
                         $('#lblRefundAmoutError').show();
                         $("#txtRefundAmount_" + orderId).css('border', errorClassBorder);
                     }
-                    else {
-                        orderTotal = refundAmount;
-                    }
+                    //else {
+                    //    orderTotal = refundAmount;
+                    //}
                 }
             }
             //alert("Order Total: After: " + orderTotal);
@@ -12298,10 +12299,10 @@ function CancelOrder(orderId)
 
 
         $.ajax({
-            url: global + 'CancelOrder?storeid=' + storeId + '&orderId=' + orderId + "&status=Cancelled"
+            url: global + 'RefundOrder?storeid=' + storeId + '&orderId=' + orderId + "&status=Cancelled"
                 + "&reason=" + reason + "&authorizationCode=" + authorizationCode + "&orderTotal=" + orderTotal
                 + "&paymentMethod=" + paymentMethod + "&customerName=" + popupCustomerName + "&customerEmail=" + popupCustomerEmail +
-                "&restaurantDisplayName=" + storeName + "&storeAddress=" + storeAddress + "&storePhoneNumber=" + storePhoneNumber,
+                "&restaurantDisplayName=" + storeName + "&storeAddress=" + storeAddress + "&storePhoneNumber=" + storePhoneNumber + "&refundType=" + refundType + "&refundAmount=" + refundAmount,
             type: 'GET',
             datatype: 'jsonp',
             contenttype: "application/json",
