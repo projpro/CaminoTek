@@ -12210,12 +12210,12 @@ function OpenCancelOrderPopup() {
         }
         
         html += "<div class=\"popup-button-area\" id=\"divUpperRefundButtonArea\">";
-        html += "<button type=\"button\" onclick=\"ShowFullRefund(" + orderId + ");\" class=\"swal2-styled popup-no\" style=\"display: inline-block; background-color: #3b9847;border: none;margin: 5px 40px 30px 0px;padding: 10px 5px;width: 160px;\">Full Refund</button>";
+        html += "<button type=\"button\" onclick=\"ShowFullRefund(" + orderId + ");\" class=\"swal2-styled popup-no\" style=\"display: inline-block; background-color: #3b9847;border: none;margin: 5px 40px 30px 0px;padding: 10px 5px;width: 160px;\">FULL Refund</button>";
         html += "<button type=\"button\" onclick=\"ShowPartialRefund(" + orderId + ");\" class=\"swal2-styled popup-no\" style=\"display: inline-block; background-color: #08b3c7;border: none;margin: 5px 10px 30px 20px;padding: 10px 5px;width: 160px;width: 160px;\">Partial Refund</button>";
         html += "</div>";
 
         html += "<input id=\"hdnRefundType\" type=\"hidden\" value=\"Full\"/>";
-        html += "<input id=\"lblRefundAmoutError\" type=\"text\"style=\"display:none;padding-left: 4px;border: 1px solid rgb(221, 221, 221);margin: 0 0 10px 0;border:none;color:red;\" value=\"Order total validation\" />";
+        html += "<input id=\"lblRefundAmoutError\" type=\"text\"style=\"display:none;padding-left: 4px;border: 1px solid rgb(221, 221, 221);margin: 0 0 10px 0;border:none;color:red;\" value=\"Refund Amt. cannot be more than Order Amt.\" />";
 
         html += "<input id=\"txtRefundAmount_" + orderId + "\" type=\"number\" min=\"0.00\" placeholder=\"Refund Amount\" style=\"display:none;padding-left: 4px;border: 1px solid rgb(221, 221, 221);margin: 0 0 10px 0;\" />";
         html += "<textarea id=\"txtcancelReason_" + orderId + "\" class=\"swal2-textarea\" style=\"border:1px solid #ddd;height:160px;padding: 5px 5px;display:none;\" placeholder=\"Reason\">";
