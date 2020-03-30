@@ -1491,6 +1491,7 @@ function CheckLoggedIn() {
     }
 }
 
+
 function CheckNewOrder() {
 
     var params = getParams();
@@ -1642,52 +1643,53 @@ function CheckNewOrder() {
 
                             }
                             html += "<div class=\"popup-row\"> <div class=\"popup-column-one pop-up-display-label \">Name: <span class=\"pop-up-value-label\">" + value.BILLINGFIRSTNAME + " " + value.BILLINGLASTNAME + "</span></div></div>";;
-                            if (value.BILLINGPHONE.length == 10)
-                                html += "<div class=\"popup-row\">  <div class=\"popup-column-one pop-up-display-label\" >Phone: <span class=\"pop-up-value-label\" id=\"phone_" + value.ID + "\">" + FormatPhoneNumber(value.BILLINGPHONE) + "</span></div></div>";
-                            else
-                                html += "<div class=\"popup-row\">  <div class=\"popup-column-one pop-up-display-label\">Phone: <span  class=\"pop-up-value-label\" id=\"phone_" + value.ID + "\">" + value.BILLINGPHONE + "</span></div></div>";
-                            html += "<div class=\"popup-row\"><div class=\"popup-column-one\" style=\"margin:10px 0 10px 0;\">";
+                            //Below commented code for avoid unknown error on conversion
+                            //if (value.BILLINGPHONE.length == 10)
+                            //    html += "<div class=\"popup-row\">  <div class=\"popup-column-one pop-up-display-label\" >Phone: <span class=\"pop-up-value-label\" id=\"phone_" + value.ID + "\">" + FormatPhoneNumber(value.BILLINGPHONE) + "</span></div></div>";
+                            //else
+                            //    html += "<div class=\"popup-row\">  <div class=\"popup-column-one pop-up-display-label\">Phone: <span  class=\"pop-up-value-label\" id=\"phone_" + value.ID + "\">" + value.BILLINGPHONE + "</span></div></div>";
+                            //html += "<div class=\"popup-row\"><div class=\"popup-column-one\" style=\"margin:10px 0 10px 0;\">";
 
-                            html += "<table width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\" id=\"popUpItems\"> <tbody>";
-                            html += "<tr><td align=\"left\" style=\"font-size:17px;font-weight:bold;border-bottom:1px solid #000;\" width=\"55%\">Items</td><td style=\"font-size:17px;font-weight:bold;border-bottom:1px solid #000;\" align=\"center\" width=\"15%\">Quantity</td> <td style=\"font-size:17px;font-weight:bold;border-bottom:1px solid #000;\" align=\"right\" width=\"15%\">Price</td> <td style=\"font-size:17px;font-weight:bold;border-bottom:1px solid #000;\" align=\"right\" width=\"15%\">Amount</td></tr>";
-                            if (value.OrderItems.indexOf("#") > -1) {
-                                var arrItemRows = value.OrderItems.split('#');
-                                var i;
-                                for (i = 0; i < arrItemRows.length - 1; i++) {
-                                    html += "<tr>";
-                                    var columns = arrItemRows[i].trim();
-                                    if (columns.indexOf('~') > -1) {
-                                        var arrColumn = columns.split('~');
-                                        var j;
-                                        //console.log("arrColumn.length: " + arrColumn.length)
-                                        var name = arrColumn[0];
-                                        var qty = arrColumn[1];
-                                        var price = arrColumn[2];
-                                        var notes = unescape(arrColumn[3]);
+                            //html += "<table width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\" id=\"popUpItems\"> <tbody>";
+                            //html += "<tr><td align=\"left\" style=\"font-size:17px;font-weight:bold;border-bottom:1px solid #000;\" width=\"55%\">Items</td><td style=\"font-size:17px;font-weight:bold;border-bottom:1px solid #000;\" align=\"center\" width=\"15%\">Quantity</td> <td style=\"font-size:17px;font-weight:bold;border-bottom:1px solid #000;\" align=\"right\" width=\"15%\">Price</td> <td style=\"font-size:17px;font-weight:bold;border-bottom:1px solid #000;\" align=\"right\" width=\"15%\">Amount</td></tr>";
+                            //if (value.OrderItems.indexOf("#") > -1) {
+                            //    var arrItemRows = value.OrderItems.split('#');
+                            //    var i;
+                            //    for (i = 0; i < arrItemRows.length - 1; i++) {
+                            //        html += "<tr>";
+                            //        var columns = arrItemRows[i].trim();
+                            //        if (columns.indexOf('~') > -1) {
+                            //            var arrColumn = columns.split('~');
+                            //            var j;
+                            //            //console.log("arrColumn.length: " + arrColumn.length)
+                            //            var name = arrColumn[0];
+                            //            var qty = arrColumn[1];
+                            //            var price = arrColumn[2];
+                            //            var notes = unescape(arrColumn[3]);
 
-                                        var amount = parseFloat(price) * parseFloat(qty);
+                            //            var amount = parseFloat(price) * parseFloat(qty);
 
-                                        if (notes != "") {
-                                            html += "<td align=\"left\" style=\"font-size:17px;\">" + name + "(" + decode_str(notes) + ")</td>";
-                                        }
-                                        else {
-                                            html += "<td align=\"left\" style=\"font-size:17px;\">" + name + "</td>";
-                                        }
+                            //            if (notes != "") {
+                            //                html += "<td align=\"left\" style=\"font-size:17px;\">" + name + "(" + decode_str(notes) + ")</td>";
+                            //            }
+                            //            else {
+                            //                html += "<td align=\"left\" style=\"font-size:17px;\">" + name + "</td>";
+                            //            }
 
-                                        html += "<td align=\"center\" style=\"font-size:17px;\">" + qty + "</td>";
-                                        html += "<td align=\"right\" style=\"font-size:17px;\">" + FormatDecimal(price) + "</td>";
-                                        html += "<td align=\"right\" style=\"font-size:17px;\">" + FormatDecimal(amount) + "</td>";
+                            //            html += "<td align=\"center\" style=\"font-size:17px;\">" + qty + "</td>";
+                            //            html += "<td align=\"right\" style=\"font-size:17px;\">" + FormatDecimal(price) + "</td>";
+                            //            html += "<td align=\"right\" style=\"font-size:17px;\">" + FormatDecimal(amount) + "</td>";
 
-                                    }
-                                    html += "</tr>";
-                                }
+                            //        }
+                            //        html += "</tr>";
+                            //    }
 
-                            }
+                            //}
 
-                            html += "</tbody></table>";
+                            //html += "</tbody></table></div>";
 
 
-                            html += "</div></div></div>";
+                            html += "</div></div>";
 
 
                         });
