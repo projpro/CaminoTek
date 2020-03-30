@@ -12203,14 +12203,24 @@ function OpenCancelOrderPopup() {
         //if (paymentMethod == "FirstData")
         //{
 
-        var html = "<div class=\"popup-content-area\"><h2 class=\"popup-title\"><span style=\"font-size:18px;\">Cancel Order - <span style=\"font-weight:600;font-size: 20px;\">#" + orderId + "</span></span></h2>";
+        var html = "<div class=\"popup-content-area\"><h2 class=\"popup-title\"><span style=\"font-size:18px;\">Refund Order - <span style=\"font-weight:600;font-size: 20px;\">#" + orderId + "</span></span></h2>";
         if (paymentMethod.toLowerCase().indexOf("cash") === -1)
         {
             html += "<h4 style=\"font-weight:600;\">The FULL Order Amount will be refunded to the Customer.</h4>";
         }
-        html += "<textarea id=\"txtcancelReason_" + orderId + "\" class=\"swal2-textarea\" style=\"border:1px solid #ddd;height:160px;padding: 5px 5px;\" placeholder=\"Reason\">";
+        
+        html += "<div class=\"popup-button-area\" id=\"divUpperRefundButtonArea\">";
+        html += "<button type=\"button\" onclick=\"ShowFullRefund(" + orderId + ");\" class=\"swal2-styled popup-no\" style=\"display: inline-block; background-color: #3b9847;border: none;margin: 5px 40px 30px 0px;padding: 10px 5px;width: 160px;\">Full Refund</button>";
+        html += "<button type=\"button\" onclick=\"ShowPartialRefund(" + orderId + ");\" class=\"swal2-styled popup-no\" style=\"display: inline-block; background-color: #08b3c7;border: none;margin: 5px 10px 30px 20px;padding: 10px 5px;width: 160px;width: 160px;\">Partial Refund</button>";
+        html += "</div>";
+
+        html += "<input id=\"hdnRefundType\" type=\"hidden\" value=\"Full\"/>";
+        html += "<input id=\"lblRefundAmoutError\" type=\"text\"style=\"display:none;padding-left: 4px;border: 1px solid rgb(221, 221, 221);margin: 0 0 10px 0;border:none;color:red;\" value=\"Order total validation\" />";
+
+        html += "<input id=\"txtRefundAmount_" + orderId + "\" type=\"number\" min=\"0.00\" placeholder=\"Refund Amount\" style=\"display:none;padding-left: 4px;border: 1px solid rgb(221, 221, 221);margin: 0 0 10px 0;\" />";
+        html += "<textarea id=\"txtcancelReason_" + orderId + "\" class=\"swal2-textarea\" style=\"border:1px solid #ddd;height:160px;padding: 5px 5px;display:none;\" placeholder=\"Reason\">";
         html += "</textarea><div class=\"popup-button-area\"><button id=\"btnCancelSave\" onclick=\"CancelOrder(" + orderId + ");\" type=\"button\" class=\"popup-confirm swal2-styled\" aria-label=\"\" " ;
-        html += "style=\"background-color: rgb(59, 152, 71); border-left-color: rgb(59, 152, 71); border-right-color: rgb(59, 152, 71);\">Cancel Order</button>";
+        html += "style=\"background-color: rgb(59, 152, 71); border-left-color: rgb(59, 152, 71); border-right-color: rgb(59, 152, 71);display:none;\">Refund Order</button>";
         html += "<button type=\"button\" onclick=\"CloseCancelOrderPopup();\" class=\"swal2-styled popup-no\" aria-label=\"\" style=\"display: inline-block; background-color: rgb(233, 88, 97);\">Close</button></div></div>";
         $('#cancelOrder').html(html);
         $(".popup-overlay").show();
@@ -12219,75 +12229,123 @@ function OpenCancelOrderPopup() {
     }
 
 }
+function ShowFullRefund(orderId) {
+    $('#divUpperRefundButtonArea').hide();
+    $('#hdnRefundType').val("Full");
+    $('#txtcancelReason_' + orderId).show();
+    $('#txtRefundAmount_' + orderId).hide();
+    $('#btnCancelSave').show();
+}
+function ShowPartialRefund(orderId) {
+    $('#divUpperRefundButtonArea').hide();
+    $('#hdnRefundType').val("Partial");
+    $('#txtRefundAmount_' + orderId).show();
+    $('#txtcancelReason_' + orderId).show();
+    $('#btnCancelSave').show();
+}
 function CancelOrder(orderId)
 {
+    $('#lblRefundAmoutError').hide();
+    var refundTypeValidation = "True";
+    var refundType = $('#hdnRefundType').val();
     var reason = $("#txtcancelReason_" + orderId).val().trim();
-    if(reason!="")
+    var orderTotal = $("#popupOrderPrice_" + orderId).html().replace("$", "").trim();
+
+    //alert(refundType);
+    var refundAmount = $("#txtRefundAmount_" + orderId).val();
+    //alert("Amount: " + refundAmount);
+    if (refundType != "" && refundType != "Full") {
+        if (refundAmount == "" || parseFloat(refundAmount) <= 0) {
+            refundTypeValidation = "False";
+            $("#txtRefundAmount_" + orderId).css('border', errorClassBorder);
+        }
+        else {
+            $("#txtRefundAmount_" + orderId).css('border', bottomBorder);
+            //alert("Order Total: " + orderTotal);
+            if (refundType != "" && refundType != "Full") {
+                if (refundAmount == "" || parseFloat(refundAmount) > 0) {
+                    if (parseFloat(orderTotal) < parseFloat(refundAmount))
+                    {
+                        refundTypeValidation = "False";
+                        $('#lblRefundAmoutError').show();
+                        $("#txtRefundAmount_" + orderId).css('border', errorClassBorder);
+                    }
+                    else {
+                        orderTotal = refundAmount;
+                    }
+                }
+            }
+            //alert("Order Total: After: " + orderTotal);
+
+        }
+    }
+    //alert("Validation: " + refundTypeValidation);
+    if(reason!="" && refundTypeValidation == "True")
     {
         var authorizationCode = $("#hdnAuthorizationId_" + orderId).val();
         var paymentMethod = $("#hdnPaymentmethod_" + orderId).val();
-        var orderTotal = $("#popupOrderPrice_" + orderId).html().replace("$", "").trim();
         var popupCustomerName = $("#popupCustomerName_" + orderId).html();
         var popupCustomerEmail = $("#popupCustomerEmail_" + orderId).html();
         var storeName = localStorage.getItem("RestaurantName");
         var storeAddress = localStorage.getItem("StoreAddress");
         var storePhoneNumber = localStorage.getItem("StorePhoneNumber");
+        
        
-        $("#btnCancelSave").html("Canceling...");
-        $("#txtcancelReason_").css('border', bottomBorder);
+        $("#btnCancelSave").html("Refunding...");
+        $("#txtcancelReason_" + orderId).css('border', bottomBorder);
         //if (paymentMethod == "FirstData")
         //{
-            $.ajax({
-                url: global + 'CancelOrder?storeid=' + storeId + '&orderId=' + orderId + "&status=Cancelled"
-                    + "&reason=" + reason + "&authorizationCode=" + authorizationCode + "&orderTotal=" + orderTotal
-                    + "&paymentMethod=" + paymentMethod + "&customerName=" + popupCustomerName + "&customerEmail=" + popupCustomerEmail+
-                    "&restaurantDisplayName=" + storeName + "&storeAddress=" + storeAddress + "&storePhoneNumber=" + storePhoneNumber,
-                type: 'GET',
-                datatype: 'jsonp',
-                contenttype: "application/json",
-                crossDomain: true,
-                //async: false,
-                success: function (data) {
-                    $("#btnCancelSave").html("Cancel Order");
-                    console.log(data)
-                    if (data.replace(/"/g, "").indexOf("failed") > -1)
-                    {
-                        $('#cancelOrder').html("");
-                        $(".popup-overlay").hide();
-                        $('#cancelOrder').hide();
-                        callSweetAlertWarning(data.replace(/"/g, ""));
-                    }
-                    else {
-                        OpenCarryoutDetails(orderId);
-                        callSweetAlertSuccess(data.replace(/"/g, ""));
-                        var orderhtml = "<div class=\"dropdown\" id=\"carryoutstatus_" + orderId + "\">";
-                        orderhtml += "<button id=\"btnStatusChange\" class=\"dropbtn\"><img class=\"list-icon\"  src=\"img/icons/cancel.png\" alt=\"\"/></button>";
-                        orderhtml += "</div>";
-                        // var orderhtml = "<img class=\"list-icon\"  src=\"img/icons/cancel.png\" alt=\"\"/>";
-                        $("#popUpCarryoutIcon_" + orderId).html(orderhtml);
-                        var iconHTML1 = "<button id=\"btnStatusChange\" class=\"dropbtn\"><img class=\"list-icon\" src=\"img/icons/cancel.png\" alt=\"\"></button>";
-                        $("#dvAllList #carryoutstatus_" + orderId).html(iconHTML1);
-                        $("#dvCarryOutButtons_" + orderId).html("");
-                        $("#popupCarryOutDetails_" + orderId).html("");
-                        $("#aCancelOrder").hide();
-
-                        $('#cancelOrder').html("");
-                        $(".popup-overlay").hide();
-                        $('#cancelOrder').hide();
-
-                        $("#li_" + orderId).css("border-left", "#e95861 10px solid");
-                    }
 
 
-                },
-                error: function (xhr, textStatus, errorThrown) {
-                    $("#btnCancelSave").html("Cancel Order");
-                    //alert(xhr.responseText);
-                    //alert(textStatus);
-                    //alert(errorThrown);
+        $.ajax({
+            url: global + 'CancelOrder?storeid=' + storeId + '&orderId=' + orderId + "&status=Cancelled"
+                + "&reason=" + reason + "&authorizationCode=" + authorizationCode + "&orderTotal=" + orderTotal
+                + "&paymentMethod=" + paymentMethod + "&customerName=" + popupCustomerName + "&customerEmail=" + popupCustomerEmail +
+                "&restaurantDisplayName=" + storeName + "&storeAddress=" + storeAddress + "&storePhoneNumber=" + storePhoneNumber,
+            type: 'GET',
+            datatype: 'jsonp',
+            contenttype: "application/json",
+            crossDomain: true,
+            //async: false,
+            success: function (data) {
+                $("#btnCancelSave").html("Refund Order");
+                console.log(data)
+                if (data.replace(/"/g, "").indexOf("failed") > -1) {
+                    $('#cancelOrder').html("");
+                    $(".popup-overlay").hide();
+                    $('#cancelOrder').hide();
+                    callSweetAlertWarning(data.replace(/"/g, ""));
                 }
-            });
-        
+                else {
+                    OpenCarryoutDetails(orderId);
+                    callSweetAlertSuccess(data.replace(/"/g, ""));
+                    var orderhtml = "<div class=\"dropdown\" id=\"carryoutstatus_" + orderId + "\">";
+                    orderhtml += "<button id=\"btnStatusChange\" class=\"dropbtn\"><img class=\"list-icon\"  src=\"img/icons/cancel.png\" alt=\"\"/></button>";
+                    orderhtml += "</div>";
+                    // var orderhtml = "<img class=\"list-icon\"  src=\"img/icons/cancel.png\" alt=\"\"/>";
+                    $("#popUpCarryoutIcon_" + orderId).html(orderhtml);
+                    var iconHTML1 = "<button id=\"btnStatusChange\" class=\"dropbtn\"><img class=\"list-icon\" src=\"img/icons/cancel.png\" alt=\"\"></button>";
+                    $("#dvAllList #carryoutstatus_" + orderId).html(iconHTML1);
+                    $("#dvCarryOutButtons_" + orderId).html("");
+                    $("#popupCarryOutDetails_" + orderId).html("");
+                    $("#aCancelOrder").hide();
+
+                    $('#cancelOrder').html("");
+                    $(".popup-overlay").hide();
+                    $('#cancelOrder').hide();
+
+                    $("#li_" + orderId).css("border-left", "#e95861 10px solid");
+                }
+
+
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                $("#btnCancelSave").html("Refund Order");
+                //alert(xhr.responseText);
+                //alert(textStatus);
+                //alert(errorThrown);
+            }
+        });
         
     }
     else {
