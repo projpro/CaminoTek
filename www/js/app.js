@@ -1411,7 +1411,19 @@ function InitPushNotification(storeId, name, uuid, version) {
         if (data.message == "A new order has been placed") {
             localStorage.setItem("PushNotification", "Order placed");
             myMedia = new Media(src, onSuccess, onError, onStatus);
-            CheckNewOrder();
+            //CheckNewOrder();
+            $('#myDiv').html('<div class="block" onclick="StopSoundAndRefreshCarryout();">' +
+                                             '<a href="#" class="link popup-close modal-accept-button"  id="btnAcknowledgement" onclick="StopSoundAndRefreshCarryout();" style=\"top: 40% !important;\">You have a New Order.</a>' +
+                                             '<div class="overlay-button-area" id="dvPopOrders" style=\"top: 30px !important;\">' +
+                                             '</div>' +
+                                            '</div>');
+            $('#myDiv').show();
+
+            if (isDevice()) {
+                // console.log('isDevice 1: ')
+                //playAudio();
+                myMedia.play();
+            }
         }
         else if (data.message == "Order accepted") {
             localStorage.setItem("PushNotification", "Order accepted");
@@ -1448,6 +1460,23 @@ function StopSound() {
     if (isDevice()) {
         myMedia.stop();
     }
+}
+
+function StopSoundAndRefreshCarryout() {
+    var storeId = SetStoreId();
+    var storeId = SetStoreId();
+    if (app.views.main.router.url.indexOf('carryout') > -1) {
+        //alert("carryout 2");//////////
+        app.tab.show('#1');//Commented For Stop Auto Redirect - 09.20.2019
+        BindcarryoutTab('New');//Commented For Stop Auto Redirect - 09.20.2019
+    }
+    else {
+        //alert("carryout 2 else");//////////
+        localStorage.setItem("loadcarryoutprocessing", "true");
+        ////self.app.router.navigate('/carryout/', { reloadCurrent: true });//Commented For Stop Auto Redirect - 09.20.2019
+    }
+
+    StopSoundOtherDevices(storeId);
 }
 
 function disableScrolling() {
