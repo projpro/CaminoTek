@@ -1421,7 +1421,7 @@ function InitPushNotification(storeId, name, uuid, version) {
         else if (data.message == "Device Ping") {            
             myMedia = new Media(src, onSuccess, onError, onStatus);
             $('#myDiv').html('<div class="block">' +
-                                             '<a href="#" class="link popup-close modal-accept-button"  id="btnAcknowledgement" onclick="StopSound();">Click To Stop Sound</a>' +
+                                             '<a href="#" class="link popup-close modal-accept-button"  id="btnAcknowledgement" onclick="StopSound();" style=\"top: 50% !important;\">Click To Stop Sound</a>' +
                                              '<div class="overlay-button-area" id="dvPopOrders" style=\"top: 30px !important;\">' +
                                              '</div>' +
                                             '</div>');
