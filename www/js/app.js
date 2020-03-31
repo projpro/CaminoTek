@@ -1412,8 +1412,8 @@ function InitPushNotification(storeId, name, uuid, version) {
             localStorage.setItem("PushNotification", "Order placed");
             myMedia = new Media(src, onSuccess, onError, onStatus);
             //CheckNewOrder();
-            $('#myDiv').html('<div class="block" onclick="StopSoundAndRefreshCarryout();">' +
-                                             '<a href="#" class="link popup-close modal-accept-button"  id="btnAcknowledgement" onclick="StopSoundAndRefreshCarryout();" style=\"top: 40% !important;\">You have a New Order.</a>' +
+            $('#myDiv').html('<div class="block">' +
+                                             '<a href="#" class="link popup-close modal-accept-button"  id="btnAcknowledgement" onclick="StopSoundAndRefreshCarryout();" style=\"top: 40% !important; height: 205px;\">You have a New Order.</a>' +
                                              '<div class="overlay-button-area" id="dvPopOrders" style=\"top: 30px !important;\">' +
                                              '</div>' +
                                             '</div>');
@@ -1433,7 +1433,7 @@ function InitPushNotification(storeId, name, uuid, version) {
         else if (data.message == "Device Ping") {            
             myMedia = new Media(src, onSuccess, onError, onStatus);
             $('#myDiv').html('<div class="block">' +
-                                             '<a href="#" class="link popup-close modal-accept-button"  id="btnAcknowledgement" onclick="StopSound();" style=\"top: 50% !important;\">Click To Stop Sound</a>' +
+                                             '<a href="#" class="link popup-close modal-accept-button" onclick="StopSound();" style=\"top: 50% !important; height: 205px;\">Click To Stop Sound</a>' +
                                              '<div class="overlay-button-area" id="dvPopOrders" style=\"top: 30px !important;\">' +
                                              '</div>' +
                                             '</div>');
