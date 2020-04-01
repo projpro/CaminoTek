@@ -1413,7 +1413,7 @@ function InitPushNotification(storeId, name, uuid, version) {
             myMedia = new Media(src, onSuccess, onError, onStatus);
             //CheckNewOrder();
             $('#myDiv').html('<div class="block">' +
-                                             '<a href="#" class="link popup-close modal-accept-button"  id="btnAcknowledgement" onclick="StopSoundAndRefreshCarryout();" style=\"top: 40% !important; height: 205px;\">You have a New Order.</a>' +
+                                             '<a href="#" class="link popup-close modal-accept-button"  id="btnAcknowledgement" onclick="StopSoundAndRefreshCarryout();" style=\"top: 40% !important; height: 205px; font-size:35px;\">New Order</a>' +
                                              '<div class="overlay-button-area" id="dvPopOrders" style=\"top: 30px !important;\">' +
                                              '</div>' +
                                             '</div>');
