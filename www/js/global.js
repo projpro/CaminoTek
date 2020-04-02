@@ -12191,6 +12191,165 @@ function ResetFilters(page) {
 
 }
 
+//Pickup Time Change
+function OpenPickupTimePopup() {
+    var orderId = $("#dvCarryOutDetailsInner #hdnSelectedOrderId").val();
+    var selectedPickupTime = $('#hdnSelectedOrderPickUpTime').val();
+    console.log('orderId: ' + orderId)
+   var storeId = SetStoreId();
+    var html = "";
+
+    if (orderId != undefined && Number(orderId > 0) && selectedPickupTime != "" && selectedPickupTime != undefined) {
+        var url = global + "/GetCarryoutPickupTimings?storeid=" + storeId + "&pickupTime=" + selectedPickupTime;
+        try{
+            $.getJSON(url, function (data) {
+                if (data.indexOf("No order(s) found.") > -1) {
+                    console.log(GetCurrentDateTime() + " - " + " No new order(s) found", browser);
+                }
+                else {
+                    var pickuptime = JSON.parse(data).PickUpTime;
+                    console.log(pickuptime);
+                    pickuptime.sort((a, b) => dateFromStr(a) - dateFromStr(b));
+                    if (pickuptime.length > 0) {
+                        var pickupcount = false;
+                        var count = 0;
+                        var pickuphtml = "<div class=\"popup-content-area\"><h2 class=\"popup-title\"><span style=\"font-size:18px;\">Change Pickup Time - <span style=\"font-weight:600;font-size: 20px;\">#" + orderId + "</span></span></h2>";
+                        pickuphtml += "<div class=\"popup-button-area\">";
+                        $.each(pickuptime, function (key, value1) {
+                            if ($.inArray(selectedPickupTime.trim(), pickuptime) > -1) {
+
+                                if (value1.trim() === selectedPickupTime.trim()) {
+                                    //pickuphtml += "<button type=\"button\" onclick=\"SetCurrentPickupTime(" + value1 + ");\" class=\"swal2-styled popup-no pickup-time-box\">" + value1 + "</button>";
+                                    pickupcount = true;
+                                }
+                                else {
+                                    if (pickupcount === true) {
+                                        if (selectedPickupTime.indexOf('@') > -1) {
+                                            pickuphtml += "<button type=\"button\" onclick=\"SetCurrentPickupTime(this);\" class=\"swal2-styled pickup-time-box\">" + value1 + "</button>";
+                                        }
+                                        else {
+
+                                            var now = new Date();
+                                            var pickupdatetime = new Date(GetCurrentDateOnly() + " " + selectedPickupTime);
+                                            var dropdownValueDateTime = new Date(GetCurrentDateOnly() + " " + value1);
+                                            var minsDiff = Math.floor((dropdownValueDateTime.getTime() - now.getTime()) / 1000 / 60);
+                                            var minsDiffFromPickUpTime = Math.floor((dropdownValueDateTime.getTime() - pickupdatetime.getTime()) / 1000 / 60);
+                                            if (minsDiffFromPickUpTime <= 120) {
+                                                if (minsDiff > 0) {
+                                                    pickuphtml += "<button type=\"button\" onclick=\"SetCurrentPickupTime(this);\" class=\"swal2-styled pickup-time-box\">" + value1 + "</button>";
+                                                }
+                                                else {
+                                                    pickuphtml += "<button type=\"button\" onclick=\"SetCurrentPickupTime(this);\" class=\"swal2-styled pickup-time-box\">" + value1 + "</button>";
+                                                }
+
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            else {
+                                if (minsDiffFromPickUpTime <= 120) {
+                                    if (minsDiff > 0) {
+                                        pickuphtml += "<button type=\"button\" onclick=\"SetCurrentPickupTime(this);\" class=\"swal2-styled pickup-time-box\">" + value1 + "</button>";
+                                    }
+                                    else {
+                                        pickuphtml += "<button type=\"button\" onclick=\"SetCurrentPickupTime(this);\" class=\"swal2-styled pickup-time-box\">" + value1 + "</button>";
+                                    }
+                                }
+                            }
+
+                        });
+                        pickuphtml += "</div>";
+                        pickuphtml += "<input id=\"hdnCurrentSelectedPickupTime_" + orderId + "\" type=\"hidden\" value=\"" + selectedPickupTime + "\"/>";
+                        pickuphtml += "<div class=\"popup-button-area\">";
+                        pickuphtml += "<button id=\"btnChangePickupTimeSave\" onclick=\"ChangePickupTime();\" type=\"button\" class=\"popup-confirm swal2-styled\" aria-label=\"\" ";
+                        pickuphtml += "style=\"background-color: rgb(59, 152, 71); border-left-color: rgb(59, 152, 71); border-right-color: rgb(59, 152, 71);display:none;\">Submit</button>";
+                        pickuphtml += "<button type=\"button\" onclick=\"ClosePickupTimePopup();\" class=\"swal2-styled popup-no\" aria-label=\"\" style=\"display: inline-block; background-color: rgb(233, 88, 97);\">Close</button>";
+                        pickuphtml += "</div></div>";
+
+
+                        //alert(pickuphtml);
+                        $('#pickupTimePopup').html(pickuphtml);
+                        $(".popup-overlay").show();
+                        $('#pickupTimePopup').show();
+                    }
+                }
+            });
+
+        }
+        catch (e) {
+            console.log(GetCurrentDateTime() + " - " + " Error GetCarryoutPickupTimings", browser);
+        }
+
+    }
+}
+
+function ClosePickupTimePopup() {
+    $('#pickupTimePopup').html("");
+    $(".popup-overlay").hide();
+    $('#pickupTimePopup').hide();
+}
+
+function SetCurrentPickupTime(elm) {
+    var orderId = $("#dvCarryOutDetailsInner #hdnSelectedOrderId").val();
+    var pickupTime = $(elm).text();
+    $('#hdnCurrentSelectedPickupTime_' + orderId).val(pickupTime);
+    $(".popup-button-area button").removeClass("pickup-time-box-focus");
+    $(elm).addClass("pickup-time-box-focus");
+    $('#btnChangePickupTimeSave').show();
+}
+
+function ChangePickupTime() {
+    var restaurantDisplayName = "";
+    if (localStorage.getItem("RestaurantName") != null)
+        restaurantDisplayName = localStorage.getItem("RestaurantName").trim();
+    //alert(restaurantDisplayName);
+    var storeId = SetStoreId();
+    //alert(storeId);
+    var orderId = $("#dvCarryOutDetailsInner #hdnSelectedOrderId").val();
+    //alert(orderId);
+    var pickupTime = $('#hdnCurrentSelectedPickupTime_' + orderId).val();
+    var phoneNumber = $('#popupCustomerName_' + orderId).next().text();
+    //alert(phoneNumber);
+    $("#btnChangePickupTimeSave").html("Submiting....");
+    
+
+    $.ajax({
+        url: global + 'ChangeOrderPickupTime?storeid=' + storeId + '&orderId=' + orderId + "&pickupTime=" + pickupTime + "&restaurantDisplayName=" + restaurantDisplayName + "&phoneNumber=" + phoneNumber,
+        type: 'GET',
+        datatype: 'jsonp',
+        contenttype: "application/json",
+        crossDomain: true,
+        //async: false,
+        success: function (data) {
+            $("#btnChangePickupTimeSave").html("Submit");
+            console.log(data)
+            if (data.replace(/"/g, "").indexOf("failed") > -1) {
+                $('#pickupTimePopup').html("");
+                $(".popup-overlay").hide();
+                $('#pickupTimePopup').hide();
+                callSweetAlertWarning(data.replace(/"/g, ""));
+            }
+            else {
+                OpenCarryoutDetails(orderId);
+                callSweetAlertSuccess(data.replace(/"/g, ""));
+
+                $('#pickupTimePopup').html("");
+                $(".popup-overlay").hide();
+                $('#pickupTimePopup').hide();
+            }
+        },
+        error: function (xhr, textStatus, errorThrown) {
+            $("#btnChangePickupTimeSave").html("Submit");
+            //alert(xhr.responseText);
+            //alert(textStatus);
+            //alert(errorThrown);
+        }
+    });
+
+}
+
+
 //Cancel Order
 function OpenCancelOrderPopup() {
     var orderId = $("#dvCarryOutDetailsInner #hdnSelectedOrderId").val();
