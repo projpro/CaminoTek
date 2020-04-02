@@ -850,6 +850,16 @@ h4 {
     display: block;
 	margin: 30px 0 30px 0;
 }
+.custom-btn-four{    
+    font-weight: 400;
+    padding: 10px 0px;
+    border-radius: 2px;
+    font-size: 21px;
+    text-transform: uppercase;
+    text-align: center;
+    display: block;
+	margin:0 0 0 0;
+}
 
 .custom-btn {
     width:87% !important;
@@ -917,6 +927,22 @@ h4 {
 
 .list-restaurants {
     width: 96%;
+}
+
+.pickup-time-box{
+    display: inline-block;
+    background-color: #ffffff;
+    border: 2px solid #0c0c0c;
+    margin: 5px 40px 30px 0px;
+    padding: 10px 5px;
+    width: 160px;
+    color: #000;
+    font-size: 20px;
+}
+
+.pickup-time-box-focus {
+    background-color: #3b9847;
+    color:#ffffff;   
 }
 
 /*===============================================*/
