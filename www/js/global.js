@@ -1522,7 +1522,7 @@ function OpenCarryoutDetails(id) {
                         //Set Details Upper Button
                         upperButtonHtml = "<a class=\"custom-btn-two custom-bg custom-link item-media-section-two\" style=\"background:#f7952c !important;\" onclick=\"ChangePopupOrderStatusDropdown('PickedUp'," + orderId + "," + storeId + ")\">Pick Up</a>";
                         //Send SMS Button
-                        upperButtonHtml += "<a id=\"aPopupSMS_" + orderId + "\" class=\"custom-btn-three custom-bg custom-link item-media-section-two\" style=\"background:#303030 !important;\" onclick=\"ConfirmationPickUpSMSSend(" + orderId + ",'" + phone + "','Popup','$0.00')\">SMS to Customer</a>";
+                        upperButtonHtml += "<a id=\"aPopupSMS_" + orderId + "\" class=\"custom-btn-three custom-bg custom-link item-media-section-two\" style=\"background:#303030 !important;\" onclick=\"ConfirmationPickUpSMSSend(" + orderId + ",'" + phone + "','Popup','$0.00')\">Pickup SMS to Customer</a>";
                         $("#carryout #divUpperButtonArea").html(upperButtonHtml);
                     }
                     else if (orderStatus.toLowerCase() == "pickedup") {
@@ -3357,7 +3357,7 @@ function ChangePopupOrderStatusDropdown(status, orderId, storeId) {
                     //Set Details Upper Button
                     upperButtonHtml = "<a class=\"custom-btn-two custom-bg custom-link item-media-section-two\" style=\"background:#f7952c !important;\" onclick=\"ChangePopupOrderStatusDropdown('PickedUp'," + orderId + "," + storeId + ")\">Pick Up</a>";
                     //Send SMS Button
-                    upperButtonHtml += "<a id=\"aPopupSMS_" + orderId + "\" class=\"custom-btn-three custom-bg custom-link item-media-section-two\" style=\"background:#303030 !important;\" onclick=\"ConfirmationPickUpSMSSend(" + orderId + ",'" + orderPhone + "','Popup','$0.00')\">SMS to Customer</a>";
+                    upperButtonHtml += "<a id=\"aPopupSMS_" + orderId + "\" class=\"custom-btn-three custom-bg custom-link item-media-section-two\" style=\"background:#303030 !important;\" onclick=\"ConfirmationPickUpSMSSend(" + orderId + ",'" + orderPhone + "','Popup','$0.00')\">Pickup SMS to Customer</a>";
                     $("#divUpperButtonArea").html(upperButtonHtml);
                     $("#li_" + orderId).css("border-left", "#5cb95a 10px solid");
 
