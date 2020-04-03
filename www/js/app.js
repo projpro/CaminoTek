@@ -245,7 +245,7 @@ $$(document).on('page:init', function (e) {
         CheckGiftCardPermission();
         $$("#hdnCurrentState").val('New');
 
-        var pageSize = 10;
+        var pageSize = 100;
         var currentPage = 0;
 
         document.addEventListener("deviceready", onDeviceReady, false);
@@ -276,7 +276,7 @@ $$(document).on('page:init', function (e) {
 
         ////}
 
-        CarryoutOrdersList('New', 10, 0, 'dvNewList');
+        CarryoutOrdersList('New', 100, 0, 'dvNewList');
         var timeout = null;
         var src = mediaURL + "notification.mp3";
         var myMedia = null;
