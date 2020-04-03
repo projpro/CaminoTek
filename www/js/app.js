@@ -1408,36 +1408,20 @@ function InitPushNotification(storeId, name, uuid, version) {
         //    // Do something after 30 second 
         //}, 30000);
         //console.log('notification event: ' + data.message);
-         if (data.message == "A new order has been placed") {
+         if (data.message == "SoundOff") {
+            localStorage.setItem("PushNotification", "Order accepted");
+            ////localStorage.setItem("PushNotification", "SoundOff");
+            ////$("#btnAcknowledgement").click();
+            StopSound();
+
+        }
+        else if (data.message != "") {   ////if (data.message == "A new order has been placed") {     
             localStorage.setItem("PushNotification", "Order placed");
             ////localStorage.setItem("PushNotification", data.message);
             myMedia = new Media(src, onSuccess, onError, onStatus);
             //CheckNewOrder();
             $('#myDiv').html('<div class="block">' +
-                                             '<a href="#" class="link popup-close modal-accept-button"  id="btnAcknowledgement" onclick="StopSoundAndRefreshCarryout();" style=\"top: 40% !important; height: 205px; font-size:35px;\">NEW ORDER</a>' +
-                                             '<div class="overlay-button-area" id="dvPopOrders" style=\"top: 30px !important;\">' +
-                                             '</div>' +
-                                            '</div>');
-            $('#myDiv').show();
-
-            if (isDevice()) {
-                // console.log('isDevice 1: ')
-                //playAudio();
-                myMedia.play();
-            }
-        }
-        else if (data.message == "Order accepted") {
-        ////if (data.message == "SoundOff") {
-            localStorage.setItem("PushNotification", "Order accepted");
-            ////localStorage.setItem("PushNotification", "SoundOff");
-            $("#btnAcknowledgement").click();
-
-        }
-        else if (data.message == "Device Ping") {
-            localStorage.setItem("PushNotification", "Order accepted");
-            myMedia = new Media(src, onSuccess, onError, onStatus);
-            $('#myDiv').html('<div class="block">' +
-                                             '<a href="#" class="link popup-close modal-accept-button" onclick="StopSound();" style=\"top: 40% !important; height: 205px; \">Click To Stop Sound</a>' +
+                                             '<a href="#" class="link popup-close modal-accept-button"  id="btnAcknowledgement" onclick="StopSoundAndRefreshCarryout();" style=\"top: 40% !important; height: 205px; font-size:35px;\">' + data.message + '</a>' +
                                              '<div class="overlay-button-area" id="dvPopOrders" style=\"top: 30px !important;\">' +
                                              '</div>' +
                                             '</div>');
@@ -2062,8 +2046,8 @@ function StopSoundOtherDevices(storeId) {
     var regId = localStorage.getItem('registrationId');
 
     $.ajax({
-        url: global + 'StopSoundInAllDevices',
-        //url: global + 'StopSoundInAllDevicesNew',
+        //url: global + 'StopSoundInAllDevices',
+        url: global + 'StopSoundInAllDevicesNew',
         type: 'GET',
         data: {
             storeId: storeId,
