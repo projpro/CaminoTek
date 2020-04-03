@@ -1409,7 +1409,8 @@ function InitPushNotification(storeId, name, uuid, version) {
         //}, 30000);
         //console.log('notification event: ' + data.message);
          if (data.message == "A new order has been placed") {
-            localStorage.setItem("PushNotification", data.message);
+            localStorage.setItem("PushNotification", "Order placed");
+            ////localStorage.setItem("PushNotification", data.message);
             myMedia = new Media(src, onSuccess, onError, onStatus);
             //CheckNewOrder();
             $('#myDiv').html('<div class="block">' +
@@ -1420,24 +1421,31 @@ function InitPushNotification(storeId, name, uuid, version) {
             $('#myDiv').show();
 
             if (isDevice()) {
+                // console.log('isDevice 1: ')
+                //playAudio();
                 myMedia.play();
             }
         }
         else if (data.message == "Order accepted") {
-            localStorage.setItem("PushNotification", "SoundOff");
+        ////if (data.message == "SoundOff") {
+            localStorage.setItem("PushNotification", "Order accepted");
+            ////localStorage.setItem("PushNotification", "SoundOff");
             $("#btnAcknowledgement").click();
 
         }
         else if (data.message == "Device Ping") {
+            localStorage.setItem("PushNotification", "Order accepted");
             myMedia = new Media(src, onSuccess, onError, onStatus);
             $('#myDiv').html('<div class="block">' +
-                                             '<a href="#" class="link popup-close modal-accept-button" onclick="StopSound();" style=\"top: 40% !important;\">Click To Stop Sound</a>' +
+                                             '<a href="#" class="link popup-close modal-accept-button" onclick="StopSound();" style=\"top: 40% !important; height: 205px; \">Click To Stop Sound</a>' +
                                              '<div class="overlay-button-area" id="dvPopOrders" style=\"top: 30px !important;\">' +
                                              '</div>' +
                                             '</div>');
             $('#myDiv').show();
 
             if (isDevice()) {
+                // console.log('isDevice 1: ')
+                //playAudio();
                 myMedia.play();
             }
         }
