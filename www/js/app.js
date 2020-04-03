@@ -1415,7 +1415,10 @@ function InitPushNotification(storeId, name, uuid, version) {
             StopSound();
 
         }
-        else if (data.message != "") {   ////if (data.message == "A new order has been placed") {     
+        else if (data.message != "") {   ////if (data.message == "A new order has been placed") {  
+            if (isDevice()) {
+                myMedia.stop();
+            }
             localStorage.setItem("PushNotification", "Order placed");
             ////localStorage.setItem("PushNotification", data.message);
             myMedia = new Media(src, onSuccess, onError, onStatus);
