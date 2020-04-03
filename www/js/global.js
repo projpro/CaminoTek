@@ -1206,8 +1206,9 @@ function CarryoutOrdersListPagination(status, carryoutpagesize, carryoutcurrentP
 }
 //Carryout Details
 function OpenCarryoutDetails(id) {
-    $('.order-container').removeClass("selected-order-background");
-    $('#li_' + id).addClass("selected-order-background");
+    $('.order-container').removeClass("selected-order-background");    
+    $('#1 #li_' + id).addClass("selected-order-background");
+    $('#3 #li_' + id).addClass("selected-order-background");
     var currentTabId = $(".tab-active").attr('id');
     $("#carryout #dvCarryOutDetailsInner #hdnSelectedOrderId").val(id);
     var storeId = SetStoreId();
