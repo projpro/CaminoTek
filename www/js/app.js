@@ -1408,9 +1408,9 @@ function InitPushNotification(storeId, name, uuid, version) {
         //    // Do something after 30 second 
         //}, 30000);
         //console.log('notification event: ' + data.message);
-         if (data.message == "OffSound") {
+         if (data.message == "SoundOff") {
             ////localStorage.setItem("PushNotification", "Order accepted");
-            localStorage.setItem("PushNotification", "OffSound");
+            localStorage.setItem("PushNotification", "SoundOff");
             $("#btnAcknowledgement").click();
 
         }
@@ -1421,7 +1421,7 @@ function InitPushNotification(storeId, name, uuid, version) {
             myMedia = new Media(src, onSuccess, onError, onStatus);
             //CheckNewOrder();
             $('#myDiv').html('<div class="block">' +
-                                             '<a href="#" class="link popup-close modal-accept-button"  id="btnAcknowledgement" onclick="StopSoundAndRefreshCarryout();" style=\"top: 40% !important; height: 205px; font-size:35px;\">New Order</a>' +
+                                             '<a href="#" class="link popup-close modal-accept-button"  id="btnAcknowledgement" onclick="StopSoundAndRefreshCarryout();" style=\"top: 40% !important; height: 205px; font-size:35px;\">' + data.message + '</a>' +
                                              '<div class="overlay-button-area" id="dvPopOrders" style=\"top: 30px !important;\">' +
                                              '</div>' +
                                             '</div>');
