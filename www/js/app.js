@@ -1469,8 +1469,7 @@ function StopSound() {
 function StopSoundAndRefreshCarryout() {
     var storeId = SetStoreId();
     StopSound();//Stop Current Device Sound
-    StopSoundOtherDevices(storeId);//Stop Other Device Sound
-
+    
     if (app.views.main.router.url.indexOf('carryout') > -1) {
         //alert("carryout 2");//////////
         app.tab.show('#1');//Commented For Stop Auto Redirect - 09.20.2019
@@ -1480,6 +1479,8 @@ function StopSoundAndRefreshCarryout() {
         //alert("carryout 2 else");//////////
         localStorage.setItem("loadcarryoutprocessing", "true");
     }
+    
+    StopSoundOtherDevices(storeId);//Stop Other Device Sound   
 }
 
 function disableScrolling() {
