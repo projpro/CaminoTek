@@ -2045,7 +2045,8 @@ function StopSoundOtherDevices(storeId) {
     var regId = localStorage.getItem('registrationId');
 
     $.ajax({
-        url: global + 'StopSoundInAllDevices',
+        //url: global + 'StopSoundInAllDevices',
+        url: global + 'StopSoundInAllDevicesNew',
         type: 'GET',
         data: {
             storeId: storeId,
