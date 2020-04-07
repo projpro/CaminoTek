@@ -10,6 +10,7 @@ var bottomBorder = '1px solid #ddd';
 var noErrorClassBorder = 'none';
 var src = mediaURL + "notification.mp3";
 var myMedia = null;
+var appVersion = 2;
 
 function InitLogin() {
     // console.log('Init Login');
@@ -23,7 +24,7 @@ function InitLogin() {
 function RegisterToken(storeId, token, name, uuid, version) {
 
     $.ajax({
-        url: global + 'StoreDeviceRegistrationTokenUpdate?storeid=' + storeId + '&registrationToken=' + token + "&deviceUUID=" + uuid + "&version=" + version + "&name=" + name,
+        url: global + 'StoreDeviceRegistrationTokenUpdate?storeid=' + storeId + '&registrationToken=' + token + "&deviceUUID=" + uuid + "&version=" + version + "&name=" + name + "&appVersion=" + appVersion,
         type: 'GET',
         datatype: 'jsonp',
         contenttype: "application/json",
