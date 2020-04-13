@@ -1207,7 +1207,7 @@ function CarryoutOrdersListPagination(status, carryoutpagesize, carryoutcurrentP
 }
 //Carryout Details
 function OpenCarryoutDetails(id) {
-    $('.order-container').removeClass("selected-order-background");    
+    $('.order-container').removeClass("selected-order-background");
     $('#1 #li_' + id).addClass("selected-order-background");
     $('#3 #li_' + id).addClass("selected-order-background");
     var currentTabId = $(".tab-active").attr('id');
@@ -1264,6 +1264,14 @@ function OpenCarryoutDetails(id) {
             var ordertype = "";
           
             var authorizationCode = "";
+
+            var taxValue = "0.00";
+            var shippingValue = "0.00";
+            var subTotalWithoutTax = "0.00";
+            var curbsidePickup = false;
+            var curbsidePickupMessage = "";
+            var curbsidePickupDate = "";
+            var curbsidePickupTime = "";
 
             //console.log(data);
             $.each(JSON.parse(data), function (index, value) {
@@ -1323,6 +1331,22 @@ function OpenCarryoutDetails(id) {
                     else {
                         ordertotalvalue = FormatDecimal(grandTotal);
                     }
+
+                    //Tax Section
+                    if (value.SUBTOTALWITHOUTTAX != undefined && Number(value.SUBTOTALWITHOUTTAX) > 0) {
+                        subTotalWithoutTax = FormatDecimal(value.SUBTOTALWITHOUTTAX);
+                    }
+                    if (value.TAX != undefined && Number(value.TAX) > 0)
+                    {
+                        taxValue = FormatDecimal(value.TAX);
+                    }
+                    if (value.SHIPPING != undefined && Number(value.SHIPPING) > 0) {
+                        shippingValue = FormatDecimal(value.SHIPPING);
+                    }
+
+
+
+
                     $("#carryout #hdnSelectedOrderOrderPrice").val(ordertotalvalue);
                     if (value.CREATEDONUTC != null && value.CREATEDONUTC != undefined) {
                         var arrDateTime = value.CREATEDONUTC.split('~');
@@ -1435,6 +1459,25 @@ function OpenCarryoutDetails(id) {
                     {
                         authorizationCode = value.AUTHORIZATIONTRANSACTIONCODE;
                     }
+
+                    //CurbsidePickup Seciton
+                    if (value.CurbsidePickup)
+                    {
+                        curbsidePickup = true;
+                        if (value.CurbsidePickupMessage != null && value.CurbsidePickupMessage != "") {
+                            curbsidePickupMessage = value.CurbsidePickupMessage;
+                        }
+                        if (value.CurbsidePickupTime != null && value.CurbsidePickupTime != undefined) {
+                            var arrCurbsidePickupDateTime = value.CurbsidePickupTime.split('~');
+                            curbsidePickupDate = arrCurbsidePickupDateTime[0];
+                            curbsidePickupTime = arrCurbsidePickupDateTime[1];
+                        }
+                    }
+                    else {
+                        curbsidePickup = false;
+                        curbsidePickupMessage = "";
+                    }
+                    
 
                 }
                 else if (value.Type == "DiscountInfo") {
@@ -1893,23 +1936,82 @@ function OpenCarryoutDetails(id) {
 
                     });
                 }
+                //alert(taxValue);
                 if (htmlDiscount != "" || htmlRewards != "" || htmlGiftCard != "") {
+                    //alert("Html");
                     htmlSubTotal = " <tr>";
                     htmlSubTotal += "<td colspan=\"3\" style=\"text-align:right; font-weight: bold;\">Subtotal:</td>";
-                    htmlSubTotal += "<td style=\"text-align:right;\">" + FormatDecimal(subtotalvalue) + "</td>";
+                    if (taxValue != "" && taxValue != "0.00") {
+                        htmlSubTotal += "<td style=\"text-align:right;\">" + subTotalWithoutTax + "</td>";
+                    }
+                    else {
+                        htmlSubTotal += "<td style=\"text-align:right;\">" + FormatDecimal(subtotalvalue) + "</td>";
+                    }
                     htmlSubTotal += "</tr>";
 
-                    htmlOrderTotal = " <tr>";
+                    if (taxValue != "" && taxValue != "0.00") {
+                        htmlOrderTotal += " <tr>";
+                        htmlOrderTotal += "<td colspan=\"3\" style=\"text-align:right; font-weight: bold;\">Tax:</td>";
+                        htmlOrderTotal += "<td style=\"text-align:right;\">" + taxValue + "</td>";
+                        htmlOrderTotal += "</tr>";
+                    }
+
+                    if (shippingValue != "" && shippingValue != "0.00") {
+                        htmlOrderTotal += " <tr>";
+                        htmlOrderTotal += "<td colspan=\"3\" style=\"text-align:right; font-weight: bold;\">Shipping:</td>";
+                        htmlOrderTotal += "<td style=\"text-align:right;\">" + shippingValue + "</td>";
+                        htmlOrderTotal += "</tr>";
+                    }
+
+                    htmlOrderTotal += " <tr>";
                     htmlOrderTotal += "<td colspan=\"3\" style=\"text-align:right; font-weight: bold;\">Order Total:</td>";
                     htmlOrderTotal += "<td style=\"text-align:right;\">" + grandTotalvalue + "</td>";
                     htmlOrderTotal += "</tr>";
                 }
                 else {
-                    htmlOrderTotal = " <tr>";
+                    //alert("Else");
+                    htmlSubTotal = " <tr>";
+                    htmlSubTotal += "<td colspan=\"3\" style=\"text-align:right; font-weight: bold;\">Subtotal:</td>";
+                    if (taxValue != "" && taxValue != "0.00")
+                    {
+                        htmlSubTotal += "<td style=\"text-align:right;\">" + subTotalWithoutTax + "</td>";
+                    }
+                    else {
+                        htmlSubTotal += "<td style=\"text-align:right;\">" + FormatDecimal(subtotalvalue) + "</td>";
+                    }
+                    htmlSubTotal += "</tr>";
+
+                    if (taxValue != "" && taxValue != "0.00") {
+                        //alert("Tax");
+                        htmlOrderTotal += " <tr>";
+                        htmlOrderTotal += "<td colspan=\"3\" style=\"text-align:right; font-weight: bold;\">Tax:</td>";
+                        htmlOrderTotal += "<td style=\"text-align:right;\">" + taxValue + "</td>";
+                        htmlOrderTotal += "</tr>";
+                    }
+
+                    if (shippingValue != "" && shippingValue != "0.00") {
+                        htmlOrderTotal += " <tr>";
+                        htmlOrderTotal += "<td colspan=\"3\" style=\"text-align:right; font-weight: bold;\">Shipping:</td>";
+                        htmlOrderTotal += "<td style=\"text-align:right;\">" + shippingValue + "</td>";
+                        htmlOrderTotal += "</tr>";
+                    }
+
+                    htmlOrderTotal += " <tr>";
                     htmlOrderTotal += "<td colspan=\"3\" style=\"text-align:right; font-weight: bold;\">Order Total:</td>";
                     htmlOrderTotal += "<td style=\"text-align:right;\">" + grandTotalvalue + "</td>";
                     htmlOrderTotal += "</tr>";
                 }
+
+                if (curbsidePickup) {
+                    htmlOrderTotal += "<table class=\"table table-striped\" cellspacing=\"0\" cellpadding=\"0\"><thead>"
+                    htmlOrderTotal += "<tr>";
+                    htmlOrderTotal += "<td valign=\"top\" style=\"text-align:right; font-weight: bold;\">Curbside:</td>";
+                    htmlOrderTotal += "<td style=\"text-align:right;\">" + curbsidePickupMessage + " (" + curbsidePickupTime + ")" + "</td>";
+                    htmlOrderTotal += "</tr>";
+                    htmlOrderTotal += "</thead></table>";
+                }
+
+
                 if (dueAmount > 0) {
                     $("#carryout #dvItem").html(html + htmlSubTotal + htmlDiscount + htmlRewards + htmlGiftCard + htmlOrderTotal + htmlDueAmount + "</tbody>");
                 }
