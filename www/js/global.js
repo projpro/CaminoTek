@@ -1948,14 +1948,7 @@ function OpenCarryoutDetails(id) {
                         htmlSubTotal += "<td style=\"text-align:right;\">" + FormatDecimal(subtotalvalue) + "</td>";
                     }
                     htmlSubTotal += "</tr>";
-
-                    if (taxValue != "" && taxValue != "0.00") {
-                        htmlOrderTotal += " <tr>";
-                        htmlOrderTotal += "<td colspan=\"3\" style=\"text-align:right; font-weight: bold;\">Tax:</td>";
-                        htmlOrderTotal += "<td style=\"text-align:right;\">" + taxValue + "</td>";
-                        htmlOrderTotal += "</tr>";
-                    }
-
+                    
                     if (shippingValue != "" && shippingValue != "0.00") {
                         htmlOrderTotal += " <tr>";
                         htmlOrderTotal += "<td colspan=\"3\" style=\"text-align:right; font-weight: bold;\">Shipping:</td>";
@@ -1963,6 +1956,13 @@ function OpenCarryoutDetails(id) {
                         htmlOrderTotal += "</tr>";
                     }
 
+                    if (taxValue != "" && taxValue != "0.00") {
+                        htmlOrderTotal += " <tr>";
+                        htmlOrderTotal += "<td colspan=\"3\" style=\"text-align:right; font-weight: bold;\">Tax:</td>";
+                        htmlOrderTotal += "<td style=\"text-align:right;\">" + taxValue + "</td>";
+                        htmlOrderTotal += "</tr>";
+                    }
+                    
                     htmlOrderTotal += " <tr>";
                     htmlOrderTotal += "<td colspan=\"3\" style=\"text-align:right; font-weight: bold;\">Order Total:</td>";
                     htmlOrderTotal += "<td style=\"text-align:right;\">" + grandTotalvalue + "</td>";
@@ -1981,6 +1981,13 @@ function OpenCarryoutDetails(id) {
                     }
                     htmlSubTotal += "</tr>";
 
+                    if (shippingValue != "" && shippingValue != "0.00") {
+                        htmlOrderTotal += " <tr>";
+                        htmlOrderTotal += "<td colspan=\"3\" style=\"text-align:right; font-weight: bold;\">Shipping:</td>";
+                        htmlOrderTotal += "<td style=\"text-align:right;\">" + shippingValue + "</td>";
+                        htmlOrderTotal += "</tr>";
+                    }
+                    
                     if (taxValue != "" && taxValue != "0.00") {
                         //alert("Tax");
                         htmlOrderTotal += " <tr>";
@@ -1988,14 +1995,7 @@ function OpenCarryoutDetails(id) {
                         htmlOrderTotal += "<td style=\"text-align:right;\">" + taxValue + "</td>";
                         htmlOrderTotal += "</tr>";
                     }
-
-                    if (shippingValue != "" && shippingValue != "0.00") {
-                        htmlOrderTotal += " <tr>";
-                        htmlOrderTotal += "<td colspan=\"3\" style=\"text-align:right; font-weight: bold;\">Shipping:</td>";
-                        htmlOrderTotal += "<td style=\"text-align:right;\">" + shippingValue + "</td>";
-                        htmlOrderTotal += "</tr>";
-                    }
-
+                    
                     htmlOrderTotal += " <tr>";
                     htmlOrderTotal += "<td colspan=\"3\" style=\"text-align:right; font-weight: bold;\">Order Total:</td>";
                     htmlOrderTotal += "<td style=\"text-align:right;\">" + grandTotalvalue + "</td>";
@@ -2006,8 +2006,8 @@ function OpenCarryoutDetails(id) {
                     if (curbsidePickupMessage != "" && curbsidePickupMessage != undefined) {
                         htmlOrderTotal += "<table class=\"table table-striped\" cellspacing=\"0\" cellpadding=\"0\"><thead>"
                         htmlOrderTotal += "<tr>";
-                        htmlOrderTotal += "<td valign=\"top\" style=\"text-align:right; font-weight: bold;\">Curbside:</td>";
-                        htmlOrderTotal += "<td style=\"text-align:right;\">" + curbsidePickupMessage + " (" + curbsidePickupTime + ")" + "</td>";
+                        htmlOrderTotal += "<td valign=\"top\" style=\"text-align:left; font-weight: bold;\">Curbside:</td>&nbsp;&nbsp;";
+                        htmlOrderTotal += "<td style=\"text-align:left;\">" + curbsidePickupMessage + " (" + curbsidePickupTime + ")" + "</td>";
                         htmlOrderTotal += "</tr>";
                         htmlOrderTotal += "</thead></table>";
                     }                    
