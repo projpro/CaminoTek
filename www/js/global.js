@@ -2003,12 +2003,14 @@ function OpenCarryoutDetails(id) {
                 }
 
                 if (curbsidePickup) {
-                    htmlOrderTotal += "<table class=\"table table-striped\" cellspacing=\"0\" cellpadding=\"0\"><thead>"
-                    htmlOrderTotal += "<tr>";
-                    htmlOrderTotal += "<td valign=\"top\" style=\"text-align:right; font-weight: bold;\">Curbside:</td>";
-                    htmlOrderTotal += "<td style=\"text-align:right;\">" + curbsidePickupMessage + " (" + curbsidePickupTime + ")" + "</td>";
-                    htmlOrderTotal += "</tr>";
-                    htmlOrderTotal += "</thead></table>";
+                    if (curbsidePickupMessage != "" && curbsidePickupMessage != undefined) {
+                        htmlOrderTotal += "<table class=\"table table-striped\" cellspacing=\"0\" cellpadding=\"0\"><thead>"
+                        htmlOrderTotal += "<tr>";
+                        htmlOrderTotal += "<td valign=\"top\" style=\"text-align:right; font-weight: bold;\">Curbside:</td>";
+                        htmlOrderTotal += "<td style=\"text-align:right;\">" + curbsidePickupMessage + " (" + curbsidePickupTime + ")" + "</td>";
+                        htmlOrderTotal += "</tr>";
+                        htmlOrderTotal += "</thead></table>";
+                    }                    
                 }
 
 
