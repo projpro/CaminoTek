@@ -1272,6 +1272,7 @@ function OpenCarryoutDetails(id) {
             var curbsidePickupMessage = "";
             var curbsidePickupDate = "";
             var curbsidePickupTime = "";
+            var refundValue = "0.00";
 
             //console.log(data);
             $.each(JSON.parse(data), function (index, value) {
@@ -1343,7 +1344,9 @@ function OpenCarryoutDetails(id) {
                     if (value.SHIPPING != undefined && Number(value.SHIPPING) > 0) {
                         shippingValue = FormatDecimal(value.SHIPPING);
                     }
-
+                    if (value.REFUNDEDAMOUNT != undefined && Number(value.REFUNDEDAMOUNT)) {
+                        refundValue = FormatDecimal(value.REFUNDEDAMOUNT);
+                    }
 
 
 
@@ -1551,6 +1554,17 @@ function OpenCarryoutDetails(id) {
 
                         //Set Details Upper Button
                         upperButtonHtml = "<a class=\"custom-btn-two custom-bg custom-link item-media-section-two\" style=\"background:#3b9847 !important;\" onclick=\"ChangePopupOrderStatusDropdown('Complete'," + orderId + "," + storeId + ")\">Complete</a>";
+
+                        if (value.ORDERPICKUPSMSSENTON != undefined && value.ORDERPICKUPSMSSENTON != null && value.ORDERPICKUPSMSSENTON != "") {
+
+                            if (value.ORDERPICKUPSMSSENTON.indexOf("~") > -1) {
+                                var arrPickUpSMSSentDateTime = value.ORDERPICKUPSMSSENTON.split('~');
+                                var smsSentDate = arrPickUpSMSSentDateTime[0];
+                                var smsSentTime = arrPickUpSMSSentDateTime[1];
+                                upperButtonHtml += "<div class=\"popup-label-left-new\"  id=\"dvPickUpSMSSentTime\"><div>Pickup SMS sent " + smsSentDate + " @ " + smsSentTime + "</div></div>";
+                            }
+                        }
+
                         $("#carryout #divUpperButtonArea").html(upperButtonHtml);
                     }
                     else if (orderStatus.toLowerCase() == "complete") {
@@ -1568,6 +1582,17 @@ function OpenCarryoutDetails(id) {
                         upperButtonHtml = "<a class=\"custom-btn-two custom-bg custom-link item-media-section-two\" style=\"background:#f7952c !important;\" onclick=\"ChangePopupOrderStatusDropdown('PickedUp'," + orderId + "," + storeId + ")\">Pick Up</a>";
                         //Send SMS Button
                         upperButtonHtml += "<a id=\"aPopupSMS_" + orderId + "\" class=\"custom-btn-three custom-bg custom-link item-media-section-two\" style=\"background:#303030 !important;\" onclick=\"ConfirmationPickUpSMSSend(" + orderId + ",'" + phone + "','Popup','$0.00')\">Pickup SMS to Customer</a>";
+
+                        if (value.ORDERPICKUPSMSSENTON != undefined && value.ORDERPICKUPSMSSENTON != null && value.ORDERPICKUPSMSSENTON != "") {
+
+                            if (value.ORDERPICKUPSMSSENTON.indexOf("~") > -1) {
+                                var arrPickUpSMSSentDateTime = value.ORDERPICKUPSMSSENTON.split('~');
+                                var smsSentDate = arrPickUpSMSSentDateTime[0];
+                                var smsSentTime = arrPickUpSMSSentDateTime[1];
+                                upperButtonHtml += "<div class=\"popup-label-left-new\"  id=\"dvPickUpSMSSentTime\"><div>Pickup SMS sent " + smsSentDate + " @ " + smsSentTime + "</div></div>";
+                            }
+                        }
+
                         $("#carryout #divUpperButtonArea").html(upperButtonHtml);
                     }
                     else if (orderStatus.toLowerCase() == "pickedup") {
@@ -1601,32 +1626,10 @@ function OpenCarryoutDetails(id) {
                 orderhtml += "</div>";
                 /*------------------Status Icon Area End-----------------------*/
                 /*------------------Button Row Start-----------------------*/
-                if (orderStatus != "New" && orderStatus != "Cancelled") {
-                    if (value.ORDERPICKUPSMSSENTON != undefined && value.ORDERPICKUPSMSSENTON != null && value.ORDERPICKUPSMSSENTON != "") {
-
-
-                        if (value.ORDERPICKUPSMSSENTON.indexOf("~") > -1) {
-                            var arrPickUpSMSSentDateTime = value.ORDERPICKUPSMSSENTON.split('~');
-                            var smsSentDate = arrPickUpSMSSentDateTime[0];
-                            var smsSentTime = arrPickUpSMSSentDateTime[1];
-                            buttonHTML += "<div class=\"popup-label-left-new\"  id=\"dvPickUpSMSSentTime\"><div>Pickup SMS sent </div><div>" + smsSentDate + " @ " + smsSentTime + "</div></div>";
-                        }
-
-                        ////buttonHTML += "<img src=\"./img/icons/pickup_sms_button_active.png\" class=\"popup-button-right\" />";
-
-                    }
-                    ////else {
-                    ////    if (phone != "")
-                    ////        buttonHTML += "<a id=\"aPopupSMS_" + orderId + "\"><img onclick=\"ConfirmationPickUpSMSSend(" + orderId + ",'" + phone + "','Popup','$0.00')\" id=\"imgPopupSMS_" + orderId + "\" src=\"./img/icons/pickup_sms_button.png\" style=\"width:21%;float:right;padding-right:0px;\" /></a>";
-
-                    ////}
-                }
-                else {
-                    //buttonHTML += "<a id=\"aPopupSMS_" + orderId + "\"><img id=\"imgPopupSMS_" + orderId + "\" src=\"./img/icons/pickup_sms_button_active.png\" style=\"width:21%;float:right;padding-right:17px;\" /></a>";
-                }
+                
 
                 orderhtml += "<div class=\"order-buttons\" id=\"popupCarryOutDetails_" + orderId + "\" style=\"width:60%;\">";
-                orderhtml += buttonHTML;
+                ////orderhtml += buttonHTML;
                 orderhtml += "</div>";
 
                 /*------------------Button Row End-----------------------*/
@@ -1948,7 +1951,8 @@ function OpenCarryoutDetails(id) {
                         htmlSubTotal += "<td style=\"text-align:right;\">" + FormatDecimal(subtotalvalue) + "</td>";
                     }
                     htmlSubTotal += "</tr>";
-                    
+
+
                     if (shippingValue != "" && shippingValue != "0.00") {
                         htmlOrderTotal += " <tr>";
                         htmlOrderTotal += "<td colspan=\"3\" style=\"text-align:right; font-weight: bold;\">Shipping:</td>";
@@ -1962,11 +1966,18 @@ function OpenCarryoutDetails(id) {
                         htmlOrderTotal += "<td style=\"text-align:right;\">" + taxValue + "</td>";
                         htmlOrderTotal += "</tr>";
                     }
-                    
+
                     htmlOrderTotal += " <tr>";
                     htmlOrderTotal += "<td colspan=\"3\" style=\"text-align:right; font-weight: bold;\">Order Total:</td>";
                     htmlOrderTotal += "<td style=\"text-align:right;\">" + grandTotalvalue + "</td>";
                     htmlOrderTotal += "</tr>";
+
+                    if (refundValue != "" && refundValue != "0.00") {
+                        htmlOrderTotal += " <tr>";
+                        htmlOrderTotal += "<td colspan=\"3\" style=\"text-align:right; font-weight: bold;\">Refund:</td>";
+                        htmlOrderTotal += "<td style=\"text-align:right;\">" + refundValue + "</td>";
+                        htmlOrderTotal += "</tr>";
+                    }
                 }
                 else {
                     //alert("Else");
@@ -1987,7 +1998,7 @@ function OpenCarryoutDetails(id) {
                         htmlOrderTotal += "<td style=\"text-align:right;\">" + shippingValue + "</td>";
                         htmlOrderTotal += "</tr>";
                     }
-                    
+
                     if (taxValue != "" && taxValue != "0.00") {
                         //alert("Tax");
                         htmlOrderTotal += " <tr>";
@@ -1995,11 +2006,19 @@ function OpenCarryoutDetails(id) {
                         htmlOrderTotal += "<td style=\"text-align:right;\">" + taxValue + "</td>";
                         htmlOrderTotal += "</tr>";
                     }
+
                     
                     htmlOrderTotal += " <tr>";
                     htmlOrderTotal += "<td colspan=\"3\" style=\"text-align:right; font-weight: bold;\">Order Total:</td>";
                     htmlOrderTotal += "<td style=\"text-align:right;\">" + grandTotalvalue + "</td>";
                     htmlOrderTotal += "</tr>";
+
+                    if (refundValue != "" && refundValue != "0.00") {
+                        htmlOrderTotal += " <tr>";
+                        htmlOrderTotal += "<td colspan=\"3\" style=\"text-align:right; font-weight: bold;\">Refund:</td>";
+                        htmlOrderTotal += "<td style=\"text-align:right;\">" + refundValue + "</td>";
+                        htmlOrderTotal += "</tr>";
+                    }
                 }
 
                 if (curbsidePickup) {
