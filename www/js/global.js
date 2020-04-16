@@ -709,7 +709,7 @@ function CarryoutOrdersList(status, carryoutpagesize, carryoutcurrentPage, divId
                                 $("#dvAllList #li_" + value.ID).css("border-left", "#f7952c 10px solid");
                             }
                         }
-                        else if (value.ORDERSTATUSID.toLowerCase() == "cancelled") {
+                        else if (value.ORDERSTATUSID.toLowerCase() == "cancelled" || value.ORDERSTATUSID.toLowerCase() == "refunded") {
                             if (status == "New" || status == "Processing") {
                                 $("#dvNewList #li_" + value.ID).css("border-left", "#e95861 10px solid");
                             }
@@ -1172,7 +1172,7 @@ function CarryoutOrdersListPagination(status, carryoutpagesize, carryoutcurrentP
                                 $("#dvAllList #li_" + value.ID).css("border-left", "#f7952c 10px solid");
                             }
                         }
-                        else if (value.ORDERSTATUSID.toLowerCase() == "cancelled") {
+                        else if (value.ORDERSTATUSID.toLowerCase() == "cancelled" || value.ORDERSTATUSID.toLowerCase() == "refunded") {
                             if (status == "New" || status == "Processing") {
                                 $("#dvNewList #li_" + value.ID).css("border-left", "#e95861 10px solid");
                             }
@@ -1502,7 +1502,7 @@ function OpenCarryoutDetails(id) {
                     htmlGiftCard += "<td  style=\"text-align:right;\">-" + FormatDecimal(value.USEDVALUE) + "</td>";
                     htmlGiftCard += "</tr>";
                 }
-                if (orderStatus.toLowerCase() != "cancelled") {
+                if (orderStatus.toLowerCase() != "cancelled" || orderStatus.toLowerCase() != "refunded") {
                     $("#carryout #divLowerCancelButtonArea").show();
                 }
                 else
@@ -1583,7 +1583,7 @@ function OpenCarryoutDetails(id) {
 
                         $("#carryout #divUpperButtonArea").html("");
                     }
-                    else if (orderStatus.toLowerCase() == "cancelled") {
+                    else if (orderStatus.toLowerCase() == "cancelled" || orderStatus.toLowerCase() == "refunded") {
                         //html += "<div class=\"order-status-icon\" id=\"carryoutstatus_" + value.ID + "\"><img class=\"list-icon\"  src=\"img/icons/Picked-Up-Icon.png\" alt=\"\"/></div>";
                         orderhtml += "<div class=\"dropdown\" id=\"carryoutstatus_" + orderId + "\">";
                         orderhtml += "<button id=\"btnStatusChange\" class=\"dropbtn\"><img class=\"list-icon\"  src=\"img/icons/cancel.png\" alt=\"\"/></button>";
