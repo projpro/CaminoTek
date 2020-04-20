@@ -1505,8 +1505,14 @@ function OpenCarryoutDetails(id) {
                     htmlGiftCard += "<td  style=\"text-align:right;\">-" + FormatDecimal(value.USEDVALUE) + "</td>";
                     htmlGiftCard += "</tr>";
                 }
-                if (orderStatus.toLowerCase() != "cancelled" || orderStatus.toLowerCase() != "refunded") {
+                if (orderStatus.toLowerCase() != "cancelled" && orderStatus.toLowerCase() != "refunded") {
                     $("#carryout #divLowerCancelButtonArea").show();
+                    if (orderStatus.toLowerCase() == "pickedup") {
+                        $("#btnChangePickupTime").hide();
+                    }
+                    else {
+                        $("#btnChangePickupTime").show();
+                    }
                 }
                 else
                 {
