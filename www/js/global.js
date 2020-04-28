@@ -3894,6 +3894,17 @@ function GetCarryOutStatus() {
             $.each(JSON.parse(data), function (index, value) {
                 var carryoutEnabled = value.CARRYOUTENABLED;
                 var carryoutcurrentstatus = value.CARRYOUTSTATUS;
+                var deliveryEnabled = value.DELIVERYENABLED;
+                var deliveryCurrentStatus = value.DELIVERYSTATUS;
+
+                if (deliveryEnabled) {
+                    $('#divDeliverySection').show();
+                    $('#dvManageServiceParent').css("margin-top", "45px");
+                }
+                else {
+                    $('#divDeliverySection').hide();
+                    $('#dvManageServiceParent').css("margin-top", "120px");
+                }
 
                 //if (carryoutEnabled==true)
                 $("#dvCarryoutStatus").html("CARRYOUT " + carryoutcurrentstatus);
@@ -3902,6 +3913,14 @@ function GetCarryOutStatus() {
                 }
                 else {
                     $("#dvCarryOutStatusChange").html("<a class=\"stop-btn-one\" onclick=\"ChangeCarryoutStatus(" + storeId + ",'RUNNING')\"><img src=\"./img/Start.png\" style=\"display:block;\"></a>");
+                }
+                
+                $("#dvDeliveryStatus").html("DELIVERY " + deliveryCurrentStatus);
+                if (deliveryCurrentStatus.toLowerCase().trim() == "running") {
+                    $("#dvDeliveryStatusChange").html("<a class=\"start-btn-one\" onclick=\"ChangeDeliveryStatus(" + storeId + ",'STOPPED')\"><img src=\"./img/Stop.png\" style=\"display:block;\"></a>");
+                }
+                else {
+                    $("#dvDeliveryStatusChange").html("<a class=\"stop-btn-one\" onclick=\"ChangeDeliveryStatus(" + storeId + ",'RUNNING')\"><img src=\"./img/Start.png\" style=\"display:block;\"></a>");
                 }
                 //alert(carryoutEnabled)
                 //alert(carryoutcurrentstatus)
@@ -3945,6 +3964,40 @@ function ChangeCarryoutStatus(storeid, status) {
         }
     });
 }
+
+//Change Delivery Status
+function ChangeDeliveryStatus(storeid, status) {
+
+    $.ajax({
+        url: global + 'ChangeDeliveryStatus?storeid=' + storeid + "&status=" + status,
+        type: 'GET',
+        datatype: 'jsonp',
+        contenttype: "application/json",
+        crossDomain: true,
+        async: false,
+        success: function (data) {
+            if (status == "STOPPED") {
+                $("#dvDeliveryStatus").html("DELIVERY STOPPED");
+                $("#dvDeliveryStatusChange").html("");
+                $("#dvDeliveryStatusChange").html("<a  class=\"stop-btn-one\" onclick=\"ChangeDeliveryStatus(" + storeid + ",'RUNNING')\"><img src=\"./img/Start.png\" style=\"display:block;\"></a>");
+
+            }
+            else {
+                $("#dvDeliveryStatus").html("DELIVERY RUNNING");
+                $("#dvDeliveryStatusChange").html("");
+                $("#dvDeliveryStatusChange").html("<a class=\"start-btn-one\" onclick=\"ChangeDeliveryStatus(" + storeid + ",'STOPPED')\"><img src=\"./img/Stop.png\" style=\"display:block;\"></a>");
+
+            }
+
+        },
+        error: function (xhr, textStatus, errorThrown) {
+            //alert(xhr.responseText);
+            //alert(textStatus);
+            //alert(errorThrown);
+        }
+    });
+}
+
 function formatPhoneNumber(s) {
     var s2 = ("" + s).replace(/\D/g, '');
     var m = s2.match(/^(\d{3})(\d{3})(\d{4})$/);
@@ -8809,6 +8862,17 @@ function SetManageService() {
             $.each(JSON.parse(data), function (index, value) {
                 var carryoutEnabled = value.CARRYOUTENABLED;
                 var carryoutcurrentstatus = value.CARRYOUTSTATUS;
+                var deliveryEnabled = value.DELIVERYENABLED;
+                var deliveryCurrentStatus = value.DELIVERYSTATUS;
+
+                if (deliveryEnabled) {
+                    $('#divDeliverySection').show();
+                    $('#dvManageServiceParent').css("margin-top", "45px");
+                }
+                else {
+                    $('#divDeliverySection').hide();
+                    $('#dvManageServiceParent').css("margin-top", "120px");
+                }
 
                 //if (carryoutEnabled==true)
                 $("#dvCarryoutStatus").html("CARRYOUT " + carryoutcurrentstatus);
@@ -8817,6 +8881,13 @@ function SetManageService() {
                 }
                 else {
                     $("#dvCarryOutStatusChange").html("<a class=\"stop-btn-one\" onclick=\"ChangeCarryoutStatus(" + storeId + ",'RUNNING')\"><img src=\"./img/Start.png\" style=\"display:block;\"></a>");
+                }
+                $("#dvDeliveryStatus").html("DELIVERY " + deliveryCurrentStatus);
+                if (deliveryCurrentStatus.toLowerCase().trim() == "running") {
+                    $("#dvDeliveryStatusChange").html("<a class=\"start-btn-one\" onclick=\"ChangeDeliveryStatus(" + storeId + ",'STOPPED')\"><img src=\"./img/Stop.png\" style=\"display:block;\"></a>");
+                }
+                else {
+                    $("#dvDeliveryStatusChange").html("<a class=\"stop-btn-one\" onclick=\"ChangeDeliveryStatus(" + storeId + ",'RUNNING')\"><img src=\"./img/Start.png\" style=\"display:block;\"></a>");
                 }
                 //alert(carryoutEnabled)
                 //alert(carryoutcurrentstatus)
