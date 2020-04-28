@@ -1274,6 +1274,8 @@ function OpenCarryoutDetails(id) {
             var curbsidePickupTime = "";
             var refundValue = "0.00";
 
+            var tipValue = "0.00";
+
             //console.log(data);
             $.each(JSON.parse(data), function (index, value) {
                 //console.log(value);
@@ -1346,6 +1348,10 @@ function OpenCarryoutDetails(id) {
                     }
                     if (value.REFUNDEDAMOUNT != undefined && Number(value.REFUNDEDAMOUNT)) {
                         refundValue = FormatDecimal(value.REFUNDEDAMOUNT);
+                    }
+
+                    if (value.Tip != undefined && Number(value.Tip) > 0) {
+                        tipValue = FormatDecimal(value.Tip);
                     }
 
 
@@ -1505,6 +1511,7 @@ function OpenCarryoutDetails(id) {
                     htmlGiftCard += "<td  style=\"text-align:right;\">-" + FormatDecimal(value.USEDVALUE) + "</td>";
                     htmlGiftCard += "</tr>";
                 }
+
                 if (orderStatus.toLowerCase() != "cancelled" && orderStatus.toLowerCase() != "refunded") {
                     $("#carryout #divLowerCancelButtonArea").show();
                     if (orderStatus.toLowerCase() == "pickedup") {
@@ -1984,6 +1991,13 @@ function OpenCarryoutDetails(id) {
                         htmlOrderTotal += "<td style=\"text-align:right;\">" + refundValue + "</td>";
                         htmlOrderTotal += "</tr>";
                     }
+
+                    if (tipValue != "" && tipValue != "0.00") {
+                        htmlOrderTotal += " <tr>";
+                        htmlOrderTotal += "<td colspan=\"3\" style=\"text-align:right; font-weight: bold;\">Tip:</td>";
+                        htmlOrderTotal += "<td style=\"text-align:right;\">" + tipValue + "</td>";
+                        htmlOrderTotal += "</tr>";
+                    }
                 }
                 else {
                     //alert("Else");
@@ -2023,6 +2037,13 @@ function OpenCarryoutDetails(id) {
                         htmlOrderTotal += " <tr>";
                         htmlOrderTotal += "<td colspan=\"3\" style=\"text-align:right; font-weight: bold;\">Refund:</td>";
                         htmlOrderTotal += "<td style=\"text-align:right;\">" + refundValue + "</td>";
+                        htmlOrderTotal += "</tr>";
+                    }
+
+                    if (tipValue != "" && tipValue != "0.00") {
+                        htmlOrderTotal += " <tr>";
+                        htmlOrderTotal += "<td colspan=\"3\" style=\"text-align:right; font-weight: bold;\">Tip:</td>";
+                        htmlOrderTotal += "<td style=\"text-align:right;\">" + tipValue + "</td>";
                         htmlOrderTotal += "</tr>";
                     }
                 }
