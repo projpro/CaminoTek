@@ -1968,8 +1968,15 @@ function OpenCarryoutDetails(id) {
 
                     if (shippingValue != "" && shippingValue != "0.00") {
                         htmlOrderTotal += " <tr>";
-                        htmlOrderTotal += "<td colspan=\"3\" style=\"text-align:right; font-weight: bold;\">Shipping:</td>";
+                        htmlOrderTotal += "<td colspan=\"3\" style=\"text-align:right; font-weight: bold;\">Delivery:</td>";
                         htmlOrderTotal += "<td style=\"text-align:right;\">" + shippingValue + "</td>";
+                        htmlOrderTotal += "</tr>";
+                    }
+                    
+                    if (tipValue != "" && tipValue != "0.00") {
+                        htmlOrderTotal += " <tr>";
+                        htmlOrderTotal += "<td colspan=\"3\" style=\"text-align:right; font-weight: bold;\">Tip:</td>";
+                        htmlOrderTotal += "<td style=\"text-align:right;\">" + tipValue + "</td>";
                         htmlOrderTotal += "</tr>";
                     }
 
@@ -1990,14 +1997,7 @@ function OpenCarryoutDetails(id) {
                         htmlOrderTotal += "<td colspan=\"3\" style=\"text-align:right; font-weight: bold;\">Refund:</td>";
                         htmlOrderTotal += "<td style=\"text-align:right;\">" + refundValue + "</td>";
                         htmlOrderTotal += "</tr>";
-                    }
-
-                    if (tipValue != "" && tipValue != "0.00") {
-                        htmlOrderTotal += " <tr>";
-                        htmlOrderTotal += "<td colspan=\"3\" style=\"text-align:right; font-weight: bold;\">Tip:</td>";
-                        htmlOrderTotal += "<td style=\"text-align:right;\">" + tipValue + "</td>";
-                        htmlOrderTotal += "</tr>";
-                    }
+                    }                    
                 }
                 else {
                     //alert("Else");
@@ -2014,8 +2014,15 @@ function OpenCarryoutDetails(id) {
 
                     if (shippingValue != "" && shippingValue != "0.00") {
                         htmlOrderTotal += " <tr>";
-                        htmlOrderTotal += "<td colspan=\"3\" style=\"text-align:right; font-weight: bold;\">Shipping:</td>";
+                        htmlOrderTotal += "<td colspan=\"3\" style=\"text-align:right; font-weight: bold;\">Delivery:</td>";
                         htmlOrderTotal += "<td style=\"text-align:right;\">" + shippingValue + "</td>";
+                        htmlOrderTotal += "</tr>";
+                    }
+                    
+                    if (tipValue != "" && tipValue != "0.00") {
+                        htmlOrderTotal += " <tr>";
+                        htmlOrderTotal += "<td colspan=\"3\" style=\"text-align:right; font-weight: bold;\">Tip:</td>";
+                        htmlOrderTotal += "<td style=\"text-align:right;\">" + tipValue + "</td>";
                         htmlOrderTotal += "</tr>";
                     }
 
@@ -2038,14 +2045,7 @@ function OpenCarryoutDetails(id) {
                         htmlOrderTotal += "<td colspan=\"3\" style=\"text-align:right; font-weight: bold;\">Refund:</td>";
                         htmlOrderTotal += "<td style=\"text-align:right;\">" + refundValue + "</td>";
                         htmlOrderTotal += "</tr>";
-                    }
-
-                    if (tipValue != "" && tipValue != "0.00") {
-                        htmlOrderTotal += " <tr>";
-                        htmlOrderTotal += "<td colspan=\"3\" style=\"text-align:right; font-weight: bold;\">Tip:</td>";
-                        htmlOrderTotal += "<td style=\"text-align:right;\">" + tipValue + "</td>";
-                        htmlOrderTotal += "</tr>";
-                    }
+                    }                    
                 }
 
                 if (curbsidePickup) {
