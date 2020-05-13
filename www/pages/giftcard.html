@@ -29,9 +29,7 @@
             </a>
         </div>
     </div>
-
-
-
+    
     <div class="navbar">
         <div class="navbar-inner">
             <div class="left">
@@ -106,22 +104,29 @@
                                                 </li>
                                                 <li class="item-content">
                                                     <div class="item-media item-media-section">
+                                                        <i class="material-icons">fiber_pin</i>
+                                                        <input type="text" placeholder="PIN" id="txtGiftCardAddPin" class="mandatory" onKeyDown="if(this.value.length==6) this.value = this.value.slice(0, -1);">
+                                                        <span class="input-clear-button"></span>
+                                                    </div>
+                                                </li>
+                                                <li class="item-content">
+                                                    <div class="item-media item-media-section">
                                                         <i class="material-icons">phone</i>
-                                                        <input type="number" placeholder="Phone" id="txtPhone" onKeyDown="if(this.value.length==11) this.value = this.value.slice(0, -1);">
+                                                        <input type="number" placeholder="Phone" id="txtPhone" class="mandatory" onKeyDown="if(this.value.length==11) this.value = this.value.slice(0, -1);">
                                                         <span class="input-clear-button"></span>
                                                     </div>
                                                 </li>
                                                 <li class="item-content">
                                                     <div class="item-media item-media-section">
                                                         <i class="material-icons">account_circle</i>
-                                                        <input type="text" placeholder="Name" id="txtName" onKeyDown="if(this.value.length==100) this.value = this.value.slice(0, -1);">
+                                                        <input type="text" placeholder="Name" id="txtName" class="mandatory" onKeyDown="if(this.value.length==100) this.value = this.value.slice(0, -1);">
                                                         <span class="input-clear-button"></span>
                                                     </div>
                                                 </li>
                                                 <li class="item-content">
                                                     <div class="item-media item-media-section">
                                                         <i class="material-icons">email</i>
-                                                        <input type="text" placeholder="Email" id="txtEmail" onKeyDown="if(this.value.length==100) this.value = this.value.slice(0, -1);">
+                                                        <input type="text" placeholder="Email" id="txtEmail" class="mandatory" onKeyDown="if(this.value.length==100) this.value = this.value.slice(0, -1);">
                                                         <span class="input-clear-button"></span>
                                                     </div>
                                                 </li>
@@ -200,15 +205,13 @@
 
                     <div id="tab-giftcard-loadRedeem" class="page-content tab">
                         <div class="section mt md">
-                            <div class="flex">
-                                <div class="div-left">
-                                    <div class="section-content">
-                                        <div class="from-wrapper">
-                                            <div class="small-button-right">
 
-                                                <button class="small-button" id="giftcardloadredeemscan" name="giftcardloadredeemscan">Scan Barcode</button>
-                                            </div>
+                                    <div class="section-content">
+                                        <div class="from-wrapper">                                            
                                             <div class="form-item">
+                                                <div class="small-button-right">
+                                                    <button class="small-button" id="giftcardloadredeemscan" name="giftcardloadredeemscan">Scan Barcode</button>
+                                                </div>
                                                 <div class="list media-list" style="margin:auto">
                                                     <ul>
                                                         <li class="item-content">
@@ -221,7 +224,7 @@
                                                         <li class="item-content">
                                                             <div class="item-media item-media-section">
                                                                 <i class="material-icons">fiber_pin</i>
-                                                                <input type="number" placeholder="PIN" id="txtPINSearch" onKeyDown="if(this.value.length==6) this.value = this.value.slice(0, -1);" autofocus>
+                                                                <input type="number" placeholder="PIN" id="txtPINSearch" class="mandatory" onKeyDown="if(this.value.length==6) this.value = this.value.slice(0, -1);" autofocus>
                                                                 <span class="input-clear-button"></span>
                                                             </div>
                                                         </li>
@@ -232,66 +235,77 @@
                                                                 <span class="input-clear-button"></span>
                                                             </div>
                                                         </li>
-                                                        <li class="item-content item-content-button">
+                                                        <li class="item-content item-content-button" style="display:none;">
                                                             <input type="hidden" id="hdnSearchCardType" value="" />
                                                             <a href="#" id="btnGiftCardSearch" class="custom-btn custom-bg bg1 custom-link item-media-section">Search</a>
                                                         </li>
-                                                        <li class="item-content">
-                                                            <div class="item-media item-media-section" style="padding-bottom: 0px;">
-                                                                <i class="material-icons">attach_money</i>
-                                                                <input type="number" placeholder="Load" id="txtLoad" min="1" step="any" onKeyDown="if(this.value.length==10) this.value = this.value.slice(0, -1);">
-                                                                <span class="input-clear-button"></span>
-                                                            </div>
-                                                        </li>
-                                                        <li class="item-content item-content-button">
-                                                            <a href="#" id="btnLoadGiftCard" class="custom-btn custom-bg bg1 custom-link item-media-section disabled">Load</a>
-                                                        </li>
-                                                        <li class="item-content">
-                                                            <div class="item-media item-media-section" style="padding-bottom: 0px;">
-                                                                <i class="material-icons">attach_money</i>
-                                                                <input type="number" placeholder="Redeem" id="txtRedeem" min="1" step="any" onKeyDown="if(this.value.length==10) this.value = this.value.slice(0, -1);">
-                                                                <span class="input-clear-button"></span>
-                                                            </div>
-                                                        </li>
-                                                        <li class="item-content item-content-button">
-                                                            <a id="btnRedeemGiftCard" class="custom-btn custom-bg bg1 custom-link item-media-section disabled">Redeem</a>
-                                                        </li>
-                                                        <!--<li class="item-content">
-                                                            <div class="item-media item-media-section" style="padding-bottom: 0px;">
-                                                                <i class="material-icons">attach_money</i>
-                                                                <input type="number" placeholder="Refund" id="txtRefund" min="1" step="any" onKeyDown="if(this.value.length==10) this.value = this.value.slice(0, -1);">
-                                                                <span class="input-clear-button"></span>
-                                                            </div>
-                                                        </li>-->
-                                                        <li class="item-content item-content-button">
-                                                            <a id="btnRefundGiftCard" class="custom-btn custom-bg bg1 custom-link item-media-section disabled">Refund</a>
-                                                        </li>
-                                                        <li class="item-content">
-                                                            <div class="item-media item-media-section" style="padding-bottom: 0px;">
-                                                                <i class="material-icons">laptop_windows</i>
-                                                                <select id="ddlRegister" class="item-select">
-                                                                    <option value="0">--Register--</option>
-                                                                    <option value="1">1</option>
-                                                                    <option value="2">2</option>
-                                                                    <option value="3">3</option>
-                                                                    <option value="4">4</option>
-                                                                    <option value="5">5</option>
-                                                                    <option value="6">6</option>
-                                                                    <option value="7">7</option>
-                                                                    <option value="8">8</option>
-                                                                    <option value="9">9</option>
-                                                                    <option value="10">10</option>
-                                                                </select>
-                                                            </div>
 
+                                                        <li>
+                                                            <div class="flex">
+                                                                <div style="width:50%;">
+                                                                    <div class="item-media item-media-section" style="padding-bottom: 0px;">
+                                                                        <i class="material-icons">attach_money</i>
+                                                                        <input type="number" placeholder="Redeem" id="txtRedeem" min="1" step="any" onKeyDown="if(this.value.length==10) this.value = this.value.slice(0, -1);">
+                                                                        <span class="input-clear-button"></span>
+                                                                    </div>
+                                                                </div>
+                                                                <div style="width:50%;">
+                                                                    <div class="item-content item-content-button">
+                                                                        <a id="btnRedeemGiftCard" class="custom-btn custom-bg bg1 custom-link item-media-section">Redeem</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>                                                             
                                                         </li>
-                                                    </ul>
+                                                        <li>
+                                                            <div class="flex">
+                                                                <div style="width:50%;">
+                                                                    <div class="item-media item-media-section" style="padding-bottom: 0px;">
+                                                                        <i class="material-icons">attach_money</i>
+                                                                        <input type="number" placeholder="Load" id="txtLoad" min="1" step="any" onKeyDown="if(this.value.length==10) this.value = this.value.slice(0, -1);">
+                                                                        <span class="input-clear-button"></span>
+                                                                    </div>
+                                                                </div>
+                                                                <div style="width:50%;">
+                                                                    <div class="item-content item-content-button">
+                                                                        <a href="#" id="btnLoadGiftCard" class="custom-btn custom-bg bg1 custom-link item-media-section">Load</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                            <li class="item-content item-content-button">
+                                                                <a id="btnRefundGiftCard" class="custom-btn-large custom-bg bg1 custom-link item-media-section" style="background: #f7952c !important;">Refund</a>
+                                                            </li>
+                                                            <li class="item-content item-content-button">
+                                                                <a id="btnCheckBalanceGiftCard" class="custom-btn-large custom-bg bg1 custom-link item-media-section" style="background: #3b9847 !important;">Check Balance</a>
+                                                            </li>
+                                                            <li class="item-content item-content-button">
+                                                                <a id="btnDeactivateGiftCard" class="custom-btn-large custom-bg bg1 custom-link item-media-section" style="background: #e95861 !important;">Deactivate</a>
+                                                            </li>
+                                                            <li class="item-content" style="display:none;">
+                                                                <div class="item-media item-media-section" style="padding-bottom: 0px;">
+                                                                    <i class="material-icons">laptop_windows</i>
+                                                                    <select id="ddlRegister" class="item-select">
+                                                                        <option value="0">--Register--</option>
+                                                                        <option value="1">1</option>
+                                                                        <option value="2">2</option>
+                                                                        <option value="3">3</option>
+                                                                        <option value="4">4</option>
+                                                                        <option value="5">5</option>
+                                                                        <option value="6">6</option>
+                                                                        <option value="7">7</option>
+                                                                        <option value="8">8</option>
+                                                                        <option value="9">9</option>
+                                                                        <option value="10">10</option>
+                                                                    </select>
+                                                                </div>
+
+                                                            </li>
+</ul>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="div-right">
+                                <div class="div-right" style="display:none;">
                                     <div class="section-content">
                                         <div class="error-message-section" id="dvOuter" style="display:none;">
                                             <p id="dvOuterText"></p>
@@ -329,7 +343,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+
                         </div>
                     </div>
 
@@ -436,3 +450,4 @@
 
     </div>
 </div>
+
