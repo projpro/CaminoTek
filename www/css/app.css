@@ -1608,7 +1608,7 @@ color: #3b9847;
     /* float: right; */
     /* right: -39%; */
     /* padding-left: 61px; */
-    margin-top: -20px;    
+    margin-top: 6px;    
     text-align: center;
 }
 #coupon_list .order-pickup {
@@ -3438,7 +3438,7 @@ position: relative;
   }*/
 
     .flex {
-        flex-direction: column;
+        flex-direction: row;
     }
 
     .div-left {
