@@ -674,6 +674,14 @@ $$(document).on('page:init', function (e) {
         $$('#btnRefundGiftCard').click(function () {
             OpenGiftCardRefundPopup();
         });
+        
+        $$('#btnCheckBalanceGiftCard').click(function () {
+            CheckGiftCardBalance();
+        });
+        $$('#btnDeactivateGiftCard').click(function () {
+            OpenGiftCardDeactivePopup();
+        });
+        
         $$('input[type=radio][name=paymentType]').change(function () {
             if (this.value.toUpperCase() == 'CARD') {
                 //$$("#liPaymentType").show();
