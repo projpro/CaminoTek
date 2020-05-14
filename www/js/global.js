@@ -2013,12 +2013,7 @@ function OpenCarryoutDetails(id) {
 
                     if (tipValue != "" && tipValue != "0.00") {
                         htmlOrderTotal += " <tr>";
-                        if (ordertype != "" && ordertype == "Delivery") {
-                            htmlOrderTotal += "<td colspan=\"3\" style=\"text-align:right; font-weight: bold;\">Driver Tip:</td>";
-                        }
-                        else {
-                            htmlOrderTotal += "<td colspan=\"3\" style=\"text-align:right; font-weight: bold;\">Tip:</td>";
-                        }
+                        htmlOrderTotal += "<td colspan=\"3\" style=\"text-align:right; font-weight: bold;\">Tip:</td>";                        
                         htmlOrderTotal += "<td style=\"text-align:right;\">" + tipValue + "</td>";
                         htmlOrderTotal += "</tr>";
                     }
@@ -2065,12 +2060,7 @@ function OpenCarryoutDetails(id) {
 
                     if (tipValue != "" && tipValue != "0.00") {
                         htmlOrderTotal += " <tr>";
-                        if (ordertype != "" && ordertype == "Delivery") {
-                            htmlOrderTotal += "<td colspan=\"3\" style=\"text-align:right; font-weight: bold;\">Driver Tip:</td>";
-                        }
-                        else {
-                            htmlOrderTotal += "<td colspan=\"3\" style=\"text-align:right; font-weight: bold;\">Tip:</td>";
-                        }
+                        htmlOrderTotal += "<td colspan=\"3\" style=\"text-align:right; font-weight: bold;\">Tip:</td>";
                         htmlOrderTotal += "<td style=\"text-align:right;\">" + tipValue + "</td>";
                         htmlOrderTotal += "</tr>";
                     }
