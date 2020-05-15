@@ -2013,7 +2013,7 @@ function OpenCarryoutDetails(id) {
 
                     if (tipValue != "" && tipValue != "0.00") {
                         htmlOrderTotal += " <tr>";
-                        htmlOrderTotal += "<td colspan=\"3\" style=\"text-align:right; font-weight: bold;\">Tip:</td>";                        
+                        htmlOrderTotal += "<td colspan=\"3\" style=\"text-align:right; font-weight: bold;\">Tip:</td>";
                         htmlOrderTotal += "<td style=\"text-align:right;\">" + tipValue + "</td>";
                         htmlOrderTotal += "</tr>";
                     }
@@ -4842,6 +4842,9 @@ function SearchGiftCard() {
 function LoadGiftCard() {
    
     $("#txtRedeem").css('border-bottom', bottomBorder);
+    $("#txtCardCodeSearch").css('border-bottom', bottomBorder);
+    $("#txtPINSearch").css('border-bottom', bottomBorder);
+    $("#txtLoad").css('border-bottom', bottomBorder);
     var storeId = 0;
     storeId = SetStoreId();
     var cardCode = $('#txtCardCodeSearch').val();
@@ -4875,7 +4878,17 @@ function LoadGiftCard() {
         try {
             if ($('#giftcard #hdnSearchCardType').val().toUpperCase() != "STORE")
             {
-                OpenGiftCardPaymentPopup();
+                var url = global + "/CheckGiftCardAndPin?giftCardCode=" + encodeURIComponent(cardCode) + "&pin=" + encodeURIComponent(pin);
+                $.getJSON(url, function (data) {
+                    //console.log(data)
+                    if (data.replace(/"/g, "").toLowerCase().indexOf("failed") > -1) {
+                        var displayMessage = data.replace(/"/g, "").split('|');
+                        callSweetAlertWarning(displayMessage[1]);
+                    }
+                    else if (data.replace(/"/g, "").toLowerCase().indexOf("successfull") > -1) {
+                        OpenGiftCardPaymentPopup();
+                    }
+                });                
             }
             else {
                 $('#btnLoadGiftCard').text("Loading...");
@@ -4979,9 +4992,12 @@ function LoadNewGiftCard() {
 
     $("#txtCardCode").css('border-bottom', bottomBorder);
     $("#txtAmount").css('border-bottom', bottomBorder);
-    $("#txtEmail").css('border-bottom', bottomBorder);
-    $("#txtName").css('border-bottom', bottomBorder);
+    //$("#txtEmail").css('border-bottom', bottomBorder);
+    //$("#txtName").css('border-bottom', bottomBorder);
     $("#txtGiftCardAddPin").css('border-bottom', bottomBorder);
+    $('#tab-giftcard-new #txtPhone').css('border-bottom', bottomBorder);
+    $('#tab-giftcard-new #txtName').css('border-bottom', bottomBorder);
+    $('#tab-giftcard-new #txtEmail').css('border-bottom', bottomBorder);
 
     $("#txtCCNumber").css('border-bottom', bottomBorder);
     $("#txtCCName").css('border-bottom', bottomBorder);
@@ -5003,7 +5019,7 @@ function LoadNewGiftCard() {
     var amount = $('#txtAmount').val().trim();
     if (amount == '')
         amount = '0';
-    if (cardCode != "" && amount != "" && amount != "0" && pin != "" && pin != "0" && phone != "" && phone != "0" && name != "" && email != "") {
+    if (cardCode != "" && amount != "" && amount != "0" && pin != "" && pin != "0" && phone != "" && phone != "0" && name != "" && email != "" && isEmail("#tab-giftcard-new #txtEmail") == true) {
         
         var url = global + "/CheckGiftCardForAddNew?giftCardCode=" + encodeURIComponent(cardCode) + "&pin=" + encodeURIComponent(pin);
             $.getJSON(url, function (data) {
@@ -5012,7 +5028,7 @@ function LoadNewGiftCard() {
                 //$("#hdnValidateCard").val(true);
                 if (data.replace(/"/g, "").toLowerCase().indexOf("failed") > -1) {
                     //$("#txtCardCode").val("");
-                    $("#txtCardCode").css('border-bottom', errorClassBorder);
+                    //$("#txtCardCode").css('border-bottom', errorClassBorder);
                     $('#btnAddCard').text("Add Card");
                     $("#hdnValidateCard").val(false);
                     $("#hdnCardType").val("");
@@ -5056,7 +5072,7 @@ function LoadNewGiftCard() {
                                         var checkedPaymentType = $("input[name='paymentType']:checked").val();
                                         if (checkedPaymentType.toUpperCase() == 'CARD') {
                                             //$("#paymentTypeCard").prop("checked", true);
-                                            $$("#liCCName").show();
+                                            ////$$("#liCCName").show();
                                             $$("#liCCNo").show();
                                             $$("#hdnSelectedPaymentType").val("Credit Card");
                                         }
@@ -5078,15 +5094,16 @@ function LoadNewGiftCard() {
                                             var obj = JSON.parse(cardInfo);
                                             AddUpdateGiftCardRecord(obj.GiftCardExists, obj.Amount, obj.GiftCardId, cardCode, obj.CardType, ccName, ccNumber, cvv, expMonth, expYear, paymentType);
                                         }
-                                        else if (ccName != "" && ccNumber != "" && cvv != "" && expMonth != "" && expYear != "") {
+                                        //ccName != "" && 
+                                        else if (ccNumber != "" && cvv != "" && expMonth != "" && expYear != "") {
                                             var cardInfo = localStorage.getItem('GiftCardDetails');
                                             var obj = JSON.parse(cardInfo);
                                             AddUpdateGiftCardRecord(obj.GiftCardExists, obj.Amount, obj.GiftCardId, cardCode, obj.CardType, ccName, ccNumber, cvv, expMonth, expYear, paymentType);
                                         }
                                         else {
-                                            if (ccName == "") {
-                                                $("#txtCCName").css('border-bottom', errorClassBorder);
-                                            }
+                                            //if (ccName == "") {
+                                            //    $("#txtCCName").css('border-bottom', errorClassBorder);
+                                            //}
                                             if (ccNumber == "" || ccNumber == "0") {
                                                 $("#txtCCNumber").css('border-bottom', errorClassBorder);
                                             }
@@ -5147,7 +5164,7 @@ function LoadNewGiftCard() {
                                         var checkedPaymentType = $("input[name='paymentType']:checked").val();
                                         if (checkedPaymentType.toUpperCase() == 'CARD') {
                                             //$("#paymentTypeCard").prop("checked", true);
-                                            $$("#liCCName").show();
+                                            ////$$("#liCCName").show();
                                             $$("#liCCNo").show();
                                             $$("#hdnSelectedPaymentType").val("Credit Card");
                                         }
@@ -5169,15 +5186,16 @@ function LoadNewGiftCard() {
                                             var obj = JSON.parse(cardInfo);
                                             AddUpdateGiftCardRecord(obj.GiftCardExists, obj.Amount, obj.GiftCardId, cardCode, obj.CardType, ccName, ccNumber, cvv, expMonth, expYear, paymentType);
                                         }
-                                        else if (ccName != "" && ccNumber != "" && cvv != "" && expMonth != "" && expYear != "") {
+                                        //ccName != "" &&
+                                        else if ( ccNumber != "" && cvv != "" && expMonth != "" && expYear != "") {
                                             var cardInfo = localStorage.getItem('GiftCardDetails');
                                             var obj = JSON.parse(cardInfo);
                                             AddUpdateGiftCardRecord(obj.GiftCardExists, obj.Amount, obj.GiftCardId, cardCode, obj.CardType, ccName, ccNumber, cvv, expMonth, expYear, paymentType);
                                         }
                                         else {
-                                            if (ccName == "") {
-                                                $("#txtCCName").css('border-bottom', errorClassBorder);
-                                            }
+                                            //if (ccName == "") {
+                                            //    $("#txtCCName").css('border-bottom', errorClassBorder);
+                                            //}
                                             if (ccNumber == "" || ccNumber == "0") {
                                                 $("#txtCCNumber").css('border-bottom', errorClassBorder);
                                             }
@@ -5382,6 +5400,9 @@ function RedeemGiftCard() {
     var storeId = 0;
     var params = getParams();
     $("#txtLoad").css('border-bottom', bottomBorder);
+    $("#txtRedeem").css('border-bottom', bottomBorder);
+    $("#txtPINSearch").css('border-bottom', bottomBorder);
+    $("#txtCardCodeSearch").css('border-bottom', bottomBorder);
     storeId = SetStoreId();
     var cardCode = $('#txtCardCodeSearch').val();
     var phone = $('#txtPhoneSearch').val();
@@ -5424,24 +5445,30 @@ function RedeemGiftCard() {
                     else if (data.replace(/"/g, "").toLowerCase().indexOf("successfull") > -1) {
                         ////SearchGiftCard();
                         var displayMessage = data.replace(/"/g, "").split('|');
-                        callSweetAlertSuccess(displayMessage[1]);
+                        //callSweetAlertSuccess(displayMessage[1]);
+
+                        var displayMessage = data.replace(/"/g, "").split('|');
+                        //callSweetAlertSuccess(displayMessage[1]);
+                        var arrMessages = displayMessage[1].split(',');
+                        var dataRefund = arrMessages[0].split(':');
+                        var dataBalance = arrMessages[1].split(':');
+                        var popuphtml = "";
+
+                        popuphtml = popuphtml + "<p><span>" + dataRefund[0] + ": </span><span class=\"main-two\">" + dataRefund[1] + "</span></p>";
+                        popuphtml = popuphtml + "<p><span>" + dataBalance[0] + ": </span><span class=\"main-two\">" + dataBalance[1] + "</span></p>";
+
+                        swal({
+                            title: "Redeemed Successfully.",
+                            html: popuphtml,
+                            confirmButtonText: "OK",
+                            type: "success",
+                            confirmButtonColor: '#3b9847',
+                        });
 
                         $('#txtCardCodeSearch').val("");
                         $('#txtPINSearch').val("");
                         $('#txtLoad').val("");
-                        $('#txtRedeem').val("");
-                        ////if (displayMessage.length > 1) {
-                        ////    $('#alertBodyText').html(displayMessage[0]);
-                        ////    $('#alertHearderText').html(displayMessage[1]);
-                        ////    $('#dvOuter').hide();
-                        ////    $('#dvOuterText').html("");
-                        ////}
-                        ////else {
-                        ////    $('#alertHearderText').html("");
-                        ////    $('#alertBodyText').html(data.replace(/"/g, ""));
-                        ////    $('#dvOuter').hide();
-                        ////    $('#dvOuterText').html("");
-                        ////}
+                        $('#txtRedeem').val("");                        
                     }
                 });
             }
@@ -5458,9 +5485,10 @@ function RedeemGiftCard() {
                 $("#txtPINSearch").css('border-bottom', errorClassBorder);
             }
             if (cardCode == "") {
-                $('#dvInner').hide();                
-                $("#txtCardCodeSearch").css('border-color', '#ff4848');
-                $("#txtCardCodeSearch").css('border-width', '3px');
+                $('#dvInner').hide();
+                $("#txtCardCodeSearch").css('border-bottom', errorClassBorder);
+                //$("#txtCardCodeSearch").css('border-color', '#ff4848');
+                //$("#txtCardCodeSearch").css('border-width', '3px');
             }
             $('#btnRedeemGiftCard').text("Redeem");
         }
@@ -5623,7 +5651,7 @@ function OpenGiftCardPaymentPopup() {
        html += "<div><i class=\"material-icons popup-material-icons\">attach_money</i><input value=\"" + FormatDecimalWithoutDollar(amount) + "\" type=\"number\" min=\"1\" step=\"any\" onKeyDown=\"if(this.value.length==10) this.value = this.value.slice(0, -1);\" id=\"txtPopupAmount\" class=\"swal2-text popup-input-amount mandatory\" style=\"padding: 5px 5px;\" placeholder=\"Amount($)\"></div>";
 
        html += "<div id=\"divPopupPaymentArea\">";
-       html += "<div><i class=\"material-icons popup-material-icons\">person</i><input type=\"text\" id=\"txtPopupCCName\" class=\"swal2-text popup-input-name mandatory\" style=\"padding: 5px 5px;\" placeholder=\"Name on Card\"></div>";
+       html += "<div style=\"display:none;\"><i class=\"material-icons popup-material-icons\">person</i><input type=\"text\" id=\"txtPopupCCName\" class=\"swal2-text popup-input-name mandatory\" style=\"padding: 5px 5px;\" placeholder=\"Name on Card\"></div>";
        html += "<div class=\"popup-col-4\"><i class=\"material-icons popup-material-icons\">credit_card</i><input type=\"number\" min=\"1\" step=\"any\" id=\"txtPopupCCNumber\" class=\"swal2-text popup-input-ccnumber mandatory\" style=\"padding: 5px 5px;\" placeholder=\"Card Number\"  onKeyPress=\"if(this.value.length==16) return false;\"></div>";
        html += "<div class=\"popup-col-6\"><i class=\"material-icons popup-material-icons\">date_range</i><select placeholder=\"MM\" id=\"ddlPopupCCMonth\" required class=\"mandatory popup-input-month\" style=\"padding-left: 10px !important;\">";
        html += "<option value=\"\">MM</option>";
@@ -5633,7 +5661,7 @@ function OpenGiftCardPaymentPopup() {
        html += "<option value=\"10\">10</option><option value=\"11\">11</option> <option value=\"12\">12</option></select><div class=\"popup-input-divider\">/</div>";
 
        html += "<select placeholder=\"YY\" id=\"ddlPopupCCYear\" required class=\"mandatory popup-input-month\"><option value=\"\">YY</option></select></div>";
-       html += "<div class=\"popup-col-5\"><i class=\"material-icons popup-material-icons\">fiber_pin</i><input type=\"password\" id=\"txtPopupCCCVV\" class=\"swal2-text popup-input-cvv mandatory\" style=\"padding: 5px 5px;\" placeholder=\"CVV\" onKeyPress=\"if(this.value.length==4) return false;\"></div>";
+       html += "<div class=\"popup-col-5\"><i class=\"material-icons popup-material-icons\">fiber_pin</i><input type=\"number\" id=\"txtPopupCCCVV\" class=\"swal2-text popup-input-cvv mandatory\" style=\"padding: 5px 5px;\" placeholder=\"CVV\" onKeyPress=\"if(this.value.length==4) return false;\"></div>";
        
        
        html += "</div>";
@@ -5676,7 +5704,8 @@ function GiftCardPayment(cardCode, storeId) {
             validated = true;
         }
     }
-   else if (amount > 0 && ccName != "" && ccNumber != "" && cvv != "" && expMonth != "" && expYear != "")
+        //ccName != ""&& 
+   else if (amount > 0 &&  ccNumber != "" && cvv != "" && expMonth != "" && expYear != "")
     {
         validated = true;
     }
@@ -5684,9 +5713,9 @@ function GiftCardPayment(cardCode, storeId) {
         if (amount == "") {
             $("#txtPopupAmount").css('border-bottom', errorClassBorder);
         }
-        if (ccName == "") {
-            $("#txtPopupCCName").css('border-bottom', errorClassBorder);
-        }
+        //if (ccName == "") {
+        //    $("#txtPopupCCName").css('border-bottom', errorClassBorder);
+        //}
         if (ccNumber == "" || ccNumber == "0") {
             $("#txtPopupCCNumber").css('border-bottom', errorClassBorder);
         }
@@ -5718,20 +5747,47 @@ function GiftCardPayment(cardCode, storeId) {
             $("#txtPopupCCNumber").css('border-bottom', bottomBorder);
             $("#ddlPopupCCMonth").css('border-bottom', bottomBorder);
             $("#ddlPopupCCYear").css('border-bottom', bottomBorder);
-            if (data.replace(/"/g, "").toLowerCase().indexOf("failed") > -1) {
+
+            if (data.replace(/"/g, "").toLowerCase().indexOf("payment") > -1) {
+                //$('#dvInner').hide();
+                var displayMessage = data.replace(/"/g, "").split('|');
+                $("#giftcardPayment #popuperror").show();
+                $("#giftcardPayment #popuperror").html(displayMessage[1]);
+                //callSweetAlertWarning(displayMessage[1]);
+            }
+           else if (data.replace(/"/g, "").toLowerCase().indexOf("failed") > -1) {
                 //$('#dvInner').hide();
                 var displayMessage = data.replace(/"/g, "").split('|');
                 $('#dvOuter').hide();
-                $('#dvOuterText').html("");
-                $("#popuperror").show();
-                $("#popuperror").html(displayMessage[1]);                
+                $('#dvOuterText').html("");                                
                 callSweetAlertWarning(displayMessage[1]);
+                CloseGiftCardPaymentPopup();
             }
             else if (data.replace(/"/g, "").toLowerCase().indexOf("successfull") > -1) {
                 //SearchGiftCard();
                 CloseGiftCardPaymentPopup();
                 var displayMessage = data.replace(/"/g, "").split('|');
-                callSweetAlertSuccess(displayMessage[1]);
+                //callSweetAlertSuccess(displayMessage[1]);
+
+                var displayMessage = data.replace(/"/g, "").split('|');
+                //callSweetAlertSuccess(displayMessage[1]);
+                var arrMessages = displayMessage[1].split(',');
+                var dataRefund = arrMessages[0].split(':');
+                var dataBalance = arrMessages[1].split(':');
+                var popuphtml = "";
+
+                popuphtml = popuphtml + "<p><span>" + dataRefund[0] + ": </span><span class=\"main-two\">" + dataRefund[1] + "</span></p>";
+                popuphtml = popuphtml + "<p><span>" + dataBalance[0] + ": </span><span class=\"main-two\">" + dataBalance[1] + "</span></p>";
+
+                swal({
+                    title: "Loaded Successfully.",
+                    html: popuphtml,
+                    confirmButtonText: "OK",
+                    type: "success",
+                    confirmButtonColor: '#3b9847',
+                });
+
+
                 $('#txtCardCodeSearch').val("");
                 $('#txtPINSearch').val("");
                 $('#txtLoad').val("");
@@ -5753,9 +5809,15 @@ function CloseGiftCardPaymentPopup() {
 }
 
 function OpenGiftCardRefundPopup() {
+    $("#txtCardCodeSearch").css('border-bottom', bottomBorder);
+    $("#txtPINSearch").css('border-bottom', bottomBorder);
     var storeId = SetStoreId();
     var cardCode = $("#txtCardCodeSearch").val().trim();
-    if (cardCode != "") {
+    var pin = $("#txtPINSearch").val();
+    if (pin == '') {
+        pin = '0';
+    }
+    if (cardCode != "" && pin != "" && pin != "0") {
         var html = "<div class=\"popup-content-area\"><h2 class=\"popup-title\"><span style=\"font-size:18px;\">Refund Gift Card - <span style=\"font-weight:600;font-size: 20px;\">" + cardCode + "</span></span></h2>";
         html += "<h4 id=\"popuperror\" style=\"font-weight:400;color:#ff4848;display:none;\"></h4>";
 
@@ -5772,14 +5834,19 @@ function OpenGiftCardRefundPopup() {
         $('#giftcardRefund').show();
     }
     else {
-        
-         $("#txtCardCodeSearch").css('border-bottom', errorClassBorder);
+        if (pin == "" || pin == "0") {
+            $("#txtPINSearch").css('border-bottom', errorClassBorder);
+        }
+        if (cardCode == "") {
+            $("#txtCardCodeSearch").css('border-bottom', errorClassBorder);
+        }
     }
 
 
 }
 function RefundGiftCard() {
-
+    $("#txtPopupRefund").css('border-bottom', bottomBorder);
+    $("#txtGCRefundReason").css('border-bottom', bottomBorder);
     var storeId = SetStoreId();
 
     var cardCode = $('#txtCardCodeSearch').val();
@@ -5830,7 +5897,23 @@ function RefundGiftCard() {
                     //SearchGiftCard();
                     CloseRefundGiftCardPopup();
                     var displayMessage = data.replace(/"/g, "").split('|');
-                    callSweetAlertSuccess(displayMessage[1]);
+                    //callSweetAlertSuccess(displayMessage[1]);
+                    var arrMessages = displayMessage[1].split(',');
+                    var dataRefund = arrMessages[0].split(':');
+                    var dataBalance = arrMessages[1].split(':');
+                    var popuphtml = "";
+
+                    popuphtml = popuphtml + "<p><span>" + dataRefund[0] + ": </span><span class=\"main-two\">" + dataRefund[1] + "</span></p>";
+                    popuphtml = popuphtml + "<p><span>" + dataBalance[0] + ": </span><span class=\"main-two\">" + dataBalance[1] + "</span></p>";
+
+                    swal({
+                        title: "Refunded Successfully.",
+                        html: popuphtml,
+                        confirmButtonText: "OK",
+                        type: "success",
+                        confirmButtonColor: '#3b9847',
+                    });
+
                     $('#txtCardCodeSearch').val("");
                     $('#txtPINSearch').val("");
                     $('#txtLoad').val("");
@@ -7005,6 +7088,8 @@ function CheckGiftCardBalance() {
 
     $("#txtRedeem").css('border-bottom', bottomBorder)
     $("#txtLoad").css('border-bottom', bottomBorder)
+    $("#txtCardCodeSearch").css('border-bottom', bottomBorder);
+    $("#txtPINSearch").css('border-bottom', bottomBorder);
     $("#txtRedeem").val("");
     $("#txtLoad").val("");
     $('#btnLoadGiftCard').text("Load");
@@ -7052,7 +7137,25 @@ function CheckGiftCardBalance() {
                     }
                     else if (data.replace(/"/g, "").toLowerCase().indexOf("successfull") > -1) {
                         var displayMessage = data.replace(/"/g, "").split('|');
-                        callSweetAlertSuccess(displayMessage[1]);
+                        //callSweetAlertSuccess(displayMessage[1]);
+
+                        var displayMessage = data.replace(/"/g, "").split('|');
+                        //callSweetAlertSuccess(displayMessage[1]);
+                        var dataBalance = displayMessage[1].split(':');
+                        //var dataBalance = arrMessages[1].split(':');
+                        var popuphtml = "";
+
+                        popuphtml = popuphtml + "<p><span>" + dataBalance[0] + ": </span><span class=\"main-two\">" + dataBalance[1] + "</span></p>";
+
+                        swal({
+                            title: "",
+                            html: popuphtml,
+                            confirmButtonText: "OK",
+                            type: "success",
+                            confirmButtonColor: '#3b9847',
+                        });
+
+
                     }
                 });
             }
@@ -7172,11 +7275,11 @@ function DeactiveGiftCard() {
             }
         }
         else {
-            $('#dvInner').hide();
+            //$('#dvInner').hide();
             if (reason == "") {
                 $("#txtDeactiveReason").css('border-bottom', errorClassBorder);
             }
-            else {
+            if (cardCode == "") {
                 $("#txtCardCodeSearch").css('border-bottom', errorClassBorder);
             }            
         }
@@ -8889,22 +8992,22 @@ function isEmail(el) {
         var filter = /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
         if (!filter.test(email)) {
             console.log("Invalid Email Address");
-            $("#txtEmail").css('border-color', '#ff4848');
-            $("#txtEmail").css('border-width', '3px');
+            $(el).css('border-color', '#ff4848');
+            $(el).css('border-width', '3px');
             return false;
 
         } else {
 
             console.log("Valid Email Address");
-            $("#txtEmail").css('border-color', '#dedede');
-            $("#txtEmail").css('border-width', '1px');
+            $(el).css('border-color', '#dedede');
+            $(el).css('border-width', '1px');
             return true;
 
         }
     }
     else {
-        $("#txtEmail").css('border-color', '#dedede');
-        $("#txtEmail").css('border-width', '1px');
+        $(el).css('border-color', '#dedede');
+        $(el).css('border-width', '1px');
         return true;
     }
 
