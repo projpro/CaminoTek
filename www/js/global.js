@@ -5073,6 +5073,7 @@ function LoadNewGiftCard() {
                                         if (checkedPaymentType.toUpperCase() == 'CARD') {
                                             //$("#paymentTypeCard").prop("checked", true);
                                             ////$$("#liCCName").show();
+                                            $$("#liCCName").hide();
                                             $$("#liCCNo").show();
                                             $$("#hdnSelectedPaymentType").val("Credit Card");
                                         }
@@ -5165,6 +5166,7 @@ function LoadNewGiftCard() {
                                         if (checkedPaymentType.toUpperCase() == 'CARD') {
                                             //$("#paymentTypeCard").prop("checked", true);
                                             ////$$("#liCCName").show();
+                                            $$("#liCCName").hide();
                                             $$("#liCCNo").show();
                                             $$("#hdnSelectedPaymentType").val("Credit Card");
                                         }
@@ -5439,8 +5441,8 @@ function RedeemGiftCard() {
                         ////SearchGiftCard();
                         var displayMessage = data.replace(/"/g, "").split('|');
                         callSweetAlertWarning(displayMessage[1]);
-                        $('#txtLoad').val("");
-                        $('#txtRedeem').val("");
+                        //$('#txtLoad').val("");
+                        //$('#txtRedeem').val("");
                     }
                     else if (data.replace(/"/g, "").toLowerCase().indexOf("successfull") > -1) {
                         ////SearchGiftCard();
@@ -5648,7 +5650,7 @@ function OpenGiftCardPaymentPopup() {
        html += "<input type=\"radio\" id=\"paymentPopupTypeCash\" name=\"paymentPopupType\" value=\"Cash\" onclick=\"ChangePaymetTypePopup('CASH');\" /><label for=\"paymentPopupTypeCash\" onclick=\"ChangePaymetTypePopup('CASH');\" >Cash</label></div>";
        html += "<input type=\"hidden\" id=\"hdnPaymentType\" value=\"Credit Card\"/></div>";
 
-       html += "<div><i class=\"material-icons popup-material-icons\">attach_money</i><input value=\"" + FormatDecimalWithoutDollar(amount) + "\" type=\"number\" min=\"1\" step=\"any\" onKeyDown=\"if(this.value.length==10) this.value = this.value.slice(0, -1);\" id=\"txtPopupAmount\" class=\"swal2-text popup-input-amount mandatory\" style=\"padding: 5px 5px;\" placeholder=\"Amount($)\"></div>";
+       html += "<div><i class=\"material-icons popup-material-icons\">attach_money</i><input value=\"" + FormatDecimalWithoutDollar(amount) + "\" type=\"number\" min=\"1\" step=\"any\" onKeyDown=\"if(this.value.length==10) this.value = this.value.slice(0, -1);\" id=\"txtPopupAmount\" class=\"swal2-text popup-input-amount mandatory\" style=\"padding: 5px 5px; font-size: 24px;\" placeholder=\"Amount($)\"></div>";
 
        html += "<div id=\"divPopupPaymentArea\">";
        html += "<div style=\"display:none;\"><i class=\"material-icons popup-material-icons\">person</i><input type=\"text\" id=\"txtPopupCCName\" class=\"swal2-text popup-input-name mandatory\" style=\"padding: 5px 5px;\" placeholder=\"Name on Card\"></div>";
@@ -5888,7 +5890,7 @@ function RefundGiftCard() {
                     $('#tblRedeemHistory tbody').html("");
                     $('#dvInner').hide();
                     $('#dvOuter').hide();
-                    $("#popuperror").show();
+                    //$("#popuperror").show();
                     var displayMessage = data.replace(/"/g, "").split('|');
                     callSweetAlertWarning(displayMessage[1]);
                     CloseRefundGiftCardPopup();
