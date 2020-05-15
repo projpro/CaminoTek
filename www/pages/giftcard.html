@@ -140,8 +140,8 @@
                                                 <li class="item-content" id="liPaymentType" style="display:none;">
                                                     <input type="hidden" id="hdnSelectedPaymentType" value="Credit Card"/>
                                                     <div class="item-media item-media-section">
-                                                        <div class="item-media col-25 payment-area"><input type="radio" id="paymentTypeCard" name="paymentType" value="Card" checked /><label for="paymentTypeCard">Credit Card</label></div>
-                                                        <div class="item-media col-25 payment-area"><input type="radio" id="paymentTypeCash" name="paymentType" value="Cash" /><label for="paymentTypeCash">Cash</label></div>
+                                                        <div class="item-media width-half payment-area"><input type="radio" id="paymentTypeCard" name="paymentType" value="Card" checked /><label for="paymentTypeCard">Credit Card</label></div>
+                                                        <div class="item-media width-half payment-area"><input type="radio" id="paymentTypeCash" name="paymentType" value="Cash" /><label for="paymentTypeCash">Cash</label></div>
                                                     </div>
                                                 </li>
                                                 <li class="item-content" id="liCCName" style="display:none;">
@@ -151,41 +151,45 @@
                                                         <span class="input-clear-button"></span>
                                                     </div>
                                                 </li>
-                                                <li class="item-content item-media-section" id="liCCNo" style="display:none;">                                                    
-                                                    <div class="item-media col-45">
+                                                <li class="item-content item-media-section" id="liCCNo" style="display:none;"> 
+                                                    <div style="width:100%" class="flex">
+                                                        <!--col-45-->
+                                                        <div class="item-media" style="width:58%">
+                                                            <i class="material-icons">credit_card</i>
+                                                            <input type="number" min="1" step="any" placeholder="Card Number" id="txtCCNumber" required class="mandatory" style="padding-left:5px; padding-right:0px; text-align:center;" onKeyPress="if(this.value.length==16) return false;">
+                                                            <span class="input-clear-button"></span>
+                                                        </div>
+                                                        <!--col-25-->
+                                                        <div class="item-media" style="width:22%;">
+                                                            <!--<i class="material-icons">date_range</i>-->
+                                                            <select placeholder="MM" id="ddlCCMonth" required class="mandatory" style="padding-left: 0px !important;padding-right:0;">
+                                                                <option value="">MM</option>
+                                                                <option value="01">01</option>
+                                                                <option value="02">02</option>
+                                                                <option value="03">03</option>
+                                                                <option value="04">04</option>
+                                                                <option value="05">05</option>
+                                                                <option value="06">06</option>
+                                                                <option value="07">07</option>
+                                                                <option value="08">08</option>
+                                                                <option value="09">09</option>
+                                                                <option value="10">10</option>
+                                                                <option value="11">11</option>
+                                                                <option value="12">12</option>
 
-                                                        <i class="material-icons">credit_card</i>
-                                                        <input type="number" min="1" step="any" placeholder="Card Number" id="txtCCNumber" required class="mandatory" onKeyPress="if(this.value.length==16) return false;">
-                                                        <span class="input-clear-button"></span>
-                                                    </div>
-                                                    <div class="item-media col-25">
-                                                        <i class="material-icons">date_range</i>
-                                                        <select placeholder="MM" id="ddlCCMonth" required class="mandatory" style="padding-left: 10px !important;">
-                                                            <option value="">MM</option>
-                                                            <option value="01">01</option>
-                                                            <option value="02">02</option>
-                                                            <option value="03">03</option>
-                                                            <option value="04">04</option>
-                                                            <option value="05">05</option>
-                                                            <option value="06">06</option>
-                                                            <option value="07">07</option>
-                                                            <option value="08">08</option>
-                                                            <option value="09">09</option>
-                                                            <option value="10">10</option>
-                                                            <option value="11">11</option>
-                                                            <option value="12">12</option>
-
-                                                        </select>/
-                                                        <select placeholder="YY" id="ddlCCYear" required class="mandatory">
-                                                            <option value="">YY</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="item-media col-25">
-                                                        <i class="material-icons">fiber_pin</i>
-                                                        <!--<input type="number" placeholder="CVV" id="txtCVV" required class="mandatory" onKeyPress="if(this.value.length==4) return false;">-->
-                                                        <input type="password" placeholder="CVV" id="txtCVV" required class="mandatory" onKeyPress="if(this.value.length==4) return false;">
-                                                        <span class="input-clear-button"></span>
-                                                    </div>                                                    
+                                                            </select>/
+                                                            <select placeholder="YY" id="ddlCCYear" required class="mandatory" style="padding-left:5px;padding-right:0;">
+                                                                <option value="">YY</option>
+                                                            </select>
+                                                        </div>
+                                                        <!--col-25-->
+                                                        <div class="item-media" style="width:18%">
+                                                            <!--<i class="material-icons">fiber_pin</i>-->
+                                                            <!--<input type="number" placeholder="CVV" id="txtCVV" required class="mandatory" onKeyPress="if(this.value.length==4) return false;">-->
+                                                            <input type="number" placeholder="CVV" id="txtCVV" required class="mandatory" style="text-align:center;padding-left:0;padding-right:0;" onKeyPress="if(this.value.length==4) return false;">
+                                                            <span class="input-clear-button"></span>
+                                                        </div>
+                                                    </div>                                                 
                                                 </li>
 
                                                 <li class="item-content">
@@ -242,14 +246,14 @@
 
                                                         <li>
                                                             <div class="flex">
-                                                                <div style="width:50%;">
+                                                                <div class="width-half">
                                                                     <div class="item-media item-media-section" style="padding-bottom: 0px;">
                                                                         <i class="material-icons">attach_money</i>
                                                                         <input type="number" placeholder="Redeem" id="txtRedeem" min="1" step="any" onKeyDown="if(this.value.length==10) this.value = this.value.slice(0, -1);">
                                                                         <span class="input-clear-button"></span>
                                                                     </div>
                                                                 </div>
-                                                                <div style="width:50%;">
+                                                                <div class="width-half">
                                                                     <div class="item-content item-content-button">
                                                                         <a id="btnRedeemGiftCard" class="custom-btn custom-bg bg1 custom-link item-media-section">Redeem</a>
                                                                     </div>
@@ -258,14 +262,14 @@
                                                         </li>
                                                         <li>
                                                             <div class="flex">
-                                                                <div style="width:50%;">
+                                                                <div class="width-half">
                                                                     <div class="item-media item-media-section" style="padding-bottom: 0px;">
                                                                         <i class="material-icons">attach_money</i>
                                                                         <input type="number" placeholder="Load" id="txtLoad" min="1" step="any" onKeyDown="if(this.value.length==10) this.value = this.value.slice(0, -1);">
                                                                         <span class="input-clear-button"></span>
                                                                     </div>
                                                                 </div>
-                                                                <div style="width:50%;">
+                                                                <div class="width-half">
                                                                     <div class="item-content item-content-button">
                                                                         <a href="#" id="btnLoadGiftCard" class="custom-btn custom-bg bg1 custom-link item-media-section">Load</a>
                                                                     </div>
