@@ -5460,7 +5460,7 @@ function RedeemGiftCard() {
                         popuphtml = popuphtml + "<p><span>" + dataBalance[0] + ": </span><span class=\"main-two\">" + dataBalance[1] + "</span></p>";
 
                         swal({
-                            title: "Redeem Successful.",
+                            title: "Redeem Successful",
                             html: popuphtml,
                             confirmButtonText: "OK",
                             type: "success",
@@ -5782,7 +5782,7 @@ function GiftCardPayment(cardCode, storeId) {
                 popuphtml = popuphtml + "<p><span>" + dataBalance[0] + ": </span><span class=\"main-two\">" + dataBalance[1] + "</span></p>";
 
                 swal({
-                    title: "Load Successful.",
+                    title: "Load Successful",
                     html: popuphtml,
                     confirmButtonText: "OK",
                     type: "success",
