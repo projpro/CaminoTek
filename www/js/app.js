@@ -685,7 +685,8 @@ $$(document).on('page:init', function (e) {
         $$('input[type=radio][name=paymentType]').change(function () {
             if (this.value.toUpperCase() == 'CARD') {
                 //$$("#liPaymentType").show();
-                $$("#liCCName").show();
+                //$$("#liCCName").show();
+                $$("#liCCName").hide();
                 $$("#liCCNo").show();
                 $$("#hdnSelectedPaymentType").val("Credit Card");
             }
