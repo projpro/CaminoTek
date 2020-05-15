@@ -5371,7 +5371,7 @@ function AddUpdateGiftCardRecord(exists, gcamount, giftcardId, cardcode, cardTyp
                 }
                 else if (data.replace(/"/g, "").toLowerCase().indexOf("failed") > -1) {
                     var displayMessage = data.replace(/"/g, "").split('|');
-                    callSweetAlertSuccess(displayMessage[1]);
+                    callSweetAlertWarning(displayMessage[1]);
                 }
             });
         }
