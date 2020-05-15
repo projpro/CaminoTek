@@ -655,7 +655,7 @@ $$(document).on('page:init', function (e) {
             ClearSpecialCharacter('txtCardCodeSearch');
         });
         $$('#txtLoad').on('blur', function () {
-            ClearSpecialCharacter('txtLoad');
+            //ClearSpecialCharacter('txtLoad');
         });
         $$('#txtRedeem').on('blur', function () {
             ClearSpecialCharacter('txtLoad');
