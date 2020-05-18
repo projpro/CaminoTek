@@ -1515,10 +1515,14 @@ function OpenCarryoutDetails(id) {
                 if (orderStatus.toLowerCase() != "cancelled" && orderStatus.toLowerCase() != "refunded") {
                     $("#carryout #divLowerCancelButtonArea").show();
                     if (orderStatus.toLowerCase() == "pickedup") {
-                        $("#btnChangePickupTime").hide();
+                        $("#btnChangePickupTime").prop("onclick", null).off("click");
+                        $("#btnChangePickupTime").css('opacity', '0.5');
                     }
                     else {
-                        $("#btnChangePickupTime").show();
+                        $("#btnChangePickupTime").click(function () {
+                            OpenPickupTimePopup();
+                        });
+                        $("#btnChangePickupTime").css('opacity', '1');
                     }
                 }
                 else
@@ -13124,18 +13128,9 @@ function SubmitAddCharge(orderId) {
 
     var chargeAmount = $("#txtChargeAmount_" + orderId).val();
     
-    if (refundAmount == "" || parseFloat(refundAmount) <= 0) {
+    if (chargeAmount == "" || parseFloat(chargeAmount) <= 0) {
         chargeTypeValidation = "False";
         $("#txtChargeAmount_" + orderId).css('border', errorClassBorder);
-    }
-    else {
-        $("#txtChargeAmount_" + orderId).css('border', bottomBorder);
-        if (refundAmount == "" || parseFloat(refundAmount) > 0) {
-            if (parseFloat(orderTotal) < parseFloat(refundAmount)) {
-                chargeTypeValidation = "False";
-                $("#txtChargeAmount_" + orderId).css('border', errorClassBorder);
-            }
-        }
     }
 
     if (reason != "" && chargeTypeValidation == "True") {
