@@ -337,7 +337,7 @@ $$(document).on('page:init', function (e) {
             var page = '<h1>Hello Document</h1>';
             
             cordova.plugins.printer.print(page, 'Document.html', function () {
-                alert('printing finished or canceled')
+                alert('printing finished')
             });
         });
 
