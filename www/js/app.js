@@ -336,9 +336,10 @@ $$(document).on('page:init', function (e) {
             // Either a DOM node or a string
             var page = '<h1>Hello Document</h1>';
             
-            cordova.plugins.printer.print(page, 'Document.html', function () {
-                alert('printing finished')
-            });
+            //cordova.plugins.printer.print(page, 'Document.html', function () {
+                //alert('printing finished')
+            //});
+            cordova.plugins.printer.print("Hello Document Direct Print", { printer: 'ipp://192.168.68.199' });
         });
 
     }
