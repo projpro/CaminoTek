@@ -329,6 +329,17 @@ $$(document).on('page:init', function (e) {
             $('#ulFilterSortCoupon').hide();
             $('#ulFilterSortItem').hide();
         });
+        
+        $$('#btnPrintOrder').on('click', function () {
+            alert("Print");
+            //cordova.plugins.printer.print("Hello\nWorld!");
+            // Either a DOM node or a string
+            var page = '<h1>Hello Document</h1>';
+            
+            cordova.plugins.printer.print(page, 'Document.html', function () {
+                alert('printing finished or canceled')
+            });
+        });
 
     }
     else if (pageURL.indexOf('food_list') > -1) {//carry out food item list
