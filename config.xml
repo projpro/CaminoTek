@@ -62,4 +62,5 @@
         <variable name="FCM_VERSION" value="15.0.0" />
         <variable name="SENDER_ID" value="771458932582" />
     </plugin>
+    <plugin name="de.appplant.cordova.plugin.printer" version="0.6.0" />
 </widget>
