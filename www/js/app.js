@@ -347,7 +347,7 @@ $$(document).on('page:init', function (e) {
                 },function(err){
                     console.log("Error");
                     console.log(err)
-                }, page)
+                }, "BT Printer Print Text")
             });
 
     }
