@@ -344,13 +344,21 @@ $$(document).on('page:init', function (e) {
 
             BTPrinter.list(function (data) {
                 alert("List");
-                console.log(data); //list of printer in data array
-                //printerName = data[0];
-                //alert("Printer: " + printerName);
+                alert(data); //list of printer in data array
+                printerName = data[0];
+                alert("Printer: " + printerName);
             }, function (err) {
                 alert("List Error");
                 console.log(err);
             });
+            BTPrinter.connect(function (data) {
+                alert("Connect");
+                console.log(data)
+            }, function (err) {
+                alert("Connect Error");
+                console.log(err)
+            }, printerName);
+            
             BTPrinter.connect(function (data) {
                 alert("Connect");
                 console.log(data)
