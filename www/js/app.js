@@ -341,7 +341,7 @@ $$(document).on('page:init', function (e) {
             //});
             //cordova.plugins.printer.print("Hello Document Direct Print", { printer: 'ipp://192.168.68.199' });
             var printerName = "";
-            BTPrinter.printText(function(data){
+            BTPrinter.list(function(data){
                     alert("List");
                     console.log(data);
                 printerName = data[0];
