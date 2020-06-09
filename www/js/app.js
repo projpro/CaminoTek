@@ -347,33 +347,57 @@ $$(document).on('page:init', function (e) {
                 alert(data); //list of printer in data array
                 printerName = data[0];
                 alert("Printer: " + printerName);
+              //Connect 1  
+                BTPrinter.connect(function (data) {
+                alert("Connect1");
+                console.log(data);
+                   //Connect 1 Success
+                    //Print 1 Start
+                    BTPrinter.printText(function (data) {
+                alert("Success Print 1");
+                console.log(data);
+            }, function (err) {
+                alert("PrintText 1 Error");
+                console.log(err)
+            }, "Hello Print");
+                    //Print 1 End
+                    
+            }, function (err) {
+                alert("Connect1 Error: " + err);
+                console.log(err);
+            }, printerName);
+                //Connect 1 End
+                
+                //Connect 2 Start
+                BTPrinter.connect(function (data) {
+                alert("Connect 2");
+                console.log(data);
+                    //Connect 2 Success
+                        //Print 2 Start
+                    BTPrinter.printText(function (data) {
+                alert("Success Print 2");
+                console.log(data);
+            }, function (err) {
+                alert("PrintText 2 Error");
+                console.log(err);
+            }, "Hello Print");
+                    //Print 2 End
+                    
+            }, function (err) {
+                alert("Connect 2 Error: " + err);
+                console.log(err);
+            }, "TCKP302-UB");
+                //Connect 2 End
+                
             }, function (err) {
                 alert("List Error");
                 console.log(err);
             });
-            BTPrinter.connect(function (data) {
-                alert("Connect");
-                console.log(data)
-            }, function (err) {
-                alert("Connect Error: " + err);
-                console.log(err)
-            }, printerName);
             
-            BTPrinter.connect(function (data) {
-                alert("Connect");
-                console.log(data)
-            }, function (err) {
-                alert("Connect Error: " + err);
-                console.log(err)
-            }, "TCKP302-UB");
+            
+            
 
-            BTPrinter.printText(function (data) {
-                alert("Success Print");
-                console.log(data)
-            }, function (err) {
-                alert("PrintText Error");
-                console.log(err)
-            }, "Hello Print");
+            
         });        
         
 
