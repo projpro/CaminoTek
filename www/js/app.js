@@ -344,9 +344,9 @@ $$(document).on('page:init', function (e) {
             
 	    BTPrinter.list(function(data){
         	alert("List");
-        	console.log(data); //list of printer in data array
-		printerName = data[0];
-		alert("Printer: " + printerName);
+        	alert(data); //list of printer in data array
+		//printerName = data[0];
+		//alert("Printer: " + printerName);
     	    },function(err){
         	alert("List Error");
         	console.log(err);
@@ -357,7 +357,7 @@ $$(document).on('page:init', function (e) {
             },function(err){
 	            alert("Connect Error");
 	            console.log(err)
-            }, printerName);
+            }, "BistroUX Printer");
             
             BTPrinter.printText(function(data){
                 alert("Success Print");
