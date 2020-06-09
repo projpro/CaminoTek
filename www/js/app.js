@@ -335,38 +335,38 @@ $$(document).on('page:init', function (e) {
             //cordova.plugins.printer.print("Hello\nWorld!");
             // Either a DOM node or a string
             var page = '<h1>Hello Document</h1>';
-            
+
             //cordova.plugins.printer.print(page, 'Document.html', function () {
-                //alert('printing finished')
+            //alert('printing finished')
             //});
             //cordova.plugins.printer.print("Hello Document Direct Print", { printer: 'ipp://192.168.68.199' });
             var printerName = "";
-            
-	    BTPrinter.list(function(data){
-        	alert("List");
-        	console.log(data); //list of printer in data array
-		//printerName = data[0];
-		//alert("Printer: " + printerName);
-    	    },function(err){
-        	alert("List Error");
-        	console.log(err);
-    	    });
-            BTPrinter.connect(function(data){
-	            alert("Connect");
+
+            BTPrinter.list(function (data) {
+                alert("List");
+                console.log(data); //list of printer in data array
+                //printerName = data[0];
+                //alert("Printer: " + printerName);
+            }, function (err) {
+                alert("List Error");
+                console.log(err);
+            });
+            BTPrinter.connect(function (data) {
+                alert("Connect");
                 console.log(data)
-            },function(err){
-	            alert("Connect Error");
-	            console.log(err)
-            }, "BistroUX Printer");
-            
-            BTPrinter.printText(function(data){
+            }, function (err) {
+                alert("Connect Error");
+                console.log(err)
+            }, "BistroUXPrinter");
+
+            BTPrinter.printText(function (data) {
                 alert("Success Print");
                 console.log(data)
-        },function(err){
+            }, function (err) {
                 alert("PrintText Error");
                 console.log(err)
-        }, "Hello Print");
-        
+            }, "Hello Print");
+        });        
         
 
     }
