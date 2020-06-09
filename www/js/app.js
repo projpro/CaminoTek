@@ -340,15 +340,34 @@ $$(document).on('page:init', function (e) {
                 //alert('printing finished')
             //});
             //cordova.plugins.printer.print("Hello Document Direct Print", { printer: 'ipp://192.168.68.199' });
-            
+            var printerName = "";
             BTPrinter.printText(function(data){
-                    console.log("Success");
-                    console.log(data)
+                    alert("List");
+                    console.log(data);
+                printerName = data[0];
+                alert("Printer: " + printerName);
                 },function(err){
                     console.log("Error");
                     console.log(err)
                 }, "BT Printer Print Text")
             });
+            BTPrinter.connect(function(data){
+	            alert("Connect");
+                console.log(data)
+            },function(err){
+	            console.log("Error");
+	            console.log(err)
+            }, printerName);
+            
+            BTPrinter.printText(function(data){
+                alert("Success Print");
+                console.log(data)
+        },function(err){
+                console.log("Error");
+                console.log(err)
+        }, "Hello Print")
+        
+        
 
     }
     else if (pageURL.indexOf('food_list') > -1) {//carry out food item list
