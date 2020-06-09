@@ -355,7 +355,7 @@ $$(document).on('page:init', function (e) {
                 alert("Connect");
                 console.log(data)
             }, function (err) {
-                alert("Connect Error");
+                alert("Connect Error: " + err);
                 console.log(err)
             }, printerName);
             
@@ -363,7 +363,7 @@ $$(document).on('page:init', function (e) {
                 alert("Connect");
                 console.log(data)
             }, function (err) {
-                alert("Connect Error");
+                alert("Connect Error: " + err);
                 console.log(err)
             }, "BistroUXPrinter");
 
