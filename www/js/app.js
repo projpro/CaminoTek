@@ -341,21 +341,21 @@ $$(document).on('page:init', function (e) {
             //});
             //cordova.plugins.printer.print("Hello Document Direct Print", { printer: 'ipp://192.168.68.199' });
             var printerName = "";
-            BTPrinter.list(function(data){
-                    alert("List");
-                    console.log(data);
-                printerName = data[0];
-                alert("Printer: " + printerName);
-                },function(err){
-                    console.log("Error");
-                    console.log(err)
-                }, "BT Printer Print Text")
-            });
+            
+	    BTPrinter.list(function(data){
+        	alert("List");
+        	console.log(data); //list of printer in data array
+		printerName = data[0];
+		alert("Printer: " + printerName);
+    	    },function(err){
+        	alert("List Error");
+        	console.log(err);
+    	    });
             BTPrinter.connect(function(data){
 	            alert("Connect");
                 console.log(data)
             },function(err){
-	            console.log("Error");
+	            alert("Connect Error");
 	            console.log(err)
             }, printerName);
             
@@ -363,7 +363,7 @@ $$(document).on('page:init', function (e) {
                 alert("Success Print");
                 console.log(data)
         },function(err){
-                console.log("Error");
+                alert("PrintText Error");
                 console.log(err)
         }, "Hello Print")
         
