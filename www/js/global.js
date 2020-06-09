@@ -1279,6 +1279,23 @@ function OpenCarryoutDetails(id) {
             //console.log(data);
             $.each(JSON.parse(data), function (index, value) {
                 //console.log(value);
+                //CurbsidePickup Seciton
+                    if (value.CurbsidePickup)
+                    {
+                        curbsidePickup = true;
+                        if (value.CurbsidePickupMessage != null && value.CurbsidePickupMessage != "") {
+                            curbsidePickupMessage = value.CurbsidePickupMessage;
+                        }
+                        if (value.CurbsidePickupTime != null && value.CurbsidePickupTime != undefined) {
+                            var arrCurbsidePickupDateTime = value.CurbsidePickupTime.split('~');
+                            curbsidePickupDate = arrCurbsidePickupDateTime[0];
+                            curbsidePickupTime = arrCurbsidePickupDateTime[1];
+                        }
+                    }
+                    else {
+                        curbsidePickup = false;
+                        curbsidePickupMessage = "";
+                    }
 
                 if (value.Type == "OrderInfo") {
                     if (value.ORDERTYPE != "") {
@@ -1288,6 +1305,11 @@ function OpenCarryoutDetails(id) {
                         $('#carryout #spanOrderDetailsOrderType').html("");
                         $('#carryout #spanOrderDetailsOrderType').html(ordertype);
                         $('#carryout #spanOrderDetailsOrderType').css('color', '#e95861');
+                    }
+                    else if (curbsidePickup) {
+                        $('#carryout #spanOrderDetailsOrderType').html("");
+                        $('#carryout #spanOrderDetailsOrderType').html("Curbside Pickup");
+                        $('#carryout #spanOrderDetailsOrderType').css('color', '#3b9847');
                     }
                     else {
                         $('#carryout #spanOrderDetailsOrderType').html("");
@@ -1467,26 +1489,7 @@ function OpenCarryoutDetails(id) {
                     if(value.AUTHORIZATIONTRANSACTIONCODE!=null)
                     {
                         authorizationCode = value.AUTHORIZATIONTRANSACTIONCODE;
-                    }
-
-                    //CurbsidePickup Seciton
-                    if (value.CurbsidePickup)
-                    {
-                        curbsidePickup = true;
-                        if (value.CurbsidePickupMessage != null && value.CurbsidePickupMessage != "") {
-                            curbsidePickupMessage = value.CurbsidePickupMessage;
-                        }
-                        if (value.CurbsidePickupTime != null && value.CurbsidePickupTime != undefined) {
-                            var arrCurbsidePickupDateTime = value.CurbsidePickupTime.split('~');
-                            curbsidePickupDate = arrCurbsidePickupDateTime[0];
-                            curbsidePickupTime = arrCurbsidePickupDateTime[1];
-                        }
-                    }
-                    else {
-                        curbsidePickup = false;
-                        curbsidePickupMessage = "";
-                    }
-                    
+                    }                                      
 
                 }
                 else if (value.Type == "DiscountInfo") {
