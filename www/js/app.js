@@ -377,15 +377,15 @@ $$(document).on('page:init', function (e) {
             }, "Hello Print New");                
                 //Connect Success End
             
-            setTimeout(function(){
+            //setTimeout(function(){
                 BTPrinter.disconnect(function(data){
 	                alert("Disconnect");
 	                console.log(data)
                 },function(err){
 	                alert("Disconnect Error");
 	                console.log(err)
-                }, "PrinterName")
-        }, 1500);
+                }, "PrinterName");
+        //}, 1500);
 
             
         });        
