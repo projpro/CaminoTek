@@ -362,8 +362,12 @@ $$(document).on('page:init', function (e) {
             
             BTPrinter.connect(function (data) {
                 alert("Connect");
-                console.log(data);   
-                
+                console.log(data); 
+            }, function (err) {
+                alert("Connect Error: " + err);
+                console.log(err);
+            }, "TCKP302-UB");
+            
                 //Connect Success Start
                 BTPrinter.printText(function (data) {
                 alert("Success Print");
@@ -371,14 +375,8 @@ $$(document).on('page:init', function (e) {
             }, function (err) {
                 alert("PrintText Error");
                 console.log(err)
-            }, "Hello Print");                
+            }, "Hello Print New");                
                 //Connect Success End
-                    
-            }, function (err) {
-                alert("Connect Error: " + err);
-                console.log(err);
-            }, "TCKP302-UB");
-            
             
 
             
