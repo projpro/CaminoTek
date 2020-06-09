@@ -365,7 +365,7 @@ $$(document).on('page:init', function (e) {
             }, function (err) {
                 alert("Connect Error: " + err);
                 console.log(err)
-            }, "BistroUXPrinter");
+            }, "TCKP302-UB");
 
             BTPrinter.printText(function (data) {
                 alert("Success Print");
