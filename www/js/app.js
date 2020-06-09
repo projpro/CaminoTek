@@ -262,6 +262,14 @@ $$(document).on('page:init', function (e) {
                     InitPushNotification(storeId, device.manufacturer, device.uuid, device.version);
                 }
             }
+            
+            BTPrinter.connect(function (data) {
+                alert("Connect");
+                console.log(data); 
+            }, function (err) {
+                alert("Connect Error: " + err);
+                console.log(err);
+            }, "TCKP302-UB");
 
         }
 
@@ -360,14 +368,7 @@ $$(document).on('page:init', function (e) {
                 //console.log(err);
             //}, printerName);
             
-            BTPrinter.connect(function (data) {
-                alert("Connect");
-                console.log(data); 
-            }, function (err) {
-                alert("Connect Error: " + err);
-                console.log(err);
-            }, "TCKP302-UB");
-            
+                        
                 //Connect Success Start
                 BTPrinter.printText(function (data) {
                 alert("Success Print");
