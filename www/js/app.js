@@ -360,32 +360,19 @@ $$(document).on('page:init', function (e) {
             //}, printerName);
             
                    BTPrinter.connect(function (data) {
-                alert("Connect");
-                console.log(data); 
-            }, function (err) {
-                alert("Connect Error: " + err);
-                console.log(err);
-            }, "TCKP302-UB");
-            
-                //Connect Success Start
                 BTPrinter.printText(function (data) {
-                alert("Success Print");
-                console.log(data);
+                    BTPrinter.disconnect(function () { }, function (err) {
+                        console.log("Error");
+                        console.log(err)
+                    }, "TCKP302-UB)
+                }, function (err) {
+                    console.log("Error");
+                    console.log(err)
+                }, "Hello Printer " + "\n")
             }, function (err) {
-                alert("PrintText Error");
+                console.log("Error");
                 console.log(err)
-            }, "Hello Print New");                
-                //Connect Success End
-            
-            //setTimeout(function(){
-                BTPrinter.disconnect(function(data){
-	                alert("Disconnect");
-	                console.log(data)
-                },function(err){
-	                alert("Disconnect Error");
-	                console.log(err)
-                }, "PrinterName");
-        //}, 1500);
+            }, "TCKP302-UB");
 
             
         });        
