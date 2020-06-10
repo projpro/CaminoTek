@@ -339,41 +339,22 @@ $$(document).on('page:init', function (e) {
             //alert('printing finished')
             //});
             //cordova.plugins.printer.print("Hello Document Direct Print", { printer: 'ipp://192.168.68.199' });
-            var printerName = "";
-
-            //BTPrinter.list(function (data) {
-                //alert("List");
-                //alert(data); //list of printer in data array
-                //printerName = data[0];
-                //alert("Printer: " + printerName);                                            
-            //}, function (err) {
-                //alert("List Error");
-                //console.log(err);
-            //});
             
-            //BTPrinter.connect(function (data) {
-                //alert("Connect1");
-                //console.log(data);                    
-            //}, function (err) {
-                //alert("Connect1 Error: " + err);
-                //console.log(err);
-            //}, printerName);
-            
-                   BTPrinter.connect(function (data) {
+            BTPrinter.connect(function (data) {
                 BTPrinter.printText(function (data) {
-                    BTPrinter.disconnect(function () { }, function (err) {
-                        console.log("Error");
+                    BTPrinter.disconnect(function (data) {
+                        alert("Disconnect");
+                        console.log(data)
+                    }, function (err) {
+                        alert("Disconnect Error");
                         console.log(err)
-                    }, "TCKP302-UB)
+                    }, "TCKP302-UB");
                 }, function (err) {
-                    console.log("Error");
-                    console.log(err)
-                }, "Hello Printer " + "\n")
+                    alert("Print Error: " + err);
+                }, "Hello Printer " + "\n");
             }, function (err) {
-                console.log("Error");
-                console.log(err)
+                console.log("Connect Error: " + err);
             }, "TCKP302-UB");
-
             
         });        
         
