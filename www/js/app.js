@@ -339,9 +339,10 @@ $$(document).on('page:init', function (e) {
             //alert('printing finished')
             //});
             //cordova.plugins.printer.print("Hello Document Direct Print", { printer: 'ipp://192.168.68.199' });
-            
+            var str = $('#dvItem').html();
+            var enc = window.btoa(str);
             BTPrinter.connect(function (data) {
-                BTPrinter.printText(function (data) {
+                BTPrinter.printBase64(function (data) {
                     BTPrinter.disconnect(function (data) {
                         alert("Disconnect");
                         console.log(data)
@@ -351,7 +352,7 @@ $$(document).on('page:init', function (e) {
                     }, "TCKP302-UB");
                 }, function (err) {
                     alert("Print Error: " + err);
-                }, "Hello Printer " + "\n");
+                }, enc);
             }, function (err) {
                 console.log("Connect Error: " + err);
             }, "TCKP302-UB");
