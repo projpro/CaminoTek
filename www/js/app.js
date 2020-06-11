@@ -333,7 +333,7 @@ $$(document).on('page:init', function (e) {
             alert("Print");
             //cordova.plugins.printer.print("Hello\nWorld!");
             // Either a DOM node or a string
-            var page = '<h1>Hello Document</h1>';
+            //var page = '<h1>Hello Document</h1>';
 
             //cordova.plugins.printer.print(page, 'Document.html', function () {
             //alert('printing finished')
@@ -342,22 +342,41 @@ $$(document).on('page:init', function (e) {
             //var str = $('#dvItem').html();
             //var str = "<p><strong>Carry Out</strong>              <strong>#32545</strong></p>";
             //alert(str);
-            var enc = "PHA+PHN0cm9uZz5DYXJyeSBPdXQ8L3N0cm9uZz4gICAgICAgICAgICAgIDxzdHJvbmc+IzMyNTQ1PC9zdHJvbmc+PC9wPg==";
-            BTPrinter.connect(function (data) {
-                BTPrinter.printBase64(function (data) {
-                    BTPrinter.disconnect(function (data) {
-                        alert("Disconnect");
-                        console.log(data)
+            html2canvas($('#dvItem'), {
+                onrendered: function (data) {
+                    var c = document.getElementById("printCanvas");
+                    var ctx = c.getContext("2d");
+                    ctx.drawImage(data, 10, 10);
+                    //$('#printCanvas').show();
+                },
+                //width: 200,
+                //height: 200
+            });
+            setTimeout(function(){
+                alert("Time Span");
+                var canvas = document.getElementById('printCanvas');
+                //alert("canvas: " + canvas);
+                var dataURL = canvas.toDataURL();
+                //alert("dataURL: " + dataURL);
+                //console.log(dataURL);
+
+                BTPrinter.connect(function (data) {
+                        BTPrinter.printBase64(function (data) {
+                            BTPrinter.disconnect(function (data) {
+                                alert("Disconnect");
+                                console.log(data)
+                            }, function (err) {
+                                alert("Disconnect Error");
+                                console.log(err)
+                            }, "TCKP302-UB");
+                        }, function (err) {
+                            alert("Print Error: " + err);
+                        }, dataURL);//Data to Print
                     }, function (err) {
-                        alert("Disconnect Error");
-                        console.log(err)
+                        alert("Connect Error: " + err);
                     }, "TCKP302-UB");
-                }, function (err) {
-                    alert("Print Error: " + err);
-                }, enc);
-            }, function (err) {
-                console.log("Connect Error: " + err);
-            }, "TCKP302-UB");
+
+            }, 3000);
             
         });        
         
