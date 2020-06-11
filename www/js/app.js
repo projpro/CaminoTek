@@ -339,7 +339,9 @@ $$(document).on('page:init', function (e) {
             //alert('printing finished')
             //});
             //cordova.plugins.printer.print("Hello Document Direct Print", { printer: 'ipp://192.168.68.199' });
-            var str = $('#dvItem').html();
+            //var str = $('#dvItem').html();
+            var str = "<p><strong>Carry Out</strong>              <strong>#32545</strong></p>";
+            alert(str);
             var enc = window.btoa(str);
             BTPrinter.connect(function (data) {
                 BTPrinter.printBase64(function (data) {
