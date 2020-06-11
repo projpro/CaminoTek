@@ -340,9 +340,9 @@ $$(document).on('page:init', function (e) {
             //});
             //cordova.plugins.printer.print("Hello Document Direct Print", { printer: 'ipp://192.168.68.199' });
             //var str = $('#dvItem').html();
-            var str = "<p><strong>Carry Out</strong>              <strong>#32545</strong></p>";
-            alert(str);
-            var enc = window.btoa(str);
+            //var str = "<p><strong>Carry Out</strong>              <strong>#32545</strong></p>";
+            //alert(str);
+            var enc = "PHA+PHN0cm9uZz5DYXJyeSBPdXQ8L3N0cm9uZz4gICAgICAgICAgICAgIDxzdHJvbmc+IzMyNTQ1PC9zdHJvbmc+PC9wPg==";
             BTPrinter.connect(function (data) {
                 BTPrinter.printBase64(function (data) {
                     BTPrinter.disconnect(function (data) {
