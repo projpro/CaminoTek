@@ -340,27 +340,31 @@ $$(document).on('page:init', function (e) {
 
                     BTPrinter.printText(function (data) {
                     }, function (err) {
-                    }, "               6:30 PM" + "\n\n", '20', '1');//15
+                    }, "               6:30 PM" + "\n", '20', '1');//15
 
                     BTPrinter.printText(function (data) {
                     }, function (err) {
                     }, "John Smith            (614)805-5665" + "\n\n", '11', '0');//12
 
-                    BTPrinter.printText(function (data) {
-                    }, function (err) {
-                    }, "Chimichanga          1     $8.99" + "\n", '11', '1');
+                    for (var i = 0; i < 3; i++)
+                    {
+                        BTPrinter.printText(function (data) {
+                        }, function (err) {
+                        }, "Chimichanga          1     $8.99" + "\n", '11', '1');
+
+                        BTPrinter.printText(function (data) {
+                        }, function (err) {
+                        }, "Chicken, Cup of Soup, Jalapenos" + "\n", '8', '1');
+
+                        BTPrinter.printText(function (data) {
+                        }, function (err) {
+                        }, "Add sauce on the side." + "\n\n", '8', '1');
+                    }
+                    
 
                     BTPrinter.printText(function (data) {
                     }, function (err) {
-                    }, "Chicken, Cup of Soup, Jalapenos" + "\n", '8', '1');
-
-                    BTPrinter.printText(function (data) {
-                    }, function (err) {
-                    }, "Add sauce on the side." + "\n\n", '8', '1');
-
-                    BTPrinter.printText(function (data) {
-                    }, function (err) {
-                    }, "Total: $8.99" + "\n", '10', '2');
+                    }, "Total: $8.99" + "\n\n\n", '10', '2');
 
 
                     BTPrinter.disconnect(function (data) {
@@ -372,7 +376,7 @@ $$(document).on('page:init', function (e) {
                     }, "TCKP302-UB");
                 }, function (err) {
                     alert("Print Error: " + err);
-                }, "-----------------------------------" + "\n");
+                }, "-----------------------------------" + "\n\n");
             }, function (err) {
                 console.log("Connect Error: " + err);
             }, "TCKP302-UB");
