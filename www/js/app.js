@@ -336,15 +336,15 @@ $$(document).on('page:init', function (e) {
 
                     BTPrinter.printText(function (data) {                        
                     }, function (err) {                        
-                    }, "Carry Out                    #32452" + "\n", '20', '0');
+                    }, "Carry Out                      #32452" + "\n", '20', '0');//22
 
                     BTPrinter.printText(function (data) {
                     }, function (err) {
-                    }, "6:30 PM" + "\n", '14', '1');
+                    }, "6:30 PM" + "\n", '20', '1');
 
                     BTPrinter.printText(function (data) {
                     }, function (err) {
-                    }, "John Smith          (614)805-5665" + "\n", '11', '0');
+                    }, "John Smith            (614)805-5665" + "\n", '11', '0');//12
 
                     BTPrinter.printText(function (data) {
                     }, function (err) {
@@ -352,7 +352,7 @@ $$(document).on('page:init', function (e) {
 
                     BTPrinter.printText(function (data) {
                     }, function (err) {
-                    }, "Chicken, Cup of Soup, Jalapenos", '8', '1');
+                    }, "Chicken, Cup of Soup, Jalapenos" + "\n", '8', '1');
 
                     BTPrinter.printText(function (data) {
                     }, function (err) {
@@ -360,7 +360,7 @@ $$(document).on('page:init', function (e) {
 
                     BTPrinter.printText(function (data) {
                     }, function (err) {
-                    }, "Total: $8.99" + "\n", '8', '2');
+                    }, "Total: $8.99" + "\n", '10', '2');
 
 
                     BTPrinter.disconnect(function (data) {
@@ -372,7 +372,7 @@ $$(document).on('page:init', function (e) {
                     }, "TCKP302-UB");
                 }, function (err) {
                     alert("Print Error: " + err);
-                }, "Hello Print " + "\n",'20','0');
+                }, "Hello Print " + "\n");
             }, function (err) {
                 console.log("Connect Error: " + err);
             }, "TCKP302-UB");
