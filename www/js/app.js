@@ -372,7 +372,7 @@ $$(document).on('page:init', function (e) {
                     }, "TCKP302-UB");
                 }, function (err) {
                     alert("Print Error: " + err);
-                }, "Hello Print " + "\n");
+                }, "------------------------------" + "\n");
             }, function (err) {
                 console.log("Connect Error: " + err);
             }, "TCKP302-UB");
