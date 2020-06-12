@@ -331,7 +331,7 @@ $$(document).on('page:init', function (e) {
         
         $$('#btnPrintOrder').on('click', function () {
             alert("Print");
-            BTPrinter.connect(function (data) {
+             BTPrinter.connect(function (data) {
                 BTPrinter.printText(function (data) {
 
                     BTPrinter.printText(function (data) {                        
@@ -340,11 +340,11 @@ $$(document).on('page:init', function (e) {
 
                     BTPrinter.printText(function (data) {
                     }, function (err) {
-                    }, "6:30 PM" + "\n", '20', '1');
+                    }, "               6:30 PM" + "\n\n", '20', '1');//15
 
                     BTPrinter.printText(function (data) {
                     }, function (err) {
-                    }, "John Smith            (614)805-5665" + "\n", '11', '0');//12
+                    }, "John Smith            (614)805-5665" + "\n\n", '11', '0');//12
 
                     BTPrinter.printText(function (data) {
                     }, function (err) {
@@ -356,7 +356,7 @@ $$(document).on('page:init', function (e) {
 
                     BTPrinter.printText(function (data) {
                     }, function (err) {
-                    }, "Add sauce on the side." + "\n", '8', '1');
+                    }, "Add sauce on the side." + "\n\n", '8', '1');
 
                     BTPrinter.printText(function (data) {
                     }, function (err) {
@@ -372,7 +372,7 @@ $$(document).on('page:init', function (e) {
                     }, "TCKP302-UB");
                 }, function (err) {
                     alert("Print Error: " + err);
-                }, "------------------------------" + "\n");
+                }, "-----------------------------------" + "\n");
             }, function (err) {
                 console.log("Connect Error: " + err);
             }, "TCKP302-UB");
