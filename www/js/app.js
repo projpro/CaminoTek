@@ -336,19 +336,31 @@ $$(document).on('page:init', function (e) {
 
                     BTPrinter.printText(function (data) {                        
                     }, function (err) {                        
-                    }, "Hello Print 1" + "\n", 10, 1);
+                    }, "Carry Out                    #32452" + "\n", '20', '0');
 
                     BTPrinter.printText(function (data) {
                     }, function (err) {
-                    }, "Hello Print 2" + "\n", 10, 2);
+                    }, "6:30 PM" + "\n", '14', '1');
 
                     BTPrinter.printText(function (data) {
                     }, function (err) {
-                    }, "Hello Print 3" + "\n", 15, 0);
+                    }, "John Smith          (614)805-5665" + "\n", '11', '0');
 
                     BTPrinter.printText(function (data) {
                     }, function (err) {
-                    }, "Hello Print 4" + "\n", 25, 1);
+                    }, "Chimichanga          1     $8.99" + "\n", '11', '1');
+
+                    BTPrinter.printText(function (data) {
+                    }, function (err) {
+                    }, "Chicken, Cup of Soup, Jalapenos", '8', '1');
+
+                    BTPrinter.printText(function (data) {
+                    }, function (err) {
+                    }, "Add sauce on the side." + "\n", '8', '1');
+
+                    BTPrinter.printText(function (data) {
+                    }, function (err) {
+                    }, "Total: $8.99" + "\n", '8', '2');
 
 
                     BTPrinter.disconnect(function (data) {
@@ -360,7 +372,7 @@ $$(document).on('page:init', function (e) {
                     }, "TCKP302-UB");
                 }, function (err) {
                     alert("Print Error: " + err);
-                }, "Hello Printer " + "\n",20,0);
+                }, "Hello Print " + "\n",'20','0');
             }, function (err) {
                 console.log("Connect Error: " + err);
             }, "TCKP302-UB");
