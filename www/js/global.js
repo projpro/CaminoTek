@@ -13631,7 +13631,7 @@ function PrintCarryoutDetails() {
                 }, "-----------------------------------" + "\n\n");
             }, function (err) {                
                  $('#btnPrintOrder').text("PRINT");
-                console.log("Connect Error: " + err);
+                alert("Connect Error: " + err);
             }, "TCKP302-UB");            
         });
 
