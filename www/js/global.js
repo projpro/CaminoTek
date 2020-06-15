@@ -13232,44 +13232,46 @@ function PrintCarryoutDetails() {
 
     var storeId = SetStoreId();
     if (id > 0) {
-        url = global + "/GetCarryOutOrderDetailsWithAllInfo?orderid=" + id;
-        $.getJSON(url, function (data) {
-            var subtotalvalue = "0.00";
-            var ordertotalvalue = "0.00";
-            var orderDiscount = 0.00;
-            var grandTotal = 0.00;
-            var grandTotalvalue = "0.00";
-            var dueAmount = 0.00;
-            var dueAmountValue = "0.00";
-            var paidAmount = 0.00;
-            var paidAmountValue = "0.00";
-            var orderDate = "";
-            var orderTime = "";
-            var firstName = "";
-            var lastName = "";
-            var phone = "";
-            var ordertotal = "";
-
-            var orderId = 0;
-            var orderDate = "";
-            var orderTime = "";
-            var pickupTime = "";
-            var orderStatus = "";
-            var numberOfItems = "";
-            var ordertype = "";
-            
-            var taxValue = "0.00";
-            var shippingValue = "0.00";
-            var subTotalWithoutTax = "0.00";
-            var curbsidePickup = false;
-            var curbsidePickupMessage = "";
-            var curbsidePickupDate = "";
-            var curbsidePickupTime = "";
-            var refundValue = "0.00";
-
-            var tipValue = "0.00";
+        
             BTPrinter.connect(function (data) {
                 BTPrinter.printText(function (data) {
+
+                    url = global + "/GetCarryOutOrderDetailsWithAllInfo?orderid=" + id;
+                    $.getJSON(url, function (data) {
+                        var subtotalvalue = "0.00";
+                        var ordertotalvalue = "0.00";
+                        var orderDiscount = 0.00;
+                        var grandTotal = 0.00;
+                        var grandTotalvalue = "0.00";
+                        var dueAmount = 0.00;
+                        var dueAmountValue = "0.00";
+                        var paidAmount = 0.00;
+                        var paidAmountValue = "0.00";
+                        var orderDate = "";
+                        var orderTime = "";
+                        var firstName = "";
+                        var lastName = "";
+                        var phone = "";
+                        var ordertotal = "";
+
+                        var orderId = 0;
+                        var orderDate = "";
+                        var orderTime = "";
+                        var pickupTime = "";
+                        var orderStatus = "";
+                        var numberOfItems = "";
+                        var ordertype = "";
+
+                        var taxValue = "0.00";
+                        var shippingValue = "0.00";
+                        var subTotalWithoutTax = "0.00";
+                        var curbsidePickup = false;
+                        var curbsidePickupMessage = "";
+                        var curbsidePickupDate = "";
+                        var curbsidePickupTime = "";
+                        var refundValue = "0.00";
+
+                        var tipValue = "0.00";
 
                     //console.log(data);
                     $.each(JSON.parse(data), function (index, value) {
@@ -13467,7 +13469,6 @@ function PrintCarryoutDetails() {
                                     BTPrinter.printText(function (data) {
                                     }, function (err) {
                                     }, value.PRODUCT + "     " + value.QUANTITY + "  " + FormatDecimal(value.TOTALPRICE) + "\n", '11', '1');
-
                                     //Print Item, Quantity, Price End
 
                                     //html += "<tr><td  style='border-bottom:none !important;font-weight:bold;'>" + value.PRODUCT + "</td>";
@@ -13579,10 +13580,10 @@ function PrintCarryoutDetails() {
 
                         if (taxValue != "" && taxValue != "0.00") {
                             //alert("Tax");
-                            htmlOrderTotal += " <tr>";
-                            htmlOrderTotal += "<td colspan=\"3\" style=\"text-align:right; font-weight: bold;\">Tax:</td>";
-                            htmlOrderTotal += "<td style=\"text-align:right;\">" + taxValue + "</td>";
-                            htmlOrderTotal += "</tr>";
+                            //htmlOrderTotal += " <tr>";
+                            //htmlOrderTotal += "<td colspan=\"3\" style=\"text-align:right; font-weight: bold;\">Tax:</td>";
+                            //htmlOrderTotal += "<td style=\"text-align:right;\">" + taxValue + "</td>";
+                            //htmlOrderTotal += "</tr>";
 
                             //Print Tax Value Start
                             BTPrinter.printText(function (data) {
@@ -13616,8 +13617,10 @@ function PrintCarryoutDetails() {
                             alert("Print Refund");
                         }
                                                 
-                    });
+                    }); //-- End Inner Grid
 
+
+                });//--End
 
                     BTPrinter.disconnect(function (data) {
                         $('#btnPrintOrder').text("PRINT");
@@ -13635,8 +13638,8 @@ function PrintCarryoutDetails() {
             }, function (err) {
                 $('#btnPrintOrder').text("PRINT");
                 alert("Connect Error: " + err);
-            }, "TCKP302-UB");            
-        });
+            }, "TCKP302-UB");           
+        
 
     }
 }
