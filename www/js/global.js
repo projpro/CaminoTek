@@ -13273,27 +13273,18 @@ function PrintCarryoutDetails() {
 
                     //console.log(data);
                     $.each(JSON.parse(data), function (index, value) {
-                        //console.log(value);
-                        console.log('value.OID: ' + value.OID)
-                        orderId = value.OID;
-                        //CurbsidePickup Seciton
-                        if (value.CurbsidePickup) {
-                            curbsidePickup = true;
-                            if (value.CurbsidePickupMessage != null && value.CurbsidePickupMessage != "") {
-                                curbsidePickupMessage = value.CurbsidePickupMessage;
-                            }
-                            if (value.CurbsidePickupTime != null && value.CurbsidePickupTime != undefined) {
-                                var arrCurbsidePickupDateTime = value.CurbsidePickupTime.split('~');
-                                curbsidePickupDate = arrCurbsidePickupDateTime[0];
-                                curbsidePickupTime = arrCurbsidePickupDateTime[1];
-                            }
-                        }
-                        else {
-                            curbsidePickup = false;
-                            curbsidePickupMessage = "";
-                        }
+                        //console.log(value);                       
 
                         if (value.Type == "OrderInfo") {
+                            console.log('value.OID: ' + value.OID)
+                            orderId = value.OID;
+                            //CurbsidePickup Seciton
+                            if (value.CurbsidePickup) {
+                                curbsidePickup = true;
+                            }
+                            else {
+                                curbsidePickup = false;
+                            }
                             if (value.ORDERTYPE != "") {
                                 ordertype = value.ORDERTYPE;
                             }
@@ -13310,7 +13301,8 @@ function PrintCarryoutDetails() {
                             //Print Order Type, OrderId Start
                             BTPrinter.printText(function (data) {
                             }, function (err) {
-                            }, "ordertype" + "                              #" + orderId + "\n", '20', '0');//30
+                            }, ordertype + "                              #" + orderId + "\n", '20', '0');//30
+                            alert("Print #");
                             //Print Ordet Type, OrderId End
 
                             //console.log(value.PICKUPTIME)
@@ -13330,6 +13322,7 @@ function PrintCarryoutDetails() {
                                     BTPrinter.printText(function (data) {
                                     }, function (err) {
                                     }, "                    " + pickupTimeOnly + "\n", '20', '1');//20
+                                    alert("Print Time");
                                     //Print Time End
 
                                 }
@@ -13419,6 +13412,7 @@ function PrintCarryoutDetails() {
                             BTPrinter.printText(function (data) {
                             }, function (err) {
                             }, firstName + " " + lastName + "     " + phone + "\n\n", '11', '0');//5
+                            alert("Print Name Phone");
                             //Print Name, Phone End
 
                             //if (value.ORDERSTATUSID != "" && value.ORDERSTATUSID != undefined) {
@@ -13498,6 +13492,7 @@ function PrintCarryoutDetails() {
                                                 BTPrinter.printText(function (data) {
                                                 }, function (err) {
                                                 }, notesValue.replace("</strong>", "") + "\n", '8', '1');
+                                                alert("Print Item Notes");
                                                 //Print Order Notes 1 Start
                                             }
                                             else {
@@ -13507,6 +13502,7 @@ function PrintCarryoutDetails() {
                                                 BTPrinter.printText(function (data) {
                                                 }, function (err) {
                                                 }, notesValue.replace("</strong>", "") + "\n", '8', '1');
+                                                alert("Print Item Notes");
                                                 //Print Order Notes 1 Start
                                             }
                                         }
@@ -13524,7 +13520,7 @@ function PrintCarryoutDetails() {
                                     BTPrinter.printText(function (data) {
                                     }, function (err) {
                                     }, value.PRODUCT + "     " + value.QUANTITY + "  " + FormatDecimal(value.TOTALPRICE) + "\n", '11', '1');
-
+                                    alert("Print Item");
                                     //Print Item, Quantity, Price End
                                 }
 
@@ -13539,6 +13535,7 @@ function PrintCarryoutDetails() {
                             BTPrinter.printText(function (data) {
                             }, function (err) {
                             }, "Subtotal: " + subTotalWithoutTax + "\n", '10', '2');
+                            alert("Print Subtotal");
                             //Print Subtotal End
                         }
                         else {
@@ -13547,6 +13544,7 @@ function PrintCarryoutDetails() {
                             BTPrinter.printText(function (data) {
                             }, function (err) {
                             }, "Subtotal: " + FormatDecimal(subtotalvalue) + "\n", '10', '2');
+                            alert("Print Subtotal");
                             //Print Subtotal End
                         }
                         //htmlSubTotal += "</tr>";
@@ -13561,6 +13559,7 @@ function PrintCarryoutDetails() {
                             BTPrinter.printText(function (data) {
                             }, function (err) {
                             }, "Delivery: " + shippingValue + "\n", '10', '2');
+                            alert("Print Delivery");
                             //Print Delivery End
                         }
 
@@ -13574,6 +13573,7 @@ function PrintCarryoutDetails() {
                             BTPrinter.printText(function (data) {
                             }, function (err) {
                             }, "Tip: " + tipValue + "\n", '10', '2');
+                            alert("Print Tip");
                             //Print Tip End
                         }
 
@@ -13588,6 +13588,7 @@ function PrintCarryoutDetails() {
                             BTPrinter.printText(function (data) {
                             }, function (err) {
                             }, "Tax: " + taxValue + "\n", '10', '2');
+                            alert("Print Tax");
                             //Print Tax Value End
 
                         }
@@ -13601,6 +13602,7 @@ function PrintCarryoutDetails() {
                         BTPrinter.printText(function (data) {
                         }, function (err) {
                         }, "Total: " + grandTotalvalue + "\n\n\n", '10', '2');
+                        alert("Print Total");
 
                         if (refundValue != "" && refundValue != "0.00") {
                             //htmlOrderTotal += " <tr>";
@@ -13611,6 +13613,7 @@ function PrintCarryoutDetails() {
                             BTPrinter.printText(function (data) {
                             }, function (err) {
                             }, "Refund: " + refundValue + "\n\n\n", '10', '2');
+                            alert("Print Refund");
                         }
                                                 
                     });
@@ -13621,16 +13624,16 @@ function PrintCarryoutDetails() {
                         alert("Disconnect");
                         console.log(data)
                     }, function (err) {
-                        $('#btnPrintOrder').text("PRINT");
                         alert("Disconnect Error");
+                        $('#btnPrintOrder').text("PRINT");
                         console.log(err)
                     }, "TCKP302-UB");
                 }, function (err) {
                     $('#btnPrintOrder').text("PRINT");
                     alert("Print Error: " + err);
                 }, "-----------------------------------" + "\n\n");
-            }, function (err) {                
-                 $('#btnPrintOrder').text("PRINT");
+            }, function (err) {
+                $('#btnPrintOrder').text("PRINT");
                 alert("Connect Error: " + err);
             }, "TCKP302-UB");            
         });
