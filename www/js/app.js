@@ -2234,7 +2234,7 @@ function PrintCarryoutDetails() {
     var storeId = SetStoreId();
     if (id > 0) {
         var url = global + "/GetCarryOutOrderDetailsWithAllInfo?orderid=" + id;
-        alert(url);
+        //alert(url);
 
         BTPrinter.connect(function (data) {
             BTPrinter.printText(function (data) {
