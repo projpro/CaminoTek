@@ -2324,10 +2324,17 @@ function PrintCarryoutDetails() {
                                 //Print Time Start
                                 BTPrinter.printText(function (data) {
                                 }, function (err) {
-                                }, pickupTimeOnly + "\n", '20', '1');//20
+                                }, "                    " + pickupTimeOnly + "\n", '20', '1');//20
                                 //alert("Print Time");
                                 //Print Time End
 
+                            }
+                            else {
+                                //Print Time Start
+                                BTPrinter.printText(function (data) {
+                                }, function (err) {
+                                }, "                    " + pickupTime + "\n", '20', '1');//20
+                                //alert("Print Time");
                             }
                         }
 
@@ -2489,7 +2496,8 @@ function PrintCarryoutDetails() {
 
                                         if (i == 1) {
                                             //html += "<tr><td colspan='4' style='padding:0 0 0 5px'> <i>" + notesValue.replace("</strong>", "") + "</i>  </td></tr>";
-
+                                            notesValue = notesValue.replace("<i>", "");
+                                            notesValue = notesValue.replace("</i>","");
                                             //Print Order Notes 1 Start
                                             BTPrinter.printText(function (data) {
                                             }, function (err) {
@@ -2499,7 +2507,8 @@ function PrintCarryoutDetails() {
                                         }
                                         else {
                                             //html += "<tr><td colspan='4' style='padding:0 0 0 5px'> <i>" + notesValue.replace("</strong>", "") + "</i> </td></tr>";
-
+                                            notesValue = notesValue.replace("<i>", "");
+                                            notesValue = notesValue.replace("</i>", "");
                                             //Print Order Notes 1 Start
                                             BTPrinter.printText(function (data) {
                                             }, function (err) {
