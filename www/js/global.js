@@ -13621,13 +13621,16 @@ function PrintCarryoutDetails() {
                         alert("Disconnect");
                         console.log(data)
                     }, function (err) {
+                        $('#btnPrintOrder').text("PRINT");
                         alert("Disconnect Error");
                         console.log(err)
                     }, "TCKP302-UB");
                 }, function (err) {
+                    $('#btnPrintOrder').text("PRINT");
                     alert("Print Error: " + err);
                 }, "-----------------------------------" + "\n\n");
-            }, function (err) {
+            }, function (err) {                
+                 $('#btnPrintOrder').text("PRINT");
                 console.log("Connect Error: " + err);
             }, "TCKP302-UB");            
         });
