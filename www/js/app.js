@@ -2421,7 +2421,7 @@ function PrintCarryoutDetails() {
                         //Print Name, Phone Start
                         BTPrinter.printText(function (data) {
                         }, function (err) {
-                        }, firstName + " " + lastName + "     " + phone + "\n\n", '11', '0');//5
+                        }, firstName + " " + lastName + "     " + phone + "\n", '11', '0');//5
                         //alert("Print Name Phone");
                         //Print Name, Phone End
 
@@ -2476,7 +2476,7 @@ function PrintCarryoutDetails() {
                                 //Print Item, Quantity, Price Start
                                 BTPrinter.printText(function (data) {
                                 }, function (err) {
-                                }, value.PRODUCT + "     " + value.QUANTITY + "  " + FormatDecimal(value.TOTALPRICE) + "\n", '11', '1');
+                                }, "\n" + value.PRODUCT + "     " + value.QUANTITY + "  " + FormatDecimal(value.TOTALPRICE) + "\n", '11', '1');
                                 //Print Item, Quantity, Price End
 
                                 //html += "<tr><td  style='border-bottom:none !important;font-weight:bold;'>" + value.PRODUCT + "</td>";
@@ -2530,7 +2530,7 @@ function PrintCarryoutDetails() {
                                 //Print Item, Quantity, Price Start
                                 BTPrinter.printText(function (data) {
                                 }, function (err) {
-                                }, value.PRODUCT + "     " + value.QUANTITY + "  " + FormatDecimal(value.TOTALPRICE) + "\n", '11', '1');
+                                },"\n" + value.PRODUCT + "     " + value.QUANTITY + "  " + FormatDecimal(value.TOTALPRICE) + "\n", '11', '1');
                                 //alert("Print Item");
                                 //Print Item, Quantity, Price End
                             }
@@ -2545,7 +2545,7 @@ function PrintCarryoutDetails() {
                         //Print Subtotal Start
                         BTPrinter.printText(function (data) {
                         }, function (err) {
-                        }, "Subtotal: " + subTotalWithoutTax + "\n", '10', '2');
+                        },"\n" + "Subtotal: " + subTotalWithoutTax + "\n", '10', '2');
                         //alert("Print Subtotal");
                         //Print Subtotal End
                     }
@@ -2554,7 +2554,7 @@ function PrintCarryoutDetails() {
                         //Print Subtotal Start
                         BTPrinter.printText(function (data) {
                         }, function (err) {
-                        }, "Subtotal: " + FormatDecimal(subtotalvalue) + "\n", '10', '2');
+                        },"\n" + "Subtotal: " + FormatDecimal(subtotalvalue) + "\n", '10', '2');
                         //alert("Print Subtotal");
                         //Print Subtotal End
                     }
@@ -2637,22 +2637,22 @@ function PrintCarryoutDetails() {
                     
                 BTPrinter.disconnect(function (data) {
                     $('#btnPrintOrder').text("PRINT");
-                    alert("Disconnect");
+                    //alert("Disconnect");
                     console.log(data)
                 }, function (err) {
-                    alert("Disconnect Error");
+                    //alert("Disconnect Error");
                     $('#btnPrintOrder').text("PRINT");
                     console.log(err)
                 }, "TCKP302-UB");
             }, function (err) {
                 $('#btnPrintOrder').text("PRINT");
-                alert("Print Error: " + err);
+                //alert("Print Error: " + err);
             }, "-----------------------------------" + "\n\n");
-            }, 5000);
+            }, 1000);
 
         }, function (err) {
             $('#btnPrintOrder').text("PRINT");
-            alert("Connect Error: " + err);
+            //alert("Connect Error: " + err);
         }, "TCKP302-UB");
 
     }
