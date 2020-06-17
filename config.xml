@@ -63,5 +63,5 @@
         <variable name="SENDER_ID" value="771458932582" />
     </plugin>
     <plugin name="de.appplant.cordova.plugin.printer" />
-    <plugin name="Cordova-Plugin-Bluetooth-Printer" spec="https://github.com/cirrushr/Cordova-Plugin-Bluetooth-Printer.git" />
+    <plugin name="Cordova-Plugin-Bluetooth-Printer" spec="https://github.com/CesarBalzer/Cordova-Plugin-BTPrinter.git" />
 </widget>
