@@ -2479,15 +2479,18 @@ function PrintCarryoutDetails() {
 
                             if (value.NOTES != "") {
                                 //Print Item, Quantity, Price Start
+                                BTPrinter.printText(function (data) {
+                                }, function (err) {
+                                }, "\n" + justify_left + value.PRODUCT + justify_right + value.QUANTITY + "  " + FormatDecimal(value.TOTALPRICE) + "\n");
                                 //BTPrinter.printText(function (data) {
                                 //}, function (err) {
                                 //}, "\n" + value.PRODUCT + "     " + value.QUANTITY + "  " + FormatDecimal(value.TOTALPRICE) + "\n", '11', '0');
-                                BTPrinter.printTextSizeAlign(function (data) {
-                                }, function (err) {
-                                }, "\n" + value.PRODUCT, '11', '0');
-                                BTPrinter.printTextSizeAlign(function (data) {
-                                }, function (err) {
-                                }, value.QUANTITY + "  " + FormatDecimal(value.TOTALPRICE) + "\n", '11', '2');
+                                //BTPrinter.printTextSizeAlign(function (data) {
+                                //}, function (err) {
+                                //}, "\n" + value.PRODUCT, '11', '0');
+                                //BTPrinter.printTextSizeAlign(function (data) {
+                                //}, function (err) {
+                                //}, value.QUANTITY + "  " + FormatDecimal(value.TOTALPRICE) + "\n", '11', '2');
                                 //Print Item, Quantity, Price End
 
                                 //html += "<tr><td  style='border-bottom:none !important;font-weight:bold;'>" + value.PRODUCT + "</td>";
@@ -2539,15 +2542,18 @@ function PrintCarryoutDetails() {
                                 //html += "</tr>";
 
                                 //Print Item, Quantity, Price Start
+                                BTPrinter.printText(function (data) {
+                                }, function (err) {
+                                }, "\n" + justify_left + value.PRODUCT + justify_right + value.QUANTITY + "  " + FormatDecimal(value.TOTALPRICE) + "\n");
                                 //BTPrinter.printText(function (data) {
                                 //}, function (err) {
                                 //},"\n" + value.PRODUCT + "     " + value.QUANTITY + "  " + FormatDecimal(value.TOTALPRICE) + "\n", '11', '0');
-                                BTPrinter.printTextSizeAlign(function (data) {
-                                }, function (err) {
-                                }, "\n" + value.PRODUCT, '11', '0');
-                                BTPrinter.printTextSizeAlign(function (data) {
-                                }, function (err) {
-                                }, value.QUANTITY + "  " + FormatDecimal(value.TOTALPRICE) + "\n", '11', '2');
+                                //BTPrinter.printTextSizeAlign(function (data) {
+                                //}, function (err) {
+                                //}, "\n" + value.PRODUCT, '11', '0');
+                                //BTPrinter.printTextSizeAlign(function (data) {
+                                //}, function (err) {
+                                //}, value.QUANTITY + "  " + FormatDecimal(value.TOTALPRICE) + "\n", '11', '2');
                                 //alert("Print Item");
                                 //Print Item, Quantity, Price End
                             }
