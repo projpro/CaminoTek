@@ -344,7 +344,7 @@ $$(document).on('page:init', function (e) {
                     }, "ABC" + "\n");
 
                     BTPrinter.printPOSCommand(function (data) { }, function (err) {
-                    alert("Print POS:" + err)}, '\0x0C');
+                    alert("Print POS:" + err)}, '\0x0A');
                     //BTPrinter.printPOSCommand(function () { }, function () { }, '\0x1D');
                                         
 
