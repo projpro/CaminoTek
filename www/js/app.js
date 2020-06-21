@@ -343,9 +343,7 @@ $$(document).on('page:init', function (e) {
                     }, function (err) {
                     }, "ABC" + "\n");
 
-                    BTPrinter.printPOSCommand(function (data) { }, function (err) {
-                    alert("Print POS:" + err)}, '\0x0A');
-                    //BTPrinter.printPOSCommand(function () { }, function () { }, '\0x1D');
+                    BTPrinter.printPOSCommand(function () { }, function () { }, '\0x0A\0x0A\0x0A\0x0A\0x0A');
                                         
 
                     BTPrinter.printText(function (data) {
