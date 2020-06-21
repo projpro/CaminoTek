@@ -2229,7 +2229,7 @@ $.fn.putCursorAtEnd = function () {
 //Print Order
 function PrintCarryoutDetails() {
     var id = $("#carryout #dvCarryOutDetailsInner #hdnSelectedOrderId").val();
-    //alert("ID: " + id);
+    alert("ID: " + id);
 
     var storeId = SetStoreId();
     if (id > 0) {
@@ -2688,13 +2688,13 @@ function PrintCarryoutDetails() {
                 }, "TCKP302-UB");
             }, function (err) {
                 $('#btnPrintOrder').text("PRINT");
-                //alert("Print Error: " + err);
+                alert("Print Error: " + err);
             }, "-----------------------------------" + "\n\n");
-            }, 1000);
+            }, 5000);
 
         }, function (err) {
             $('#btnPrintOrder').text("PRINT");
-            //alert("Connect Error: " + err);
+            alert("Connect Error: " + err);
         }, "TCKP302-UB");
 
     }
