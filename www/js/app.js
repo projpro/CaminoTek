@@ -2668,15 +2668,15 @@ function PrintCarryoutDetails() {
 
             });//--End
 
-            setTimeout(function(){
-            BTPrinter.printText(function (data) {
-                    
-                //BTPrinter.printPOSCommand(function () { }, function () { }, "GS V");
-                BTPrinter.printPOSCommand(function () { }, function () { }, "1D");//FEED PAPER AND CUT
-                BTPrinter.printPOSCommand(function () { }, function () { }, "56");//FEED PAPER AND CUT
-                BTPrinter.printPOSCommand(function () { }, function () { }, "66");//FEED PAPER AND CUT
-                BTPrinter.printPOSCommand(function () { }, function () { }, "00");//FEED PAPER AND CUT
+            setTimeout(function () {
 
+                //BTPrinter.printPOSCommand(function () { }, function () { }, "GS V");
+                BTPrinter.printPOSCommand(function () { }, function () { }, "1D");
+                BTPrinter.printPOSCommand(function () { }, function () { }, "56");
+                BTPrinter.printPOSCommand(function () { }, function () { }, "66");
+                BTPrinter.printPOSCommand(function () { }, function () { }, "00");
+
+            BTPrinter.printText(function (data) {                    
                 BTPrinter.disconnect(function (data) {
                     $('#btnPrintOrder').text("PRINT");
                     //alert("Disconnect");
