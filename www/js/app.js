@@ -352,7 +352,7 @@ $$(document).on('page:init', function (e) {
                 BTPrinter.printText(function (data) {                    
                     BTPrinter.disconnect(function (data) {
                         $('#btnPrintOrder').text("PRINT");
-                        //alert("Disconnect");
+                        alert("Disconnect");
                         console.log(data)
                     }, function (err) {
                         //alert("Disconnect Error");
