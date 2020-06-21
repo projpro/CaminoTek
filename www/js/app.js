@@ -332,7 +332,59 @@ $$(document).on('page:init', function (e) {
         $$('#btnPrintOrder').on('click', function () {
             alert("Print");
               $("#btnPrintOrder").text("Printing...");
-            PrintCarryoutDetails();
+            //PrintCarryoutDetails();
+            
+            BTPrinter.connect(function (data) {
+                setTimeout(function () {
+                var esc = '\x1B'; //ESC byte in hex notation
+                var newLine = '\x0A'; //LF byte in hex notation
+                var cmds = esc + "@"; //Initializes the printer (ESC @)
+                cmds += esc + '!' + '\x38'; //Emphasized + Double-height + Double-width mode selected (ESC ! (8 + 16 + 32)) 56 dec => 38 hex
+                cmds += 'BEST DEAL STORES'; //text to print
+                cmds += newLine + newLine;
+                cmds += esc + '!' + '\x00'; //Character font A selected (ESC ! 0)
+                cmds += 'COOKIES                   5.00'; 
+                cmds += newLine;
+                cmds += 'MILK 65 Fl oz             3.78';
+                cmds += newLine + newLine;
+                cmds += 'SUBTOTAL                  8.78';
+                cmds += newLine;
+                cmds += 'TAX 5%                    0.44';
+                cmds += newLine;
+                cmds += 'TOTAL                     9.22';
+                cmds += newLine;
+                cmds += 'CASH TEND                10.00';
+                cmds += newLine;
+                cmds += 'CASH DUE                  0.78';
+                cmds += newLine + newLine;
+                cmds += esc + '!' + '\x18'; //Emphasized + Double-height mode selected (ESC ! (16 + 8)) 24 dec => 18 hex
+                cmds += '# ITEMS SOLD 2';
+                cmds += esc + '!' + '\x00'; //Character font A selected (ESC ! 0)
+                cmds += newLine + newLine;
+                cmds += '11/03/13  19:53:17';
+                
+                BTPrinter.printPOSCommand(function () { }, function () { }, cmds);
+
+                BTPrinter.printText(function (data) {                    
+                    BTPrinter.disconnect(function (data) {
+                        $('#btnPrintOrder').text("PRINT");
+                        //alert("Disconnect");
+                        console.log(data)
+                    }, function (err) {
+                        //alert("Disconnect Error");
+                        $('#btnPrintOrder').text("PRINT");
+                        console.log(err)
+                    }, "TM-m30_003646");//TCKP302-UB
+                }, function (err) {
+                    $('#btnPrintOrder').text("PRINT");
+                    //alert("Print Error: " + err);
+                }, "-----------------------------------" + "\n\n");
+            }, 2000);
+
+        }, function (err) {
+            $('#btnPrintOrder').text("PRINT");
+            //alert("Connect Error: " + err);
+        }, "TM-m30_003646");//TCKP302-UB
             
         });        
         
@@ -2676,12 +2728,12 @@ function PrintCarryoutDetails() {
 
             setTimeout(function () {
 
-                //BTPrinter.printPOSCommand(function () { }, function () { }, "GS V");
-                BTPrinter.printPOSCommand(function () { }, function () { }, "1D");
-                BTPrinter.printPOSCommand(function () { }, function () { }, "56");
-                BTPrinter.printPOSCommand(function () { }, function () { }, "66");
-                BTPrinter.printPOSCommand(function () { }, function () { }, "00");
-
+                //BTPrinter.printPOSCommand(function () { }, function () { }, "0x1D, 0x56, 0x66, 0x00");
+                //BTPrinter.printPOSCommand(function () { }, function () { }, "1D");
+                //BTPrinter.printPOSCommand(function () { }, function () { }, "56");
+                //BTPrinter.printPOSCommand(function () { }, function () { }, "66");
+                //BTPrinter.printPOSCommand(function () { }, function () { }, "00");
+                
             BTPrinter.printText(function (data) {                    
                 BTPrinter.disconnect(function (data) {
                     $('#btnPrintOrder').text("PRINT");
