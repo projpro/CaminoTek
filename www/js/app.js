@@ -343,7 +343,7 @@ $$(document).on('page:init', function (e) {
                     }, function (err) {
                     }, "ABC" + "\n");
 
-                    BTPrinter.printPOSCommand(function () { }, function () { }, '\x0A\x0A\x0A\x0A\x0A\x0A\x0A\x0A\x0A\x0A');
+                    BTPrinter.printPOSCommand(function () { }, function () { }, '1B 19 49');
 
                     BTPrinter.printText(function (data) {
                         alert("Print DEF");
