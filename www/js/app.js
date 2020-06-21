@@ -379,7 +379,7 @@ $$(document).on('page:init', function (e) {
                     $('#btnPrintOrder').text("PRINT");
                     //alert("Print Error: " + err);
                 }, "-----------------------------------" + "\n\n");
-            }, 2000);
+            }, 1000);
 
         }, function (err) {
             $('#btnPrintOrder').text("PRINT");
