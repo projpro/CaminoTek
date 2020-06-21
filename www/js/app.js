@@ -363,7 +363,7 @@ $$(document).on('page:init', function (e) {
                 //cmds += newLine + newLine;
                 //cmds += '11/03/13  19:53:17';
                 
-                BTPrinter.printPOSCommand(function () { }, function () { }, "\x1B\x40\x1B\6b\x30abcd");
+                BTPrinter.printPOSCommand(function () { }, function () { }, '\x1B\x40\x1B\x6b\x30abcd');
 
                 BTPrinter.printText(function (data) {                    
                     BTPrinter.disconnect(function (data) {
