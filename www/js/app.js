@@ -2635,12 +2635,19 @@ function PrintCarryoutDetails() {
             setTimeout(function(){
             BTPrinter.printText(function (data) {
                 
-                BTPrinter.printPOSCommand(function () { }, function () { }, "GS V");
+                public static byte[] FeedCut = {0x1D, 0x56, 66, 0x00};
+                BTPrinter.printPOSCommand(function(data){
+                //console.log("Success");
+                //console.log(data)
+                },function(err){
+                //console.log("Error");
+                //console.log(err)
+                }, FeedCut);
                 
                 BTPrinter.disconnect(function (data) {
                     $('#btnPrintOrder').text("PRINT");
                     //alert("Disconnect");
-                    console.log(data)
+                    //console.log(data)
                 }, function (err) {
                     //alert("Disconnect Error");
                     $('#btnPrintOrder').text("PRINT");
