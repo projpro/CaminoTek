@@ -334,16 +334,18 @@ $$(document).on('page:init', function (e) {
               $("#btnPrintOrder").text("Printing...");
             //PrintCarryoutDetails();
             
-            BTPrinter.connect(function (data) {
+             BTPrinter.connect(function (data) {
                 setTimeout(function () {
-                                
-                BTPrinter.printText(function (data) {
+                
+                    BTPrinter.printText(function (data) {
+                        alert("Print ABC");
                     }, function (err) {
                     }, "ABC");
 
                     //BTPrinter.printPOSCommand(function () { }, function () { }, '\x0A\x0A\x0A\x0A\x0A');
 
                     BTPrinter.printText(function (data) {
+                        alert("Print DEF");
                     }, function (err) {
                     }, "DEF");
 
