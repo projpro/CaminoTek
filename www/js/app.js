@@ -343,7 +343,7 @@ $$(document).on('page:init', function (e) {
                     }, function (err) {
                     }, "ABC" + "\n");
 
-                    BTPrinter.printPOSCommand(function () { }, function () { }, '\0x0A\0x0A\0x0A\0x0A\0x0A');
+                    BTPrinter.printPOSCommand(function () { }, function () { }, '\0x0C');
                                         
 
                     BTPrinter.printText(function (data) {
