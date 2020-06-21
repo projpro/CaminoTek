@@ -2671,10 +2671,10 @@ function PrintCarryoutDetails() {
             setTimeout(function () {
 
                 //BTPrinter.printPOSCommand(function () { }, function () { }, "GS V");
-                BTPrinter.printPOSCommand(function () { }, function () { }, "1D");
-                BTPrinter.printPOSCommand(function () { }, function () { }, "56");
-                BTPrinter.printPOSCommand(function () { }, function () { }, "66");
-                BTPrinter.printPOSCommand(function () { }, function () { }, "00");
+                //BTPrinter.printPOSCommand(function () { }, function () { }, "1D");
+                //BTPrinter.printPOSCommand(function () { }, function () { }, "56");
+                //BTPrinter.printPOSCommand(function () { }, function () { }, "66");
+                //BTPrinter.printPOSCommand(function () { }, function () { }, "00");
 
             BTPrinter.printText(function (data) {                    
                 BTPrinter.disconnect(function (data) {
