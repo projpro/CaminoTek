@@ -2634,7 +2634,9 @@ function PrintCarryoutDetails() {
 
             setTimeout(function(){
             BTPrinter.printText(function (data) {
-                    
+                
+                BTPrinter.printPOSCommand(function () { }, function () { }, "GS V");
+                
                 BTPrinter.disconnect(function (data) {
                     $('#btnPrintOrder').text("PRINT");
                     //alert("Disconnect");
