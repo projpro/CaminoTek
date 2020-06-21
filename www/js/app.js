@@ -363,7 +363,7 @@ $$(document).on('page:init', function (e) {
                     $('#btnPrintOrder').text("PRINT");
                     alert("Print Error: " + err);
                 }, "-#-#-#-#-#-#-#-#-#-#-#-#-");
-            }, 1000);
+            }, 5000);
 
         }, function (err) {
             $('#btnPrintOrder').text("PRINT");
