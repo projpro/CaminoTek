@@ -336,34 +336,16 @@ $$(document).on('page:init', function (e) {
             
             BTPrinter.connect(function (data) {
                 setTimeout(function () {
-                //var esc = '\x1B'; //ESC byte in hex notation
-                //var newLine = '\x0A'; //LF byte in hex notation
-                //var cmds = esc + "@"; //Initializes the printer (ESC @)
-                //cmds += esc + '!' + '\x38'; //Emphasized + Double-height + Double-width mode selected (ESC ! (8 + 16 + 32)) 56 dec => 38 hex
-                //cmds += 'BEST DEAL STORES'; //text to print
-                //cmds += newLine + newLine;
-                //cmds += esc + '!' + '\x00'; //Character font A selected (ESC ! 0)
-                //cmds += 'COOKIES                   5.00'; 
-                //cmds += newLine;
-                //cmds += 'MILK 65 Fl oz             3.78';
-                //cmds += newLine + newLine;
-                //cmds += 'SUBTOTAL                  8.78';
-                //cmds += newLine;
-                //cmds += 'TAX 5%                    0.44';
-                //cmds += newLine;
-                //cmds += 'TOTAL                     9.22';
-                //cmds += newLine;
-                //cmds += 'CASH TEND                10.00';
-                //cmds += newLine;
-                //cmds += 'CASH DUE                  0.78';
-                //cmds += newLine + newLine;
-                //cmds += esc + '!' + '\x18'; //Emphasized + Double-height mode selected (ESC ! (16 + 8)) 24 dec => 18 hex
-                //cmds += '# ITEMS SOLD 2';
-                //cmds += esc + '!' + '\x00'; //Character font A selected (ESC ! 0)
-                //cmds += newLine + newLine;
-                //cmds += '11/03/13  19:53:17';
-                
-                BTPrinter.printPOSCommand(function () { }, function () { }, '\x0A\x0A\x0A\x0A\x0A');
+                                
+                BTPrinter.printText(function (data) {
+                    }, function (err) {
+                    }, "ABC");
+
+                    BTPrinter.printPOSCommand(function () { }, function () { }, '\x0A\x0A\x0A\x0A\x0A');
+
+                    BTPrinter.printText(function (data) {
+                    }, function (err) {
+                    }, "DEF");
 
                 BTPrinter.printText(function (data) {                    
                     BTPrinter.disconnect(function (data) {
@@ -378,7 +360,7 @@ $$(document).on('page:init', function (e) {
                 }, function (err) {
                     $('#btnPrintOrder').text("PRINT");
                     //alert("Print Error: " + err);
-                }, "-----------------------------------" + "\n\n");
+                }, "-#-#-#-#-#-#-#-#-#-#-#-#-");
             }, 1000);
 
         }, function (err) {
