@@ -343,7 +343,7 @@ $$(document).on('page:init', function (e) {
                     }, function (err) {
                     }, "ABC" + "\n");
 
-                    //BTPrinter.printPOSCommand(function () { }, function () { }, '\x0A\x0A\x0A\x0A\x0A');
+                    BTPrinter.printPOSCommand(function () { }, function () { }, '\x0A\x0A\x0A\x0A\x0A');
 
                     BTPrinter.printText(function (data) {
                         alert("Print DEF");
@@ -354,11 +354,11 @@ $$(document).on('page:init', function (e) {
                     BTPrinter.disconnect(function (data) {
                         $('#btnPrintOrder').text("PRINT");
                         //alert("Disconnect");
-                        console.log(data)
+                        //console.log(data)
                     }, function (err) {
                         //alert("Disconnect Error");
                         $('#btnPrintOrder').text("PRINT");
-                        console.log(err)
+                        //console.log(err)
                     }, "TM-m30_003646");//TCKP302-UB
                 }, function (err) {
                     $('#btnPrintOrder').text("PRINT");
