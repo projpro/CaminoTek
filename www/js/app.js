@@ -334,25 +334,26 @@ $$(document).on('page:init', function (e) {
               $("#btnPrintOrder").text("Printing...");
             //PrintCarryoutDetails();
             
-             BTPrinter.connect(function (data) {
+             //Print Code Start
+            BTPrinter.connect(function (data) {
                 setTimeout(function () {
                 
                     BTPrinter.printText(function (data) {
                         alert("Print ABC");
                     }, function (err) {
-                    }, "ABC");
+                    }, "ABC" + "\n");
 
                     //BTPrinter.printPOSCommand(function () { }, function () { }, '\x0A\x0A\x0A\x0A\x0A');
 
                     BTPrinter.printText(function (data) {
                         alert("Print DEF");
                     }, function (err) {
-                    }, "DEF");
+                    }, "DEF" + "\n");
 
                 BTPrinter.printText(function (data) {                    
                     BTPrinter.disconnect(function (data) {
                         $('#btnPrintOrder').text("PRINT");
-                        alert("Disconnect");
+                        //alert("Disconnect");
                         console.log(data)
                     }, function (err) {
                         //alert("Disconnect Error");
@@ -362,13 +363,15 @@ $$(document).on('page:init', function (e) {
                 }, function (err) {
                     $('#btnPrintOrder').text("PRINT");
                     alert("Print Error: " + err);
-                }, "-#-#-#-#-#-#-#-#-#-#-#-#-");
+                }, "-#-#-#-#-#-#-#-#-#-#-#-#-" + "\n");
             }, 5000);
 
         }, function (err) {
             $('#btnPrintOrder').text("PRINT");
             alert("Connect Error: " + err);
         }, "TM-m30_003646");//TCKP302-UB
+            
+            //Print Code End
             
         });        
         
