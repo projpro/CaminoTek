@@ -2312,11 +2312,11 @@ function PrintCarryoutDetails() {
 
                         BTPrinter.printText(function (data) {
                         }, function (err) {
-                        }, "\x1b\x6b\x01 \x1b\x6c\x01 \x1b\x67 \x1b\x44\x00 \x1B\x30" + "\n");// Font + Margin + CPI + Default Tab + Line Spacing(1/8)
+                        }, "\x1b\x6b\x01\x1b\x6c\x01\x1b\x67\x1b\x44\x00\x1B\x30");// Font + Margin + CPI + Default Tab + Line Spacing(1/8)
                         
                         BTPrinter.printText(function (data) {
                         }, function (err) {
-                        }, " \x1B\x21\x20 \x1B\x61\x00 " + ordertype + " \x09\x09\x09  #" + orderId + "\n");
+                        }, " \x1B\x21\x20\x1B\x61\x00 " + ordertype + " \x09\x09\x09  #" + orderId + "\n");
 
                         
                         //console.log(value.PICKUPTIME)
@@ -2491,11 +2491,11 @@ function PrintCarryoutDetails() {
                                 }, "\n" + "\x1b\x44\x00");
                                 BTPrinter.printText(function (data) {
                                 }, function (err) {
-                                }, "\x1b\x44\x08\x10\x20\x00");
+                                }, "\x1b\x44\x00\x10\x20\x00");
                                 //Print Item, Quantity, Price Start
                                 BTPrinter.printText(function (data) {
                                 }, function (err) {
-                                }, " \x1B\x21\x20 \x1B\x61\x00 " + value.PRODUCT + " \x09 " + value.QUANTITY + " \x09 " + FormatDecimal(value.TOTALPRICE) + "\n");
+                                }, " \x1B\x21\x20\x1B\x61\x00 " + value.PRODUCT + " \x09 " + value.QUANTITY + " \x09 " + FormatDecimal(value.TOTALPRICE) + "\n");
 
                                 
                                 //html += "<tr><td  style='border-bottom:none !important;font-weight:bold;'>" + value.PRODUCT + "</td>";
@@ -2524,7 +2524,7 @@ function PrintCarryoutDetails() {
 
                                             BTPrinter.printText(function (data) {
                                             }, function (err) {
-                                            }, " \x1B\x21\x08 \x1B\x61\x00 " + notesValue.replace("</strong>", "") + "\n");//Font Size 8 + Left Align
+                                            }, "\x1B\x21\x08\x1B\x61\x00 " + notesValue.replace("</strong>", "") + "\n");//Font Size 8 + Left Align
 
                                             //alert("Print Item Notes");
                                             //Print Order Notes 1 Start
@@ -2540,7 +2540,7 @@ function PrintCarryoutDetails() {
 
                                             BTPrinter.printText(function (data) {
                                             }, function (err) {
-                                            }, " \x1B\x21\x08 \x1B\x61\x00 " + notesValue.replace("</strong>", "") + "\n");//Font Size 8 + Left Align
+                                            }, "\x1B\x21\x08\x1B\x61\x00 " + notesValue.replace("</strong>", "") + "\n");//Font Size 8 + Left Align
 
                                             //alert("Print Item Notes");
                                             //Print Order Notes 1 Start
@@ -2564,11 +2564,11 @@ function PrintCarryoutDetails() {
                                 }, "\n" + "\x1b\x44\x00");
                                 BTPrinter.printText(function (data) {
                                 }, function (err) {
-                                }, "\x1b\x44\x08\x10\x20\x00");
+                                }, "\x1b\x44\x00\x10\x20\x00");
                                 //Print Item, Quantity, Price Start
                                 BTPrinter.printText(function (data) {
                                 }, function (err) {
-                                }, " \x1B\x21\x20 \x1B\x61\x00 " + value.PRODUCT + " \x09 " + value.QUANTITY + " \x09 " + FormatDecimal(value.TOTALPRICE) + "\n");
+                                }, " \x1B\x21\x20\x1B\x61\x00 " + value.PRODUCT + " \x09 " + value.QUANTITY + " \x09 " + FormatDecimal(value.TOTALPRICE) + "\n");
                             }
 
                         });
