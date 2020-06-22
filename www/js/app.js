@@ -336,28 +336,22 @@ $$(document).on('page:init', function (e) {
             
              //Print Code Start
             BTPrinter.connect(function (data) {
-                setTimeout(function () {
-                
-                    var justify_center = ' 1B 61 01';
-                    var justify_left = ' 1B 61 00';
-                    var qr_model = '\x32';          // 31 or 32
-                    var qr_size = '\x06';          // size
-                    var qr_eclevel = '\x51';          // error correction level (30, 31, 32, 33 - higher)
-                    var qr_data = data;
-                    var qr_pL = String.fromCharCode((qr_data.length + 3) % 256);
-                    var qr_pH = String.fromCharCode((qr_data.length + 3) / 256);
-
-                    BTPrinter.printText(function (data) {
-                        alert('QR code ok');
+                //setTimeout(function () {
+                var cutPaper = ' 1B 19 49';
+                BTPrinter.printText(function (data) {
+                        //alert("Print ABC");
                     }, function (err) {
-                        alert('QR code ERROR');
-                    }, '\x1D\x28\x6B\x04\x00\x31\x41' + qr_model + '\x00' +        // Select the model
-                      '\x1D\x28\x6B\x03\x00\x31\x43' + qr_size +                  // Size of the model
-                      '\x1D\x28\x6B\x03\x00\x31\x45' + qr_eclevel +               // Set n for error correction
-                      '\x1D\x28\x6B' + qr_pL + qr_pH + '\x31\x50\x30' + qr_data + // Store data 
-                      '\x1D\x28\x6B\x03\x00\x31\x51\x30' +                        // Print
-                      '\n\n\n');
-
+                    }, "ABC" + "\n");
+                
+                BTPrinter.printText(function (data) {
+                    }, function (err) {
+                    }, "-----" + "\n" + cutPaper);
+                
+                BTPrinter.printText(function (data) {
+                        //alert("Print DEF");
+                    }, function (err) {
+                    }, "DEF" + "\n");
+                
                 BTPrinter.printText(function (data) {                    
                     BTPrinter.disconnect(function (data) {
                         $('#btnPrintOrder').text("PRINT");
@@ -371,8 +365,8 @@ $$(document).on('page:init', function (e) {
                 }, function (err) {
                     $('#btnPrintOrder').text("PRINT");
                     alert("Print Error: " + err);
-                }, "-#-#-#-#-#-#-#-#-#-#-#-#-" + "\n");
-            }, 5000);
+                }, "-#-#-#-#-#-#-#-#-#-#-#-#-" + "\n" + cutPaper);
+            //}, 5000);
 
         }, function (err) {
             $('#btnPrintOrder').text("PRINT");
