@@ -337,22 +337,24 @@ $$(document).on('page:init', function (e) {
              //Print Code Start
             BTPrinter.connect(function (data) {
                 setTimeout(function () {
-                    var cutPaper = '1d,56,41,0A';
                 BTPrinter.printText(function (data) {
                         //alert("Print ABC");
                     }, function (err) {
-                    }, "ABC" + "\n");
-                
-               BTPrinter.printText(function (data) {
+                    }, "\x1B\x21\x30 ABC" + "\n");
+                    
+                    BTPrinter.printText(function (data) {
+                        //alert("Print ABC");
                     }, function (err) {
-                    }, "\x1d\x56\x41\x0A" + "\n");
+                    }, "\x1b\x2d\x01 ABCDEF" + "\n");
                 
                 BTPrinter.printText(function (data) {
                         //alert("Print DEF");
                     }, function (err) {
-                    }, "DEF" + "\n");
+                    }, "\x1B\x61\x01 DEF" + "\n");
                     
-                    BTPrinter.printPOSCommand(function () { }, function () { }, cutPaper);
+                 BTPrinter.printText(function (data) {
+                    }, function (err) {
+                    }, "\x1d\x56\x41\x0A" + "\n");
                 
                 BTPrinter.printText(function (data) {                    
                     BTPrinter.disconnect(function (data) {
@@ -367,7 +369,7 @@ $$(document).on('page:init', function (e) {
                 }, function (err) {
                     $('#btnPrintOrder').text("PRINT");
                     alert("Print Error: " + err);
-                }, "-#-#-#-#-#-#-#-#-#-#-#-#-" + "\n");
+                }, "\n");
             }, 1000);
 
         }, function (err) {
