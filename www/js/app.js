@@ -2314,15 +2314,13 @@ function PrintCarryoutDetails() {
 
                         BTPrinter.printText(function (data) {
                         }, function (err) {
-                        }, "\n" + " \x1B\x21\x20 \x1B\x61\x00 " + ordertype + " \x1B\x61\x02  #" + orderId + "\n");
+                        }, "\x1b\x44\x00" + "\n");
 
                         BTPrinter.printText(function (data) {
                         }, function (err) {
-                        }, "\n" + " \x1B\x21\x20 \x1B\x61\x00 " + ordertype);
-                        BTPrinter.printText(function (data) {
-                        }, function (err) {
-                        }, " \x1B\x61\x02  #" + orderId + "\n");
+                        }, "\n" + " \x1B\x21\x20 \x1B\x61\x00 " + ordertype + " \x09\x09\x09  #" + orderId + "\n");
 
+                        
                         //console.log(value.PICKUPTIME)
                         if (value.PICKUPTIME != undefined) {
                             //$("#carryout #hdnSelectedOrderPickUpTime").val(value.PICKUPTIME);
@@ -2490,10 +2488,16 @@ function PrintCarryoutDetails() {
                         $.each(JSON.parse(data), function (index, value) {
 
                             if (value.NOTES != "") {
+                                BTPrinter.printText(function (data) {
+                                }, function (err) {
+                                }, "\n" + "\x1b\x44\x00");
+                                BTPrinter.printText(function (data) {
+                                }, function (err) {
+                                }, "\x1b\x44\x08\x14\x25\x00");
                                 //Print Item, Quantity, Price Start
                                 BTPrinter.printText(function (data) {
                                 }, function (err) {
-                                }, "\n" + " \x1b\x24\x00\x00 \x1B\x21\x20 \x1B\x61\x00 " + value.PRODUCT + " \x1B\x61\x02 " + value.QUANTITY + "  " + FormatDecimal(value.TOTALPRICE) + "\n");
+                                }, " \x1b\x24\x00\x00 \x1B\x21\x20 \x1B\x61\x00 " + value.PRODUCT + " \x09 " + value.QUANTITY + " \x09 " + FormatDecimal(value.TOTALPRICE) + "\n");
 
                                 
                                 //html += "<tr><td  style='border-bottom:none !important;font-weight:bold;'>" + value.PRODUCT + "</td>";
@@ -2557,10 +2561,16 @@ function PrintCarryoutDetails() {
                                 //html += "<td style=\"text-align:right;\">" + FormatDecimal(value.TOTALPRICE) + "</td>";
                                 //html += "</tr>";
 
+                                BTPrinter.printText(function (data) {
+                                }, function (err) {
+                                }, "\n" + "\x1b\x44\x00");
+                                BTPrinter.printText(function (data) {
+                                }, function (err) {
+                                }, "\x1b\x44\x08\x14\x25\x00");
                                 //Print Item, Quantity, Price Start
                                 BTPrinter.printText(function (data) {
                                 }, function (err) {
-                                }, "\n" + " \x1b\x24\x00\x00 \x1B\x21\x20 \x1B\x61\x00 " + value.PRODUCT + " \x1B\x61\x02 " + value.QUANTITY + "  " + FormatDecimal(value.TOTALPRICE) + "\n");
+                                }, " \x1b\x24\x00\x00 \x1B\x21\x20 \x1B\x61\x00 " + value.PRODUCT + " \x09 " + value.QUANTITY + " \x09 " + FormatDecimal(value.TOTALPRICE) + "\n");
                             }
 
                         });
