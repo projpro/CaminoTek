@@ -338,6 +338,7 @@ $$(document).on('page:init', function (e) {
             BTPrinter.connect(function (data) {
                 //setTimeout(function () {
                 var cutPaper = ' 1B 19 49';
+                var cutPaper2 = '\x1B\x19\x49';
                 BTPrinter.printText(function (data) {
                         //alert("Print ABC");
                     }, function (err) {
@@ -365,7 +366,7 @@ $$(document).on('page:init', function (e) {
                 }, function (err) {
                     $('#btnPrintOrder').text("PRINT");
                     alert("Print Error: " + err);
-                }, "-#-#-#-#-#-#-#-#-#-#-#-#-" + "\n" + cutPaper);
+                }, "-#-#-#-#-#-#-#-#-#-#-#-#-" + "\n" + cutPaper2);
             //}, 5000);
 
         }, function (err) {
