@@ -2306,11 +2306,22 @@ function PrintCarryoutDetails() {
                         }
 
                         //Print Order Type, OrderId Start
-                        BTPrinter.printTextSizeAlign(function (data) {
+                        //BTPrinter.printTextSizeAlign(function (data) {
+                        //}, function (err) {
+                        //}, ordertype + "                              #" + orderId + "\n", '20', '0');//30
+                        ////alert("Print #");
+                        ////Print Ordet Type, OrderId End
+
+                        BTPrinter.printText(function (data) {
                         }, function (err) {
-                        }, ordertype + "                              #" + orderId + "\n", '20', '0');//30
-                        //alert("Print #");
-                        //Print Ordet Type, OrderId End
+                        }, "\n" + " \x1B\x21\x20 \x1B\x61\x00 " + ordertype + " \x1B\x61\x02  #" + orderId + "\n");
+
+                        BTPrinter.printText(function (data) {
+                        }, function (err) {
+                        }, "\n" + " \x1B\x21\x20 \x1B\x61\x00 " + ordertype);
+                        BTPrinter.printText(function (data) {
+                        }, function (err) {
+                        }, " \x1B\x61\x02  #" + orderId + "\n");
 
                         //console.log(value.PICKUPTIME)
                         if (value.PICKUPTIME != undefined) {
@@ -2425,7 +2436,7 @@ function PrintCarryoutDetails() {
                         //Print Name, Phone Start
                         BTPrinter.printTextSizeAlign(function (data) {
                         }, function (err) {
-                        }, firstName + " " + lastName + "     " + phone + "\n", '11', '0');//5
+                        }, firstName + " " + lastName + "     " + phone + "\n", '20', '0');//5
                         //alert("Print Name Phone");
                         //Print Name, Phone End
 
@@ -2482,7 +2493,7 @@ function PrintCarryoutDetails() {
                                 //Print Item, Quantity, Price Start
                                 BTPrinter.printText(function (data) {
                                 }, function (err) {
-                                }, "\n" + " \x1B\x21\x11 \x1B\x61\x00 " + value.PRODUCT + " \x1B\x61\x02 " + value.QUANTITY + "  " + FormatDecimal(value.TOTALPRICE) + "\n");
+                                }, "\n" + " \x1b\x24\x00\x00 \x1B\x21\x20 \x1B\x61\x00 " + value.PRODUCT + " \x1B\x61\x02 " + value.QUANTITY + "  " + FormatDecimal(value.TOTALPRICE) + "\n");
 
                                 
                                 //html += "<tr><td  style='border-bottom:none !important;font-weight:bold;'>" + value.PRODUCT + "</td>";
@@ -2511,7 +2522,7 @@ function PrintCarryoutDetails() {
 
                                             BTPrinter.printText(function (data) {
                                             }, function (err) {
-                                            }, " \x1B\x32 \x1B\x21\x08 \x1B\x61\x00 " + notesValue.replace("</strong>", "") + "\n");//Line Spacing 1/6 + Font Size 8 + Left Align
+                                            }, " \x1b\x24\x00\x00 \x1B\x32 \x1B\x21\x08 \x1B\x61\x00 " + notesValue.replace("</strong>", "") + "\n");//Line Spacing 1/6 + Font Size 8 + Left Align
 
                                             //alert("Print Item Notes");
                                             //Print Order Notes 1 Start
@@ -2527,7 +2538,7 @@ function PrintCarryoutDetails() {
 
                                             BTPrinter.printText(function (data) {
                                             }, function (err) {
-                                            }, " \x1B\x32 \x1B\x21\x08 \x1B\x61\x00 " + notesValue.replace("</strong>", "") + "\n");//Line Spacing 1/6 + Font Size 8 + Left Align
+                                            }, " \x1b\x24\x00\x00 \x1B\x32 \x1B\x21\x08 \x1B\x61\x00 " + notesValue.replace("</strong>", "") + "\n");//Line Spacing 1/6 + Font Size 8 + Left Align
 
                                             //alert("Print Item Notes");
                                             //Print Order Notes 1 Start
@@ -2549,7 +2560,7 @@ function PrintCarryoutDetails() {
                                 //Print Item, Quantity, Price Start
                                 BTPrinter.printText(function (data) {
                                 }, function (err) {
-                                }, "\n" + " \x1B\x21\x11 \x1B\x61\x00 " + value.PRODUCT + " \x1B\x61\x02 " + value.QUANTITY + "  " + FormatDecimal(value.TOTALPRICE) + "\n");
+                                }, "\n" + " \x1b\x24\x00\x00 \x1B\x21\x20 \x1B\x61\x00 " + value.PRODUCT + " \x1B\x61\x02 " + value.QUANTITY + "  " + FormatDecimal(value.TOTALPRICE) + "\n");
                             }
 
                         });
