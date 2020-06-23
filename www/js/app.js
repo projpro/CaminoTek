@@ -2706,7 +2706,7 @@ function PrintCarryoutDetails() {
                     //alert("Disconnect Error");
                     $('#btnPrintOrder').text("PRINT");
                     console.log(err)
-                }, "TCKP302-UB");//TCKP302-UB
+                }, "TM-m30_003646");//TCKP302-UB
             }, function (err) {
                 $('#btnPrintOrder').text("PRINT");
                 //alert("Print Error: " + err);
@@ -2716,7 +2716,7 @@ function PrintCarryoutDetails() {
         }, function (err) {
             $('#btnPrintOrder').text("PRINT");
             //alert("Connect Error: " + err);
-        }, "TCKP302-UB");//TM-m30_003646
+        }, "TM-m30_003646");//TCKP302-UB
 
     }
 }
