@@ -2276,7 +2276,7 @@ function PrintCarryoutDetails() {
                 var rewardValue = "0.00";
                 var giftCardValue = "0.00";
 
-                var showPriceInPrint = false;
+                var showPriceInPrint = true;
 
                 //console.log(data);
                 $.each(JSON.parse(data), function (index, value) {
