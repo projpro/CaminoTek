@@ -2299,16 +2299,16 @@ function PrintCarryoutDetails() {
                             ordertype = "Delivery";
                         }
                         else if (curbsidePickup) {
-                            ordertype = "Curbside Pickup";
+                            ordertype = "Curbside";
                         }
                         else {
                             ordertype = "Carry Out";
                         }
 
                         //Print Order Type, OrderId Start
-                        BTPrinter.printTextSizeAlign(function (data) {
-                        }, function (err) {
-                        }, ordertype + "                              #" + orderId + "\n", '20', '0');//30
+                        //BTPrinter.printTextSizeAlign(function (data) {
+                        //}, function (err) {
+                        //}, ordertype + "                              #" + orderId + "\n", '20', '0');//30
                         ////alert("Print #");
                         ////Print Ordet Type, OrderId End
 
@@ -2317,9 +2317,9 @@ function PrintCarryoutDetails() {
                         }, function (err) {
                         }, "\x1b\x6b\x01\x1b\x6c\x01\x1b\x67\x1b\x30" + "\n");// Font + Margin + CPI + Line Spacing(1/8)
 
-                        //BTPrinter.printText(function (data) {
-                        //}, function (err) {
-                        //}, "\x1b\x21\x20\x1b\x61\x00 " + ordertype + "         #" + orderId + "\n");
+                        BTPrinter.printText(function (data) {
+                        }, function (err) {
+                        }, "\x1b\x21\x20\x1b\x61\x00 " + ordertype + " #" + orderId + "\n");
 
 
                         //console.log(value.PICKUPTIME)
@@ -2441,7 +2441,7 @@ function PrintCarryoutDetails() {
 
                         BTPrinter.printText(function (data) {
                         }, function (err) {
-                        }, "\x1b\x21\x18\x1b\x61\x00 " + firstName + " " + lastName + "     " + phone + "\n");
+                        }, "\x1b\x6b\x30\x1b\x67 " + firstName + " " + lastName + "     " + phone + "\n");
 
                         //if (value.ORDERSTATUSID != "" && value.ORDERSTATUSID != undefined) {
                         //    orderStatus = value.ORDERSTATUSID;
