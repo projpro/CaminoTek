@@ -2276,7 +2276,7 @@ function PrintCarryoutDetails() {
                 var rewardValue = "0.00";
                 var giftCardValue = "0.00";
 
-                var showPriceInPrint = true;
+                var showPriceInPrint = false;
 
                 //console.log(data);
                 $.each(JSON.parse(data), function (index, value) {
@@ -2346,7 +2346,7 @@ function PrintCarryoutDetails() {
                                 //Print Time Start
                                 BTPrinter.printText(function (data) {
                                 }, function (err) {
-                                }, " \x1b\x21\x30\x1b\x61\x01 " + pickupTimeOnly + "\n");
+                                }, " \x1b\x21\x30\x1b\x61\x01 " + pickupTime + "\n");
                                 //alert("Print Time");
                             }
                         }
@@ -2394,9 +2394,7 @@ function PrintCarryoutDetails() {
                         if (value.Tip != undefined && Number(value.Tip) > 0) {
                             tipValue = FormatDecimal(value.Tip);
                         }
-
-
-
+                        
                         if (value.FIRSTNAME != "") {
                             firstName = value.FIRSTNAME;
                         }
@@ -2441,27 +2439,12 @@ function PrintCarryoutDetails() {
                     }
                     else if (value.Type == "DiscountInfo") {
                         discountValue = FormatDecimal(orderDiscount);
-                        //htmlDiscount += " <tr>";
-                        //htmlDiscount += "<td colspan=\"3\" style=\"text-align:right; font-weight: bold;\">Coupon (" + value.COUPONCODE + "):</td>";
-                        //htmlDiscount += "<td style=\"text-align:right;\">-" + FormatDecimal(orderDiscount) + "</td>";
-                        //htmlDiscount += "</tr>";
-
                     }
                     else if (value.Type == "RewardInfo") {
                         rewardValue = FormatDecimal(value.USEDAMOUNT);
-                        //console.log("RewardInfo: " + value.POINTS);
-                        //htmlRewards += " <tr>";
-                        //htmlRewards += "<td colspan=\"3\" style=\"text-align:right; font-weight: bold;\">Reward Points (" + value.POINTS.toString().replace("-", "") + "):</td>";
-                        //htmlRewards += "<td  style=\"text-align:right;\">-" + FormatDecimal(value.USEDAMOUNT) + "</td>";
-                        //htmlRewards += "</tr>";
                     }
                     else if (value.Type == "GiftCardInfo") {
                         giftCardValue = FormatDecimal(value.USEDVALUE);
-                        //console.log("GiftCardInfo: " + value.GIFTCARDCOUPONCODE);
-                        //htmlGiftCard += "<tr>";
-                        //htmlGiftCard += "<td colspan=\"3\" style=\"text-align:right; font-weight: bold;\">Gift Card (" + value.GIFTCARDCOUPONCODE.replace("-", "") + "):</td>";
-                        //htmlGiftCard += "<td  style=\"text-align:right;\">-" + FormatDecimal(value.USEDVALUE) + "</td>";
-                        //htmlGiftCard += "</tr>";
                     }
 
 
@@ -2488,12 +2471,6 @@ function PrintCarryoutDetails() {
                                 }, function (err) {
                                 }, "\x1b\x21\x20\x1b\x61\x00 " + value.PRODUCT + " \x09 " + value.QUANTITY + " \x09 " + FormatDecimal(value.TOTALPRICE) + "\n");
 
-
-                                //html += "<tr><td  style='border-bottom:none !important;font-weight:bold;'>" + value.PRODUCT + "</td>";
-                                //html += "<td style=\"text-align:center;border-bottom:none !important;\">" + value.QUANTITY + "</td>";
-                                //html += "<td style=\"text-align:right;border-bottom:none !important;\">" + FormatDecimal(value.UNITPRICE) + "</td>";
-                                //html += "<td style=\"text-align:right;border-bottom:none !important;\">" + FormatDecimal(value.TOTALPRICE) + "</td>";
-                                //html += "</tr>";
                                 value.NOTES = value.NOTES.replace("Special Instructions", "Notes");
 
                                 var arrNotes = [];
@@ -2537,19 +2514,10 @@ function PrintCarryoutDetails() {
                                             //Print Order Notes 1 Start
                                         }
                                     }
-                                    //BTPrinter.printText(function (data) {
-                                    //}, function (err) {
-                                    //}, "\x1b\x32 \n");
                                 }
 
                             }
                             else {
-                                //html += "<tr><td style='font-weight:bold;'>" + value.PRODUCT + "</td>";
-                                //html += "<td style=\"text-align:center;\">" + value.QUANTITY + "</td>";
-                                //html += "<td style=\"text-align:right;\">" + FormatDecimal(value.UNITPRICE) + "</td>";
-                                //html += "<td style=\"text-align:right;\">" + FormatDecimal(value.TOTALPRICE) + "</td>";
-                                //html += "</tr>";
-
                                 BTPrinter.printText(function (data) {
                                 }, function (err) {
                                 }, "\n" + "\x1b\x44\x00");
@@ -2566,14 +2534,11 @@ function PrintCarryoutDetails() {
                     }
 
                     if (showPriceInPrint) {
-                        //htmlSubTotal = " <tr>";
-                        //htmlSubTotal += "<td colspan=\"3\" style=\"text-align:right; font-weight: bold;\">Subtotal:</td>";
                         if (taxValue != "" && taxValue != "0.00") {
-                            //htmlSubTotal += "<td style=\"text-align:right;\">" + subTotalWithoutTax + "</td>";
                             //Print Subtotal Start
                             BTPrinter.printText(function (data) {
                             }, function (err) {
-                            }, " \x1b\x21\x10\x1b\x61\x02 Subtotal: " + subTotalWithoutTax + "\n");
+                            }, "\x1b\x21\x10\x1b\x61\x02 Subtotal: " + subTotalWithoutTax + "\n");
                             //alert("Print Subtotal");
                             //Print Subtotal End
                         }
@@ -2582,51 +2547,36 @@ function PrintCarryoutDetails() {
                             //Print Subtotal Start
                             BTPrinter.printText(function (data) {
                             }, function (err) {
-                            }, " \x1b\x21\x10\x1b\x61\x02 Subtotal: " + FormatDecimal(subtotalvalue) + "\n");
+                            }, "\x1b\x21\x10\x1b\x61\x02 Subtotal: " + FormatDecimal(subtotalvalue) + "\n");
                             //alert("Print Subtotal");
                             //Print Subtotal End
                         }
                         //htmlSubTotal += "</tr>";
 
                         if (shippingValue != "" && shippingValue != "0.00") {
-                            //htmlOrderTotal += " <tr>";
-                            //htmlOrderTotal += "<td colspan=\"3\" style=\"text-align:right; font-weight: bold;\">Delivery:</td>";
-                            //htmlOrderTotal += "<td style=\"text-align:right;\">" + shippingValue + "</td>";
-                            //htmlOrderTotal += "</tr>";
-
                             //Print Delivery Start
                             BTPrinter.printText(function (data) {
                             }, function (err) {
-                            }, " \x1b\x21\x10\x1b\x61\x02 Delivery: " + shippingValue + "\n");
+                            }, "\x1b\x21\x10\x1b\x61\x02 Delivery: " + shippingValue + "\n");
                             //alert("Print Delivery");
                             //Print Delivery End
                         }
 
                         if (tipValue != "" && tipValue != "0.00") {
-                            //htmlOrderTotal += " <tr>";
-                            //htmlOrderTotal += "<td colspan=\"3\" style=\"text-align:right; font-weight: bold;\">Tip:</td>";
-                            //htmlOrderTotal += "<td style=\"text-align:right;\">" + tipValue + "</td>";
-                            //htmlOrderTotal += "</tr>";
-
                             //Print Tip Start
                             BTPrinter.printText(function (data) {
                             }, function (err) {
-                            }, " \x1b\x21\x10\x1b\x61\x02 Tip: " + tipValue + "\n");
+                            }, "\x1b\x21\x10\x1b\x61\x02 Tip: " + tipValue + "\n");
                             //alert("Print Tip");
                             //Print Tip End
                         }
 
                         if (taxValue != "" && taxValue != "0.00") {
                             //alert("Tax");
-                            //htmlOrderTotal += " <tr>";
-                            //htmlOrderTotal += "<td colspan=\"3\" style=\"text-align:right; font-weight: bold;\">Tax:</td>";
-                            //htmlOrderTotal += "<td style=\"text-align:right;\">" + taxValue + "</td>";
-                            //htmlOrderTotal += "</tr>";
-
                             //Print Tax Value Start
                             BTPrinter.printText(function (data) {
                             }, function (err) {
-                            }, " \x1b\x21\x10\x1b\x61\x02 Tax: " + taxValue + "\n");
+                            }, "\x1b\x21\x10\x1b\x61\x02 Tax: " + taxValue + "\n");
                             ///alert("Print Tax");
                             //Print Tax Value End
 
@@ -2636,7 +2586,7 @@ function PrintCarryoutDetails() {
                             //Print Discount Value Start
                             BTPrinter.printText(function (data) {
                             }, function (err) {
-                            }, " \x1b\x21\x10\x1b\x61\x02 Discount: " + discountValue + "\n");
+                            }, "\x1b\x21\x10\x1b\x61\x02 Discount: " + discountValue + "\n");
                             //Print Discount Value End
                         }
 
@@ -2644,7 +2594,7 @@ function PrintCarryoutDetails() {
                             //Print Reward Value Start
                             BTPrinter.printText(function (data) {
                             }, function (err) {
-                            }, " \x1b\x21\x10\x1b\x61\x02 Reward: -" + rewardValue + "\n");
+                            }, "\x1b\x21\x10\x1b\x61\x02 Reward: -" + rewardValue + "\n");
                             //Print Reward Value End
                         }
 
@@ -2652,25 +2602,20 @@ function PrintCarryoutDetails() {
                             //Print Gift Card Value Start
                             BTPrinter.printText(function (data) {
                             }, function (err) {
-                            }, " \x1b\x21\x10\x1b\x61\x02 Gift Card: -" + giftCardValue + "\n");
+                            }, "\x1b\x21\x10\x1b\x61\x02 Gift Card: -" + giftCardValue + "\n");
                             //Print Gift Card Value End
                         }
 
 
                         BTPrinter.printText(function (data) {
                         }, function (err) {
-                        }, " \x1b\x21\x10\x1b\x61\x02 Total: " + grandTotalvalue + "\n");
+                        }, "\x1b\x21\x10\x1b\x61\x02 Total: " + grandTotalvalue + "\n");
                         //alert("Print Total");
 
                         if (refundValue != "" && refundValue != "0.00") {
-                            //htmlOrderTotal += " <tr>";
-                            //htmlOrderTotal += "<td colspan=\"3\" style=\"text-align:right; font-weight: bold;\">Refund:</td>";
-                            //htmlOrderTotal += "<td style=\"text-align:right;\">" + refundValue + "</td>";
-                            //htmlOrderTotal += "</tr>";
-
                             BTPrinter.printText(function (data) {
                             }, function (err) {
-                            }, " \x1b\x21\x10\x1b\x61\x02 Refund: " + refundValue + "\n");
+                            }, "\x1b\x21\x10\x1b\x61\x02 Refund: " + refundValue + "\n");
                             //alert("Print Refund");
                         }
                     }
@@ -2690,11 +2635,11 @@ function PrintCarryoutDetails() {
                     BTPrinter.disconnect(function (data) {
                         $('#btnPrintOrder').text("PRINT");
                         //alert("Disconnect");
-                        console.log(data)
+                        //console.log(data)
                     }, function (err) {
                         //alert("Disconnect Error");
                         $('#btnPrintOrder').text("PRINT");
-                        console.log(err)
+                        //console.log(err)
                     }, "TM-m30_003646");//TCKP302-UB
                 }, function (err) {
                     $('#btnPrintOrder').text("PRINT");
