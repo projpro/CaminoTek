@@ -2441,7 +2441,7 @@ function PrintCarryoutDetails() {
 
                         BTPrinter.printText(function (data) {
                         }, function (err) {
-                        }, "\x1b\x6b\x30\x1b\x67 " + firstName + " " + lastName + "     " + phone + "\n");
+                        }, "\x1b\x67 " + firstName + " " + lastName + "     " + phone + "\n");
 
                         //if (value.ORDERSTATUSID != "" && value.ORDERSTATUSID != undefined) {
                         //    orderStatus = value.ORDERSTATUSID;
@@ -2502,7 +2502,7 @@ function PrintCarryoutDetails() {
                                 //Print Item, Quantity, Price Start
                                 BTPrinter.printText(function (data) {
                                 }, function (err) {
-                                }, "\n" + "\x1b\x50\x1b\x61\x00 " + value.PRODUCT + "     " + value.QUANTITY + "  " + FormatDecimal(value.TOTALPRICE) + "\n");
+                                }, "\n" + "\x1b\x58\x32\x34\x00\x32\x34\x1b\x61\x00 " + value.PRODUCT + "     " + value.QUANTITY + "  " + FormatDecimal(value.TOTALPRICE) + "\n");
 
 
                                 value.NOTES = value.NOTES.replace("Special Instructions", "Notes");
@@ -2526,7 +2526,7 @@ function PrintCarryoutDetails() {
 
                                             BTPrinter.printText(function (data) {
                                             }, function (err) {
-                                            }, "\x1b\x21\x08\x1b\x61\x00 " + notesValue.replace("</strong>", "") + "\n");//Font Size 8 + Left Align
+                                            }, "\x1b\x50\x1b\x61\x00 " + notesValue.replace("</strong>", "") + "\n");//Font Size 8 + Left Align
 
                                             //alert("Print Item Notes");
                                             //Print Order Notes 1 Start
@@ -2542,7 +2542,7 @@ function PrintCarryoutDetails() {
 
                                             BTPrinter.printText(function (data) {
                                             }, function (err) {
-                                            }, "\x1b\x21\x08\x1b\x61\x00 " + notesValue.replace("</strong>", "") + "\n");//Font Size 8 + Left Align
+                                            }, "\x1b\x50\x1b\x61\x00 " + notesValue.replace("</strong>", "") + "\n");//Font Size 8 + Left Align
 
                                             //alert("Print Item Notes");
                                             //Print Order Notes 1 Start
@@ -2565,7 +2565,7 @@ function PrintCarryoutDetails() {
                                 //Print Item, Quantity, Price Start
                                 BTPrinter.printText(function (data) {
                                 }, function (err) {
-                                }, "\n" + "\x1b\x50\x1b\x61\x00 " + value.PRODUCT + "    " + value.QUANTITY + "  " + FormatDecimal(value.TOTALPRICE) + "\n");
+                                }, "\n" + "\x1b\x58\x32\x34\x00\x32\x34\x1b\x61\x00 " + value.PRODUCT + "    " + value.QUANTITY + "  " + FormatDecimal(value.TOTALPRICE) + "\n");
                             }
 
                         });
