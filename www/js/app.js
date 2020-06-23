@@ -2502,7 +2502,7 @@ function PrintCarryoutDetails() {
                                 //Print Item, Quantity, Price Start
                                 BTPrinter.printText(function (data) {
                                 }, function (err) {
-                                }, "\n" + "\x1b\x45\x1b\x61\x00 " + value.PRODUCT + "     " + value.QUANTITY + "  " + FormatDecimal(value.TOTALPRICE) + "\x1b\x46" + "\n");
+                                }, "\n" + "\x1b\x45 " + value.PRODUCT + "     " + value.QUANTITY + "  " + FormatDecimal(value.TOTALPRICE) + " \x1b\x46" + "\n");
 
 
                                 value.NOTES = value.NOTES.replace("Special Instructions", "Notes");
@@ -2565,7 +2565,7 @@ function PrintCarryoutDetails() {
                                 //Print Item, Quantity, Price Start
                                 BTPrinter.printText(function (data) {
                                 }, function (err) {
-                                }, "\n" + "\x1b\x45\x1b\x61\x00 " + value.PRODUCT + "    " + value.QUANTITY + "  " + FormatDecimal(value.TOTALPRICE) + "\x1b\x46" + "\n");
+                                }, "\n" + "\x1b\x45 " + value.PRODUCT + "    " + value.QUANTITY + "  " + FormatDecimal(value.TOTALPRICE) + " \x1b\x46" + "\n");
                             }
 
                         });
