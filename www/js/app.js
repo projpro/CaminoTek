@@ -330,8 +330,8 @@ $$(document).on('page:init', function (e) {
         });
         
         $$('#btnPrintOrder').on('click', function () {
-            alert("Print");
-              $("#btnPrintOrder").text("Printing...");
+            //alert("Print");
+            $("#btnPrintOrder").text("Printing...");
             PrintCarryoutDetails();            
         });        
         
