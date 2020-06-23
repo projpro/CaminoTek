@@ -2319,7 +2319,7 @@ function PrintCarryoutDetails() {
 
                         BTPrinter.printText(function (data) {
                         }, function (err) {
-                        }, "\x1b\x21\x20\x1b\x61\x00 " + ordertype + " #" + orderId + "\n");
+                        }, "\x1b\x21\x20\x1b\x61\x00 " + ordertype + "    #" + orderId + "\n");
 
 
                         //console.log(value.PICKUPTIME)
@@ -2502,7 +2502,7 @@ function PrintCarryoutDetails() {
                                 //Print Item, Quantity, Price Start
                                 BTPrinter.printText(function (data) {
                                 }, function (err) {
-                                }, "\n" + "\x1b\x58\x32\x34\x00\x32\x34\x1b\x61\x00 " + value.PRODUCT + "     " + value.QUANTITY + "  " + FormatDecimal(value.TOTALPRICE) + "\n");
+                                }, "\n" + "\x1b\x45\x1b\x61\x00 " + value.PRODUCT + "     " + value.QUANTITY + "  " + FormatDecimal(value.TOTALPRICE) + "\x1b\x46" + "\n");
 
 
                                 value.NOTES = value.NOTES.replace("Special Instructions", "Notes");
@@ -2565,7 +2565,7 @@ function PrintCarryoutDetails() {
                                 //Print Item, Quantity, Price Start
                                 BTPrinter.printText(function (data) {
                                 }, function (err) {
-                                }, "\n" + "\x1b\x58\x32\x34\x00\x32\x34\x1b\x61\x00 " + value.PRODUCT + "    " + value.QUANTITY + "  " + FormatDecimal(value.TOTALPRICE) + "\n");
+                                }, "\n" + "\x1b\x45\x1b\x61\x00 " + value.PRODUCT + "    " + value.QUANTITY + "  " + FormatDecimal(value.TOTALPRICE) + "\x1b\x46" + "\n");
                             }
 
                         });
@@ -2579,7 +2579,7 @@ function PrintCarryoutDetails() {
                             //Print Subtotal Start
                             BTPrinter.printTextSizeAlign(function (data) {
                             }, function (err) {
-                            }, "\n" + "Subtotal: " + subTotalWithoutTax + "\n", '10', '2');
+                            }, "\n" + "Subtotal: " + subTotalWithoutTax + "\n", '8', '2');
                             //alert("Print Subtotal");
                             //Print Subtotal End
                         }
@@ -2588,7 +2588,7 @@ function PrintCarryoutDetails() {
                             //Print Subtotal Start
                             BTPrinter.printTextSizeAlign(function (data) {
                             }, function (err) {
-                            },"\n" + "Subtotal: " + FormatDecimal(subtotalvalue) + "\n", '10', '2');
+                            },"\n" + "Subtotal: " + FormatDecimal(subtotalvalue) + "\n", '8', '2');
                             //alert("Print Subtotal");
                             //Print Subtotal End
                         }
@@ -2603,7 +2603,7 @@ function PrintCarryoutDetails() {
                             //Print Delivery Start
                             BTPrinter.printTextSizeAlign(function (data) {
                             }, function (err) {
-                            }, "Delivery: " + shippingValue + "\n", '10', '2');
+                            }, "Delivery: " + shippingValue + "\n", '8', '2');
                             //alert("Print Delivery");
                             //Print Delivery End
                         }
@@ -2617,7 +2617,7 @@ function PrintCarryoutDetails() {
                             //Print Tip Start
                             BTPrinter.printTextSizeAlign(function (data) {
                             }, function (err) {
-                            }, "Tip: " + tipValue + "\n", '10', '2');
+                            }, "Tip: " + tipValue + "\n", '8', '2');
                             //alert("Print Tip");
                             //Print Tip End
                         }
@@ -2632,7 +2632,7 @@ function PrintCarryoutDetails() {
                             //Print Tax Value Start
                             BTPrinter.printTextSizeAlign(function (data) {
                             }, function (err) {
-                            }, "Tax: " + taxValue + "\n", '10', '2');
+                            }, "Tax: " + taxValue + "\n", '8', '2');
                             ///alert("Print Tax");
                             //Print Tax Value End
 
@@ -2642,7 +2642,7 @@ function PrintCarryoutDetails() {
                             //Print Discount Value Start
                             BTPrinter.printTextSizeAlign(function (data) {
                             }, function (err) {
-                            }, "Discount: " + discountValue + "\n", '10', '2');
+                            }, "Discount: " + discountValue + "\n", '8', '2');
                             //Print Discount Value End
                         }
 
@@ -2650,7 +2650,7 @@ function PrintCarryoutDetails() {
                             //Print Reward Value Start
                             BTPrinter.printTextSizeAlign(function (data) {
                             }, function (err) {
-                            }, "Reward: -" + rewardValue + "\n", '10', '2');
+                            }, "Reward: -" + rewardValue + "\n", '8', '2');
                             //Print Reward Value End
                         }
 
@@ -2658,7 +2658,7 @@ function PrintCarryoutDetails() {
                             //Print Gift Card Value Start
                             BTPrinter.printTextSizeAlign(function (data) {
                             }, function (err) {
-                            }, "Gift Card: -" + giftCardValue + "\n", '10', '2');
+                            }, "Gift Card: -" + giftCardValue + "\n", '8', '2');
                             //Print Gift Card Value End
                         }
 
@@ -2668,18 +2668,18 @@ function PrintCarryoutDetails() {
                         if (refundValue != "" && refundValue != "0.00") {
                             BTPrinter.printTextSizeAlign(function (data) {
                             }, function (err) {
-                            }, "Total: " + grandTotalvalue + "\n", '10', '2');
+                            }, "Total: " + grandTotalvalue + "\n", '8', '2');
                             //alert("Print Total");
 
                             BTPrinter.printTextSizeAlign(function (data) {
                             }, function (err) {
-                            }, "Refund: " + refundValue + "\n\n\n", '10', '2');
+                            }, "Refund: " + refundValue + "\n\n\n", '8', '2');
                             //alert("Print Refund");
                         }
                         else {
                             BTPrinter.printTextSizeAlign(function (data) {
                             }, function (err) {
-                            }, "Total: " + grandTotalvalue + "\n\n\n", '10', '2');
+                            }, "Total: " + grandTotalvalue + "\n\n\n", '8', '2');
                             //alert("Print Total");
                         }
                     }
