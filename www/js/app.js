@@ -2311,6 +2311,10 @@ function PrintCarryoutDetails() {
                         //}, ordertype + "                              #" + orderId + "\n", '20', '0');//30
                         ////alert("Print #");
                         ////Print Ordet Type, OrderId End
+                        
+                        BTPrinter.printText(function (data) {
+                        }, function (err) {
+                        }, "\x1b\x40" + "\n");//Clear Buffer
 
                         //Default Tab(\x1b\x44\x00)
                         BTPrinter.printText(function (data) {
@@ -2727,6 +2731,10 @@ function PrintCarryoutDetails() {
                 BTPrinter.printText(function (data) {
                 }, function (err) {
                 }, "\x1d\x56\x41\x0A" + "\n");//Auto Cut Paper
+                
+                BTPrinter.printText(function (data) {
+                        }, function (err) {
+                        }, "\x1b\x40" + "\n");//Clear Buffer
 
                 BTPrinter.printText(function (data) {
                     BTPrinter.disconnect(function (data) {
