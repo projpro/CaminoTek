@@ -2315,11 +2315,11 @@ function PrintCarryoutDetails() {
                         //Default Tab(\x1b\x44\x00)
                         BTPrinter.printText(function (data) {
                         }, function (err) {
-                        }, "\x1b\x6b\x01\x1b\x6c\x01\x1b\x67\x1B\x30" + "\n");// Font + Margin + CPI + Line Spacing(1/8)
+                        }, "\x1b\x6b\x01\x1b\x6c\x01\x1b\x67\x1b\x30" + "\n");// Font + Margin + CPI + Line Spacing(1/8)
 
                         BTPrinter.printText(function (data) {
                         }, function (err) {
-                        }, "\x1b\x21\x20\x1B\x61\x00 " + ordertype + " \x09\x09\x09\x09\x09\x1B\x61\x02 #" + orderId + "\n");
+                        }, "\x1b\x21\x20\x1b\x61\x00 " + ordertype + " \x09\x09\x09 #" + orderId + "\n");
 
 
                         //console.log(value.PICKUPTIME)
@@ -2441,7 +2441,7 @@ function PrintCarryoutDetails() {
 
                         BTPrinter.printText(function (data) {
                         }, function (err) {
-                        }, "x1b\x21\x10\x1b\x61\x00 " + firstName + " " + lastName + " \x1b\x61\x02 " + phone + "\n");
+                        }, "\x1b\x21\x14\x1b\x61\x00 " + firstName + " " + lastName + "     " + phone + "\n");
 
                         //if (value.ORDERSTATUSID != "" && value.ORDERSTATUSID != undefined) {
                         //    orderStatus = value.ORDERSTATUSID;
@@ -2502,7 +2502,7 @@ function PrintCarryoutDetails() {
                                 //Print Item, Quantity, Price Start
                                 BTPrinter.printText(function (data) {
                                 }, function (err) {
-                                }, "\x1b\x21\x20\x1b\x61\x00 " + value.PRODUCT + " \x09\x1b\x61\x02 " + value.QUANTITY + "  " + FormatDecimal(value.TOTALPRICE) + "\n");
+                                }, "\x1b\x21\x20\x1b\x61\x00 " + value.PRODUCT + "     " + value.QUANTITY + "  " + FormatDecimal(value.TOTALPRICE) + "\n");
 
 
                                 value.NOTES = value.NOTES.replace("Special Instructions", "Notes");
@@ -2565,7 +2565,7 @@ function PrintCarryoutDetails() {
                                 //Print Item, Quantity, Price Start
                                 BTPrinter.printText(function (data) {
                                 }, function (err) {
-                                }, "\x1b\x21\x14\x1b\x61\x00 " + value.PRODUCT + " \x09\x1b\x61\x02 " + value.QUANTITY + "  " + FormatDecimal(value.TOTALPRICE) + "\n");
+                                }, "\x1b\x21\x20\x1b\x61\x00 " + value.PRODUCT + "    " + value.QUANTITY + "  " + FormatDecimal(value.TOTALPRICE) + "\n");
                             }
 
                         });
