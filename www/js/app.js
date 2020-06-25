@@ -2231,8 +2231,23 @@ function PrintCarryoutDetails() {
     //alert("ID: " + id);
 
     var storeId = SetStoreId();
+    var printerName = "";
+    var showPriceInPrint = true;
+    if (localStorage.getItem("PrinterName") != null)
+        printerName = localStorage.getItem("PrinterName");
+
+    if (localStorage.getItem("HidePriceInPrint") != null) {
+        var hidePriceInPrint = localStorage.getItem("HidePriceInPrint");
+        if (hidePriceInPrint == true) {
+            showPriceInPrint = false;
+        }
+        else {
+            showPriceInPrint = true;
+        }
+    }
+
     if (id > 0) {
-        var url = global + "/GetCarryOutOrderDetailsWithAllInfo?orderid=" + id;
+        var url = global + "/GetCarryOutOrderDetailsForPrint?orderid=" + id;
         //alert(url);
 
         BTPrinter.connect(function (data) {
@@ -2273,10 +2288,11 @@ function PrintCarryoutDetails() {
 
                 var tipValue = "0.00";
                 var discountValue = "0.00";
+                var couponCode = "";
                 var rewardValue = "0.00";
+                var rewardPoints = "";
                 var giftCardValue = "0.00";
-
-                var showPriceInPrint = true;
+                var giftCardCode = "";
 
                 //console.log(data);
                 $.each(JSON.parse(data), function (index, value) {
@@ -2311,7 +2327,7 @@ function PrintCarryoutDetails() {
                         //}, ordertype + "                              #" + orderId + "\n", '20', '0');//30
                         ////alert("Print #");
                         ////Print Ordet Type, OrderId End
-                        
+
                         BTPrinter.printText(function (data) {
                         }, function (err) {
                         }, "\x1b\x40" + "\n");//Clear Buffer
@@ -2459,6 +2475,7 @@ function PrintCarryoutDetails() {
                     }
                     else if (value.Type == "DiscountInfo") {
                         discountValue = FormatDecimal(orderDiscount);
+                        couponCode = value.COUPONCODE;
                         //htmlDiscount += " <tr>";
                         //htmlDiscount += "<td colspan=\"3\" style=\"text-align:right; font-weight: bold;\">Coupon (" + value.COUPONCODE + "):</td>";
                         //htmlDiscount += "<td style=\"text-align:right;\">-" + FormatDecimal(orderDiscount) + "</td>";
@@ -2467,6 +2484,7 @@ function PrintCarryoutDetails() {
                     }
                     else if (value.Type == "RewardInfo") {
                         rewardValue = FormatDecimal(value.USEDAMOUNT);
+                        rewardPoints = value.POINTS.toString().replace("-", "");
                         //console.log("RewardInfo: " + value.POINTS);
                         //htmlRewards += " <tr>";
                         //htmlRewards += "<td colspan=\"3\" style=\"text-align:right; font-weight: bold;\">Reward Points (" + value.POINTS.toString().replace("-", "") + "):</td>";
@@ -2475,6 +2493,7 @@ function PrintCarryoutDetails() {
                     }
                     else if (value.Type == "GiftCardInfo") {
                         giftCardValue = FormatDecimal(value.USEDVALUE);
+                        giftCardCode = value.GIFTCARDCOUPONCODE.replace("-", "");
                         //console.log("GiftCardInfo: " + value.GIFTCARDCOUPONCODE);
                         //htmlGiftCard += "<tr>";
                         //htmlGiftCard += "<td colspan=\"3\" style=\"text-align:right; font-weight: bold;\">Gift Card (" + value.GIFTCARDCOUPONCODE.replace("-", "") + "):</td>";
@@ -2504,9 +2523,16 @@ function PrintCarryoutDetails() {
                                 //}, function (err) {
                                 //}, "\x1b\x44\x08\x10\x20\x00");
                                 //Print Item, Quantity, Price Start
-                                BTPrinter.printText(function (data) {
-                                }, function (err) {
-                                }, "\n" + "\x1b\x45\x01 " + value.PRODUCT + "    " + value.QUANTITY + "  " + FormatDecimal(value.TOTALPRICE) + " \x1b\x45\x00 " + "\n");
+                                if (showPriceInPrint) {
+                                    BTPrinter.printText(function (data) {
+                                    }, function (err) {
+                                    }, "\n" + "\x1b\x45\x01 " + value.PRODUCT + "    " + value.QUANTITY + "  " + FormatDecimal(value.TOTALPRICE) + " \x1b\x45\x00 " + "\n");
+                                }
+                                else {
+                                    BTPrinter.printText(function (data) {
+                                    }, function (err) {
+                                    }, "\n" + "\x1b\x45\x01 " + value.PRODUCT + "    " + value.QUANTITY + " \x1b\x45\x00 " + "\n");
+                                }
 
 
                                 value.NOTES = value.NOTES.replace("Special Instructions", "Notes");
@@ -2559,7 +2585,7 @@ function PrintCarryoutDetails() {
 
                             }
                             else {
-                                
+
                                 //BTPrinter.printText(function (data) {
                                 //}, function (err) {
                                 //}, "\n" + "\x1b\x44\x00");
@@ -2567,9 +2593,16 @@ function PrintCarryoutDetails() {
                                 //}, function (err) {
                                 //}, "\x1b\x44\x08\x10\x20\x00");
                                 //Print Item, Quantity, Price Start
-                                BTPrinter.printText(function (data) {
-                                }, function (err) {
-                                }, "\n" + "\x1b\x45\x01 " + value.PRODUCT + "    " + value.QUANTITY + "  " + FormatDecimal(value.TOTALPRICE) + " \x1b\x45\x00 " + "\n");
+                                if (showPriceInPrint) {
+                                    BTPrinter.printText(function (data) {
+                                    }, function (err) {
+                                    }, "\n" + "\x1b\x45\x01 " + value.PRODUCT + "    " + value.QUANTITY + "  " + FormatDecimal(value.TOTALPRICE) + " \x1b\x45\x00 " + "\n");
+                                }
+                                else {
+                                    BTPrinter.printText(function (data) {
+                                    }, function (err) {
+                                    }, "\n" + "\x1b\x45\x01 " + value.PRODUCT + "    " + value.QUANTITY + " \x1b\x45\x00 " + "\n");
+                                }
                             }
 
                         });
@@ -2621,22 +2654,6 @@ function PrintCarryoutDetails() {
                             //Print Delivery End
                         }
 
-                        if (tipValue != "" && tipValue != "0.00") {
-                            //htmlOrderTotal += " <tr>";
-                            //htmlOrderTotal += "<td colspan=\"3\" style=\"text-align:right; font-weight: bold;\">Tip:</td>";
-                            //htmlOrderTotal += "<td style=\"text-align:right;\">" + tipValue + "</td>";
-                            //htmlOrderTotal += "</tr>";
-
-                            //Print Tip Start
-                            //BTPrinter.printTextSizeAlign(function (data) {
-                            //}, function (err) {
-                            //}, "Tip: " + tipValue + "\n", '8', '2');
-                            BTPrinter.printText(function (data) {
-                            }, function (err) {
-                            }, "\x1b\x50\x1b\x61\x02 " + "Tip: " + tipValue + "\n");
-                            //alert("Print Tip");
-                            //Print Tip End
-                        }
 
                         if (taxValue != "" && taxValue != "0.00") {
                             //alert("Tax");
@@ -2664,7 +2681,7 @@ function PrintCarryoutDetails() {
                             //}, "Discount: " + discountValue + "\n", '8', '2');
                             BTPrinter.printText(function (data) {
                             }, function (err) {
-                            }, "\x1b\x50\x1b\x61\x02 " + "Discount: " + discountValue + "\n");
+                            }, "\x1b\x50\x1b\x61\x02 " + "Coupon (" + couponCode + "): " + discountValue + "\n");
                             //Print Discount Value End
                         }
 
@@ -2675,7 +2692,7 @@ function PrintCarryoutDetails() {
                             //}, "Reward: -" + rewardValue + "\n", '8', '2');
                             BTPrinter.printText(function (data) {
                             }, function (err) {
-                            }, "\x1b\x50\x1b\x61\x02 " + "Reward: -" + rewardValue + "\n");
+                            }, "\x1b\x50\x1b\x61\x02 " + "Reward (" + rewardPoints + "): -" + rewardValue + "\n");
                             //Print Reward Value End
                         }
 
@@ -2686,12 +2703,27 @@ function PrintCarryoutDetails() {
                             //}, "Gift Card: -" + giftCardValue + "\n", '8', '2');
                             BTPrinter.printText(function (data) {
                             }, function (err) {
-                            }, "\x1b\x50\x1b\x61\x02 " + "Gift Card: -" + giftCardValue + "\n");
+                            }, "\x1b\x50\x1b\x61\x02 " + "Gift Card (" + giftCardCode + "): -" + giftCardValue + "\n");
                             //Print Gift Card Value End
                         }
 
+                        if (tipValue != "" && tipValue != "0.00") {
+                            //htmlOrderTotal += " <tr>";
+                            //htmlOrderTotal += "<td colspan=\"3\" style=\"text-align:right; font-weight: bold;\">Tip:</td>";
+                            //htmlOrderTotal += "<td style=\"text-align:right;\">" + tipValue + "</td>";
+                            //htmlOrderTotal += "</tr>";
 
-                        
+                            //Print Tip Start
+                            //BTPrinter.printTextSizeAlign(function (data) {
+                            //}, function (err) {
+                            //}, "Tip: " + tipValue + "\n", '8', '2');
+                            BTPrinter.printText(function (data) {
+                            }, function (err) {
+                            }, "\x1b\x50\x1b\x61\x02 " + "Tip: " + tipValue + "\n");
+                            //alert("Print Tip");
+                            //Print Tip End
+                        }
+
 
                         if (refundValue != "" && refundValue != "0.00") {
                             //BTPrinter.printTextSizeAlign(function (data) {
@@ -2731,10 +2763,10 @@ function PrintCarryoutDetails() {
                 BTPrinter.printText(function (data) {
                 }, function (err) {
                 }, "\x1d\x56\x41\x0A" + "\n");//Auto Cut Paper
-                
+
                 BTPrinter.printText(function (data) {
-                        }, function (err) {
-                        }, "\x1b\x40" + "\n");//Clear Buffer
+                }, function (err) {
+                }, "\x1b\x40" + "\n");//Clear Buffer
 
                 BTPrinter.printText(function (data) {
                     BTPrinter.disconnect(function (data) {
@@ -2745,7 +2777,7 @@ function PrintCarryoutDetails() {
                         //alert("Disconnect Error");
                         $('#btnPrintOrder').text("PRINT");
                         console.log(err)
-                    }, "TM-m30_003646");//TCKP302-UB
+                    }, printerName);//TCKP302-UB//TM-m30_003646
                 }, function (err) {
                     $('#btnPrintOrder').text("PRINT");
                     //alert("Print Error: " + err);
@@ -2755,7 +2787,7 @@ function PrintCarryoutDetails() {
         }, function (err) {
             $('#btnPrintOrder').text("PRINT");
             //alert("Connect Error: " + err);
-        }, "TM-m30_003646");//TCKP302-UB
+        }, printerName);//TCKP302-UB//TM-m30_003646
 
     }
 }
