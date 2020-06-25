@@ -148,111 +148,6 @@ function Login() {
                                 }
                                 //
                             }
-function Login() {
-    //console.log("Login");
-    var email = $("#email").val().trim();
-    var password = $("#password").val().trim();
-    //console.log("ValidateLogIn: " + ValidateLogIn());
-    if (ValidateLogIn() == false) {
-
-        $("#btnLogin").text("Logging in...")
-
-        $.support.cors = true;
-        $.ajax({
-            url: global + 'Login?email=' + email + '&password=' + password,
-            type: 'GET',
-            datatype: 'jsonp',
-            contenttype: "application/json",
-            crossDomain: true,
-            async: false,
-            success: function (data) {
-                //console.log("data: " + data);
-                //console.log("Login 2" + data);
-                //alert(data)
-                if (data.indexOf("No Data Found") > -1) {
-                    $('#lblErr').html("Invalid Login/Password");
-                    $("#btnLogin").text("Log In");
-                }
-                else {
-                    var customerId = data.split("#")[0].replace("\"", "");
-                    var storeId = data.split("#")[1].replace("\"", "");
-                    var apprefreshinterval = data.split("#")[2].replace("\"", "");
-                    var storeName = data.split("#")[3].replace("\"", "");
-                    var giftCardsEnabled = data.split("#")[4].replace("\"", "");
-                    var giftCardProgramEnabled = data.split("#")[5].replace("\"", "");
-                    var rewardEnabled = data.split("#")[6].replace("\"", "");
-                    var carryOutEnabled = data.split("#")[7].replace("\"", "");
-                    var barcodeScanEnabled = data.split("#")[8].replace("\"", "");
-                    var companyAddress = data.split("#")[9].replace("\"", "");
-                    var companyPhoneNumber = data.split("#")[10].replace("\"", "");
-                    var printerName = data.split("#")[11].replace("\"", "");
-                    var hidePriceInPrint = data.split("#")[12].replace("\"", "");
-                    localStorage.setItem("CustomerId", customerId);
-                    localStorage.setItem("StoreId", storeId);
-                    localStorage.setItem("BistroEmail", email);
-                    localStorage.setItem("BistroPassword", password);
-                    localStorage.setItem("RefreshTimeInterval", password);
-                    localStorage.setItem("RestaurantName", storeName);
-
-                    localStorage.setItem("CarryOutEnabled", carryOutEnabled);
-                    localStorage.setItem("GiftCardsEnabled", giftCardsEnabled);
-                    localStorage.setItem("GiftCardProgramEnabled", giftCardProgramEnabled);
-                    localStorage.setItem("RewardsEnabled", rewardEnabled);
-                    localStorage.setItem("BarcodeScanEnabled", barcodeScanEnabled);
-                    localStorage.setItem("StoreAddress", companyAddress);
-                    localStorage.setItem("StorePhoneNumber", companyPhoneNumber);
-                    localStorage.setItem("PrinterName", printerName);
-                    localStorage.setItem("HidePriceInPrint", hidePriceInPrint);
-
-                    //SetMenuNavigation();
-                    if (apprefreshinterval === null || apprefreshinterval === "" || apprefreshinterval === "0") {
-                        appRefreshInterval = 120;
-                        localStorage.setItem("AppRefreshTimeInterval", apprefreshinterval);
-                    }
-                    //console.log("Login 3" + storeId);
-                    if (Number(storeId) > 0) {
-                        //InitPushNotification(storeId);
-                        // InitPushNotification();
-                        //window.location.href = "carryout.html?StoreId=" + storeId;
-                        if (carryOutEnabled == "True") {
-                            self.app.router.navigate('/carryout/', { reloadCurrent: true });
-                            //GetStoreCarryOutTimings(storeId);
-                        }
-                        else {
-
-                            if (giftCardsEnabled != "True" && giftCardProgramEnabled != "True" && rewardEnabled != "True") {
-                                $('#lblErr').html();
-                                $('#lblErr').html("Carryout/Gift Card/Rewards are not enabled. Please contact system administrator.");
-                                // Init App
-                                $("#btnLogin").text("Log In");
-                                //LogOut Section
-                                if (localStorage.getItem("registrationId") === null) {
-                                    //window.location.href = "index.html";
-                                    localStorage.clear();
-                                }
-                                else {
-                                    var token = localStorage.getItem("registrationId").trim();
-                                    //  alert(global)
-                                    $.ajax({
-                                        url: global + 'Logout?storeid=' + storeId + '&registrationToken=' + token,
-                                        type: 'GET',
-                                        datatype: 'jsonp',
-                                        contenttype: "application/json",
-                                        crossDomain: true,
-                                        async: false,
-                                        success: function (data) {
-                                            //window.location.href = "index.html";
-                                            localStorage.clear();
-                                            app.router.clearPreviousHistory()
-                                        },
-                                        error: function (xhr, textStatus, errorThrown) {
-                                            //window.location.href = "index.html";
-                                            localStorage.clear();
-                                        }
-                                    });
-                                }
-                                //
-                            }
                             else if ((giftCardsEnabled == "True" && giftCardProgramEnabled == "True") || rewardEnabled == "True") {
                                 if (giftCardsEnabled == "True" && giftCardProgramEnabled == "True") {
                                     localStorage.setItem("loadgiftcardredeem", "true");
@@ -282,6 +177,7 @@ function Login() {
     }
 
 }
+//Login End
 
 function SetUpBarCodeScanButton(id)
 {
