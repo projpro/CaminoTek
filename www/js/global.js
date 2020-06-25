@@ -9461,6 +9461,7 @@ function SaveStoreInfo() {
                     if (printerName != "") {
                         localStorage.setItem("PrinterName", printerName);
                     }
+                    localStorage.setItem("HidePriceInPrint", hidePriceInPrint);
                     //LoadProfileDetails();
                     if (data.indexOf("Successful") > -1) {
                         swal({
