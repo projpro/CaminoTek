@@ -2788,7 +2788,6 @@ function PrintCarryoutDetails() {
             $('#btnPrintOrder').text("PRINT");
             //alert("Connect Error: " + err);
         }, printerName);//TCKP302-UB//TM-m30_003646
-
     }
 }
 //Print Order End
