@@ -2238,7 +2238,7 @@ function PrintCarryoutDetails() {
 
     if (localStorage.getItem("HidePriceInPrint") != null) {
         var hidePriceInPrint = localStorage.getItem("HidePriceInPrint");
-        if (hidePriceInPrint == true) {
+        if (hidePriceInPrint == "true") {
             showPriceInPrint = false;
         }
         else {
