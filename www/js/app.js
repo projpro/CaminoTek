@@ -2240,9 +2240,11 @@ function PrintCarryoutDetails() {
         var hidePriceInPrint = localStorage.getItem("HidePriceInPrint");
         if (hidePriceInPrint == "true") {
             showPriceInPrint = false;
+            alert("Show Price: " + showPriceInPrint);
         }
         else {
             showPriceInPrint = true;
+            alert("Show Price: " + showPriceInPrint);
         }
     }
 
@@ -2524,11 +2526,13 @@ function PrintCarryoutDetails() {
                                 //}, "\x1b\x44\x08\x10\x20\x00");
                                 //Print Item, Quantity, Price Start
                                 if (showPriceInPrint) {
+                                    alert("Show Price - Product");
                                     BTPrinter.printText(function (data) {
                                     }, function (err) {
                                     }, "\n" + "\x1b\x45\x01 " + value.PRODUCT + "    " + value.QUANTITY + "  " + FormatDecimal(value.TOTALPRICE) + " \x1b\x45\x00 " + "\n");
                                 }
                                 else {
+                                    alert("Hide Price - Poduct");
                                     BTPrinter.printText(function (data) {
                                     }, function (err) {
                                     }, "\n" + "\x1b\x45\x01 " + value.PRODUCT + "    " + value.QUANTITY + " \x1b\x45\x00 " + "\n");
@@ -2594,11 +2598,13 @@ function PrintCarryoutDetails() {
                                 //}, "\x1b\x44\x08\x10\x20\x00");
                                 //Print Item, Quantity, Price Start
                                 if (showPriceInPrint) {
+                                    alert("Show Price - Product");
                                     BTPrinter.printText(function (data) {
                                     }, function (err) {
                                     }, "\n" + "\x1b\x45\x01 " + value.PRODUCT + "    " + value.QUANTITY + "  " + FormatDecimal(value.TOTALPRICE) + " \x1b\x45\x00 " + "\n");
                                 }
                                 else {
+                                    alert("Hide Price - Product");
                                     BTPrinter.printText(function (data) {
                                     }, function (err) {
                                     }, "\n" + "\x1b\x45\x01 " + value.PRODUCT + "    " + value.QUANTITY + " \x1b\x45\x00 " + "\n");
@@ -2609,6 +2615,7 @@ function PrintCarryoutDetails() {
                     }
 
                     if (showPriceInPrint) {
+                        alert("Show Price - Other Prices");
                         //htmlSubTotal = " <tr>";
                         //htmlSubTotal += "<td colspan=\"3\" style=\"text-align:right; font-weight: bold;\">Subtotal:</td>";
                         if (taxValue != "" && taxValue != "0.00") {
@@ -2788,6 +2795,7 @@ function PrintCarryoutDetails() {
             $('#btnPrintOrder').text("PRINT");
             //alert("Connect Error: " + err);
         }, printerName);//TCKP302-UB//TM-m30_003646
+
     }
 }
 //Print Order End
