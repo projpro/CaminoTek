@@ -80,6 +80,8 @@ function Login() {
                     var barcodeScanEnabled = data.split("#")[8].replace("\"", "");
                     var companyAddress = data.split("#")[9].replace("\"", "");
                     var companyPhoneNumber = data.split("#")[10].replace("\"", "");
+                    var printerName = data.split("#")[11].replace("\"", "");
+                    var hidePriceInPrint = data.split("#")[12].replace("\"", "");
                     localStorage.setItem("CustomerId", customerId);
                     localStorage.setItem("StoreId", storeId);
                     localStorage.setItem("BistroEmail", email);
@@ -94,6 +96,8 @@ function Login() {
                     localStorage.setItem("BarcodeScanEnabled", barcodeScanEnabled);
                     localStorage.setItem("StoreAddress", companyAddress);
                     localStorage.setItem("StorePhoneNumber", companyPhoneNumber);
+                    localStorage.setItem("PrinterName", printerName);
+                    localStorage.setItem("HidePriceInPrint", hidePriceInPrint);
 
                     //SetMenuNavigation();
                     if (apprefreshinterval === null || apprefreshinterval === "" || apprefreshinterval === "0") {
@@ -173,6 +177,7 @@ function Login() {
     }
 
 }
+
 function SetUpBarCodeScanButton(id)
 {
     var barcodeScanEnabled = localStorage.getItem("BarcodeScanEnabled").trim();
@@ -9248,6 +9253,8 @@ function LoadProfileDetails() {
                         var adminEmail = "";
                         var pickupLeadTime = 0;
                         var carryoutLeadTime = 0;
+                        var printerName = "";
+                        var hidePriceInPrint = false;
                         //console.log("LoadProfileDetails: 2");
                         if (value.RestaurantDisplayName != "") {
                             name = value.RestaurantDisplayName;
@@ -9329,6 +9336,21 @@ function LoadProfileDetails() {
                             }
                         }
 
+                        if (value.HidePriceInPrint == true) {
+                            hidePriceInPrint = true;
+                            $("#tab-profile-info #checkHidePrice").prop('checked', true)
+                        }
+                        else {
+                            hidePriceInPrint = false;
+                            $("#tab-profile-info #checkHidePrice").prop('checked', false)
+                        }
+                        if(value.PrinterName != "")
+                        {
+                            printerName = value.PrinterName;
+                            $("#tab-profile-info #txtprinterName").val(printerName);
+                        }
+
+
                         //console.log("Name: " + name + " Description: " + description + " Address1: " + address1 + " Address2: " + address2 + " City: " + city + " State: " + state + " Zip: " + zip + " Phone: " + phone + " Fax: " + fax +
                         //" SendFax: " + sendFax + " Refund Policy: " + refundPolicy + " Restaurnat Url: " + restaurantUrl + " Admin Eamil: " + adminEmail + " P Lead Time: " + pickupLeadTime + " C Lead Time: " + carryoutLeadTime);
 
@@ -9339,8 +9361,6 @@ function LoadProfileDetails() {
                     // console.log("LoadProfileDetails: 4");
                 }
             });
-
-
         }
         catch (e) {
         }
@@ -9372,6 +9392,11 @@ function SaveStoreInfo() {
     var adminEmail = $("#txtProfileAdminEmail").val();
     var pickupLeadTime = $("#ddlProfilePickupLeadTime").val();
     var carryoutLeadTime = $("#ddlProfileCarryOutLeadTime").val();
+    var hidePriceInPrint = false;
+    if ($("#checkHidePrice").prop("checked") == true) {
+        hidePriceInPrint = true;
+    }
+    var printerName = $('#txtprinterName').val();
     var isValid = false;
     isValid = ValidateStoreInfo(restaurantDisplayName, address1, city, state, zip, phone, fax, restaurantUrl, adminEmail, pickupLeadTime, carryoutLeadTime);
     //alert(isValid);
@@ -9422,11 +9447,20 @@ function SaveStoreInfo() {
             else {
                 model.CarryoutLeadTimeInMinutes = 0;
             }
-
+            model.PrinterName = printerName;
+            if (hidePriceInPrint == true) {
+                model.HidePriceInPrint = true;
+            }
+            else {
+                model.HidePriceInPrint = false;
+            }
 
             try {
-                $.post(global + "/SaveStoreInfo", model, function (data) {
+                $.post(global + "/SaveStoreInfoNew", model, function (data) {
                     console.log(data.indexOf("Successful"));
+                    if (printerName != "") {
+                        localStorage.setItem("PrinterName", printerName);
+                    }
                     //LoadProfileDetails();
                     if (data.indexOf("Successful") > -1) {
                         swal({
