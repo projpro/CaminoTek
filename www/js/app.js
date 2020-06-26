@@ -262,6 +262,7 @@ $$(document).on('page:init', function (e) {
                     InitPushNotification(storeId, device.manufacturer, device.uuid, device.version);
                 }
             }
+
         }
 
         localStorage.setItem("CurrentPage", currentPage);
@@ -325,16 +326,17 @@ $$(document).on('page:init', function (e) {
         $('#linkCarryoutFilterIcon').click(function () {
             $('#ulFilterSortCarryout').show();
             $('#ulFilterSortGiftCard').hide();
+            $('#ulFilterSortGiftCardHistory').hide();
             $('#ulFilterSortCoupon').hide();
             $('#ulFilterSortItem').hide();
         });
-        
-        $$('#btnPrintOrder').on('click', function () {
-            //alert("Print");
+
+        $$('#btnPrintOrder').on('click', function () {            
+
             $("#btnPrintOrder").text("Printing...");
-            PrintCarryoutDetails();            
-        });        
-        
+            PrintCarryoutDetails();
+
+        });
 
     }
     else if (pageURL.indexOf('food_list') > -1) {//carry out food item list
@@ -347,6 +349,7 @@ $$(document).on('page:init', function (e) {
         $$('#linkfoodFilterIcon').click(function () {
             $('#ulFilterSortCarryout').hide();
             $('#ulFilterSortGiftCard').hide();
+            $('#ulFilterSortGiftCardHistory').hide();
             $('#ulFilterSortCoupon').hide();
             $('#ulFilterSortItem').show();
 
@@ -633,10 +636,20 @@ $$(document).on('page:init', function (e) {
             //blockOffScroll();
         });
         $$('#linkGiftCardOrder').click(function () {
+            $('#ulFilterSortGiftCard').show();
+            $('#ulFilterSortGiftCardHistory').hide();
             ResetFilters('giftcardorders');
             currentTab = "Order";
             enableScrolling();
             //blockOffScroll();
+        });
+        $$('#linkGiftCardHistory').click(function () {
+            $('#ulFilterSortGiftCard').hide();
+            $('#ulFilterSortGiftCardHistory').show();
+            ResetFilters('giftcardhistory');
+            currentTab = "History";
+            enableScrolling();
+            GiftCardHistoryList(pageSize, currentPage);
         });
         $$('#txtCardCode').on('blur', function () {
             ClearSpecialCharacter('txtCardCode');
@@ -680,14 +693,14 @@ $$(document).on('page:init', function (e) {
         $$('#btnRefundGiftCard').click(function () {
             OpenGiftCardRefundPopup();
         });
-        
+
         $$('#btnCheckBalanceGiftCard').click(function () {
             CheckGiftCardBalance();
         });
         $$('#btnDeactivateGiftCard').click(function () {
             OpenGiftCardDeactivePopup();
         });
-        
+
         $$('input[type=radio][name=paymentType]').change(function () {
             if (this.value.toUpperCase() == 'CARD') {
                 //$$("#liPaymentType").show();
@@ -738,22 +751,43 @@ $$(document).on('page:init', function (e) {
         }
 
         $$('.page-content').scroll(function () {
-            var OrderAvailable = localStorage.getItem("GiftCardAvailable");
-            if (OrderAvailable == "1") {
-                currentPage = localStorage.getItem("GiftCardCurrentPage");
-                currentPage = Number(currentPage) + 1;
-                //console.log("currentPage: " + currentPage);
-                GiftCardOrdersListPagination(pageSize, currentPage);
-                localStorage.setItem("GiftCardCurrentPage", currentPage);
-            }
-            else {
+            console.log("Current Tab: " + currentTab);
+            if (currentTab == "Order") {
+                var OrderAvailable = localStorage.getItem("GiftCardAvailable");
+                if (OrderAvailable == "1") {
+                    currentPage = localStorage.getItem("GiftCardCurrentPage");
+                    currentPage = Number(currentPage) + 1;
+                    GiftCardOrdersListPagination(pageSize, currentPage);
+                    localStorage.setItem("GiftCardCurrentPage", currentPage);
+                }
+                else {
 
+                }
             }
+            else if (currentTab == "History") {
+                var OrderAvailable = localStorage.getItem("GiftCardHistroyAvailable");
+                if (OrderAvailable == "1") {
+                    currentPage = localStorage.getItem("GiftCardHistoryCurrentPage");
+                    currentPage = Number(currentPage) + 1;
+                    GiftCardHistoryListPagination(pageSize, currentPage);
+                    localStorage.setItem("GiftCardHistoryCurrentPage", currentPage);
+                }
+                else {
 
+                }
+            }
         });
 
         $$('#linkSearchIcon').click(function () {
-            $('#ulFilterSortGiftCard').show();
+            if (currentTab == "Order") {
+                $('#ulFilterSortGiftCard').show();
+                $('#ulFilterSortGiftCardHistory').hide();
+            }
+            else if (currentTab == "History") {
+                $('#ulFilterSortGiftCard').hide();
+                $('#ulFilterSortGiftCardHistory').show();
+            }
+            
             $('#ulFilterSortCoupon').hide();
             $('#ulFilterSortCarryout').hide();
             $('#ulFilterSortItem').hide();
@@ -1068,6 +1102,7 @@ $$(document).on('page:init', function (e) {
             $('#ulFilterSortCoupon').show();
             $('#ulFilterSortCarryout').hide();
             $('#ulFilterSortGiftCard').hide();
+            $('#ulFilterSortGiftCardHistory').hide();
             $('#ulFilterSortItem').hide();
         });
 
@@ -1371,6 +1406,86 @@ $$(document).on('page:init', function (e) {
     {
         CheckGiftCardPermission();
     }
+    else if (pageURL.indexOf('dinein_list') > -1)//Coupon
+    {
+        ResetFilters('dinein_list');
+        var storeId = 0;
+        $("#txtFilterDineinDate").flatpickr({
+            enableTime: false,
+            dateFormat: "m/d/Y",
+            //disableMobile: "false",
+            onChange: function (dateObj, dateStr) {
+                //console.log("#txtFilterOrderDateFrom dateObj:" + dateObj);
+                //console.log("#txtFilterOrderDateFrom dateStr:" + dateStr);
+                if (dateStr != undefined && dateStr != null && dateStr.trim() != "") {
+                    //console.log("1");
+                    $$("#phFilterDineinDate").hide();
+                }
+                else {
+                    //console.log("2");
+                    $$("#phFilterDineinDate").show();
+                }
+
+            }
+        });
+        $('#txtFilterDineinDate').change(function () {
+            var dateStr = $('#txtFilterDineinDate').val();
+            if (dateStr != undefined && dateStr != null && dateStr.trim() != "") {
+                //console.log("1");
+                $$("#phFilterDineinDate").hide();
+            }
+            else {
+                //console.log("2");
+                $$("#phFilterDineinDate").show();
+            }
+        });
+        
+        CheckGiftCardPermission();
+        document.addEventListener("deviceready", onDeviceReady, false);
+        function onDeviceReady() {
+            var src = mediaURL + "notification.mp3";
+            myMedia = new Media(src, onSuccess, onError, onStatus);
+
+            if (device.platform != "browser") {
+                deviceUUID = device.uuid;
+
+                if (localStorage.getItem("StoreId") != null)
+                    storeId = Number(localStorage.getItem("StoreId"));
+                if (storeId > 0) {
+                    InitPushNotification(storeId, device.manufacturer, device.uuid, device.version);
+                }
+            }
+        }
+       
+        var pageSize = 10;
+        var currentPage = 0;
+        $$('#linkFilterIcon').click(function () {
+            $('#ulFilterSortDineIn').show();
+            $('#ulFilterSortCoupon').hide();
+            $('#ulFilterSortCarryout').hide();
+            $('#ulFilterSortGiftCard').hide();
+            $('#ulFilterSortGiftCardHistory').hide();
+            $('#ulFilterSortItem').hide();
+        });
+
+        DineInList(pageSize, currentPage);
+                
+        $$('.page-content').scroll(function () {
+            var DineInAvailable = localStorage.getItem("DineinAvailable");
+            if (DineInAvailable == "1") {
+                currentPage = localStorage.getItem("DineinCurrentPage");
+                currentPage = Number(currentPage) + 1;
+                //console.log("currentPage: " + currentPage);
+                DineInListPagination(pageSize, currentPage);
+                localStorage.setItem("DineinCurrentPage", currentPage);
+            }
+            else {
+
+            }
+
+        });
+
+    }
 });
 
 function InitPushNotification(storeId, name, uuid, version) {
@@ -1423,14 +1538,17 @@ function InitPushNotification(storeId, name, uuid, version) {
         //    // Do something after 30 second 
         //}, 30000);
         //console.log('notification event: ' + data.message);
-         if (data.message == "SoundOff") {
+
+
+        ////else if (data.message == "Order accepted") {
+        if (data.message == "SoundOff") {
             localStorage.setItem("PushNotification", "Order accepted");
             ////localStorage.setItem("PushNotification", "SoundOff");
             ////$("#btnAcknowledgement").click();
             StopSound();
 
         }
-        else if (data.message != "") {   ////if (data.message == "A new order has been placed") {  
+        else if (data.message != "") {   ////if (data.message == "A new order has been placed") {   
             localStorage.setItem("PushNotification", "Order placed");
             ////localStorage.setItem("PushNotification", data.message);
             myMedia = new Media(src, onSuccess, onError, onStatus);
@@ -1448,6 +1566,24 @@ function InitPushNotification(storeId, name, uuid, version) {
                 myMedia.play();
             }
         }
+        
+        ////else if (data.message == "Device Ping") {
+        ////    localStorage.setItem("PushNotification", "Order accepted");
+        ////    myMedia = new Media(src, onSuccess, onError, onStatus);
+        ////    $('#myDiv').html('<div class="block">' +
+        ////                                     '<a href="#" class="link popup-close modal-accept-button" onclick="StopSound();" style=\"top: 40% !important; height: 205px; \">Click To Stop Sound</a>' +
+        ////                                     '<div class="overlay-button-area" id="dvPopOrders" style=\"top: 30px !important;\">' +
+        ////                                     '</div>' +
+        ////                                    '</div>');
+        ////    $('#myDiv').show();
+
+        ////    if (isDevice()) {
+        ////        // console.log('isDevice 1: ')
+        ////        //playAudio();
+        ////        myMedia.play();
+        ////    }
+        ////}
+
         // alert('notification event: ' + data.message + ", " + data.title);
         //navigator.notification.alert(
         //    data.message,         // message
@@ -1468,7 +1604,7 @@ function StopSound() {
 function StopSoundAndRefreshCarryout() {
     var storeId = SetStoreId();
     StopSound();//Stop Current Device Sound
-    
+
     if (app.views.main.router.url.indexOf('carryout') > -1) {
         //alert("carryout 2");//////////
         app.tab.show('#1');//Commented For Stop Auto Redirect - 09.20.2019
@@ -1478,8 +1614,8 @@ function StopSoundAndRefreshCarryout() {
         //alert("carryout 2 else");//////////
         localStorage.setItem("loadcarryoutprocessing", "true");
     }
-    
-    StopSoundOtherDevices(storeId);//Stop Other Device Sound   
+
+    StopSoundOtherDevices(storeId);//Stop Other Device Sound    
 }
 
 function disableScrolling() {
@@ -1522,7 +1658,6 @@ function CheckLoggedIn() {
         }
     }
 }
-
 
 function CheckNewOrder() {
 
@@ -1675,50 +1810,50 @@ function CheckNewOrder() {
 
                             }
                             html += "<div class=\"popup-row\"> <div class=\"popup-column-one pop-up-display-label \">Name: <span class=\"pop-up-value-label\">" + value.BILLINGFIRSTNAME + " " + value.BILLINGLASTNAME + "</span></div></div>";;
-                            //Below commented code for avoid unknown error on conversion
-                            //if (value.BILLINGPHONE.length == 10)
-                            //    html += "<div class=\"popup-row\">  <div class=\"popup-column-one pop-up-display-label\" >Phone: <span class=\"pop-up-value-label\" id=\"phone_" + value.ID + "\">" + FormatPhoneNumber(value.BILLINGPHONE) + "</span></div></div>";
-                            //else
-                            //    html += "<div class=\"popup-row\">  <div class=\"popup-column-one pop-up-display-label\">Phone: <span  class=\"pop-up-value-label\" id=\"phone_" + value.ID + "\">" + value.BILLINGPHONE + "</span></div></div>";
-                            //html += "<div class=\"popup-row\"><div class=\"popup-column-one\" style=\"margin:10px 0 10px 0;\">";
+                            //Commented for hide Order other section from order popup
+                            ////if (value.BILLINGPHONE.length == 10)
+                            ////    html += "<div class=\"popup-row\">  <div class=\"popup-column-one pop-up-display-label\" >Phone: <span class=\"pop-up-value-label\" id=\"phone_" + value.ID + "\">" + FormatPhoneNumber(value.BILLINGPHONE) + "</span></div></div>";
+                            ////else
+                            ////    html += "<div class=\"popup-row\">  <div class=\"popup-column-one pop-up-display-label\">Phone: <span  class=\"pop-up-value-label\" id=\"phone_" + value.ID + "\">" + value.BILLINGPHONE + "</span></div></div>";
+                            ////html += "<div class=\"popup-row\"><div class=\"popup-column-one\" style=\"margin:10px 0 10px 0;\">";
 
-                            //html += "<table width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\" id=\"popUpItems\"> <tbody>";
-                            //html += "<tr><td align=\"left\" style=\"font-size:17px;font-weight:bold;border-bottom:1px solid #000;\" width=\"55%\">Items</td><td style=\"font-size:17px;font-weight:bold;border-bottom:1px solid #000;\" align=\"center\" width=\"15%\">Quantity</td> <td style=\"font-size:17px;font-weight:bold;border-bottom:1px solid #000;\" align=\"right\" width=\"15%\">Price</td> <td style=\"font-size:17px;font-weight:bold;border-bottom:1px solid #000;\" align=\"right\" width=\"15%\">Amount</td></tr>";
-                            //if (value.OrderItems.indexOf("#") > -1) {
-                            //    var arrItemRows = value.OrderItems.split('#');
-                            //    var i;
-                            //    for (i = 0; i < arrItemRows.length - 1; i++) {
-                            //        html += "<tr>";
-                            //        var columns = arrItemRows[i].trim();
-                            //        if (columns.indexOf('~') > -1) {
-                            //            var arrColumn = columns.split('~');
-                            //            var j;
-                            //            //console.log("arrColumn.length: " + arrColumn.length)
-                            //            var name = arrColumn[0];
-                            //            var qty = arrColumn[1];
-                            //            var price = arrColumn[2];
-                            //            var notes = unescape(arrColumn[3]);
+                            ////html += "<table width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\" id=\"popUpItems\"> <tbody>";
+                            ////html += "<tr><td align=\"left\" style=\"font-size:17px;font-weight:bold;border-bottom:1px solid #000;\" width=\"55%\">Items</td><td style=\"font-size:17px;font-weight:bold;border-bottom:1px solid #000;\" align=\"center\" width=\"15%\">Quantity</td> <td style=\"font-size:17px;font-weight:bold;border-bottom:1px solid #000;\" align=\"right\" width=\"15%\">Price</td> <td style=\"font-size:17px;font-weight:bold;border-bottom:1px solid #000;\" align=\"right\" width=\"15%\">Amount</td></tr>";
+                            ////if (value.OrderItems.indexOf("#") > -1) {
+                            ////    var arrItemRows = value.OrderItems.split('#');
+                            ////    var i;
+                            ////    for (i = 0; i < arrItemRows.length - 1; i++) {
+                            ////        html += "<tr>";
+                            ////        var columns = arrItemRows[i].trim();
+                            ////        if (columns.indexOf('~') > -1) {
+                            ////            var arrColumn = columns.split('~');
+                            ////            var j;
+                            ////            //console.log("arrColumn.length: " + arrColumn.length)
+                            ////            var name = arrColumn[0];
+                            ////            var qty = arrColumn[1];
+                            ////            var price = arrColumn[2];
+                            ////            var notes = unescape(arrColumn[3]);
 
-                            //            var amount = parseFloat(price) * parseFloat(qty);
+                            ////            var amount = parseFloat(price) * parseFloat(qty);
 
-                            //            if (notes != "") {
-                            //                html += "<td align=\"left\" style=\"font-size:17px;\">" + name + "(" + decode_str(notes) + ")</td>";
-                            //            }
-                            //            else {
-                            //                html += "<td align=\"left\" style=\"font-size:17px;\">" + name + "</td>";
-                            //            }
+                            ////            if (notes != "") {
+                            ////                html += "<td align=\"left\" style=\"font-size:17px;\">" + name + "(" + decode_str(notes) + ")</td>";
+                            ////            }
+                            ////            else {
+                            ////                html += "<td align=\"left\" style=\"font-size:17px;\">" + name + "</td>";
+                            ////            }
 
-                            //            html += "<td align=\"center\" style=\"font-size:17px;\">" + qty + "</td>";
-                            //            html += "<td align=\"right\" style=\"font-size:17px;\">" + FormatDecimal(price) + "</td>";
-                            //            html += "<td align=\"right\" style=\"font-size:17px;\">" + FormatDecimal(amount) + "</td>";
+                            ////            html += "<td align=\"center\" style=\"font-size:17px;\">" + qty + "</td>";
+                            ////            html += "<td align=\"right\" style=\"font-size:17px;\">" + FormatDecimal(price) + "</td>";
+                            ////            html += "<td align=\"right\" style=\"font-size:17px;\">" + FormatDecimal(amount) + "</td>";
 
-                            //        }
-                            //        html += "</tr>";
-                            //    }
+                            ////        }
+                            ////        html += "</tr>";
+                            ////    }
 
-                            //}
+                            ////}
 
-                            //html += "</tbody></table></div>";
+                            ////html += "</tbody></table></div>";
 
 
                             html += "</div></div>";
@@ -2059,10 +2194,9 @@ function AcceptOrders() {
 }
 function StopSoundOtherDevices(storeId) {
     var regId = localStorage.getItem('registrationId');
-
     $.ajax({
-        //url: global + 'StopSoundInAllDevices',
         url: global + 'StopSoundInAllDevicesNew',
+        //url: global + 'StopSoundInAllDevices',
         type: 'GET',
         data: {
             storeId: storeId,
@@ -2224,6 +2358,7 @@ $.fn.putCursorAtEnd = function () {
     });
 
 };
+
 
 //Print Order
 function PrintCarryoutDetails() {
@@ -2792,7 +2927,6 @@ function PrintCarryoutDetails() {
     }
 }
 //Print Order End
-
 
 
 
