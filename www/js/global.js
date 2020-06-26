@@ -14083,13 +14083,6 @@ function EditDineInQueue(id) {
     var guestCount = $("#ddlEditQueueNoOfUsers").val();
     var notes = $('#txtEditQueueNotes').val();
 
-function EditDineInQueue(id) {
-    var storeId = SetStoreId();
-    var name = $('#txtEditQueueName').val();
-    var phone = $("#txtEditQueuePhone").val();
-    var guestCount = $("#ddlEditQueueNoOfUsers").val();
-    var notes = $('#txtEditQueueNotes').val();
-
     $("#txtEditQueueName").css('border', bottomBorder);
     $("#txtEditQueuePhone").css('border', bottomBorder);
     $("#ddlEditQueueNoOfUsers").css('border', bottomBorder);
