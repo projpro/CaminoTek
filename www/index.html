@@ -191,6 +191,49 @@
                                     </li>
                                 </ul>
 
+                                <ul id="ulFilterSortGiftCardHistory" style="display:none;">
+                                    <li class="item-content">
+                                        <div class="item-media custom-width">
+                                            <i class="material-icons">settings_ethernet</i>
+                                            <select id="ddlFilterHistoryStatus">
+                                                <option value="">Status</option>
+                                                <option value="New">New</option>
+                                                <option value="Active">Active</option>
+                                                <option value="Inactive">Inactive</option>
+                                            </select>
+                                        </div>
+                                    </li>
+                                    <li class="item-content">
+                                        <div class="item-media custom-width">
+                                            <i class="material-icons">credit_card</i>
+                                            <input type="text" placeholder="Card Code" id="txtFilterHistoryCode" tabindex="2">
+                                            <span class="input-clear-button"></span>
+                                        </div>
+                                    </li>
+                                    <li class="item-content">
+                                        <div class="item-media custom-width">
+                                            <i class="material-icons">event</i>
+                                            <input type="text" id="txtFilterGiftCardHistoryDate" tabindex="2" data-input>
+                                            <span class="custom-placeholder" id="phFilterGiftCardHistoryDate">Date</span>
+                                            <span class="input-clear-button"></span>
+                                        </div>
+                                    </li>
+                                    <li class="item-content">
+                                        <div class="item-media custom-width">
+                                            <i class="material-icons">settings_ethernet</i>
+                                            <select id="ddlFilterHistoryType">
+                                                <option value="">Type</option>
+                                                <option value="Load">Load</option>
+                                                <option value="Redeem">Redeem</option>
+                                                <option value="Refund">Refund</option>
+                                            </select>
+                                        </div>
+                                    </li>
+                                    <li class="item-content">
+                                        <a id="btnGiftCardHistorySearch" class="custom-btn custom-bg bg1 custom-link btn-filter" onclick="GiftCardHistoryList(10, 0);">Filter</a>
+                                    </li>
+                                </ul>
+
                                 <ul id="ulFilterSortCoupon" style="display:none;">
                                     <li class="item-content">
                                         <div class="item-media custom-width">
@@ -508,6 +551,39 @@
                                         <a id="btnItemSort" class="custom-btn custom-bg bg1 custom-link btn-filter" onclick="FilterSortItems();">Sort</a>
                                     </li>
                                 </ul>
+
+                                <ul id="ulFilterSortDineIn" style="display:none;">
+                                    <li class="item-content">
+                                        <div class="item-media custom-width">
+                                            <i class="material-icons">settings_ethernet</i>
+                                            <select id="ddlFilterDineinStatus">
+                                                <option value="">Status</option>
+                                                <option value="New">New</option>
+                                                <option value="CheckIn">CheckIn</option>
+                                                <option value="Seated">Seated</option>
+                                                <option value="Cancelled">Cancelled</option>
+                                            </select>
+                                        </div>
+                                    </li>
+                                    <li class="item-content">
+                                        <div class="item-media custom-width">
+                                            <i class="material-icons">confirmation_number</i>
+                                            <input type="text" placeholder="Name" id="txtFilterDiniinName" tabindex="1">
+                                            <span class="input-clear-button"></span>
+                                        </div>
+                                    </li>
+                                    <li class="item-content">
+                                        <div class="item-media custom-width">
+                                            <i class="material-icons">event</i>
+                                            <input type="text" id="txtFilterDineinDate" tabindex="2" data-input>
+                                            <span class="custom-placeholder" id="phFilterDineinDate">Date</span>
+                                            <span class="input-clear-button"></span>
+                                        </div>
+                                    </li>
+                                    <li class="item-content">
+                                        <a id="btnCouponFilter custom-width" class="custom-btn custom-bg bg1 custom-link btn-filter" onclick="DineInList(10, 0);">Filter</a>
+                                    </li>
+                                </ul>
                             </div>
 
                         </div>
@@ -525,10 +601,10 @@
     <div id='myDiv'>
         <!-- add the fields/buttons here -->
     </div>
-    <div class="popup-overlay" >
+    <div class="popup-overlay" >        
         <div class="custom-modal" id='cancelOrder'>
             <!-- add the fields/buttons here -->
-        </div>
+        </div>        
         <div class="custom-modal" id="pickupTimePopup">
             <!-- add the fields/buttons here -->
         </div>
@@ -544,6 +620,12 @@
         <div class="custom-modal-one" id='rewardMultipleCustomers'>
             <!-- add the fields/buttons here -->
         </div>
+        <div class="custom-modal" id='addDineIn'>
+            <!-- add the fields/buttons here -->
+        </div>
+        <div class="custom-modal" id='notifyCustomer'>
+            <!-- add the fields/buttons here -->
+        </div>
         <div class="custom-modal-one" id='giftcardPayment'>
             <!-- add the fields/buttons here -->
         </div>
@@ -554,6 +636,7 @@
             <!-- add the fields/buttons here -->
         </div>
         
+        
     </div>
    
    
@@ -563,7 +646,7 @@
     <script src="js/flatpickr.js"></script>
     <script src="js/routes.js"></script>
     <script src="js/app.js"></script>
-    <script src="js/global.js"></script>    
+    <script src="js/global.js"></script>
     <!--<script src="js/jquery-code-scanner.js"></script>-->
     <!-- SweetAlert -->
     <script src="js/sweet-alert/sweetalert.min.js"></script>
