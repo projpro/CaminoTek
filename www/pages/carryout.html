@@ -1,6 +1,5 @@
 <div class="page page-with-toolbar" id="carryout">
 
-    
     <div class="toolbar tabbar tabbar-labels toolbar-bottom-md custom-toolbar">
         <div class="toolbar-inner">
             <a href="/carryout/" class="tab-link menuCarryout tab-link-active footer-menu-active">
@@ -184,7 +183,6 @@
                                         <div style="width:2%"></div>
                                         <div style="width:48%">
                                             <a class="custom-btn-four custom-bg custom-link" id="btnPrintOrder" style="background:#5cb95a !important;">Print</a>
-                                            <!--<a class="custom-btn-four custom-bg custom-link" id="btnPrintOrder" style="background:#5cb95a !important;opacity:0.5;">Print</a>-->
                                         </div>
                                     </div>
 
@@ -233,7 +231,6 @@
                                             <option value="30">Complete</option>
                                             <option value="70">Shipped</option>
                                             <option value="50">Picked Up</option>
-
                                         </select>
                                     </div>
                                 </li>
@@ -332,6 +329,49 @@
                                 <li class="item-content">
                                     <a id="btnGiftCardOrderSort" class="custom-btn custom-bg bg1 custom-link btn-filter" onclick="GiftCardOrdersList(10,0);">Sort</a>
                                 </li>
+                            </ul>
+
+                            <ul id="ulFilterSortGiftCardHistory" style="display:none;">
+                                <li class="item-content">
+                                    <div class="item-media custom-width">
+                                        <i class="material-icons">settings_ethernet</i>                                        
+                                        <select id="ddlFilterHistoryStatus">
+                                            <option value="">Status</option>
+                                            <option value="New">New</option>
+                                            <option value="Active">Active</option>
+                                            <option value="Inactive">Inactive</option>
+                                        </select>
+                                    </div>
+                                </li>
+                                <li class="item-content">
+                                    <div class="item-media custom-width">
+                                        <i class="material-icons">credit_card</i>
+                                        <input type="text" placeholder="Card Code" id="txtFilterHistoryCode" tabindex="2">
+                                        <span class="input-clear-button"></span>
+                                    </div>
+                                </li>
+                                <li class="item-content">
+                                    <div class="item-media custom-width">
+                                        <i class="material-icons">event</i>
+                                        <input type="text" id="txtFilterGiftCardHistoryDate" tabindex="2" data-input>
+                                        <span class="custom-placeholder" id="phFilterGiftCardHistoryDate">Date</span>
+                                        <span class="input-clear-button"></span>
+                                    </div>
+                                </li>
+                                <li class="item-content">
+                                    <div class="item-media custom-width">
+                                        <i class="material-icons">settings_ethernet</i>
+                                        <select id="ddlFilterHistoryType">
+                                            <option value="">Type</option>
+                                            <option value="Load">Load</option>
+                                            <option value="Redeem">Redeem</option>
+                                            <option value="Refund">Refund</option>
+                                        </select>
+                                    </div>
+                                </li>
+                                <li class="item-content">
+                                    <a id="btnGiftCardHistorySearch" class="custom-btn custom-bg bg1 custom-link btn-filter" onclick="GiftCardHistoryList(10, 0);">Filter</a>
+                                </li>                                
                             </ul>
 
                             <ul id="ulFilterSortCoupon" style="display:none;">
@@ -649,6 +689,39 @@
                                 </li>
                                 <li class="item-content">
                                     <a id="btnItemSort" class="custom-btn custom-bg bg1 custom-link btn-filter" onclick="FilterSortItems();">Sort</a>
+                                </li>
+                            </ul>
+
+                            <ul id="ulFilterSortDineIn" style="display:none;">
+                                <li class="item-content">
+                                    <div class="item-media custom-width">
+                                        <i class="material-icons">settings_ethernet</i>
+                                        <select id="ddlFilterDineinStatus">
+                                            <option value="">Status</option>
+                                            <option value="New">New</option>
+                                            <option value="CheckIn">CheckIn</option>
+                                            <option value="Seated">Seated</option>
+                                            <option value="Cancelled">Cancelled</option>
+                                        </select>
+                                    </div>
+                                </li>
+                                <li class="item-content">
+                                    <div class="item-media custom-width">
+                                        <i class="material-icons">confirmation_number</i>
+                                        <input type="text" placeholder="Name" id="txtFilterDiniinName" tabindex="1">
+                                        <span class="input-clear-button"></span>
+                                    </div>
+                                </li>
+                                <li class="item-content">
+                                    <div class="item-media custom-width">
+                                        <i class="material-icons">event</i>
+                                        <input type="text" id="txtFilterDineinDate" tabindex="2" data-input>
+                                        <span class="custom-placeholder" id="phFilterDineinDate">Date</span>
+                                        <span class="input-clear-button"></span>
+                                    </div>
+                                </li>
+                                <li class="item-content">
+                                    <a id="btnCouponFilter custom-width" class="custom-btn custom-bg bg1 custom-link btn-filter" onclick="DineInList(10, 0);">Filter</a>
                                 </li>
                             </ul>
                         </div>
