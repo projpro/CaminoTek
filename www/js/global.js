@@ -1312,7 +1312,7 @@ function OpenCarryoutDetails(id) {
                     }
                     else if (curbsidePickup) {
                         $('#carryout #spanOrderDetailsOrderType').html("");
-                        $('#carryout #spanOrderDetailsOrderType').html("Curbside Pickup");
+                        $('#carryout #spanOrderDetailsOrderType').html("Curbside");
                         $('#carryout #spanOrderDetailsOrderType').css('color', '#3b9847');
                     }
                     else {
