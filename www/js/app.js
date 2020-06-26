@@ -647,6 +647,35 @@ $$(document).on('page:init', function (e) {
             $('#ulFilterSortGiftCard').hide();
             $('#ulFilterSortGiftCardHistory').show();
             ResetFilters('giftcardhistory');
+            $("#txtFilterGiftCardHistoryDate").flatpickr({
+                enableTime: false,
+                dateFormat: "m/d/Y",
+                //disableMobile: "false",
+                onChange: function (dateObj, dateStr) {
+                    //console.log("#txtFilterOrderDateFrom dateObj:" + dateObj);
+                    //console.log("#txtFilterOrderDateFrom dateStr:" + dateStr);
+                    if (dateStr != undefined && dateStr != null && dateStr.trim() != "") {
+                        //console.log("1");
+                        $$("#phFilterGiftCardHistoryDate").hide();
+                    }
+                    else {
+                        //console.log("2");
+                        $$("#phFilterGiftCardHistoryDate").show();
+                    }
+
+                }
+            });
+            $('#txtFilterGiftCardHistoryDate').change(function () {
+                var dateStr = $('#txtFilterGiftCardHistoryDate').val();
+                if (dateStr != undefined && dateStr != null && dateStr.trim() != "") {
+                    //console.log("1");
+                    $$("#phFilterGiftCardHistoryDate").hide();
+                }
+                else {
+                    //console.log("2");
+                    $$("#phFilterGiftCardHistoryDate").show();
+                }
+            });
             currentTab = "History";
             enableScrolling();
             GiftCardHistoryList(pageSize, currentPage);
