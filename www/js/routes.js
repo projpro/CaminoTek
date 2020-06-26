@@ -158,6 +158,12 @@ var routes = [
       url: './pages/foods.html',
       name: 'foods',
   },
+  //Dine-In
+    {
+        path: '/dinein_list/',
+        url: './pages/dinein_list.html',
+        name: 'dinein_list',
+    },
   // Default route (404 page). MUST BE THE LAST
   {
       path: '(.*)',
