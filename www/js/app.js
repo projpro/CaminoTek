@@ -809,10 +809,12 @@ $$(document).on('page:init', function (e) {
 
         $$('#linkSearchIcon').click(function () {
             if (currentTab == "Order") {
+                $('#ulFilterSortDineIn').hide();
                 $('#ulFilterSortGiftCard').show();
                 $('#ulFilterSortGiftCardHistory').hide();
             }
             else if (currentTab == "History") {
+                $('#ulFilterSortDineIn').hide();
                 $('#ulFilterSortGiftCard').hide();
                 $('#ulFilterSortGiftCardHistory').show();
             }
