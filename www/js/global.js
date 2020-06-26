@@ -9176,6 +9176,14 @@ function SetManageService() {
                 var carryoutcurrentstatus = value.CARRYOUTSTATUS;
                 var deliveryEnabled = value.DELIVERYENABLED;
                 var deliveryCurrentStatus = value.DELIVERYSTATUS;
+                var dineInEnabled = value.DINEINENABLED;
+
+                if (dineInEnabled) {
+                    $('#ulDineIn').show();
+                }
+                else {
+                    $('#ulDineIn').hide();
+                }
 
                 if (deliveryEnabled) {
                     $('#divDeliverySection').show();
