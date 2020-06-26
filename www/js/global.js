@@ -13277,7 +13277,6 @@ function BindCCMonth(id) {
 
 
 //Gift Card History Start
-//Not Completed
 function GiftCardHistoryList(pagesize, currentPage) {
 
     var storeId = 0;
@@ -13333,8 +13332,16 @@ function GiftCardHistoryList(pagesize, currentPage) {
                         html += "<div class=\"order-list\" data-popup=\".popup-details\">";//Second Div
 
                         html += "<div class=\"order-column-one\" data-panel=\"left\">";//Third Div
-                        html += "<div class=\"giftcard-order-pickup\" style=\"font-size: 22px;\">" + code + "</div>";
-                        html += "<div style=\"text-align:center;color: #000;\">" + valueStatus + "</div>";
+                        if (type.toLowerCase() == "active") {
+                            html += "<div class=\"giftcard-order-pickup\" style=\"font-size: 22px;margin-top: 10px;color: #3b9847 !important;\">" + code + "</div>";
+                        }
+                        else if (type.toLowerCase() == "inactive") {
+                            html += "<div class=\"giftcard-order-pickup\" style=\"font-size: 22px;margin-top: 10px;color: #e95861 !important;\">" + code + "</div>";
+                        }
+                        else {
+                            html += "<div class=\"giftcard-order-pickup\" style=\"font-size: 22px;margin-top: 10px;\">" + code + "</div>";
+                        }                        
+                        //html += "<div style=\"text-align:center;color: #000;\">" + valueStatus + "</div>";
                         html += "</div>";//Third Div End
 
                         html += "<div class=\"order-column-two\">";//Forth Div
@@ -13348,8 +13355,21 @@ function GiftCardHistoryList(pagesize, currentPage) {
 
                         html += "<div class=\"giftcard-buttons\" id=\"btnSet_1513\" style=\"width:25%;font-size:18px;\">";
                         html += "<div class=\"customer-detail-container\">";
-                        html += "<div class=\"order-price\" style=\"font-size:24px;\">" + usedValue + "</div>";
-                        html += "<div>" + type + "</div>";
+                        if (type.toLowerCase() == "active") {
+                            html += "<div class=\"order-price\" style=\"font-size:24px;color: #3b9847 !important;\">Active</div>";
+                        }
+                        else if (type.toLowerCase() == "inactive") {
+                            html += "<div class=\"order-price\" style=\"font-size:24px;color: #e95861 !important;\">Inactive</div>";
+                        }
+                        else if (type.toLowerCase() == "load") {
+                            html += "<div class=\"order-price\" style=\"font-size:24px;color: #3b9847 !important;\">" + usedValue + "</div>";
+                            html += "<div>" + type + "</div>";
+                        }
+                        else if (type.toLowerCase() == "redeem" || type.toLowerCase() == "refund") {
+                            html += "<div class=\"order-price\" style=\"font-size:24px;color: #08b3c7 !important;\">" + usedValue + "</div>";
+                            html += "<div>" + type + "</div>";
+                        }
+                                                
                         html += "</div>"
                         html += "</div>"
 
@@ -13443,8 +13463,16 @@ function GiftCardHistoryListPagination(pagesize, currentPage) {
                         html += "<div class=\"order-list\" data-popup=\".popup-details\">";//Second Div
 
                         html += "<div class=\"order-column-one\" data-panel=\"left\">";//Third Div
-                        html += "<div class=\"giftcard-order-pickup\" style=\"font-size: 22px;\">" + code + "</div>";
-                        html += "<div style=\"text-align:center;color: #000;\">" + valueStatus + "</div>";
+                        if (type.toLowerCase() == "active") {
+                            html += "<div class=\"giftcard-order-pickup\" style=\"font-size: 22px;margin-top: 10px;color: #3b9847 !important;\">" + code + "</div>";
+                        }
+                        else if (type.toLowerCase() == "inactive") {
+                            html += "<div class=\"giftcard-order-pickup\" style=\"font-size: 22px;margin-top: 10px;color: #e95861 !important;\">" + code + "</div>";
+                        }
+                        else {
+                            html += "<div class=\"giftcard-order-pickup\" style=\"font-size: 22px;margin-top: 10px;\">" + code + "</div>";
+                        }
+                        //html += "<div style=\"text-align:center;color: #000;\">" + valueStatus + "</div>";
                         html += "</div>";//Third Div End
 
                         html += "<div class=\"order-column-two\">";//Forth Div
@@ -13458,8 +13486,21 @@ function GiftCardHistoryListPagination(pagesize, currentPage) {
 
                         html += "<div class=\"giftcard-buttons\" id=\"btnSet_1513\" style=\"width:25%;font-size:18px;\">";
                         html += "<div class=\"customer-detail-container\">";
-                        html += "<div class=\"order-price\" style=\"font-size:24px;\">" + usedValue + "</div>";
-                        html += "<div>" + type + "</div>";
+                        if (type.toLowerCase() == "active") {
+                            html += "<div class=\"order-price\" style=\"font-size:24px;color: #3b9847 !important;\">Active</div>";
+                        }
+                        else if (type.toLowerCase() == "inactive") {
+                            html += "<div class=\"order-price\" style=\"font-size:24px;color: #e95861 !important;\">Inactive</div>";
+                        }
+                        else if (type.toLowerCase() == "load") {
+                            html += "<div class=\"order-price\" style=\"font-size:24px;color: #3b9847 !important;\">" + usedValue + "</div>";
+                            html += "<div>" + type + "</div>";
+                        }
+                        else if (type.toLowerCase() == "redeem" || type.toLowerCase() == "refund") {
+                            html += "<div class=\"order-price\" style=\"font-size:24px;color: #08b3c7 !important;\">" + usedValue + "</div>";
+                            html += "<div>" + type + "</div>";
+                        }
+                        
                         html += "</div>"
                         html += "</div>"
 
