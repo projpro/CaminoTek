@@ -13348,12 +13348,12 @@ function GiftCardHistoryList(pagesize, currentPage) {
                         
                         html += "<div class=\"order-row-container\">";//Forth Inner Div One
 
-                        html += "<div class=\"giftcard-order-number\" data-panel=\"left\" style=\"width:75%;padding-top:0px;\">";
+                        html += "<div class=\"giftcard-order-number\" data-panel=\"left\" style=\"width:70%;padding-top:0px;\">";
                         html += "<div>" + dateTime + "</div>";
                         html += "<div>" + storeName + "</div>";
                         html += "</div>";
 
-                        html += "<div class=\"giftcard-buttons\" id=\"btnSet_1513\" style=\"width:25%;font-size:18px;\">";
+                        html += "<div class=\"giftcard-buttons\" id=\"btnSet_1513\" style=\"width:30%;font-size:18px;\">";
                         html += "<div class=\"customer-detail-container\">";
                         if (type.toLowerCase() == "active") {
                             html += "<div class=\"order-price\" style=\"font-size:24px;color: #3b9847 !important;\">Active</div>";
@@ -13479,12 +13479,12 @@ function GiftCardHistoryListPagination(pagesize, currentPage) {
 
                         html += "<div class=\"order-row-container\">";//Forth Inner Div One
 
-                        html += "<div class=\"giftcard-order-number\" data-panel=\"left\" style=\"width:75%;padding-top:0px;\">";
+                        html += "<div class=\"giftcard-order-number\" data-panel=\"left\" style=\"width:70%;padding-top:0px;\">";
                         html += "<div>" + dateTime + "</div>";
                         html += "<div>" + storeName + "</div>";
                         html += "</div>";
 
-                        html += "<div class=\"giftcard-buttons\" id=\"btnSet_1513\" style=\"width:25%;font-size:18px;\">";
+                        html += "<div class=\"giftcard-buttons\" id=\"btnSet_1513\" style=\"width:30%;font-size:18px;\">";
                         html += "<div class=\"customer-detail-container\">";
                         if (type.toLowerCase() == "active") {
                             html += "<div class=\"order-price\" style=\"font-size:24px;color: #3b9847 !important;\">Active</div>";
