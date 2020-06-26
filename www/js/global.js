@@ -13573,7 +13573,7 @@ function DineInList(pagesize, currentPage) {
                         html += "</div>";//Div Time End
 
                         html += "<div class=\"coupon-buttons\" style=\"width:75%\">";//Div Buttons
-                        html += "<div class=\"coupon-status-icon\" onclick=\"OpenNotifyCustomer(" + dineInId + ");\"><img class=\"list-icon\" src=\"./img/icons/sms_button.png\"></div>";
+                        html += "<div class=\"coupon-status-icon\" onclick=\"OpenNotifyCustomer(" + dineInId + ");\"><img class=\"list-icon\" style=\"max-width: 85% !important;\" src=\"./img/icons/sms_button.png\"></div>";
                         html += "<div class=\"coupon-status-icon\" onclick=\"SeatedReservation(" + dineInId + ");\"><img class=\"list-icon\" src=\"./img/icons/active.png\"></div>";
                         html += "<div class=\"coupon-status-icon\" onclick=\"UnseatedReservation(" + dineInId + ");\"><img class=\"list-icon\" src=\"./img/icons/inactive_new.png\"></div>";
                         html += "<div class=\"coupon-status-icon\" onclick=\"NoShowReservation(" + dineInId + ");\"><img class=\"list-icon\" src=\"./img/icons/checkout.png\"></div>";
@@ -13682,11 +13682,11 @@ function DineInListPagination(pagesize, currentPage) {
                         html += "</div>";//Div Time End
 
                         html += "<div class=\"coupon-buttons\" style=\"width:75%\">";//Div Buttons
-                        html += "<div class=\"coupon-status-icon\" onclick=\"OpenNotifyCustomer(" + dineInId + ");\"><img class=\"list-icon\" src=\"./img/icons/sms_button.png\"></div>";
+                        html += "<div class=\"coupon-status-icon\" onclick=\"OpenNotifyCustomer(" + dineInId + ");\"><img class=\"list-icon\" style=\"max-width: 85% !important;\" src=\"./img/icons/sms_button.png\"></div>";
                         html += "<div class=\"coupon-status-icon\" onclick=\"SeatedReservation(" + dineInId + ");\"><img class=\"list-icon\" src=\"./img/icons/active.png\"></div>";
                         html += "<div class=\"coupon-status-icon\" onclick=\"UnseatedReservation(" + dineInId + ");\"><img class=\"list-icon\" src=\"./img/icons/inactive_new.png\"></div>";
                         html += "<div class=\"coupon-status-icon\" onclick=\"NoShowReservation(" + dineInId + ");\"><img class=\"list-icon\" src=\"./img/icons/checkout.png\"></div>";
-                        html += "<div class=\"coupon-status-icon\" onclick=\"CancelQueueReservation(" + dineInId + ");\"><img class=\"list-icon\" src=\"./img/icons/delete_new.png\"></div>";
+                        html += "<div class=\"coupon-status-icon\" onclick=\"CancelQueueReservation(" + dineInId + ");\"><img class=\"list-icon\" style=\"max-width: 60% !important;\" src=\"./img/icons/delete_new.png\"></div>";
 
                         html += "</div>";//Div Buttons End
 
@@ -13756,7 +13756,7 @@ function OpenEditDineIn(id){
 
         html += "<textarea id=\"txtEditQueueNotes\" value=\"" + notes + "\" class=\"swal2-textarea\" style=\"border:1px solid #ddd;height:160px;padding: 5px 5px;\" placeholder=\"Notes\">";
         html += "</textarea><div class=\"popup-button-area\"><button id=\"btnSaveQueue\" onclick=\"EditDineInQueue(" + id + ");\" type=\"button\" class=\"popup-confirm swal2-styled\" aria-label=\"\" ";
-        html += "style=\"background-color: rgb(59, 152, 71); border-left-color: rgb(59, 152, 71); border-right-color: rgb(59, 152, 71);\">Edit Queue</button>";
+        html += "style=\"background-color: rgb(59, 152, 71); border-left-color: rgb(59, 152, 71); border-right-color: rgb(59, 152, 71);\">Submit</button>";
         html += "<button type=\"button\" onclick=\"CloseAddDineInPopup();\" class=\"swal2-styled popup-no\" aria-label=\"\" style=\"display: inline-block; background-color: rgb(233, 88, 97);\">Close</button></div></div>";
         $('#addDineIn').html(html);
         $(".popup-overlay").show();
@@ -13969,7 +13969,7 @@ function OpenAddDineInPopup() {
 
     html += "<textarea id=\"txtAddQueueNotes\" class=\"swal2-textarea\" style=\"border:1px solid #ddd;height:160px;padding: 5px 5px;\" placeholder=\"Notes\">";
     html += "</textarea><div class=\"popup-button-area\"><button id=\"btnSaveQueue\" onclick=\"AddDineInQueue();\" type=\"button\" class=\"popup-confirm swal2-styled\" aria-label=\"\" ";
-    html += "style=\"background-color: rgb(59, 152, 71); border-left-color: rgb(59, 152, 71); border-right-color: rgb(59, 152, 71);\">Add Queue</button>";
+    html += "style=\"background-color: rgb(59, 152, 71); border-left-color: rgb(59, 152, 71); border-right-color: rgb(59, 152, 71);\">Submit</button>";
     html += "<button type=\"button\" onclick=\"CloseAddDineInPopup();\" class=\"swal2-styled popup-no\" aria-label=\"\" style=\"display: inline-block; background-color: rgb(233, 88, 97);\">Close</button></div></div>";
     $('#addDineIn').html(html);
     $(".popup-overlay").show();
@@ -13989,7 +13989,7 @@ function AddDineInQueue() {
 
     if (name != "" && phone != "" && guestCount != "") {
 
-        $("#btnSaveQueue").html("Adding...");
+        $("#btnSaveQueue").html("Submitting...");
 
         $.ajax({
             url: global + 'AddQueue?storeid=' + storeId + '&name=' + name + "&phone=" + phone + "&guestCount=" + guestCount + "&notes=" + notes,
@@ -13999,7 +13999,7 @@ function AddDineInQueue() {
             crossDomain: true,
             //async: false,
             success: function (data) {
-                $("#btnSaveQueue").html("Add Queue");
+                $("#btnSaveQueue").html("Submit");
                 console.log(data)
                 if (data.replace(/"/g, "").indexOf("failed") > -1) {
                     CloseAddDineInPopup();
@@ -14016,7 +14016,7 @@ function AddDineInQueue() {
 
             },
             error: function (xhr, textStatus, errorThrown) {
-                $("#btnSaveQueue").html("Add Queue");
+                $("#btnSaveQueue").html("Submit");
             }
         });
 
@@ -14041,13 +14041,20 @@ function EditDineInQueue(id) {
     var guestCount = $("#ddlEditQueueNoOfUsers").val();
     var notes = $('#txtEditQueueNotes').val();
 
+function EditDineInQueue(id) {
+    var storeId = SetStoreId();
+    var name = $('#txtEditQueueName').val();
+    var phone = $("#txtEditQueuePhone").val();
+    var guestCount = $("#ddlEditQueueNoOfUsers").val();
+    var notes = $('#txtEditQueueNotes').val();
+
     $("#txtEditQueueName").css('border', bottomBorder);
     $("#txtEditQueuePhone").css('border', bottomBorder);
     $("#ddlEditQueueNoOfUsers").css('border', bottomBorder);
 
     if (name != "" && phone != "" && guestCount != "") {
 
-        $("#btnSaveQueue").html("Adding...");
+        $("#btnSaveQueue").html("Submitting...");
 
         $.ajax({
             url: global + 'EditQueue?id=' + id + "&storeid=" + storeId + "&name=" + name + "&phone=" + phone + "&guestCount=" + guestCount + "&notes=" + notes,
@@ -14057,7 +14064,7 @@ function EditDineInQueue(id) {
             crossDomain: true,
             //async: false,
             success: function (data) {
-                $("#btnSaveQueue").html("Edit Queue");
+                $("#btnSaveQueue").html("Submit");
                 console.log(data)
                 if (data.replace(/"/g, "").indexOf("failed") > -1) {
                     $('#hdnDineInValues_' + id).val(name + "~" + phone + "~" + guestCount + "~" + notes);
@@ -14075,7 +14082,7 @@ function EditDineInQueue(id) {
 
             },
             error: function (xhr, textStatus, errorThrown) {
-                $("#btnSaveQueue").html("Edit Queue");
+                $("#btnSaveQueue").html("Submit");
             }
         });
 
