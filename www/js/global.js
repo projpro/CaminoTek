@@ -13561,7 +13561,7 @@ function DineInList(pagesize, currentPage) {
                             html += "<div id=\"divName_"+dineInId+"\" class=\"order-number\" style=\"font-size:16px;width:100%;\">" + guestName + " (" + guestCount + ")</div>";
                         }
                         else if (valueStatus == "CheckIn") {
-                            html += "<div id=\"divName_" + dineInId + "\" class=\"order-number\" style=\"font-size:16px;width:100%;\">" + guestName + " (" + guestCount + ")</div>";
+                            html += "<div id=\"divName_" + dineInId + "\" class=\"order-number\" style=\"font-size:16px;width:100%;border-bottom: #ffd133 4px solid;\">" + guestName + " (" + guestCount + ")</div>";
                         }
                         else if (valueStatus == "Seated") {
                             html += "<div id=\"divName_" + dineInId + "\" class=\"order-number\" style=\"font-size:16px;width:100%;border-bottom: #62b787 4px solid;\">" + guestName + " (" + guestCount + ")</div>";
@@ -13670,7 +13670,7 @@ function DineInListPagination(pagesize, currentPage) {
                             html += "<div id=\"divName_" + dineInId + "\" class=\"order-number\" style=\"font-size:16px;width:100%;\">" + guestName + " (" + guestCount + ")</div>";
                         }
                         else if (valueStatus == "CheckIn") {
-                            html += "<div id=\"divName_" + dineInId + "\" class=\"order-number\" style=\"font-size:16px;width:100%;\">" + guestName + " (" + guestCount + ")</div>";
+                            html += "<div id=\"divName_" + dineInId + "\" class=\"order-number\" style=\"font-size:16px;width:100%;border-bottom: #ffd133 4px solid;\">" + guestName + " (" + guestCount + ")</div>";
                         }
                         else if (valueStatus == "Seated") {
                             html += "<div id=\"divName_" + dineInId + "\" class=\"order-number\" style=\"font-size:16px;width:100%;border-bottom: #62b787 4px solid;\">" + guestName + " (" + guestCount + ")</div>";
