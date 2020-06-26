@@ -333,7 +333,7 @@ $$(document).on('page:init', function (e) {
 
         $$('#btnPrintOrder').on('click', function () {            
 
-            $("#btnPrintOrder").text("Printing...");
+            $(this).text("Printing...");
             PrintCarryoutDetails();
 
         });
