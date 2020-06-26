@@ -1,6 +1,6 @@
 var global = "http://www.appnotification.bistroux.com/Api/App/";
 //var global = "http://www.consumerapp.bistroux.com/Api/App/";
-//var global = "http://192.168.0.102/Api/App/";
+//var global = "http://192.168.0.104/Api/App/";
 var mediaURL = "http://appnotification.bistroux.com/Media/";
 
 var browser = true;
@@ -177,8 +177,6 @@ function Login() {
     }
 
 }
-//Login End
-
 function SetUpBarCodeScanButton(id)
 {
     var barcodeScanEnabled = localStorage.getItem("BarcodeScanEnabled").trim();
@@ -1285,23 +1283,23 @@ function OpenCarryoutDetails(id) {
             //console.log(data);
             $.each(JSON.parse(data), function (index, value) {
                 //console.log(value);
+
                 //CurbsidePickup Seciton
-                    if (value.CurbsidePickup)
-                    {
-                        curbsidePickup = true;
-                        if (value.CurbsidePickupMessage != null && value.CurbsidePickupMessage != "") {
-                            curbsidePickupMessage = value.CurbsidePickupMessage;
-                        }
-                        if (value.CurbsidePickupTime != null && value.CurbsidePickupTime != undefined) {
-                            var arrCurbsidePickupDateTime = value.CurbsidePickupTime.split('~');
-                            curbsidePickupDate = arrCurbsidePickupDateTime[0];
-                            curbsidePickupTime = arrCurbsidePickupDateTime[1];
-                        }
+                if (value.CurbsidePickup) {
+                    curbsidePickup = true;
+                    if (value.CurbsidePickupMessage != null && value.CurbsidePickupMessage != "") {
+                        curbsidePickupMessage = value.CurbsidePickupMessage;
                     }
-                    else {
-                        curbsidePickup = false;
-                        curbsidePickupMessage = "";
+                    if (value.CurbsidePickupTime != null && value.CurbsidePickupTime != undefined) {
+                        var arrCurbsidePickupDateTime = value.CurbsidePickupTime.split('~');
+                        curbsidePickupDate = arrCurbsidePickupDateTime[0];
+                        curbsidePickupTime = arrCurbsidePickupDateTime[1];
                     }
+                }
+                else {
+                    curbsidePickup = false;
+                    curbsidePickupMessage = "";
+                }
 
                 if (value.Type == "OrderInfo") {
                     if (value.ORDERTYPE != "") {
@@ -1495,7 +1493,9 @@ function OpenCarryoutDetails(id) {
                     if(value.AUTHORIZATIONTRANSACTIONCODE!=null)
                     {
                         authorizationCode = value.AUTHORIZATIONTRANSACTIONCODE;
-                    }                                      
+                    }
+                                        
+                    
 
                 }
                 else if (value.Type == "DiscountInfo") {
@@ -9339,11 +9339,11 @@ function LoadProfileDetails() {
 
                         if (value.HidePriceInPrint == true) {
                             hidePriceInPrint = true;
-                            $("#tab-profile-info #checkHidePrice").prop('checked', true)
+                            $("#tab-profile-info #checkHidePrice").prop('checked', true);
                         }
                         else {
                             hidePriceInPrint = false;
-                            $("#tab-profile-info #checkHidePrice").prop('checked', false)
+                            $("#tab-profile-info #checkHidePrice").prop('checked', false);
                         }
                         if(value.PrinterName != "")
                         {
@@ -10941,7 +10941,7 @@ function SaveProductInfo() {
                 if (data.indexOf("Successful") > -1 || data == "") {
                     if (Number(itemId) > 0) {
                         swal({
-                            title: "Food item updated successfully.",
+                            title: "Item updated successfully.",
                             confirmButtonText: "OK",
                             type: "success",
                             confirmButtonClass: 'btn btn-success',
@@ -10953,7 +10953,7 @@ function SaveProductInfo() {
                     }
                     else {
                         swal({
-                            title: "Food item added successfully.",
+                            title: "Item added successfully.",
                             confirmButtonText: "OK",
                             type: "success",
                             confirmButtonClass: 'btn btn-success',
@@ -10966,10 +10966,10 @@ function SaveProductInfo() {
                 }
                 else {
                     if (Number(itemId) > 0) {
-                        callSweetAlertWarning("Food item update failed.");
+                        callSweetAlertWarning("Item update failed.");
                     }
                     else {
-                        callSweetAlertWarning("Food item add failed.");
+                        callSweetAlertWarning("Item add failed.");
                     }
 
                 }
@@ -10992,9 +10992,6 @@ function SaveProductInfo() {
                 $('#txtProductPrice').css('border-bottom', bottomBorder);
             }
         }
-
-
-
     }
     else {
         self.app.router.navigate('/login_new/', { reloadCurrent: true });
@@ -12715,6 +12712,10 @@ function ResetFilters(page) {
         $('[name="radioGiftCardSort"]')[1].checked = true;
         $('[name="radioGiftCardSortBy"]')[0].checked = true;
     }
+    else if (page == "giftcardhistory") {
+        $("#ddlFilterHistoryStatus")[0].selectedIndex = 0;
+        $("#phFilterGiftCardHistoryDate").show();
+    }
     if (page == "coupons") {
         $("#ddlFilterCouponStatus")[0].selectedIndex = 0;
         //$("#ddlFilterCouponStatus").val("");
@@ -12732,6 +12733,10 @@ function ResetFilters(page) {
 
         $('[name="radioItemSort"]')[0].checked = true;
         $('[name="radioItemSortBy"]')[0].checked = true;
+    }
+    if (page == "dinein_list") {
+        $("#ddlFilterDineinStatus")[0].selectedIndex = 0;
+        $("#phFilterDineinDate").show();
     }
 
 }
@@ -13187,7 +13192,7 @@ function SubmitAddCharge(orderId) {
         
 
         $.ajax({
-            url: global + 'AddCharge?storeid=' + storeId + '&orderId=' + orderId + "&reason=" + reason + "&authorizationCode=" + authorizationCode
+            url: global + '/AddCharge?storeid=' + storeId + '&orderId=' + orderId + "&reason=" + reason + "&authorizationCode=" + authorizationCode
                 + "&orderTotal=" + orderTotal + "&chargeAmount=" + chargeAmount + "&paymentMethod=" + paymentMethod + "&customerName=" + popupCustomerName
                 + "&customerEmail=" + popupCustomerEmail + "&restaurantDisplayName=" + storeName + "&storeAddress=" + storeAddress
                 + "&storePhoneNumber=" + storePhoneNumber,
@@ -13231,6 +13236,7 @@ function CloseAddChargePopup() {
     $('#addChargePopup').hide();
 }
 
+
 //Bistro Card Payment
 function BindCCYear(id) {
     var minOffset = 0, maxOffset = 20; // Change to whatever you want
@@ -13260,3 +13266,829 @@ function BindCCMonth(id) {
     });
     $('#' + id).change();
 }
+
+
+//Gift Card History Start
+//Not Completed
+function GiftCardHistoryList(pagesize, currentPage) {
+
+    var storeId = 0;
+    $("#dvHistroyList").html("");
+    storeId = SetStoreId();
+    customerId = SetCustomerId();
+    currentPage = 0;
+    localStorage.setItem("GiftCardHistoryCurrentPage", currentPage);
+
+    var date = $("#txtFilterGiftCardHistoryDate").val();
+    var status = $("#ddlFilterHistoryStatus").val();
+    var code = $("#txtFilterHistoryCode").val();
+    var type = $("#ddlFilterHistoryType").val();
+
+    if (code == undefined) {
+        code = "";
+    }
+    if (date == undefined) {
+        date = "";
+    }
+    if (status == undefined) {
+        status = "";
+    }
+    if (type == undefined) {
+        type = "";
+    }
+
+    if (Number(storeId) > 0) {
+
+        url = global + "/GetAllGiftCardHistory?storeid=" + storeId + "&code=" + code + "&date=" + date + "&status=" + status + "&type=" + type + "&pagesize=" + pagesize + "&currentPage=" + currentPage;
+
+        try {
+            $.getJSON(url, function (data) {
+                var obj = JSON.parse(data);
+                var length = Object.keys(obj).length;
+                if (JSON.parse(data).indexOf("No History(s) found.") < 0) {
+                    localStorage.setItem("GiftCardHistroyAvailable", "1");
+                    var count = 0;
+                    $.each(JSON.parse(data), function (index, value) {
+
+                        var giftCardHistroyId = value.Id;
+                        var code = value.GiftCardCouponCode;
+                        var valueStatus = value.Status;
+                        var valueStoreId = value.TransactionStoreId;
+                        var type = value.Type;
+                        var usedValue = FormatDecimal(value.UsedValue);
+                        var reason = value.Notes;
+                        var dateTime = value.CreatedOnUtc;
+                        var storeName = value.RestaurantDisplayName;
+
+                        var html = "<div class=\"order-container\" id=\"li_" + giftCardHistroyId + "\">";//First Div
+
+                        html += "<div class=\"order-list\" data-popup=\".popup-details\">";//Second Div
+
+                        html += "<div class=\"order-column-one\" data-panel=\"left\">";//Third Div
+                        html += "<div class=\"giftcard-order-pickup\" style=\"font-size: 22px;\">" + code + "</div>";
+                        html += "<div style=\"text-align:center;color: #000;\">" + valueStatus + "</div>";
+                        html += "</div>";//Third Div End
+
+                        html += "<div class=\"order-column-two\">";//Forth Div
+                        
+                        html += "<div class=\"order-row-container\">";//Forth Inner Div One
+
+                        html += "<div class=\"giftcard-order-number\" data-panel=\"left\" style=\"width:75%;padding-top:0px;\">";
+                        html += "<div>" + dateTime + "</div>";
+                        html += "<div>" + storeName + "</div>";
+                        html += "</div>";
+
+                        html += "<div class=\"giftcard-buttons\" id=\"btnSet_1513\" style=\"width:25%;font-size:18px;\">";
+                        html += "<div class=\"customer-detail-container\">";
+                        html += "<div class=\"order-price\" style=\"font-size:24px;\">" + usedValue + "</div>";
+                        html += "<div>" + type + "</div>";
+                        html += "</div>"
+                        html += "</div>"
+
+                        html += "</div>";//Forth Inner Div One End
+                        
+                        if (reason != null && reason != "") {
+                            html += "<div class=\"order-row-container\">";//Forth Inner Div Two
+                            html += "<div class=\"giftcard-order-number\">";
+                            html += "<div>" + reason + "</div>";
+                            html += "</div>";
+                            html += "</div>";//Forth Inner Div Two End
+                        }                        
+
+                        html += "</div>";//Forth Div End
+
+
+                        html += "</div>";//Second Div End
+
+                        html += "</div>";//First Div End
+
+                        count++;
+
+                        $("#dvHistroyList").append(html);
+                    });
+                }
+                else {
+                    localStorage.setItem("GiftCardHistoryAvailable", "0");
+                    var html = "<div class=\"order-list list-empty-label-text\">No History</div>";
+                    $("#dvHistroyList").html(html);
+                }
+            });
+        }
+        catch (e) {
+
+        }
+    }
+    else {
+        self.app.router.navigate('/login_new/', { reloadCurrent: true });
+    }
+}
+
+function GiftCardHistoryListPagination(pagesize, currentPage) {
+
+    var storeId = 0;
+    storeId = SetStoreId();
+    customerId = SetCustomerId();
+
+    var date = $("#txtFilterGiftCardHistoryDate").val();
+    var status = $("#ddlFilterHistoryStatus").val();
+    var code = $("#txtFilterHistoryCode").val();
+    var type = $("#ddlFilterHistoryType").val();
+
+    if (code == undefined) {
+        code = "";
+    }
+    if (date == undefined) {
+        date = "";
+    }
+    if (status == undefined) {
+        status = "";
+    }
+    if (type == undefined) {
+        type = "";
+    }
+
+    if (Number(storeId) > 0) {
+        currentPage = Number(currentPage) * Number(pagesize);
+        url = global + "/GetAllGiftCardHistory?storeid=" + storeId + "&code=" + code + "&date=" + date + "&status=" + status + "&type=" + type + "&pagesize=" + pagesize + "&currentPage=" + currentPage;
+
+        try {
+            $.getJSON(url, function (data) {
+                var obj = JSON.parse(data);
+                var length = Object.keys(obj).length;
+                if (JSON.parse(data).indexOf("No History(s) found.") < 0) {
+                    localStorage.setItem("GiftCardHistroyAvailable", "1");
+                    var count = 0;
+                    $.each(JSON.parse(data), function (index, value) {
+
+                        var giftCardHistroyId = value.Id;
+                        var code = value.GiftCardCouponCode;
+                        var valueStatus = value.Status;
+                        var valueStoreId = value.TransactionStoreId;
+                        var type = value.Type;
+                        var usedValue = FormatDecimal(value.UsedValue);
+                        var reason = value.Notes;
+                        var dateTime = value.CreatedOnUtc;
+                        var storeName = value.RestaurantDisplayName;
+
+                        var html = "<div class=\"order-container\" id=\"li_" + giftCardHistroyId + "\">";//First Div
+
+                        html += "<div class=\"order-list\" data-popup=\".popup-details\">";//Second Div
+
+                        html += "<div class=\"order-column-one\" data-panel=\"left\">";//Third Div
+                        html += "<div class=\"giftcard-order-pickup\" style=\"font-size: 22px;\">" + code + "</div>";
+                        html += "<div style=\"text-align:center;color: #000;\">" + valueStatus + "</div>";
+                        html += "</div>";//Third Div End
+
+                        html += "<div class=\"order-column-two\">";//Forth Div
+
+                        html += "<div class=\"order-row-container\">";//Forth Inner Div One
+
+                        html += "<div class=\"giftcard-order-number\" data-panel=\"left\" style=\"width:75%;padding-top:0px;\">";
+                        html += "<div>" + dateTime + "</div>";
+                        html += "<div>" + storeName + "</div>";
+                        html += "</div>";
+
+                        html += "<div class=\"giftcard-buttons\" id=\"btnSet_1513\" style=\"width:25%;font-size:18px;\">";
+                        html += "<div class=\"customer-detail-container\">";
+                        html += "<div class=\"order-price\" style=\"font-size:24px;\">" + usedValue + "</div>";
+                        html += "<div>" + type + "</div>";
+                        html += "</div>"
+                        html += "</div>"
+
+                        html += "</div>";//Forth Inner Div One End
+
+                        if (reason != null && reason != "") {
+                            html += "<div class=\"order-row-container\">";//Forth Inner Div Two
+                            html += "<div class=\"giftcard-order-number\">";
+                            html += "<div>" + reason + "</div>";
+                            html += "</div>";
+                            html += "</div>";//Forth Inner Div Two End
+                        }
+
+                        html += "</div>";//Forth Div End
+
+
+                        html += "</div>";//Second Div End
+
+                        html += "</div>";//First Div End
+
+                        count++;
+
+                        $("#dvHistroyList").append(html);
+                    });
+                }
+            });
+        }
+        catch (e) {
+
+        }
+    }
+    else {
+        self.app.router.navigate('/login_new/', { reloadCurrent: true });
+    }
+}
+//Gift Card History End
+
+//Dine-In Queue Section Start
+
+function DineInList(pagesize, currentPage) {
+
+    var storeId = 0;
+    $("#dineinDiv").html("");
+    storeId = SetStoreId();
+    customerId = SetCustomerId();
+    currentPage = 0;
+    localStorage.setItem("DineinCurrentPage", currentPage);
+
+    var name = $("#txtFilterDiniinName").val();
+    var date = $("#txtFilterDineinDate").val();
+    var status = $("#ddlFilterDineinStatus").val();
+    
+    if (name == undefined) {
+        name = "";
+    }
+    if (date == undefined) {
+        date = "";
+    }
+    if (status == undefined) {
+        status = "";
+    }
+
+    if (Number(storeId) > 0) {
+
+        url = global + "/GetAllDineInQueue?storeid=" + storeId + "&name=" + name + "&date=" + date + "&status=" + status + "&pagesize=" + pagesize + "&currentPage=" + currentPage;
+
+        try {
+            $.getJSON(url, function (data) {
+                var obj = JSON.parse(data);
+                var length = Object.keys(obj).length;
+                if (JSON.parse(data).indexOf("No Dine-In(s) found.") < 0) {
+                    localStorage.setItem("DineinAvailable", "1");
+                    var count = 0;
+                    $.each(JSON.parse(data), function (index, value) {
+
+                        var dineInId = value.Id;
+                        var valueStatus = value.Status;
+                        var valueStoreId = value.StoreId;
+                        var time = value.CreatedAt;
+                        var guestName = value.GuestName;
+                        var guestPhone = value.GuestPhone;
+                        var guestCount = value.NumberOfGuests;
+                        var notes = value.Notes;
+
+                        var html = "<div class=\"order-container\" id=\"li_" + dineInId + "\" style=\"width:100%;padding-left: 20px;\">";//First Div
+                        
+                        html += "<div id=\"dvDineinListInner_" + dineInId + "\" class=\"order-list\">";//Second Div
+
+                        html += "<div class=\"order-column-two\" style=\"width:100%\">";//Third Div
+
+                        html += "<div class=\"order-row-container\">";//Forth Div
+
+                        html += "<input type=\"hidden\" id=\"hdnDineInValues_" + dineInId + "\" value=\"" + guestName + "~" + guestPhone + "~" + guestCount + "~" + notes + "\"/>";//
+                        html += "<input type=\"hidden\" id=\"hdnDineInId_" + dineInId + "\" value=\"" + dineInId + "\"/>";//
+                        html += "<input type=\"hidden\" id=\"customerPhone_" + dineInId + "\" value=\"" + guestPhone + "\"/>";//
+                        html += "<div class=\"order-pickup\" style=\"width:25%;\" onclick=\"OpenEditDineIn(" + dineInId + ");\">";//Div Time
+                        html += "<div class=\"code\">" + time + "</div>";
+                        if (valueStatus == "New") {
+                            html += "<div id=\"divName_"+dineInId+"\" class=\"order-number\" style=\"font-size:16px;width:100%;\">" + guestName + " (" + guestCount + ")</div>";
+                        }
+                        else if (valueStatus == "CheckIn") {
+                            html += "<div id=\"divName_" + dineInId + "\" class=\"order-number\" style=\"font-size:16px;width:100%;\">" + guestName + " (" + guestCount + ")</div>";
+                        }
+                        else if (valueStatus == "Seated") {
+                            html += "<div id=\"divName_" + dineInId + "\" class=\"order-number\" style=\"font-size:16px;width:100%;border-bottom: #62b787 4px solid;\">" + guestName + " (" + guestCount + ")</div>";
+                        }
+                        else if (valueStatus == "Cancelled") {
+                            html += "<div id=\"divName_" + dineInId + "\" class=\"order-number\" style=\"font-size:16px;width:100%;border-bottom: #f00000 4px solid;\">" + guestName + " (" + guestCount + ")</div>";
+                        }
+                        
+                        html += "</div>";//Div Time End
+
+                        html += "<div class=\"coupon-buttons\" style=\"width:75%\">";//Div Buttons
+                        html += "<div class=\"coupon-status-icon\" onclick=\"OpenNotifyCustomer(" + dineInId + ");\"><img class=\"list-icon\" src=\"./img/icons/sms_button.png\"></div>";
+                        html += "<div class=\"coupon-status-icon\" onclick=\"SeatedReservation(" + dineInId + ");\"><img class=\"list-icon\" src=\"./img/icons/active.png\"></div>";
+                        html += "<div class=\"coupon-status-icon\" onclick=\"UnseatedReservation(" + dineInId + ");\"><img class=\"list-icon\" src=\"./img/icons/inactive_new.png\"></div>";
+                        html += "<div class=\"coupon-status-icon\" onclick=\"NoShowReservation(" + dineInId + ");\"><img class=\"list-icon\" src=\"./img/icons/checkout.png\"></div>";
+                        html += "<div class=\"coupon-status-icon\" onclick=\"CancelQueueReservation(" + dineInId + ");\"><img class=\"list-icon\" style=\"max-width: 60% !important;\" src=\"./img/icons/delete_new.png\"></div>";
+
+                        html += "</div>";//Div Buttons End
+
+                        html += "</div>";//Forth Div End
+
+                        html += "</div>";//Third Div End
+
+                        html += "</div>";//Second Div End
+
+                        html += "</div>";//First Div End
+
+                        count++;
+
+                        $("#dineinDiv").append(html);
+                    });
+                }
+                else {
+                    localStorage.setItem("DineinAvailable", "0");
+                    var html = "<div class=\"order-list list-empty-label-text\">No Dine-In Queue</div>";
+                    $("#dineinDiv").html(html);
+                }
+            });
+        }
+        catch (e) {
+
+        }
+    }
+    else {
+        self.app.router.navigate('/login_new/', { reloadCurrent: true });
+    }
+}
+
+function DineInListPagination(pagesize, currentPage) {
+
+    var storeId = 0;
+    storeId = SetStoreId();
+    customerId = SetCustomerId();
+    localStorage.setItem("DineinCurrentPage", currentPage);
+
+    var name = $("#txtFilterDiniinName").val();
+    var date = $("#txtFilterDineinDate").val();
+    var status = $("#ddlFilterDineinStatus").val();
+    
+    if (name == undefined) {
+        name = "";
+    }
+    if (date == undefined) {
+        date = "";
+    }
+    if (status == undefined) {
+        status = "";
+    }
+
+    if (Number(storeId) > 0) {
+        currentPage = Number(currentPage) * Number(pagesize);
+        url = global + "/GetAllDineInQueue?storeid=" + storeId + "&name=" + name + "&date=" + date + "&status=" + status + "&pagesize=" + pagesize + "&currentPage=" + currentPage;
+
+        try {
+            $.getJSON(url, function (data) {
+                var obj = JSON.parse(data);
+                var length = Object.keys(obj).length;
+                if (JSON.parse(data).indexOf("No Dine-In Queue(s) found.") < 0) {
+                    localStorage.setItem("DineinAvailable", "1");
+                    var count = 0;
+                    $.each(JSON.parse(data), function (index, value) {
+
+                        var dineInId = value.Id;
+                        var valueStatus = value.Status;
+                        var valueStoreId = value.StoreId;
+                        var time = value.CreatedAt;
+                        var guestName = value.GuestName;
+                        var guestPhone = value.GuestPhone;
+                        var guestCount = value.NumberOfGuests;
+                        var notes = value.Notes;
+
+                        var html = "<div class=\"order-container\" id=\"li_" + dineInId + "\" style=\"width:100%;padding-left: 20px;\">";//First Div
+
+                        html += "<div id=\"dvDineinListInner_" + dineInId + "\" class=\"order-list\">";//Second Div
+
+                        html += "<div class=\"order-column-two\" style=\"width:100%\">";//Third Div
+
+                        html += "<div class=\"order-row-container\">";//Forth Div
+
+                        html += "<input type=\"hidden\" id=\"hdnDineInValues_" + dineInId + "\" value=\"" + guestName + "~" + guestPhone + "~" + guestCount + "~" + notes + "\"/>";//
+                        html += "<input type=\"hidden\" id=\"hdnDineInId_" + dineInId + "\" value=\"" + dineInId + "\"/>";//
+                        html += "<input type=\"hidden\" id=\"customerPhone_" + dineInId + "\" value=\"" + guestPhone + "\"/>";//
+                        html += "<div class=\"order-pickup\" style=\"width:25%;\" onclick=\"OpenEditDineIn(" + dineInId + ");\">";//Div Time
+                        html += "<div class=\"code\">" + time + "</div>";
+                        if (valueStatus == "New") {
+                            html += "<div id=\"divName_" + dineInId + "\" class=\"order-number\" style=\"font-size:16px;width:100%;\">" + guestName + " (" + guestCount + ")</div>";
+                        }
+                        else if (valueStatus == "CheckIn") {
+                            html += "<div id=\"divName_" + dineInId + "\" class=\"order-number\" style=\"font-size:16px;width:100%;\">" + guestName + " (" + guestCount + ")</div>";
+                        }
+                        else if (valueStatus == "Seated") {
+                            html += "<div id=\"divName_" + dineInId + "\" class=\"order-number\" style=\"font-size:16px;width:100%;border-bottom: #62b787 4px solid;\">" + guestName + " (" + guestCount + ")</div>";
+                        }
+                        else if (valueStatus == "Cancelled") {
+                            html += "<div id=\"divName_" + dineInId + "\" class=\"order-number\" style=\"font-size:16px;width:100%;border-bottom: #f00000 4px solid;\">" + guestName + " (" + guestCount + ")</div>";
+                        }
+
+                        html += "</div>";//Div Time End
+
+                        html += "<div class=\"coupon-buttons\" style=\"width:75%\">";//Div Buttons
+                        html += "<div class=\"coupon-status-icon\" onclick=\"OpenNotifyCustomer(" + dineInId + ");\"><img class=\"list-icon\" src=\"./img/icons/sms_button.png\"></div>";
+                        html += "<div class=\"coupon-status-icon\" onclick=\"SeatedReservation(" + dineInId + ");\"><img class=\"list-icon\" src=\"./img/icons/active.png\"></div>";
+                        html += "<div class=\"coupon-status-icon\" onclick=\"UnseatedReservation(" + dineInId + ");\"><img class=\"list-icon\" src=\"./img/icons/inactive_new.png\"></div>";
+                        html += "<div class=\"coupon-status-icon\" onclick=\"NoShowReservation(" + dineInId + ");\"><img class=\"list-icon\" src=\"./img/icons/checkout.png\"></div>";
+                        html += "<div class=\"coupon-status-icon\" onclick=\"CancelQueueReservation(" + dineInId + ");\"><img class=\"list-icon\" src=\"./img/icons/delete_new.png\"></div>";
+
+                        html += "</div>";//Div Buttons End
+
+                        html += "</div>";//Forth Div End
+
+                        html += "</div>";//Third Div End
+
+                        html += "</div>";//Second Div End
+
+                        html += "</div>";//First Div End
+
+                        count++;
+
+                        $("#dineinDiv").append(html);
+                    });
+                }
+            });
+        }
+        catch (e) {
+
+        }
+    }
+    else {
+        self.app.router.navigate('/login_new/', { reloadCurrent: true });
+    }
+}
+
+function OpenEditDineIn(id){
+    var dineInValues = $("#hdnDineInValues_" + id).val();
+    if (dineInValues != "") {
+        var values = dineInValues.split('~');
+        var guestName = values[0];
+        var guestPhone = values[1];
+        var guestCount = values[2];
+        var notes = values[3];
+
+
+        var html = "<div class=\"popup-content-area\"><h2 class=\"popup-title\"><span style=\"font-size:18px;\">Edit Dine-In Queue</span></h2>";
+
+        html += "<input id=\"txtEditQueueName\" value=\"" + guestName + "\" type=\"text\" placeholder=\"Name\" style=\"padding-left: 4px;border: 1px solid rgb(221, 221, 221);margin: 0 0 10px 0;\" />";
+        html += "<input id=\"txtEditQueuePhone\" value=\"" + guestPhone + "\" type=\"number\" placeholder=\"Phone\" onKeyDown=\"if(this.value.length==10) this.value = this.value.slice(0, -1);\" style=\"padding-left: 4px;border: 1px solid rgb(221, 221, 221);margin: 0 0 10px 0;\" />";
+
+        html += "<select id=\"ddlEditQueueNoOfUsers\" placeholder=\"# of Guests\" style=\"padding-left: 4px;border: 1px solid rgb(221, 221, 221);margin: 0 0 10px 0;\">";
+        html += "<option value=\"1\">1</option>";
+        html += "<option value=\"2\">2</option>";
+        html += "<option value=\"3\">3</option>";
+        html += "<option value=\"4\">4</option>";
+        html += "<option value=\"5\">5</option>";
+        html += "<option value=\"6\">6</option>";
+        html += "<option value=\"7\">7</option>";
+        html += "<option value=\"8\">8</option>";
+        html += "<option value=\"9\">9</option>";
+        html += "<option value=\"10\">10</option>";
+        html += "<option value=\"11\">11</option>";
+        html += "<option value=\"12\">12</option>";
+        html += "<option value=\"13\">13</option>";
+        html += "<option value=\"14\">14</option>";
+        html += "<option value=\"15\">15</option>";
+        html += "<option value=\"16\">16</option>";
+        html += "<option value=\"17\">17</option>";
+        html += "<option value=\"18\">18</option>";
+        html += "<option value=\"19\">19</option>";
+        html += "<option value=\"20\">20</option>";
+        html += "<option value=\"21\">Larger Party</option>";
+
+        html += "</select>";
+
+        html += "<textarea id=\"txtEditQueueNotes\" value=\"" + notes + "\" class=\"swal2-textarea\" style=\"border:1px solid #ddd;height:160px;padding: 5px 5px;\" placeholder=\"Notes\">";
+        html += "</textarea><div class=\"popup-button-area\"><button id=\"btnSaveQueue\" onclick=\"EditDineInQueue(" + id + ");\" type=\"button\" class=\"popup-confirm swal2-styled\" aria-label=\"\" ";
+        html += "style=\"background-color: rgb(59, 152, 71); border-left-color: rgb(59, 152, 71); border-right-color: rgb(59, 152, 71);\">Edit Queue</button>";
+        html += "<button type=\"button\" onclick=\"CloseAddDineInPopup();\" class=\"swal2-styled popup-no\" aria-label=\"\" style=\"display: inline-block; background-color: rgb(233, 88, 97);\">Close</button></div></div>";
+        $('#addDineIn').html(html);
+        $(".popup-overlay").show();
+        $('#addDineIn').show();
+
+        $('#ddlEditQueueNoOfUsers').val(guestCount);
+        $('#txtEditQueueNotes').val(notes);
+    }
+}
+
+function NoShowReservation(id) {
+    $.ajax({
+        url: global + 'NoShowDineIn?id=' + id,
+        type: 'GET',
+        datatype: 'jsonp',
+        contenttype: "application/json",
+        crossDomain: true,
+        //async: false,
+        success: function (data) {
+            console.log(data)
+            if (data.replace(/"/g, "").toLowerCase().indexOf("failed") > -1) {
+                callSweetAlertWarning(data.replace(/"/g, ""));
+            }
+            else if (data.replace(/"/g, "").toLowerCase().indexOf("successfull") > -1) {
+                $('#divName_' + id).css("border-bottom", "#ffd133 4px solid");
+            }
+        },
+        error: function (xhr, textStatus, errorThrown) {
+        }
+    });
+}
+
+function SeatedReservation(id) {
+    $.ajax({
+        url: global + 'SeatedDineIn?id=' + id,
+        type: 'GET',
+        datatype: 'jsonp',
+        contenttype: "application/json",
+        crossDomain: true,
+        //async: false,
+        success: function (data) {
+            console.log(data)
+            if (data.replace(/"/g, "").toLowerCase().indexOf("failed") > -1) {
+                callSweetAlertWarning(data.replace(/"/g, ""));
+            }
+            else if (data.replace(/"/g, "").toLowerCase().indexOf("successfull") > -1) {
+                $('#divName_' + id).css("border-bottom", "#62b787 4px solid");
+            }
+        },
+        error: function (xhr, textStatus, errorThrown) {
+        }
+    });
+
+}
+
+function UnseatedReservation(id) {
+    $.ajax({
+        url: global + 'UnseatedDineIn?id=' + id,
+        type: 'GET',
+        datatype: 'jsonp',
+        contenttype: "application/json",
+        crossDomain: true,
+        //async: false,
+        success: function (data) {
+            console.log(data)
+            if (data.replace(/"/g, "").toLowerCase().indexOf("failed") > -1) {
+                callSweetAlertWarning(data.replace(/"/g, ""));
+            }
+            else if (data.replace(/"/g, "").toLowerCase().indexOf("successfull") > -1) {
+                $('#divName_' + id).css("border-bottom", "none");
+            }
+        },
+        error: function (xhr, textStatus, errorThrown) {
+        }
+    });
+}
+
+function OpenNotifyCustomer(id) {
+    storeId = SetStoreId();
+    url = global + "/GetStoreTables?storeid=" + storeId;
+
+    try {
+        $.getJSON(url, function (data) {
+            var obj = JSON.parse(data);
+            var length = Object.keys(obj).length;
+            if (JSON.parse(data).indexOf("No Table(s) found.") < 0) {
+                var count = 0;
+                var html = "<div class=\"popup-content-area\"><h2 class=\"popup-title\"><span style=\"font-size:18px;\">Select Table</span></h2>";
+                html += "<select id=\"ddlTableNumbers\" placeholder=\"# of Guests\" style=\"padding-left: 4px;border: 1px solid rgb(221, 221, 221);margin: 0 0 10px 0;\">";
+                $.each(JSON.parse(data), function (index, value) {
+
+                    var optionText = value.Id;
+                    var optionValue = value.TableNumber;
+                    html += "<option value=\"" + optionValue + "\">" + optionText + "</option>";
+
+                    count++;                   
+                });
+                html += "</select>";
+                html += "</textarea><div class=\"popup-button-area\"><button id=\"btnSaveQueue\" onclick=\"NotifyCustomer(" + id + ");\" type=\"button\" class=\"popup-confirm swal2-styled\" aria-label=\"\" ";
+                html += "style=\"background-color: rgb(59, 152, 71); border-left-color: rgb(59, 152, 71); border-right-color: rgb(59, 152, 71);\">Send</button>";
+                html += "<button type=\"button\" onclick=\"CloseNotifyPopup();\" class=\"swal2-styled popup-no\" aria-label=\"\" style=\"display: inline-block; background-color: rgb(233, 88, 97);\">Close</button></div></div>";
+                $("#notifyCustomer").html(html);
+            }
+            else {
+                var html = "<div class=\"order-list list-empty-label-text\">No Table(s) found.</div>";
+                $("#notifyCustomer").html(html);
+            }
+        });
+    }
+    catch (e) {
+
+    }
+    $(".popup-overlay").show();
+    $('#notifyCustomer').show();
+}
+
+function NotifyCustomer(id) {
+    var storeId = SetStoreId();
+    var tableNumber = $("#ddlTableNumbers option:selected").text();
+    var customerPhone = $('#customerPhone_' + id).val();
+    var restaurantName = localStorage.getItem("RestaurantName");
+    if (tableNumber != "" && tableNumber != "Select Table") {
+        $.ajax({
+            url: global + 'SendDineInNotification?id=' + id + '&storeId=' + storeId + '&customerPhone=' + customerPhone + '&tableNumber=' + tableNumber + '&restaurantName=' + restaurantName,
+            type: 'GET',
+            datatype: 'jsonp',
+            contenttype: "application/json",
+            crossDomain: true,
+            //async: false,
+            success: function (data) {
+                //alert(data)
+                if (data.replace(/"/g, "").toLowerCase().indexOf("failed") > -1) {
+                    CloseNotifyPopup();
+                    callSweetAlertWarning(data.replace(/"/g, ""));
+                }
+                else if (data.replace(/"/g, "").toLowerCase().indexOf("successfull") > -1) {
+                    CloseNotifyPopup();
+                    callSweetAlertSuccess(data.replace(/"/g, ""));
+                }
+            },
+            error: function (xhr, textStatus, errorThrown) {
+            }
+        });
+    }
+    else {
+        alert("Please select a table.");
+    }
+
+}
+
+function CloseNotifyPopup() {
+    $('#notifyCustomer').html("");
+    $(".popup-overlay").hide();
+    $('#notifyCustomer').hide();
+}
+
+function CancelQueueReservation(id) {
+    $.ajax({
+        url: global + 'CancelDineIn?id=' + id,
+        type: 'GET',
+        datatype: 'jsonp',
+        contenttype: "application/json",
+        crossDomain: true,
+        //async: false,
+        success: function (data) {
+            console.log(data)
+            if (data.replace(/"/g, "").toLowerCase().indexOf("failed") > -1) {
+                callSweetAlertWarning(data.replace(/"/g, ""));
+            }
+            else if (data.replace(/"/g, "").toLowerCase().indexOf("successfull") > -1) {
+                $('#divName_' + id).css("border-bottom", "#f00000 4px solid");
+            }
+        },
+        error: function (xhr, textStatus, errorThrown) {
+        }
+    });
+}
+
+function OpenAddDineInPopup() {
+    
+    var html = "<div class=\"popup-content-area\"><h2 class=\"popup-title\"><span style=\"font-size:18px;\">Add Dine-In Queue</span></h2>";
+        
+    html += "<input id=\"txtAddQueueName\" type=\"text\" placeholder=\"Name\" style=\"padding-left: 4px;border: 1px solid rgb(221, 221, 221);margin: 0 0 10px 0;\" />";
+    html += "<input id=\"txtAddQueuePhone\" type=\"number\" placeholder=\"Phone\" onKeyDown=\"if(this.value.length==10) this.value = this.value.slice(0, -1);\" style=\"padding-left: 4px;border: 1px solid rgb(221, 221, 221);margin: 0 0 10px 0;\" />";
+
+    html += "<select id=\"ddlAddQueueNoOfUsers\" placeholder=\"# of Guests\" style=\"padding-left: 4px;border: 1px solid rgb(221, 221, 221);margin: 0 0 10px 0;\">";
+    html += "<option value=\"1\">1</option>";
+    html += "<option value=\"2\">2</option>";
+    html += "<option value=\"3\">3</option>";
+    html += "<option value=\"4\">4</option>";
+    html += "<option value=\"5\">5</option>";
+    html += "<option value=\"6\">6</option>";
+    html += "<option value=\"7\">7</option>";
+    html += "<option value=\"8\">8</option>";
+    html += "<option value=\"9\">9</option>";
+    html += "<option value=\"10\">10</option>";
+    html += "<option value=\"11\">11</option>";
+    html += "<option value=\"12\">12</option>";
+    html += "<option value=\"13\">13</option>";
+    html += "<option value=\"14\">14</option>";
+    html += "<option value=\"15\">15</option>";
+    html += "<option value=\"16\">16</option>";
+    html += "<option value=\"17\">17</option>";
+    html += "<option value=\"18\">18</option>";
+    html += "<option value=\"19\">19</option>";
+    html += "<option value=\"20\">20</option>";
+    html += "<option value=\"21\">Larger Party</option>";
+
+    html += "</select>";
+
+    html += "<textarea id=\"txtAddQueueNotes\" class=\"swal2-textarea\" style=\"border:1px solid #ddd;height:160px;padding: 5px 5px;\" placeholder=\"Notes\">";
+    html += "</textarea><div class=\"popup-button-area\"><button id=\"btnSaveQueue\" onclick=\"AddDineInQueue();\" type=\"button\" class=\"popup-confirm swal2-styled\" aria-label=\"\" ";
+    html += "style=\"background-color: rgb(59, 152, 71); border-left-color: rgb(59, 152, 71); border-right-color: rgb(59, 152, 71);\">Add Queue</button>";
+    html += "<button type=\"button\" onclick=\"CloseAddDineInPopup();\" class=\"swal2-styled popup-no\" aria-label=\"\" style=\"display: inline-block; background-color: rgb(233, 88, 97);\">Close</button></div></div>";
+    $('#addDineIn').html(html);
+    $(".popup-overlay").show();
+    $('#addDineIn').show();
+}
+
+function AddDineInQueue() {
+    var storeId = SetStoreId();
+    var name = $('#txtAddQueueName').val();
+    var phone = $("#txtAddQueuePhone").val();
+    var guestCount = $("#ddlAddQueueNoOfUsers").val();
+    var notes = $('#txtAddQueueNotes').val();
+        
+    $("#txtAddQueueName").css('border', bottomBorder);
+    $("#txtAddQueuePhone").css('border', bottomBorder);
+    $("#ddlAddQueueNoOfUsers").css('border', bottomBorder);
+
+    if (name != "" && phone != "" && guestCount != "") {
+
+        $("#btnSaveQueue").html("Adding...");
+
+        $.ajax({
+            url: global + 'AddQueue?storeid=' + storeId + '&name=' + name + "&phone=" + phone + "&guestCount=" + guestCount + "&notes=" + notes,
+            type: 'GET',
+            datatype: 'jsonp',
+            contenttype: "application/json",
+            crossDomain: true,
+            //async: false,
+            success: function (data) {
+                $("#btnSaveQueue").html("Add Queue");
+                console.log(data)
+                if (data.replace(/"/g, "").indexOf("failed") > -1) {
+                    CloseAddDineInPopup();
+                    callSweetAlertWarning(data.replace(/"/g, ""));
+                }
+                else {
+                    var pageSize = 10;
+                    var currentPage = 0;
+                    DineInList(pageSize, currentPage);
+                    callSweetAlertSuccess(data.replace(/"/g, ""));
+                    CloseAddDineInPopup();
+                }
+
+
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                $("#btnSaveQueue").html("Add Queue");
+            }
+        });
+
+    }
+    else {
+        if (name == "") {
+            $("#txtAddQueueName").css('border', errorClassBorder);
+        }
+        if (phone == "") {
+            $("#txtAddQueuePhone").css('border', errorClassBorder);
+        }
+        if (guestCount == "") {
+            $("#ddlAddQueueNoOfUsers").css('border', errorClassBorder);
+        }
+    }
+}
+
+function EditDineInQueue(id) {
+    var storeId = SetStoreId();
+    var name = $('#txtEditQueueName').val();
+    var phone = $("#txtEditQueuePhone").val();
+    var guestCount = $("#ddlEditQueueNoOfUsers").val();
+    var notes = $('#txtEditQueueNotes').val();
+
+    $("#txtEditQueueName").css('border', bottomBorder);
+    $("#txtEditQueuePhone").css('border', bottomBorder);
+    $("#ddlEditQueueNoOfUsers").css('border', bottomBorder);
+
+    if (name != "" && phone != "" && guestCount != "") {
+
+        $("#btnSaveQueue").html("Adding...");
+
+        $.ajax({
+            url: global + 'EditQueue?id=' + id + "&storeid=" + storeId + "&name=" + name + "&phone=" + phone + "&guestCount=" + guestCount + "&notes=" + notes,
+            type: 'GET',
+            datatype: 'jsonp',
+            contenttype: "application/json",
+            crossDomain: true,
+            //async: false,
+            success: function (data) {
+                $("#btnSaveQueue").html("Edit Queue");
+                console.log(data)
+                if (data.replace(/"/g, "").indexOf("failed") > -1) {
+                    $('#hdnDineInValues_' + id).val(name + "~" + phone + "~" + guestCount + "~" + notes);
+                    CloseAddDineInPopup();
+                    callSweetAlertWarning(data.replace(/"/g, ""));
+                }
+                else {
+                    var pageSize = 10;
+                    var currentPage = 0;
+                    DineInList(pageSize, currentPage);
+                    callSweetAlertSuccess(data.replace(/"/g, ""));
+                    CloseAddDineInPopup();
+                }
+
+
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                $("#btnSaveQueue").html("Edit Queue");
+            }
+        });
+
+    }
+    else {
+        if (name == "") {
+            $("#txtAddQueueName").css('border', errorClassBorder);
+        }
+        if (phone == "") {
+            $("#txtAddQueuePhone").css('border', errorClassBorder);
+        }
+        if (guestCount == "") {
+            $("#ddlAddQueueNoOfUsers").css('border', errorClassBorder);
+        }
+    }
+}
+
+function CloseAddDineInPopup() {
+    $('#addDineIn').html("");
+    $(".popup-overlay").hide();
+    $('#addDineIn').hide();
+}
+
+//Dine-In Queue Section End
