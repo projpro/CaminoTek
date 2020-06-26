@@ -12722,6 +12722,7 @@ function ResetFilters(page) {
     }
     else if (page == "giftcardhistory") {
         $("#ddlFilterHistoryStatus")[0].selectedIndex = 0;
+        $("#ddlFilterHistoryType")[0].selectedIndex = 0;
         $("#phFilterGiftCardHistoryDate").show();
     }
     if (page == "coupons") {
