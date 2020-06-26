@@ -1611,6 +1611,9 @@ color: #3b9847;
     margin-top: 6px;    
     text-align: center;
 }
+#divUpperButtonArea{
+    margin-bottom: 25px;
+}
 #coupon_list .order-pickup {
     margin-top: 0px;
     font-weight: 400;
@@ -1861,6 +1864,11 @@ color: #3b9847;
 .list-icon {
     display: inline-block;
     max-width: 20%;
+}
+
+#dinein_list .list-icon {
+    display: inline-block;
+    max-width: 70%;
 }
 
 .list-empty-label-text {
