@@ -352,23 +352,15 @@ $$(document).on('page:init', function (e) {
                 
                 BTPrinter.printText(function (data) {
                 }, function (err) {
-                }, "\x1b\x21\x10 John Smith Double Height" + "\n");//Double Height Text
-
-                BTPrinter.printText(function (data) {
-                }, function (err) {
-                }, "\x1b\x21\x20 John Smith Doubel Height Width" + "\n");//Doubel Height Width Text
-
-                BTPrinter.printText(function (data) {
-                }, function (err) {
                 }, "\x1d\x21\x10\x1d\x21\x02 John Smith Height(02) Width(10)" + "\n");//Height(02) Width(10) Text
 
                 BTPrinter.printText(function (data) {
                 }, function (err) {
-                }, "\x1d\x21\x40 John Smith Width(40)" + "\n");//Doubel Width(40) Text
+                }, "\x1d\x21\x10\x1d\x21\x02 John Smith Height(02) Width(20)" + "\n");//Height(02) Width(20) Text
 
                 BTPrinter.printText(function (data) {
                 }, function (err) {
-                }, "\x1d\x21\x04 John Smith Height(04)" + "\n");//Doubel Height(04) Text
+                }, "\x1d\x21\x10\x1d\x21\x02 John Smith Height(02) Width(30)" + "\n");//Height(02) Width(30) Text
 
 
                 setTimeout(function () {
