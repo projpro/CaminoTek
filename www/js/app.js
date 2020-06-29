@@ -2621,15 +2621,15 @@ function PrintCarryoutDetails() {
 
 
                         //Print Name, Phone Start
-                        BTPrinter.printTextSizeAlign(function (data) {
-                        }, function (err) {
-                        }, firstName + " " + lastName + "    " + phone + "\n", '11', '0');//5
+                        //BTPrinter.printTextSizeAlign(function (data) {
+                        //}, function (err) {
+                        //}, firstName + " " + lastName + "    " + phone + "\n", '11', '0');//5
                         ////alert("Print Name Phone");
                         ////Print Name, Phone End
 
                         BTPrinter.printText(function (data) {
                         }, function (err) {
-                        }, "\x1b\x21\x20\x1b\x61\x00 " + firstName + " " + lastName + "    " + phone + "\n");
+                        }, "\x1b\x21\x31" + firstName + " " + lastName + "  " + phone + "\n");
 
                         //BTPrinter.printText(function (data) {
                         //}, function (err) {
@@ -2731,7 +2731,7 @@ function PrintCarryoutDetails() {
 
                                             BTPrinter.printText(function (data) {
                                             }, function (err) {
-                                            }, "\x1b\x32\x1b\x21\x20\x1b\x61\x00" + notesValue + "\n");
+                                            }, "\x1b\x32\x1b\x21\x31" + notesValue + "\n");
 
                                             //"\x1b\x30 " +
 
@@ -2754,7 +2754,7 @@ function PrintCarryoutDetails() {
 
                                             BTPrinter.printText(function (data) {
                                             }, function (err) {
-                                            }, "\x1b\x32\x1b\x21\x20\x1b\x61\x00" + notesValue + "\n");
+                                            }, "\x1b\x32\x1b\x21\x31" + notesValue + "\n");
 
 
                                             //"\x1b\x30 " + 
@@ -2809,7 +2809,7 @@ function PrintCarryoutDetails() {
                             //}, "\n" + "Subtotal: " + subTotalWithoutTax + "\n", '20', '2');
                             BTPrinter.printText(function (data) {
                             }, function (err) {
-                            }, "\x1b\x21\x20\x1b\x50\x1b\x61\x02" + "Subtotal: " + subTotalWithoutTax + "\n");
+                            }, "\n" + "\x1b\x21\x20\x1b\x50\x1b\x61\x02" + "Subtotal: " + subTotalWithoutTax + "\n");
                             //alert("Print Subtotal");
                             //Print Subtotal End
                         }
@@ -2821,7 +2821,7 @@ function PrintCarryoutDetails() {
                             //}, "\n" + "Subtotal: " + FormatDecimal(subtotalvalue) + "\n", '20', '2');
                             BTPrinter.printText(function (data) {
                             }, function (err) {
-                            }, "\x1b\x21\x20\x1b\x50\x1b\x61\x02" + "Subtotal: " + FormatDecimal(subtotalvalue) + "\n");
+                            }, "\n" + "\x1b\x21\x20\x1b\x50\x1b\x61\x02" + "Subtotal: " + FormatDecimal(subtotalvalue) + "\n");
                             //alert("Print Subtotal");
                             //Print Subtotal End
                         }
