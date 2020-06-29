@@ -2505,7 +2505,7 @@ function PrintCarryoutDetails() {
                         }, function (err) {
                             console.log("Error");
                             console.log(err);
-                        }, "./img/app-logo.png", '1');//path image, align
+                        }, "./img/app-logo-small.png", '1');//path image, align
 
                         //Default Tab(\x1b\x44\x00)
                         BTPrinter.printText(function (data) {
