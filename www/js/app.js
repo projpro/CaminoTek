@@ -334,7 +334,68 @@ $$(document).on('page:init', function (e) {
         $$('#btnPrintOrder').on('click', function () {            
 
             $(this).text("Printing...");
-            PrintCarryoutDetails();
+            //PrintCarryoutDetails();
+            
+            var printerName = "";
+            if (localStorage.getItem("PrinterName") != null)
+                printerName = localStorage.getItem("PrinterName");
+            BTPrinter.connect(function (data) {
+
+                BTPrinter.printText(function (data) {
+                }, function (err) {
+                }, "\x1b\x40" + "\n");//Clear Buffer
+
+                BTPrinter.printText(function (data) {
+                }, function (err) {
+                }, "\x1b\x21\x00 John Smith" + "\n");//Default Text
+
+                BTPrinter.printText(function (data) {
+                }, function (err) {
+                }, "\x1b\x21\x01 John Smith" + "\n");//Small Text
+
+                BTPrinter.printText(function (data) {
+                }, function (err) {
+                }, "\x1b\x21\x08 John Smith" + "\n");//Bold Text
+
+                BTPrinter.printText(function (data) {
+                }, function (err) {
+                }, "\x1b\x21\x10 John Smith" + "\n");//Double Height Text
+
+                BTPrinter.printText(function (data) {
+                }, function (err) {
+                }, "\x1b\x21\x20 John Smith" + "\n");//Doubel Height Width Text
+
+
+                setTimeout(function () {
+
+                    BTPrinter.printText(function (data) {
+                    }, function (err) {
+                    }, "\x1d\x56\x41\x0A" + "\n");//Auto Cut Paper
+
+                    BTPrinter.printText(function (data) {
+                    }, function (err) {
+                    }, "\x1b\x40" + "\n");//Clear Buffer
+
+                    BTPrinter.printText(function (data) {
+                        BTPrinter.disconnect(function (data) {
+                            $('#btnPrintOrder').text("PRINT");
+                            //alert("Disconnect");
+                            console.log(data)
+                        }, function (err) {
+                            //alert("Disconnect Error");
+                            $('#btnPrintOrder').text("PRINT");
+                            console.log(err)
+                        }, printerName);//TCKP302-UB//TM-m30_003646
+                    }, function (err) {
+                        $('#btnPrintOrder').text("PRINT");
+                        //alert("Print Error: " + err);
+                    }, "");
+                }, 1000);
+
+            }, function (err) {
+                $('#btnPrintOrder').text("PRINT");
+                //alert("Connect Error: " + err);
+            }, printerName);//TCKP302-UB//TM-m30_003646
 
         });
 
