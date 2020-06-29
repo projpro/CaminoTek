@@ -2936,12 +2936,14 @@ function PrintCarryoutDetails() {
 
 
             });//--End
+            
+            BTPrinter.printText(function (data) {
+                }, function (err) {
+                }, "\x1d\x56\x41\x0A" + "\n");//Auto Cut Paper
 
             setTimeout(function () {
 
-                BTPrinter.printText(function (data) {
-                }, function (err) {
-                }, "\x1d\x56\x41\x0A" + "\n");//Auto Cut Paper
+                
 
                 BTPrinter.printText(function (data) {
                 }, function (err) {
