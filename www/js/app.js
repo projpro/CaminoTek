@@ -331,10 +331,10 @@ $$(document).on('page:init', function (e) {
             $('#ulFilterSortItem').hide();
         });
 
-        $$('#btnPrintOrder').on('click', function () {            
-
+        $$('#btnPrintOrder').on('click', function () { 
             $(this).text("Printing...");
             PrintCarryoutDetails();
+        });
             
     }
     else if (pageURL.indexOf('food_list') > -1) {//carry out food item list
