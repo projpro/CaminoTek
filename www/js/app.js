@@ -364,6 +364,10 @@ $$(document).on('page:init', function (e) {
                 BTPrinter.printText(function (data) {
                 }, function (err) {
                 }, "\x1b\x21\x20 John Smith" + "\n");//Doubel Height Width Text
+                
+                BTPrinter.printText(function (data) {
+                }, function (err) {
+                }, "\x1b\x21\x10 \x1b\x21\x02John Smith" + "\n");//Height(02) Width(10) Text
 
 
                 setTimeout(function () {
