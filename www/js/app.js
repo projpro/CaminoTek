@@ -360,7 +360,7 @@ $$(document).on('page:init', function (e) {
 
                 BTPrinter.printText(function (data) {
                 }, function (err) {
-                }, "\x1d\x21\x05\x1d\x21\x02 John Smith 2" + "\n");//Height(02) Width(05) Text
+                }, "\x1d\x21\x30 John Smith 2" + "\n");//Height(02) Width(05) Text
 
 
                 setTimeout(function () {
