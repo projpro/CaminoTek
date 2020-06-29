@@ -2717,7 +2717,7 @@ function PrintCarryoutDetails() {
                                             //Print Order Notes 1 Start
                                             BTPrinter.printTextSizeAlign(function (data) {
                                             }, function (err) {
-                                            }, "x1b\x30 " + notesValue.replace("</strong>", "") + "\n", '30', '1');
+                                            }, "\x1b\x30 " + notesValue.replace("</strong>", "") + "\n", '30', '1');
 
                                             //BTPrinter.printText(function (data) {
                                             //}, function (err) {
@@ -2733,7 +2733,7 @@ function PrintCarryoutDetails() {
                                             //Print Order Notes 1 Start
                                             BTPrinter.printTextSizeAlign(function (data) {
                                             }, function (err) {
-                                            }, "x1b\x30 " + notesValue.replace("</strong>", "") + "\n", '30', '1');
+                                            }, "\x1b\x30 " + notesValue.replace("</strong>", "") + "\n", '30', '1');
 
                                             //BTPrinter.printText(function (data) {
                                             //}, function (err) {
