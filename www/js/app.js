@@ -2795,6 +2795,10 @@ function PrintCarryoutDetails() {
                                     }, "\n" + "\x1b\x32\x1b\x45\x01" + value.QUANTITY + "X " + value.PRODUCT + "\x1b\x45\x00" + "\n", '30', '0');
                                 }
                             }
+                            
+                            BTPrinter.printText(function (data) {
+                            }, function (err) {
+                            }, "----------------------------------------" + "\n");
 
                         });
                     }
