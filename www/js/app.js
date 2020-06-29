@@ -352,19 +352,11 @@ $$(document).on('page:init', function (e) {
                 
                BTPrinter.printTextSizeAlign(function (data) {
                 }, function (err) {
-                }, "\n" + "\x1b\x45\x01 John Smith Bold \x1b\x45\x00 " + "\n", '20', '0');
+                }, "\n" + "\x1b\x45\x01 John Smith Bold \x1b\x45\x00 " + "\n", '40', '0');
 
                 BTPrinter.printTextSizeAlign(function (data) {
                 }, function (err) {
-                }, "\n" + "\x1b\x45\x01 John Smith Normal \x1b\x45\x00 " + "\n", '20', '0');
-
-                BTPrinter.printTextSizeAlign(function (data) {
-                }, function (err) {
-                }, "\n" + "\x1b\x45\x01 John Smith Font 10 \x1b\x45\x00 " + "\n", '10', '0');
-
-                BTPrinter.printTextSizeAlign(function (data) {
-                }, function (err) {
-                }, "\n" + "\x1b\x45\x01 John Smith Font 30 \x1b\x45\x00 " + "\n", '30', '0');
+                }, "\n" + " John Smith Normal " + "\n", '30', '0');
                     
                
                 setTimeout(function () {
