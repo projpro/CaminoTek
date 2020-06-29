@@ -2516,7 +2516,7 @@ function PrintCarryoutDetails() {
 
                         BTPrinter.printTextSizeAlign(function (data) {
                         }, function (err) {
-                        }, + ordertype + "   #" + orderId + "\n", '30', '1');
+                        }, ordertype + "   #" + orderId + "\n", '30', '1');
 
 
                         //console.log(value.PICKUPTIME)
@@ -2621,19 +2621,16 @@ function PrintCarryoutDetails() {
 
 
                         //Print Name, Phone Start
-                        //BTPrinter.printTextSizeAlign(function (data) {
-                        //}, function (err) {
-                        //}, firstName + " " + lastName + "     " + phone + "\n", '10', '0');//5
+                        BTPrinter.printTextSizeAlign(function (data) {
+                        }, function (err) {
+                        }, firstName + " " + lastName + "    " + phone + "\n", '20', '0');//5
                         ////alert("Print Name Phone");
                         ////Print Name, Phone End
 
                         //BTPrinter.printText(function (data) {
                         //}, function (err) {
                         //}, "\x1b\x67 " + firstName + " " + lastName + "     " + phone + "\n");
-
-                        BTPrinter.printTextSizeAlign(function (data) {
-                        }, function (err) {
-                        }, +firstName + " " + lastName + "     " + phone + "\n", '20', '1');
+                        
 
                         //if (value.ORDERSTATUSID != "" && value.ORDERSTATUSID != undefined) {
                         //    orderStatus = value.ORDERSTATUSID;
@@ -2725,7 +2722,9 @@ function PrintCarryoutDetails() {
                                             //Print Order Notes 1 Start
                                             BTPrinter.printTextSizeAlign(function (data) {
                                             }, function (err) {
-                                            }, "\x1b\x30 " + notesValue.replace("</strong>", "") + "\n", '30', '1');
+                                            }, notesValue.replace("</strong>", "") + "\n", '30', '0');
+
+                                            //"\x1b\x30 " +
 
                                             //BTPrinter.printText(function (data) {
                                             //}, function (err) {
@@ -2741,7 +2740,9 @@ function PrintCarryoutDetails() {
                                             //Print Order Notes 1 Start
                                             BTPrinter.printTextSizeAlign(function (data) {
                                             }, function (err) {
-                                            }, "\x1b\x30 " + notesValue.replace("</strong>", "") + "\n", '30', '1');
+                                            }, notesValue.replace("</strong>", "") + "\n", '30', '0');
+
+                                            //"\x1b\x30 " + 
 
                                             //BTPrinter.printText(function (data) {
                                             //}, function (err) {
@@ -2788,24 +2789,24 @@ function PrintCarryoutDetails() {
                         if (taxValue != "" && taxValue != "0.00") {
                             //htmlSubTotal += "<td style=\"text-align:right;\">" + subTotalWithoutTax + "</td>";
                             //Print Subtotal Start
-                            //BTPrinter.printTextSizeAlign(function (data) {
-                            //}, function (err) {
-                            //}, "\n" + "Subtotal: " + subTotalWithoutTax + "\n", '8', '2');
-                            BTPrinter.printText(function (data) {
+                            BTPrinter.printTextSizeAlign(function (data) {
                             }, function (err) {
-                            }, "\x1b\x50\x1b\x61\x02 " + "Subtotal: " + subTotalWithoutTax + "\n");
+                            }, "\n" + "Subtotal: " + subTotalWithoutTax + "\n", '20', '2');
+                            //BTPrinter.printText(function (data) {
+                            //}, function (err) {
+                            //}, "\x1b\x50\x1b\x61\x02 " + "Subtotal: " + subTotalWithoutTax + "\n");
                             //alert("Print Subtotal");
                             //Print Subtotal End
                         }
                         else {
                             //htmlSubTotal += "<td style=\"text-align:right;\">" + FormatDecimal(subtotalvalue) + "</td>";
                             //Print Subtotal Start
-                            //BTPrinter.printTextSizeAlign(function (data) {
-                            //}, function (err) {
-                            //}, "\n" + "Subtotal: " + FormatDecimal(subtotalvalue) + "\n", '8', '2');
-                            BTPrinter.printText(function (data) {
+                            BTPrinter.printTextSizeAlign(function (data) {
                             }, function (err) {
-                            }, "\x1b\x50\x1b\x61\x02 " + "Subtotal: " + FormatDecimal(subtotalvalue) + "\n");
+                            }, "\n" + "Subtotal: " + FormatDecimal(subtotalvalue) + "\n", '20', '2');
+                            //BTPrinter.printText(function (data) {
+                            //}, function (err) {
+                            //}, "\x1b\x50\x1b\x61\x02 " + "Subtotal: " + FormatDecimal(subtotalvalue) + "\n");
                             //alert("Print Subtotal");
                             //Print Subtotal End
                         }
@@ -2818,31 +2819,25 @@ function PrintCarryoutDetails() {
                             //htmlOrderTotal += "</tr>";
 
                             //Print Delivery Start
-                            //BTPrinter.printTextSizeAlign(function (data) {
-                            //}, function (err) {
-                            //}, "Delivery: " + shippingValue + "\n", '8', '2');
-                            BTPrinter.printText(function (data) {
+                            BTPrinter.printTextSizeAlign(function (data) {
                             }, function (err) {
-                            }, "\x1b\x50\x1b\x61\x02 " + "Delivery: " + shippingValue + "\n");
+                            }, "Delivery: " + shippingValue + "\n", '20', '2');
+                            //BTPrinter.printText(function (data) {
+                            //}, function (err) {
+                            //}, "\x1b\x50\x1b\x61\x02 " + "Delivery: " + shippingValue + "\n");
                             //alert("Print Delivery");
                             //Print Delivery End
                         }
 
 
                         if (taxValue != "" && taxValue != "0.00") {
-                            //alert("Tax");
-                            //htmlOrderTotal += " <tr>";
-                            //htmlOrderTotal += "<td colspan=\"3\" style=\"text-align:right; font-weight: bold;\">Tax:</td>";
-                            //htmlOrderTotal += "<td style=\"text-align:right;\">" + taxValue + "</td>";
-                            //htmlOrderTotal += "</tr>";
-
                             //Print Tax Value Start
-                            //BTPrinter.printTextSizeAlign(function (data) {
-                            //}, function (err) {
-                            //}, "Tax: " + taxValue + "\n", '8', '2');
-                            BTPrinter.printText(function (data) {
+                            BTPrinter.printTextSizeAlign(function (data) {
                             }, function (err) {
-                            }, "\x1b\x50\x1b\x61\x02 " + "Tax: " + taxValue + "\n");
+                            }, "Tax: " + taxValue + "\n", '20', '2');
+                            //BTPrinter.printText(function (data) {
+                            //}, function (err) {
+                            //}, "\x1b\x50\x1b\x61\x02 " + "Tax: " + taxValue + "\n");
                             ///alert("Print Tax");
                             //Print Tax Value End
 
@@ -2850,79 +2845,74 @@ function PrintCarryoutDetails() {
 
                         if (discountValue != "" && discountValue != "0.00") {
                             //Print Discount Value Start
-                            //BTPrinter.printTextSizeAlign(function (data) {
-                            //}, function (err) {
-                            //}, "Discount: " + discountValue + "\n", '8', '2');
-                            BTPrinter.printText(function (data) {
+                            BTPrinter.printTextSizeAlign(function (data) {
                             }, function (err) {
-                            }, "\x1b\x50\x1b\x61\x02 " + "Coupon (" + couponCode + "): " + discountValue + "\n");
+                            }, "Coupon (" + couponCode + "): " + discountValue + "\n", '20', '2');
+                            //BTPrinter.printText(function (data) {
+                            //}, function (err) {
+                            //}, "\x1b\x50\x1b\x61\x02 " + "Coupon (" + couponCode + "): " + discountValue + "\n");
                             //Print Discount Value End
                         }
 
                         if (rewardValue != "" && rewardValue != "0.00") {
                             //Print Reward Value Start
-                            //BTPrinter.printTextSizeAlign(function (data) {
-                            //}, function (err) {
-                            //}, "Reward: -" + rewardValue + "\n", '8', '2');
-                            BTPrinter.printText(function (data) {
+                            BTPrinter.printTextSizeAlign(function (data) {
                             }, function (err) {
-                            }, "\x1b\x50\x1b\x61\x02 " + "Reward (" + rewardPoints + "): -" + rewardValue + "\n");
+                            }, "Reward (" + rewardPoints + "): -" + rewardValue + "\n", '20', '2');
+                            //BTPrinter.printText(function (data) {
+                            //}, function (err) {
+                            //}, "\x1b\x50\x1b\x61\x02 " + "Reward (" + rewardPoints + "): -" + rewardValue + "\n");
                             //Print Reward Value End
                         }
 
                         if (giftCardValue != "" && giftCardValue != "0.00") {
                             //Print Gift Card Value Start
-                            //BTPrinter.printTextSizeAlign(function (data) {
-                            //}, function (err) {
-                            //}, "Gift Card: -" + giftCardValue + "\n", '8', '2');
-                            BTPrinter.printText(function (data) {
+                            BTPrinter.printTextSizeAlign(function (data) {
                             }, function (err) {
-                            }, "\x1b\x50\x1b\x61\x02 " + "Gift Card (" + giftCardCode + "): -" + giftCardValue + "\n");
+                            }, "Gift Card (" + giftCardCode + "): -" + giftCardValue + "\n", '20', '2');
+                            //BTPrinter.printText(function (data) {
+                            //}, function (err) {
+                            //}, "\x1b\x50\x1b\x61\x02 " + "Gift Card (" + giftCardCode + "): -" + giftCardValue + "\n");
                             //Print Gift Card Value End
                         }
 
                         if (tipValue != "" && tipValue != "0.00") {
-                            //htmlOrderTotal += " <tr>";
-                            //htmlOrderTotal += "<td colspan=\"3\" style=\"text-align:right; font-weight: bold;\">Tip:</td>";
-                            //htmlOrderTotal += "<td style=\"text-align:right;\">" + tipValue + "</td>";
-                            //htmlOrderTotal += "</tr>";
-
                             //Print Tip Start
-                            //BTPrinter.printTextSizeAlign(function (data) {
-                            //}, function (err) {
-                            //}, "Tip: " + tipValue + "\n", '8', '2');
-                            BTPrinter.printText(function (data) {
+                            BTPrinter.printTextSizeAlign(function (data) {
                             }, function (err) {
-                            }, "\x1b\x50\x1b\x61\x02 " + "Tip: " + tipValue + "\n");
+                            }, "Tip: " + tipValue + "\n", '20', '2');
+                            //BTPrinter.printText(function (data) {
+                            //}, function (err) {
+                            //}, "\x1b\x50\x1b\x61\x02 " + "Tip: " + tipValue + "\n");
                             //alert("Print Tip");
                             //Print Tip End
                         }
 
 
                         if (refundValue != "" && refundValue != "0.00") {
-                            BTPrinter.printText(function (data) {
-                            }, function (err) {
-                            }, "\x1b\x50\x1b\x61\x02 " + "Total: " + grandTotalvalue + "\n");
-                            //BTPrinter.printTextSizeAlign(function (data) {
+                            //BTPrinter.printText(function (data) {
                             //}, function (err) {
-                            //}, "\n" + "Total: " + grandTotalvalue + "\n", '20', '0');
+                            //}, "\x1b\x50\x1b\x61\x02 " + "Total: " + grandTotalvalue + "\n");
+                            BTPrinter.printTextSizeAlign(function (data) {
+                            }, function (err) {
+                            }, "\n" + "\x1b\x45\x01 " + "Total: " + grandTotalvalue + "\x1b\x45\x00" + " \n", '30', '0');
                             //alert("Print Total");
 
-                            //BTPrinter.printTextSizeAlign(function (data) {
-                            //}, function (err) {
-                            //}, "Refund: " + refundValue + "\n\n\n", '8', '2');
-                            BTPrinter.printText(function (data) {
+                            BTPrinter.printTextSizeAlign(function (data) {
                             }, function (err) {
-                            }, "\x1b\x50\x1b\x61\x02 " + "Refund: " + refundValue + "\n\n\n");
+                            }, "Refund: " + refundValue + "\n\n\n", '20', '2');
+                            //BTPrinter.printText(function (data) {
+                            //}, function (err) {
+                            //}, "\x1b\x50\x1b\x61\x02 " + "Refund: " + refundValue + "\n\n\n");
                             //alert("Print Refund");
                         }
                         else {
-                            BTPrinter.printText(function (data) {
-                            }, function (err) {
-                            }, "\x1b\x50\x1b\x61\x02 " + "Total: " + grandTotalvalue + "\n\n\n");
-                            //BTPrinter.printTextSizeAlign(function (data) {
+                            //BTPrinter.printText(function (data) {
                             //}, function (err) {
-                            //}, "\n" + "Total: " + grandTotalvalue + "\n\n\n", '20', '0');
+                            //}, "\x1b\x50\x1b\x61\x02 " + "Total: " + grandTotalvalue + "\n\n\n");
+                            BTPrinter.printTextSizeAlign(function (data) {
+                            }, function (err) {
+                            }, "\n" + "\x1b\x45\x01 " + "Total: " + grandTotalvalue + "\x1b\x45\x00" + " \n\n\n", '30', '0');
                             //alert("Print Total");
                         }
                     }
