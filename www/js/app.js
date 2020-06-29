@@ -356,11 +356,11 @@ $$(document).on('page:init', function (e) {
 
                 BTPrinter.printText(function (data) {
                 }, function (err) {
-                }, "\x1d\x21\x10\x1d\x21\x02 John Smith Height(02) Width(20)" + "\n");//Height(02) Width(20) Text
+                }, "\x1d\x21\x20\x1d\x21\x02 John Smith Height(02) Width(20)" + "\n");//Height(02) Width(20) Text
 
                 BTPrinter.printText(function (data) {
                 }, function (err) {
-                }, "\x1d\x21\x10\x1d\x21\x02 John Smith Height(02) Width(30)" + "\n");//Height(02) Width(30) Text
+                }, "\x1d\x21\x30\x1d\x21\x02 John Smith Height(02) Width(30)" + "\n");//Height(02) Width(30) Text
 
 
                 setTimeout(function () {
