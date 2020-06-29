@@ -341,33 +341,25 @@ $$(document).on('page:init', function (e) {
                 printerName = localStorage.getItem("PrinterName");
             BTPrinter.connect(function (data) {
 
-                BTPrinter.printText(function (data) {
+               BTPrinter.printText(function (data) {
                 }, function (err) {
-                }, "\x1b\x40" + "\n");//Clear Buffer
+                }, "\x1b\x21\x10 John Smith Double Height" + "\n");//Double Height Text
 
                 BTPrinter.printText(function (data) {
                 }, function (err) {
-                }, "\x1b\x21\x00 John Smith" + "\n");//Default Text
+                }, "\x1b\x21\x20 John Smith Doubel Height Width" + "\n");//Doubel Height Width Text
 
                 BTPrinter.printText(function (data) {
                 }, function (err) {
-                }, "\x1b\x21\x01 John Smith" + "\n");//Small Text
+                }, "\x1b\x21\x10\x1b\x21\x02 John Smith Height(02) Width(10)" + "\n");//Height(02) Width(10) Text
 
                 BTPrinter.printText(function (data) {
                 }, function (err) {
-                }, "\x1b\x21\x08 John Smith" + "\n");//Bold Text
+                }, "\x1b\x21\x40 John Smith Width(40)" + "\n");//Doubel Width(40) Text
 
                 BTPrinter.printText(function (data) {
                 }, function (err) {
-                }, "\x1b\x21\x10 John Smith" + "\n");//Double Height Text
-
-                BTPrinter.printText(function (data) {
-                }, function (err) {
-                }, "\x1b\x21\x20 John Smith" + "\n");//Doubel Height Width Text
-                
-                BTPrinter.printText(function (data) {
-                }, function (err) {
-                }, "\x1b\x21\x10 \x1b\x21\x02John Smith" + "\n");//Height(02) Width(10) Text
+                }, "\x1b\x21\x04 John Smith Height(04)" + "\n");//Doubel Height(04) Text
 
 
                 setTimeout(function () {
