@@ -2393,6 +2393,7 @@ $.fn.putCursorAtEnd = function () {
 function PrintCarryoutDetails() {
     var id = $("#carryout #dvCarryOutDetailsInner #hdnSelectedOrderId").val();
     //alert("ID: " + id);
+    $('#btnPrintOrder').text("Printing...");
 
     var storeId = SetStoreId();
     var printerName = "";
@@ -2629,7 +2630,7 @@ function PrintCarryoutDetails() {
 
                         BTPrinter.printText(function (data) {
                         }, function (err) {
-                        }, "\x1b\x21\x31" + firstName + " " + lastName + "  " + phone + "\n");
+                        }, "\x1b\x21\x31" + firstName + " " + lastName + "  " + phone + "\n\n");
 
                         //BTPrinter.printText(function (data) {
                         //}, function (err) {
@@ -2913,7 +2914,7 @@ function PrintCarryoutDetails() {
                             //}, "Refund: " + refundValue + "\n\n\n", '20', '2');
                             BTPrinter.printText(function (data) {
                             }, function (err) {
-                            }, "\x1b\x50\x1b\x61\x02 " + "Refund: " + refundValue + "\n\n\n");
+                            }, "\x1b\x21\x20\x1b\x50\x1b\x61\x02 " + "Refund: " + refundValue + "\n\n\n");
                             //alert("Print Refund");
                         }
                         else {
@@ -2956,11 +2957,11 @@ function PrintCarryoutDetails() {
                     $('#btnPrintOrder').text("PRINT");
                     //alert("Print Error: " + err);
                 }, "");
-            }, 1000);
+            }, 1500);
 
         }, function (err) {
             $('#btnPrintOrder').text("PRINT");
-            //alert("Connect Error: " + err);
+            alert("Cannot connect to Printer " + printerName + ".");
         }, printerName);//TCKP302-UB//TM-m30_003646
 
     }
