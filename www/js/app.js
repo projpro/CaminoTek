@@ -2798,7 +2798,7 @@ function PrintCarryoutDetails() {
                             
                             BTPrinter.printText(function (data) {
                             }, function (err) {
-                            }, "----------------------------------------" + "\n");
+                            }, "--------------------------" + "\n");
 
                         });
                     }
