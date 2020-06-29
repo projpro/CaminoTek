@@ -2510,9 +2510,13 @@ function PrintCarryoutDetails() {
                         }, function (err) {
                         }, "\x1b\x6b\x01\x1b\x6c\x01\x1b\x67\x1b\x30" + "\n");// Font + Margin + CPI + Line Spacing(1/8)
 
-                        BTPrinter.printText(function (data) {
+                        //BTPrinter.printText(function (data) {
+                        //}, function (err) {
+                        //}, "\x1b\x21\x20\x1b\x61\x00 " + ordertype + "    #" + orderId + "\n");
+
+                        BTPrinter.printTextSizeAlign(function (data) {
                         }, function (err) {
-                        }, "\x1b\x21\x20\x1b\x61\x00 " + ordertype + "    #" + orderId + "\n");
+                        }, + ordertype + "   #" + orderId + "\n", '30', '1');
 
 
                         //console.log(value.PICKUPTIME)
@@ -2623,9 +2627,13 @@ function PrintCarryoutDetails() {
                         ////alert("Print Name Phone");
                         ////Print Name, Phone End
 
-                        BTPrinter.printText(function (data) {
+                        //BTPrinter.printText(function (data) {
+                        //}, function (err) {
+                        //}, "\x1b\x67 " + firstName + " " + lastName + "     " + phone + "\n");
+
+                        BTPrinter.printTextSizeAlign(function (data) {
                         }, function (err) {
-                        }, "\x1b\x67 " + firstName + " " + lastName + "     " + phone + "\n");
+                        }, +firstName + " " + lastName + "     " + phone + "\n", '20', '1');
 
                         //if (value.ORDERSTATUSID != "" && value.ORDERSTATUSID != undefined) {
                         //    orderStatus = value.ORDERSTATUSID;
