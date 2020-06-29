@@ -2957,7 +2957,7 @@ function PrintCarryoutDetails() {
                     $('#btnPrintOrder').text("PRINT");
                     //alert("Print Error: " + err);
                 }, "");
-            }, 10000);
+            }, 3000);
 
         }, function (err) {
             $('#btnPrintOrder').text("PRINT");
