@@ -2508,7 +2508,7 @@ function PrintCarryoutDetails() {
                         //Default Tab(\x1b\x44\x00)
                         BTPrinter.printText(function (data) {
                         }, function (err) {
-                        }, "\x1b\x6b\x01\x1b\x6c\x01\x1b\x67\x1b\x30" + "\n");// Font + Margin + CPI + Line Spacing(1/8)
+                        }, "\x1b\x6b\x01\x1b\x6c\x01\x1b\x67\x1b\x32" + "\n");// Font + Margin + CPI + Line Spacing(1/8)
 
                         //BTPrinter.printText(function (data) {
                         //}, function (err) {
@@ -2623,7 +2623,7 @@ function PrintCarryoutDetails() {
                         //Print Name, Phone Start
                         BTPrinter.printTextSizeAlign(function (data) {
                         }, function (err) {
-                        }, firstName + " " + lastName + "    " + phone + "\n", '20', '0');//5
+                        }, firstName + " " + lastName + "    " + phone + "\n", '10', '0');//5
                         ////alert("Print Name Phone");
                         ////Print Name, Phone End
 
@@ -2692,7 +2692,7 @@ function PrintCarryoutDetails() {
                                     //}, "\n" + "\x1b\x21\x10\x1b\x45\x01 " + value.QUANTITY + "X " + value.PRODUCT + "     " + FormatDecimal(value.TOTALPRICE) + " \x1b\x45\x00\x1b\x21\x00" + "\n");
                                     BTPrinter.printTextSizeAlign(function (data) {
                                     }, function (err) {
-                                    }, "\n" + "\x1b\x45\x01 " + value.QUANTITY + "X  " + value.PRODUCT + "     " + FormatDecimal(value.TOTALPRICE) + " \x1b\x45\x00" + " \n", '30', '0');
+                                    }, "\n" + "\x1b\x32\x1b\x45\x01" + value.QUANTITY + "X  " + value.PRODUCT + "     " + FormatDecimal(value.TOTALPRICE) + "\x1b\x45\x00" + "\n", '30', '0');
 
                                 }
                                 else {
@@ -2701,7 +2701,7 @@ function PrintCarryoutDetails() {
                                     //}, "\n" + "\x1b\x21\x10\x1b\x45\x01 " + value.QUANTITY + "X " + value.PRODUCT + " \x1b\x45\x00\x1b\x21\x00" + "\n");
                                     BTPrinter.printTextSizeAlign(function (data) {
                                     }, function (err) {
-                                    }, "\n" + "\x1b\x45\x01 " + value.QUANTITY + "X  " + value.PRODUCT + " \x1b\x45\x00" + " \n", '30', '0');
+                                    }, "\n" + "\x1b\x32\x1b\x45\x01" + value.QUANTITY + "X  " + value.PRODUCT + "\x1b\x45\x00" + "\n", '30', '0');
                                 }
                                                                 
 
@@ -2722,7 +2722,7 @@ function PrintCarryoutDetails() {
                                             //Print Order Notes 1 Start
                                             BTPrinter.printTextSizeAlign(function (data) {
                                             }, function (err) {
-                                            }, notesValue.replace("</strong>", "") + "\n", '30', '0');
+                                            },"\x1b\x32" + notesValue.replace("</strong>", "") + "\n", '30', '0');
 
                                             //"\x1b\x30 " +
 
@@ -2740,7 +2740,7 @@ function PrintCarryoutDetails() {
                                             //Print Order Notes 1 Start
                                             BTPrinter.printTextSizeAlign(function (data) {
                                             }, function (err) {
-                                            }, notesValue.replace("</strong>", "") + "\n", '30', '0');
+                                            }, "\x1b\x32" + notesValue.replace("</strong>", "") + "\n", '30', '0');
 
                                             //"\x1b\x30 " + 
 
@@ -2767,7 +2767,7 @@ function PrintCarryoutDetails() {
                                     //}, "\n" + "\x1b\x21\x10\x1b\x45\x01 " + value.QUANTITY + "X " + value.PRODUCT + "     " + FormatDecimal(value.TOTALPRICE) + " \x1b\x45\x00\x1b\x21\x00" + "\n");
                                     BTPrinter.printTextSizeAlign(function (data) {
                                     }, function (err) {
-                                    }, "\n" + "\x1b\x45\x01 " + value.QUANTITY + "X  " + value.PRODUCT + "     " + FormatDecimal(value.TOTALPRICE) + " \x1b\x45\x00" + " \n", '30', '0');
+                                    }, "\n" + "\x1b\x32\x1b\x45\x01" + value.QUANTITY + "X  " + value.PRODUCT + "     " + FormatDecimal(value.TOTALPRICE) + "\x1b\x45\x00" + " \n", '30', '0');
 
                                 }
                                 else {
@@ -2776,7 +2776,7 @@ function PrintCarryoutDetails() {
                                     //}, "\n" + "\x1b\x21\x10\x1b\x45\x01 " + value.QUANTITY + "X " + value.PRODUCT + " \x1b\x45\x00\x1b\x21\x00" + "\n");
                                     BTPrinter.printTextSizeAlign(function (data) {
                                     }, function (err) {
-                                    }, "\n" + "\x1b\x45\x01 " + value.QUANTITY + "X  " + value.PRODUCT + " \x1b\x45\x00" + " \n", '30', '0');
+                                    }, "\n" + "\x1b\x32\x1b\x45\x01" + value.QUANTITY + "X  " + value.PRODUCT + "\x1b\x45\x00" + "\n", '30', '0');
                                 }
                             }
 
