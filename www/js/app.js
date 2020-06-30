@@ -359,7 +359,7 @@ $$(document).on('page:init', function (e) {
                         alert("print failure: " + error)
                     },
                     {
-                        codePage: cordova.plugins.bixolonPrint.CodePage.CP_1252_LATIN1
+                        codePage: cordova.plugins.bixolonPrint.CodePage.CP_437_USA
                     }
                 );
                 cordova.plugins.bixolonPrint.cutPaper();
