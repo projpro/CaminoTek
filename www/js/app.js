@@ -333,7 +333,71 @@ $$(document).on('page:init', function (e) {
 
         $$('#btnPrintOrder').on('click', function () { 
             $(this).text("Printing...");
-            PrintCarryoutDetails();
+            ////PrintCarryoutDetails();
+            
+            //Test Print Start
+            
+            var printerName = "";
+            if (localStorage.getItem("PrinterName") != null)
+                printerName = localStorage.getItem("PrinterName");
+            BTPrinter.connect(function (data) {
+
+                //Bixolon-Printer Start
+                cordova.plugins.bixolonPrint.addLine({
+                    text: "BistroUX\r\n",
+                    textAlign: cordova.plugins.bixolonPrint.TextAlign.CENTER,
+                    fontStyle: cordova.plugins.bixolonPrint.FontStyle.BOLD
+                });
+                cordova.plugins.bixolonPrint.addHr();
+                cordova.plugins.bixolonPrint.addLine("--------------------------");
+                // finally print
+                cordova.plugins.bixolonPrint.printText(
+                    function (response) {
+                        alert("print success!")
+                    },
+                    function (error) {
+                        alert("print failure: " + error)
+                    },
+                    {
+                        codePage: cordova.plugins.bixolonPrint.CodePage.CP_1252_LATIN1
+                    }
+                );
+                cordova.plugins.bixolonPrint.cutPaper();
+                //Bixolon-Printer End
+                
+                setTimeout(function () {
+
+                    //BTPrinter.printText(function (data) {
+                    //}, function (err) {
+                    //}, "\x1d\x56\x41\x0A" + "\n");//Auto Cut Paper
+
+                    BTPrinter.printText(function (data) {
+                    }, function (err) {
+                    }, "\x1b\x40" + "\n");//Clear Buffer
+
+                    BTPrinter.printText(function (data) {
+                        BTPrinter.disconnect(function (data) {
+                            $('#btnPrintOrder').text("PRINT");
+                            //alert("Disconnect");
+                            console.log(data)
+                        }, function (err) {
+                            //alert("Disconnect Error");
+                            $('#btnPrintOrder').text("PRINT");
+                            console.log(err)
+                        }, printerName);//TCKP302-UB//TM-m30_003646
+                    }, function (err) {
+                        $('#btnPrintOrder').text("PRINT");
+                        //alert("Print Error: " + err);
+                    }, "");
+                }, 1000);
+
+            }, function (err) {
+                $('#btnPrintOrder').text("PRINT");
+                //alert("Connect Error: " + err);
+            }, printerName);//TCKP302-UB//TM-m30_003646
+            
+            //Test Print End
+            
         });
             
     }
