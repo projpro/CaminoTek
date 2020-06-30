@@ -2517,7 +2517,7 @@ function PrintCarryoutDetails() {
                         
                         BTPrinter.printTextSizeAlign(function (data) {
                         }, function (err) {
-                        }, "www.bistroux.com" + "\n", '10', '1');
+                        }, "\x1b\x32www.bistroux.com\x1b\x30" + "\n", '10', '1');
 
                         //BTPrinter.printText(function (data) {
                         //}, function (err) {
