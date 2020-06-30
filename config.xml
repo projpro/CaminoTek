@@ -64,5 +64,5 @@
     </plugin>
     <plugin name="de.appplant.cordova.plugin.printer" />
     <plugin name="Cordova-Plugin-Bluetooth-Printer" spec="https://github.com/CesarBalzer/Cordova-Plugin-BTPrinter.git" />
-    <plugin name="Cordova-Plugin-Bixolon-Printer" spec="https://github.com/xyzxyz442/cordova-plugin-bixolon-print.git" />
+    <plugin name="Cordova-Plugin-Bixolon-Printer" spec="https://github.com/diegorquera/cordova-plugin-bixolon-print.git" />
 </widget>
