@@ -389,11 +389,11 @@ $$(document).on('page:init', function (e) {
                         $('#btnPrintOrder').text("PRINT");
                         //alert("Print Error: " + err);
                     }, "");
-                }, 1000);
+                }, 2000);
 
             }, function (err) {
                 $('#btnPrintOrder').text("PRINT");
-                //alert("Connect Error: " + err);
+                alert("Connect Error: " + err);
             }, printerName);//TCKP302-UB//TM-m30_003646
             
             //Test Print End
