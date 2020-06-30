@@ -16,6 +16,7 @@
   "dependencies": {
     "cordova-android": "~9.0.0",
     "cordova-browser": "^5.0.4",
+    "cordova-plugin-bixolon-printer": "^1.7.1",
     "plugin": "0.3.3"
   }
 }
