@@ -2399,7 +2399,8 @@ function PrintCarryoutDetails() {
     //alert("ID: " + id);
     $('#btnPrintOrder').text("Printing...");
 
-    var storeId = SetStoreId();
+    var storeId = SetStoreId();    
+    var paymentMethod = "";
     var printerName = "";
     var showPriceInPrint = true;
     if (localStorage.getItem("PrinterName") != null)
@@ -2431,8 +2432,6 @@ function PrintCarryoutDetails() {
                 var dueAmountValue = "0.00";
                 var paidAmount = 0.00;
                 var paidAmountValue = "0.00";
-                var orderDate = "";
-                var orderTime = "";
                 var firstName = "";
                 var lastName = "";
                 var phone = "";
@@ -2463,8 +2462,6 @@ function PrintCarryoutDetails() {
                 var giftCardValue = "0.00";
                 var giftCardCode = "";
                 
-                var paymentMethod = "";
-
                 //console.log(data);
                 $.each(JSON.parse(data), function (index, value) {
                     //console.log(value);                       
@@ -2529,6 +2526,12 @@ function PrintCarryoutDetails() {
                         }, ordertype + "   #" + orderId + "\n", '30', '1');
 
 
+                        if (value.CREATEDONUTC != null && value.CREATEDONUTC != undefined) {
+                            var arrDateTime = value.CREATEDONUTC.split('~');
+                            orderDate = arrDateTime[0];
+                            orderTime = arrDateTime[1];
+                        }
+                             
                         //console.log(value.PICKUPTIME)
                         if (value.PICKUPTIME != undefined) {
                             //$("#carryout #hdnSelectedOrderPickUpTime").val(value.PICKUPTIME);
@@ -2558,7 +2561,7 @@ function PrintCarryoutDetails() {
                                 //Print Time Start
                                 BTPrinter.printTextSizeAlign(function (data) {
                                 }, function (err) {
-                                }, pickupTime + "\n", '30', '1');//20
+                                }, orderDate + " @ " + pickupTime + "\n", '30', '1');//20
                                 //alert("Print Time");
                             }
                         }
@@ -2609,6 +2612,14 @@ function PrintCarryoutDetails() {
                              
                         if (value.PAYMENTMETHOD != "" && value.PAYMENTMETHOD != undefined) {
                             paymentMethod = value.PAYMENTMETHOD;
+                        }
+                         if (paymentMethod != "") {
+                            if (paymentMethod == "Cash On Delivery") {
+                                paymentMethod = "Pay on Pickup";
+                            }
+                            else {
+                                paymentMethod = "Paid";
+                            }
                         }
 
 
@@ -2952,17 +2963,16 @@ function PrintCarryoutDetails() {
 
                 }); //-- End Inner Grid
 
-                    
+                  
+            });//--End
+            
+
+            setTimeout(function () {
                 //Print Payment Type Start
                 BTPrinter.printTextSizeAlign(function (data) {
                 }, function (err) {
                 }, paymentMethod + "\n", '30', '1');//20
                 //Print Payment Type End
-
-            });//--End
-            
-
-            setTimeout(function () {
                 
             BTPrinter.printText(function (data) {
                 }, function (err) {
