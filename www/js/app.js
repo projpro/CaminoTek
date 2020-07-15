@@ -2462,6 +2462,8 @@ function PrintCarryoutDetails() {
                 var rewardPoints = "";
                 var giftCardValue = "0.00";
                 var giftCardCode = "";
+                
+                var paymentMethod = "";
 
                 //console.log(data);
                 $.each(JSON.parse(data), function (index, value) {
@@ -2539,11 +2541,15 @@ function PrintCarryoutDetails() {
                             if (pickupTime.indexOf("@") > -1) {
                                 var pickupDateOnly = pickupTime.split('@')[0].trim();
                                 var pickupTimeOnly = pickupTime.split('@')[1].trim();
+                                
+                                if (pickupTimeOnly.charAt(0) === '0') {
+                                    pickupTimeOnly = pickupTimeOnly.substr(1);
+                                }
 
                                 //Print Time Start
                                 BTPrinter.printTextSizeAlign(function (data) {
                                 }, function (err) {
-                                }, pickupTimeOnly + "\n", '30', '1');//20
+                                }, pickupDateOnly + " @ " + pickupTimeOnly + "\n", '30', '1');//20
                                 //alert("Print Time");
                                 //Print Time End
 
@@ -2600,6 +2606,11 @@ function PrintCarryoutDetails() {
                         if (value.Tip != undefined && Number(value.Tip) > 0) {
                             tipValue = FormatDecimal(value.Tip);
                         }
+                             
+                        if (value.PAYMENTMETHOD != "" && value.PAYMENTMETHOD != undefined) {
+                            paymentMethod = value.PAYMENTMETHOD;
+                        }
+
 
 
 
@@ -2941,6 +2952,12 @@ function PrintCarryoutDetails() {
 
                 }); //-- End Inner Grid
 
+                    
+                //Print Payment Type Start
+                BTPrinter.printTextSizeAlign(function (data) {
+                }, function (err) {
+                }, paymentMethod + "\n", '30', '1');//20
+                //Print Payment Type End
 
             });//--End
             
