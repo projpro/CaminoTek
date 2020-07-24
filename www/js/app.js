@@ -2524,6 +2524,14 @@ function PrintCarryoutDetails() {
                         BTPrinter.printTextSizeAlign(function (data) {
                         }, function (err) {
                         }, ordertype + "   #" + orderId + "\n", '30', '1');
+                             
+                        BTPrinter.printText(function (data) {
+                        }, function (err) {
+                        }, "\x1b\x21\x31" + orderDate + "\n");
+                             
+                        //BTPrinter.printTextSizeAlign(function (data) {
+                        //}, function (err) {
+                        //}, orderDate + "\n", '30', '1');//20
 
 
                         if (value.CREATEDONUTC != null && value.CREATEDONUTC != undefined) {
@@ -2552,7 +2560,7 @@ function PrintCarryoutDetails() {
                                 //Print Time Start
                                 BTPrinter.printTextSizeAlign(function (data) {
                                 }, function (err) {
-                                }, pickupDateOnly + " @ " + pickupTimeOnly + "\n", '30', '1');//20
+                                }, pickupTimeOnly + "\n", '30', '1');//20
                                 //alert("Print Time");
                                 //Print Time End
 
@@ -2561,7 +2569,7 @@ function PrintCarryoutDetails() {
                                 //Print Time Start
                                 BTPrinter.printTextSizeAlign(function (data) {
                                 }, function (err) {
-                                }, orderDate + " @ " + pickupTime + "\n", '30', '1');//20
+                                }, pickupTime + "\n", '30', '1');//20
                                 //alert("Print Time");
                             }
                         }
