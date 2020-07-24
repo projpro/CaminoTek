@@ -2524,22 +2524,19 @@ function PrintCarryoutDetails() {
                         BTPrinter.printTextSizeAlign(function (data) {
                         }, function (err) {
                         }, ordertype + "   #" + orderId + "\n", '30', '1');
-                             
-                                                    
-                        //BTPrinter.printTextSizeAlign(function (data) {
-                        //}, function (err) {
-                        //}, orderDate + "\n", '30', '1');//20
-
-
+                         
                         if (value.CREATEDONUTC != null && value.CREATEDONUTC != undefined) {
                             var arrDateTime = value.CREATEDONUTC.split('~');
                             orderDate = arrDateTime[0];
                             orderTime = arrDateTime[1];
                         }
                              
-                        BTPrinter.printText(function (data) {
+                        //BTPrinter.printText(function (data) {
+                        //}, function (err) {
+                        //}, "\x1b\x21\x31" + orderDate + "\n");
+                        BTPrinter.printTextSizeAlign(function (data) {
                         }, function (err) {
-                        }, "\x1b\x21\x31" + orderDate + "\n");
+                        }, orderDate + "\n", '10', '1');//20
                              
                         //console.log(value.PICKUPTIME)
                         if (value.PICKUPTIME != undefined) {
