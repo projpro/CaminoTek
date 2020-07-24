@@ -2525,10 +2525,7 @@ function PrintCarryoutDetails() {
                         }, function (err) {
                         }, ordertype + "   #" + orderId + "\n", '30', '1');
                              
-                        BTPrinter.printText(function (data) {
-                        }, function (err) {
-                        }, "\x1b\x21\x31" + orderDate + "\n");
-                             
+                                                    
                         //BTPrinter.printTextSizeAlign(function (data) {
                         //}, function (err) {
                         //}, orderDate + "\n", '30', '1');//20
@@ -2539,6 +2536,10 @@ function PrintCarryoutDetails() {
                             orderDate = arrDateTime[0];
                             orderTime = arrDateTime[1];
                         }
+                             
+                        BTPrinter.printText(function (data) {
+                        }, function (err) {
+                        }, "\x1b\x21\x31" + orderDate + "\n");
                              
                         //console.log(value.PICKUPTIME)
                         if (value.PICKUPTIME != undefined) {
