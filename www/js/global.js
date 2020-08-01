@@ -10956,7 +10956,8 @@ function SaveProductInfo() {
                             buttonsStyling: false,
                             customClass: 'swal-wide',
                         }).then(function () {
-                            self.app.router.navigate('/food_list/', { reloadCurrent: false });
+                            Back();
+                            //self.app.router.navigate('/food_list/', { reloadCurrent: false });
                         });
                     }
                     else {
@@ -10968,7 +10969,8 @@ function SaveProductInfo() {
                             buttonsStyling: false,
                             customClass: 'swal-wide',
                         }).then(function () {
-                            self.app.router.navigate('/food_list/', { reloadCurrent: false });
+                            Back();
+                            //self.app.router.navigate('/food_list/', { reloadCurrent: false });
                         });
                     }
                 }
