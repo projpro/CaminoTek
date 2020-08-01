@@ -2394,10 +2394,10 @@ $.fn.putCursorAtEnd = function () {
 
 
 //Print Order
-function PrintCarryoutDetails() {
+function PrintCarryoutDetails() {    
+    $('#btnPrintOrder').text("Printing...");
     var id = $("#carryout #dvCarryOutDetailsInner #hdnSelectedOrderId").val();
     //alert("ID: " + id);
-    $('#btnPrintOrder').text("Printing...");
 
     var storeId = SetStoreId();    
     var paymentMethod = "";
