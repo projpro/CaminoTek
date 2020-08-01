@@ -826,7 +826,11 @@ $$(document).on('page:init', function (e) {
             $('#ulFilterSortItem').hide();
         });
         //GiftCard Orders - End
-
+$("#txtExpirationDate").flatpickr({
+            enableTime: false,
+            dateFormat: "m/d/Y",
+            //disableMobile: true,
+        });
         //Sudip - End
     }
 
