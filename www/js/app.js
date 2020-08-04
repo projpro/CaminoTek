@@ -333,7 +333,9 @@ $$(document).on('page:init', function (e) {
 
         $$('#btnPrintOrder').on('click', function () { 
             $(this).text("Printing...");
-            PrintCarryoutDetails();
+            setTimeout(function () {
+                PrintCarryoutDetails();
+            }, 1000);
             
             //Test Print Start            
             //Test Print End
