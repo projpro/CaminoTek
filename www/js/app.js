@@ -335,7 +335,7 @@ $$(document).on('page:init', function (e) {
             $(this).text("Printing...");
             setTimeout(function () {
                 PrintCarryoutDetails();
-            }, 1000);
+            }, 250);
             
             //Test Print Start            
             //Test Print End
