@@ -713,12 +713,20 @@ function CarryoutOrdersList(status, carryoutpagesize, carryoutcurrentPage, divId
                                 $("#dvAllList #li_" + value.ID).css("border-left", "#f7952c 10px solid");
                             }
                         }
-                        else if (value.ORDERSTATUSID.toLowerCase() == "cancelled" || value.ORDERSTATUSID.toLowerCase() == "refunded") {
+                        else if (value.ORDERSTATUSID.toLowerCase() == "cancelled") {
                             if (status == "New" || status == "Processing") {
                                 $("#dvNewList #li_" + value.ID).css("border-left", "#e95861 10px solid");
                             }
                             else {
                                 $("#dvAllList #li_" + value.ID).css("border-left", "#e95861 10px solid");
+                            }
+                        }
+                        else if (value.ORDERSTATUSID.toLowerCase() == "refunded") {
+                            if (status == "New" || status == "Processing") {
+                                $("#dvNewList #li_" + value.ID).css("border-left", "#9C1B8C 10px solid");
+                            }
+                            else {
+                                $("#dvAllList #li_" + value.ID).css("border-left", "#9C1B8C 10px solid");
                             }
                         }
 
@@ -763,6 +771,7 @@ function CarryoutOrdersList(status, carryoutpagesize, carryoutcurrentPage, divId
         self.app.router.navigate('/login_new/', { reloadCurrent: false });
     }
 }
+//Carryout Orders End
 
 //Carryout Orders
 function CarryoutOrdersListPagination(status, carryoutpagesize, carryoutcurrentPage, divId) {
@@ -1176,12 +1185,20 @@ function CarryoutOrdersListPagination(status, carryoutpagesize, carryoutcurrentP
                                 $("#dvAllList #li_" + value.ID).css("border-left", "#f7952c 10px solid");
                             }
                         }
-                        else if (value.ORDERSTATUSID.toLowerCase() == "cancelled" || value.ORDERSTATUSID.toLowerCase() == "refunded") {
+                        else if (value.ORDERSTATUSID.toLowerCase() == "cancelled") {
                             if (status == "New" || status == "Processing") {
                                 $("#dvNewList #li_" + value.ID).css("border-left", "#e95861 10px solid");
                             }
                             else {
                                 $("#dvAllList #li_" + value.ID).css("border-left", "#e95861 10px solid");
+                            }
+                        }
+                        else if (value.ORDERSTATUSID.toLowerCase() == "refunded") {
+                            if (status == "New" || status == "Processing") {
+                                $("#dvNewList #li_" + value.ID).css("border-left", "#9C1B8C 10px solid");
+                            }
+                            else {
+                                $("#dvAllList #li_" + value.ID).css("border-left", "#9C1B8C 10px solid");
                             }
                         }
 
@@ -1209,6 +1226,8 @@ function CarryoutOrdersListPagination(status, carryoutpagesize, carryoutcurrentP
     }
 
 }
+//Carryout Orders End
+
 //Carryout Details
 function OpenCarryoutDetails(id) {
     $('.order-container').removeClass("selected-order-background");
@@ -1279,6 +1298,7 @@ function OpenCarryoutDetails(id) {
             var refundValue = "0.00";
 
             var tipValue = "0.00";
+            var finalOrderTotal = "0.00";
 
             //console.log(data);
             $.each(JSON.parse(data), function (index, value) {
@@ -1380,6 +1400,9 @@ function OpenCarryoutDetails(id) {
                         tipValue = FormatDecimal(value.Tip);
                     }
 
+                    if (value.FINALORDERTOTAL != undefined && Number(value.FINALORDERTOTAL)) {
+                        finalOrderTotal = FormatDecimal(value.FINALORDERTOTAL);
+                    }
 
 
                     $("#carryout #hdnSelectedOrderOrderPrice").val(ordertotalvalue);
@@ -1521,8 +1544,9 @@ function OpenCarryoutDetails(id) {
                     htmlGiftCard += "</tr>";
                 }
 
-                if (orderStatus.toLowerCase() != "cancelled" && orderStatus.toLowerCase() != "refunded") {
+                if (orderStatus.toLowerCase() != "cancelled") {
                     $("#carryout #divLowerCancelButtonArea").show();
+                    $("#carryout #divLowerPrintButtonArea").hide();
                     if (orderStatus.toLowerCase() == "pickedup") {
                         $("#btnChangePickupTime").prop("onclick", null).off("click");
                         $("#btnChangePickupTime").css('opacity', '0.5');
@@ -1537,6 +1561,7 @@ function OpenCarryoutDetails(id) {
                 else
                 {
                     $("#carryout #divLowerCancelButtonArea").hide();
+                    $("#carryout #divLowerPrintButtonArea").show();
                 }
                 /*------------------Order Area-----------------------*/
                 var buttonHTML = "";
@@ -1671,12 +1696,21 @@ function OpenCarryoutDetails(id) {
 
                         $("#carryout #divUpperButtonArea").html("");
                     }
-                    else if (orderStatus.toLowerCase() == "cancelled" || orderStatus.toLowerCase() == "refunded") {
+                    else if (orderStatus.toLowerCase() == "cancelled") {
                         //html += "<div class=\"order-status-icon\" id=\"carryoutstatus_" + value.ID + "\"><img class=\"list-icon\"  src=\"img/icons/Picked-Up-Icon.png\" alt=\"\"/></div>";
                         orderhtml += "<div class=\"dropdown\" id=\"carryoutstatus_" + orderId + "\">";
                         orderhtml += "<button id=\"btnStatusChange\" class=\"dropbtn\"><img class=\"list-icon\"  src=\"img/icons/cancel.png\" alt=\"\"/></button>";
                         orderhtml += "<a class=\"popup-link\" onclick=\"OpenOrderHistoryPopup(" + orderId + ")\">History</a>";
 
+                        orderhtml += "</div>";
+
+                        $("#carryout #divUpperButtonArea").html("");
+                    }
+                    else if (orderStatus.toLowerCase() == "refunded") {
+                        //html += "<div class=\"order-status-icon\" id=\"carryoutstatus_" + value.ID + "\"><img class=\"list-icon\"  src=\"img/icons/Picked-Up-Icon.png\" alt=\"\"/></div>";
+                        orderhtml += "<div class=\"dropdown\" id=\"carryoutstatus_" + orderId + "\">";
+                        orderhtml += "<button id=\"btnStatusChange\" class=\"dropbtn\"><img class=\"list-icon\"  src=\"img/icons/refund.png\" alt=\"\"/></button>";
+                        orderhtml += "<a class=\"popup-link\" onclick=\"OpenOrderHistoryPopup(" + orderId + ")\">History</a>";
                         orderhtml += "</div>";
 
                         $("#carryout #divUpperButtonArea").html("");
@@ -1690,7 +1724,6 @@ function OpenCarryoutDetails(id) {
                 /*------------------Status Icon Area End-----------------------*/
                 /*------------------Button Row Start-----------------------*/
                 
-
                 orderhtml += "<div class=\"order-buttons\" id=\"popupCarryOutDetails_" + orderId + "\" style=\"width:60%;\">";
                 ////orderhtml += buttonHTML;
                 orderhtml += "</div>";
@@ -2043,12 +2076,12 @@ function OpenCarryoutDetails(id) {
                     htmlOrderTotal += "<td style=\"text-align:right;\">" + grandTotalvalue + "</td>";
                     htmlOrderTotal += "</tr>";
 
-                    if (refundValue != "" && refundValue != "0.00") {
-                        htmlOrderTotal += " <tr>";
-                        htmlOrderTotal += "<td colspan=\"3\" style=\"text-align:right; font-weight: bold;\">Refund:</td>";
-                        htmlOrderTotal += "<td style=\"text-align:right;\">" + refundValue + "</td>";
-                        htmlOrderTotal += "</tr>";
-                    }
+                    //if (refundValue != "" && refundValue != "0.00") {
+                    //    htmlOrderTotal += " <tr>";
+                    //    htmlOrderTotal += "<td colspan=\"3\" style=\"text-align:right; font-weight: bold;\">Refund:</td>";
+                    //    htmlOrderTotal += "<td style=\"text-align:right;\">" + refundValue + "</td>";
+                    //    htmlOrderTotal += "</tr>";
+                    //}
                     
                 }
                 else {
@@ -2092,12 +2125,12 @@ function OpenCarryoutDetails(id) {
                     htmlOrderTotal += "<td style=\"text-align:right;\">" + grandTotalvalue + "</td>";
                     htmlOrderTotal += "</tr>";
 
-                    if (refundValue != "" && refundValue != "0.00") {
-                        htmlOrderTotal += " <tr>";
-                        htmlOrderTotal += "<td colspan=\"3\" style=\"text-align:right; font-weight: bold;\">Refund:</td>";
-                        htmlOrderTotal += "<td style=\"text-align:right;\">" + refundValue + "</td>";
-                        htmlOrderTotal += "</tr>";
-                    }                    
+                    //if (refundValue != "" && refundValue != "0.00") {
+                    //    htmlOrderTotal += " <tr>";
+                    //    htmlOrderTotal += "<td colspan=\"3\" style=\"text-align:right; font-weight: bold;\">Refund:</td>";
+                    //    htmlOrderTotal += "<td style=\"text-align:right;\">" + refundValue + "</td>";
+                    //    htmlOrderTotal += "</tr>";
+                    //}                    
                 }
 
                 if (curbsidePickup) {
@@ -2112,12 +2145,61 @@ function OpenCarryoutDetails(id) {
                 }
 
 
-                if (dueAmount > 0) {
-                    $("#carryout #dvItem").html(html + htmlSubTotal + htmlDiscount + htmlRewards + htmlGiftCard + htmlOrderTotal + htmlDueAmount + "</tbody>");
-                }
-                else {
-                    $("#carryout #dvItem").html(html + htmlSubTotal + htmlDiscount + htmlRewards + htmlGiftCard + htmlOrderTotal + "</tbody>");
-                }
+                //Order Refund and Add Charged Section Start
+                url = global + "/GetCarryoutOrderAdjustments?orderid=" + id;
+                $.getJSON(url, function (data) {
+                    if (data.indexOf("No record(s) found.") > -1) {
+                        if (dueAmount > 0) {
+                            $("#carryout #dvItem").html(html + htmlSubTotal + htmlDiscount + htmlRewards + htmlGiftCard + htmlOrderTotal + htmlDueAmount + "</tbody>");
+                        }
+                        else {
+                            $("#carryout #dvItem").html(html + htmlSubTotal + htmlDiscount + htmlRewards + htmlGiftCard + htmlOrderTotal + "</tbody>");
+                        }
+                    }
+                    else {
+                        $.each(JSON.parse(data), function (index, value) {
+                            var adjustmentType = "";
+                            var adjustmentNotes = "";
+                            var adjustmentAmont = "";
+                            if(value.Type != "")
+                            {
+                                adjustmentType = value.Type;
+                                
+                                if (adjustmentType != "Charge")
+                                    adjustmentType = "Refund";
+                            }
+                            if (value.Notes != "") {
+                                adjustmentNotes = value.Notes;
+                            }
+                            if (value.Amount != "") {
+                                adjustmentAmont = FormatDecimal(value.Amount);
+                            }
+
+                            htmlOrderTotal += "<tr>";
+                            htmlOrderTotal += "<td colspan=\"3\" style=\"text-align:right; font-weight: bold;\">" + adjustmentType + ":<br/><span style=\"text-align:right; font-weight: normal;\">(" + adjustmentNotes + ")</span></td>";
+                            htmlOrderTotal += "<td style=\"text-align:right;vertical-align: top;\">" + adjustmentAmont + "</td>";
+                            htmlOrderTotal += "</tr>";
+                        });
+
+
+                        htmlOrderTotal += "<tr>";
+                        htmlOrderTotal += "<td colspan=\"3\" style=\"text-align:right; font-weight: bold;\">Final Amount:</td>";
+                        htmlOrderTotal += "<td style=\"text-align:right;\" id=\"popupOrderFinalAmount_" + orderId + "\">" + finalOrderTotal + "</td>";
+                        htmlOrderTotal += "</tr>";
+
+                        if (dueAmount > 0) {
+                            $("#carryout #dvItem").html(html + htmlSubTotal + htmlDiscount + htmlRewards + htmlGiftCard + htmlOrderTotal + htmlDueAmount + "</tbody>");
+                        }
+                        else {
+                            $("#carryout #dvItem").html(html + htmlSubTotal + htmlDiscount + htmlRewards + htmlGiftCard + htmlOrderTotal + "</tbody>");
+                        }
+                    }
+                });
+
+                //Order Refund and Add Charged Section End
+
+
+                
                 //console.log($("#dvItem").html());
                 //alert($("#dvCarryOutDetailsInner").html());
                 //alert($("#dvItem").html());
@@ -2141,6 +2223,8 @@ function OpenCarryoutDetails(id) {
     }
 
 }
+//Carryout Details End
+
 function CloseCarryOutDetails() {
     $('#dvCarryOutDetailsInner').hide();
     $('#dvOrderInfo').html("");
