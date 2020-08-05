@@ -2955,7 +2955,7 @@ function PrintCarryoutDetails() {
                         
                         //Order Refund and Add. Charge Section Start
                         var urlOrderAdjustment = global + "/GetCarryoutOrderAdjustments?orderid=" + id;
-                        $.getJSON(url, function (data) {
+                        $.getJSON(urlOrderAdjustment, function (data) {
                             if (data.indexOf("No record(s) found.") > -1) {
                                 BTPrinter.printText(function (data) {
                                 }, function (err) {
