@@ -2861,7 +2861,7 @@ function PrintCarryoutDetails() {
                             //}, "\n" + "Subtotal: " + subTotalWithoutTax + "\n", '20', '2');
                             BTPrinter.printText(function (data) {
                             }, function (err) {
-                            }, "\n" + "\x1b\x6b\x01\x1b\x21\x20\x1b\x50\x1b\x61\x02" + "Subtotal: " + subTotalWithoutTax + "\n");
+                            }, "\n" + "\x1b\x6b\x01\x1b\x21\x31\x1b\x50\x1b\x61\x02" + "Subtotal: " + subTotalWithoutTax + "\n");
                             //alert("Print Subtotal");
                             //Print Subtotal End
                         }
@@ -2873,7 +2873,7 @@ function PrintCarryoutDetails() {
                             //}, "\n" + "Subtotal: " + FormatDecimal(subtotalvalue) + "\n", '20', '2');
                             BTPrinter.printText(function (data) {
                             }, function (err) {
-                            }, "\n" + "\x1b\x6b\x01\x1b\x21\x20\x1b\x50\x1b\x61\x02" + "Subtotal: " + FormatDecimal(subtotalvalue) + "\n");
+                            }, "\n" + "\x1b\x6b\x01\x1b\x21\x31\x1b\x50\x1b\x61\x02" + "Subtotal: " + FormatDecimal(subtotalvalue) + "\n");
                             //alert("Print Subtotal");
                             //Print Subtotal End
                         }
@@ -2886,7 +2886,7 @@ function PrintCarryoutDetails() {
                             //}, "Delivery: " + shippingValue + "\n", '20', '2');
                             BTPrinter.printText(function (data) {
                             }, function (err) {
-                            }, "\x1b\x6b\x01\x1b\x21\x20\x1b\x50\x1b\x61\x02" + "Delivery: " + shippingValue + "\n");
+                            }, "\x1b\x6b\x01\x1b\x21\x31\x1b\x50\x1b\x61\x02" + "Delivery: " + shippingValue + "\n");
                             //alert("Print Delivery");
                             //Print Delivery End
                         }
@@ -2899,7 +2899,7 @@ function PrintCarryoutDetails() {
                             //}, "Tax: " + taxValue + "\n", '20', '2');
                             BTPrinter.printText(function (data) {
                             }, function (err) {
-                            }, "\x1b\x6b\x01\x1b\x21\x20\x1b\x50\x1b\x61\x02" + "Tax: " + taxValue + "\n");
+                            }, "\x1b\x6b\x01\x1b\x21\x31\x1b\x50\x1b\x61\x02" + "Tax: " + taxValue + "\n");
                             ///alert("Print Tax");
                             //Print Tax Value End
 
@@ -2912,7 +2912,7 @@ function PrintCarryoutDetails() {
                             //}, "Coupon (" + couponCode + "): " + discountValue + "\n", '20', '2');
                             BTPrinter.printText(function (data) {
                             }, function (err) {
-                            }, "\x1b\x6b\x01\x1b\x21\x20\x1b\x50\x1b\x61\x02" + "Coupon (" + couponCode + "): " + discountValue + "\n");
+                            }, "\x1b\x6b\x01\x1b\x21\x31\x1b\x50\x1b\x61\x02" + "Coupon (" + couponCode + "): " + discountValue + "\n");
                             //Print Discount Value End
                         }
 
@@ -2923,7 +2923,7 @@ function PrintCarryoutDetails() {
                             //}, "Reward (" + rewardPoints + "): -" + rewardValue + "\n", '20', '2');
                             BTPrinter.printText(function (data) {
                             }, function (err) {
-                            }, "\x1b\x6b\x01\x1b\x21\x20\x1b\x50\x1b\x61\x02" + "Reward (" + rewardPoints + "): -" + rewardValue + "\n");
+                            }, "\x1b\x6b\x01\x1b\x21\x31\x1b\x50\x1b\x61\x02" + "Reward (" + rewardPoints + "): -" + rewardValue + "\n");
                             //Print Reward Value End
                         }
 
@@ -2934,7 +2934,7 @@ function PrintCarryoutDetails() {
                             //}, "Gift Card (" + giftCardCode + "): -" + giftCardValue + "\n", '20', '2');
                             BTPrinter.printText(function (data) {
                             }, function (err) {
-                            }, "\x1b\x6b\x01\x1b\x21\x20\x1b\x50\x1b\x61\x02" + "Gift Card (" + giftCardCode + "): -" + giftCardValue + "\n");
+                            }, "\x1b\x6b\x01\x1b\x21\x31\x1b\x50\x1b\x61\x02" + "Gift Card (" + giftCardCode + "): -" + giftCardValue + "\n");
                             //Print Gift Card Value End
                         }
 
@@ -2945,7 +2945,7 @@ function PrintCarryoutDetails() {
                             //}, "Tip: " + tipValue + "\n", '20', '2');
                             BTPrinter.printText(function (data) {
                             }, function (err) {
-                            }, "\x1b\x6b\x01\x1b\x21\x20\x1b\x50\x1b\x61\x02" + "Tip: " + tipValue + "\n");
+                            }, "\x1b\x6b\x01\x1b\x21\x31\x1b\x50\x1b\x61\x02" + "Tip: " + tipValue + "\n");
                             //alert("Print Tip");
                             //Print Tip End
                         }
@@ -2957,7 +2957,7 @@ function PrintCarryoutDetails() {
                             if (data.indexOf("No record(s) found.") > -1) {
                                 BTPrinter.printText(function (data) {
                                 }, function (err) {
-                                }, "\x1b\x6b\x01\x1b\x21\x20\x1b\x50\x1b\x61\x02\x1b\x45\x01" + "Total: " + grandTotalvalue + "\x1b\x45\x00\n\n\n");
+                                }, "\x1b\x6b\x01\x1b\x21\x31\x1b\x50\x1b\x61\x02\x1b\x45\x01" + "Total: " + grandTotalvalue + "\x1b\x45\x00\n\n\n");
                                 //BTPrinter.printTextSizeAlign(function (data) {
                                 //}, function (err) {
                                 //}, "\n" + "\x1b\x45\x01" + "Total: " + grandTotalvalue + "\x1b\x45\x00" + "\n\n\n", '20', '2');
@@ -2965,7 +2965,7 @@ function PrintCarryoutDetails() {
                             else {
                                 BTPrinter.printText(function (data) {
                                 }, function (err) {
-                                }, "\x1b\x6b\x01\x1b\x21\x20\x1b\x50\x1b\x61\x02\x1b\x45\x01" + "Total: " + grandTotalvalue + "\x1b\x45\x00\n");
+                                }, "\x1b\x6b\x01\x1b\x21\x31\x1b\x50\x1b\x61\x02\x1b\x45\x01" + "Total: " + grandTotalvalue + "\x1b\x45\x00\n");
                                 //BTPrinter.printTextSizeAlign(function (data) {
                                 //}, function (err) {
                                 //}, "\n" + "\x1b\x45\x01" + "Total: " + grandTotalvalue + "\x1b\x45\x00" + "\n\n\n", '20', '2');
@@ -2989,19 +2989,19 @@ function PrintCarryoutDetails() {
 
                                     BTPrinter.printText(function (data) {
                                     }, function (err) {
-                                    }, "\x1b\x6b\x01\x1b\x21\x20\x1b\x50\x1b\x61\x02" + "" + adjustmentType + ": " + adjustmentAmont + "\n");
+                                    }, "\x1b\x6b\x01\x1b\x21\x31\x1b\x50\x1b\x61\x02" + "" + adjustmentType + ": " + adjustmentAmont + "\n");
 
                                     if (adjustmentNotes != "") {
                                         BTPrinter.printText(function (data) {
                                         }, function (err) {
-                                        }, "\x1b\x6b\x01\x1b\x21\x20\x1b\x50\x1b\x61\x02" + "(" + adjustmentNotes + ")\n");
+                                        }, "\x1b\x6b\x01\x1b\x21\x31\x1b\x50\x1b\x61\x02" + "(" + adjustmentNotes + ")\n");
                                     }
 
                                 });
 
                                 BTPrinter.printText(function (data) {
                                 }, function (err) {
-                                }, "\x1b\x6b\x01\x1b\x21\x20\x1b\x50\x1b\x61\x02\x1b\x45\x01" + "Final Amount: " + finalOrderTotal + "\x1b\x45\x00\n\n\n");
+                                }, "\x1b\x6b\x01\x1b\x21\x31\x1b\x50\x1b\x61\x02\x1b\x45\x01" + "Final Amount: " + finalOrderTotal + "\x1b\x45\x00\n\n\n");
                             }
                         });
                         //Order Refund and Add. Charge Section End
