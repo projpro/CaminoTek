@@ -2403,7 +2403,7 @@ $.fn.putCursorAtEnd = function () {
 
 //Print Order
 function PrintCarryoutDetails() {
-    $('#btnPrintOrder').text("Printing...");
+    //$('#btnPrintOrder').text("Printing...");
     var id = $("#carryout #dvCarryOutDetailsInner #hdnSelectedOrderId").val();
     //alert("ID: " + id);
 
@@ -3035,21 +3035,25 @@ function PrintCarryoutDetails() {
                 BTPrinter.printText(function (data) {
                     BTPrinter.disconnect(function (data) {
                         $('#btnPrintOrder').text("PRINT");
+                        $('#btnPrintCancelOrder').text("PRINT");
                         //alert("Disconnect");
                         console.log(data)
                     }, function (err) {
                         //alert("Disconnect Error");
                         $('#btnPrintOrder').text("PRINT");
+                        $('#btnPrintCancelOrder').text("PRINT");
                         console.log(err)
                     }, printerName);//TCKP302-UB//TM-m30_003646
                 }, function (err) {
                     $('#btnPrintOrder').text("PRINT");
+                    $('#btnPrintCancelOrder').text("PRINT");
                     //alert("Print Error: " + err);
                 }, "");
-            }, 4000);
+            }, 4100);
 
         }, function (err) {
-            $('#btnPrintOrder').text("PRINT");
+            $('#btnPrintOrder').text("PRINT");                
+            $('#btnPrintCancelOrder').text("PRINT");
             alert("Cannot connect to Printer " + printerName + ".");
         }, printerName);//TCKP302-UB//TM-m30_003646
 
