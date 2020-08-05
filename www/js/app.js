@@ -2997,7 +2997,7 @@ function PrintCarryoutDetails() {
                                     {
                                         BTPrinter.printText(function (data) {
                                         }, function (err) {
-                                        }, "\x1b\x6b\x01\x1b\x21\x20\x1b\x50\x1b\x61\x02" + "(" + adjustmentAmont + ")\n");
+                                        }, "\x1b\x6b\x01\x1b\x21\x20\x1b\x50\x1b\x61\x02" + "(" + adjustmentNotes + ")\n");
                                     }                                    
 
                                 });
