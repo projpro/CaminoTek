@@ -331,21 +331,18 @@ $$(document).on('page:init', function (e) {
             $('#ulFilterSortItem').hide();
         });
 
-        $$('#btnPrintOrder').on('click', function () { 
+        $$('#btnPrintOrder').on('click', function () {
             $(this).text("Printing...");
             setTimeout(function () {
                 PrintCarryoutDetails();
-            }, 50);
-            
-            $$('#btnPrintCancelOrder').on('click', function () {
-            $(this).text("Printing...");
-            setTimeout(function () {
-                PrintCarryoutDetails();
-            }, 50);
+            }, 50);            
         });
-            //Test Print Start            
-            //Test Print End
-            
+
+        $$('#btnPrintCancelOrder').on('click', function () {
+            $(this).text("Printing...");
+            setTimeout(function () {
+                PrintCarryoutDetails();
+            }, 50);
         });
             
     }
@@ -2403,7 +2400,8 @@ $.fn.putCursorAtEnd = function () {
 
 //Print Order
 function PrintCarryoutDetails() {
-    //$('#btnPrintOrder').text("Printing...");
+    $('#btnPrintOrder').text("Printing...");
+    $('#btnPrintCancelOrder').text("Printing...");
     var id = $("#carryout #dvCarryOutDetailsInner #hdnSelectedOrderId").val();
     //alert("ID: " + id);
 
@@ -2952,7 +2950,7 @@ function PrintCarryoutDetails() {
                             //Print Tip End
                         }
 
-                        
+
                         //Order Refund and Add. Charge Section Start
                         var urlOrderAdjustment = global + "/GetCarryoutOrderAdjustments?orderid=" + id;
                         $.getJSON(urlOrderAdjustment, function (data) {
@@ -2993,12 +2991,11 @@ function PrintCarryoutDetails() {
                                     }, function (err) {
                                     }, "\x1b\x6b\x01\x1b\x21\x20\x1b\x50\x1b\x61\x02" + "" + adjustmentType + ": " + adjustmentAmont + "\n");
 
-                                    if (adjustmentNotes != "")
-                                    {
+                                    if (adjustmentNotes != "") {
                                         BTPrinter.printText(function (data) {
                                         }, function (err) {
                                         }, "\x1b\x6b\x01\x1b\x21\x20\x1b\x50\x1b\x61\x02" + "(" + adjustmentNotes + ")\n");
-                                    }                                    
+                                    }
 
                                 });
 
@@ -3052,7 +3049,7 @@ function PrintCarryoutDetails() {
             }, 4100);
 
         }, function (err) {
-            $('#btnPrintOrder').text("PRINT");                
+            $('#btnPrintOrder').text("PRINT");
             $('#btnPrintCancelOrder').text("PRINT");
             alert("Cannot connect to Printer " + printerName + ".");
         }, printerName);//TCKP302-UB//TM-m30_003646
