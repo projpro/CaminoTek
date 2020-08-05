@@ -199,6 +199,34 @@
                                     
                                     <!--item-media-section-one-->
                                 </div>
+
+                                <div id="divLowerPrintButtonArea" style="display:none;">
+                                    <!--item-media-section-one-->
+                                    <!--<a class="custom-btn-four custom-bg custom-link" id="btnChangePickupTime" style="background:#08b3c7 !important; margin-bottom:30px;" onclick="OpenPickupTimePopup();">Change Pickup Time</a>-->
+
+                                    <div class="flex">
+                                        <div style="width:48%">
+                                            <a class="custom-btn-four custom-bg custom-link" id="btnChangePickupTime" style="background:#08b3c7 !important; margin-bottom:12px;opacity: 0.5;">Change Time</a>
+                                        </div>
+                                        <div style="width:2%"></div>
+                                        <div style="width:48%">
+                                            <a class="custom-btn-four custom-bg custom-link" id="btnPrintCancelOrder" style="background:#5cb95a !important;">Print</a>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex">
+                                        <div style="width:48%">
+                                            <a class="custom-btn-four custom-bg custom-link" id="btnAddCharge" style="background:#f7952c !important;opacity: 0.5;">Add Charge</a>
+                                            <!--<a class="custom-btn-four custom-bg custom-link" id="btnChangePickupTime" style="background:#08b3c7 !important; margin-bottom:30px;" onclick="OpenPickupTimePopup();">Change Time</a>-->
+                                        </div>
+                                        <div style="width:2%"></div>
+                                        <div style="width:48%">
+                                            <a class="custom-btn-four custom-bg custom-link" id="btnRefundOrder" style="background:#e95861 !important;opacity: 0.5;">Refund</a>
+                                        </div>
+                                    </div>
+
+                                    <!--item-media-section-one-->
+                                </div>
                             </div>
                         </div>
 
@@ -363,6 +391,8 @@
                                         <i class="material-icons">settings_ethernet</i>
                                         <select id="ddlFilterHistoryType">
                                             <option value="">Type</option>
+                                            <option value="Active">Active</option>
+                                            <option value="Inactive">Inactive</option>
                                             <option value="Load">Load</option>
                                             <option value="Redeem">Redeem</option>
                                             <option value="Refund">Refund</option>
