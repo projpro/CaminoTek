@@ -381,6 +381,33 @@ $$(document).on('page:init', function (e) {
         }
 
         localStorage.setItem("CurrentPage", currentPage);
+        
+        //Session Filter Start
+        var sessionFilterName = localStorage.getItem("ItemFilterName");
+        var sessionFilterCategory = localStorage.getItem("ItemFilterCategory");
+        var sessionFilterStatus = localStorage.getItem("ItemFilterStatus");
+        var sessionFilterSort = localStorage.getItem("ItemFilterSort");
+        var sessionFilterSortBy = localStorage.getItem("ItemFilterSortBy");
+        
+        if (sessionFilterName != null && sessionFilterName != "")
+        {
+            $$("#txtFilterItemName").val(sessionFilterName);
+        }
+        if (sessionFilterCategory != null && sessionFilterCategory != "") {
+            $$("#filterProductCategory").val(sessionFilterCategory);
+        }
+        if (sessionFilterStatus != null && sessionFilterStatus != "") {
+            $$("#ddlFilterItemStatus").val(sessionFilterStatus);
+        }
+        if (sessionFilterSort != null && sessionFilterSort != "") {
+            $$("input[name='radioItemSort']:checked").val(sessionFilterSort);
+        }
+        if (sessionFilterSortBy != null && sessionFilterSortBy != "") {
+            $$("input[name='radioItemSortBy']:checked").val(sessionFilterSortBy);
+        }
+
+        //Session Filter End
+        
         CarryoutItemsList(10, 0);
         //var timeout = null;
         //var src = mediaURL + "notification.mp3";
