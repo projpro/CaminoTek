@@ -10266,6 +10266,12 @@ function CarryoutItemsList(carryoutpagesize, carryoutcurrentPage) {
 
     var sortValue = $("input[name='radioItemSort']:checked").val();
     var sortByValue = $("input[name='radioItemSortBy']:checked").val();
+    
+    localStorage.setItem("ItemFilterName", name);
+    localStorage.setItem("ItemFilterCategory", category);
+    localStorage.setItem("ItemFilterStatus", status);
+    localStorage.setItem("ItemFilterSort", sortValue);
+    localStorage.setItem("ItemFilterSortBy", sortByValue);
 
     if (name == undefined) {
         name = "";
@@ -11039,9 +11045,8 @@ function SaveProductInfo() {
                             confirmButtonClass: 'btn btn-success',
                             buttonsStyling: false,
                             customClass: 'swal-wide',
-                        }).then(function () {
-                            Back();
-                            //self.app.router.navigate('/food_list/', { reloadCurrent: false });
+                        }).then(function () {                            
+                            self.app.router.navigate('/food_list/', { reloadCurrent: false });
                         });
                     }
                     else {
@@ -11052,9 +11057,8 @@ function SaveProductInfo() {
                             confirmButtonClass: 'btn btn-success',
                             buttonsStyling: false,
                             customClass: 'swal-wide',
-                        }).then(function () {
-                            Back();
-                            //self.app.router.navigate('/food_list/', { reloadCurrent: false });
+                        }).then(function () {                            
+                            self.app.router.navigate('/food_list/', { reloadCurrent: false });
                         });
                     }
                 }
