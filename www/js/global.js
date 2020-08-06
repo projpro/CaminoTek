@@ -13124,16 +13124,33 @@ function CancelOrder(orderId)
                     $('#cancelOrder').hide();
                     callSweetAlertWarning(data.replace(/"/g, ""));
                 }
-                else {
-                    OpenCarryoutDetails(orderId);
+                else {                    
                     callSweetAlertSuccess(data.replace(/"/g, ""));
-                    var orderhtml = "<div class=\"dropdown\" id=\"carryoutstatus_" + orderId + "\">";
-                    orderhtml += "<button id=\"btnStatusChange\" class=\"dropbtn\"><img class=\"list-icon\"  src=\"img/icons/cancel.png\" alt=\"\"/></button>";
-                    orderhtml += "</div>";
-                    // var orderhtml = "<img class=\"list-icon\"  src=\"img/icons/cancel.png\" alt=\"\"/>";
-                    $("#popUpCarryoutIcon_" + orderId).html(orderhtml);
-                    var iconHTML1 = "<button id=\"btnStatusChange\" class=\"dropbtn\"><img class=\"list-icon\" src=\"img/icons/cancel.png\" alt=\"\"></button>";
-                    $("#dvAllList #carryoutstatus_" + orderId).html(iconHTML1);
+                    
+                    if (refundType == "Full")
+                    {
+                        var orderhtml = "<div class=\"dropdown\" id=\"carryoutstatus_" + orderId + "\">";
+                        orderhtml += "<button id=\"btnStatusChange\" class=\"dropbtn\"><img class=\"list-icon\"  src=\"img/icons/cancel.png\" alt=\"\"/></button>";
+                        orderhtml += "</div>";
+                        $("#popUpCarryoutIcon_" + orderId).html(orderhtml);
+                        var iconHTML1 = "<button id=\"btnStatusChange\" class=\"dropbtn\"><img class=\"list-icon\" src=\"img/icons/cancel.png\" alt=\"\"></button>";
+                        $("#dvAllList #carryoutstatus_" + orderId).html(iconHTML1);
+                        $("#li_" + orderId).css("border-left", "#e95861 10px solid");
+                    }
+                    else {
+                        var orderhtml = "<div class=\"dropdown\" id=\"carryoutstatus_" + orderId + "\">";
+                        orderhtml += "<button id=\"btnStatusChange\" class=\"dropbtn\"><img class=\"list-icon\"  src=\"img/icons/refund.png\" alt=\"\"/></button>";
+                        orderhtml += "</div>";
+                        $("#popUpCarryoutIcon_" + orderId).html(orderhtml);
+                        var iconHTML1 = "<button id=\"btnStatusChange\" class=\"dropbtn\"><img class=\"list-icon\" src=\"img/icons/refund.png\" alt=\"\"></button>";
+                        $("#dvAllList #carryoutstatus_" + orderId).html(iconHTML1);
+
+                        $("#li_" + orderId).css("border-left", "#9c1b8d 10px solid");
+                    }
+
+                    OpenCarryoutDetails(orderId);
+                    
+                    
                     $("#dvCarryOutButtons_" + orderId).html("");
                     $("#popupCarryOutDetails_" + orderId).html("");
                     $("#aCancelOrder").hide();
