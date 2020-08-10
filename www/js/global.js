@@ -13076,16 +13076,14 @@ function CancelOrder(orderId)
             $("#txtRefundAmount_" + orderId).css('border', bottomBorder);
             //alert("Order Total: " + orderTotal);
             if (refundType != "" && refundType != "Full") {
-                if (refundAmount == "" || parseFloat(refundAmount) > 0) {
-                    if (parseFloat(orderTotal) < parseFloat(refundAmount))
-                    {
-                        refundTypeValidation = "False";
-                        $('#lblRefundAmoutError').show();
-                        $("#txtRefundAmount_" + orderId).css('border', errorClassBorder);
-                    }
-                    //else {
-                    //    orderTotal = refundAmount;
-                    //}
+                if (refundAmount == "" || parseFloat(refundAmount) > 0) {//Commented 08/10/2020 - Start
+                    ////if (parseFloat(orderTotal) < parseFloat(refundAmount))
+                    ////{
+                    ////    refundTypeValidation = "False";
+                    ////    $('#lblRefundAmoutError').show();
+                    ////    $("#txtRefundAmount_" + orderId).css('border', errorClassBorder);
+                    ////}
+                    //Commented 08/10/2020 - End                    
                 }
             }
             //alert("Order Total: After: " + orderTotal);
