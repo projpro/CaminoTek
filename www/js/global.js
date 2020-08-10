@@ -13293,7 +13293,7 @@ function SubmitAddCharge(orderId) {
     else if (parseFloat(chargeAmount) > 25) {
         CloseAddChargePopup();
         chargeTypeValidation = "False";
-        callSweetAlertWarning("Amount exceeds maximum limit of $25.");
+        callSweetAlertWarning("Amount cannot exceed $25.00.");
         //OpenAddChargePopup();
     }
 
