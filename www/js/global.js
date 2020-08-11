@@ -13290,13 +13290,7 @@ function SubmitAddCharge(orderId) {
         chargeTypeValidation = "False";
         $("#txtChargeAmount_" + orderId).css('border', errorClassBorder);
     }
-    else if (parseFloat(chargeAmount) > 25) {
-        CloseAddChargePopup();
-        chargeTypeValidation = "False";
-        callSweetAlertWarning("Amount cannot exceed $25.00.");
-        //OpenAddChargePopup();
-    }
-
+    
     if (reason != "" && chargeTypeValidation == "True") {
         var authorizationCode = $("#hdnAuthorizationId_" + orderId).val();
         var paymentMethod = $("#hdnPaymentmethod_" + orderId).val();
