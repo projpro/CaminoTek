@@ -2132,23 +2132,22 @@ function OpenCarryoutDetails(id) {
                     //    htmlOrderTotal += "</tr>";
                     //}                    
                 }
-
-                if (curbsidePickup) {
-                    if (curbsidePickupMessage != "" && curbsidePickupMessage != undefined) {
-                        htmlOrderTotal += "<table class=\"table table-striped\" cellspacing=\"0\" cellpadding=\"0\"><thead>"
-                        htmlOrderTotal += "<tr>";
-                        htmlOrderTotal += "<td valign=\"top\" style=\"text-align:left; font-weight: bold;\">Curbside:</td>&nbsp;&nbsp;";
-                        htmlOrderTotal += "<td style=\"text-align:left;\">" + curbsidePickupMessage + " (" + curbsidePickupTime + ")" + "</td>";
-                        htmlOrderTotal += "</tr>";
-                        htmlOrderTotal += "</thead></table>";
-                    }                    
-                }
-
-
+                
                 //Order Refund and Add Charged Section Start
                 url = global + "/GetCarryoutOrderAdjustments?orderid=" + id;
                 $.getJSON(url, function (data) {
                     if (data.indexOf("No record(s) found.") > -1) {
+                        if (curbsidePickup) {
+                            if (curbsidePickupMessage != "" && curbsidePickupMessage != undefined) {
+                                htmlOrderTotal += "<table class=\"table table-striped\" cellspacing=\"0\" cellpadding=\"0\"><thead>"
+                                htmlOrderTotal += "<tr>";
+                                htmlOrderTotal += "<td valign=\"top\" style=\"text-align:left; font-weight: bold;\">Curbside:</td>&nbsp;&nbsp;";
+                                htmlOrderTotal += "<td style=\"text-align:left;\">" + curbsidePickupMessage + " (" + curbsidePickupTime + ")" + "</td>";
+                                htmlOrderTotal += "</tr>";
+                                htmlOrderTotal += "</thead></table>";
+                            }
+                        }
+                        
                         if (dueAmount > 0) {
                             $("#carryout #dvItem").html(html + htmlSubTotal + htmlDiscount + htmlRewards + htmlGiftCard + htmlOrderTotal + htmlDueAmount + "</tbody>");
                         }
@@ -2186,6 +2185,17 @@ function OpenCarryoutDetails(id) {
                         htmlOrderTotal += "<td colspan=\"3\" style=\"text-align:right; font-weight: bold;\">Final Amount:</td>";
                         htmlOrderTotal += "<td style=\"text-align:right;\" id=\"popupOrderFinalAmount_" + orderId + "\">" + finalOrderTotal + "</td>";
                         htmlOrderTotal += "</tr>";
+                        
+                        if (curbsidePickup) {
+                            if (curbsidePickupMessage != "" && curbsidePickupMessage != undefined) {
+                                htmlOrderTotal += "<table class=\"table table-striped\" cellspacing=\"0\" cellpadding=\"0\"><thead>"
+                                htmlOrderTotal += "<tr>";
+                                htmlOrderTotal += "<td valign=\"top\" style=\"text-align:left; font-weight: bold;\">Curbside:</td>&nbsp;&nbsp;";
+                                htmlOrderTotal += "<td style=\"text-align:left;\">" + curbsidePickupMessage + " (" + curbsidePickupTime + ")" + "</td>";
+                                htmlOrderTotal += "</tr>";
+                                htmlOrderTotal += "</thead></table>";
+                            }
+                        }
 
                         if (dueAmount > 0) {
                             $("#carryout #dvItem").html(html + htmlSubTotal + htmlDiscount + htmlRewards + htmlGiftCard + htmlOrderTotal + htmlDueAmount + "</tbody>");
