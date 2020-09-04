@@ -1828,7 +1828,8 @@ function OpenCarryoutDetails(id) {
                 /*------------------Order Info-----------------------*/
                 orderhtml += "<div class=\"giftcard-item-count-new\">";
                 orderhtml += "<div class=\"giftcard-customer-detail-container\">";
-                orderhtml += "<div><div class=\"giftcard-price popup-carryout-details-long\" id=\"popupOrderPrice_" + orderId + "\">" + ordertotalvalue + "</div>";
+                //orderhtml += "<div><div class=\"giftcard-price popup-carryout-details-long\" id=\"popupOrderPrice_" + orderId + "\">" + ordertotalvalue + "</div>";
+                orderhtml += "<div><div class=\"giftcard-price popup-carryout-details-long\" id=\"popupOrderPrice_" + orderId + "\">" + finalOrderTotal + "</div>";
 
                 if (numberOfItems == 1)
                     orderhtml += "<div>1 item ";
