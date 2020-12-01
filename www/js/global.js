@@ -5373,6 +5373,21 @@ function AddUpdateGiftCardRecord(exists, gcamount, giftcardId, cardcode, cardTyp
     storeId = SetStoreId();
     var loggedInUserId = 0;
     loggedInUserId = window.localStorage.getItem("CustomerId");
+    var validStores = $('#hdnValidStoresIds').val();
+    $("input[name='checkValidStore']:checked").each(function () {
+        var checkedStore = $(this).val();
+        validStores += checkedStore + ",";
+    });
+    validStores = validStores.replace(/,\s*$/, "");
+    var expirationDate = $('#txtExpirationDate').val();
+    var expirationHour = $('#expirationHour').val();
+    var expirationMinute = $('#expirationMinute').val();
+    var expirationPeriod = $('#expirationPeriod').val();
+    var expirationTime = "";
+    if (expirationHour != "" && expirationMinute != "" && expirationPeriod != "")
+    {
+        expirationTime = expirationHour + ":" + expirationMinute + " " + expirationPeriod;
+    }
     var cardCode = $('#tab-giftcard-new #txtCardCode').val();
     var phone = $('#tab-giftcard-new #txtPhone').val();
     if (phone == '') {
@@ -5410,6 +5425,16 @@ function AddUpdateGiftCardRecord(exists, gcamount, giftcardId, cardcode, cardTyp
                 + "&email=" + email + "&name=" + name + "&giftCardExists=" + exists + "&gcamount=" + gcamount + "&cardType=" + cardType +
                 "&ccName=" + ccName + "&ccNumber=" + ccNumber + "&cvv=" + cvv + "&expMonth=" + expMonth + "&expYear=" + expYear + "&paymentType=" + paymentType + "&loggedInUserId=" + loggedInUserId;
             //console.log('name: '+name)
+
+            if ((validStores != "" && validStores != null) || (expirationDate != "" && expirationDate != null))
+            {
+                url = global + "/AddUpdateGiftCardRecordAdvanced?storeid=" + storeId + "&giftCardCode=" + encodeURIComponent(cardCode) + "&giftcardId=" + giftcardId + "&phone=" + phone + "&amount=" + amount
+                + "&email=" + email + "&name=" + name + "&giftCardExists=" + exists + "&gcamount=" + gcamount + "&cardType=" + cardType +
+                "&ccName=" + ccName + "&ccNumber=" + ccNumber + "&cvv=" + cvv + "&expMonth=" + expMonth + "&expYear=" + expYear + "&paymentType=" + paymentType + "&loggedInUserId=" + loggedInUserId +
+                "&validStores=" + validStores + "&cardExpirationDate=" + expirationDate + "&cardExpirationTime=" + expirationTime;
+                
+            }
+
             var totalHistoryAmount = 0;
             $.getJSON(url, function (data) {
                 $('#btnAddCard').text("Add Card");
@@ -7676,7 +7701,78 @@ function RewardsTabChange(tabName) {
     }
 }
 //Gift Card Orders END
+function ShowGiftCardAdvancedSection() {
+    var currentStatus = $('#hdnShowHideValue').val();
+    if (currentStatus == "show")
+    {
+        $('#liExpirationDate').show();
+        $('#liValidStores').show();
+        $('#liValidStoresList').show();
+        $('#hdnShowHideValue').val("hide");
 
+        var storeId = 0;
+        storeId = SetStoreId();
+        $('#dvValidStoreInner').html("");
+        if (Number(storeId) > 0) {
+
+            url = global + "/GetGiftCardsRelatedStores?storeid=" + storeId;
+
+            try {
+                $.getJSON(url, function (data) {
+                    console.log(data);
+                    var obj = JSON.parse(data);
+                    var length = Object.keys(obj).length;
+                    if (JSON.parse(data).indexOf("No Store(s) found.") < 0) {
+                        var count = 0;
+                        $.each(JSON.parse(data), function (index, value) {
+
+                            var storeName = value.Name;
+                            var storeIdValue = value.Id;
+                            var relatedStores = value.RelatedStores;
+                            if (relatedStores != "" && relatedStores != null)
+                            {
+                                var html = "<div class=\"timing-flex-column-container item-media-section\">";//First Div
+                                html += "<i class=\"material-icons material-icons-left\"></i>";
+
+                                html += "<label class=\"item-checkbox item-content\" style=\"margin-top: 0px; width: 100% !important;\">";
+                                html += "<input type=\"checkbox\" name=\"checkValidStore\" value=\"" + storeIdValue + "\">";
+                                html += "<i class=\"icon icon-checkbox\"></i>";
+                                html += "<div class=\"item-inner\"><div class=\"item-title\">" + storeName + "</div></div>";
+                                html += "</label>";
+
+                                html += "</div>";
+                                $("#dvValidStoreInner").append(html);
+                            }                            
+                        });
+                    }
+                    else {
+                        var html = "<div class=\"order-list list-empty-label-text\">No Store</div>";
+                        $("#dvValidStoreInner").html(html);
+                    }
+                });
+            }
+            catch (e) {
+
+            }
+        }
+        else {
+            self.app.router.navigate('/login_new/', { reloadCurrent: true });
+        }
+    }
+    else {
+        $('#liExpirationDate').hide();
+        $('#liValidStores').hide();
+        $('#liValidStoresList').hide();
+        $('#hdnShowHideValue').val("show");
+    }
+    
+}
+
+function OpenCalender() {
+    $('#txtExpirationDate').addClass("input-with-value");
+    $('#txtExpirationDate').prop('type', 'date');
+    $('#phExpirationDate').hide();
+}
 //GiftCard Redeem End
 
 //Reward Start
