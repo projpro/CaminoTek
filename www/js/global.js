@@ -82,6 +82,7 @@ function Login() {
                     var companyPhoneNumber = data.split("#")[10].replace("\"", "");
                     var printerName = data.split("#")[11].replace("\"", "");
                     var hidePriceInPrint = data.split("#")[12].replace("\"", "");
+                    var isAdminUser = data.split("#")[13].replace("\"", "");
                     localStorage.setItem("CustomerId", customerId);
                     localStorage.setItem("StoreId", storeId);
                     localStorage.setItem("BistroEmail", email);
@@ -98,6 +99,7 @@ function Login() {
                     localStorage.setItem("StorePhoneNumber", companyPhoneNumber);
                     localStorage.setItem("PrinterName", printerName);
                     localStorage.setItem("HidePriceInPrint", hidePriceInPrint);
+                    localStorage.setItem("IsAdminUser", isAdminUser);
 
                     //SetMenuNavigation();
                     if (apprefreshinterval === null || apprefreshinterval === "" || apprefreshinterval === "0") {
@@ -4591,6 +4593,14 @@ function CheckGiftCardPermission() {
     if (giftCardsEnabled != "" && giftCardsEnabled == "True") {
         //$('.menuGiftcard').removeClass('disabled');
         $('.menuGiftcard').show();
+        var isAdminUser = localStorage.getItem("IsAdminUser").trim();
+        if (isAdminUser != "" && isAdminUser == "True")
+        {
+            $('#liShowAdvanced').show();
+        }
+        else {
+            $('#liShowAdvanced').hide();
+        }
         count++;
     }
     else {
