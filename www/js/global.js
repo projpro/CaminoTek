@@ -4596,10 +4596,12 @@ function CheckGiftCardPermission() {
         var isAdminUser = localStorage.getItem("IsAdminUser").trim();
         if (isAdminUser != "" && isAdminUser == "True")
         {
-            $('#liShowAdvanced').show();
+            //$('#liShowAdvanced').show();
+            ShowGiftCardAdvancedSection();
         }
         else {
-            $('#liShowAdvanced').hide();
+            //$('#liShowAdvanced').hide();
+            HideGiftCardAdvancedSection();
         }
         count++;
     }
@@ -7712,9 +7714,7 @@ function RewardsTabChange(tabName) {
 }
 //Gift Card Orders END
 function ShowGiftCardAdvancedSection() {
-    var currentStatus = $('#hdnShowHideValue').val();
-    if (currentStatus == "show")
-    {
+
         $('#liExpirationDate').show();
         $('#liValidStores').show();
         $('#liValidStoresList').show();
@@ -7768,15 +7768,15 @@ function ShowGiftCardAdvancedSection() {
         else {
             self.app.router.navigate('/login_new/', { reloadCurrent: true });
         }
-    }
-    else {
-        $('#liExpirationDate').hide();
-        $('#liValidStores').hide();
-        $('#liValidStoresList').hide();
-        $('#hdnShowHideValue').val("show");
-    }
     
 }
+
+function HideGiftCardAdvancedSection(){
+    $('#liExpirationDate').hide();
+    $('#liValidStores').hide();
+    $('#liValidStoresList').hide();
+}
+
 
 function OpenCalender() {
     $('#txtExpirationDate').addClass("input-with-value");
