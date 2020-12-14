@@ -5216,7 +5216,7 @@ function LoadNewGiftCard() {
 
                         var url = global + "/DoesGiftCardExist?giftCardCode=" + encodeURIComponent(cardCode);
                         $.getJSON(url, function (data) {
-                            console.log(data)
+                            //console.log(data)
 
                             //$("#hdnValidateCard").val(true);
                             if (data.replace(/"/g, "").indexOf("Message:") > -1) {
@@ -5236,6 +5236,7 @@ function LoadNewGiftCard() {
                                 localStorage.setItem('GiftCardDetails', data);
                                 if (obj.GiftCardExists == true) {
                                     if (obj.CardType.toUpperCase() != "STORE") {
+                                        //console.log(1);
                                         $("#liPaymentType").show();
                                         var checkedPaymentType = $("input[name='paymentType']:checked").val();
                                         if (checkedPaymentType.toUpperCase() == 'CARD') {
@@ -5291,7 +5292,7 @@ function LoadNewGiftCard() {
                                         var cardInfo = localStorage.getItem('GiftCardDetails');
                                         var obj = JSON.parse(cardInfo);
                                         AddUpdateGiftCardRecord(obj.GiftCardExists, obj.Amount, obj.GiftCardId, cardCode, obj.CardType, "", "", "", "", "", "");
-
+                                        //console.log(2);
                                     }
 
                                 }
@@ -5300,7 +5301,7 @@ function LoadNewGiftCard() {
                                     $("#liPaymentType").hide();
                                     $("#liCCName").hide();
                                     $("#liCCNo").hide();
-                                    // console.log(3)
+                                    //console.log(3);
                                     AddUpdateGiftCardRecord(obj.GiftCardExists, obj.Amount, obj.GiftCardId, cardCode, obj.CardType, "", "", "", "", "", "");
                                 }
                             }
@@ -5312,7 +5313,7 @@ function LoadNewGiftCard() {
 
                         var url = global + "/DoesGiftCardExist?giftCardCode=" + encodeURIComponent(cardCode);
                         $.getJSON(url, function (data) {
-                            console.log(data)
+                            //console.log(data)
 
                             //$("#hdnValidateCard").val(true);
                             if (data.replace(/"/g, "").indexOf("Message:") > -1) {
@@ -5332,6 +5333,7 @@ function LoadNewGiftCard() {
                                 localStorage.setItem('GiftCardDetails', data);
                                 if (obj.GiftCardExists == true) {
                                     if (obj.CardType.toUpperCase() != "STORE") {
+                                        //console.log("1A");
                                         $("#liPaymentType").show();
                                         var checkedPaymentType = $("input[name='paymentType']:checked").val();
                                         if (checkedPaymentType.toUpperCase() == 'CARD') {
@@ -5388,7 +5390,7 @@ function LoadNewGiftCard() {
                                         var cardInfo = localStorage.getItem('GiftCardDetails');
                                         var obj = JSON.parse(cardInfo);
                                         AddUpdateGiftCardRecord(obj.GiftCardExists, obj.Amount, obj.GiftCardId, cardCode, obj.CardType, "", "", "", "", "", "");
-
+                                        //console.log("2A");
                                     }
 
                                 }
@@ -5397,7 +5399,7 @@ function LoadNewGiftCard() {
                                     $("#liPaymentType").hide();
                                     $("#liCCName").hide();
                                     $("#liCCNo").hide();
-                                    // console.log(3)
+                                    //console.log("3A");
                                     AddUpdateGiftCardRecord(obj.GiftCardExists, obj.Amount, obj.GiftCardId, cardCode, obj.CardType, "", "", "", "", "", "");
                                 }
                             }
@@ -5449,6 +5451,7 @@ function LoadNewGiftCard() {
 
 function AddUpdateGiftCardRecord(exists, gcamount, giftcardId, cardcode, cardType, ccName, ccNumber, cvv, expMonth, expYear, paymentType) {
     $('#hdnIsValidEmployeePIN').val("false");
+    $("#paymentTypeCard").prop("checked", true);
     var storeId = 0;
     storeId = SetStoreId();
     var loggedInUserId = 0;
