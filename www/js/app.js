@@ -728,7 +728,15 @@ $$(document).on('page:init', function (e) {
             }
         });
         $$('#btnAddCard').click(function () {
-            LoadNewGiftCard();
+            ////LoadNewGiftCard();
+            var IsValidEmployeePIN = $('#hdnIsValidEmployeePIN').val();
+            if (IsValidEmployeePIN == "false")
+            {
+                ShowEmployeePINPopup();
+            }
+            else {
+                LoadNewGiftCard();
+            }
         });
         //GiftCard Load New - End
 
