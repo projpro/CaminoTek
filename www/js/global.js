@@ -1303,6 +1303,7 @@ function OpenCarryoutDetails(id) {
 
             var tipValue = "0.00";
             var finalOrderTotal = "0.00";
+            var serviceFeeValue = "0.00";
 
             //console.log(data);
             $.each(JSON.parse(data), function (index, value) {
@@ -1406,6 +1407,10 @@ function OpenCarryoutDetails(id) {
 
                     if (value.FINALORDERTOTAL != undefined && Number(value.FINALORDERTOTAL)) {
                         finalOrderTotal = FormatDecimal(value.FINALORDERTOTAL);
+                    }
+
+                    if (value.ServiceFee != undefined && Number(value.ServiceFee)) {
+                        serviceFeeValue = FormatDecimal(value.ServiceFee);
                     }
 
 
@@ -1579,7 +1584,6 @@ function OpenCarryoutDetails(id) {
                 /*------------------Status Icon Area Start-----------------------*/
                 orderhtml += "<div class=\"order-buttons\" id=\"popUpCarryoutIcon_" + orderId + "\" style=\"width:40%;\">";
                 if ((status == '' || status == "All")) {
-
                     if (orderStatus.toLowerCase() == "new") {
                         orderhtml += "<div class=\"dropdown\" id=\"carryoutpopstatus_" + orderId + "\">";
                         orderhtml += "<button id=\"btnStatusChange\" onclick=\"myPopupFunction(" + orderId + ")\" class=\"dropbtn\"><img class=\"list-icon\"  src=\"img/icons/new.png\" alt=\"\"/></button>";
@@ -2074,7 +2078,15 @@ function OpenCarryoutDetails(id) {
                         htmlOrderTotal += "<td colspan=\"3\" style=\"text-align:right; font-weight: bold;\">Tax:</td>";
                         htmlOrderTotal += "<td style=\"text-align:right;\">" + taxValue + "</td>";
                         htmlOrderTotal += "</tr>";
-                    }                    
+                    }  
+
+                    if (serviceFeeValue != "" && serviceFeeValue != "0.00") {
+                        htmlOrderTotal += " <tr>";
+                        htmlOrderTotal += "<td colspan=\"3\" style=\"text-align:right; font-weight: bold;\">Online Fee:</td>";
+                        htmlOrderTotal += "<td style=\"text-align:right;\">" + serviceFeeValue + "</td>";
+                        htmlOrderTotal += "</tr>";
+                    } 
+
 
                     htmlOrderTotal += " <tr>";
                     htmlOrderTotal += "<td colspan=\"3\" style=\"text-align:right; font-weight: bold;\">Order Total:</td>";
@@ -2124,6 +2136,13 @@ function OpenCarryoutDetails(id) {
                         htmlOrderTotal += "</tr>";
                     }
 
+                    if (serviceFeeValue != "" && serviceFeeValue != "0.00") {
+                        htmlOrderTotal += " <tr>";
+                        htmlOrderTotal += "<td colspan=\"3\" style=\"text-align:right; font-weight: bold;\">Online Fee:</td>";
+                        htmlOrderTotal += "<td style=\"text-align:right;\">" + serviceFeeValue + "</td>";
+                        htmlOrderTotal += "</tr>";
+                    }
+
                     
                     htmlOrderTotal += " <tr>";
                     htmlOrderTotal += "<td colspan=\"3\" style=\"text-align:right; font-weight: bold;\">Order Total:</td>";
@@ -2137,6 +2156,7 @@ function OpenCarryoutDetails(id) {
                     //    htmlOrderTotal += "</tr>";
                     //}                    
                 }
+
                 
                 //Order Refund and Add Charged Section Start
                 url = global + "/GetCarryoutOrderAdjustments?orderid=" + id;
@@ -2152,7 +2172,6 @@ function OpenCarryoutDetails(id) {
                                 htmlOrderTotal += "</thead></table>";
                             }
                         }
-                        
                         if (dueAmount > 0) {
                             $("#carryout #dvItem").html(html + htmlSubTotal + htmlDiscount + htmlRewards + htmlGiftCard + htmlOrderTotal + htmlDueAmount + "</tbody>");
                         }
@@ -2190,7 +2209,7 @@ function OpenCarryoutDetails(id) {
                         htmlOrderTotal += "<td colspan=\"3\" style=\"text-align:right; font-weight: bold;\">Final Amount:</td>";
                         htmlOrderTotal += "<td style=\"text-align:right;\" id=\"popupOrderFinalAmount_" + orderId + "\">" + finalOrderTotal + "</td>";
                         htmlOrderTotal += "</tr>";
-                        
+
                         if (curbsidePickup) {
                             if (curbsidePickupMessage != "" && curbsidePickupMessage != undefined) {
                                 htmlOrderTotal += "<table class=\"table table-striped\" cellspacing=\"0\" cellpadding=\"0\"><thead>"
