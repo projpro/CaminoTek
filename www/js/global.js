@@ -2253,9 +2253,7 @@ function OpenCarryoutDetails(id) {
             //$("#divLowerCancelButtonArea").show();
 
         });
-
     }
-
 }
 //Carryout Details End
 
