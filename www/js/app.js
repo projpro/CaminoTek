@@ -3088,8 +3088,9 @@ function PrintCarryoutDetails() {
             $('#btnPrintCancelOrder').text("PRINT");
             alert("Cannot connect to Printer " + printerName + ".");
         }, printerName);//TCKP302-UB//TM-m30_003646
-
-    }
+            
+            ChangePopupOrderStatusDropdown('Processing', id, storeId);
+    }                          
 }
 //Print Order End
 
