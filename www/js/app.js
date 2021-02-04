@@ -154,7 +154,8 @@ $$(document).on('page:init', function (e) {
             if (carryOutEnabled != "" && carryOutEnabled == "True") {
                 setTimeout(function () { self.app.router.navigate('/carryout/', { reloadCurrent: false }); }, 1000);
             }
-            else if (giftCardsEnabled != "" && giftCardsEnabled == "True") {
+            //else if (giftCardsEnabled != "" && giftCardsEnabled == "True") {
+            else if (giftCardProgramEnabled != "" && giftCardProgramEnabled == "True") {
                 setTimeout(function () { self.app.router.navigate('/giftcard/', { reloadCurrent: false }); }, 1000);
             }
             else if (rewardEnabled != "" && rewardEnabled == "True") {
@@ -469,7 +470,6 @@ $$(document).on('page:init', function (e) {
 
     else if (pageURL.indexOf('giftcard') > -1)//Gift Card
     {
-
         //function preventScroll(e) {
         //    e.preventDefault();
         //}
@@ -499,7 +499,8 @@ $$(document).on('page:init', function (e) {
         var giftCardProgramEnabled = localStorage.getItem("GiftCardProgramEnabled").trim();
         //console.log('giftCardsEnabled: ' + giftCardsEnabled)
         //console.log('giftCardProgramEnabled: ' + giftCardProgramEnabled)
-        if (giftCardsEnabled != "" && giftCardsEnabled == "True") {
+        //if (giftCardsEnabled != "" && giftCardsEnabled == "True") {
+        if (giftCardProgramEnabled != "" && giftCardProgramEnabled == "True") {
 
             if (giftCardProgramEnabled == "" || giftCardProgramEnabled != "True") {
                 $('#linkGiftCardNew').addClass('disabled');
@@ -737,6 +738,7 @@ $$(document).on('page:init', function (e) {
             else {
                 LoadNewGiftCard();
             }
+            
         });
         //GiftCard Load New - End
 
@@ -867,6 +869,7 @@ $$(document).on('page:init', function (e) {
         });
         //GiftCard Orders - End
 
+       
         //Sudip - End
     }
 
@@ -3089,8 +3092,56 @@ function PrintCarryoutDetails() {
             alert("Cannot connect to Printer " + printerName + ".");
         }, printerName);//TCKP302-UB//TM-m30_003646
             
-            ChangePopupOrderStatusDropdown('Processing', id, storeId);
+            UpdateStatusButtonHtml();
     }                          
+}
+                          
+function UpdateStatusButtonHtml() {
+    var storeId = SetStoreId();
+    var orderId = $("#carryout #dvCarryOutDetailsInner #hdnSelectedOrderId").val();
+    var iconHTML = "";
+    var iconHTML1 = "";
+    var upperButtonHtml = "";
+    var sendSmsButtonHtml = $('#aPopupSMS_' + orderId).parent('div').html();
+
+    iconHTML += "<button id=\"btnStatusChange\" onclick=\"myPopupFunction(" + orderId + ")\" class=\"dropbtn\"><img class=\"list-icon\"  src=\"img/icons/pending.png\" alt=\"\"/></button>";
+    iconHTML += "<a class=\"popup-link\" onclick=\"OpenOrderHistoryPopup(" + orderId + ")\">History</a>";
+
+    iconHTML += "<div id=\"myPopupDropdown_" + orderId + "\" class=\"dropdown-content\"><div onclick=\"HidePopupStatusChangeDropdown(" + orderId + ");\" id =\"close_status_dropdown\" class=\"close_status_dropdown\">X</div>";
+    iconHTML += "<a class=\"status-disabled\" onclick=\"HidePopupStatusChangeDropdown(" + orderId + ");\"><img class=\"list-icon\"  src=\"img/icons/pending.png\" alt=\"\"/> <span class=\"custom-dropdown-span\">Processing</span></a>";
+    iconHTML += "<a onclick=\"ChangePopupOrderStatusDropdown('Complete'," + orderId + "," + storeId + ")\"><img class=\"list-icon\"  src=\"img/icons/Complete-Icon.png\" alt=\"\"/> <span class=\"custom-dropdown-span\">Complete</span></a>";
+    iconHTML += "<a  onclick=\"ChangePopupOrderStatusDropdown('PickedUp'," + orderId + "," + storeId + ")\"><img class=\"list-icon\"  src=\"img/icons/Picked-Up-Icon.png\" alt=\"\"/><span class=\"custom-dropdown-span\"> Pick Up</span></a>";
+    iconHTML += "</div>";
+
+    iconHTML1 += "<button id=\"btnStatusChange\" onclick=\"myPopupFunction(" + orderId + ")\" class=\"dropbtn\"><img class=\"list-icon\"  src=\"img/icons/pending.png\" alt=\"\"/></button>";
+    //
+    iconHTML1 += "<div id=\"myPopupDropdown_" + orderId + "\" class=\"dropdown-content\"><div onclick=\"HideStatusChangeDropdown(" + orderId + ");\" id =\"close_status_dropdown\" class=\"close_status_dropdown\">X</div>";
+    iconHTML1 += "<a class=\"status-disabled\" onclick=\"HideStatusChangeDropdown(" + orderId + ");\"><img class=\"list-icon\"  src=\"img/icons/pending.png\" alt=\"\"/> <span class=\"custom-dropdown-span\">Processing</span></a>";
+    iconHTML1 += "<a onclick=\"ChangeOrderStatusDropdown('Complete'," + orderId + "," + storeId + ")\"><img class=\"list-icon\"  src=\"img/icons/Complete-Icon.png\" alt=\"\"/> <span class=\"custom-dropdown-span\">Complete</span></a>";
+    iconHTML1 += "<a  onclick=\"ChangeOrderStatusDropdown('PickedUp'," + orderId + "," + storeId + ")\"><img class=\"list-icon\"  src=\"img/icons/Picked-Up-Icon.png\" alt=\"\"/><span class=\"custom-dropdown-span\"> Pick Up</span></a>";
+    iconHTML1 += "</div>";
+
+    upperButtonHtml = "<div class=\"flex\">";
+    upperButtonHtml += "<div style=\"width:48%;\">";
+    //Set Details Upper Button
+    upperButtonHtml += "<a class=\"custom-btn-two custom-bg custom-link item-media-section-two\" style=\"background:#3b9847 !important;\" onclick=\"ChangePopupOrderStatusDropdown('Complete'," + orderId + "," + storeId + ")\">Complete</a>";
+    upperButtonHtml += "</div>";
+    upperButtonHtml += "<div style=\"width:4%;\">";
+
+    upperButtonHtml += "</div>";
+    upperButtonHtml += "<div style=\"width:48%;\">";
+    //Send SMS Button
+    //upperButtonHtml += "<a id=\"aPopupSMS_" + orderId + "\" class=\"custom-btn-two custom-bg custom-link item-media-section-two\" style=\"background:#303030 !important;\" onclick=\"ConfirmationPickUpSMSSend(" + orderId + ",'" + orderPhone + "','Popup','$0.00')\">Send SMS</a>";
+    upperButtonHtml += sendSmsButtonHtml;
+    upperButtonHtml += "</div>";
+
+    upperButtonHtml += "</div>"
+
+    $("#divUpperButtonArea").html(upperButtonHtml);
+    $("#li_" + orderId).css("border-left", "#2cbcf2 10px solid");
+
+    $("#carryout #carryoutpopstatus_" + orderId).html(iconHTML);
+    $("#carryout #carryoutstatus_" + orderId).html(iconHTML1);
 }
 //Print Order End
 
