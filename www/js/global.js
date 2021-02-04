@@ -51,7 +51,6 @@ function Login() {
     if (ValidateLogIn() == false) {
 
         $("#btnLogin").text("Logging in...")
-
         $.support.cors = true;
         $.ajax({
             url: global + 'Login?email=' + email + '&password=' + password,
@@ -118,8 +117,8 @@ function Login() {
                             //GetStoreCarryOutTimings(storeId);
                         }
                         else {
-
-                            if (giftCardsEnabled != "True" && giftCardProgramEnabled != "True" && rewardEnabled != "True") {
+                            //giftCardsEnabled != "True" && 
+                            if (giftCardProgramEnabled != "True" && rewardEnabled != "True") {
                                 $('#lblErr').html();
                                 $('#lblErr').html("Carryout/Gift Card/Rewards are not enabled. Please contact system administrator.");
                                 // Init App
@@ -152,8 +151,10 @@ function Login() {
                                 }
                                 //
                             }
-                            else if ((giftCardsEnabled == "True" && giftCardProgramEnabled == "True") || rewardEnabled == "True") {
-                                if (giftCardsEnabled == "True" && giftCardProgramEnabled == "True") {
+                            //(giftCardsEnabled == "True" && giftCardProgramEnabled == "True")
+                            else if (giftCardProgramEnabled == "True" || rewardEnabled == "True") {
+                                //giftCardsEnabled == "True" && 
+                                if (giftCardProgramEnabled == "True") {
                                     localStorage.setItem("loadgiftcardredeem", "true");
                                     //window.location.href = "giftcardsredeem.html?StoreId=" + storeId;
                                     self.app.router.navigate('/giftcard/', { reloadCurrent: true });
@@ -218,7 +219,8 @@ function SetMenuNavigation() {
         //$("#manageservice .menuReward").addClass("disabled");
         $("#manageservice .menuReward").hide();
     }
-    else if (giftCardsEnabled != "True" && giftCardProgramEnabled != "True") {
+        //giftCardsEnabled != "True" && 
+    else if (giftCardProgramEnabled != "True") {
         //$("#manageservice .menuGiftCard").addClass("disabled");
         $("#manageservice .menuGiftCard").hide();
     }
@@ -4609,12 +4611,12 @@ function CheckGiftCardPermission() {
         $('.menuSettings').hide();
     }
 
-    if (giftCardsEnabled != "" && giftCardsEnabled == "True") {
+    //if (giftCardsEnabled != "" && giftCardsEnabled == "True") {
+    if (giftCardProgramEnabled != "" && giftCardProgramEnabled == "True") {
         //$('.menuGiftcard').removeClass('disabled');
         $('.menuGiftcard').show();
         var isAdminUser = localStorage.getItem("IsAdminUser").trim();
-        if (isAdminUser != "" && isAdminUser == "True")
-        {
+        if (isAdminUser != "" && isAdminUser == "True") {
             //$('#liShowAdvanced').show();
             ShowGiftCardAdvancedSection();
         }
@@ -4622,6 +4624,7 @@ function CheckGiftCardPermission() {
             //$('#liShowAdvanced').hide();
             HideGiftCardAdvancedSection();
         }
+
         count++;
     }
     else {
