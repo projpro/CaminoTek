@@ -3149,6 +3149,27 @@ function UpdateStatusButtonHtml() {
 }
 //Print Order End
 
+        
+//Ping Device Start
+function PingDevice() {
+    localStorage.setItem("PushNotification", "Order placed");
+    ////localStorage.setItem("PushNotification", data.message);
+    myMedia = new Media(src, onSuccess, onError, onStatus);
+    //CheckNewOrder();
+    $('#myDiv').html('<div class="block">' +
+        '<a href="#" class="link popup-close modal-accept-button"  id="btnAcknowledgement" onclick="StopSoundAndRefreshCarryout();" style=\"top: 40% !important; height: 205px; font-size:35px;\">Device Ping</a>' +
+        '<div class="overlay-button-area" id="dvPopOrders" style=\"top: 30px !important;\">' +
+        '</div>' +
+        '</div>');
+    $('#myDiv').show();
+
+    if (isDevice()) {
+        // console.log('isDevice 1: ')
+        //playAudio();
+        myMedia.play();
+    }
+}
+//Ping Device End
 
 
 
