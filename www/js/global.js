@@ -228,8 +228,8 @@ function SetMenuNavigation() {
 //Validate Login
 function ValidateLogIn() {
     //console.log("ValidateLogIn");
-    var email = $("#email").val();
-    var password = $("#password").val();
+    var email = $("#email").val().trim();
+    var password = $("#password").val().trim();
 
     //var email = $(" #email").val();
     //var password = $("#password").val();
