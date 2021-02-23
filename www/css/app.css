@@ -3132,6 +3132,9 @@ position: relative;
     margin-top: 20px;
 }
 
+.width-sixty{
+    width:60%;
+}
 .width-half {
     width: 50%;
 }
