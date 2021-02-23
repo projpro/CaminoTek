@@ -2084,7 +2084,7 @@ function OpenCarryoutDetails(id) {
 
                     if (serviceFeeValue != "" && serviceFeeValue != "0.00") {
                         htmlOrderTotal += " <tr>";
-                        htmlOrderTotal += "<td colspan=\"3\" style=\"text-align:right; font-weight: bold;\">Online Fee:</td>";
+                        htmlOrderTotal += "<td colspan=\"3\" style=\"text-align:right; font-weight: bold;\">Convenience Fee:</td>";
                         htmlOrderTotal += "<td style=\"text-align:right;\">" + serviceFeeValue + "</td>";
                         htmlOrderTotal += "</tr>";
                     } 
@@ -2140,7 +2140,7 @@ function OpenCarryoutDetails(id) {
 
                     if (serviceFeeValue != "" && serviceFeeValue != "0.00") {
                         htmlOrderTotal += " <tr>";
-                        htmlOrderTotal += "<td colspan=\"3\" style=\"text-align:right; font-weight: bold;\">Online Fee:</td>";
+                        htmlOrderTotal += "<td colspan=\"3\" style=\"text-align:right; font-weight: bold;\">Convenience Fee:</td>";
                         htmlOrderTotal += "<td style=\"text-align:right;\">" + serviceFeeValue + "</td>";
                         htmlOrderTotal += "</tr>";
                     }
