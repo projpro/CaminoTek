@@ -3064,6 +3064,636 @@ function PrintCarryoutDetails() {
                 }); //-- End Inner Grid
 
 
+function PrintCarryoutDetails() {
+    $('#btnPrintOrder').text("Printing...");
+    $('#btnPrintCancelOrder').text("Printing...");
+    var id = $("#carryout #dvCarryOutDetailsInner #hdnSelectedOrderId").val();
+    //alert("ID: " + id);
+
+    var storeId = SetStoreId();
+    var paymentMethod = "";
+    var printerName = "";
+    var showPriceInPrint = true;
+    if (localStorage.getItem("PrinterName") != null)
+        printerName = localStorage.getItem("PrinterName");
+
+    if (localStorage.getItem("HidePriceInPrint") != null) {
+        var hidePriceInPrint = localStorage.getItem("HidePriceInPrint");
+        if (hidePriceInPrint == "True" || hidePriceInPrint == "true") {
+            showPriceInPrint = false;
+        }
+        else {
+            showPriceInPrint = true;
+        }
+    }
+
+    if (id > 0) {
+        var url = global + "/GetCarryOutOrderDetailsForPrint?orderid=" + id;
+        //alert(url);
+
+        BTPrinter.connect(function (data) {
+
+            $.getJSON(url, function (data) {
+                var subtotalvalue = "0.00";
+                var ordertotalvalue = "0.00";
+                var orderDiscount = 0.00;
+                var grandTotal = 0.00;
+                var grandTotalvalue = "0.00";
+                var dueAmount = 0.00;
+                var dueAmountValue = "0.00";
+                var paidAmount = 0.00;
+                var paidAmountValue = "0.00";
+                var firstName = "";
+                var lastName = "";
+                var phone = "";
+                var ordertotal = "";
+
+                var orderId = 0;
+                var orderDate = "";
+                var orderTime = "";
+                var pickupTime = "";
+                var orderStatus = "";
+                var numberOfItems = "";
+                var ordertype = "";
+
+                var taxValue = "0.00";
+                var shippingValue = "0.00";
+                var subTotalWithoutTax = "0.00";
+                var curbsidePickup = false;
+                var curbsidePickupMessage = "";
+                var curbsidePickupDate = "";
+                var curbsidePickupTime = "";
+                var refundValue = "0.00";
+
+                var tipValue = "0.00";
+                var discountValue = "0.00";
+                var couponCode = "";
+                var rewardValue = "0.00";
+                var rewardPoints = "";
+                var giftCardValue = "0.00";
+                var giftCardCode = "";
+
+                var finalOrderTotal = "0.00";
+                var convenienceFee = "0.00";
+
+                //console.log(data);
+                $.each(JSON.parse(data), function (index, value) {
+                    //console.log(value);                       
+
+                    if (value.Type == "OrderInfo") {
+                        //console.log('value.OID: ' + value.OID)
+                        orderId = value.OID;
+                        //CurbsidePickup Seciton
+                        if (value.CurbsidePickup) {
+                            curbsidePickup = true;
+                        }
+                        else {
+                            curbsidePickup = false;
+                        }
+                        if (value.ORDERTYPE != "") {
+                            ordertype = value.ORDERTYPE;
+                        }
+                        if (ordertype != "" && ordertype == "Delivery") {
+                            ordertype = "Delivery";
+                        }
+                        else if (curbsidePickup) {
+                            ordertype = "Curbside";
+                        }
+                        else {
+                            ordertype = "Carry Out";
+                        }
+
+                        //Print Order Type, OrderId Start
+                        //BTPrinter.printTextSizeAlign(function (data) {
+                        //}, function (err) {
+                        //}, ordertype + "                              #" + orderId + "\n", '20', '0');//30
+                        ////alert("Print #");
+                        ////Print Ordet Type, OrderId End
+
+                        BTPrinter.printText(function (data) {
+                        }, function (err) {
+                        }, "\x1b\x40" + "\n");//Clear Buffer
+
+
+                        //Logo Start
+                        BTPrinter.printBase64(function (data) {
+                            console.log("Success");
+                            console.log(data);
+                        }, function (err) {
+                            console.log("Error");
+                            console.log(err);
+                        }, "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", '1');//base64 string, align
+
+                        //Logo End
+
+                        //Default Tab(\x1b\x44\x00)
+                        BTPrinter.printText(function (data) {
+                        }, function (err) {
+                        }, "\x1b\x6b\x01\x1b\x6c\x01\x1b\x67\x1b\x32" + "\n");// Font + Margin + CPI + Line Spacing(1/8)
+
+                        //BTPrinter.printText(function (data) {
+                        //}, function (err) {
+                        //}, "\x1b\x21\x20\x1b\x61\x00 " + ordertype + "    #" + orderId + "\n");
+
+                        BTPrinter.printTextSizeAlign(function (data) {
+                        }, function (err) {
+                        }, ordertype + "   #" + orderId + "\n", '30', '1');
+
+                        if (value.CREATEDONUTC != null && value.CREATEDONUTC != undefined) {
+                            var arrDateTime = value.CREATEDONUTC.split('~');
+                            orderDate = arrDateTime[0];
+                            orderTime = arrDateTime[1];
+                        }
+
+                        BTPrinter.printText(function (data) {
+                        }, function (err) {
+                        }, "\x1b\x21\x31\x1b\x61\x01" + orderDate + "\n");
+                        //BTPrinter.printTextSizeAlign(function (data) {
+                        //}, function (err) {
+                        //}, orderDate + "\n", '10', '1');//20
+
+                        //console.log(value.PICKUPTIME)
+                        if (value.PICKUPTIME != undefined) {
+                            //$("#carryout #hdnSelectedOrderPickUpTime").val(value.PICKUPTIME);
+                            pickupTime = value.PICKUPTIME;
+                            if (pickupTime.charAt(0) === '0') {
+                                pickupTime = pickupTime.substr(1);
+                            }
+                        }
+                        if (pickupTime != undefined) {
+                            if (pickupTime.indexOf("@") > -1) {
+                                var pickupDateOnly = pickupTime.split('@')[0].trim();
+                                var pickupTimeOnly = pickupTime.split('@')[1].trim();
+
+                                if (pickupTimeOnly.charAt(0) === '0') {
+                                    pickupTimeOnly = pickupTimeOnly.substr(1);
+                                }
+
+                                //Print Time Start
+                                BTPrinter.printTextSizeAlign(function (data) {
+                                }, function (err) {
+                                }, pickupTimeOnly + "\n", '30', '1');//20
+                                //alert("Print Time");
+                                //Print Time End
+
+                            }
+                            else {
+                                //Print Time Start
+                                BTPrinter.printTextSizeAlign(function (data) {
+                                }, function (err) {
+                                }, pickupTime + "\n", '30', '1');//20
+                                //alert("Print Time");
+                            }
+                        }
+
+
+
+                        orderDiscount = value.ORDERDISCOUNT;
+                        subtotalvalue = value.SUBTOTAL;
+                        if (value.BALANCEDUE != undefined && Number(value.BALANCEDUE) > 0) {
+                            dueAmount = value.BALANCEDUE;
+                            dueAmountValue = FormatDecimal(dueAmount);
+                            grandTotal = Number(value.SUBTOTAL) - Number(value.ORDERDISCOUNT);
+                            grandTotalvalue = FormatDecimal(grandTotal);
+                            paidAmount = grandTotal - Number(value.BALANCEDUE);
+                            paidAmountValue = FormatDecimal(paidAmount);
+
+                        }
+                        else {
+                            grandTotal = value.ORDERTOTAL;
+                            grandTotalvalue = FormatDecimal(grandTotal);
+                        }
+
+
+                        if (Number(grandTotal) != Number(subtotalvalue)) {
+                            ordertotalvalue = FormatDecimal(Number(subtotalvalue) - Number(orderDiscount));
+                        }
+                        else {
+                            ordertotalvalue = FormatDecimal(grandTotal);
+                        }
+
+                        //Tax Section
+                        if (value.SUBTOTALWITHOUTTAX != undefined && Number(value.SUBTOTALWITHOUTTAX) > 0) {
+                            subTotalWithoutTax = FormatDecimal(value.SUBTOTALWITHOUTTAX);
+                        }
+                        if (value.TAX != undefined && Number(value.TAX) > 0) {
+                            taxValue = FormatDecimal(value.TAX);
+                        }
+                        if (value.SHIPPING != undefined && Number(value.SHIPPING) > 0) {
+                            shippingValue = FormatDecimal(value.SHIPPING);
+                        }
+                        if (value.REFUNDEDAMOUNT != undefined && Number(value.REFUNDEDAMOUNT)) {
+                            refundValue = FormatDecimal(value.REFUNDEDAMOUNT);
+                        }
+
+                        if (value.Tip != undefined && Number(value.Tip) > 0) {
+                            tipValue = FormatDecimal(value.Tip);
+                        }
+
+                        if (value.ServiceFee != undefined && Number(value.ServiceFee) > 0) {
+                            convenienceFee = FormatDecimal(value.ServiceFee);
+                        }
+
+                        if (value.FINALORDERTOTAL != undefined && Number(value.FINALORDERTOTAL)) {
+                            finalOrderTotal = FormatDecimal(value.FINALORDERTOTAL);
+                        }
+
+                        if (value.PAYMENTMETHOD != "" && value.PAYMENTMETHOD != undefined) {
+                            paymentMethod = value.PAYMENTMETHOD;
+                        }
+                        if (paymentMethod != "") {
+                            if (paymentMethod == "Cash On Delivery") {
+                                paymentMethod = "Pay on Pickup";
+                            }
+                            else {
+                                paymentMethod = "Paid";
+                            }
+                        }
+                                               
+
+                        if (value.FIRSTNAME != "") {
+                            firstName = value.FIRSTNAME;
+                        }
+                        else {
+                            firstName = value.BILLINGFIRSTNAME;
+                        }
+
+                        if (value.LASTNAME != "") {
+                            lastName = value.LASTNAME;
+                        }
+                        else {
+                            lastName = value.BILLINGLASTNAME;
+                        }
+
+                        if (value.PHONE != "") {
+                            phone = value.PHONE;
+                        }
+                        else {
+                            phone = value.BILLINGPHONE;
+                        }
+
+                        if (phone != "" && phone != undefined && phone.length == 10)
+                            phone = FormatPhoneNumber(phone);
+
+
+                        //Print Name, Phone Start
+                        //BTPrinter.printTextSizeAlign(function (data) {
+                        //}, function (err) {
+                        //}, firstName + " " + lastName + "    " + phone + "\n", '11', '0');//5
+                        ////alert("Print Name Phone");
+                        ////Print Name, Phone End
+
+                        BTPrinter.printText(function (data) {
+                        }, function (err) {
+                        }, "\x1b\x21\x31" + firstName + " " + lastName + "  " + phone + "\n\n");
+
+                        //BTPrinter.printText(function (data) {
+                        //}, function (err) {
+                        //}, "\x1b\x67 " + firstName + " " + lastName + "     " + phone + "\n");
+
+
+                        //if (value.ORDERSTATUSID != "" && value.ORDERSTATUSID != undefined) {
+                        //    orderStatus = value.ORDERSTATUSID;
+                        //}
+                        if (value.NOOFITEMS != "" && value.NOOFITEMS != undefined) {
+                            numberOfItems = value.NOOFITEMS;
+                        }
+
+
+
+                    }
+                    else if (value.Type == "DiscountInfo") {
+                        discountValue = FormatDecimal(orderDiscount);
+                        couponCode = value.COUPONCODE;
+                        //htmlDiscount += " <tr>";
+                        //htmlDiscount += "<td colspan=\"3\" style=\"text-align:right; font-weight: bold;\">Coupon (" + value.COUPONCODE + "):</td>";
+                        //htmlDiscount += "<td style=\"text-align:right;\">-" + FormatDecimal(orderDiscount) + "</td>";
+                        //htmlDiscount += "</tr>";
+
+                    }
+                    else if (value.Type == "RewardInfo") {
+                        rewardValue = FormatDecimal(value.USEDAMOUNT);
+                        rewardPoints = value.POINTS.toString().replace("-", "");
+                        //console.log("RewardInfo: " + value.POINTS);
+                        //htmlRewards += " <tr>";
+                        //htmlRewards += "<td colspan=\"3\" style=\"text-align:right; font-weight: bold;\">Reward Points (" + value.POINTS.toString().replace("-", "") + "):</td>";
+                        //htmlRewards += "<td  style=\"text-align:right;\">-" + FormatDecimal(value.USEDAMOUNT) + "</td>";
+                        //htmlRewards += "</tr>";
+                    }
+                    else if (value.Type == "GiftCardInfo") {
+                        giftCardValue = FormatDecimal(value.USEDVALUE);
+                        giftCardCode = value.GIFTCARDCOUPONCODE.replace("-", "");
+                        //console.log("GiftCardInfo: " + value.GIFTCARDCOUPONCODE);
+                        //htmlGiftCard += "<tr>";
+                        //htmlGiftCard += "<td colspan=\"3\" style=\"text-align:right; font-weight: bold;\">Gift Card (" + value.GIFTCARDCOUPONCODE.replace("-", "") + "):</td>";
+                        //htmlGiftCard += "<td  style=\"text-align:right;\">-" + FormatDecimal(value.USEDVALUE) + "</td>";
+                        //htmlGiftCard += "</tr>";
+                    }
+
+
+                });
+
+                var urlItem = global + "/GetCarryOutOrderItemDetails?orderid=" + id;
+                $.getJSON(urlItem, function (data) {
+                    //console.log("Histor: " + data);
+                    if (data.indexOf("No record(s) found.") > -1) {
+                        //$("#carryout #dvItem").html("No record(s) found.");
+
+                    }
+                    else {
+
+                        $.each(JSON.parse(data), function (index, value) {
+
+                            if (value.NOTES != "") {
+                                //Print Item, Quantity, Price Start
+                                if (showPriceInPrint) {
+                                    //BTPrinter.printText(function (data) {
+                                    //}, function (err) {
+                                    //}, "\n" + "\x1b\x21\x10\x1b\x45\x01 " + value.QUANTITY + "X " + value.PRODUCT + "     " + FormatDecimal(value.TOTALPRICE) + " \x1b\x45\x00\x1b\x21\x00" + "\n");
+                                    BTPrinter.printTextSizeAlign(function (data) {
+                                    }, function (err) {
+                                    }, "\n" + "\x1b\x32\x1b\x45\x01" + value.QUANTITY + "X " + value.PRODUCT + " " + FormatDecimal(value.TOTALPRICE) + "\x1b\x45\x00" + "\n", '30', '0');
+
+                                }
+                                else {
+                                    //BTPrinter.printText(function (data) {
+                                    //}, function (err) {
+                                    //}, "\n" + "\x1b\x21\x10\x1b\x45\x01 " + value.QUANTITY + "X " + value.PRODUCT + " \x1b\x45\x00\x1b\x21\x00" + "\n");
+                                    BTPrinter.printTextSizeAlign(function (data) {
+                                    }, function (err) {
+                                    }, "\n" + "\x1b\x32\x1b\x45\x01" + value.QUANTITY + "X " + value.PRODUCT + "\x1b\x45\x00" + "\n", '30', '0');
+                                }
+
+
+                                value.NOTES = value.NOTES.replace("Special Instructions", "Notes");
+
+                                var arrNotes = [];
+                                if (value.NOTES.indexOf("<strong>") > -1) {
+                                    arrNotes = value.NOTES.split('<strong>');
+                                }
+                                if (arrNotes.length > 1) {
+                                    for (var i = 1; i < arrNotes.length; i++) {
+                                        var notesValue = arrNotes[i];
+
+                                        if (i == 1) {
+                                            //html += "<tr><td colspan='4' style='padding:0 0 0 5px'> <i>" + notesValue.replace("</strong>", "") + "</i>  </td></tr>";
+                                            ////notesValue = notesValue.replace("<i>", "");
+                                            ////notesValue = notesValue.replace("</i>", "");
+                                            ////notesValue = notesValue.replace("</strong>", "");
+                                            notesValue = notesValue.replace(/<i>[\s\S]*?<\/i>/, ' ');
+                                            notesValue = notesValue.replace("</strong>:", "- ");
+                                            //Print Order Notes 1 Start
+                                            //BTPrinter.printTextSizeAlign(function (data) {
+                                            //}, function (err) {
+                                            //}, "\x1b\x32" + notesValue.replace("</strong>", "") + "\n", '20', '0');
+
+                                            BTPrinter.printText(function (data) {
+                                            }, function (err) {
+                                            }, "\x1b\x32\x1b\x21\x31" + notesValue + "\n");
+
+                                            //"\x1b\x30 " +
+
+                                            //BTPrinter.printText(function (data) {
+                                            //}, function (err) {
+                                            //}, "\x1b\x21\x00\x1b\x50\x1b\x61\x00 " + notesValue.replace("</strong>", "") + "\n");//Font Size 8 + Left Align
+
+                                            //alert("Print Item Notes");
+                                            //Print Order Notes 1 Start
+                                        }
+                                        else {
+                                            //html += "<tr><td colspan='4' style='padding:0 0 0 5px'> <i>" + notesValue.replace("</strong>", "") + "</i> </td></tr>";
+                                            ////notesValue = notesValue.replace("<i>", "");
+                                            ////notesValue = notesValue.replace("</i>", "");
+                                            ////notesValue = notesValue.replace("</strong>", "");
+                                            notesValue = notesValue.replace(/<i>[\s\S]*?<\/i>/, ' ');
+                                            notesValue = notesValue.replace("</strong>:", "- ");
+                                            //Print Order Notes 1 Start
+                                            //BTPrinter.printTextSizeAlign(function (data) {
+                                            //}, function (err) {
+                                            //}, "\x1b\x32" + notesValue.replace("</strong>", "") + "\n", '20', '0');
+
+                                            BTPrinter.printText(function (data) {
+                                            }, function (err) {
+                                            }, "\x1b\x32\x1b\x21\x31" + notesValue + "\n");
+
+
+                                            //"\x1b\x30 " + 
+
+                                            //BTPrinter.printText(function (data) {
+                                            //}, function (err) {
+                                            //}, "\x1b\x21\x00\x1b\x50\x1b\x61\x00 " + notesValue.replace("</strong>", "") + "\n");//Font Size 8 + Left Align
+
+                                            //alert("Print Item Notes");
+                                            //Print Order Notes 1 Start
+                                        }
+                                    }
+                                    //BTPrinter.printText(function (data) {
+                                    //}, function (err) {
+                                    //}, "\x1B\x32 \n");
+                                }
+
+                            }
+                            else {
+
+                                //Print Item, Quantity, Price Start
+                                if (showPriceInPrint) {
+                                    //BTPrinter.printText(function (data) {
+                                    //}, function (err) {
+                                    //}, "\n" + "\x1b\x21\x10\x1b\x45\x01 " + value.QUANTITY + "X " + value.PRODUCT + "     " + FormatDecimal(value.TOTALPRICE) + " \x1b\x45\x00\x1b\x21\x00" + "\n");
+                                    BTPrinter.printTextSizeAlign(function (data) {
+                                    }, function (err) {
+                                    }, "\n" + "\x1b\x32\x1b\x45\x01" + value.QUANTITY + "X " + value.PRODUCT + " " + FormatDecimal(value.TOTALPRICE) + "\x1b\x45\x00" + "\n", '30', '0');
+
+                                }
+                                else {
+                                    //BTPrinter.printText(function (data) {
+                                    //}, function (err) {
+                                    //}, "\n" + "\x1b\x21\x10\x1b\x45\x01 " + value.QUANTITY + "X " + value.PRODUCT + " \x1b\x45\x00\x1b\x21\x00" + "\n");
+                                    BTPrinter.printTextSizeAlign(function (data) {
+                                    }, function (err) {
+                                    }, "\n" + "\x1b\x32\x1b\x45\x01" + value.QUANTITY + "X " + value.PRODUCT + "\x1b\x45\x00" + "\n", '30', '0');
+                                }
+                            }
+
+                            BTPrinter.printText(function (data) {
+                            }, function (err) {
+                            }, "--------------------------" + "\n");
+
+                        });
+                    }
+
+                    if (showPriceInPrint) {
+                        //htmlSubTotal = " <tr>";
+                        //htmlSubTotal += "<td colspan=\"3\" style=\"text-align:right; font-weight: bold;\">Subtotal:</td>";
+                        if (taxValue != "" && taxValue != "0.00") {
+                            //htmlSubTotal += "<td style=\"text-align:right;\">" + subTotalWithoutTax + "</td>";
+                            //Print Subtotal Start
+                            //BTPrinter.printTextSizeAlign(function (data) {
+                            //}, function (err) {
+                            //}, "\n" + "Subtotal: " + subTotalWithoutTax + "\n", '20', '2');
+                            BTPrinter.printText(function (data) {
+                            }, function (err) {
+                            }, "\n" + "\x1b\x6b\x01\x1b\x21\x31\x1b\x50\x1b\x61\x02" + "Subtotal: " + subTotalWithoutTax + "\n");
+                            //alert("Print Subtotal");
+                            //Print Subtotal End
+                        }
+                        else {
+                            //htmlSubTotal += "<td style=\"text-align:right;\">" + FormatDecimal(subtotalvalue) + "</td>";
+                            //Print Subtotal Start
+                            //BTPrinter.printTextSizeAlign(function (data) {
+                            //}, function (err) {
+                            //}, "\n" + "Subtotal: " + FormatDecimal(subtotalvalue) + "\n", '20', '2');
+                            BTPrinter.printText(function (data) {
+                            }, function (err) {
+                            }, "\n" + "\x1b\x6b\x01\x1b\x21\x31\x1b\x50\x1b\x61\x02" + "Subtotal: " + FormatDecimal(subtotalvalue) + "\n");
+                            //alert("Print Subtotal");
+                            //Print Subtotal End
+                        }
+                        //htmlSubTotal += "</tr>";
+
+                        if (shippingValue != "" && shippingValue != "0.00") {
+                            //Print Delivery Start
+                            //BTPrinter.printTextSizeAlign(function (data) {
+                            //}, function (err) {
+                            //}, "Delivery: " + shippingValue + "\n", '20', '2');
+                            BTPrinter.printText(function (data) {
+                            }, function (err) {
+                            }, "\x1b\x6b\x01\x1b\x21\x31\x1b\x50\x1b\x61\x02" + "Delivery: " + shippingValue + "\n");
+                            //alert("Print Delivery");
+                            //Print Delivery End
+                        }
+
+
+                        if (taxValue != "" && taxValue != "0.00") {
+                            //Print Tax Value Start
+                            //BTPrinter.printTextSizeAlign(function (data) {
+                            //}, function (err) {
+                            //}, "Tax: " + taxValue + "\n", '20', '2');
+                            BTPrinter.printText(function (data) {
+                            }, function (err) {
+                            }, "\x1b\x6b\x01\x1b\x21\x31\x1b\x50\x1b\x61\x02" + "Tax: " + taxValue + "\n");
+                            ///alert("Print Tax");
+                            //Print Tax Value End
+
+                        }
+
+                        if (discountValue != "" && discountValue != "0.00") {
+                            //Print Discount Value Start
+                            //BTPrinter.printTextSizeAlign(function (data) {
+                            //}, function (err) {
+                            //}, "Coupon (" + couponCode + "): " + discountValue + "\n", '20', '2');
+                            BTPrinter.printText(function (data) {
+                            }, function (err) {
+                            }, "\x1b\x6b\x01\x1b\x21\x31\x1b\x50\x1b\x61\x02" + "Coupon (" + couponCode + "): " + discountValue + "\n");
+                            //Print Discount Value End
+                        }
+
+                        if (rewardValue != "" && rewardValue != "0.00") {
+                            //Print Reward Value Start
+                            //BTPrinter.printTextSizeAlign(function (data) {
+                            //}, function (err) {
+                            //}, "Reward (" + rewardPoints + "): -" + rewardValue + "\n", '20', '2');
+                            BTPrinter.printText(function (data) {
+                            }, function (err) {
+                            }, "\x1b\x6b\x01\x1b\x21\x31\x1b\x50\x1b\x61\x02" + "Reward (" + rewardPoints + "): -" + rewardValue + "\n");
+                            //Print Reward Value End
+                        }
+
+                        if (giftCardValue != "" && giftCardValue != "0.00") {
+                            //Print Gift Card Value Start
+                            //BTPrinter.printTextSizeAlign(function (data) {
+                            //}, function (err) {
+                            //}, "Gift Card (" + giftCardCode + "): -" + giftCardValue + "\n", '20', '2');
+                            BTPrinter.printText(function (data) {
+                            }, function (err) {
+                            }, "\x1b\x6b\x01\x1b\x21\x31\x1b\x50\x1b\x61\x02" + "Gift Card (" + giftCardCode + "): -" + giftCardValue + "\n");
+                            //Print Gift Card Value End
+                        }
+
+                        if (tipValue != "" && tipValue != "0.00") {
+                            //Print Tip Start
+                            //BTPrinter.printTextSizeAlign(function (data) {
+                            //}, function (err) {
+                            //}, "Tip: " + tipValue + "\n", '20', '2');
+                            BTPrinter.printText(function (data) {
+                            }, function (err) {
+                            }, "\x1b\x6b\x01\x1b\x21\x31\x1b\x50\x1b\x61\x02" + "Tip: " + tipValue + "\n");
+                            //alert("Print Tip");
+                            //Print Tip End
+                        }
+
+                        if (convenienceFee != "" && convenienceFee != "0.00") {
+                            //Print Convenience Fee Start
+                            BTPrinter.printText(function (data) {
+                            }, function (err) {
+                                }, "\x1b\x6b\x01\x1b\x21\x31\x1b\x50\x1b\x61\x02" + "Convenience Fee: " + convenienceFee + "\n");
+                            //alert("Print Tip");
+                            //Print Convenience Fee End
+                        }
+
+
+
+
+                        //Order Refund and Add. Charge Section Start
+                        var urlOrderAdjustment = global + "/GetCarryoutOrderAdjustments?orderid=" + id;
+                        $.getJSON(urlOrderAdjustment, function (data) {
+                            if (data.indexOf("No record(s) found.") > -1) {
+                                BTPrinter.printText(function (data) {
+                                }, function (err) {
+                                }, "\x1b\x6b\x01\x1b\x21\x31\x1b\x50\x1b\x61\x02\x1b\x45\x01" + "Total: " + grandTotalvalue + "\x1b\x45\x00\n\n\n");
+                                //BTPrinter.printTextSizeAlign(function (data) {
+                                //}, function (err) {
+                                //}, "\n" + "\x1b\x45\x01" + "Total: " + grandTotalvalue + "\x1b\x45\x00" + "\n\n\n", '20', '2');
+                            }
+                            else {
+                                BTPrinter.printText(function (data) {
+                                }, function (err) {
+                                }, "\x1b\x6b\x01\x1b\x21\x31\x1b\x50\x1b\x61\x02\x1b\x45\x01" + "Total: " + grandTotalvalue + "\x1b\x45\x00\n");
+                                //BTPrinter.printTextSizeAlign(function (data) {
+                                //}, function (err) {
+                                //}, "\n" + "\x1b\x45\x01" + "Total: " + grandTotalvalue + "\x1b\x45\x00" + "\n\n\n", '20', '2');
+
+                                $.each(JSON.parse(data), function (index, value) {
+                                    var adjustmentType = "";
+                                    var adjustmentNotes = "";
+                                    var adjustmentAmont = "";
+                                    if (value.Type != "") {
+                                        adjustmentType = value.Type;
+
+                                        if (adjustmentType != "Charge")
+                                            adjustmentType = "Refund";
+                                    }
+                                    if (value.Notes != "") {
+                                        adjustmentNotes = value.Notes;
+                                    }
+                                    if (value.Amount != "") {
+                                        adjustmentAmont = FormatDecimal(value.Amount);
+                                    }
+
+                                    BTPrinter.printText(function (data) {
+                                    }, function (err) {
+                                    }, "\x1b\x6b\x01\x1b\x21\x31\x1b\x50\x1b\x61\x02" + "" + adjustmentType + ": " + adjustmentAmont + "\n");
+
+                                    if (adjustmentNotes != "") {
+                                        BTPrinter.printText(function (data) {
+                                        }, function (err) {
+                                        }, "\x1b\x6b\x01\x1b\x21\x31\x1b\x50\x1b\x61\x02" + "(" + adjustmentNotes + ")\n");
+                                    }
+
+                                });
+
+                                BTPrinter.printText(function (data) {
+                                }, function (err) {
+                                }, "\x1b\x6b\x01\x1b\x21\x31\x1b\x50\x1b\x61\x02\x1b\x45\x01" + "Final Amount: " + finalOrderTotal + "\x1b\x45\x00\n\n\n");
+                            }
+                        });
+                        //Order Refund and Add. Charge Section End
+
+                    }
+
+                }); //-- End Inner Grid
+
+
             });//--End
 
 
