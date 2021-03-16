@@ -1,0 +1,620 @@
+
+<div class="page page-with-toolbar" id="giftcard">
+    <div class="toolbar tabbar tabbar-labels toolbar-bottom-md custom-toolbar">
+        <div class="toolbar-inner">
+            <a href="/carryout/" class="tab-link menuCarryout">
+                <img src="./img/icons/carry-out.png" alt="carry-out" class="footer-icon" id="footer_carryout" />
+                <!--<i class="material-icons menu-icon-active">shopping_basket</i>-->
+                <span class="span-footer-text">Carry Out</span>
+            </a>
+            <a href="/giftcard/" class="tab-link menuGiftcard tab-link-active footer-menu-active">
+                <img src="./img/icons/giftcard-active.png" alt="giftcard" class="footer-icon-one" id="footer_giftcard" />
+                <!--<i class="material-icons menu-icon">card_giftcard</i>-->
+                <span class="span-footer-text">Gift Card</span>
+            </a>
+            <a href="/new_rewards/" class="tab-link menuReward">
+                <img src="./img/icons/rewards.png" alt="rewards" class="footer-icon-two" id="footer_reward" />
+                <!--<i class="material-icons menu-icon">card_membership</i>-->
+                <span class="span-footer-text">Reward</span>
+            </a>
+            <a href="/setup/" class="tab-link menuSettings">
+                <img src="./img/icons/setting.png" alt="setting" class="footer-icon" id="footer_setup" />
+                <!--<i class="material-icons menu-icon">settings</i>-->
+                <span class="span-footer-text">Settings</span>
+            </a>
+            <a href="/manageservice/" class="tab-link menuStartStop">
+                <img src="./img/icons/start-stop.png" alt="start-stop" class="footer-icon" id="footer_startstop" />
+                <!--<i class="material-icons menu-icon">power_settings_new</i>-->
+                <span class="span-footer-text">Start/Stop</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="navbar">
+        <div class="navbar-inner">
+            <div class="left">
+                <img src="./img/app-logo.png" " />
+                <a class="tab-link back-new" onclick="Back();">
+                    <i class="material-icons material-icons-one">arrow_back</i>
+                </a>
+                <!--<a href="#" class="tab-link">
+                    <i class="icon icon-back"></i>
+                </a>-->
+            </div>
+            <div class="center ul-media-list-li">Gift Card</div>
+            <a class="fab fab-right-top panel-open navbar-site-action icon-only searchbar-enable navbar-right-icon-2" id="linkSearchIcon" data-panel="right" style="display:none;"><i class="material-icons large-icon">filter_list</i></a>
+            <!--<div class="right">-->
+            <a class="icon-only navbar-right-single-icon" href="/profile/"><i class="material-icons large-icon">account_circle</i></a>
+            <!--<a class="icon-only navbar-right-single-icon" onclick="Logout();"><i class="material-icons large-icon">exit_to_app</i></a>-->
+            <!--</div>-->
+        </div>
+    </div>
+
+    <div class="page-content">
+
+        <div class="section list-restaurants">
+            <div class="section-content">
+
+                <div id="giftCardTabs" class="custom-tabs display-flex justify-content-space-between align-items-center tab-margin-top fixed-tab-header">
+
+                    <div class="custom-tab custom-tab-carryout">
+                        <!--tab-link-active-->
+                        <a href="#tab-giftcard-new" class="tab-link tab-link-active" id="linkGiftCardNew" onclick="HideSearch('New');">
+                            <div class="tab-right-text">New</div>
+                            <div class="border-tab"></div>
+                        </a>
+                    </div>
+
+                    <div class="custom-tab custom-tab-carryout">
+                        <a href="#tab-giftcard-loadRedeem" class="tab-link" id="linkGiftCardRedeem" onclick="HideSearch('LoadRedeem');">
+                            <div class="tab-right-text">Load/Redeem</div>
+                            <div class="border-tab"></div>
+                        </a>
+                    </div>
+
+                    <div class="custom-tab custom-tab-carryout">
+                        <a href="#tab-giftcard-order" class="tab-link" id="linkGiftCardOrder" onclick="ShowSearch();">
+                            <div class="tab-right-text">Orders</div>
+                            <div class="border-tab"></div>
+                        </a>
+                    </div>
+
+                    <div class="custom-tab custom-tab-carryout">
+                        <a href="#tab-giftcard-history" class="tab-link" id="linkGiftCardHistory" onclick="ShowSearch();">
+                            <div class="tab-right-text">History</div>
+                            <div class="border-tab"></div>
+                        </a>
+                    </div>
+
+                </div>
+                <!--<div class="tabs-animated-wrap">-->
+                <div class="tabs">
+                    <!--tab-active-->
+                    <div id="tab-giftcard-new" class="page-content tab tab-active">
+                        <div class="section mt md">
+                            <div class="section-content">
+                                <div class="from-wrapper">
+                                    <div class="form-item">
+                                        <div class="small-button-right">
+
+                                            <button class="small-button" id="giftcardscan" name="giftcardscan">Scan Barcode</button>
+                                        </div>
+                                        <div class="list media-list">
+                                            <ul>
+                                                <li class="item-content">
+                                                    <input type="hidden" id="hdnCardType" value="" />
+                                                    <div class="item-media item-media-section">
+                                                        <i class="material-icons">card_giftcard</i>
+                                                        <input type="text" placeholder="Card Code" id="txtCardCode" class="mandatory" onKeyDown="if(this.value.length==16) this.value = this.value.slice(0, -1);" autofocus>
+                                                        <span class="input-clear-button"></span>
+                                                    </div>
+                                                </li>
+                                                <!--<li class="item-content">
+                                                    <div class="item-media item-media-section">
+                                                        <i class="material-icons">fiber_pin</i>
+                                                        <input type="text" placeholder="PIN" id="txtGiftCardAddPin" class="mandatory" onKeyDown="if(this.value.length==6) this.value = this.value.slice(0, -1);">
+                                                        <span class="input-clear-button"></span>
+                                                    </div>
+                                                </li>-->
+                                                <li class="item-content">
+                                                    <div class="item-media item-media-section">
+                                                        <i class="material-icons">phone</i>
+                                                        <input type="number" placeholder="Phone" id="txtPhone" class="mandatory" onKeyDown="if(this.value.length==11) this.value = this.value.slice(0, -1);">
+                                                        <span class="input-clear-button"></span>
+                                                    </div>
+                                                </li>
+                                                <li class="item-content">
+                                                    <div class="item-media item-media-section">
+                                                        <i class="material-icons">account_circle</i>
+                                                        <input type="text" placeholder="Name" id="txtName" class="mandatory" onKeyDown="if(this.value.length==100) this.value = this.value.slice(0, -1);">
+                                                        <span class="input-clear-button"></span>
+                                                    </div>
+                                                </li>
+                                                <li class="item-content">
+                                                    <div class="item-media item-media-section">
+                                                        <i class="material-icons">email</i>
+                                                        <input type="text" placeholder="Email" id="txtEmail" class="mandatory" onKeyDown="if(this.value.length==100) this.value = this.value.slice(0, -1);">
+                                                        <span class="input-clear-button"></span>
+                                                    </div>
+                                                </li>
+                                                <li class="item-content">
+                                                    <div class="item-media item-media-section">
+                                                        <i class="material-icons">attach_money</i>
+                                                        <input type="number" min="1" step="any" placeholder="Amount" id="txtAmount" class="mandatory" onKeyDown="if(this.value.length==10) this.value = this.value.slice(0, -1);">
+                                                        <span class="input-clear-button"></span>
+                                                    </div>
+                                                </li>
+                                                
+                                                <!--<li class="item-content item-media-section" id="liShowAdvanced" style="display:none;"><a onclick="ShowGiftCardAdvancedSection();" style="padding-left: 85%;">Advanced</a></li>-->                                                
+                                                <li class="item-content item-media-section" id="liExpirationDate" style="display:none">
+                                                    <div style="width:100%;" class="flex">
+                                                        <div class="item-media" style="width:40%; padding-top: 20px !important;">
+                                                            <i class="material-icons">event</i>
+                                                            <input type="text" class="date" id="txtExpirationDate" tabindex="4" onclick="OpenCalender();" />
+                                                            <span class="custom-placeholder" id="phExpirationDate">Expiration Date</span>
+                                                            <span class="input-clear-button"></span>
+                                                        </div>
+                                                        <div class="item-media" style="width:60%">
+                                                            <div class="timing-flex-row-container">
+                                                                <div>
+                                                                    <div class="timing-flex-column-container">
+                                                                        <div style="flex-basis: 10px;">
+                                                                            <label title=""></label>
+                                                                        </div>
+                                                                        <div style="flex-basis: 80px;">
+                                                                            <select id="expirationHour" name="expirationHour" class="">
+                                                                                <option value="00">00</option>
+                                                                                <option value="01">01</option>
+                                                                                <option value="02">02</option>
+                                                                                <option value="03">03</option>
+                                                                                <option value="04">04</option>
+                                                                                <option value="05">05</option>
+                                                                                <option value="06">06</option>
+                                                                                <option value="07">07</option>
+                                                                                <option value="08">08</option>
+                                                                                <option value="09">09</option>
+                                                                                <option value="10">10</option>
+                                                                                <option selected="selected" value="11">11</option>
+                                                                            </select>
+                                                                        </div>
+                                                                        <div style="flex-basis: 80px;">
+                                                                            <select id="expirationMinute" name="expirationMinute" class="">
+                                                                                <option value="00">00</option>
+                                                                                <option value="01">01</option>
+                                                                                <option value="02">02</option>
+                                                                                <option value="03">03</option>
+                                                                                <option value="04">04</option>
+                                                                                <option value="05">05</option>
+                                                                                <option value="06">06</option>
+                                                                                <option value="07">07</option>
+                                                                                <option value="08">08</option>
+                                                                                <option value="09">09</option>
+                                                                                <option value="10">10</option>
+                                                                                <option value="11">11</option>
+                                                                                <option value="12">12</option>
+                                                                                <option value="13">13</option>
+                                                                                <option value="14">14</option>
+                                                                                <option value="15">15</option>
+                                                                                <option value="16">16</option>
+                                                                                <option value="17">17</option>
+                                                                                <option value="18">18</option>
+                                                                                <option value="19">19</option>
+                                                                                <option value="20">20</option>
+                                                                                <option value="21">21</option>
+                                                                                <option value="22">22</option>
+                                                                                <option value="23">23</option>
+                                                                                <option value="24">24</option>
+                                                                                <option value="25">25</option>
+                                                                                <option value="26">26</option>
+                                                                                <option value="27">27</option>
+                                                                                <option value="28">28</option>
+                                                                                <option value="29">29</option>
+                                                                                <option value="30">30</option>
+                                                                                <option value="31">31</option>
+                                                                                <option value="32">32</option>
+                                                                                <option value="33">33</option>
+                                                                                <option value="34">34</option>
+                                                                                <option value="35">35</option>
+                                                                                <option value="36">36</option>
+                                                                                <option value="37">37</option>
+                                                                                <option value="38">38</option>
+                                                                                <option value="39">39</option>
+                                                                                <option value="40">40</option>
+                                                                                <option value="41">41</option>
+                                                                                <option value="42">42</option>
+                                                                                <option value="43">43</option>
+                                                                                <option value="44">44</option>
+                                                                                <option value="45">45</option>
+                                                                                <option value="46">46</option>
+                                                                                <option value="47">47</option>
+                                                                                <option value="48">48</option>
+                                                                                <option value="49">49</option>
+                                                                                <option value="50">50</option>
+                                                                                <option value="51">51</option>
+                                                                                <option value="52">52</option>
+                                                                                <option value="53">53</option>
+                                                                                <option value="54">54</option>
+                                                                                <option value="55">55</option>
+                                                                                <option value="56">56</option>
+                                                                                <option value="57">57</option>
+                                                                                <option value="58">58</option>
+                                                                                <option selected="selected" value="59">59</option>
+                                                                            </select>
+                                                                        </div>
+                                                                        <div style="flex-basis: 80px;">
+                                                                            <select id="expirationPeriod" name="expirationPeriod" class="">
+                                                                                <option value="AM">AM</option>
+                                                                                <option selected="selected" value="PM">PM</option>
+                                                                            </select>
+                                                                        </div>
+                                                                        <div style="flex-basis: 40px;">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+
+                                                            </div>
+                                                        </div>
+                                                    </div>                                                    
+                                                </li>
+                                                <li class="item-content item-media-section" id="liValidStores" style="display:none">
+                                                    <div class="item-media custom-width">
+                                                        <i class="material-icons">settings_ethernet</i>
+                                                        <input type="text" class="date" id="txtValidStoresName" tabindex="4" readonly />
+                                                        <span class="custom-placeholder" id="phValidStoresName">Valid Stores</span>
+                                                        <input type="hidden" id="txtValidStoreIds"/>
+                                                    </div>
+                                                </li>                                                
+                                                <li class="item-content" id="liValidStoresList" style="display:none">
+                                                     <div class="item-media timing-flex-row-container" style="padding-top: 0px;" id="dvValidStoreInner">
+
+                                                     </div>
+                                                </li>
+                                                                                        
+                                                                                        
+                                                <li class="item-content" id="liPaymentType" style="display:none;">
+                                                    <input type="hidden" id="hdnSelectedPaymentType" value="Credit Card" />
+                                                    <div class="item-media item-media-section">
+                                                        <div class="item-media width-half payment-area">
+                                                            <input type="radio" id="paymentTypeCard" name="paymentType" value="Card" checked />
+                                                            <label for="paymentTypeCard">Credit Card</label>
+                                                        </div>
+                                                        <div class="item-media width-half payment-area">
+                                                            <input type="radio" id="paymentTypeCash" name="paymentType" value="Cash" />
+                                                            <label for="paymentTypeCash">Cash</label>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li class="item-content" id="liCCName" style="display:none;">
+                                                    <div class="item-media item-media-section">
+                                                        <i class="material-icons">person</i>
+                                                        <input type="text" placeholder="Name On Card" id="txtCCName" class="mandatory" maxlength="50">
+                                                        <span class="input-clear-button"></span>
+                                                    </div>
+                                                </li>
+                                                <li class="item-content item-media-section" id="liCCNo" style="display:none;">
+                                                    <div style="width:100%" class="flex">
+                                                        <!--col-45-->
+                                                        <div class="item-media" style="width:58%">
+                                                            <i class="material-icons">credit_card</i>
+                                                            <input type="number" min="1" step="any" placeholder="Card Number" id="txtCCNumber" required class="mandatory" style="padding-left:5px; padding-right:0px; text-align:center;" onKeyPress="if(this.value.length==16) return false;">
+                                                            <span class="input-clear-button"></span>
+                                                        </div>
+                                                        <!--col-25-->
+                                                        <div class="item-media" style="width:22%;padding-right: 4px;">
+                                                            <!--<i class="material-icons">date_range</i>-->
+                                                            <select placeholder="MM" id="ddlCCMonth" required class="mandatory" style="padding-left: 0px !important;padding-right:0;">
+                                                                <option value="">MM</option>
+                                                                <option value="01">01</option>
+                                                                <option value="02">02</option>
+                                                                <option value="03">03</option>
+                                                                <option value="04">04</option>
+                                                                <option value="05">05</option>
+                                                                <option value="06">06</option>
+                                                                <option value="07">07</option>
+                                                                <option value="08">08</option>
+                                                                <option value="09">09</option>
+                                                                <option value="10">10</option>
+                                                                <option value="11">11</option>
+                                                                <option value="12">12</option>
+
+                                                            </select>/
+                                                            <select placeholder="YY" id="ddlCCYear" required class="mandatory" style="padding-left:5px;padding-right:0;">
+                                                                <option value="">YY</option>
+                                                            </select>
+                                                        </div>
+                                                        <!--col-25-->
+                                                        <div class="item-media" style="width:18%">
+                                                            <!--<i class="material-icons">fiber_pin</i>-->
+                                                            <!--<input type="number" placeholder="CVV" id="txtCVV" required class="mandatory" onKeyPress="if(this.value.length==4) return false;">-->
+                                                            <input type="number" placeholder="CVV" id="txtCVV" required class="mandatory" style="text-align:center;padding-left:0;padding-right:0;" onKeyPress="if(this.value.length==4) return false;">
+                                                            <span class="input-clear-button"></span>
+                                                        </div>
+                                                    </div>
+                                                </li>
+
+                                                <li class="item-content">
+                                                    <a class="custom-btn-large custom-bg custom-link btn-add-card" id="btnAddCard">Add Card</a>
+                                                </li>
+
+                                            </ul>
+                                            <input type="hidden" id="hdnValidateCard" value="false" />
+                                            <input type="hidden" id="hdnIsValidEmployeePIN" value="false" />
+                                            <input type="hidden" id="hdnValidStoresIds" value=""/>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="tab-giftcard-loadRedeem" class="page-content tab">
+                        <div class="section mt md">
+
+                            <div class="section-content">
+                                <div class="from-wrapper">
+                                    <div class="form-item">
+                                        <div class="small-button-right">
+                                            <button class="small-button" id="giftcardloadredeemscan" name="giftcardloadredeemscan">Scan Barcode</button>
+                                        </div>
+                                        <div class="list media-list" style="margin:auto">
+                                            <ul>
+                                                <li class="item-content">
+                                                    <div class="item-media item-media-section">
+                                                        <i class="material-icons">card_giftcard</i>
+                                                        <input type="text" placeholder="Card Code" id="txtCardCodeSearch" class="mandatory" onKeyDown="if(this.value.length==16) this.value = this.value.slice(0, -1);" autofocus>
+                                                        <span class="input-clear-button"></span>
+                                                    </div>
+                                                </li>
+                                                <li class="item-content">
+                                                    <div class="item-media item-media-section">
+                                                        <i class="material-icons">fiber_pin</i>
+                                                        <input type="number" placeholder="PIN" id="txtPINSearch" class="mandatory" onKeyDown="if(this.value.length==6) this.value = this.value.slice(0, -1);" autofocus>
+                                                        <span class="input-clear-button"></span>
+                                                    </div>
+                                                </li>
+                                                <li class="item-content" style="display:none;">
+                                                    <div class="item-media item-media-section" style="padding-bottom: 0px;">
+                                                        <i class="material-icons">phone</i>
+                                                        <input type="number" placeholder="Phone" id="txtPhoneSearch" onKeyDown="if(this.value.length==11) this.value = this.value.slice(0, -1);">
+                                                        <span class="input-clear-button"></span>
+                                                    </div>
+                                                </li>
+                                                <li class="item-content item-content-button" style="display:none;">
+                                                    <input type="hidden" id="hdnSearchCardType" value="" />
+                                                    <a href="#" id="btnGiftCardSearch" class="custom-btn custom-bg bg1 custom-link item-media-section">Search</a>
+                                                </li>
+
+                                                <li>
+                                                    <div class="flex">
+                                                        <div class="width-half">
+                                                            <div class="item-media item-media-section" style="padding-bottom: 0px;">
+                                                                <i class="material-icons">attach_money</i>
+                                                                <input type="number" placeholder="Redeem" id="txtRedeem" min="1" step="any" onKeyDown="if(this.value.length==10) this.value = this.value.slice(0, -1);">
+                                                                <span class="input-clear-button"></span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="width-half">
+                                                            <div class="item-content item-content-button">
+                                                                <a id="btnRedeemGiftCard" class="custom-btn custom-bg bg1 custom-link item-media-section">Redeem</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="flex">
+                                                        <div class="width-half">
+                                                            <div class="item-media item-media-section" style="padding-bottom: 0px;">
+                                                                <i class="material-icons">attach_money</i>
+                                                                <input type="number" placeholder="Load" id="txtLoad" min="1" step="any" onKeyDown="if(this.value.length==10) this.value = this.value.slice(0, -1);">
+                                                                <span class="input-clear-button"></span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="width-half">
+                                                            <div class="item-content item-content-button">
+                                                                <a href="#" id="btnLoadGiftCard" class="custom-btn custom-bg bg1 custom-link item-media-section">Load</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li class="item-content item-content-button">
+                                                    <a id="btnRefundGiftCard" class="custom-btn-large custom-bg bg1 custom-link item-media-section" style="background: #f7952c !important;">Refund</a>
+                                                </li>
+                                                <li class="item-content item-content-button">
+                                                    <a id="btnCheckBalanceGiftCard" class="custom-btn-large custom-bg bg1 custom-link item-media-section" style="background: #3b9847 !important;">Check Balance</a>
+                                                </li>
+                                                <li class="item-content item-content-button">
+                                                    <a id="btnDeactivateGiftCard" class="custom-btn-large custom-bg bg1 custom-link item-media-section" style="background: #e95861 !important;">Deactivate</a>
+                                                </li>
+                                                <li class="item-content" style="display:none;">
+                                                    <div class="item-media item-media-section" style="padding-bottom: 0px;">
+                                                        <i class="material-icons">laptop_windows</i>
+                                                        <select id="ddlRegister" class="item-select">
+                                                            <option value="0">--Register--</option>
+                                                            <option value="1">1</option>
+                                                            <option value="2">2</option>
+                                                            <option value="3">3</option>
+                                                            <option value="4">4</option>
+                                                            <option value="5">5</option>
+                                                            <option value="6">6</option>
+                                                            <option value="7">7</option>
+                                                            <option value="8">8</option>
+                                                            <option value="9">9</option>
+                                                            <option value="10">10</option>
+                                                        </select>
+                                                    </div>
+
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="div-right" style="display:none;">
+                                <div class="section-content">
+                                    <div class="error-message-section" id="dvOuter" style="display:none;">
+                                        <p id="dvOuterText"></p>
+                                    </div>
+                                    <div id="dvInner" style="display:none;">
+                                        <div class="inner-page-body-right">
+                                            <div class="row">
+                                                <ul id="dvList" class="div-list">
+                                                    <li class="active">
+                                                        <label class="label-current">Current Balance:<span id="lblCurrentBalance" style="font-size:22px;">$0.00</span></label>
+                                                        <label class="label-original">Original Value:<span id="lblOriginalValue" style="font-size:22px;">$0.00</span></label>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="row">
+                                                <div class="inner-page-body-header">
+                                                    <div id="dvItem">
+                                                        <input type="hidden" id="hdnSelectedOrderId" value="">
+                                                        <div class="row">
+                                                            <label id="lblCutomerName" class="label-style-one"></label>
+                                                        </div>
+                                                        <div class="row">
+                                                            <!--<i class="material-icons" id="iconEmail">email</i>-->
+                                                            <label id="lblEmail" class="label-style-one"></label>
+                                                        </div>
+
+                                                        <h6 style="margin:7px auto;font-weight:600;">History</h6>
+                                                        <table id="tblRedeemHistory" class="table-history">
+                                                            <tbody></tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div id="tab-giftcard-order" class="page-content tab">
+
+                        <div class="section mt">
+                            <div class="section-content">
+                                <!--<div class="form-item">-->
+                                <div class="form-item-content">
+
+                                </div>
+                                <!--</div>-->
+                                <div class="message-section" id="dvOuterOrder" style="display:none;">
+                                    <p id="dvOuterOrderText"></p>
+                                </div>
+
+                                <div class="order-flex-container infinite-scroll" id="dvOrderList">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="tab-giftcard-history" class="page-content tab">
+
+                        <div class="section mt">
+                            <div class="section-content">
+                                <!--<div class="form-item">-->
+                                <div class="form-item-content">
+
+                                </div>
+                                <!--</div>-->
+                                <div class="message-section" id="dvOuterHistory" style="display:none;">
+                                    <p id="dvOuterOrderText"></p>
+                                </div>
+
+                                <div class="order-flex-container infinite-scroll" id="dvHistroyList">
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!--</div>-->
+            </div>
+        </div>
+        <div class="mt pd"></div>
+        <div class="page" id="dvGiftCardDetailsInner" style="display:none;">
+            <div class="page-content" id="divGiftCardDetailsPanel">
+                <div class="page-title padding-left padding-right margin-top display-flex justify-content-space-between">
+                    <h2>Gift Card Details</h2>
+                    <a class="panel-close navbar-site-action" data-panel="right" onclick="ClearGiftCardDetails();">
+                        <img src="./img/icons/close.png" alt="close" class="close-icon">
+                    </a>
+                </div>
+                <div class="block">
+                    <div class="order-list">
+                        <div>
+                            <input type="hidden" id="hdnSelectedOrderId" value="0" />
+                            <input type="hidden" id="hdnGiftCardId" value="0" />
+                            <input type="hidden" id="hdnSelectedOrderDateTime" value="" />
+                            <input type="hidden" id="hdnSelectedOrderOrderPrice" value="0.00" />
+                            <!--<div class="order-row-container"></div>-->
+
+                            <div class="giftcard-code-one">
+                                <label id="lblEditGiftCardCode"></label>
+                                <!--<a id="aEditCode" onclick="EditCardCode();"><i class="material-icons" style="color:#ca1300;">mode_edit</i></a>-->
+                                <a id="aEditCode" onclick="EditCardCode();" class="btn-panel-save custom-bg bg1 mt custom-link">Edit</a>
+
+                            </div>
+                            <div class="giftcard-code-one">
+                                <a id="aSaveCode" onclick="SaveCardCode();" class="btn-panel-save custom-bg bg1 mt custom-link">Save</a>
+                                <input type="text" id="txtEditGiftCardCode" class="text-edit-cardcode" value="" style="display:none;" />
+                            </div>
+                            <div class="order-row-container">
+                                <div class="order-buttons" id="popupGiftCardButtons">
+
+                                </div>
+                                <div class="giftcard-order-number" id="orderNumberAndDateTime">
+
+                                </div>
+
+                            </div>
+                            <div class="order-row-container">
+                                <div class="giftcard-customer">
+                                    <div class="giftcard-customer-detail-container">
+                                        <div class="giftcard-detail-customer-name">
+                                            <label id="lblCutomerName"></label>
+                                        </div>
+                                        <div>
+                                            <label id="lblCutomerEmail"></label>
+                                        </div>
+                                        <div>
+                                            <label id="lblCutomerPhone"></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="giftcard-item-count">
+                                    <div class="giftcard-customer-detail-container">
+                                        <div class="giftcard-price">
+                                            <label id="lblGiftCardValue"></label>
+                                        </div>
+                                        <div>
+                                            <label id="lblGiftCardType"></label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="inner-page-body-header">
+                            <h3 id="titleRedemptionHistory" style="font-weight: 600;font-size:18px;">History</h3>
+                            <div id="dvOrderItem"></div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="mt pd"></div>
+
+    </div>
+</div>
+
