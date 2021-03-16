@@ -1,0 +1,7 @@
+{
+  "name": "BistroUX",
+  "type": "custom",
+  "integrations": {
+    "cordova": {}
+  }
+}
