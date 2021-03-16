@@ -1,0 +1,768 @@
+<div class="page page-with-toolbar" id="carryout">
+
+    <div class="toolbar tabbar tabbar-labels toolbar-bottom-md custom-toolbar">
+        <div class="toolbar-inner">
+            <a href="/carryout/" class="tab-link menuCarryout tab-link-active footer-menu-active">
+                <img src="./img/icons/carry-out-active.png" alt="carry-out" class="footer-icon" id="footer_carryout" />
+                <!--<i class="material-icons menu-icon-active">shopping_basket</i>-->
+                <span class="span-footer-text">Carry Out</span>
+            </a>
+            <a href="/giftcard/" class="tab-link menuGiftcard">
+                <img src="./img/icons/giftcard.png" alt="giftcard" class="footer-icon-one" id="footer_giftcard" />
+                <!--<i class="material-icons menu-icon">card_giftcard</i>-->
+                <span class="span-footer-text">Gift Card</span>
+            </a>
+            <a href="/new_rewards/" class="tab-link menuReward">
+                <img src="./img/icons/rewards.png" alt="rewards" class="footer-icon-two" id="footer_reward" />
+                <!--<i class="material-icons menu-icon">card_membership</i>-->
+                <span class="span-footer-text">Reward</span>
+            </a>
+            <a href="/setup/" class="tab-link menuSettings">
+                <img src="./img/icons/setting.png" alt="setting" class="footer-icon" id="footer_setup" />
+                <!--<i class="material-icons menu-icon">settings</i>-->
+                <span class="span-footer-text">Settings</span>
+            </a>
+            <a href="/manageservice/" class="tab-link menuStartStop">
+                <img src="./img/icons/start-stop.png" alt="start-stop" class="footer-icon" id="footer_startstop" />
+                <!--<i class="material-icons menu-icon">power_settings_new</i>-->
+                <span class="span-footer-text">Start/Stop</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="navbar">
+        <div class="navbar-inner">
+            <div class="left">
+                <!--<div class="nav-logo"></div>-->
+                <img src="./img/app-logo.png" />
+                <a class="tab-link back-new" onclick="Back();">
+                    <i class="material-icons material-icons-one">arrow_back</i>
+                </a>
+
+            </div>
+            <div class="center ul-media-list-li">Carry Out</div>
+            <a class="fab fab-right-top panel-open navbar-site-action icon-only searchbar-enable navbar-right-icon-2" id="linkCarryoutFilterIcon" data-panel="right" style="display:none;"><i class="material-icons large-icon">filter_list</i></a>
+            <!--<div class="right">-->
+            <a class="icon-only navbar-right-single-icon" href="/profile/"><i class="material-icons large-icon">account_circle</i></a>
+            <!--<a class="icon-only navbar-right-single-icon menu-margin-right" href="/profile/"><i class="material-icons large-icon">account_circle</i></a>-->
+            <!--<a class="icon-only navbar-right-single-icon" onclick="Logout();"><i class="material-icons large-icon">exit_to_app</i></a>-->
+            <!--</div>-->
+        </div>
+
+    </div>
+
+    <div class="page-content">
+        <div class="section list-restaurants">
+            <div class="section-content">
+                <input type="hidden" value="" id="hdnCurrentState" />
+                <div class="custom-tabs display-flex justify-content-space-between align-items-center tab-margin-top fixed-tab-header">
+                    <div class="custom-tab custom-tab-carryout-new">
+                        <a href="#1" class="tab-link tab-link-active" onclick="BindcarryoutTab('New')" id="carryOutNew">
+                            <div class="tab-right-text">Current</div>
+                            <div class="border-tab"></div>
+                        </a>
+                    </div>
+                    <!--<div class="custom-tab custom-tab-carryout">
+                        <a href="#2" class="tab-link" onclick="BindcarryoutTab('Processing')" id="carryOutProcessing">
+                            <div class="tab-right-text">Processing</div>
+                            <div class="border-tab"></div>
+                        </a>
+                    </div>-->
+                    <div class="custom-tab custom-tab-carryout-new">
+                        <a href="#3" class="tab-link" onclick="BindcarryoutTab('All')" id="carryOutAll">
+                            <div class="tab-right-text">All</div>
+                            <div class="border-tab"></div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col"></div>
+                <div class="tabs tabs-animated-wrap-margin-top">
+                    <div class="tabs">
+                        <div id="1" class="page-content tab tab-active">
+                            <div class="section mt">
+                                <div class="section-content">
+                                    <div class="col">
+                                        <div class="page-content left-side-area col-25">
+                                            <div class="order-flex-container infinite-scroll" id="dvNewList">
+                                            </div>                                            
+                                        </div>
+                                        <div class="col-65" id="divTabCurrentDetails">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--<div id="2" class="page-content tab">
+                            <div class="section mt">
+                                <div class="section-content">
+                                    <div class="col">
+                                        <div class="col-30">
+                                            <div class="order-flex-container infinite-scroll" id="dvProcessingList">
+                                            </div>
+                                            <div class="col-65">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>-->
+                        <!--overflow-x:hidden !important;-->
+                        <div id="3" class="page-content tab" style="overflow:hidden;">
+                            <div class="section mt">
+                                <div class="section-content">
+                                    <div class="col">
+                                        <div class="page-content left-side-area col-25">
+                                            <div class="order-flex-container infinite-scroll" id="dvAllList">
+                                            </div>
+                                        </div>
+                                        <div class="col-65" id="divTabAllDetails">
+                                            
+                                            <!--Order Details Start-->
+                                            <!--<div id="divTabAllDetails"></div>-->
+                                            <!--Order Details End-->
+                                            
+                                        </div>
+                                       
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="mt pd"></div>
+
+        <!--Carryout Details Div-->
+
+        <div class="page" id="dvCarryOutDetailsInner" style="display:block;">
+            <div class="page-content">
+                <div class="block right-side-area right-details-area">
+                    <div id="divUpperButtonArea">
+                        <!--<a class="custom-btn-two custom-bg custom-link item-media-section-two" style="background:#5cb95a !important;" onclick="Logout();">Accept</a>
+                    <a class="custom-btn-three custom-bg custom-link item-media-section-two" style="background:#303030 !important;" onclick="Logout();">SMS to Customer</a>-->
+                    </div>
+                    <div style="text-align: center;font-size: 22px;">
+                        <span id="spanOrderDetailsOrderType"></span>
+                        <span id="divOrderDetailsPickupTime"></span>
+                        <!--Change-->
+                        
+                        <!--Change-->
+                    </div>
+                    <div class="">
+                        <!--<div style="color: #e95861;text-align: center;font-size: 30px;"><span id="spanOrderDetailsOrderType"></span></div>-->
+                        <!--order-list-->
+                        <div class="">
+                            <div>
+                                <input type="hidden" id="hdnSelectedOrderId" value="0" />
+                                <input type="hidden" id="hdnSelectedOrderDateTime" value="" />
+                                <input type="hidden" id="hdnSelectedOrderOrderPrice" value="0.00" />
+                                <input type="hidden" id="hdnSelectedOrderPickUpTime" value="" />
+                                <input type="hidden" id="hdnSelectedOrderPickUpSMSSentTime" value="" />
+
+
+                            </div>
+                            <div id="dvOrderInfo"></div>
+                            <div class="item-container">
+                                <div id="dvItem"></div>
+                                <div id="divLowerCancelButtonArea" style="display:none;">
+                                    <!--item-media-section-one-->
+                                    <!--<a class="custom-btn-four custom-bg custom-link" id="btnChangePickupTime" style="background:#08b3c7 !important; margin-bottom:30px;" onclick="OpenPickupTimePopup();">Change Pickup Time</a>-->
+                                    
+                                    <div class="flex">
+                                        <div style="width:48%">                                            
+                                            <a class="custom-btn-four custom-bg custom-link" id="btnChangePickupTime" style="background:#08b3c7 !important; margin-bottom:12px;" onclick="OpenPickupTimePopup();">Change Time</a>
+                                        </div>
+                                        <div style="width:2%"></div>
+                                        <div style="width:48%">
+                                            <a class="custom-btn-four custom-bg custom-link" id="btnPrintOrder" style="background:#5cb95a !important;">Print</a>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex">
+                                        <div style="width:48%">
+                                            <a class="custom-btn-four custom-bg custom-link" id="btnAddCharge" style="background:#f7952c !important;" onclick="OpenAddChargePopup();">Add Charge</a>
+                                            <!--<a class="custom-btn-four custom-bg custom-link" id="btnChangePickupTime" style="background:#08b3c7 !important; margin-bottom:30px;" onclick="OpenPickupTimePopup();">Change Time</a>-->
+                                        </div>
+                                        <div style="width:2%"></div>
+                                        <div style="width:48%">
+                                            <a class="custom-btn-four custom-bg custom-link" id="btnRefundOrder" style="background:#e95861 !important;" onclick="OpenCancelOrderPopup();">Refund</a>
+                                        </div>
+                                    </div>
+                                    
+                                    <!--item-media-section-one-->
+                                </div>
+
+                                <div id="divLowerPrintButtonArea" style="display:none;">
+                                    <!--item-media-section-one-->
+                                    <!--<a class="custom-btn-four custom-bg custom-link" id="btnChangePickupTime" style="background:#08b3c7 !important; margin-bottom:30px;" onclick="OpenPickupTimePopup();">Change Pickup Time</a>-->
+
+                                    <div class="flex">
+                                        <div style="width:48%">
+                                            <a class="custom-btn-four custom-bg custom-link" id="btnChangePickupTime" style="background:#08b3c7 !important; margin-bottom:12px;opacity: 0.5;">Change Time</a>
+                                        </div>
+                                        <div style="width:2%"></div>
+                                        <div style="width:48%">
+                                            <a class="custom-btn-four custom-bg custom-link" id="btnPrintCancelOrder" style="background:#5cb95a !important;">Print</a>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex">
+                                        <div style="width:48%">
+                                            <a class="custom-btn-four custom-bg custom-link" id="btnAddCharge" style="background:#f7952c !important;opacity: 0.5;">Add Charge</a>
+                                            <!--<a class="custom-btn-four custom-bg custom-link" id="btnChangePickupTime" style="background:#08b3c7 !important; margin-bottom:30px;" onclick="OpenPickupTimePopup();">Change Time</a>-->
+                                        </div>
+                                        <div style="width:2%"></div>
+                                        <div style="width:48%">
+                                            <a class="custom-btn-four custom-bg custom-link" id="btnRefundOrder" style="background:#e95861 !important;opacity: 0.5;">Refund</a>
+                                        </div>
+                                    </div>
+
+                                    <!--item-media-section-one-->
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!--Right Side Filter Sorting Panel-->
+        <div class="panel panel-right panel-cover panel-menu" style="display: none;">
+            <div>
+                <div class="page-title padding-left padding-right margin-top display-flex justify-content-space-between">
+                    <h2 style="border:none;">Filter</h2>
+                    <a class="panel-close navbar-site-action" href="#" data-panel="right">
+                        <img src="./img/icons/close.png" alt="close" class="close-icon">
+                    </a>
+                </div>
+                <div class="list-margin">
+                    <div class="form-item">
+                        <div class="list list-margin">
+
+                            <ul id="ulFilterSortGiftCard" style="display:none;">
+                                <li class="item-content">
+                                    <div class="item-media custom-width">
+                                        <i class="material-icons">settings_ethernet</i>
+                                        <select id="ddlFilterStatus">
+                                            <option value="">Status</option>
+                                            <option value="60">New</option>
+                                            <option value="30">Complete</option>
+                                            <option value="70">Shipped</option>
+                                            <option value="50">Picked Up</option>
+                                        </select>
+                                    </div>
+                                </li>
+                                <li class="item-content">
+                                    <div class="item-media custom-width">
+                                        <i class="material-icons">add_shopping_cart</i>
+                                        <input type="number" placeholder="Order #" id="txtOrderId" tabindex="1">
+                                        <span class="input-clear-button"></span>
+                                    </div>
+                                </li>
+                                <li class="item-content">
+                                    <div class="item-media custom-width">
+                                        <i class="material-icons">credit_card</i>
+                                        <input type="text" placeholder="Card Code" id="txtGiftCardCode" tabindex="2">
+                                        <span class="input-clear-button"></span>
+                                    </div>
+                                </li>
+                                <li class="item-content">
+                                    <div class="item-media custom-width">
+                                        <i class="material-icons">account_circle</i>
+                                        <input type="text" placeholder="Last Name" id="txtName" tabindex="3">
+                                        <span class="input-clear-button"></span>
+                                    </div>
+                                </li>
+                                <li class="item-content">
+                                    <a id="btnGiftCardOrderSearch" class="custom-btn custom-bg bg1 custom-link btn-filter" onclick="GiftCardOrdersList(10,0);">Filter</a>
+                                </li>
+                                <li>
+                                    <div class="page-content">
+                                        <h2 class="sort-header">Sort</h2>
+                                    </div>
+                                </li>
+                                <li>
+                                    <label class="item-radio item-content">
+                                        <input type="radio" name="radioGiftCardSort" value="ASC" />
+                                        <i class="icon icon-radio"></i>
+                                        <div class="item-inner">
+                                            <div class="item-title">Ascending</div>
+                                        </div>
+                                    </label>
+                                </li>
+                                <li>
+                                    <label class="item-radio item-content">
+                                        <input type="radio" name="radioGiftCardSort" value="DESC" checked />
+                                        <i class="icon icon-radio"></i>
+                                        <div class="item-inner">
+                                            <div class="item-title">Descending</div>
+                                        </div>
+                                    </label>
+                                </li>
+                                <li>
+                                    <div class="page-content">
+                                        <h2 class="filter-header">Field</h2>
+                                        <div class="list list-margin">
+                                            <ul style="padding-left:0px;">
+                                                <li>
+                                                    <label class="item-radio item-content">
+                                                        <input type="radio" name="radioGiftCardSortBy" value="Status" checked />
+                                                        <i class="icon icon-radio"></i>
+                                                        <div class="item-inner">
+                                                            <div class="item-title">Status</div>
+                                                        </div>
+                                                    </label>
+                                                </li>
+                                                <li>
+                                                    <label class="item-radio item-content">
+                                                        <input type="radio" name="radioGiftCardSortBy" value="CardCode" />
+                                                        <i class="icon icon-radio"></i>
+                                                        <div class="item-inner">
+                                                            <div class="item-title">Card Code</div>
+                                                        </div>
+                                                    </label>
+                                                </li>
+                                                <li>
+                                                    <label class="item-radio item-content">
+                                                        <input type="radio" name="radioGiftCardSortBy" value="Amount" />
+                                                        <i class="icon icon-radio"></i>
+                                                        <div class="item-inner">
+                                                            <div class="item-title">Amount</div>
+                                                        </div>
+                                                    </label>
+                                                </li>
+                                                <li>
+                                                    <label class="item-radio item-content">
+                                                        <input type="radio" name="radioGiftCardSortBy" value="OrderDate" />
+                                                        <i class="icon icon-radio"></i>
+                                                        <div class="item-inner">
+                                                            <div class="item-title">Order Date</div>
+                                                        </div>
+                                                    </label>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="item-content">
+                                    <a id="btnGiftCardOrderSort" class="custom-btn custom-bg bg1 custom-link btn-filter" onclick="GiftCardOrdersList(10,0);">Sort</a>
+                                </li>
+                            </ul>
+
+                            <ul id="ulFilterSortGiftCardHistory" style="display:none;">
+                                <li class="item-content">
+                                    <div class="item-media custom-width">
+                                        <i class="material-icons">settings_ethernet</i>                                        
+                                        <select id="ddlFilterHistoryStatus">
+                                            <option value="">Status</option>
+                                            <option value="New">New</option>
+                                            <option value="Active">Active</option>
+                                            <option value="Inactive">Inactive</option>
+                                        </select>
+                                    </div>
+                                </li>
+                                <li class="item-content">
+                                    <div class="item-media custom-width">
+                                        <i class="material-icons">credit_card</i>
+                                        <input type="text" placeholder="Card Code" id="txtFilterHistoryCode" tabindex="2">
+                                        <span class="input-clear-button"></span>
+                                    </div>
+                                </li>
+                                <li class="item-content">
+                                    <div class="item-media custom-width">
+                                        <i class="material-icons">event</i>
+                                        <input type="text" id="txtFilterGiftCardHistoryDate" tabindex="2" data-input>
+                                        <span class="custom-placeholder" id="phFilterGiftCardHistoryDate">Date</span>
+                                        <span class="input-clear-button"></span>
+                                    </div>
+                                </li>
+                                <li class="item-content">
+                                    <div class="item-media custom-width">
+                                        <i class="material-icons">settings_ethernet</i>
+                                        <select id="ddlFilterHistoryType">
+                                            <option value="">Type</option>
+                                            <option value="Active">Active</option>
+                                            <option value="Inactive">Inactive</option>
+                                            <option value="Load">Load</option>
+                                            <option value="Redeem">Redeem</option>
+                                            <option value="Refund">Refund</option>
+                                        </select>
+                                    </div>
+                                </li>
+                                <li class="item-content">
+                                    <a id="btnGiftCardHistorySearch" class="custom-btn custom-bg bg1 custom-link btn-filter" onclick="GiftCardHistoryList(10, 0);">Filter</a>
+                                </li>                                
+                            </ul>
+
+                            <ul id="ulFilterSortCoupon" style="display:none;">
+                                <li class="item-content">
+                                    <div class="item-media custom-width">
+                                        <i class="material-icons">settings_ethernet</i>
+                                        <select id="ddlFilterCouponStatus">
+                                            <option value="">Status</option>
+                                            <option value="True">Active</option>
+                                            <option value="False">Inactive</option>
+                                        </select>
+                                    </div>
+                                </li>
+                                <li class="item-content">
+                                    <div class="item-media custom-width">
+                                        <i class="material-icons">confirmation_number</i>
+                                        <input type="text" placeholder="Name" id="txtFilterCouponName" tabindex="1">
+                                        <span class="input-clear-button"></span>
+                                    </div>
+                                </li>
+                                <li class="item-content">
+                                    <div class="item-media custom-width">
+                                        <i class="material-icons">event</i>
+                                        <input type="text" id="txtFilterCouponStart" tabindex="2" data-input>
+                                        <span class="custom-placeholder" id="phFilterCouponStart">Start Date</span>
+                                        <span class="input-clear-button"></span>
+                                    </div>
+                                </li>
+                                <li class="item-content">
+                                    <div class="item-media custom-width">
+                                        <i class="material-icons">event</i>
+                                        <input type="text" id="txtFilterCouponEnd" tabindex="3" data-input>
+                                        <span class="custom-placeholder" id="phFilterCouponEnd">End Date</span>
+                                        <span class="input-clear-button"></span>
+                                    </div>
+                                </li>
+                                <li class="item-content">
+                                    <a id="btnCouponFilter custom-width" class="custom-btn custom-bg bg1 custom-link btn-filter" onclick="CouponList(10,0);">Filter</a>
+                                </li>
+                                <li>
+                                    <div class="page-content">
+                                        <h2 class="sort-header">Sort</h2>
+                                    </div>
+                                </li>
+                                <li>
+                                    <label class="item-radio item-content">
+                                        <input type="radio" name="radioCouponSort" value="ASC" />
+                                        <i class="icon icon-radio"></i>
+                                        <div class="item-inner">
+                                            <div class="item-title">Ascending</div>
+                                        </div>
+                                    </label>
+                                </li>
+                                <li>
+                                    <label class="item-radio item-content">
+                                        <input type="radio" name="radioCouponSort" value="DESC" checked />
+                                        <i class="icon icon-radio"></i>
+                                        <div class="item-inner">
+                                            <div class="item-title">Descending</div>
+                                        </div>
+                                    </label>
+                                </li>
+                                <li>
+                                    <div class="page-content">
+                                        <h2 class="filter-header">Field</h2>
+                                        <div class="list list-margin">
+                                            <ul style="padding-left:0px;">
+                                                <li>
+                                                    <label class="item-radio item-content">
+                                                        <input type="radio" name="radioCouponSortBy" value="Status" checked />
+                                                        <i class="icon icon-radio"></i>
+                                                        <div class="item-inner">
+                                                            <div class="item-title">Status</div>
+                                                        </div>
+                                                    </label>
+                                                </li>
+                                                <li>
+                                                    <label class="item-radio item-content">
+                                                        <input type="radio" name="radioCouponSortBy" value="DiscountAmout" />
+                                                        <i class="icon icon-radio"></i>
+                                                        <div class="item-inner">
+                                                            <div class="item-title">Discount Amount</div>
+                                                        </div>
+                                                    </label>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="item-content">
+                                    <a id="btnCouponSort" class="custom-btn custom-bg bg1 custom-link btn-filter" onclick="CouponList(10,0);">Sort</a>
+                                </li>
+                            </ul>
+
+                            <ul id="ulFilterSortCarryout" style="display:none;">
+                                <li class="item-content">
+                                    <div class="item-media custom-width">
+                                        <i class="material-icons">settings_ethernet</i>
+                                        <select id="ddlFilterCarryoutStatus">
+                                            <option value="">Status</option>
+                                            <option value="60">New</option>
+                                            <option value="20">Processing</option>
+                                            <option value="30">Complete</option>
+                                            <option value="50">Picked Up</option>
+                                            <option value="40">Cancelled</option>
+                                            <option value="80">Refunded</option>
+                                        </select>
+                                    </div>
+                                </li>
+                                <li class="item-content">
+                                    <div class="item-media custom-width">
+                                        <i class="material-icons">add_shopping_cart</i>
+                                        <input type="number" placeholder="Order #" id="txtFilterOrderNumberFrom" tabindex="1" min="1">
+                                        <span class="input-clear-button"></span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div style="text-align:center;">
+                                        <label>To</label>
+                                    </div>
+                                </li>
+                                <li class="item-content">
+                                    <div class="item-media custom-width">
+                                        <i class="material-icons">add_shopping_cart</i>
+                                        <input type="number" placeholder="Order #" id="txtFilterOrderNumberTo" tabindex="2" min="1">
+                                        <span class="input-clear-button"></span>
+                                    </div>
+                                </li>
+                                <li class="item-content">
+                                    <div class="item-media custom-width">
+                                        <i class="material-icons">phone</i>
+                                        <input type="number" placeholder="Phone" id="txtFilterPhone" tabindex="3" />
+                                        <span class="input-clear-button"></span>
+                                    </div>
+                                </li>
+                                <li class="item-content">
+                                    <div class="item-media custom-width">
+                                        <i class="material-icons">event</i>
+                                        <input type="text" class="date" id="txtFilterOrderDateFrom" tabindex="4" />
+                                        <span class="custom-placeholder" id="phFilterOrderDateFrom">Order Date</span>
+                                        <span class="input-clear-button"></span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div style="text-align:center;">
+                                        <label>To</label>
+                                    </div>
+                                </li>
+                                <li class="item-content">
+                                    <div class="item-media custom-width">
+                                        <i class="material-icons">event</i>
+                                        <input type="text" class="date" id="txtFilterOrderDateTo" tabindex="5">
+                                        <span class="custom-placeholder" id="phFilterOrderDateTo">Order Date</span>
+                                        <span class="input-clear-button"></span>
+                                    </div>
+                                </li>
+                                <li class="item-content">
+                                    <a id="btnCarryoutFilter" class="custom-btn custom-bg bg1 custom-link btn-filter" onclick="CarryoutOrdersList('All', 10, 0, '');">Filter</a>
+                                </li>
+                                <li>
+                                    <div class="page-content">
+                                        <h2 class="sort-header">Sort</h2>
+                                    </div>
+                                </li>
+                                <li>
+                                    <label class="item-radio item-content">
+                                        <input type="radio" name="radioCarryoutSort" value="ASC" checked />
+                                        <i class="icon icon-radio"></i>
+                                        <div class="item-inner">
+                                            <div class="item-title">Ascending</div>
+                                        </div>
+                                    </label>
+                                </li>
+                                <li>
+                                    <label class="item-radio item-content">
+                                        <input type="radio" name="radioCarryoutSort" value="DESC" />
+                                        <i class="icon icon-radio"></i>
+                                        <div class="item-inner">
+                                            <div class="item-title">Descending</div>
+                                        </div>
+                                    </label>
+                                </li>
+                                <li>
+                                    <div class="page-content">
+                                        <h2 class="filter-header">Field</h2>
+                                        <div class="list list-margin">
+                                            <ul style="padding-left:0px;">
+                                                <li>
+                                                    <label class="item-radio item-content">
+                                                        <input type="radio" name="radioCarryoutSortBy" value="PickupTime" checked />
+                                                        <i class="icon icon-radio"></i>
+                                                        <div class="item-inner">
+                                                            <div class="item-title">Pick Up Time</div>
+                                                        </div>
+                                                    </label>
+                                                </li>
+                                                <li>
+                                                    <label class="item-radio item-content">
+                                                        <input type="radio" name="radioCarryoutSortBy" value="OrderTime" />
+                                                        <i class="icon icon-radio"></i>
+                                                        <div class="item-inner">
+                                                            <div class="item-title">Order Time</div>
+                                                        </div>
+                                                    </label>
+                                                </li>
+                                                <li>
+                                                    <label class="item-radio item-content">
+                                                        <input type="radio" name="radioCarryoutSortBy" value="OrderNumber" />
+                                                        <i class="icon icon-radio"></i>
+                                                        <div class="item-inner">
+                                                            <div class="item-title">Order #</div>
+                                                        </div>
+                                                    </label>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="item-content">
+                                    <a id="btnCarryoutSort" class="custom-btn custom-bg bg1 custom-link btn-filter" onclick="CarryoutOrdersList('All', 10, 0, '');">Sort</a>
+                                </li>
+                            </ul>
+
+                            <ul id="ulFilterSortItem" style="display:none;">
+                                <li class="item-content">
+                                    <div class="item-media custom-width">
+                                        <i class="material-icons">settings_ethernet</i>
+                                        <select id="ddlFilterItemStatus">
+                                            <option value="">Status</option>
+                                            <option value="Active">Active</option>
+                                            <option value="Inactive">Inactive</option>
+
+                                        </select>
+                                    </div>
+                                </li>
+                                <li class="item-content">
+                                    <div class="item-media custom-width">
+                                        <i class="material-icons">toc</i>
+                                        <div class="item-input-wrap input-dropdown-wrap">
+                                            <select placeholder="Category" id="filterProductCategory" required class="mandatory"></select>
+                                        </div>
+                                        <span class="input-clear-button"></span>
+                                    </div>
+                                </li>
+
+                                <li class="item-content">
+                                    <div class="item-media custom-width">
+                                        <i class="material-icons">local_pizza</i>
+                                        <input type="text" placeholder="Name" id="txtFilterItemName" tabindex="2" maxlength="100">
+                                        <span class="input-clear-button"></span>
+                                    </div>
+                                </li>
+
+                                <li class="item-content">
+                                    <a id="btnItemFilter" class="custom-btn custom-bg bg1 custom-link btn-filter" onclick="FilterSortItems();">Filter</a>
+                                </li>
+                                <li>
+                                    <div class="page-content">
+                                        <h2 class="sort-header">Sort</h2>
+                                    </div>
+                                </li>
+                                <li>
+                                    <label class="item-radio item-content">
+                                        <input type="radio" name="radioItemSort" value="ASC" checked />
+                                        <i class="icon icon-radio"></i>
+                                        <div class="item-inner">
+                                            <div class="item-title">Ascending</div>
+                                        </div>
+                                    </label>
+                                </li>
+                                <li>
+                                    <label class="item-radio item-content">
+                                        <input type="radio" name="radioItemSort" value="DESC" />
+                                        <i class="icon icon-radio"></i>
+                                        <div class="item-inner">
+                                            <div class="item-title">Descending</div>
+                                        </div>
+                                    </label>
+                                </li>
+                                <li>
+                                    <div class="page-content">
+                                        <h2 class="filter-header">Field</h2>
+                                        <div class="list list-margin">
+                                            <ul style="padding-left:0px;">
+                                                <li>
+                                                    <label class="item-radio item-content">
+                                                        <input type="radio" name="radioItemSortBy" value="Name" checked />
+                                                        <i class="icon icon-radio"></i>
+                                                        <div class="item-inner">
+                                                            <div class="item-title">Name</div>
+                                                        </div>
+                                                    </label>
+                                                </li>
+                                                <li>
+                                                    <label class="item-radio item-content">
+                                                        <input type="radio" name="radioItemSortBy" value="Category" />
+                                                        <i class="icon icon-radio"></i>
+                                                        <div class="item-inner">
+                                                            <div class="item-title">Category</div>
+                                                        </div>
+                                                    </label>
+                                                </li>
+                                                <li>
+                                                    <label class="item-radio item-content">
+                                                        <input type="radio" name="radioItemSortBy" value="Price" />
+                                                        <i class="icon icon-radio"></i>
+                                                        <div class="item-inner">
+                                                            <div class="item-title">Price</div>
+                                                        </div>
+                                                    </label>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="item-content">
+                                    <a id="btnItemSort" class="custom-btn custom-bg bg1 custom-link btn-filter" onclick="FilterSortItems();">Sort</a>
+                                </li>
+                            </ul>
+
+                            <ul id="ulFilterSortDineIn" style="display:none;">
+                                <li class="item-content">
+                                    <div class="item-media custom-width">
+                                        <i class="material-icons">settings_ethernet</i>
+                                        <select id="ddlFilterDineinStatus">
+                                            <option value="">Status</option>
+                                            <option value="New">New</option>
+                                            <option value="CheckIn">CheckIn</option>
+                                            <option value="Seated">Seated</option>
+                                            <option value="Cancelled">Cancelled</option>
+                                        </select>
+                                    </div>
+                                </li>
+                                <li class="item-content">
+                                    <div class="item-media custom-width">
+                                        <i class="material-icons">confirmation_number</i>
+                                        <input type="text" placeholder="Name" id="txtFilterDiniinName" tabindex="1">
+                                        <span class="input-clear-button"></span>
+                                    </div>
+                                </li>
+                                <li class="item-content">
+                                    <div class="item-media custom-width">
+                                        <i class="material-icons">event</i>
+                                        <input type="text" id="txtFilterDineinDate" tabindex="2" data-input>
+                                        <span class="custom-placeholder" id="phFilterDineinDate">Date</span>
+                                        <span class="input-clear-button"></span>
+                                    </div>
+                                </li>
+                                <li class="item-content">
+                                    <a id="btnCouponFilter custom-width" class="custom-btn custom-bg bg1 custom-link btn-filter" onclick="DineInList(10, 0);">Filter</a>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+</div>

@@ -1,0 +1,276 @@
+
+<div class="page page-with-toolbar" id="rewards">
+    <div class="toolbar tabbar tabbar-labels toolbar-bottom-md custom-toolbar">
+        <div class="toolbar-inner">
+            <a href="/carryout/" class="tab-link menuCarryout">
+                <img src="./img/icons/carry-out.png" alt="carry-out" class="footer-icon" id="footer_carryout" />
+                <!--<i class="material-icons menu-icon-active">shopping_basket</i>-->
+                <span class="span-footer-text">Carry Out</span>
+            </a>
+            <a href="/giftcard/" class="tab-link menuGiftcard">
+                <img src="./img/icons/giftcard.png" alt="giftcard" class="footer-icon-one" id="footer_giftcard" />
+                <!--<i class="material-icons menu-icon">card_giftcard</i>-->
+                <span class="span-footer-text">Gift Card</span>
+            </a>
+            <a href="/new_rewards/" class="tab-link menuReward  tab-link-active footer-menu-active">
+                <img src="./img/icons/rewards-active.png" alt="rewards" class="footer-icon-two" id="footer_reward" />
+                <!--<i class="material-icons menu-icon">card_membership</i>-->
+                <span class="span-footer-text">Reward</span>
+            </a>
+            <a href="/setup/" class="tab-link menuSettings">
+                <img src="./img/icons/setting.png" alt="setting" class="footer-icon" id="footer_setup" />
+                <!--<i class="material-icons menu-icon">settings</i>-->
+                <span class="span-footer-text">Settings</span>
+            </a>
+            <a href="/manageservice/" class="tab-link menuStartStop">
+                <img src="./img/icons/start-stop.png" alt="start-stop" class="footer-icon" id="footer_startstop" />
+                <!--<i class="material-icons menu-icon">power_settings_new</i>-->
+                <span class="span-footer-text">Start/Stop</span>
+            </a>
+        </div>
+    </div>
+    <div class="navbar">
+        <div class="navbar-inner">
+            <div class="left">
+                <img src="./img/app-logo.png" />
+                <a class="tab-link back-new" onclick="Back();">
+                    <i class="material-icons material-icons-one">arrow_back</i>
+                </a> 
+                
+            </div>
+            <div class="center ul-media-list-li">Reward</div>
+            <!--<div class="right">-->
+            <a class="icon-only navbar-right-single-icon" href="/profile/"><i class="material-icons large-icon">account_circle</i></a>
+                <!--<a class="icon-only navbar-right-single-icon"  onclick="Logout();"><i class="material-icons large-icon">exit_to_app</i></a>-->
+            <!--</div>-->
+        </div>
+    </div>
+
+    <div class="page-content">
+          
+        <div class="section list-restaurants">
+            <div class="section-content">
+
+                <div class="custom-tabs display-flex justify-content-space-between align-items-center tab-margin-top  fixed-tab-header" >
+
+                    <div class="custom-tab custom-tab-carryout width-half">
+                        <a href="#reward_new" class="tab-link tab-link-active" id="linkRewardNew">
+                            <div class="tab-right-text">New</div>
+                            <div class="border-tab"></div>
+                        </a>
+                    </div>
+
+                    <div class="custom-tab custom-tab-carryout width-half">
+                        <a href="#reward_LoadRedeem" class="tab-link" id="linkRewardLoadRedeem">
+                            <div class="tab-right-text">Load/Redeem</div>
+                            <div class="border-tab"></div>
+                        </a>
+                    </div>
+                </div>
+                <!--<div class="tabs-animated-wrap">-->
+                    <div class="tabs">
+                       
+                        <div id="reward_new" class="page-content tab tab-active">
+                            <div class="section mt md">
+                                <div class="section-content">
+                                    <div class="from-wrapper">
+                                        <div class="form-item">
+                                            <div class="small-button-right">
+
+                                                <button class="small-button" id="scan" name="scan">Scan Barcode</button>
+                                               
+                                            </div>
+                                            <div class="list media-list">
+
+
+                                                <ul>
+                                                    <li class="item-content">
+                                                        <div class="item-media item-media-section">
+                                                            <i class="material-icons">assignment_ind</i>
+                                                            <input type="number" placeholder="Member ID" id="txtMemberId_Reward" onKeyDown="if(this.value.length==16) this.value = this.value.slice(0, -1);" autofocus>
+                                                            <span class="input-clear-button"></span>
+                                                        </div>
+                                                    </li>
+                                                    <li class="item-content">
+                                                        <div class="item-media item-media-section">
+                                                            <i class="material-icons">phone</i>
+                                                            <input type="number" placeholder="Phone" id="txtPhone_Reward" class="mandatory" onKeyDown="if(this.value.length==11) this.value = this.value.slice(0, -1);">
+                                                            <span class="input-clear-button"></span>
+                                                        </div>
+                                                    </li>
+                                                    <li class="item-content">
+                                                        <div class="item-media item-media-section">
+                                                            <i class="material-icons">account_circle</i>
+                                                            <input type="text" placeholder="Name" id="txtName_Reward" onKeyDown="if(this.value.length==100) this.value = this.value.slice(0, -1);">
+                                                            <span class="input-clear-button"></span>
+                                                        </div>
+                                                    </li>
+                                                    <li class="item-content">
+                                                        <div class="item-media item-media-section">
+                                                            <i class="material-icons">email</i>
+                                                            <input type="text" placeholder="Email" id="txtEmail_Reward" onKeyDown="if(this.value.length==100) this.value = this.value.slice(0, -1);">
+                                                            <span class="input-clear-button"></span>
+                                                        </div>
+                                                    </li>
+                                                    <li class="item-content">
+                                                        <div class="item-media item-media-section">
+                                                            <i class="material-icons">local_atm</i>
+                                                            <input type="number" placeholder="Points" id="txtPoints_Reward" class="mandatory" onKeyDown="if(this.value.length==10) this.value = this.value.slice(0, -1);">
+                                                            <span class="input-clear-button"></span>
+                                                        </div>
+                                                    </li>
+                                                    <li class="item-content">
+                                                        <a class="custom-btn-xl custom-bg custom-link btn-add-card" id="btnCreate">Add Member</a>
+                                                    </li>
+                                                    
+                                                </ul>
+                                                <input type="hidden" id="hdnAddMemberPopupCustomerId" value="0" />
+                                                <input type="hidden" id="hdnAlredyMemberChecked" value="false" />
+                                            </div>
+                                           
+                                        </div>
+                                        
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        <div id="reward_LoadRedeem" class="page-content tab">
+                            <div class="section mt md">
+                                <div class="section-content">
+                                    <div class="flex">
+                                        <div class="div-left">
+                                            <div class="from-wrapper">
+                                                <div class="form-item">
+                                                    <div class="small-button-right">
+
+                                                        <button class="small-button" id="loadredeemscan" name="loadredeemscan">Scan Barcode</button>
+                                                    </div>
+                                                    <div class="list media-list" style="margin:auto">
+                                                        <ul>
+                                                            <li class="item-content">
+                                                                <div class="item-media item-media-section">
+                                                                    <i class="material-icons">assignment_ind</i>
+                                                                    <input type="number" placeholder="Member ID" id="txtMemberID_LoadRedeem" onKeyDown="if(this.value.length==16) this.value = this.value.slice(0, -1);">
+                                                                    <span class="input-clear-button"></span>
+                                                                </div>
+                                                            </li>
+                                                            <li class="item-content">
+                                                                <div class="item-media item-media-section">
+                                                                    <i class="material-icons">fiber_pin</i>
+                                                                    <input type="number" placeholder="PIN" id="txtPIN_LoadRedeem" onKeyDown="if(this.value.length==6) this.value = this.value.slice(0, -1);" autofocus>
+                                                                    <span class="input-clear-button"></span>
+                                                                </div>
+                                                            </li>
+                                                            <li class="item-content">
+                                                                <div class="item-media item-media-section">
+                                                                    <i class="material-icons">phone</i>
+                                                                    <input type="number" placeholder="Phone" id="txtPhone_LoadRedeem" onKeyDown="if(this.value.length==11) this.value = this.value.slice(0, -1);">
+                                                                    <span class="input-clear-button"></span>
+                                                                </div>
+                                                            </li>
+                                                            <li class="item-content">
+                                                                <div class="item-media item-media-section" style="padding-bottom: 0px;">
+                                                                    <i class="material-icons">account_circle</i>
+                                                                    <input type="text" placeholder="Name" id="txtLastName_LoadRedeem">
+                                                                    <span class="input-clear-button"></span>
+                                                                </div>
+                                                            </li>
+                                                            <li class="item-content">
+                                                                <a class="custom-btn custom-bg custom-link item-media-section" id="btnSearch">Search</a>
+                                                            </li>
+                                                            <li class="item-content">
+                                                                <div class="item-media item-media-section" style="padding-bottom: 0px;">
+                                                                    <i class="material-icons">fiber_manual_record</i>
+                                                                    <input type="number" placeholder="Load" id="txtLoad_LoadRedeem">
+                                                                    <span class="input-clear-button"></span>
+                                                                </div>
+                                                            </li>
+                                                            <li class="item-content">
+                                                                <a class="custom-btn custom-bg custom-link item-media-section disabled" id="btnLoadReward">Load</a>
+                                                            </li>
+                                                            <li class="item-content">
+                                                                <div class="item-media item-media-section" style="padding-bottom: 0px;">
+                                                                    <i class="material-icons">panorama_fish_eye</i>
+                                                                    <input type="number" placeholder="Redeem" id="txtRedeem_LoadRedeem">
+                                                                    <span class="input-clear-button"></span>
+                                                                </div>
+                                                            </li>
+                                                            <li class="item-content">
+                                                                <a class="custom-btn custom-bg custom-link item-media-section disabled" id="btnRedeemReward">Redeem</a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="div-right">
+                                            <div id="right-area">
+                                                <div id="dvInner_Reward" style="display:none;">
+                                                    <div class="inner-page-body-right">
+                                                        <div class="row">
+                                                            <ul class="div-list">
+                                                                <li class="active" style="border:none;">
+                                                                    <label class="label-current" id="lblCurrentBalance" >Our Points: <span id="lblOurPoints"></span></label>                                                                    
+                                                                </li>
+                                                                <li style="border:none;" id="liRelatedPoints">
+                                                                    <label class="label-original" id="lblOriginalValue">Related Points: <span id="lblRelatedPoints" style="display:none;"></span></label>
+                                                                </li>
+                                                                <li style="border:none;">
+                                                                    <label class="label-original" id="lblRelatedRestauransName"></label>
+                                                                </li>
+                                                                <li>
+                                                                    <label class="label-originalBlack">BistroPoints: <span id="lblBistroPoints"></span></label>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <div class="inner-page-body-header">
+                                                        <div id="dvItem_Reward">
+                                                            <input type="hidden" id="hdnSelectedOrderId" value="">
+                                                            <div class="row"><label id="lblName" class="label-style-one" style="font-weight:bold"></label></div>
+                                                            <div class="row">
+                                                                <label id="lblEmail" class="label-style-one"></label>
+                                                                <input id="hdnCurrentStorePoints" type="hidden" />
+                                                            </div>
+
+                                                            <h6 style="margin:7px auto;font-weight:600;">History</h6>
+                                                            <table id="tblRewardHistory">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th class="th-date">Date</th>
+                                                                        <th class="th-name">Name</th>
+                                                                        <th class="th-points">Points</th>
+                                                                        <th class="th-value">Value</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody></tbody>
+                                                            </table>
+                                                            
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="error-message-section-one" id="dvOuter" style="margin-top: 0px !important; display:none">
+                                        <div class="error-message-section-one text-color-red" style="text-align:center">
+                                            <p id="dvOuterText" style="font-size:medium">No records found.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <!--</div>-->
+            </div>
+        </div>
+
+
+
+        <div class="mt pd"></div>
+
+    </div>
+</div>
+

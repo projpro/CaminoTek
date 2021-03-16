@@ -1,0 +1,1611 @@
+
+<div class="page page-with-toolbar" id="coupon">
+    <div class="toolbar tabbar tabbar-labels toolbar-bottom-md custom-toolbar">
+        <div class="toolbar-inner">
+            <a href="/carryout/" class="tab-link menuCarryout">
+                <img src="./img/icons/carry-out.png" alt="carry-out" class="footer-icon" id="footer_carryout" />
+                <!--<i class="material-icons menu-icon-active">shopping_basket</i>-->
+                <span class="span-footer-text">Carry Out</span>
+            </a>
+            <a href="/giftcard/" class="tab-link menuGiftcard">
+                <img src="./img/icons/giftcard.png" alt="giftcard" class="footer-icon-one" id="footer_giftcard" />
+                <!--<i class="material-icons menu-icon">card_giftcard</i>-->
+                <span class="span-footer-text">Gift Card</span>
+            </a>
+            <a href="/new_rewards/" class="tab-link menuReward">
+                <img src="./img/icons/rewards.png" alt="rewards" class="footer-icon-two" id="footer_reward" />
+                <!--<i class="material-icons menu-icon">card_membership</i>-->
+                <span class="span-footer-text">Reward</span>
+            </a>
+            <a href="/setup/" class="tab-link menuSettings  tab-link-active footer-menu-active">
+                <img src="./img/icons/setting-active.png" alt="setting" class="footer-icon" id="footer_setup" />
+                <!--<i class="material-icons menu-icon">settings</i>-->
+                <span class="span-footer-text">Settings</span>
+            </a>
+            <a href="/manageservice/" class="tab-link menuStartStop">
+                <img src="./img/icons/start-stop.png" alt="start-stop" class="footer-icon" id="footer_startstop" />
+                <!--<i class="material-icons menu-icon">power_settings_new</i>-->
+                <span class="span-footer-text">Start/Stop</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="navbar">
+        <div class="navbar-inner">
+            <div class="left">
+                <img src="./img/app-logo.png" />
+                <a class="tab-link back-new" onclick="Back();">
+                    <i class="material-icons material-icons-one">arrow_back</i>
+                </a>
+            </div>
+            <div class="center ul-media-list-li" id="dvCouponHeaderText">Add Coupon</div>
+            <!--<div class="right">-->
+            <a class="icon-only navbar-right-single-icon" href="/profile/"><i class="material-icons large-icon">account_circle</i></a>
+                <!--<a class="icon-only navbar-right-single-icon" onclick="Logout();"><i class="material-icons large-icon">exit_to_app</i></a>-->
+            <!--</div>-->
+        </div>
+    </div>
+
+    <div class="page-content">
+        <div class="section list-restaurants">
+            <div class="section-content md">
+                <div class="from-wrapper">
+                    <div class="form-item">
+                        <div class="list media-list">
+                            <input type="hidden" id="hdnDiscountId" value="0"/>
+                            <ul>
+                                <li class="item-content" >
+                                    <div class="item-media item-media-section">
+                                        <i class="material-icons">local_atm</i>
+                                        <input type="text" placeholder="Name" id="txtCouponName" onKeyDown="if(this.value.length==100) this.value = this.value.slice(0, -1);">
+                                        <span class="input-clear-button"></span>
+                                    </div>
+                                </li>
+                                <li class="item-content item-media-section">
+                                    <div class="item-media item-media-large">
+                                        <i class="material-icons">confirmation_number</i>
+                                        <input type="text" placeholder="Coupon Code" id="txtCouponCode" onKeyDown="if(this.value.length==15) this.value = this.value.slice(0, -1);">
+                                        <span class="input-clear-button"></span>
+                                    </div>
+                                    <span>Active</span>
+                                    <label class="toggle toggle-init color-blue">
+                                        <input type="checkbox" id="checkCouponActive" checked>
+                                        <span class="toggle-icon"></span>
+                                    </label>
+                                </li>
+                                <li class="item-content item-media-section" >
+                                    <div class="item-media width-half" >
+                                        <i class="material-icons">attach_money</i>
+                                        <!--<input type="number" min="1" step="0.01" placeholder="Min. Order Amt." id="txtCouponMinAmount">-->
+                                        <input type="tel"  placeholder="Min. Order Amt." id="txtCouponMinAmount" onKeyDown="if(this.value.length==6) this.value = this.value.slice(0, -1);">
+                                        <span class="input-clear-button"></span>
+                                    </div>
+                                    <div class="item-media width-half" >
+                                        <i class="material-icons">attach_money</i>
+                                        <!--<input type="number" min="1" step="0.01" placeholder="Discount Amt." id="txtCouponDiscAmount">-->
+                                        <input type="tel"  placeholder="Discount Amt." id="txtCouponDiscAmount" onKeyDown="if(this.value.length==6) this.value = this.value.slice(0, -1);">
+                                        <span class="input-clear-button"></span>
+                                    </div>
+                                </li>
+                                <li class="item-content item-media-section" >
+                                    <div class="item-media width-half" >
+                                        <i class="material-icons">date_range</i>
+                                        <input type="text" placeholder="Start Date" readonly="readonly" id="txtCouponStartDate" />
+                                        <span class="input-clear-button"></span>
+                                    </div>
+                                    <div class="item-media width-half" >
+                                        <i class="material-icons">event</i>
+                                        <input type="text" placeholder="End Date" readonly="readonly" id="txtCouponEndDate" />
+                                        <span class="input-clear-button"></span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="block no-padding no-margin margin-bottom">
+                                        <div id="Start-picker-date-container"></div>
+                                    </div>
+                                </li>
+                                
+                                <!--Timing Section Start--> 
+                                <li id="liDiscountTiming" style="display:none;">
+                                    <ul class="ul-media-list-li">
+                                        <li class="item-content width-full" >
+                                            <input type="hidden" id="hdnCouponTimingCount" value="8">
+                                            <label class="item-checkbox item-content">
+                                                <input type="checkbox" id="Offerday_0_IsCheck" name="Offerday[0].IsCheck" value="Monday" />
+                                                <i class="icon icon-checkbox"></i>
+                                                <div class="item-inner">
+                                                    <div class="item-title">Monday</div>
+                                                </div>
+                                            </label>
+                                            <!--<input style="width:5%" checked="checked" id="Offerday_0_IsCheck" name="Offerday[0].IsCheck" type="checkbox" value="true">-->
+                                            <input name="Offerday[0].IsCheck" type="hidden" value="false">
+                                            <!--<label style="width:25%;">Monday</label>-->
+                                            <div class="icon-section">
+                                                <i class="material-icons icon-add" onclick="AddNewTimingSection('Monday', 'Mo', '0');" id="Monday">add</i>
+                                                </div>
+                                                <input id="Offerday_0_DayKey" name="Offerday[0].DayKey" type="hidden" value="Mo">
+                                                <input id="Offerday_0_DayName" name="Offerday[0].DayName" type="hidden" value="Monday">
+                                                <input id="Offerday_0_DiscountTimingId" name="Offerday[0].DiscountTimingId" type="hidden" value="0">
+</li>
+                                        <li class="item-content">
+                                            <div class="timing-flex-row-container" id="div_Monday">
+                                                <div>
+                                                    <div class="timing-flex-column-container">
+                                                        <div style="flex-basis: 120px;">
+                                                            <label title="">Start</label>
+                                                        </div>
+                                                        <div style="flex-basis: 80px;">
+                                                            <select id="Offerday_0_StartHour" name="Offerday[0].StartHour">
+                                                                <option value="00">00</option>
+                                                                <option selected="selected" value="01">01</option>
+                                                                <option value="02">02</option>
+                                                                <option value="03">03</option>
+                                                                <option value="04">04</option>
+                                                                <option value="05">05</option>
+                                                                <option value="06">06</option>
+                                                                <option value="07">07</option>
+                                                                <option value="08">08</option>
+                                                                <option value="09">09</option>
+                                                                <option value="10">10</option>
+                                                                <option value="11">11</option>
+                                                            </select>
+                                                        </div>
+                                                        <div style="flex-basis: 80px;">
+                                                            <select id="Offerday_0_StartMinute" name="Offerday[0].StartMinute">
+                                                                <option selected="selected" value="00">00</option>
+                                                                <option value="01">01</option>
+                                                                <option value="02">02</option>
+                                                                <option value="03">03</option>
+                                                                <option value="04">04</option>
+                                                                <option value="05">05</option>
+                                                                <option value="06">06</option>
+                                                                <option value="07">07</option>
+                                                                <option value="08">08</option>
+                                                                <option value="09">09</option>
+                                                                <option value="10">10</option>
+                                                                <option value="11">11</option>
+                                                                <option value="12">12</option>
+                                                                <option value="13">13</option>
+                                                                <option value="14">14</option>
+                                                                <option value="15">15</option>
+                                                                <option value="16">16</option>
+                                                                <option value="17">17</option>
+                                                                <option value="18">18</option>
+                                                                <option value="19">19</option>
+                                                                <option value="20">20</option>
+                                                                <option value="21">21</option>
+                                                                <option value="22">22</option>
+                                                                <option value="23">23</option>
+                                                                <option value="24">24</option>
+                                                                <option value="25">25</option>
+                                                                <option value="26">26</option>
+                                                                <option value="27">27</option>
+                                                                <option value="28">28</option>
+                                                                <option value="29">29</option>
+                                                                <option value="30">30</option>
+                                                                <option value="31">31</option>
+                                                                <option value="32">32</option>
+                                                                <option value="33">33</option>
+                                                                <option value="34">34</option>
+                                                                <option value="35">35</option>
+                                                                <option value="36">36</option>
+                                                                <option value="37">37</option>
+                                                                <option value="38">38</option>
+                                                                <option value="39">39</option>
+                                                                <option value="40">40</option>
+                                                                <option value="41">41</option>
+                                                                <option value="42">42</option>
+                                                                <option value="43">43</option>
+                                                                <option value="44">44</option>
+                                                                <option value="45">45</option>
+                                                                <option value="46">46</option>
+                                                                <option value="47">47</option>
+                                                                <option value="48">48</option>
+                                                                <option value="49">49</option>
+                                                                <option value="50">50</option>
+                                                                <option value="51">51</option>
+                                                                <option value="52">52</option>
+                                                                <option value="53">53</option>
+                                                                <option value="54">54</option>
+                                                                <option value="55">55</option>
+                                                                <option value="56">56</option>
+                                                                <option value="57">57</option>
+                                                                <option value="58">58</option>
+                                                                <option value="59">59</option>
+                                                            </select>
+                                                        </div>
+                                                        <div style="flex-basis: 80px;">
+                                                            <select id="Offerday_0_StartPeriod" name="Offerday[0].StartPeriod">
+                                                                <option selected="selected" value="AM">AM</option>
+                                                                <option value="PM">PM</option>
+                                                            </select>
+                                                        </div>
+                                                        <div style="flex-basis: 40px;">
+                                                        </div>
+                                                    </div>
+                                                    <div class="timing-flex-column-container">
+                                                        <div style="flex-basis: 120px;">
+                                                            <label title="">End</label>
+                                                        </div>
+                                                        <div style="flex-basis: 80px;">
+                                                            <select id="Offerday_0_EndHour" name="Offerday[0].EndHour">
+                                                                <option value="00">00</option>
+                                                                <option value="01">01</option>
+                                                                <option value="02">02</option>
+                                                                <option value="03">03</option>
+                                                                <option value="04">04</option>
+                                                                <option value="05">05</option>
+                                                                <option value="06">06</option>
+                                                                <option value="07">07</option>
+                                                                <option value="08">08</option>
+                                                                <option value="09">09</option>
+                                                                <option value="10">10</option>
+                                                                <option selected="selected" value="11">11</option>
+                                                            </select>
+                                                        </div>
+                                                        <div style="flex-basis: 80px;">
+                                                            <select id="Offerday_0_EndMinute" name="Offerday[0].EndMinute">
+                                                                <option value="00">00</option>
+                                                                <option value="01">01</option>
+                                                                <option value="02">02</option>
+                                                                <option value="03">03</option>
+                                                                <option value="04">04</option>
+                                                                <option value="05">05</option>
+                                                                <option value="06">06</option>
+                                                                <option value="07">07</option>
+                                                                <option value="08">08</option>
+                                                                <option value="09">09</option>
+                                                                <option value="10">10</option>
+                                                                <option value="11">11</option>
+                                                                <option value="12">12</option>
+                                                                <option value="13">13</option>
+                                                                <option value="14">14</option>
+                                                                <option value="15">15</option>
+                                                                <option value="16">16</option>
+                                                                <option value="17">17</option>
+                                                                <option value="18">18</option>
+                                                                <option value="19">19</option>
+                                                                <option value="20">20</option>
+                                                                <option value="21">21</option>
+                                                                <option value="22">22</option>
+                                                                <option value="23">23</option>
+                                                                <option value="24">24</option>
+                                                                <option value="25">25</option>
+                                                                <option value="26">26</option>
+                                                                <option value="27">27</option>
+                                                                <option value="28">28</option>
+                                                                <option value="29">29</option>
+                                                                <option value="30">30</option>
+                                                                <option value="31">31</option>
+                                                                <option value="32">32</option>
+                                                                <option value="33">33</option>
+                                                                <option value="34">34</option>
+                                                                <option value="35">35</option>
+                                                                <option value="36">36</option>
+                                                                <option value="37">37</option>
+                                                                <option value="38">38</option>
+                                                                <option value="39">39</option>
+                                                                <option value="40">40</option>
+                                                                <option value="41">41</option>
+                                                                <option value="42">42</option>
+                                                                <option value="43">43</option>
+                                                                <option value="44">44</option>
+                                                                <option value="45">45</option>
+                                                                <option value="46">46</option>
+                                                                <option value="47">47</option>
+                                                                <option value="48">48</option>
+                                                                <option value="49">49</option>
+                                                                <option value="50">50</option>
+                                                                <option value="51">51</option>
+                                                                <option value="52">52</option>
+                                                                <option value="53">53</option>
+                                                                <option value="54">54</option>
+                                                                <option value="55">55</option>
+                                                                <option value="56">56</option>
+                                                                <option value="57">57</option>
+                                                                <option value="58">58</option>
+                                                                <option selected="selected" value="59">59</option>
+                                                            </select>
+                                                        </div>
+                                                        <div style="flex-basis: 80px;">
+                                                            <select id="Offerday_0_EndPeriod" name="Offerday[0].EndPeriod">
+                                                                <option value="AM">AM</option>
+                                                                <option selected="selected" value="PM">PM</option>
+                                                            </select>
+                                                        </div>
+                                                        <div style="flex-basis: 40px;">
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+                                        </li>
+
+                                        <li class="item-content width-full" >
+                                            <label class="item-checkbox item-content">
+                                                <input type="checkbox" id="Offerday_1_IsCheck" name="Offerday[1].IsCheck" value="Tuesday" />
+                                                <i class="icon icon-checkbox"></i>
+                                                <div class="item-inner">
+                                                    <div class="item-title">Tuesday</div>
+                                                </div>
+                                            </label>
+                                            <!--<input style="width:5%" checked="checked" id="Offerday_1_IsCheck" name="Offerday[1].IsCheck" type="checkbox" value="true">-->
+                                            <input name="Offerday[1].IsCheck" type="hidden" value="false">
+                                            <!--<label style="width:25%;">Tuesday</label>-->
+                                            <div class="icon-section">
+                                                <i class="material-icons icon-add" onclick="AddNewTimingSection('Tuesday', 'Tu', '1');" id="Tuesday">add</i>
+                                                </div>
+                                                <input id="Offerday_1_DayKey" name="Offerday[1].DayKey" type="hidden" value="Tu">
+                                                <input id="Offerday_1_DayName" name="Offerday[1].DayName" type="hidden" value="Tuesday">
+                                                <input id="Offerday_1_DiscountTimingId" name="Offerday[1].DiscountTimingId" type="hidden" value="0">
+</li>
+                                        <li class="item-content">
+                                            <div class="timing-flex-row-container" id="div_Tuesday">
+                                                <div>
+                                                    <div class="timing-flex-column-container">
+                                                        <div style="flex-basis: 120px;">
+                                                            <label title="">Start</label>
+                                                        </div>
+                                                        <div style="flex-basis: 80px;">
+                                                            <select id="Offerday_1_StartHour" name="Offerday[1].StartHour">
+                                                                <option value="00">00</option>
+                                                                <option selected="selected" value="01">01</option>
+                                                                <option value="02">02</option>
+                                                                <option value="03">03</option>
+                                                                <option value="04">04</option>
+                                                                <option value="05">05</option>
+                                                                <option value="06">06</option>
+                                                                <option value="07">07</option>
+                                                                <option value="08">08</option>
+                                                                <option value="09">09</option>
+                                                                <option value="10">10</option>
+                                                                <option value="11">11</option>
+                                                            </select>
+                                                        </div>
+                                                        <div style="flex-basis: 80px;">
+                                                            <select id="Offerday_1_StartMinute" name="Offerday[1].StartMinute">
+                                                                <option selected="selected" value="00">00</option>
+                                                                <option value="01">01</option>
+                                                                <option value="02">02</option>
+                                                                <option value="03">03</option>
+                                                                <option value="04">04</option>
+                                                                <option value="05">05</option>
+                                                                <option value="06">06</option>
+                                                                <option value="07">07</option>
+                                                                <option value="08">08</option>
+                                                                <option value="09">09</option>
+                                                                <option value="10">10</option>
+                                                                <option value="11">11</option>
+                                                                <option value="12">12</option>
+                                                                <option value="13">13</option>
+                                                                <option value="14">14</option>
+                                                                <option value="15">15</option>
+                                                                <option value="16">16</option>
+                                                                <option value="17">17</option>
+                                                                <option value="18">18</option>
+                                                                <option value="19">19</option>
+                                                                <option value="20">20</option>
+                                                                <option value="21">21</option>
+                                                                <option value="22">22</option>
+                                                                <option value="23">23</option>
+                                                                <option value="24">24</option>
+                                                                <option value="25">25</option>
+                                                                <option value="26">26</option>
+                                                                <option value="27">27</option>
+                                                                <option value="28">28</option>
+                                                                <option value="29">29</option>
+                                                                <option value="30">30</option>
+                                                                <option value="31">31</option>
+                                                                <option value="32">32</option>
+                                                                <option value="33">33</option>
+                                                                <option value="34">34</option>
+                                                                <option value="35">35</option>
+                                                                <option value="36">36</option>
+                                                                <option value="37">37</option>
+                                                                <option value="38">38</option>
+                                                                <option value="39">39</option>
+                                                                <option value="40">40</option>
+                                                                <option value="41">41</option>
+                                                                <option value="42">42</option>
+                                                                <option value="43">43</option>
+                                                                <option value="44">44</option>
+                                                                <option value="45">45</option>
+                                                                <option value="46">46</option>
+                                                                <option value="47">47</option>
+                                                                <option value="48">48</option>
+                                                                <option value="49">49</option>
+                                                                <option value="50">50</option>
+                                                                <option value="51">51</option>
+                                                                <option value="52">52</option>
+                                                                <option value="53">53</option>
+                                                                <option value="54">54</option>
+                                                                <option value="55">55</option>
+                                                                <option value="56">56</option>
+                                                                <option value="57">57</option>
+                                                                <option value="58">58</option>
+                                                                <option value="59">59</option>
+                                                            </select>
+                                                        </div>
+                                                        <div style="flex-basis: 80px;">
+                                                            <select id="Offerday_1_StartPeriod" name="Offerday[1].StartPeriod">
+                                                                <option selected="selected" value="AM">AM</option>
+                                                                <option value="PM">PM</option>
+                                                            </select>
+                                                        </div>
+                                                        <div style="flex-basis: 40px;">
+                                                        </div>
+                                                    </div>
+                                                    <div class="timing-flex-column-container">
+                                                        <div style="flex-basis: 120px;">
+                                                            <label title="">End</label>
+                                                        </div>
+                                                        <div style="flex-basis: 80px;">
+                                                            <select id="Offerday_1_EndHour" name="Offerday[1].EndHour">
+                                                                <option value="00">00</option>
+                                                                <option value="01">01</option>
+                                                                <option value="02">02</option>
+                                                                <option value="03">03</option>
+                                                                <option value="04">04</option>
+                                                                <option value="05">05</option>
+                                                                <option value="06">06</option>
+                                                                <option value="07">07</option>
+                                                                <option value="08">08</option>
+                                                                <option value="09">09</option>
+                                                                <option value="10">10</option>
+                                                                <option selected="selected" value="11">11</option>
+                                                            </select>
+                                                        </div>
+                                                        <div style="flex-basis: 80px;">
+                                                            <select id="Offerday_1_EndMinute" name="Offerday[1].EndMinute">
+                                                                <option value="00">00</option>
+                                                                <option value="01">01</option>
+                                                                <option value="02">02</option>
+                                                                <option value="03">03</option>
+                                                                <option value="04">04</option>
+                                                                <option value="05">05</option>
+                                                                <option value="06">06</option>
+                                                                <option value="07">07</option>
+                                                                <option value="08">08</option>
+                                                                <option value="09">09</option>
+                                                                <option value="10">10</option>
+                                                                <option value="11">11</option>
+                                                                <option value="12">12</option>
+                                                                <option value="13">13</option>
+                                                                <option value="14">14</option>
+                                                                <option value="15">15</option>
+                                                                <option value="16">16</option>
+                                                                <option value="17">17</option>
+                                                                <option value="18">18</option>
+                                                                <option value="19">19</option>
+                                                                <option value="20">20</option>
+                                                                <option value="21">21</option>
+                                                                <option value="22">22</option>
+                                                                <option value="23">23</option>
+                                                                <option value="24">24</option>
+                                                                <option value="25">25</option>
+                                                                <option value="26">26</option>
+                                                                <option value="27">27</option>
+                                                                <option value="28">28</option>
+                                                                <option value="29">29</option>
+                                                                <option value="30">30</option>
+                                                                <option value="31">31</option>
+                                                                <option value="32">32</option>
+                                                                <option value="33">33</option>
+                                                                <option value="34">34</option>
+                                                                <option value="35">35</option>
+                                                                <option value="36">36</option>
+                                                                <option value="37">37</option>
+                                                                <option value="38">38</option>
+                                                                <option value="39">39</option>
+                                                                <option value="40">40</option>
+                                                                <option value="41">41</option>
+                                                                <option value="42">42</option>
+                                                                <option value="43">43</option>
+                                                                <option value="44">44</option>
+                                                                <option value="45">45</option>
+                                                                <option value="46">46</option>
+                                                                <option value="47">47</option>
+                                                                <option value="48">48</option>
+                                                                <option value="49">49</option>
+                                                                <option value="50">50</option>
+                                                                <option value="51">51</option>
+                                                                <option value="52">52</option>
+                                                                <option value="53">53</option>
+                                                                <option value="54">54</option>
+                                                                <option value="55">55</option>
+                                                                <option value="56">56</option>
+                                                                <option value="57">57</option>
+                                                                <option value="58">58</option>
+                                                                <option selected="selected" value="59">59</option>
+                                                            </select>
+                                                        </div>
+                                                        <div style="flex-basis: 80px;">
+                                                            <select id="Offerday_1_EndPeriod" name="Offerday[1].EndPeriod">
+                                                                <option value="AM">AM</option>
+                                                                <option selected="selected" value="PM">PM</option>
+                                                            </select>
+                                                        </div>
+                                                        <div style="flex-basis: 40px;">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+
+                                        <li class="item-content width-full" >
+                                            <label class="item-checkbox item-content">
+                                                <input type="checkbox" id="Offerday_2_IsCheck" name="Offerday[1].IsCheck" value="Wednesday" />
+                                                <i class="icon icon-checkbox"></i>
+                                                <div class="item-inner">
+                                                    <div class="item-title">Wednesday</div>
+                                                </div>
+                                            </label>
+                                            <!--<input style="width:5%" checked="checked" id="Offerday_2_IsCheck" name="Offerday[1].IsCheck" type="checkbox" value="true">-->
+                                            <input name="Offerday[2].IsCheck" type="hidden" value="false">
+                                            <!--<label style="width:25%;">Wednesday</label>-->
+                                            <div class="icon-section">
+                                                <i class="material-icons icon-add" onclick="AddNewTimingSection('Wednesday', 'We', '2');" id="Wednesday">add</i>
+                                                </div>
+                                                <input id="Offerday_2_DayKey" name="Offerday[2].DayKey" type="hidden" value="We">
+                                                <input id="Offerday_2_DayName" name="Offerday[2].DayName" type="hidden" value="Wednesday">
+                                                <input id="Offerday_2_DiscountTimingId" name="Offerday[2].DiscountTimingId" type="hidden" value="0">
+</li>
+                                        <li class="item-content">
+                                            <div class="timing-flex-row-container" id="div_Wednesday">
+                                                <div>
+                                                    <div class="timing-flex-column-container">
+                                                        <div style="flex-basis: 120px;">
+                                                            <label title="">Start</label>
+                                                        </div>
+                                                        <div style="flex-basis: 80px;">
+                                                            <select id="Offerday_2_StartHour" name="Offerday[2].StartHour">
+                                                                <option value="00">00</option>
+                                                                <option selected="selected" value="01">01</option>
+                                                                <option value="02">02</option>
+                                                                <option value="03">03</option>
+                                                                <option value="04">04</option>
+                                                                <option value="05">05</option>
+                                                                <option value="06">06</option>
+                                                                <option value="07">07</option>
+                                                                <option value="08">08</option>
+                                                                <option value="09">09</option>
+                                                                <option value="10">10</option>
+                                                                <option value="11">11</option>
+                                                            </select>
+                                                        </div>
+                                                        <div style="flex-basis: 80px;">
+                                                            <select id="Offerday_2_StartMinute" name="Offerday[2].StartMinute">
+                                                                <option selected="selected" value="00">00</option>
+                                                                <option value="01">01</option>
+                                                                <option value="02">02</option>
+                                                                <option value="03">03</option>
+                                                                <option value="04">04</option>
+                                                                <option value="05">05</option>
+                                                                <option value="06">06</option>
+                                                                <option value="07">07</option>
+                                                                <option value="08">08</option>
+                                                                <option value="09">09</option>
+                                                                <option value="10">10</option>
+                                                                <option value="11">11</option>
+                                                                <option value="12">12</option>
+                                                                <option value="13">13</option>
+                                                                <option value="14">14</option>
+                                                                <option value="15">15</option>
+                                                                <option value="16">16</option>
+                                                                <option value="17">17</option>
+                                                                <option value="18">18</option>
+                                                                <option value="19">19</option>
+                                                                <option value="20">20</option>
+                                                                <option value="21">21</option>
+                                                                <option value="22">22</option>
+                                                                <option value="23">23</option>
+                                                                <option value="24">24</option>
+                                                                <option value="25">25</option>
+                                                                <option value="26">26</option>
+                                                                <option value="27">27</option>
+                                                                <option value="28">28</option>
+                                                                <option value="29">29</option>
+                                                                <option value="30">30</option>
+                                                                <option value="31">31</option>
+                                                                <option value="32">32</option>
+                                                                <option value="33">33</option>
+                                                                <option value="34">34</option>
+                                                                <option value="35">35</option>
+                                                                <option value="36">36</option>
+                                                                <option value="37">37</option>
+                                                                <option value="38">38</option>
+                                                                <option value="39">39</option>
+                                                                <option value="40">40</option>
+                                                                <option value="41">41</option>
+                                                                <option value="42">42</option>
+                                                                <option value="43">43</option>
+                                                                <option value="44">44</option>
+                                                                <option value="45">45</option>
+                                                                <option value="46">46</option>
+                                                                <option value="47">47</option>
+                                                                <option value="48">48</option>
+                                                                <option value="49">49</option>
+                                                                <option value="50">50</option>
+                                                                <option value="51">51</option>
+                                                                <option value="52">52</option>
+                                                                <option value="53">53</option>
+                                                                <option value="54">54</option>
+                                                                <option value="55">55</option>
+                                                                <option value="56">56</option>
+                                                                <option value="57">57</option>
+                                                                <option value="58">58</option>
+                                                                <option value="59">59</option>
+                                                            </select>
+                                                        </div>
+                                                        <div style="flex-basis: 80px;">
+                                                            <select id="Offerday_2_StartPeriod" name="Offerday[2].StartPeriod">
+                                                                <option selected="selected" value="AM">AM</option>
+                                                                <option value="PM">PM</option>
+                                                            </select>
+                                                        </div>
+                                                        <div style="flex-basis: 40px;">
+                                                        </div>
+                                                    </div>
+                                                    <div class="timing-flex-column-container">
+                                                        <div style="flex-basis: 120px;">
+                                                            <label title="">End</label>
+                                                        </div>
+                                                        <div style="flex-basis: 80px;">
+                                                            <select id="Offerday_2_EndHour" name="Offerday[2].EndHour">
+                                                                <option value="00">00</option>
+                                                                <option value="01">01</option>
+                                                                <option value="02">02</option>
+                                                                <option value="03">03</option>
+                                                                <option value="04">04</option>
+                                                                <option value="05">05</option>
+                                                                <option value="06">06</option>
+                                                                <option value="07">07</option>
+                                                                <option value="08">08</option>
+                                                                <option value="09">09</option>
+                                                                <option value="10">10</option>
+                                                                <option selected="selected" value="11">11</option>
+                                                            </select>
+                                                        </div>
+                                                        <div style="flex-basis: 80px;">
+                                                            <select id="Offerday_2_EndMinute" name="Offerday[2].EndMinute">
+                                                                <option value="00">00</option>
+                                                                <option value="01">01</option>
+                                                                <option value="02">02</option>
+                                                                <option value="03">03</option>
+                                                                <option value="04">04</option>
+                                                                <option value="05">05</option>
+                                                                <option value="06">06</option>
+                                                                <option value="07">07</option>
+                                                                <option value="08">08</option>
+                                                                <option value="09">09</option>
+                                                                <option value="10">10</option>
+                                                                <option value="11">11</option>
+                                                                <option value="12">12</option>
+                                                                <option value="13">13</option>
+                                                                <option value="14">14</option>
+                                                                <option value="15">15</option>
+                                                                <option value="16">16</option>
+                                                                <option value="17">17</option>
+                                                                <option value="18">18</option>
+                                                                <option value="19">19</option>
+                                                                <option value="20">20</option>
+                                                                <option value="21">21</option>
+                                                                <option value="22">22</option>
+                                                                <option value="23">23</option>
+                                                                <option value="24">24</option>
+                                                                <option value="25">25</option>
+                                                                <option value="26">26</option>
+                                                                <option value="27">27</option>
+                                                                <option value="28">28</option>
+                                                                <option value="29">29</option>
+                                                                <option value="30">30</option>
+                                                                <option value="31">31</option>
+                                                                <option value="32">32</option>
+                                                                <option value="33">33</option>
+                                                                <option value="34">34</option>
+                                                                <option value="35">35</option>
+                                                                <option value="36">36</option>
+                                                                <option value="37">37</option>
+                                                                <option value="38">38</option>
+                                                                <option value="39">39</option>
+                                                                <option value="40">40</option>
+                                                                <option value="41">41</option>
+                                                                <option value="42">42</option>
+                                                                <option value="43">43</option>
+                                                                <option value="44">44</option>
+                                                                <option value="45">45</option>
+                                                                <option value="46">46</option>
+                                                                <option value="47">47</option>
+                                                                <option value="48">48</option>
+                                                                <option value="49">49</option>
+                                                                <option value="50">50</option>
+                                                                <option value="51">51</option>
+                                                                <option value="52">52</option>
+                                                                <option value="53">53</option>
+                                                                <option value="54">54</option>
+                                                                <option value="55">55</option>
+                                                                <option value="56">56</option>
+                                                                <option value="57">57</option>
+                                                                <option value="58">58</option>
+                                                                <option selected="selected" value="59">59</option>
+                                                            </select>
+                                                        </div>
+                                                        <div style="flex-basis: 80px;">
+                                                            <select id="Offerday_2_EndPeriod" name="Offerday[2].EndPeriod">
+                                                                <option value="AM">AM</option>
+                                                                <option selected="selected" value="PM">PM</option>
+                                                            </select>
+                                                        </div>
+                                                        <div style="flex-basis: 40px;">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+
+                                        <li class="item-content width-full" >
+                                            <label class="item-checkbox item-content">
+                                                <input type="checkbox" id="Offerday_3_IsCheck" name="Offerday[3].IsCheck" value="Thursday" />
+                                                <i class="icon icon-checkbox"></i>
+                                                <div class="item-inner">
+                                                    <div class="item-title">Thursday</div>
+                                                </div>
+                                            </label>
+                                            <!--<input style="width:5%" checked="checked" id="Offerday_3_IsCheck" name="Offerday[3].IsCheck" type="checkbox" value="true">-->
+                                            <input name="Offerday[3].IsCheck" type="hidden" value="false">
+                                            <!--<label style="width:25%;">Thursday</label>-->
+                                            <div class="icon-section">
+                                                <i class="material-icons icon-add" onclick="AddNewTimingSection('Thursday', 'Th', '3');" id="Thursday">add</i>
+                                                </div>
+                                                <input id="Offerday_3_DayKey" name="Offerday[3].DayKey" type="hidden" value="Th">
+                                                <input id="Offerday_3_DayName" name="Offerday[3].DayName" type="hidden" value="Thursday">
+                                                <input id="Offerday_3_DiscountTimingId" name="Offerday[3].DiscountTimingId" type="hidden" value="0">
+</li>
+                                        <li class="item-content">
+                                            <div class="timing-flex-row-container" id="div_Thursday">
+                                                <div>
+                                                    <div class="timing-flex-column-container">
+                                                        <div style="flex-basis: 120px;">
+                                                            <label title="">Start</label>
+                                                        </div>
+                                                        <div style="flex-basis: 80px;">
+                                                            <select id="Offerday_3_StartHour" name="Offerday[3].StartHour">
+                                                                <option value="00">00</option>
+                                                                <option selected="selected" value="01">01</option>
+                                                                <option value="02">02</option>
+                                                                <option value="03">03</option>
+                                                                <option value="04">04</option>
+                                                                <option value="05">05</option>
+                                                                <option value="06">06</option>
+                                                                <option value="07">07</option>
+                                                                <option value="08">08</option>
+                                                                <option value="09">09</option>
+                                                                <option value="10">10</option>
+                                                                <option value="11">11</option>
+                                                            </select>
+                                                        </div>
+                                                        <div style="flex-basis: 80px;">
+                                                            <select id="Offerday_3_StartMinute" name="Offerday[3].StartMinute">
+                                                                <option selected="selected" value="00">00</option>
+                                                                <option value="01">01</option>
+                                                                <option value="02">02</option>
+                                                                <option value="03">03</option>
+                                                                <option value="04">04</option>
+                                                                <option value="05">05</option>
+                                                                <option value="06">06</option>
+                                                                <option value="07">07</option>
+                                                                <option value="08">08</option>
+                                                                <option value="09">09</option>
+                                                                <option value="10">10</option>
+                                                                <option value="11">11</option>
+                                                                <option value="12">12</option>
+                                                                <option value="13">13</option>
+                                                                <option value="14">14</option>
+                                                                <option value="15">15</option>
+                                                                <option value="16">16</option>
+                                                                <option value="17">17</option>
+                                                                <option value="18">18</option>
+                                                                <option value="19">19</option>
+                                                                <option value="20">20</option>
+                                                                <option value="21">21</option>
+                                                                <option value="22">22</option>
+                                                                <option value="23">23</option>
+                                                                <option value="24">24</option>
+                                                                <option value="25">25</option>
+                                                                <option value="26">26</option>
+                                                                <option value="27">27</option>
+                                                                <option value="28">28</option>
+                                                                <option value="29">29</option>
+                                                                <option value="30">30</option>
+                                                                <option value="31">31</option>
+                                                                <option value="32">32</option>
+                                                                <option value="33">33</option>
+                                                                <option value="34">34</option>
+                                                                <option value="35">35</option>
+                                                                <option value="36">36</option>
+                                                                <option value="37">37</option>
+                                                                <option value="38">38</option>
+                                                                <option value="39">39</option>
+                                                                <option value="40">40</option>
+                                                                <option value="41">41</option>
+                                                                <option value="42">42</option>
+                                                                <option value="43">43</option>
+                                                                <option value="44">44</option>
+                                                                <option value="45">45</option>
+                                                                <option value="46">46</option>
+                                                                <option value="47">47</option>
+                                                                <option value="48">48</option>
+                                                                <option value="49">49</option>
+                                                                <option value="50">50</option>
+                                                                <option value="51">51</option>
+                                                                <option value="52">52</option>
+                                                                <option value="53">53</option>
+                                                                <option value="54">54</option>
+                                                                <option value="55">55</option>
+                                                                <option value="56">56</option>
+                                                                <option value="57">57</option>
+                                                                <option value="58">58</option>
+                                                                <option value="59">59</option>
+                                                            </select>
+                                                        </div>
+                                                        <div style="flex-basis: 80px;">
+                                                            <select id="Offerday_3_StartPeriod" name="Offerday[3].StartPeriod">
+                                                                <option selected="selected" value="AM">AM</option>
+                                                                <option value="PM">PM</option>
+                                                            </select>
+                                                        </div>
+                                                        <div style="flex-basis: 40px;">
+                                                        </div>
+                                                    </div>
+                                                    <div class="timing-flex-column-container">
+                                                        <div style="flex-basis: 120px;">
+                                                            <label title="">End</label>
+                                                        </div>
+                                                        <div style="flex-basis: 80px;">
+                                                            <select id="Offerday_3_EndHour" name="Offerday[3].EndHour">
+                                                                <option value="00">00</option>
+                                                                <option value="01">01</option>
+                                                                <option value="02">02</option>
+                                                                <option value="03">03</option>
+                                                                <option value="04">04</option>
+                                                                <option value="05">05</option>
+                                                                <option value="06">06</option>
+                                                                <option value="07">07</option>
+                                                                <option value="08">08</option>
+                                                                <option value="09">09</option>
+                                                                <option value="10">10</option>
+                                                                <option selected="selected" value="11">11</option>
+                                                            </select>
+                                                        </div>
+                                                        <div style="flex-basis: 80px;">
+                                                            <select id="Offerday_3_EndMinute" name="Offerday[3].EndMinute">
+                                                                <option value="00">00</option>
+                                                                <option value="01">01</option>
+                                                                <option value="02">02</option>
+                                                                <option value="03">03</option>
+                                                                <option value="04">04</option>
+                                                                <option value="05">05</option>
+                                                                <option value="06">06</option>
+                                                                <option value="07">07</option>
+                                                                <option value="08">08</option>
+                                                                <option value="09">09</option>
+                                                                <option value="10">10</option>
+                                                                <option value="11">11</option>
+                                                                <option value="12">12</option>
+                                                                <option value="13">13</option>
+                                                                <option value="14">14</option>
+                                                                <option value="15">15</option>
+                                                                <option value="16">16</option>
+                                                                <option value="17">17</option>
+                                                                <option value="18">18</option>
+                                                                <option value="19">19</option>
+                                                                <option value="20">20</option>
+                                                                <option value="21">21</option>
+                                                                <option value="22">22</option>
+                                                                <option value="23">23</option>
+                                                                <option value="24">24</option>
+                                                                <option value="25">25</option>
+                                                                <option value="26">26</option>
+                                                                <option value="27">27</option>
+                                                                <option value="28">28</option>
+                                                                <option value="29">29</option>
+                                                                <option value="30">30</option>
+                                                                <option value="31">31</option>
+                                                                <option value="32">32</option>
+                                                                <option value="33">33</option>
+                                                                <option value="34">34</option>
+                                                                <option value="35">35</option>
+                                                                <option value="36">36</option>
+                                                                <option value="37">37</option>
+                                                                <option value="38">38</option>
+                                                                <option value="39">39</option>
+                                                                <option value="40">40</option>
+                                                                <option value="41">41</option>
+                                                                <option value="42">42</option>
+                                                                <option value="43">43</option>
+                                                                <option value="44">44</option>
+                                                                <option value="45">45</option>
+                                                                <option value="46">46</option>
+                                                                <option value="47">47</option>
+                                                                <option value="48">48</option>
+                                                                <option value="49">49</option>
+                                                                <option value="50">50</option>
+                                                                <option value="51">51</option>
+                                                                <option value="52">52</option>
+                                                                <option value="53">53</option>
+                                                                <option value="54">54</option>
+                                                                <option value="55">55</option>
+                                                                <option value="56">56</option>
+                                                                <option value="57">57</option>
+                                                                <option value="58">58</option>
+                                                                <option selected="selected" value="59">59</option>
+                                                            </select>
+                                                        </div>
+                                                        <div style="flex-basis: 80px;">
+                                                            <select id="Offerday_3_EndPeriod" name="Offerday[3].EndPeriod">
+                                                                <option value="AM">AM</option>
+                                                                <option selected="selected" value="PM">PM</option>
+                                                            </select>
+                                                        </div>
+                                                        <div style="flex-basis: 40px;">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+
+                                        <li class="item-content width-full" >
+                                            <label class="item-checkbox item-content">
+                                                <input type="checkbox" id="Offerday_4_IsCheck" name="Offerday[4].IsCheck" value="Friday" />
+                                                <i class="icon icon-checkbox"></i>
+                                                <div class="item-inner">
+                                                    <div class="item-title">Friday</div>
+                                                </div>
+                                            </label>
+                                            <!--<input style="width:5%" checked="checked" id="Offerday_4_IsCheck" name="Offerday[4].IsCheck" type="checkbox" value="true">-->
+                                            <input name="Offerday[4].IsCheck" type="hidden" value="false">
+                                            <!--<label style="width:25%;">Friday</label>-->
+                                            <div class="icon-section">
+                                                <i class="material-icons icon-add" onclick="AddNewTimingSection('Friday', 'Fr', '4');" id="Friday">add</i>
+                                                </div>
+                                                <input id="Offerday_4_DayKey" name="Offerday[4].DayKey" type="hidden" value="Fr">
+                                                <input id="Businesday_4_DayName" name="Offerday[4].DayName" type="hidden" value="Friday">
+                                                <input id="Offerday_4_DiscountTimingId" name="Offerday[4].DiscountTimingId" type="hidden" value="0">
+</li>
+                                        <li class="item-content">
+                                            <div class="timing-flex-row-container" id="div_Friday">
+                                                <div>
+                                                    <div class="timing-flex-column-container">
+                                                        <div style="flex-basis: 120px;">
+                                                            <label title="">Start</label>
+                                                        </div>
+                                                        <div style="flex-basis: 80px;">
+                                                            <select id="Offerday_4_StartHour" name="Offerday[4].StartHour">
+                                                                <option value="00">00</option>
+                                                                <option selected="selected" value="01">01</option>
+                                                                <option value="02">02</option>
+                                                                <option value="03">03</option>
+                                                                <option value="04">04</option>
+                                                                <option value="05">05</option>
+                                                                <option value="06">06</option>
+                                                                <option value="07">07</option>
+                                                                <option value="08">08</option>
+                                                                <option value="09">09</option>
+                                                                <option value="10">10</option>
+                                                                <option value="11">11</option>
+                                                            </select>
+                                                        </div>
+                                                        <div style="flex-basis: 80px;">
+                                                            <select id="Offerday_4_StartMinute" name="Offerday[4].StartMinute">
+                                                                <option selected="selected" value="00">00</option>
+                                                                <option value="01">01</option>
+                                                                <option value="02">02</option>
+                                                                <option value="03">03</option>
+                                                                <option value="04">04</option>
+                                                                <option value="05">05</option>
+                                                                <option value="06">06</option>
+                                                                <option value="07">07</option>
+                                                                <option value="08">08</option>
+                                                                <option value="09">09</option>
+                                                                <option value="10">10</option>
+                                                                <option value="11">11</option>
+                                                                <option value="12">12</option>
+                                                                <option value="13">13</option>
+                                                                <option value="14">14</option>
+                                                                <option value="15">15</option>
+                                                                <option value="16">16</option>
+                                                                <option value="17">17</option>
+                                                                <option value="18">18</option>
+                                                                <option value="19">19</option>
+                                                                <option value="20">20</option>
+                                                                <option value="21">21</option>
+                                                                <option value="22">22</option>
+                                                                <option value="23">23</option>
+                                                                <option value="24">24</option>
+                                                                <option value="25">25</option>
+                                                                <option value="26">26</option>
+                                                                <option value="27">27</option>
+                                                                <option value="28">28</option>
+                                                                <option value="29">29</option>
+                                                                <option value="30">30</option>
+                                                                <option value="31">31</option>
+                                                                <option value="32">32</option>
+                                                                <option value="33">33</option>
+                                                                <option value="34">34</option>
+                                                                <option value="35">35</option>
+                                                                <option value="36">36</option>
+                                                                <option value="37">37</option>
+                                                                <option value="38">38</option>
+                                                                <option value="39">39</option>
+                                                                <option value="40">40</option>
+                                                                <option value="41">41</option>
+                                                                <option value="42">42</option>
+                                                                <option value="43">43</option>
+                                                                <option value="44">44</option>
+                                                                <option value="45">45</option>
+                                                                <option value="46">46</option>
+                                                                <option value="47">47</option>
+                                                                <option value="48">48</option>
+                                                                <option value="49">49</option>
+                                                                <option value="50">50</option>
+                                                                <option value="51">51</option>
+                                                                <option value="52">52</option>
+                                                                <option value="53">53</option>
+                                                                <option value="54">54</option>
+                                                                <option value="55">55</option>
+                                                                <option value="56">56</option>
+                                                                <option value="57">57</option>
+                                                                <option value="58">58</option>
+                                                                <option value="59">59</option>
+                                                            </select>
+                                                        </div>
+                                                        <div style="flex-basis: 80px;">
+                                                            <select id="Offerday_4_StartPeriod" name="Offerday[4].StartPeriod">
+                                                                <option selected="selected" value="AM">AM</option>
+                                                                <option value="PM">PM</option>
+                                                            </select>
+                                                        </div>
+                                                        <div style="flex-basis: 40px;">
+                                                        </div>
+                                                    </div>
+                                                    <div class="timing-flex-column-container">
+                                                        <div style="flex-basis: 120px;">
+                                                            <label title="">End</label>
+                                                        </div>
+                                                        <div style="flex-basis: 80px;">
+                                                            <select id="Offerday_4_EndHour" name="Offerday[4].EndHour">
+                                                                <option value="00">00</option>
+                                                                <option value="01">01</option>
+                                                                <option value="02">02</option>
+                                                                <option value="03">03</option>
+                                                                <option value="04">04</option>
+                                                                <option value="05">05</option>
+                                                                <option value="06">06</option>
+                                                                <option value="07">07</option>
+                                                                <option value="08">08</option>
+                                                                <option value="09">09</option>
+                                                                <option value="10">10</option>
+                                                                <option selected="selected" value="11">11</option>
+                                                            </select>
+                                                        </div>
+                                                        <div style="flex-basis: 80px;">
+                                                            <select id="Offerday_4_EndMinute" name="Offerday[4].EndMinute">
+                                                                <option value="00">00</option>
+                                                                <option value="01">01</option>
+                                                                <option value="02">02</option>
+                                                                <option value="03">03</option>
+                                                                <option value="04">04</option>
+                                                                <option value="05">05</option>
+                                                                <option value="06">06</option>
+                                                                <option value="07">07</option>
+                                                                <option value="08">08</option>
+                                                                <option value="09">09</option>
+                                                                <option value="10">10</option>
+                                                                <option value="11">11</option>
+                                                                <option value="12">12</option>
+                                                                <option value="13">13</option>
+                                                                <option value="14">14</option>
+                                                                <option value="15">15</option>
+                                                                <option value="16">16</option>
+                                                                <option value="17">17</option>
+                                                                <option value="18">18</option>
+                                                                <option value="19">19</option>
+                                                                <option value="20">20</option>
+                                                                <option value="21">21</option>
+                                                                <option value="22">22</option>
+                                                                <option value="23">23</option>
+                                                                <option value="24">24</option>
+                                                                <option value="25">25</option>
+                                                                <option value="26">26</option>
+                                                                <option value="27">27</option>
+                                                                <option value="28">28</option>
+                                                                <option value="29">29</option>
+                                                                <option value="30">30</option>
+                                                                <option value="31">31</option>
+                                                                <option value="32">32</option>
+                                                                <option value="33">33</option>
+                                                                <option value="34">34</option>
+                                                                <option value="35">35</option>
+                                                                <option value="36">36</option>
+                                                                <option value="37">37</option>
+                                                                <option value="38">38</option>
+                                                                <option value="39">39</option>
+                                                                <option value="40">40</option>
+                                                                <option value="41">41</option>
+                                                                <option value="42">42</option>
+                                                                <option value="43">43</option>
+                                                                <option value="44">44</option>
+                                                                <option value="45">45</option>
+                                                                <option value="46">46</option>
+                                                                <option value="47">47</option>
+                                                                <option value="48">48</option>
+                                                                <option value="49">49</option>
+                                                                <option value="50">50</option>
+                                                                <option value="51">51</option>
+                                                                <option value="52">52</option>
+                                                                <option value="53">53</option>
+                                                                <option value="54">54</option>
+                                                                <option value="55">55</option>
+                                                                <option value="56">56</option>
+                                                                <option value="57">57</option>
+                                                                <option value="58">58</option>
+                                                                <option selected="selected" value="59">59</option>
+                                                            </select>
+                                                        </div>
+                                                        <div style="flex-basis: 80px;">
+                                                            <select id="Offerday_4_EndPeriod" name="Offerday[4].EndPeriod">
+                                                                <option value="AM">AM</option>
+                                                                <option selected="selected" value="PM">PM</option>
+                                                            </select>
+                                                        </div>
+                                                        <div style="flex-basis: 40px;">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+
+                                        <li class="item-content width-full" >
+                                            <label class="item-checkbox item-content">
+                                                <input type="checkbox" id="Offerday_5_IsCheck" name="Offerday[5].IsCheck" value="Saturday" />
+                                                <i class="icon icon-checkbox"></i>
+                                                <div class="item-inner">
+                                                    <div class="item-title">Saturday</div>
+                                                </div>
+                                            </label>
+                                            <!--<input style="width:5%" checked="checked" id="Offerday_5_IsCheck" name="Offerday[5].IsCheck" type="checkbox" value="true">-->
+                                            <input name="Offerday[5].IsCheck" type="hidden" value="false">
+                                            <!--<label style="width:25%;">Saturday</label>-->
+                                            <div class="icon-section">
+                                                <i class="material-icons icon-add" onclick="AddNewTimingSection('Saturday', 'Sa', '5');" id="Saturday">add</i>
+                                                </div>
+                                                <input id="Offerday_5_DayKey" name="Offerday[5].DayKey" type="hidden" value="Sa">
+                                                <input id="Offerday_5_DayName" name="Offerday[5].DayName" type="hidden" value="Saturday">
+                                                <input id="Offerday_5_DiscountTimingId" name="Offerday[5].DiscountTimingId" type="hidden" value="0">
+</li>
+                                        <li class="item-content">
+                                            <div class="timing-flex-row-container" id="div_Saturday">
+                                                <div>
+                                                    <div class="timing-flex-column-container">
+                                                        <div style="flex-basis: 120px;">
+                                                            <label title="">Start</label>
+                                                        </div>
+                                                        <div style="flex-basis: 80px;">
+                                                            <select id="Offerday_5_StartHour" name="Offerday[5].StartHour">
+                                                                <option value="00">00</option>
+                                                                <option selected="selected" value="01">01</option>
+                                                                <option value="02">02</option>
+                                                                <option value="03">03</option>
+                                                                <option value="04">04</option>
+                                                                <option value="05">05</option>
+                                                                <option value="06">06</option>
+                                                                <option value="07">07</option>
+                                                                <option value="08">08</option>
+                                                                <option value="09">09</option>
+                                                                <option value="10">10</option>
+                                                                <option value="11">11</option>
+                                                            </select>
+                                                        </div>
+                                                        <div style="flex-basis: 80px;">
+                                                            <select id="Offerday_5_StartMinute" name="Offerday[5].StartMinute">
+                                                                <option selected="selected" value="00">00</option>
+                                                                <option value="01">01</option>
+                                                                <option value="02">02</option>
+                                                                <option value="03">03</option>
+                                                                <option value="04">04</option>
+                                                                <option value="05">05</option>
+                                                                <option value="06">06</option>
+                                                                <option value="07">07</option>
+                                                                <option value="08">08</option>
+                                                                <option value="09">09</option>
+                                                                <option value="10">10</option>
+                                                                <option value="11">11</option>
+                                                                <option value="12">12</option>
+                                                                <option value="13">13</option>
+                                                                <option value="14">14</option>
+                                                                <option value="15">15</option>
+                                                                <option value="16">16</option>
+                                                                <option value="17">17</option>
+                                                                <option value="18">18</option>
+                                                                <option value="19">19</option>
+                                                                <option value="20">20</option>
+                                                                <option value="21">21</option>
+                                                                <option value="22">22</option>
+                                                                <option value="23">23</option>
+                                                                <option value="24">24</option>
+                                                                <option value="25">25</option>
+                                                                <option value="26">26</option>
+                                                                <option value="27">27</option>
+                                                                <option value="28">28</option>
+                                                                <option value="29">29</option>
+                                                                <option value="30">30</option>
+                                                                <option value="31">31</option>
+                                                                <option value="32">32</option>
+                                                                <option value="33">33</option>
+                                                                <option value="34">34</option>
+                                                                <option value="35">35</option>
+                                                                <option value="36">36</option>
+                                                                <option value="37">37</option>
+                                                                <option value="38">38</option>
+                                                                <option value="39">39</option>
+                                                                <option value="40">40</option>
+                                                                <option value="41">41</option>
+                                                                <option value="42">42</option>
+                                                                <option value="43">43</option>
+                                                                <option value="44">44</option>
+                                                                <option value="45">45</option>
+                                                                <option value="46">46</option>
+                                                                <option value="47">47</option>
+                                                                <option value="48">48</option>
+                                                                <option value="49">49</option>
+                                                                <option value="50">50</option>
+                                                                <option value="51">51</option>
+                                                                <option value="52">52</option>
+                                                                <option value="53">53</option>
+                                                                <option value="54">54</option>
+                                                                <option value="55">55</option>
+                                                                <option value="56">56</option>
+                                                                <option value="57">57</option>
+                                                                <option value="58">58</option>
+                                                                <option value="59">59</option>
+                                                            </select>
+                                                        </div>
+                                                        <div style="flex-basis: 80px;">
+                                                            <select id="Offerday_5_StartPeriod" name="Offerday[5].StartPeriod">
+                                                                <option selected="selected" value="AM">AM</option>
+                                                                <option value="PM">PM</option>
+                                                            </select>
+                                                        </div>
+                                                        <div style="flex-basis: 40px;">
+                                                        </div>
+                                                    </div>
+                                                    <div class="timing-flex-column-container">
+                                                        <div style="flex-basis: 120px;">
+                                                            <label title="">End</label>
+                                                        </div>
+                                                        <div style="flex-basis: 80px;">
+                                                            <select id="Offerday_5_EndHour" name="Offerday[5].EndHour">
+                                                                <option value="00">00</option>
+                                                                <option value="01">01</option>
+                                                                <option value="02">02</option>
+                                                                <option value="03">03</option>
+                                                                <option value="04">04</option>
+                                                                <option value="05">05</option>
+                                                                <option value="06">06</option>
+                                                                <option value="07">07</option>
+                                                                <option value="08">08</option>
+                                                                <option value="09">09</option>
+                                                                <option value="10">10</option>
+                                                                <option selected="selected" value="11">11</option>
+                                                            </select>
+                                                        </div>
+                                                        <div style="flex-basis: 80px;">
+                                                            <select id="Offerday_5_EndMinute" name="Offerday[5].EndMinute">
+                                                                <option value="00">00</option>
+                                                                <option value="01">01</option>
+                                                                <option value="02">02</option>
+                                                                <option value="03">03</option>
+                                                                <option value="04">04</option>
+                                                                <option value="05">05</option>
+                                                                <option value="06">06</option>
+                                                                <option value="07">07</option>
+                                                                <option value="08">08</option>
+                                                                <option value="09">09</option>
+                                                                <option value="10">10</option>
+                                                                <option value="11">11</option>
+                                                                <option value="12">12</option>
+                                                                <option value="13">13</option>
+                                                                <option value="14">14</option>
+                                                                <option value="15">15</option>
+                                                                <option value="16">16</option>
+                                                                <option value="17">17</option>
+                                                                <option value="18">18</option>
+                                                                <option value="19">19</option>
+                                                                <option value="20">20</option>
+                                                                <option value="21">21</option>
+                                                                <option value="22">22</option>
+                                                                <option value="23">23</option>
+                                                                <option value="24">24</option>
+                                                                <option value="25">25</option>
+                                                                <option value="26">26</option>
+                                                                <option value="27">27</option>
+                                                                <option value="28">28</option>
+                                                                <option value="29">29</option>
+                                                                <option value="30">30</option>
+                                                                <option value="31">31</option>
+                                                                <option value="32">32</option>
+                                                                <option value="33">33</option>
+                                                                <option value="34">34</option>
+                                                                <option value="35">35</option>
+                                                                <option value="36">36</option>
+                                                                <option value="37">37</option>
+                                                                <option value="38">38</option>
+                                                                <option value="39">39</option>
+                                                                <option value="40">40</option>
+                                                                <option value="41">41</option>
+                                                                <option value="42">42</option>
+                                                                <option value="43">43</option>
+                                                                <option value="44">44</option>
+                                                                <option value="45">45</option>
+                                                                <option value="46">46</option>
+                                                                <option value="47">47</option>
+                                                                <option value="48">48</option>
+                                                                <option value="49">49</option>
+                                                                <option value="50">50</option>
+                                                                <option value="51">51</option>
+                                                                <option value="52">52</option>
+                                                                <option value="53">53</option>
+                                                                <option value="54">54</option>
+                                                                <option value="55">55</option>
+                                                                <option value="56">56</option>
+                                                                <option value="57">57</option>
+                                                                <option value="58">58</option>
+                                                                <option selected="selected" value="59">59</option>
+                                                            </select>
+                                                        </div>
+                                                        <div style="flex-basis: 80px;">
+                                                            <select id="Offerday_5_EndPeriod" name="Offerday[5].EndPeriod">
+                                                                <option value="AM">AM</option>
+                                                                <option selected="selected" value="PM">PM</option>
+                                                            </select>
+                                                        </div>
+                                                        <div style="flex-basis: 40px;">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+
+                                        <li class="item-content width-full" >
+                                            <label class="item-checkbox item-content">
+                                                <input type="checkbox" id="Offerday_6_IsCheck" name="Offerday[6].IsCheck" value="Sunday" />
+                                                <i class="icon icon-checkbox"></i>
+                                                <div class="item-inner">
+                                                    <div class="item-title">Sunday</div>
+                                                </div>
+                                            </label>
+                                            <!--<input style="width:5%" checked="checked" id="Offerday_6_IsCheck" name="Offerday[6].IsCheck" type="checkbox" value="true">-->
+                                            <input name="Offerday[6].IsCheck" type="hidden" value="false">
+                                            <!--<label style="width:25%;">Sunday</label>-->
+                                            <div class="icon-section">
+                                                <i class="material-icons icon-add" onclick="AddNewTimingSection('Sunday', 'Su', '6');" id="Sunday">add</i>
+                                                </div>
+                                                <input id="Offerday_6_DayKey" name="Offerday[6].DayKey" type="hidden" value="Su">
+                                                <input id="Offerday_6_DayName" name="Offerday[6].DayName" type="hidden" value="Sunday">
+                                                <input id="Offerday_6_DiscountTimingId" name="Offerday[6].DiscountTimingId" type="hidden" value="0">
+</li>
+                                        <li class="item-content">
+                                            <div class="timing-flex-row-container" id="div_Sunday">
+                                                <div>
+                                                    <div class="timing-flex-column-container">
+                                                        <div style="flex-basis: 120px;">
+                                                            <label title="">Start</label>
+                                                        </div>
+                                                        <div style="flex-basis: 80px;">
+                                                            <select id="Offerday_6_StartHour" name="Offerday[6].StartHour">
+                                                                <option value="00">00</option>
+                                                                <option selected="selected" value="01">01</option>
+                                                                <option value="02">02</option>
+                                                                <option value="03">03</option>
+                                                                <option value="04">04</option>
+                                                                <option value="05">05</option>
+                                                                <option value="06">06</option>
+                                                                <option value="07">07</option>
+                                                                <option value="08">08</option>
+                                                                <option value="09">09</option>
+                                                                <option value="10">10</option>
+                                                                <option value="11">11</option>
+                                                            </select>
+                                                        </div>
+                                                        <div style="flex-basis: 80px;">
+                                                            <select id="Offerday_6_StartMinute" name="Offerday[6].StartMinute">
+                                                                <option selected="selected" value="00">00</option>
+                                                                <option value="01">01</option>
+                                                                <option value="02">02</option>
+                                                                <option value="03">03</option>
+                                                                <option value="04">04</option>
+                                                                <option value="05">05</option>
+                                                                <option value="06">06</option>
+                                                                <option value="07">07</option>
+                                                                <option value="08">08</option>
+                                                                <option value="09">09</option>
+                                                                <option value="10">10</option>
+                                                                <option value="11">11</option>
+                                                                <option value="12">12</option>
+                                                                <option value="13">13</option>
+                                                                <option value="14">14</option>
+                                                                <option value="15">15</option>
+                                                                <option value="16">16</option>
+                                                                <option value="17">17</option>
+                                                                <option value="18">18</option>
+                                                                <option value="19">19</option>
+                                                                <option value="20">20</option>
+                                                                <option value="21">21</option>
+                                                                <option value="22">22</option>
+                                                                <option value="23">23</option>
+                                                                <option value="24">24</option>
+                                                                <option value="25">25</option>
+                                                                <option value="26">26</option>
+                                                                <option value="27">27</option>
+                                                                <option value="28">28</option>
+                                                                <option value="29">29</option>
+                                                                <option value="30">30</option>
+                                                                <option value="31">31</option>
+                                                                <option value="32">32</option>
+                                                                <option value="33">33</option>
+                                                                <option value="34">34</option>
+                                                                <option value="35">35</option>
+                                                                <option value="36">36</option>
+                                                                <option value="37">37</option>
+                                                                <option value="38">38</option>
+                                                                <option value="39">39</option>
+                                                                <option value="40">40</option>
+                                                                <option value="41">41</option>
+                                                                <option value="42">42</option>
+                                                                <option value="43">43</option>
+                                                                <option value="44">44</option>
+                                                                <option value="45">45</option>
+                                                                <option value="46">46</option>
+                                                                <option value="47">47</option>
+                                                                <option value="48">48</option>
+                                                                <option value="49">49</option>
+                                                                <option value="50">50</option>
+                                                                <option value="51">51</option>
+                                                                <option value="52">52</option>
+                                                                <option value="53">53</option>
+                                                                <option value="54">54</option>
+                                                                <option value="55">55</option>
+                                                                <option value="56">56</option>
+                                                                <option value="57">57</option>
+                                                                <option value="58">58</option>
+                                                                <option value="59">59</option>
+                                                            </select>
+                                                        </div>
+                                                        <div style="flex-basis: 80px;">
+                                                            <select id="Offerday_6_StartPeriod" name="Offerday[6].StartPeriod">
+                                                                <option selected="selected" value="AM">AM</option>
+                                                                <option value="PM">PM</option>
+                                                            </select>
+                                                        </div>
+                                                        <div style="flex-basis: 40px;">
+                                                        </div>
+                                                    </div>
+                                                    <div class="timing-flex-column-container">
+                                                        <div style="flex-basis: 120px;">
+                                                            <label title="">End</label>
+                                                        </div>
+                                                        <div style="flex-basis: 80px;">
+                                                            <select id="Offerday_6_EndHour" name="Offerday[6].EndHour">
+                                                                <option value="00">00</option>
+                                                                <option value="01">01</option>
+                                                                <option value="02">02</option>
+                                                                <option value="03">03</option>
+                                                                <option value="04">04</option>
+                                                                <option value="05">05</option>
+                                                                <option value="06">06</option>
+                                                                <option value="07">07</option>
+                                                                <option value="08">08</option>
+                                                                <option value="09">09</option>
+                                                                <option value="10">10</option>
+                                                                <option selected="selected" value="11">11</option>
+                                                            </select>
+                                                        </div>
+                                                        <div style="flex-basis: 80px;">
+                                                            <select id="Offerday_6_EndMinute" name="Offerday[6].EndMinute">
+                                                                <option value="00">00</option>
+                                                                <option value="01">01</option>
+                                                                <option value="02">02</option>
+                                                                <option value="03">03</option>
+                                                                <option value="04">04</option>
+                                                                <option value="05">05</option>
+                                                                <option value="06">06</option>
+                                                                <option value="07">07</option>
+                                                                <option value="08">08</option>
+                                                                <option value="09">09</option>
+                                                                <option value="10">10</option>
+                                                                <option value="11">11</option>
+                                                                <option value="12">12</option>
+                                                                <option value="13">13</option>
+                                                                <option value="14">14</option>
+                                                                <option value="15">15</option>
+                                                                <option value="16">16</option>
+                                                                <option value="17">17</option>
+                                                                <option value="18">18</option>
+                                                                <option value="19">19</option>
+                                                                <option value="20">20</option>
+                                                                <option value="21">21</option>
+                                                                <option value="22">22</option>
+                                                                <option value="23">23</option>
+                                                                <option value="24">24</option>
+                                                                <option value="25">25</option>
+                                                                <option value="26">26</option>
+                                                                <option value="27">27</option>
+                                                                <option value="28">28</option>
+                                                                <option value="29">29</option>
+                                                                <option value="30">30</option>
+                                                                <option value="31">31</option>
+                                                                <option value="32">32</option>
+                                                                <option value="33">33</option>
+                                                                <option value="34">34</option>
+                                                                <option value="35">35</option>
+                                                                <option value="36">36</option>
+                                                                <option value="37">37</option>
+                                                                <option value="38">38</option>
+                                                                <option value="39">39</option>
+                                                                <option value="40">40</option>
+                                                                <option value="41">41</option>
+                                                                <option value="42">42</option>
+                                                                <option value="43">43</option>
+                                                                <option value="44">44</option>
+                                                                <option value="45">45</option>
+                                                                <option value="46">46</option>
+                                                                <option value="47">47</option>
+                                                                <option value="48">48</option>
+                                                                <option value="49">49</option>
+                                                                <option value="50">50</option>
+                                                                <option value="51">51</option>
+                                                                <option value="52">52</option>
+                                                                <option value="53">53</option>
+                                                                <option value="54">54</option>
+                                                                <option value="55">55</option>
+                                                                <option value="56">56</option>
+                                                                <option value="57">57</option>
+                                                                <option value="58">58</option>
+                                                                <option selected="selected" value="59">59</option>
+                                                            </select>
+                                                        </div>
+                                                        <div style="flex-basis: 80px;">
+                                                            <select id="Offerday_6_EndPeriod" name="Offerday[6].EndPeriod">
+                                                                <option value="AM">AM</option>
+                                                                <option selected="selected" value="PM">PM</option>
+                                                            </select>
+                                                        </div>
+                                                        <div style="flex-basis: 40px;">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </li>
+                                
+                                <!--Timing Section End-->
+
+                                <li class="item-content">
+                                    <a class="custom-btn-xl custom-bg custom-link item-media-section" id="btnCreate" onclick="SaveDiscount();">Save</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+        
+        <div class="mt pd"></div>              
+
+    </div>
+</div>
+

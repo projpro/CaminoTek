@@ -1,0 +1,119 @@
+
+<div class="page page-with-toolbar" id="manageservice">
+   
+
+    <div class="toolbar tabbar tabbar-labels toolbar-bottom-md custom-toolbar">
+        <div class="toolbar-inner">
+            <a href="/carryout/" class="tab-link menuCarryout">
+                <img src="./img/icons/carry-out.png" alt="carry-out" class="footer-icon" id="footer_carryout" />
+                <!--<i class="material-icons menu-icon-active">shopping_basket</i>-->
+                <span class="span-footer-text">Carry Out</span>
+            </a>
+            <a href="/giftcard/" class="tab-link menuGiftcard">
+                <img src="./img/icons/giftcard.png" alt="giftcard" class="footer-icon-one" id="footer_giftcard" />
+                <!--<i class="material-icons menu-icon">card_giftcard</i>-->
+                <span class="span-footer-text">Gift Card</span>
+            </a>
+            <a href="/new_rewards/" class="tab-link menuReward">
+                <img src="./img/icons/rewards.png" alt="rewards" class="footer-icon-two" id="footer_reward" />
+                <!--<i class="material-icons menu-icon">card_membership</i>-->
+                <span class="span-footer-text">Reward</span>
+            </a>
+            <a href="/setup/" class="tab-link menuSettings">
+                <img src="./img/icons/setting.png" alt="setting" class="footer-icon" id="footer_setup" />
+                <!--<i class="material-icons menu-icon">settings</i>-->
+                <span class="span-footer-text">Settings</span>
+            </a>
+            <a href="/manageservice/" class="tab-link menuStartStop   tab-link-active footer-menu-active">
+                <img src="./img/icons/start-stop-active.png" alt="start-stop" class="footer-icon" id="footer_startstop" />
+                <!--<i class="material-icons menu-icon">power_settings_new</i>-->
+                <span class="span-footer-text">Start/Stop</span>
+            </a>
+            <!--<a href="/carryout/" class="tab-link menuCarryout">
+                <i class="material-icons menu-icon">shopping_basket</i>
+                <span class="tabbar-label">Carry Out</span>
+            </a>
+            <a href="/giftcard/" class="tab-link menuGiftcard">
+                <i class="material-icons menu-icon">card_giftcard</i>
+                <span class="tabbar-label">Gift Card</span>
+            </a>
+            <a href="/new_rewards/" class="tab-link menuReward">
+                <i class="material-icons menu-icon">card_membership</i>
+                <span class="tabbar-label">Reward</span>
+            </a>
+            <a href="/setup/" class="tab-link menuSettings">
+                <i class="material-icons menu-icon">settings</i>
+                <span class="tabbar-label">Setup</span>
+            </a>
+            <a href="/manageservice/" class="tab-link tab-link-active footer-menu-active menuStartStop">
+                <i class="material-icons menu-icon-active">power_settings_new</i>
+                <span class="tabbar-label">Start/Stop</span>
+            </a>-->
+        </div>
+    </div>
+    <div class="navbar">
+        <div class="navbar-inner">
+            <div class="left">
+                <img src="./img/app-logo.png" />
+                <a class="tab-link back-new" onclick="Back();">
+                    <i class="material-icons material-icons-one">arrow_back</i>
+                </a> 
+                <!--<a href="#" class="tab-link">
+                    <i class="material-icons material-icons-one">menu</i>
+                </a>-->
+                <!--<a href="#" class="link icon-only">
+                    <i class="icon icon-back"></i>
+                </a>-->
+            </div>
+            <div class="center ul-media-list-li"><!--<img src="/img/logo.png" />-->Manage Carryout</div>
+            <!--<div class="right">-->
+            <a class="icon-only navbar-right-single-icon" href="/profile/"><i class="material-icons large-icon">account_circle</i></a>
+                <!--<a class="icon-only navbar-right-single-icon" onclick="Logout();"><i class="material-icons large-icon">exit_to_app</i></a>-->
+            <!--</div>-->
+        </div>
+    </div>
+
+    <div class="page-content mt">
+        <div class="form-item">
+            <div class="list media-list" style="margin-top: 120px;" id="dvManageServiceParent">
+                <ul id="ulDineIn" style="display:none;">
+                    <li>
+                        <a id="btnDineIn" href="/dinein_list/" class="custom-btn-two custom-bg custom-link item-media-section-two" style="background:#303030 !important;width:90%;float:none;margin:0 0 0 30px;">Dine In</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li>
+                        <div class="item-media" style="padding-bottom: 0px;">
+                            <label id="dvCarryoutStatus" style="font-size:35px;width:100%;text-align:center;color: #08b3c7;"></label>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-media" id="dvCarryOutStatusChange">
+                            <!--<a href="link" style="width:100%">
+                                <img src="/img/Stop.png" style="display:block;margin-left:auto;margin-right:auto;height:100px;width:100px">
+                            </a>-->
+                        </div>
+                    </li>
+                </ul>
+
+                <ul id="divDeliverySection" style="display:none;">
+                    <li>
+                        <div class="item-media" style="padding-top: 75px;padding-bottom: 0px;">
+                            <label id="dvDeliveryStatus" style="font-size:35px;width:100%;text-align:center;color: #08b3c7;"></label>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-media" id="dvDeliveryStatusChange"></div>
+                    </li>
+                </ul>
+               <ul id="ulDevicePing">
+                    <li>
+                        <span id="btnDevicePing" class="custom-btn-two custom-bg custom-link item-media-section-two" onclick="PingDevice();" style="background:#5cb95a !important;width:90%;float:none;margin:0 0 0 30px;">Ping Device</span>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</div>
+
