@@ -17,5 +17,24 @@
     "cordova-android": "~7.1.4",
     "cordova-browser": "^5.0.4",
     "plugin": "0.3.3"
-  }
+  },
+  "description": "> [Framework7](http://www.idangero.us/framework7) is a Mobile UI framework that can be used to build hybrid apps with PhoneGap. This template allows you to get started using Framework7 \r   quickly.",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "Test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/projpro/BistroUX-Store-Android-App.git"
+  },
+  "keywords": [
+    "BistorUX"
+  ],
+  "author": "Cybervation",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/projpro/BistroUX-Store-Android-App/issues"
+  },
+  "homepage": "https://github.com/projpro/BistroUX-Store-Android-App#readme"
 }
