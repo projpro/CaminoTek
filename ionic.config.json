@@ -1,7 +1,8 @@
 {
   "name": "BistroUX",
-  "type": "custom",
   "integrations": {
     "cordova": {}
-  }
+  },
+  "type": "custom",
+  "id": "2bef7424"
 }
