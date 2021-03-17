@@ -10,7 +10,7 @@ var bottomBorder = '1px solid #ddd';
 var noErrorClassBorder = 'none';
 var src = mediaURL + "notification.mp3";
 var myMedia = null;
-var appVersion = 3;
+var appVersion = 4;
 
 function InitLogin() {
     // console.log('Init Login');
