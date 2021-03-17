@@ -2028,13 +2028,13 @@ function OpenCarryoutDetails(id) {
                                     var notesValue = arrNotes[i];
 
                                     if (i == 1) {
-                                        notesValue = notesValue.replace(/<i>Additional Items: <\/i>/, 'Addln: ');
+                                        notesValue = notesValue.replace(/<i>Additional Items: <\/i>/, 'Addln: <i>');
                                         notesValue = notesValue.replace(/<i>[\s\S]*?<\/i>/, ' ');
                                         notesValue = notesValue.replace("</strong>:", "- ");
                                         html += "<tr><td colspan='4' style='padding:0 0 0 5px'>" + notesValue.replace("</strong>", "") + "  </td></tr>";
                                     }
                                     else {
-                                        notesValue = notesValue.replace(/<i>Additional Items: <\/i>/, 'Addln: ');
+                                        notesValue = notesValue.replace(/<i>Additional Items:/, 'Addln: <i>');
                                         notesValue = notesValue.replace(/<i>[\s\S]*?<\/i>/, ' ');
                                         notesValue = notesValue.replace("</strong>:", "- ");
                                         html += "<tr><td colspan='4' style='padding:0 0 0 5px'>" + notesValue.replace("</strong>", "") + " </td></tr>";
