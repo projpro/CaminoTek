@@ -2817,6 +2817,7 @@ function PrintCarryoutDetails() {
                                             notesValue = notesValue.replace(/<i>[\s\S]*?<\/i>/, ' ');
                                             notesValue = notesValue.replace("</strong>:", "- ");
                                             notesValue = notesValue.replace("</strong>", "");
+                                            notesValue = notesValue.replace(", ", "<br>");
                                             //Print Order Notes 1 Start
                                             //BTPrinter.printTextSizeAlign(function (data) {
                                             //}, function (err) {
@@ -2843,6 +2844,7 @@ function PrintCarryoutDetails() {
                                             notesValue = notesValue.replace(/<i>[\s\S]*?<\/i>/, ' ');
                                             notesValue = notesValue.replace("</strong>:", "- ");
                                             notesValue = notesValue.replace("</strong>", "");
+                                            notesValue = notesValue.replace(", ", "<br>");
                                             //Print Order Notes 1 Start
                                             //BTPrinter.printTextSizeAlign(function (data) {
                                             //}, function (err) {
