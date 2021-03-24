@@ -2823,9 +2823,20 @@ function PrintCarryoutDetails() {
                                             //}, function (err) {
                                             //}, "\x1b\x32" + notesValue.replace("</strong>", "") + "\n", '20', '0');
 
-                                            BTPrinter.printText(function (data) {
-                                            }, function (err) {
-                                            }, "\x1b\x32\x1b\x21\x31" + notesValue + "\n");
+                                            var arrNewNotes = notesValue.split('<br>');
+                                            if (arrNewNotes.length > 1) {
+                                                for (var j = 1; j < arrNewNotes.length; j++) {
+                                                    var newNotesValue = arrNewNotes[i];
+                                                    BTPrinter.printText(function (data) {
+                                                    }, function (err) {
+                                                        }, "\x1b\x32\x1b\x21\x31" + newNotesValue + "\n");
+                                                }
+                                            }
+                                            else {
+                                                BTPrinter.printText(function (data) {
+                                                }, function (err) {
+                                                }, "\x1b\x32\x1b\x21\x31" + notesValue + "\n");
+                                            }
 
                                             //"\x1b\x30 " +
 
@@ -2850,9 +2861,20 @@ function PrintCarryoutDetails() {
                                             //}, function (err) {
                                             //}, "\x1b\x32" + notesValue.replace("</strong>", "") + "\n", '20', '0');
 
-                                            BTPrinter.printText(function (data) {
-                                            }, function (err) {
-                                            }, "\x1b\x32\x1b\x21\x31" + notesValue + "\n");
+                                            var arrNewNotes = notesValue.split('<br>');
+                                            if (arrNewNotes.length > 1) {
+                                                for (var j = 1; j < arrNewNotes.length; j++) {
+                                                    var newNotesValue = arrNewNotes[i];
+                                                    BTPrinter.printText(function (data) {
+                                                    }, function (err) {
+                                                        }, "\x1b\x32\x1b\x21\x31" + newNotesValue + "\n");
+                                                }
+                                            }
+                                            else {
+                                                BTPrinter.printText(function (data) {
+                                                }, function (err) {
+                                                }, "\x1b\x32\x1b\x21\x31" + notesValue + "\n");
+                                            }
 
 
                                             //"\x1b\x30 " + 
