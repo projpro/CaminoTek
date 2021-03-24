@@ -2815,7 +2815,7 @@ function PrintCarryoutDetails() {
                                             ////notesValue = notesValue.replace("</i>", "");
                                             ////notesValue = notesValue.replace("</strong>", "");
                                             notesValue = notesValue.replace(/<i>[\s\S]*?<\/i>/, ' ');
-                                            notesValue = notesValue.replace("</strong>:", "- ");
+                                            notesValue = notesValue.replace("</strong>:", "-");
                                             notesValue = notesValue.replace("</strong>", "");
                                             notesValue = notesValue.replace(", ", "\n - ");
                                             //Print Order Notes 1 Start
@@ -2842,7 +2842,7 @@ function PrintCarryoutDetails() {
                                             ////notesValue = notesValue.replace("</i>", "");
                                             ////notesValue = notesValue.replace("</strong>", "");
                                             notesValue = notesValue.replace(/<i>[\s\S]*?<\/i>/, ' ');
-                                            notesValue = notesValue.replace("</strong>:", "- ");
+                                            notesValue = notesValue.replace("</strong>:", "-");
                                             notesValue = notesValue.replace("</strong>", "");
                                             notesValue = notesValue.replace(", ", "\n - ");
                                             //Print Order Notes 1 Start
