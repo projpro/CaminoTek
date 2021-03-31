@@ -1625,6 +1625,7 @@ function InitPushNotification(storeId, name, uuid, version) {
 
         }
         else if (data.message != "") {   ////if (data.message == "A new order has been placed") { 
+            alert(data.message);
             if (data.message == "New Order") {
                 localStorage.setItem("PushNotification", "Order placed");
                 ////localStorage.setItem("PushNotification", data.message);
@@ -1722,7 +1723,7 @@ function StopSoundAndSendCurbsideMessage() {
         localStorage.setItem("loadcarryoutprocessing", "true");
     }
 
-    StopSoundOtherDevices(storeId);//Stop Other Device Sound    
+    StopSoundAndCurbsideMessageSend(storeId);//Stop Other Device Sound    
 }
 
 function disableScrolling() {
@@ -2324,6 +2325,33 @@ function StopSoundOtherDevices(storeId) {
         }
     });
 }
+
+function StopSoundAndCurbsideMessageSend(storeId) {
+    var regId = localStorage.getItem('registrationId');
+    $.ajax({
+        url: global + 'StopSoundInAllDevicesNew',
+        //url: global + 'StopSoundInAllDevices',
+        type: 'GET',
+        data: {
+            storeId: storeId,
+            currentDeviceId: deviceUUID
+        },
+        datatype: 'jsonp',
+        contenttype: "application/json",
+        crossDomain: true,
+        async: false,
+        success: function (response) {
+            console.log(response)
+
+        },
+        error: function (xhr, textStatus, errorThrown) {
+            //alert(xhr.responseText);
+            //alert(textStatus);
+            //alert(errorThrown);
+        }
+    });
+}
+
 function Back() {
     // console.log('Back')
     //console.log(app.views.main.router);
