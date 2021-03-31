@@ -1976,6 +1976,23 @@ td {
     top: 5px;
 }
 
+.modal-curbside-button {
+    border: #08b3c7 1px solid;
+    color: #fff !important;
+    font-weight: 400;
+    font-size: 25px;
+    text-transform: uppercase;
+    padding: 7px 20px;
+    text-align: center;
+    background: #08b3c7;
+    float: none;
+    width: 100%;
+    border-radius: 0px;
+    position: fixed;
+    left: 0;
+    top: 5px;
+}
+
 .overlay-button-area {
     float: left;
     width: 100%;

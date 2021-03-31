@@ -1624,18 +1624,31 @@ function InitPushNotification(storeId, name, uuid, version) {
             StopSound();
 
         }
-        else if (data.message != "") {   ////if (data.message == "A new order has been placed") {  
-            alert(data.message);
-            localStorage.setItem("PushNotification", "Order placed");
-            ////localStorage.setItem("PushNotification", data.message);
-            myMedia = new Media(src, onSuccess, onError, onStatus);
-            //CheckNewOrder();
-            $('#myDiv').html('<div class="block">' +
-                                             '<a href="#" class="link popup-close modal-accept-button"  id="btnAcknowledgement" onclick="StopSoundAndRefreshCarryout();" style=\"top: 40% !important; height: 205px; font-size:35px;\">' + data.message + '</a>' +
-                                             '<div class="overlay-button-area" id="dvPopOrders" style=\"top: 30px !important;\">' +
-                                             '</div>' +
-                                            '</div>');
-            $('#myDiv').show();
+        else if (data.message != "") {   ////if (data.message == "A new order has been placed") { 
+            if (data.message == "New Order") {
+                localStorage.setItem("PushNotification", "Order placed");
+                ////localStorage.setItem("PushNotification", data.message);
+                myMedia = new Media(src, onSuccess, onError, onStatus);
+                //CheckNewOrder();
+                $('#myDiv').html('<div class="block">' +
+                    '<a href="#" class="link popup-close modal-accept-button"  id="btnAcknowledgement" onclick="StopSoundAndRefreshCarryout();" style=\"top: 40% !important; height: 205px; font-size:35px;\">' + data.message + '</a>' +
+                    '<div class="overlay-button-area" id="dvPopOrders" style=\"top: 30px !important;\">' +
+                    '</div>' +
+                    '</div>');
+                $('#myDiv').show();
+            }
+            else {
+                localStorage.setItem("PushNotification", "Order placed");
+                ////localStorage.setItem("PushNotification", data.message);
+                myMedia = new Media(src, onSuccess, onError, onStatus);
+                //CheckNewOrder();
+                $('#myDiv').html('<div class="block">' +
+                    '<a href="#" class="link popup-close modal-curbside-button"  id="btnAcknowledgement" onclick="StopSoundAndSendCurbsideMessage();" style=\"top: 40% !important; height: 205px; font-size:35px;\">' + data.message + '</a>' +
+                    '<div class="overlay-button-area" id="dvPopOrders" style=\"top: 30px !important;\">' +
+                    '</div>' +
+                    '</div>');
+                $('#myDiv').show();
+            }            
 
             if (isDevice()) {
                 // console.log('isDevice 1: ')
@@ -1679,6 +1692,23 @@ function StopSound() {
 }
 
 function StopSoundAndRefreshCarryout() {
+    var storeId = SetStoreId();
+    StopSound();//Stop Current Device Sound
+
+    if (app.views.main.router.url.indexOf('carryout') > -1) {
+        //alert("carryout 2");//////////
+        app.tab.show('#1');//Commented For Stop Auto Redirect - 09.20.2019
+        BindcarryoutTab('New');//Commented For Stop Auto Redirect - 09.20.2019
+    }
+    else {
+        //alert("carryout 2 else");//////////
+        localStorage.setItem("loadcarryoutprocessing", "true");
+    }
+
+    StopSoundOtherDevices(storeId);//Stop Other Device Sound    
+}
+
+function StopSoundAndSendCurbsideMessage() {
     var storeId = SetStoreId();
     StopSound();//Stop Current Device Sound
 
