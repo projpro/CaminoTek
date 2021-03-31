@@ -1715,7 +1715,7 @@ function StopSoundAndSendCurbsideMessage(orderId) {
     var restaurantDisplayName = "";
     if (window.localStorage.getItem("RestaurantName") != null)
         restaurantDisplayName = window.localStorage.getItem("RestaurantName").trim();
-    alert(orderId + " - " + customerPhone + " - " + restaurantDisplayName);
+    //alert(orderId + " - " + customerPhone + " - " + restaurantDisplayName);
     var storeId = SetStoreId();
     StopSound();//Stop Current Device Sound
 
