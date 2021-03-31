@@ -1639,7 +1639,7 @@ function InitPushNotification(storeId, name, uuid, version) {
             }
             else {
                 var arrMessage = data.message.split('(Order #');
-                var orderId = arrMessage.split(')')[0];
+                var orderId = arrMessage[1].split(')')[0];
                 alert(orderId);
                 localStorage.setItem("PushNotification", "Order placed");
                 ////localStorage.setItem("PushNotification", data.message);
