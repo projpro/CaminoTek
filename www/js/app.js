@@ -1646,7 +1646,7 @@ function InitPushNotification(storeId, name, uuid, version) {
                 myMedia = new Media(src, onSuccess, onError, onStatus);
                 //CheckNewOrder();
                 $('#myDiv').html('<div class="block">' +
-                    '<a href="#" class="link popup-close modal-curbside-button"  id="btnAcknowledgement" onclick="StopSoundAndSendCurbsideMessage(' + orderId + ', ' + customerPhone + ');" style=\"top: 40% !important; height: 205px; font-size:35px;\">' + data.message + '</a>' +
+                    '<a href="#" class="link popup-close modal-curbside-button"  id="btnAcknowledgement" onclick="StopSoundAndSendCurbsideMessage(' + orderId + ',' + customerPhone + ');" style=\"top: 40% !important; height: 205px; font-size:35px;\">' + data.message + '</a>' +
                     '<div class="overlay-button-area" id="dvPopOrders" style=\"top: 30px !important;\">' +
                     '</div>' +
                     '</div>');
@@ -1712,6 +1712,10 @@ function StopSoundAndRefreshCarryout() {
 }
 
 function StopSoundAndSendCurbsideMessage(orderId, customerPhone) {
+    var restaurantDisplayName = "";
+    if (window.localStorage.getItem("RestaurantName") != null)
+        restaurantDisplayName = window.localStorage.getItem("RestaurantName").trim();
+    alert(orderId + " - " + customerPhone + " - " + restaurantDisplayName);
     var storeId = SetStoreId();
     StopSound();//Stop Current Device Sound
 
@@ -1725,7 +1729,7 @@ function StopSoundAndSendCurbsideMessage(orderId, customerPhone) {
         localStorage.setItem("loadcarryoutprocessing", "true");
     }
 
-    StopSoundAndCurbsideMessageSend(storeId, orderId, customerPhone);//Stop Other Device Sound    
+    //StopSoundAndCurbsideMessageSend(storeId, orderId, customerPhone);//Stop Other Device Sound    
 }
 
 function disableScrolling() {
