@@ -1640,13 +1640,12 @@ function InitPushNotification(storeId, name, uuid, version) {
             else {
                 var arrMessage = data.message.split('(Order #');
                 var orderId = arrMessage[1].split(')')[0];
-                var customerPhone = $('#hdnSelectedOrderPhone_' + orderId).val();
                 localStorage.setItem("PushNotification", "Order placed");
                 ////localStorage.setItem("PushNotification", data.message);
                 myMedia = new Media(src, onSuccess, onError, onStatus);
                 //CheckNewOrder();
                 $('#myDiv').html('<div class="block">' +
-                    '<a href="#" class="link popup-close modal-curbside-button"  id="btnAcknowledgement" onclick="StopSoundAndSendCurbsideMessage(' + orderId + ',' + customerPhone + ');" style=\"top: 40% !important; height: 205px; font-size:35px;\">' + data.message + '</a>' +
+                    '<a href="#" class="link popup-close modal-curbside-button"  id="btnAcknowledgement" onclick="StopSoundAndSendCurbsideMessage(' + orderId + ');" style=\"top: 40% !important; height: 205px; font-size:35px;\">' + data.message + '</a>' +
                     '<div class="overlay-button-area" id="dvPopOrders" style=\"top: 30px !important;\">' +
                     '</div>' +
                     '</div>');
@@ -1711,7 +1710,8 @@ function StopSoundAndRefreshCarryout() {
     StopSoundOtherDevices(storeId);//Stop Other Device Sound    
 }
 
-function StopSoundAndSendCurbsideMessage(orderId, customerPhone) {
+function StopSoundAndSendCurbsideMessage(orderId) {
+    var customerPhone = $('#hdnSelectedOrderPhone_' + orderId).val();
     var restaurantDisplayName = "";
     if (window.localStorage.getItem("RestaurantName") != null)
         restaurantDisplayName = window.localStorage.getItem("RestaurantName").trim();
