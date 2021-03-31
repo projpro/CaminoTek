@@ -1624,8 +1624,7 @@ function InitPushNotification(storeId, name, uuid, version) {
             StopSound();
 
         }
-        else if (data.message != "") {   ////if (data.message == "A new order has been placed") { 
-            alert(data.message);
+        else if (data.message != "") {   ////if (data.message == "A new order has been placed") {             
             if (data.message == "New Order") {
                 localStorage.setItem("PushNotification", "Order placed");
                 ////localStorage.setItem("PushNotification", data.message);
@@ -1639,6 +1638,9 @@ function InitPushNotification(storeId, name, uuid, version) {
                 $('#myDiv').show();
             }
             else {
+                var arrMessage = data.message.split('(Order #');
+                var orderId = arrMessage.split(')')[0];
+                alert(orderId);
                 localStorage.setItem("PushNotification", "Order placed");
                 ////localStorage.setItem("PushNotification", data.message);
                 myMedia = new Media(src, onSuccess, onError, onStatus);
