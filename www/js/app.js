@@ -1729,7 +1729,7 @@ function StopSoundAndSendCurbsideMessage(orderId) {
         localStorage.setItem("loadcarryoutprocessing", "true");
     }
 
-    //StopSoundAndCurbsideMessageSend(storeId, orderId, customerPhone);//Stop Other Device Sound    
+    StopSoundAndCurbsideMessageSend(storeId, orderId, customerPhone);//Stop Other Device Sound    
 }
 
 function disableScrolling() {
