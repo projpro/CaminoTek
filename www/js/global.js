@@ -5195,6 +5195,21 @@ function ShowEmployeePINPopup() {
     $('#giftcardEmployeePIN').show();
 }
 
+function ShowEmployeePINPopupLoad() {
+    $('#giftcardEmployeePIN').html("");
+    var html = "<div class=\"popup-content-area\"><h2 class=\"popup-title\" style=\"text-align: center;\"><span style=\"font-size:22px;\">Employee PIN</span></span></h2>";
+    html += "<h4 id=\"employeePinPopuperror\" style=\"font-weight:400;color:#ff4848;display:none;\"></h4>";
+
+    html += "<div><input type=\"text\" placeholder=\"PIN\" id=\"txtCurrentUserPIN\" class=\"mandatory\" style=\"text-align: center;font-size: 50px;\" onKeyDown=\"if(this.value.length==6) this.value = this.value.slice(0, -1);\"></div>";
+
+    html += "<div class=\"popup-button-area\"><button id=\"btnSubmitLoadNewCard\" onclick=\"LoadGiftCard();\" type=\"button\" class=\"popup-confirm-medium swal2-styled\" aria-label=\"\" ";
+    html += "style=\"background-color: rgb(59, 152, 71); border-left-color: rgb(59, 152, 71); border-right-color: rgb(59, 152, 71);\">Submit</button>";
+    html += "<button type=\"button\" onclick=\"HideEmployeePINPopup();\" class=\"swal2-styled popup-no\" aria-label=\"\" style=\"display: inline-block; background-color: rgb(233, 88, 97);\">Cancel</button></div></div>";
+    $('#giftcardEmployeePIN').html(html);
+    $(".popup-overlay").show();
+    $('#giftcardEmployeePIN').show();
+}
+
 function HideEmployeePINPopup() {
     $('#hdnIsValidEmployeePIN').val("false");    
     $(".popup-overlay").hide();

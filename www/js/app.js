@@ -759,7 +759,7 @@ $$(document).on('page:init', function (e) {
 
             var IsValidEmployeePIN = $('#hdnIsValidEmployeePIN').val();
             if (IsValidEmployeePIN == "false") {
-                ShowEmployeePINPopup();
+                ShowEmployeePINPopupLoad();
             }
             else {
                 LoadGiftCard();
