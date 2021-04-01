@@ -756,8 +756,14 @@ $$(document).on('page:init', function (e) {
             SearchGiftCard();
         });
         $$('#btnLoadGiftCard').click(function () {
-          
-            LoadGiftCard();
+
+            var IsValidEmployeePIN = $('#hdnIsValidEmployeePIN').val();
+            if (IsValidEmployeePIN == "false") {
+                ShowEmployeePINPopup();
+            }
+            else {
+                LoadGiftCard();
+            }            
         });
         $$('#btnRedeemGiftCard').click(function () {
             RedeemGiftCard();
