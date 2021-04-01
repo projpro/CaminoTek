@@ -5043,7 +5043,7 @@ function LoadGiftCard() {
         if (isEmployeePinCorrect == true) {
             HideEmployeePINPopup();
             try {
-                var url = global + "/CheckGiftCardForAddEmployeePin?giftCardCode=" + encodeURIComponent(cardCode);
+                var url = global + "/CheckGiftCardForAddEmployeePinLoad?giftCardCode=" + encodeURIComponent(cardCode);
                 $.getJSON(url, function (data) {
                     if (data.replace(/"/g, "").toLowerCase().indexOf("failed") > -1) {
                         $("#hdnValidateCard").val(false);
