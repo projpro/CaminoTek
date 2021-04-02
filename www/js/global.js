@@ -1,5 +1,5 @@
-var global = "http://www.appnotification.bistroux.com/Api/App/";
-//var global = "http://www.appnotification.bistroux.test-my-project.com/Api/App/";
+//var global = "http://www.appnotification.bistroux.com/Api/App/";
+var global = "http://appnotification.bistroux.test-my-project.com/Api/App/";
 //var global = "http://www.consumerapp.bistroux.com/Api/App/";
 //var global = "http://192.168.0.104/Api/App/";
 var mediaURL = "http://appnotification.bistroux.com/Media/";
@@ -63,7 +63,7 @@ function Login() {
             success: function (data) {
                 //console.log("data: " + data);
                 //console.log("Login 2" + data);
-                //alert(data)
+                alert(data)
                 if (data.indexOf("No Data Found") > -1) {
                     $('#lblErr').html("Invalid Login/Password");
                     $("#btnLogin").text("Log In");
