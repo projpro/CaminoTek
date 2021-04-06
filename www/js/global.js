@@ -5281,7 +5281,7 @@ function LoadNewGiftCard() {
         if (amount == '')
             amount = '0';
         var employeePin = $('#txtCurrentUserPIN').val();
-        $('#hdnEmployeePin').val(employeePin);
+        alert(employeePin);
         if (cardCode != "" && amount != "" && amount != "0" && phone != "" && phone != "0" && name != "" && email != "" && isEmail("#tab-giftcard-new #txtEmail") == true) {
 
             var url = global + "/CheckGiftCardForAddEmployeePin?giftCardCode=" + encodeURIComponent(cardCode);
