@@ -1,5 +1,5 @@
-//var global = "http://www.appnotification.bistroux.com/Api/App/";
-var global = "http://appnotification.bistroux.test-my-project.com/Api/App/";
+var global = "http://www.appnotification.bistroux.com/Api/App/";
+//var global = "http://appnotification.bistroux.test-my-project.com/Api/App/";
 //var global = "http://www.consumerapp.bistroux.com/Api/App/";
 //var global = "http://192.168.0.104/Api/App/";
 var mediaURL = "http://appnotification.bistroux.com/Media/";
@@ -4988,11 +4988,13 @@ function SearchGiftCard() {
 
 function LoadGiftCard() {
     var isEmployeePinCorrect = false;
+    var isEmployeePinRequired = false;
     var employeePINS = localStorage.getItem("EmployeePIN");
     if (employeePINS != null && employeePINS != "") {
         var currentEmployeePIN = $("#txtCurrentUserPIN").val();
         var arrayEmployeePIN = employeePINS.split(',');
         if (arrayEmployeePIN.length > 0) {
+            isEmployeePinRequired = true;
             for (var i = 0; i < arrayEmployeePIN.length; ++i) {
                 if (arrayEmployeePIN[i] == currentEmployeePIN) {
                     isEmployeePinCorrect = true;
@@ -5026,6 +5028,8 @@ function LoadGiftCard() {
     var amount = $('#txtLoad').val();
     if (amount == '')
         amount = '0';
+
+    var employeePin = $('#txtCurrentUserPIN').val();
   
     var register = $('#ddlRegister').val();
     if (cardCode != "" && amount != "" && Number(amount) > 0 && pin != "" && pin != "0") {
@@ -5055,7 +5059,8 @@ function LoadGiftCard() {
                     }
                     else if (data.replace(/"/g, "").toLowerCase().indexOf("successfull") > -1) {
 
-                        if ($('#giftcard #hdnSearchCardType').val().toUpperCase() != "STORE") {
+                        if ($('#giftcard #hdnSearchCardType').val().toUpperCase() != "")//STORE
+                        {
                             var url = global + "/CheckGiftCardAndPin?giftCardCode=" + encodeURIComponent(cardCode) + "&pin=" + encodeURIComponent(pin);
                             $.getJSON(url, function (data) {
                                 //console.log(data)
@@ -5219,6 +5224,7 @@ function HideEmployeePINPopup() {
 
 function LoadNewGiftCard() {
     var isEmployeePinCorrect = false;
+    var isEmployeePinRequired = false;
     var employeePINS = localStorage.getItem("EmployeePIN");
     if (employeePINS != null && employeePINS != "")
     {
@@ -5226,6 +5232,7 @@ function LoadNewGiftCard() {
         var arrayEmployeePIN = employeePINS.split(',');
         if(arrayEmployeePIN.length > 0)
         {
+            isEmployeePinRequired = true;
             for (var i = 0; i < arrayEmployeePIN.length; ++i) {
                 if(arrayEmployeePIN[i] == currentEmployeePIN)
                 {
@@ -5273,6 +5280,8 @@ function LoadNewGiftCard() {
         var amount = $('#txtAmount').val().trim();
         if (amount == '')
             amount = '0';
+        var employeePin = $('#txtCurrentUserPIN').val();
+        $('#hdnEmployeePin').val(employeePin);
         if (cardCode != "" && amount != "" && amount != "0" && phone != "" && phone != "0" && name != "" && email != "" && isEmail("#tab-giftcard-new #txtEmail") == true) {
 
             var url = global + "/CheckGiftCardForAddEmployeePin?giftCardCode=" + encodeURIComponent(cardCode);
@@ -5348,13 +5357,19 @@ function LoadNewGiftCard() {
                                         if (paymentType != "" && paymentType.toUpperCase() == "CASH") {
                                             var cardInfo = localStorage.getItem('GiftCardDetails');
                                             var obj = JSON.parse(cardInfo);
-                                            AddUpdateGiftCardRecord(obj.GiftCardExists, obj.Amount, obj.GiftCardId, cardCode, obj.CardType, ccName, ccNumber, cvv, expMonth, expYear, paymentType);
+                                            if (isEmployeePinRequired == true)
+                                                AddUpdateGiftCardRecordPIN(obj.GiftCardExists, obj.Amount, obj.GiftCardId, cardCode, obj.CardType, ccName, ccNumber, cvv, expMonth, expYear, paymentType, employeePin);
+                                            else
+                                                AddUpdateGiftCardRecord(obj.GiftCardExists, obj.Amount, obj.GiftCardId, cardCode, obj.CardType, ccName, ccNumber, cvv, expMonth, expYear, paymentType);
                                         }
                                             //ccName != "" && 
                                         else if (ccNumber != "" && cvv != "" && expMonth != "" && expYear != "") {
                                             var cardInfo = localStorage.getItem('GiftCardDetails');
                                             var obj = JSON.parse(cardInfo);
-                                            AddUpdateGiftCardRecord(obj.GiftCardExists, obj.Amount, obj.GiftCardId, cardCode, obj.CardType, ccName, ccNumber, cvv, expMonth, expYear, paymentType);
+                                            if (isEmployeePinRequired == true)
+                                                AddUpdateGiftCardRecordPIN(obj.GiftCardExists, obj.Amount, obj.GiftCardId, cardCode, obj.CardType, ccName, ccNumber, cvv, expMonth, expYear, paymentType, employeePin);
+                                            else
+                                                AddUpdateGiftCardRecord(obj.GiftCardExists, obj.Amount, obj.GiftCardId, cardCode, obj.CardType, ccName, ccNumber, cvv, expMonth, expYear, paymentType);
                                         }
                                         else {
                                             //if (ccName == "") {
@@ -5377,7 +5392,10 @@ function LoadNewGiftCard() {
                                     else {
                                         var cardInfo = localStorage.getItem('GiftCardDetails');
                                         var obj = JSON.parse(cardInfo);
-                                        AddUpdateGiftCardRecord(obj.GiftCardExists, obj.Amount, obj.GiftCardId, cardCode, obj.CardType, "", "", "", "", "", "");
+                                        if (isEmployeePinRequired == true)
+                                            AddUpdateGiftCardRecordPIN(obj.GiftCardExists, obj.Amount, obj.GiftCardId, cardCode, obj.CardType, "", "", "", "", "", paymentType, employeePin);
+                                        else
+                                            AddUpdateGiftCardRecord(obj.GiftCardExists, obj.Amount, obj.GiftCardId, cardCode, obj.CardType, "", "", "", "", "", paymentType);
                                         //console.log(2);
                                     }
 
@@ -5388,7 +5406,10 @@ function LoadNewGiftCard() {
                                     $("#liCCName").hide();
                                     $("#liCCNo").hide();
                                     //console.log(3);
-                                    AddUpdateGiftCardRecord(obj.GiftCardExists, obj.Amount, obj.GiftCardId, cardCode, obj.CardType, "", "", "", "", "", "");
+                                    if (isEmployeePinRequired == true)
+                                        AddUpdateGiftCardRecordPIN(obj.GiftCardExists, obj.Amount, obj.GiftCardId, cardCode, obj.CardType, "", "", "", "", "", paymentType, employeePin);
+                                    else
+                                        AddUpdateGiftCardRecord(obj.GiftCardExists, obj.Amount, obj.GiftCardId, cardCode, obj.CardType, "", "", "", "", "", paymentType);
                                 }
                             }
                         });
@@ -5445,13 +5466,19 @@ function LoadNewGiftCard() {
                                         if (paymentType != "" && paymentType.toUpperCase() == "CASH") {
                                             var cardInfo = localStorage.getItem('GiftCardDetails');
                                             var obj = JSON.parse(cardInfo);
-                                            AddUpdateGiftCardRecord(obj.GiftCardExists, obj.Amount, obj.GiftCardId, cardCode, obj.CardType, ccName, ccNumber, cvv, expMonth, expYear, paymentType);
+                                            if (isEmployeePinRequired == true)
+                                                AddUpdateGiftCardRecordPIN(obj.GiftCardExists, obj.Amount, obj.GiftCardId, cardCode, obj.CardType, ccName, ccNumber, cvv, expMonth, expYear, paymentType, employeePin);
+                                            else
+                                                AddUpdateGiftCardRecord(obj.GiftCardExists, obj.Amount, obj.GiftCardId, cardCode, obj.CardType, ccName, ccNumber, cvv, expMonth, expYear, paymentType);
                                         }
                                             //ccName != "" &&
                                         else if (ccNumber != "" && cvv != "" && expMonth != "" && expYear != "") {
                                             var cardInfo = localStorage.getItem('GiftCardDetails');
                                             var obj = JSON.parse(cardInfo);
-                                            AddUpdateGiftCardRecord(obj.GiftCardExists, obj.Amount, obj.GiftCardId, cardCode, obj.CardType, ccName, ccNumber, cvv, expMonth, expYear, paymentType);
+                                            if (isEmployeePinRequired == true)
+                                                AddUpdateGiftCardRecordPIN(obj.GiftCardExists, obj.Amount, obj.GiftCardId, cardCode, obj.CardType, ccName, ccNumber, cvv, expMonth, expYear, paymentType, employeePin);
+                                            else
+                                                AddUpdateGiftCardRecord(obj.GiftCardExists, obj.Amount, obj.GiftCardId, cardCode, obj.CardType, ccName, ccNumber, cvv, expMonth, expYear, paymentType);
                                         }
                                         else {
                                             //if (ccName == "") {
@@ -5475,7 +5502,10 @@ function LoadNewGiftCard() {
                                         $('#hdnIsValidEmployeePIN').val("false");
                                         var cardInfo = localStorage.getItem('GiftCardDetails');
                                         var obj = JSON.parse(cardInfo);
-                                        AddUpdateGiftCardRecord(obj.GiftCardExists, obj.Amount, obj.GiftCardId, cardCode, obj.CardType, "", "", "", "", "", "");
+                                        if (isEmployeePinRequired == true)
+                                            AddUpdateGiftCardRecordPIN(obj.GiftCardExists, obj.Amount, obj.GiftCardId, cardCode, obj.CardType, "", "", "", "", "", "", employeePin);
+                                        else
+                                            AddUpdateGiftCardRecord(obj.GiftCardExists, obj.Amount, obj.GiftCardId, cardCode, obj.CardType, "", "", "", "", "", "");
                                         //console.log("2A");
                                     }
 
@@ -5486,7 +5516,10 @@ function LoadNewGiftCard() {
                                     $("#liCCName").hide();
                                     $("#liCCNo").hide();
                                     //console.log("3A");
-                                    AddUpdateGiftCardRecord(obj.GiftCardExists, obj.Amount, obj.GiftCardId, cardCode, obj.CardType, "", "", "", "", "", "");
+                                    if (isEmployeePinRequired == true)
+                                        AddUpdateGiftCardRecordPIN(obj.GiftCardExists, obj.Amount, obj.GiftCardId, cardCode, obj.CardType, "", "", "", "", "", "", employeePin);
+                                    else
+                                        AddUpdateGiftCardRecord(obj.GiftCardExists, obj.Amount, obj.GiftCardId, cardCode, obj.CardType, "", "", "", "", "", "");
                                 }
                             }
                         });
@@ -5532,6 +5565,170 @@ function LoadNewGiftCard() {
             callSweetAlertWarning("Invalid Employee PIN!");
         }
         
+    }
+}
+
+function AddUpdateGiftCardRecordPIN(exists, gcamount, giftcardId, cardcode, cardType, ccName, ccNumber, cvv, expMonth, expYear, paymentType, employeePin) {
+    $('#hdnIsValidEmployeePIN').val("false");
+    $("#paymentTypeCard").prop("checked", true);
+    var storeId = 0;
+    storeId = SetStoreId();
+    var loggedInUserId = 0;
+    loggedInUserId = window.localStorage.getItem("CustomerId");
+    var validStores = $('#hdnValidStoresIds').val();
+    $("input[name='checkValidStore']:checked").each(function () {
+        var checkedStore = $(this).val();
+        validStores += checkedStore + ",";
+    });
+    validStores = validStores.replace(/,\s*$/, "");
+    var expirationDate = $('#txtExpirationDate').val();
+    var expirationHour = $('#expirationHour').val();
+    var expirationMinute = $('#expirationMinute').val();
+    var expirationPeriod = $('#expirationPeriod').val();
+    var expirationTime = "";
+    if (expirationHour != "" && expirationMinute != "" && expirationPeriod != "") {
+        expirationTime = expirationHour + ":" + expirationMinute + " " + expirationPeriod;
+    }
+    var cardCode = $('#tab-giftcard-new #txtCardCode').val();
+    var phone = $('#tab-giftcard-new #txtPhone').val();
+    if (phone == '') {
+        phone = '0';
+    }
+    var amount = $('#tab-giftcard-new #txtAmount').val().trim();
+    if (amount == '')
+        amount = '0';
+    var regex = /^[a-zA-Z0-9.\-_]+$/;
+    var giftCardCode = "";
+    if (regex.test(cardCode) == true) {
+    }
+    else {
+        var str = cardCode.replace(/[^0-9\-]/g, '');
+        cardCode = str.substring(0, 16);
+    }
+
+    var email = encodeURIComponent($('#tab-giftcard-new #txtEmail').val());
+    var name = encodeURIComponent($('#tab-giftcard-new #txtName').val());
+    //var pin = encodeURIComponent($('#tab-giftcard-new #txtGiftCardAddPin').val());
+    //if(pin == "")
+    //{
+    //    pin = "0";
+    //}
+    if (isEmail("#tab-giftcard-new #txtEmail") == true && phone != "" && phone != "0" && name != "") {
+        var customerId = "0";
+        $('#btnAddCard').text("Adding Card...");
+        $("#btnAddCard").attr("disabled", true);
+        try {
+            if (localStorage.getItem("CustomerId") != null) {
+                customerId = localStorage.getItem("CustomerId").trim();
+            }
+
+            var url = global + "/AddUpdateGiftCardRecordPIN?storeid=" + storeId + "&giftCardCode=" + encodeURIComponent(cardCode) + "&giftcardId=" + giftcardId + "&phone=" + phone + "&amount=" + amount
+                + "&email=" + email + "&name=" + name + "&giftCardExists=" + exists + "&gcamount=" + gcamount + "&cardType=" + cardType +
+                "&ccName=" + ccName + "&ccNumber=" + ccNumber + "&cvv=" + cvv + "&expMonth=" + expMonth + "&expYear=" + expYear + "&paymentType=" + paymentType + "&loggedInUserId=" + loggedInUserId +
+                "&employeePin=" + employeePin;
+            //console.log('name: '+name)
+
+            if ((validStores != "" && validStores != null) || (expirationDate != "" && expirationDate != null)) {
+                url = global + "/AddUpdateGiftCardRecordAdvancedPIN?storeid=" + storeId + "&giftCardCode=" + encodeURIComponent(cardCode) + "&giftcardId=" + giftcardId + "&phone=" + phone + "&amount=" + amount
+                    + "&email=" + email + "&name=" + name + "&giftCardExists=" + exists + "&gcamount=" + gcamount + "&cardType=" + cardType +
+                    "&ccName=" + ccName + "&ccNumber=" + ccNumber + "&cvv=" + cvv + "&expMonth=" + expMonth + "&expYear=" + expYear + "&paymentType=" + paymentType + "&loggedInUserId=" + loggedInUserId +
+                    "&validStores=" + validStores + "&cardExpirationDate=" + expirationDate + "&cardExpirationTime=" + expirationTime + "&employeePin=" + employeePin;
+
+            }
+
+            var totalHistoryAmount = 0;
+            $.getJSON(url, function (data) {
+                $('#btnAddCard').text("Add Card");
+                $("#btnAddCard").attr("disabled", false);
+                $("#tab-giftcard-new #txtCardCode").css('border-bottom', bottomBorder);
+                $("#tab-giftcard-new #txtAmount").css('border-bottom', bottomBorder);
+                $("#tab-giftcard-new #txtPhone").css('border-bottom', bottomBorder);
+                $("#tab-giftcard-new #txtName").css('border-bottom', bottomBorder);
+                $("#tab-giftcard-new #txtEmail").css('border-bottom', bottomBorder);
+                $("#tab-giftcard-new #txtGiftCardAddPin").css('border-bottom', bottomBorder);
+
+
+
+                if (data.replace(/"/g, "").toLowerCase().indexOf("successfull") > -1) {
+                    $("#hdnValidateCard").val(false);
+                    $("#hdnCardType").val("");
+                    $('#dvOuter').hide();
+                    window.localStorage.removeItem("GiftCardDetails");
+                    //$('#dvOuter').show();
+                    //$('#dvOuterText').html("");
+                    //$('#dvOuterText').html("Card loaded successfully.");
+                    //$('#dvOuterText').attr("style", "color:#3c763d !important");
+
+                    var popuphtml = "<p><span style='color:#000;'>Card Code:  </span><span class=\"main-one\">" + decodeURIComponent($("#txtCardCode").val()) + "</span></p>";
+
+                    if ($('#tab-giftcard-new #txtAmount').val() != "")
+                        popuphtml = popuphtml + "<p><span style='color:#000;'>Amount:  </span><span class=\"main-two\">" + FormatDecimal(amount) + "</span></p>";
+                    if ($('#tab-giftcard-new #txtName').val() != "")
+                        popuphtml = popuphtml + "<p>" + decodeURIComponent(name) + "</p>";
+
+                    if ($('#tab-giftcard-new #txtEmail').val() != "")
+                        popuphtml = popuphtml + "<p>" + decodeURIComponent(email) + "</p>";
+
+                    if ($('#tab-giftcard-new #txtPhone').val() != "") {
+                        if ($('#tab-giftcard-new #txtPhone').val().length == 10)
+                            popuphtml = popuphtml + "<p>" + FormatPhoneNumber(phone) + "</p>";
+                        else
+                            popuphtml = popuphtml + "<p>" + phone + "</p>";
+                    }
+
+                    swal({
+                        title: "New Card loaded successfully.",
+                        html: popuphtml,
+                        confirmButtonText: "OK",
+                        type: "success",
+                        confirmButtonColor: '#3b9847',
+                    });
+
+                    $('#btnAddCard').text("Add Card");
+
+                    $('#tab-giftcard-new #txtAmount').val("");
+                    $('#tab-giftcard-new #txtPhone').val("");
+                    $('#tab-giftcard-new #txtCardCode').val("");
+                    $('#tab-giftcard-new #txtEmail').val("");
+                    $('#tab-giftcard-new #txtName').val("");
+                    $('#tab-giftcard-new #txtGiftCardAddPin').val("");
+                    $('#tab-giftcard-new #txtCCName').val("");
+                    $('#tab-giftcard-new #txtCCNumber').val("");
+                    $('#tab-giftcard-new #txtCVV').val("");
+                    $('#tab-giftcard-new #ddlCCMonth').val("");
+                    $('#tab-giftcard-new #ddlCCYear').val("");
+
+                    $("#liPaymentType").hide();
+                    $("#liCCName").hide();
+                    $("#liCCNo").hide();
+
+                }
+                else if (data.replace(/"/g, "").toLowerCase().indexOf("failed") > -1) {
+                    var displayMessage = data.replace(/"/g, "").split('|');
+                    callSweetAlertWarning(displayMessage[1]);
+                }
+            });
+        }
+        catch (e) {
+
+        }
+    }
+    else {
+        if (cardCode == "") {
+            $("#txtCardCode").css('border-bottom', errorClassBorder);
+        }
+        if (amount == "" || amount == "0") {
+            $("#txtAmount").css('border-bottom', errorClassBorder);
+        }
+        if (pin == "" || pin == "0") {
+            $("#txtGiftCardAddPin").css('border-bottom', errorClassBorder);
+        }
+        if (phone == "" || phone == "0") {
+            $('#tab-giftcard-new #txtPhone').css('border-bottom', errorClassBorder);
+        }
+        if (name == "") {
+            $('#tab-giftcard-new #txtName').css('border-bottom', errorClassBorder);
+        }
     }
 }
 
@@ -5995,6 +6192,8 @@ function GiftCardPayment(cardCode, storeId) {
     var pin = $("#txtPINSearch").val();
     var paymentType = $("#hdnPaymentType").val();
 
+    var employeePin = $('#txtCurrentUserPIN').val();
+
     if (pin == '') {
         pin = '0';
     }
@@ -6037,8 +6236,9 @@ function GiftCardPayment(cardCode, storeId) {
     if (validated == true)
     {
         $('#btnGCReLoad').text("Loading...");
-      var  url = global + "/GiftCardLoadWithPayment?storeid=" + storeId + "&giftCardCode=" + encodeURIComponent(cardCode) + "&phone="
-            + phone + "&amount=" + amount + "&register=" + register + "&pin=" + pin + "&ccName=" + ccName + "&ccNumber=" + ccNumber + "&cvv=" + cvv + "&expMonth=" + expMonth + "&expYear=" + expYear + "&paymentType=" + paymentType;
+        var url = global + "/GiftCardLoadWithPaymentPIN?storeid=" + storeId + "&giftCardCode=" + encodeURIComponent(cardCode) + "&phone="
+          + phone + "&amount=" + amount + "&register=" + register + "&pin=" + pin + "&ccName=" + ccName + "&ccNumber=" + ccNumber + "&cvv=" + cvv + "&expMonth=" + expMonth + "&expYear=" + expYear + "&paymentType=" + paymentType +
+          "&employeePin=" + employeePin;
         var totalHistoryAmount = 0;
         $.getJSON(url, function (data) {
             $('#btnGCReLoad').text("Load");
