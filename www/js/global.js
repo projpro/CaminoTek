@@ -63,7 +63,7 @@ function Login() {
             success: function (data) {
                 //console.log("data: " + data);
                 //console.log("Login 2" + data);
-                alert(data)
+                //alert(data)
                 if (data.indexOf("No Data Found") > -1) {
                     $('#lblErr').html("Invalid Login/Password");
                     $("#btnLogin").text("Log In");
@@ -5281,7 +5281,6 @@ function LoadNewGiftCard() {
         if (amount == '')
             amount = '0';
         var employeePin = $('#txtCurrentUserPIN').val();
-        alert(employeePin);
         if (cardCode != "" && amount != "" && amount != "0" && phone != "" && phone != "0" && name != "" && email != "" && isEmail("#tab-giftcard-new #txtEmail") == true) {
 
             var url = global + "/CheckGiftCardForAddEmployeePin?giftCardCode=" + encodeURIComponent(cardCode);
