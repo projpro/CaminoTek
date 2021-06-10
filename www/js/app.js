@@ -1652,12 +1652,6 @@ function InitPushNotification(storeId, name, uuid, version) {
                     '</div>' +
                     '</div>');
                 $('#myDiv').show();
-
-                if (isDevice()) {
-                    console.log('isDevice 1: ')
-                    playAudio();
-                    myMedia.play();
-                }
             }
             else {
                 var arrMessage = data.message.split('(Order #');
