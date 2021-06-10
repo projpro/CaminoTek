@@ -1643,6 +1643,22 @@ function InitPushNotification(storeId, name, uuid, version) {
                     '</div>');
                 $('#myDiv').show();
             }
+            else if (data.message == "Device Ping") {
+                localStorage.setItem("PushNotification", "Order accepted");
+                myMedia = new Media(src, onSuccess, onError, onStatus);
+                $('#myDiv').html('<div class="block">' +
+                    '<a href="#" class="link popup-close modal-accept-button" onclick="StopSound();" style=\"top: 40% !important; height: 205px; \">Click To Stop Sound</a>' +
+                    '<div class="overlay-button-area" id="dvPopOrders" style=\"top: 30px !important;\">' +
+                    '</div>' +
+                    '</div>');
+                $('#myDiv').show();
+
+                if (isDevice()) {
+                    console.log('isDevice 1: ')
+                    playAudio();
+                    myMedia.play();
+                }
+            }
             else {
                 var arrMessage = data.message.split('(Order #');
                 var orderId = arrMessage[1].split(')')[0];
