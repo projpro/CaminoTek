@@ -1647,7 +1647,7 @@ function InitPushNotification(storeId, name, uuid, version) {
                 localStorage.setItem("PushNotification", "Order accepted");
                 myMedia = new Media(src, onSuccess, onError, onStatus);
                 $('#myDiv').html('<div class="block">' +
-                    '<a href="#" class="link popup-close modal-accept-button" onclick="StopSound();" style=\"top: 40% !important; height: 205px; \">Click To Stop Sound</a>' +
+                    '<a href="#" class="link popup-close modal-accept-button" onclick="StopSound();" style=\"top: 40% !important; height: 205px; \">Device Ping</a>' +
                     '<div class="overlay-button-area" id="dvPopOrders" style=\"top: 30px !important;\">' +
                     '</div>' +
                     '</div>');
