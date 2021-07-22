@@ -1,0 +1,74 @@
+{
+  "_from": "cordova-universal-clipboard",
+  "_id": "cordova-universal-clipboard@0.1.0",
+  "_inBundle": false,
+  "_integrity": "sha1-IWfLRpPjrqG6uoRDdXk6K8lEpXc=",
+  "_location": "/cordova-universal-clipboard",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "cordova-universal-clipboard",
+    "name": "cordova-universal-clipboard",
+    "escapedName": "cordova-universal-clipboard",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#DEV:/",
+    "#USER"
+  ],
+  "_resolved": "https://registry.npmjs.org/cordova-universal-clipboard/-/cordova-universal-clipboard-0.1.0.tgz",
+  "_shasum": "2167cb4693e3aea1baba844375793a2bc944a577",
+  "_spec": "cordova-universal-clipboard",
+  "_where": "C:\\Users\\Sudip\\source\\repos\\CaminoTek",
+  "author": {
+    "name": "Verso Solutions LLC"
+  },
+  "bugs": {
+    "url": "https://github.com/Visigo/CordovaClipboard/issues"
+  },
+  "bundleDependencies": false,
+  "contributors": [
+    {
+      "name": "Visigo Software Consulting Inc.",
+      "email": "info@visigo.com",
+      "url": "http://www.visigo.com/"
+    }
+  ],
+  "cordova": {
+    "id": "cordova-universal-clipboard",
+    "platforms": [
+      "ios",
+      "android",
+      "wp8"
+    ]
+  },
+  "deprecated": false,
+  "description": "Clipboard management plugin for Cordova/PhoneGap",
+  "engines": [
+    {
+      "name": "cordova",
+      "version": ">=3.0.0"
+    }
+  ],
+  "homepage": "https://github.com/Visigo/CordovaClipboard#readme",
+  "keywords": [
+    "cordova",
+    "clipboard",
+    "ecosystem:cordova",
+    "cordova-ios",
+    "cordova-android",
+    "cordova-wp8",
+    "cordova-windows8",
+    "cordova-windows"
+  ],
+  "license": "MIT",
+  "name": "cordova-universal-clipboard",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/Visigo/CordovaClipboard.git"
+  },
+  "version": "0.1.0"
+}

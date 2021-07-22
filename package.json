@@ -10,17 +10,40 @@
       "phonegap-plugin-barcodescanner": {
         "ANDROID_SUPPORT_V4_VERSION": "27.1.1"
       },
-      "phonegap-plugin-push": {}
+      "phonegap-plugin-push": {},
+      "cordova-plugin-device": {},
+      "cordova-plugin-media": {},
+      "cordova-plugin-network-information": {},
+      "cordova-plugin-whitelist": {},
+      "cordova-plugin-console": {},
+      "cordova-plugin-statusbar": {},
+      "cordova-universal-clipboard": {},
+      "cordova-plugin-x-toast": {},
+      "de.appplant.cordova.plugin.printer": {},
+      "Cordova-Plugin-Bluetooth-Printer": {}
     }
   },
   "dependencies": {
-    "cordova-android": "~7.1.4",
     "cordova-browser": "^5.0.4",
     "plugin": "0.3.3"
   },
   "description": "> [Framework7](http://www.idangero.us/framework7) is a Mobile UI framework that can be used to build hybrid apps with PhoneGap. This template allows you to get started using Framework7 \r   quickly.",
   "main": "index.js",
-  "devDependencies": {},
+  "devDependencies": {
+    "Cordova-Plugin-Bluetooth-Printer": "https://github.com/CesarBalzer/Cordova-Plugin-BTPrinter.git",
+    "cordova-android": "^9.0.0",
+    "cordova-ios": "^6.2.0",
+    "cordova-plugin-console": "^1.0.7",
+    "cordova-plugin-device": "^1.0.1",
+    "cordova-plugin-file": "^6.0.2",
+    "cordova-plugin-media": "^1.0.1",
+    "cordova-plugin-network-information": "^1.0.1",
+    "cordova-plugin-statusbar": "^1.0.1",
+    "cordova-plugin-whitelist": "^1.1.0",
+    "cordova-plugin-x-toast": "^2.7.2",
+    "cordova-universal-clipboard": "^0.1.0",
+    "de.appplant.cordova.plugin.printer": "^0.7.3"
+  },
   "scripts": {
     "test": "Test"
   },
